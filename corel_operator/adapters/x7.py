@@ -53,6 +53,39 @@ class CorelX7Adapter:
     CDR_FALSE = 0
     CDR_TRUE = -1
 
+    FILL_TYPE_NAMES = {
+        0: "none",
+        1: "uniform",
+        2: "fountain",
+        3: "postscript",
+        8: "texture",
+        9: "pattern",
+        10: "hatch",
+    }
+    OUTLINE_TYPE_NAMES = {
+        0: "none",
+        1: "outline",
+        2: "enhanced",
+    }
+    COLOR_TYPE_NAMES = {
+        1: "pantone",
+        2: "cmyk",
+        4: "cmy",
+        5: "rgb",
+        6: "hsb",
+        7: "hls",
+        8: "black_and_white",
+        9: "gray",
+        11: "yiq",
+        12: "lab",
+        14: "pantone_hex",
+        20: "registration",
+        22: "user_ink",
+        25: "spot",
+        26: "multi_channel",
+        99: "mixed",
+    }
+
     UNIT_NAMES = {
         0: "tenth-micron",
         1: "inch",

@@ -53,6 +53,12 @@
       "description": "CorelDRAW X7 Fill class."
     },
     {
+      "id": "official_x7_color",
+      "type": "official_documentation",
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/c/Color",
+      "description": "CorelDRAW X7 Color class."
+    },
+    {
       "id": "official_x7_outline",
       "type": "official_documentation",
       "url": "https://community.coreldraw.com/sdk/api/draw/17/c/Outline",
@@ -767,6 +773,30 @@
       "notes": ["Candidate for stable object identity; persistence and uniqueness semantics must be tested before adoption."]
     },
     {
+      "id": "Shape.Layer",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "Layer -> Layer",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork"],
+      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Layer",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.Page",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read",
+      "signature": "Page -> Page",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork"],
+      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Page",
+      "live_test_status": "not_run"
+    },
+    {
       "id": "Shape.Type",
       "owner": "Shape",
       "kind": "property",
@@ -1017,6 +1047,150 @@
       "used_by": ["get_fill"],
       "evidence": ["official_x7_fill", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Fill.UniformColor",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.Type",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "Type -> cdrColorType",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["list_objects", "set_fill_color", "set_outline", "get_fill", "get_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Color.Type",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.RGBRed",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "RGBRed -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["list_objects", "set_fill_color", "set_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.RGBGreen",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "RGBGreen -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["list_objects", "set_fill_color", "set_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.RGBBlue",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "RGBBlue -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["list_objects", "set_fill_color", "set_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.CMYKCyan",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "CMYKCyan -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["get_fill", "get_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.CMYKMagenta",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "CMYKMagenta -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["get_fill", "get_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.CMYKYellow",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "CMYKYellow -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["get_fill", "get_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.CMYKBlack",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "CMYKBlack -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["get_fill", "get_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.Gray",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "Gray -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["get_fill", "get_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.HexValue",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "HexValue -> String",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["list_objects", "set_fill_color", "set_outline", "get_fill", "get_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.Name",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "Name -> String",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["get_fill", "get_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.SpotColorName",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "SpotColorName -> String",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["get_fill", "get_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Color.Tint",
+      "owner": "Color",
+      "kind": "property",
+      "access": "read",
+      "signature": "Tint -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["get_fill", "get_outline"],
+      "evidence": ["official_x7_color", "installed_x7_typelib"],
       "live_test_status": "not_run"
     },
     {

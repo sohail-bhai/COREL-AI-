@@ -268,6 +268,18 @@ def validate() -> dict[str, int]:
                 f"Adapter constant {value_name}={expected!r} differs from enum catalog {actual!r}"
             )
 
+    enum_map_checks = {
+        "cdrFillType": CorelX7Adapter.FILL_TYPE_NAMES,
+        "cdrOutlineType": CorelX7Adapter.OUTLINE_TYPE_NAMES,
+        "cdrColorType": CorelX7Adapter.COLOR_TYPE_NAMES,
+    }
+    for enum_name, adapter_map in enum_map_checks.items():
+        catalog_values = set(enums.get(enum_name, {}).get("values", {}).values())
+        if set(adapter_map) != catalog_values:
+            raise ValueError(
+                f"Adapter mapping for {enum_name} differs from enum catalog values"
+            )
+
     adapter_capabilities = CorelX7Adapter.capabilities()
     for capability, details in adapter_capabilities.items():
         unknown_evidence = set(details["evidence"]) - set(member_ids)

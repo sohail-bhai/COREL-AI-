@@ -11,8 +11,8 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 68 tests
-OK (skipped=1)
+Ran 75 tests
+OK (skipped=2)
 ```
 
 Coverage includes:
@@ -28,6 +28,7 @@ Coverage includes:
 - explicit X7 ProgID preference, generic fallback, and wrong-major rejection;
 - adapter constants/capability status and connection-free static diagnostics;
 - document/page, primitive/text bounds, text-format, and PDF-file readback using fake COM objects;
+- native RGB/fill/outline readback plus StaticID/layer/page identity for list, rename, duplicate, and import operations;
 - `corel_status` runtime metadata using a fake Application object.
 
 Temporary path-safety fixtures are created under the operating system's `opencode` temporary directory and removed by the tests.
@@ -55,6 +56,16 @@ $env:COREL_LIVE_TESTS = "1"
 
 Enabling the flag permits `CorelBridge.connect()` to attach through COM or launch the registered application. It does not authorize mutation of an existing document.
 
-## Future mutating integration tests
+## Guarded mutating regression
 
-Mutating tests must use a separate explicit authorization flag, create a new disposable document, use unique output paths, and never bind an existing active document. That suite is planned for the guarded live-regression batch and is not implemented yet.
+The disposable-document regression is also skipped by default. It requires both the general live-test flag and a separate mutation authorization:
+
+```powershell
+$env:COREL_LIVE_TESTS = "1"
+$env:COREL_LIVE_MUTATION_TESTS = "1"
+.\.venv\Scripts\python.exe -m unittest tests.integration.test_corel_live.CorelDisposableDocumentLiveTests -v
+```
+
+This test creates and binds its own new document before exercising the existing editing operations. It uses a unique directory beneath the operating system's `opencode` temporary directory, refuses output overwrites through the bridge, and writes a dated report under `docs/test-reports/`. Generated CDR, PDF, and SVG artifacts remain outside the repository for manual review.
+
+Do not set either flag in shared automation. A passing run is not enough to claim visual quality or print readiness, and catalog records must remain `implemented_unverified` until the dated report and artifacts are reviewed.

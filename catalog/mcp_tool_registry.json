@@ -97,24 +97,80 @@
     },
     "bounds_inches": {
       "type": "object",
-      "required": ["x", "y", "width", "height"],
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
       "properties": {
-        "x": {"type": ["number", "null"]},
-        "y": {"type": ["number", "null"]},
-        "width": {"type": ["number", "null"]},
-        "height": {"type": ["number", "null"]}
+        "x": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "y": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "width": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "height": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
     "text_readback": {
       "type": "object",
-      "required": ["text", "font", "size_points", "bold", "bold_code"],
+      "required": [
+        "text",
+        "font",
+        "size_points",
+        "bold",
+        "bold_code"
+      ],
       "properties": {
-        "text": {"type": ["string", "null"]},
-        "font": {"type": ["string", "null"]},
-        "size_points": {"type": ["number", "null"]},
-        "bold": {"type": ["boolean", "null"]},
-        "bold_code": {"type": ["integer", "null"]}
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "font": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size_points": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "bold": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "bold_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
       },
       "additionalProperties": false
     },
@@ -266,6 +322,164 @@
         }
       ],
       "additionalProperties": false
+    },
+    "native_color_readback": {
+      "type": "object",
+      "required": [
+        "type_code",
+        "model",
+        "hex_value",
+        "name",
+        "value"
+      ],
+      "properties": {
+        "type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "model": {
+          "type": "string"
+        },
+        "hex_value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "fill_readback": {
+      "type": "object",
+      "required": [
+        "type_code",
+        "type",
+        "color"
+      ],
+      "properties": {
+        "type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "type": {
+          "type": "string"
+        },
+        "color": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/schema_definitions/native_color_readback"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "outline_readback": {
+      "type": "object",
+      "required": [
+        "type_code",
+        "type",
+        "present",
+        "width_raw",
+        "width_units",
+        "color"
+      ],
+      "properties": {
+        "type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "type": {
+          "type": "string"
+        },
+        "present": {
+          "type": "boolean"
+        },
+        "width_raw": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "width_units": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "color": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/schema_definitions/native_color_readback"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "object_identity": {
+      "type": "object",
+      "required": [
+        "object_name",
+        "static_id",
+        "shape_type_code",
+        "layer_name",
+        "page_index"
+      ],
+      "properties": {
+        "object_name": {
+          "type": "string"
+        },
+        "static_id": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "shape_type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "layer_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "page_index": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -343,7 +557,10 @@
           "target_document_name": "Graphic1",
           "width_inches_requested": 8.5,
           "height_inches_requested": 11.0,
-          "actual_page_size_inches": {"width": 8.5, "height": 11.0},
+          "actual_page_size_inches": {
+            "width": 8.5,
+            "height": 11.0
+          },
           "unit_code_actual": 1,
           "reference_point_actual": 5,
           "target_bound": true
@@ -435,8 +652,19 @@
           "font": "Arial",
           "size_points": 22,
           "bold": true,
-          "actual_text": {"text": "CORELDRAW AI OPERATOR", "font": "Arial", "size_points": 22.0, "bold": true, "bold_code": -1},
-          "actual_bounds_inches": {"x": 1.2, "y": 9.0, "width": 3.25, "height": 0.4}
+          "actual_text": {
+            "text": "CORELDRAW AI OPERATOR",
+            "font": "Arial",
+            "size_points": 22.0,
+            "bold": true,
+            "bold_code": -1
+          },
+          "actual_bounds_inches": {
+            "x": 1.2,
+            "y": 9.0,
+            "width": 3.25,
+            "height": 0.4
+          }
         },
         "warnings": [],
         "error": null,
@@ -482,7 +710,12 @@
           "y_inches": 8.5,
           "width_inches": 6.5,
           "height_inches": 1.3,
-          "actual_bounds_inches": {"x": 1.0, "y": 8.5, "width": 6.5, "height": 1.3}
+          "actual_bounds_inches": {
+            "x": 1.0,
+            "y": 8.5,
+            "width": 6.5,
+            "height": 1.3
+          }
         },
         "warnings": [],
         "error": null,
@@ -528,7 +761,12 @@
           "y_inches": 1.0,
           "width_inches": 2.0,
           "height_inches": 1.0,
-          "actual_bounds_inches": {"x": 1.0, "y": 1.0, "width": 2.0, "height": 1.0}
+          "actual_bounds_inches": {
+            "x": 1.0,
+            "y": 1.0,
+            "width": 2.0,
+            "height": 1.0
+          }
         },
         "warnings": [],
         "error": null,
@@ -566,13 +804,58 @@
         },
         "data": {
           "document_name": "Graphic1",
-          "object_count": 0,
-          "total_on_page": 0,
+          "object_count": 1,
+          "total_on_page": 1,
           "truncated": false,
           "coordinate_reference": "object reference point is bottom-left; measurements are inches",
-          "objects": []
+          "objects": [
+            {
+              "shape_index": 1,
+              "object_name": "panel",
+              "static_id": 101,
+              "shape_type_code": 1,
+              "layer_name": "Layer 1",
+              "page_index": 1,
+              "fill": {
+                "type_code": 1,
+                "type": "uniform",
+                "color": {
+                  "type_code": 5,
+                  "model": "rgb",
+                  "hex_value": "142D5A",
+                  "name": "RGB Color",
+                  "value": {
+                    "red": 20,
+                    "green": 45,
+                    "blue": 90
+                  }
+                }
+              },
+              "outline": {
+                "type_code": 1,
+                "type": "outline",
+                "present": true,
+                "width_raw": 1.0,
+                "width_units": "coreldraw_outline_width_unverified",
+                "color": {
+                  "type_code": 5,
+                  "model": "rgb",
+                  "hex_value": "FFFFFF",
+                  "name": "RGB Color",
+                  "value": {
+                    "red": 255,
+                    "green": 255,
+                    "blue": 255
+                  }
+                }
+              }
+            }
+          ],
+          "warning": "outline_width_points is a legacy field with unverified COM units; use outline.width_raw and outline.width_units."
         },
-        "warnings": [],
+        "warnings": [
+          "outline_width_points is a legacy field with unverified COM units; use outline.width_raw and outline.width_units."
+        ],
         "error": null,
         "duration_ms": 0.1
       },
@@ -615,7 +898,22 @@
             20,
             45,
             90
-          ]
+          ],
+          "actual_fill": {
+            "type_code": 1,
+            "type": "uniform",
+            "color": {
+              "type_code": 5,
+              "model": "rgb",
+              "hex_value": "142D5A",
+              "name": "RGB Color",
+              "value": {
+                "red": 20,
+                "green": 45,
+                "blue": 90
+              }
+            }
+          }
         },
         "warnings": [],
         "error": null,
@@ -661,7 +959,25 @@
             255,
             255
           ],
-          "width_points": 1.0
+          "width_points": 1.0,
+          "actual_outline": {
+            "type_code": 1,
+            "type": "outline",
+            "present": true,
+            "width_raw": 1.0,
+            "width_units": "coreldraw_outline_width_unverified",
+            "color": {
+              "type_code": 5,
+              "model": "rgb",
+              "hex_value": "FFFFFF",
+              "name": "RGB Color",
+              "value": {
+                "red": 255,
+                "green": 255,
+                "blue": 255
+              }
+            }
+          }
         },
         "warnings": [],
         "error": null,
@@ -828,7 +1144,14 @@
         "data": {
           "renamed": true,
           "old_name": "title",
-          "object_name": "primary_title"
+          "object_name": "primary_title",
+          "object": {
+            "object_name": "primary_title",
+            "static_id": 101,
+            "shape_type_code": 6,
+            "layer_name": "Layer 1",
+            "page_index": 1
+          }
         },
         "warnings": [],
         "error": null,
@@ -873,7 +1196,14 @@
             0.25,
             -0.25
           ],
-          "shape_index": 2
+          "shape_index": 2,
+          "object": {
+            "object_name": "badge_copy",
+            "static_id": 1101,
+            "shape_type_code": 2,
+            "layer_name": "Layer 1",
+            "page_index": 1
+          }
         },
         "warnings": [],
         "error": null,
@@ -915,7 +1245,16 @@
           "object_names": [
             "logo"
           ],
-          "note": "Imported objects may need move/resize operations. Inspect list_objects before printing."
+          "note": "Imported objects may need move/resize operations. Inspect list_objects before printing.",
+          "objects": [
+            {
+              "object_name": "logo",
+              "static_id": 900,
+              "shape_type_code": 1,
+              "layer_name": "Layer 1",
+              "page_index": 1
+            }
+          ]
         },
         "warnings": [],
         "error": null,
@@ -1631,12 +1970,27 @@
                         "verified_capability_count"
                       ],
                       "properties": {
-                        "profile_id": {"const": "coreldraw-x7-17"},
-                        "product_major": {"const": 17},
-                        "preferred_prog_id": {"const": "CorelDRAW.Application.17"},
-                        "capability_count": {"type": "integer", "minimum": 1},
-                        "available_capability_count": {"type": "integer", "minimum": 0},
-                        "verified_capability_count": {"type": "integer", "minimum": 0}
+                        "profile_id": {
+                          "const": "coreldraw-x7-17"
+                        },
+                        "product_major": {
+                          "const": 17
+                        },
+                        "preferred_prog_id": {
+                          "const": "CorelDRAW.Application.17"
+                        },
+                        "capability_count": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "available_capability_count": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "verified_capability_count": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
                       },
                       "additionalProperties": true
                     },
@@ -1662,11 +2016,27 @@
                         "pywin32_version"
                       ],
                       "properties": {
-                        "python_version": {"type": "string"},
-                        "python_bitness": {"type": "integer"},
-                        "platform": {"type": "string"},
-                        "mcp_sdk_version": {"type": ["string", "null"]},
-                        "pywin32_version": {"type": ["string", "null"]}
+                        "python_version": {
+                          "type": "string"
+                        },
+                        "python_bitness": {
+                          "type": "integer"
+                        },
+                        "platform": {
+                          "type": "string"
+                        },
+                        "mcp_sdk_version": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "pywin32_version": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
                       },
                       "additionalProperties": false
                     },
@@ -1830,15 +2200,38 @@
                     },
                     "actual_page_size_inches": {
                       "type": "object",
-                      "required": ["width", "height"],
+                      "required": [
+                        "width",
+                        "height"
+                      ],
                       "properties": {
-                        "width": {"type": ["number", "null"]},
-                        "height": {"type": ["number", "null"]}
+                        "width": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        },
+                        "height": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
                       },
                       "additionalProperties": false
                     },
-                    "unit_code_actual": {"type": ["integer", "null"]},
-                    "reference_point_actual": {"type": ["integer", "null"]},
+                    "unit_code_actual": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "reference_point_actual": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
                     "target_bound": {
                       "const": true
                     }
@@ -2074,8 +2467,12 @@
                     "bold": {
                       "type": "boolean"
                     },
-                    "actual_text": {"$ref": "#/schema_definitions/text_readback"},
-                    "actual_bounds_inches": {"$ref": "#/schema_definitions/bounds_inches"},
+                    "actual_text": {
+                      "$ref": "#/schema_definitions/text_readback"
+                    },
+                    "actual_bounds_inches": {
+                      "$ref": "#/schema_definitions/bounds_inches"
+                    },
                     "note": {
                       "type": "string"
                     }
@@ -2216,7 +2613,9 @@
                     "height_inches": {
                       "type": "number"
                     },
-                    "actual_bounds_inches": {"$ref": "#/schema_definitions/bounds_inches"}
+                    "actual_bounds_inches": {
+                      "$ref": "#/schema_definitions/bounds_inches"
+                    }
                   },
                   "additionalProperties": false
                 }
@@ -2347,7 +2746,9 @@
                     "height_inches": {
                       "type": "number"
                     },
-                    "actual_bounds_inches": {"$ref": "#/schema_definitions/bounds_inches"}
+                    "actual_bounds_inches": {
+                      "$ref": "#/schema_definitions/bounds_inches"
+                    }
                   },
                   "additionalProperties": false
                 }
@@ -2430,7 +2831,8 @@
                     "total_on_page",
                     "truncated",
                     "coordinate_reference",
-                    "objects"
+                    "objects",
+                    "warning"
                   ],
                   "properties": {
                     "document_name": {
@@ -2511,10 +2913,37 @@
                               "number",
                               "null"
                             ]
+                          },
+                          "static_id": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "layer_name": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "page_index": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "fill": {
+                            "$ref": "#/schema_definitions/fill_readback"
+                          },
+                          "outline": {
+                            "$ref": "#/schema_definitions/outline_readback"
                           }
                         },
                         "additionalProperties": false
                       }
+                    },
+                    "warning": {
+                      "type": "string"
                     }
                   },
                   "additionalProperties": false
@@ -2545,7 +2974,23 @@
         "Text.Story",
         "TextRange.Text",
         "Shape.Outline",
-        "Outline.Width"
+        "Outline.Width",
+        "Color.Type",
+        "Color.RGBRed",
+        "Color.RGBGreen",
+        "Color.RGBBlue",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.CMYKBlack",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.SpotColorName",
+        "Color.Tint",
+        "Shape.StaticID",
+        "Shape.Layer",
+        "Shape.Page"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -2605,7 +3050,8 @@
                     "updated",
                     "object_name",
                     "shape_index",
-                    "fill_rgb"
+                    "fill_rgb",
+                    "actual_fill"
                   ],
                   "properties": {
                     "updated": {
@@ -2635,6 +3081,9 @@
                       ],
                       "minItems": 3,
                       "maxItems": 3
+                    },
+                    "actual_fill": {
+                      "$ref": "#/schema_definitions/fill_readback"
                     }
                   },
                   "additionalProperties": false
@@ -2654,7 +3103,20 @@
       "api_requirements": [
         "Application.CreateRGBColor",
         "Shape.Fill",
-        "Fill.ApplyUniformFill"
+        "Fill.ApplyUniformFill",
+        "Color.Type",
+        "Color.RGBRed",
+        "Color.RGBGreen",
+        "Color.RGBBlue",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.CMYKBlack",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.SpotColorName",
+        "Color.Tint"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -2662,9 +3124,8 @@
         "sources": []
       },
       "known_limitations": [
-        "Returns requested RGB values without reading the applied color back.",
-        "Does not check Shape.CanHaveFill before mutation.",
-        "RGB only; no CMYK/spot-color semantics."
+        "Native fill/color values are read back without model conversion, but still need a recorded X7 live test.",
+        "RGB only for mutation; no CMYK/spot-color setter semantics yet."
       ],
       "introduced": "0.5",
       "result_contract": "tool-schema-v1-envelope"
@@ -2722,7 +3183,8 @@
                   "type": "object",
                   "required": [
                     "updated",
-                    "object_name"
+                    "object_name",
+                    "actual_outline"
                   ],
                   "properties": {
                     "updated": {
@@ -2741,6 +3203,9 @@
                     },
                     "width_points": {
                       "type": "number"
+                    },
+                    "actual_outline": {
+                      "$ref": "#/schema_definitions/outline_readback"
                     }
                   },
                   "additionalProperties": false
@@ -2762,7 +3227,20 @@
         "Shape.Outline",
         "Outline.Color",
         "Outline.Width",
-        "Outline.SetNoOutline"
+        "Outline.SetNoOutline",
+        "Color.Type",
+        "Color.RGBRed",
+        "Color.RGBGreen",
+        "Color.RGBBlue",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.CMYKBlack",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.SpotColorName",
+        "Color.Tint"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -2770,8 +3248,7 @@
         "sources": []
       },
       "known_limitations": [
-        "The MCP parameter is labeled points, but Outline.Width unit semantics are not yet established.",
-        "Color and width are not read back.",
+        "Color/type/width are read back, but Outline.Width units remain explicitly unverified.",
         "Does not check Shape.CanHaveOutline."
       ],
       "introduced": "0.5",
@@ -3177,7 +3654,8 @@
                   "required": [
                     "renamed",
                     "old_name",
-                    "object_name"
+                    "object_name",
+                    "object"
                   ],
                   "properties": {
                     "renamed": {
@@ -3188,6 +3666,9 @@
                     },
                     "object_name": {
                       "type": "string"
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/object_identity"
                     }
                   },
                   "additionalProperties": false
@@ -3208,7 +3689,11 @@
         "Shape.Name",
         "Page.Shapes",
         "Shapes.Count",
-        "Shapes.Item"
+        "Shapes.Item",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.Layer",
+        "Shape.Page"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -3282,7 +3767,8 @@
                     "source_name",
                     "object_name",
                     "offset_inches",
-                    "shape_index"
+                    "shape_index",
+                    "object"
                   ],
                   "properties": {
                     "duplicated": {
@@ -3304,6 +3790,9 @@
                         "integer",
                         "null"
                       ]
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/object_identity"
                     }
                   },
                   "additionalProperties": false
@@ -3323,7 +3812,11 @@
       "api_requirements": [
         "Document.Unit",
         "Shape.Duplicate",
-        "Shape.Name"
+        "Shape.Name",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.Layer",
+        "Shape.Page"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -3390,7 +3883,8 @@
                     "file_path",
                     "object_count",
                     "object_names",
-                    "note"
+                    "note",
+                    "objects"
                   ],
                   "properties": {
                     "imported": {
@@ -3412,6 +3906,13 @@
                     },
                     "note": {
                       "type": "string"
+                    },
+                    "objects": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/schema_definitions/object_identity"
+                      }
                     }
                   },
                   "additionalProperties": false
@@ -3434,7 +3935,11 @@
         "Layer.Import",
         "Document.SelectionRange",
         "Page.Shapes",
-        "Shape.Name"
+        "Shape.Name",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.Layer",
+        "Shape.Page"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -3444,7 +3949,7 @@
       "known_limitations": [
         "Allowed extension does not prove the installed X7 filter can import every listed format.",
         "UNC/device-path policy is not explicit.",
-        "Fallback assumes new shapes can be identified by collection position.",
+        "Imported identity now includes StaticID/layer/page where available, but fallback collection ordering still needs a live test.",
         "Imported bounds and embedded/link status are not reported."
       ],
       "introduced": "0.5",

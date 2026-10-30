@@ -90,15 +90,15 @@ The zero verified count is intentional. The repository reports historical succes
 | `add_text` | mutating | P0 | implemented_unverified | `CreateArtisticText` confirmed; content/format/bounds readback has fake-COM tests | Verify coordinates, charset, substitution, bounds, and editability live |
 | `draw_rectangle` | mutating | P0 | implemented_unverified | `CreateRectangle2` confirmed; actual-bounds readback has fake-COM tests | Reproduce exact bounds on X7 |
 | `draw_ellipse` | mutating | P1 | implemented_unverified | `CreateEllipse2` confirmed; center conversion/bounds readback has fake-COM tests | Reproduce exact bounds on X7 |
-| `list_objects` | read-only | P0 | implemented_unverified | Page/shape collections and properties confirmed | Test mixed objects, groups, bounds, text, and outline units |
-| `set_fill_color` | mutating | P1 | implemented_unverified | RGB factory and uniform fill confirmed | Read back actual RGB and fill type |
-| `set_outline` | mutating | P1 | implemented_unverified | Outline members confirmed | Establish width units and read back color/width |
+| `list_objects` | read-only | P0 | implemented_unverified | StaticID/layer/page and native appearance readback have fake-COM tests | Test mixed objects, groups, bounds, text, and outline units live |
+| `set_fill_color` | mutating | P1 | implemented_unverified | RGB factory/uniform fill confirmed; native readback has fake tests | Reproduce actual RGB and fill type on X7 |
+| `set_outline` | mutating | P1 | implemented_unverified | Outline type/color/raw width readback has fake tests | Establish width units with a controlled X7 test |
 | `move_object` | mutating | P1 | implemented_unverified | Reference point and `SetPosition` confirmed | Verify drawing origin and resulting absolute bounds |
 | `resize_object` | mutating | P1 | implemented_unverified | Shape size properties confirmed | Control anchor and test primitives versus text |
 | `set_text_content` | mutating | P1 | implemented_unverified | Text story property chain confirmed | Verify content and formatting preservation |
-| `rename_object` | mutating | P1 | implemented_unverified | `Shape.Name` confirmed | Define persistent identity and test duplicates/restarts |
-| `duplicate_object` | mutating | P1 | implemented_unverified | `Shape.Duplicate` confirmed | Verify offset, actual bounds, and copy identity |
-| `import_artwork` | external I/O | P1 | implemented_unverified | `Layer.Import` confirmed | Test safe fixtures per format and imported-object detection |
+| `rename_object` | mutating | P1 | implemented_unverified | Name plus StaticID/layer/page identity readback has fake tests | Verify identity persistence and duplicate-name behavior |
+| `duplicate_object` | mutating | P1 | implemented_unverified | `Duplicate` plus copy identity readback has fake tests | Verify offset, actual bounds, and identity on X7 |
+| `import_artwork` | external I/O | P1 | implemented_unverified | `Layer.Import` plus imported identity has fake tests | Test safe fixtures per format and selection/fallback detection live |
 | `save_document` | external I/O | P0 | implemented_unverified | Save options, enums, and `SaveAs` confirmed; historical save reported | Reproduce unique CDR save and inspect resulting file/options |
 | `export_pdf` | export | P1 | implemented_unverified | `PublishToPDF` confirmed; nonempty-file verification has fake tests | Parse/verify page size and report inherited settings in a live run |
 

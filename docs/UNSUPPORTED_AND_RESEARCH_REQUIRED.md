@@ -18,10 +18,10 @@ This document prevents uncertain behavior from being presented as supported. An 
 | Rectangle/ellipse bounds | Actual bounds are returned and fake-COM tested, but not reproduced in a dated X7 run | Verify position and size after creation on a disposable X7 document |
 | Drawing origin | Absolute movement assumes the document's drawing origin does not invalidate page-relative reasoning | Inspect origin and test movement in a disposable document |
 | Resize anchor | Width/height properties are set without an explicit anchor policy | Test with each relevant reference point and standardize the operation |
-| Object identity | Names are mutable; shape indexes change; `Shape.StaticID` exists but persistence semantics are untested | Test StaticID uniqueness/persistence across reorder, save/reopen, and server restart |
+| Object identity | StaticID/layer/page/type are now returned, but names remain mutable, indexes change, and StaticID persistence semantics are untested | Test StaticID uniqueness/persistence across reorder, save/reopen, and server restart |
 | Nested objects | `Page.Shapes` enumeration behavior for groups and nested objects is not defined at the MCP boundary | Define top-level versus recursive traversal and test nested groups |
 | Import filters | `Layer.Import` exists, but every allowlisted extension has not been tested in this X7 installation | Use non-confidential fixtures and record pass/fail per extension/filter |
-| Import identification | Selection-based detection and collection-position fallback may misidentify multiple imported objects | Test one- and multi-object SVG/PDF/AI imports and inspect selection/range behavior |
+| Import identification | Imported StaticID/layer/page metadata is returned, but selection-based detection and collection-position fallback still need live verification | Test one- and multi-object SVG/PDF/AI imports and inspect selection/range behavior |
 | Import path safety | Extension and size limits exist, but UNC/device paths and allowed-root policy are not explicit | Define normalized path policy and unit tests before broad use |
 | Save options | Enum values and properties are confirmed, but the full effective file settings are not read back | Save/reopen a disposable CDR and inspect version, pages, editability, and expected content |
 | PDF output | Nonempty output existence is verified, but page dimensions, structure, and inherited settings are not inspected | Verify a unique PDF, inspect page box dimensions, and report unchecked settings |

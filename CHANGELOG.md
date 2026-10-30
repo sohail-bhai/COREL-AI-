@@ -6,6 +6,11 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ## [Unreleased]
 
+### Added
+
+- A separately authorized CorelDRAW X7 regression that creates only a new disposable document, exercises the existing editing operations with synthetic content, uses unique CDR/PDF paths, and writes a dated review report.
+- Live-test report guidance under `docs/test-reports/`, including explicit manual editability and PDF-review requirements.
+
 ## [0.6.0] - 2026-10-30
 
 ### Added
@@ -22,7 +27,7 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 - Tool-schema v1 success/error envelope with operation duration, warnings, target identity when known, and operation-specific `data`.
 - Stable expected error codes and safe fallback handling for unexpected exceptions.
 - `corel_status` runtime metadata for bridge, schema, profile, ProgID, connection mode, Python, MCP SDK, pywin32, and CorelDRAW version/build.
-- Sixty-eight default tests covering versions, result envelopes, schemas/examples, validation, units, targeting, paths, dispatcher behavior, X7 connection strategy, static diagnostics, actual-state readback, and status metadata; one live CorelDRAW test is skipped unless explicitly enabled.
+- Seventy-five default tests covering versions, result envelopes, schemas/examples, validation, units, targeting, paths, dispatcher behavior, X7 connection strategy, static diagnostics, appearance/identity readback, actual-state readback, and status metadata; the read-only and mutating live CorelDRAW tests are skipped unless explicitly enabled.
 - v0.6 upgrade guide documenting the response migration and complete package-copy requirement.
 - Persistent harness-incident log and future-agent safeguards for recurring Azure cross-resource item failures.
 - CorelDRAW X7 compatibility adapter with explicit ProgID preference, major-version enforcement, centralized verified constants, and evidence-backed capability support.
@@ -39,6 +44,8 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 - Added readback of actual page size/unit/reference point after document creation.
 - Added actual bounds readback for rectangles, ellipses, and artistic text plus text content/font/size/bold readback.
 - Required PDF export to produce a nonempty file and return its byte size.
+- Added native fill/color and outline/type/color/width readback without silently converting color models or claiming outline-width units.
+- Added StaticID, layer, page, and type identity to object listing, rename, duplication, and artwork import results.
 
 ### Security
 

@@ -140,6 +140,50 @@
         "cdrEPSShape": 27
       },
       "bridge_usage": ["list_objects shape_type_code"]
+    },
+    "cdrFillType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrFillType",
+      "values": {
+        "cdrNoFill": 0,
+        "cdrUniformFill": 1,
+        "cdrFountainFill": 2,
+        "cdrPostscriptFill": 3,
+        "cdrTextureFill": 8,
+        "cdrPatternFill": 9,
+        "cdrHatchFill": 10
+      },
+      "bridge_usage": ["fill type readback"]
+    },
+    "cdrOutlineType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrOutlineType",
+      "values": {
+        "cdrNoOutline": 0,
+        "cdrOutline": 1,
+        "cdrEnhancedOutline": 2
+      },
+      "bridge_usage": ["outline presence/type readback"]
+    },
+    "cdrColorType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrColorType",
+      "values": {
+        "cdrColorPantone": 1,
+        "cdrColorCMYK": 2,
+        "cdrColorCMY": 4,
+        "cdrColorRGB": 5,
+        "cdrColorHSB": 6,
+        "cdrColorHLS": 7,
+        "cdrColorBlackAndWhite": 8,
+        "cdrColorGray": 9,
+        "cdrColorYIQ": 11,
+        "cdrColorLab": 12,
+        "cdrColorPantoneHex": 14,
+        "cdrColorRegistration": 20,
+        "cdrColorUserInk": 22,
+        "cdrColorSpot": 25,
+        "cdrColorMultiChannel": 26,
+        "cdrColorMixed": 99
+      },
+      "bridge_usage": ["native color-model readback without conversion"]
     }
   }
 }

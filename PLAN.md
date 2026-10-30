@@ -182,6 +182,8 @@ Batch 5 P0 readback slice completed 2026-10-30:
 - [x] Read back actual bounds after rectangle and ellipse creation.
 - [x] Read back artistic-text content, font, size, bold state, and bounds.
 - [x] Verify `export_pdf` creates a nonempty file and return its byte size.
+- [x] Read back native fill/color and outline type/color/raw width without claiming unverified units.
+- [x] Return StaticID, layer, page, and type identity from list, rename, duplicate, and import operations.
 - [x] Cover the above with fake-COM tests while keeping live mutation disabled by default.
 
 For every existing tool:
@@ -358,8 +360,8 @@ Work should begin with these small batches:
 | 2 | Version and result contract | Complete | Bridge/schema/profile versions plus stable structured errors |
 | 3 | Unit-test foundation | Complete | Schema, validation, units, targeting, paths, and dispatcher tests |
 | 4 | X7 adapter and diagnostics | Complete | Version-specific connection, runtime details, centralized verified constants |
-| 5 | Existing-tool hardening | In progress | P0 creation/PDF readback complete; styling/import/identity hardening remains |
-| 6 | Guarded live regression | Queued | Recorded disposable-document test of the existing tool set |
+| 5 | Existing-tool hardening | In progress | P0 creation/PDF and appearance/identity readback complete; guarded regression implemented but not run live |
+| 6 | Guarded live regression | Ready for explicit authorization | Recorded disposable-document test of the existing tool set; dated report format is prepared |
 | 7 | Inspection vertical slice | Queued | Document, page, layer, and single-object inspection tools |
 | 8 | First workflow vertical slice | Queued | Chest-number sequence plus sheet-layout calculation |
 
@@ -404,4 +406,4 @@ The operator must then complete that workflow with deterministic tool calls, evi
 
 ## 18. Next action
 
-Continue **Immediate Execution Queue — Batch 5: Existing-tool hardening**. Next add safe color/outline readback where X7 semantics are evidenced, strengthen imported-object identity, and prepare the explicitly gated disposable-document regression without marking tools live verified prematurely.
+With explicit user authorization, run **Immediate Execution Queue — Batch 6: Guarded live regression**, review the generated CDR/PDF and dated report, and update evidence without marking unchecked capabilities verified. Without that authorization, begin the Phase 2 read-only inspection vertical slice.

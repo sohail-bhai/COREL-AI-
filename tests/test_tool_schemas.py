@@ -14,7 +14,8 @@ class ToolSchemaTests(unittest.TestCase):
         self.assertEqual(counts["matrix_rows"], 30)
         self.assertEqual(counts["examples_checked"], 90)
         self.assertEqual(counts["adapter_capabilities"], 18)
-        self.assertGreaterEqual(counts["inventory_members"], 88)
+        self.assertGreaterEqual(counts["inventory_members"], 103)
+        self.assertEqual(counts["enum_groups"], 12)
 
 
 if __name__ == "__main__":

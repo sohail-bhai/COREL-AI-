@@ -18,14 +18,23 @@ Use the same resource that created the item to access it.
 | 3 | 2026-10-30 | `77546a40a2491c92ae3777728d56ba78` | The completed v0.6 feature branch had been pushed, followed by a sequential local `git switch main`. No browser, preview, subagent, background job, or cross-session handle was used. | Ordinary local Git activity does not create an Azure item, so the error is increasingly likely to be harness/provider routing rather than a repository operation. |
 | 4 | 2026-10-30 | `ceb10f86f4b61647fa12de32a30b30a2` | Reported immediately after Incident 3, without an intervening project tool call. | Confirms that avoiding a particular project command cannot guarantee prevention. Continue minimizing managed/parallel operations and preserve all work locally in Git. |
 | 5 | 2026-10-30 | `bacb6bc0971c8c9fdc5866375d4e311b` | Occurred immediately after a small sequential local `grep` used to locate registry records. No browser, parallel wrapper, background job, subagent, preview, or managed item was used. | Further confirms a provider/harness routing fault independent of repository command type. Prevention cannot be guaranteed from project workflow; local files and frequent Git commits remain the reliable recovery path. |
+| 6 | 2026-10-30 | `de567845bd8f62fac414c2167f6ab8bd` | Request ID `20261030175919304938962lnjXXiFt`. Appeared while OpenCode rendered a 175-line local file-read result; the user supplied a screenshot showing the failed item immediately below the read operation. | Stronger evidence that larger tool outputs may be retained as managed items and later routed across Azure resources. Cap reads/output to small chunks (about 80 lines maximum) and avoid large rendered results. |
+| 7 | 2026-10-30 | `1c36ff46e747cb133f1daf28f775f50b` | Appeared after a local temporary script and a short catalog-validator traceback. The output was small, sequential, and contained no browser/preview/background artifact. | Confirms output size is not the root cause. Most likely the provider routes a session/item lookup between Azure resources even though Azure item IDs are resource-scoped. |
 
-**Unique incident count:** 5
+**Unique incident count:** 7
+
+## Current root-cause hypothesis
+
+Azure OpenAI stored response/tool “items” are scoped to the Azure resource that created them. OpenCode or its model router appears to occasionally send a later turn or item lookup to a different Azure resource. That resource cannot retrieve the earlier item, producing this exact error. The incidents occur after unrelated local commands and even without intervening tools, so repository code cannot be the cause.
+
+The provider-level fix is sticky routing to one Azure resource/deployment for the full session, or transmitting full message/tool content rather than referencing resource-scoped item IDs. Project-side mitigations can preserve work but cannot guarantee prevention.
 
 ## Required mitigation
 
 - Store plans, findings, diagnostics, and generated content directly in repository files.
 - Commit and push completed batches so work does not depend on session artifacts.
 - Use targeted local reads and searches; avoid unnecessarily large tool responses.
+- Keep individual file reads at roughly 80 lines or fewer and filter shell output before returning it.
 - Use sequential calls only; avoid parallel tool wrappers while the routing cause remains unknown.
 - Avoid browser review/preview items, browser file IDs, background jobs, subagents, and cross-session handles unless explicitly needed.
 - Do not retry the same failed managed item.

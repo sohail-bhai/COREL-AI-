@@ -217,6 +217,80 @@ class CorelBridge:
             "bold_code": bold_code,
         }
 
+    def _color_readback(self, color: Any) -> dict[str, Any] | None:
+        if color is None:
+            return None
+        type_code = _safe_int_attr(color, "Type")
+        model = self.adapter.COLOR_TYPE_NAMES.get(type_code, "unknown")
+        result: dict[str, Any] = {
+            "type_code": type_code,
+            "model": model,
+            "hex_value": _safe_string_attr(color, "HexValue"),
+            "name": _safe_string_attr(color, "Name"),
+        }
+        if model == "rgb":
+            result["value"] = {
+                "red": _safe_int_attr(color, "RGBRed"),
+                "green": _safe_int_attr(color, "RGBGreen"),
+                "blue": _safe_int_attr(color, "RGBBlue"),
+            }
+        elif model == "cmyk":
+            result["value"] = {
+                "cyan": _safe_int_attr(color, "CMYKCyan"),
+                "magenta": _safe_int_attr(color, "CMYKMagenta"),
+                "yellow": _safe_int_attr(color, "CMYKYellow"),
+                "black": _safe_int_attr(color, "CMYKBlack"),
+            }
+        elif model == "gray":
+            result["value"] = {"gray": _safe_int_attr(color, "Gray")}
+        elif model in {"spot", "pantone", "pantone_hex"}:
+            result["value"] = {
+                "spot_name": _safe_string_attr(color, "SpotColorName"),
+                "tint": _safe_int_attr(color, "Tint"),
+            }
+        else:
+            result["value"] = None
+        return result
+
+    def _fill_readback(self, shape: Any) -> dict[str, Any]:
+        fill = _safe_attr(shape, "Fill")
+        type_code = _safe_int_attr(fill, "Type") if fill is not None else None
+        type_name = self.adapter.FILL_TYPE_NAMES.get(type_code, "unknown")
+        color = None
+        if type_name == "uniform":
+            color = self._color_readback(_safe_attr(fill, "UniformColor"))
+        return {
+            "type_code": type_code,
+            "type": type_name,
+            "color": color,
+        }
+
+    def _outline_readback(self, shape: Any) -> dict[str, Any]:
+        outline = _safe_attr(shape, "Outline")
+        type_code = _safe_int_attr(outline, "Type") if outline is not None else None
+        type_name = self.adapter.OUTLINE_TYPE_NAMES.get(type_code, "unknown")
+        present = type_code not in (None, 0)
+        return {
+            "type_code": type_code,
+            "type": type_name,
+            "present": present,
+            "width_raw": _safe_float_attr(outline, "Width") if present else None,
+            "width_units": "coreldraw_outline_width_unverified" if present else None,
+            "color": self._color_readback(_safe_attr(outline, "Color")) if present else None,
+        }
+
+    @staticmethod
+    def _shape_identity(shape: Any) -> dict[str, Any]:
+        layer = _safe_attr(shape, "Layer")
+        page = _safe_attr(shape, "Page")
+        return {
+            "object_name": str(_safe_attr(shape, "Name") or ""),
+            "static_id": _safe_int_attr(shape, "StaticID"),
+            "shape_type_code": _safe_int_attr(shape, "Type"),
+            "layer_name": _safe_string_attr(layer, "Name"),
+            "page_index": _safe_int_attr(page, "Index"),
+        }
+
     def status(self) -> dict[str, Any]:
         app = self._require_app()
         info: dict[str, Any] = {
@@ -502,7 +576,10 @@ class CorelBridge:
                 summary: dict[str, Any] = {
                     "shape_index": i,
                     "object_name": str(_safe_attr(shape, "Name") or ""),
+                    "static_id": _safe_int_attr(shape, "StaticID"),
                     "shape_type_code": _safe_attr(shape, "Type"),
+                    "layer_name": _safe_string_attr(_safe_attr(shape, "Layer"), "Name"),
+                    "page_index": _safe_int_attr(_safe_attr(shape, "Page"), "Index"),
                 }
                 for key, attr in (("x_inches", "PositionX"), ("y_inches", "PositionY"),
                                   ("width_inches", "SizeWidth"), ("height_inches", "SizeHeight")):
@@ -518,10 +595,13 @@ class CorelBridge:
                     summary["outline_width_points"] = float(shape.Outline.Width)
                 except Exception:
                     summary["outline_width_points"] = None
+                summary["fill"] = self._fill_readback(shape)
+                summary["outline"] = self._outline_readback(shape)
                 result.append(summary)
         return {"document_name": self._safe_target_name(), "object_count": len(result),
                 "total_on_page": count, "truncated": count > len(result),
                 "coordinate_reference": "object reference point is bottom-left; measurements are inches",
+                "warning": "outline_width_points is a legacy field with unverified COM units; use outline.width_raw and outline.width_units.",
                 "objects": result}
 
     @staticmethod
@@ -542,7 +622,8 @@ class CorelBridge:
             shape.Fill.ApplyUniformFill(color)
             name = str(_safe_attr(shape, "Name") or "")
             return {"updated": True, "object_name": name, "shape_index": self._index_for_shape(doc, shape),
-                    "fill_rgb": [red, green, blue]}
+                    "fill_rgb": [red, green, blue],
+                    "actual_fill": self._fill_readback(shape)}
         except Exception as exc:
             raise CorelBridgeError("Could not set fill color in CorelDRAW X7. Full COM error: " + str(exc)) from exc
 
@@ -560,12 +641,14 @@ class CorelBridge:
             if width_points == 0:
                 shape.Outline.SetNoOutline()
                 return {"updated": True, "object_name": str(_safe_attr(shape, "Name") or ""),
-                        "outline_removed": True}
+                        "outline_removed": True,
+                        "actual_outline": self._outline_readback(shape)}
             color = self._require_app().CreateRGBColor(red, green, blue)
             shape.Outline.Color = color
             shape.Outline.Width = float(width_points)
             return {"updated": True, "object_name": str(_safe_attr(shape, "Name") or ""),
-                    "outline_rgb": [red, green, blue], "width_points": width_points}
+                    "outline_rgb": [red, green, blue], "width_points": width_points,
+                    "actual_outline": self._outline_readback(shape)}
         except Exception as exc:
             raise CorelBridgeError("Could not set outline in CorelDRAW X7. Full COM error: " + str(exc)) from exc
 
@@ -650,7 +733,8 @@ class CorelBridge:
         try:
             old = str(_safe_attr(shape, "Name") or "")
             shape.Name = unique
-            return {"renamed": True, "old_name": old, "object_name": unique}
+            return {"renamed": True, "old_name": old, "object_name": unique,
+                    "object": self._shape_identity(shape)}
         except Exception as exc:
             raise CorelBridgeError("Could not rename the object. Full COM error: " + str(exc)) from exc
 
@@ -665,7 +749,8 @@ class CorelBridge:
                 name = self._name_shape(doc, new_shape, new_name, "AI_Copy")
             return {"duplicated": True, "source_name": str(_safe_attr(shape, "Name") or ""),
                     "object_name": name, "offset_inches": [offset_x_inches, offset_y_inches],
-                    "shape_index": self._index_for_shape(doc, new_shape)}
+                    "shape_index": self._index_for_shape(doc, new_shape),
+                    "object": self._shape_identity(new_shape)}
         except Exception as exc:
             raise CorelBridgeError("Could not duplicate object. Full COM error: " + str(exc)) from exc
 
@@ -713,11 +798,13 @@ class CorelBridge:
             if not imported:
                 raise CorelBridgeError("Import returned but no new/selected objects could be identified.")
             assigned = []
+            identities = []
             for i, shape in enumerate(imported, start=1):
                 requested = object_name if len(imported) == 1 else f"{object_name}_{i:02d}"
                 assigned.append(self._name_shape(doc, shape, requested, "AI_Artwork"))
+                identities.append(self._shape_identity(shape))
             return {"imported": True, "file_path": str(path), "object_count": len(imported),
-                    "object_names": assigned,
+                    "object_names": assigned, "objects": identities,
                     "note": "Imported objects may need move/resize operations. Inspect list_objects before printing."}
         except CorelBridgeError:
             raise
@@ -809,6 +896,24 @@ def _safe_int_attr(obj: Any, attr: str) -> int | None:
     try:
         return int(value)
     except (TypeError, ValueError, OverflowError):
+        return None
+
+
+def _safe_float_attr(obj: Any, attr: str) -> float | None:
+    value = _safe_attr(obj, attr)
+    try:
+        return float(value)
+    except (TypeError, ValueError, OverflowError):
+        return None
+
+
+def _safe_string_attr(obj: Any, attr: str) -> str | None:
+    value = _safe_attr(obj, attr)
+    if value is None:
+        return None
+    try:
+        return str(value)
+    except Exception:
         return None
 
 
