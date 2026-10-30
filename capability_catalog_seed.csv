@@ -1,0 +1,25 @@
+﻿category,tool_name,purpose,permission,priority,status,validation_notes
+connection,corel_status,Read status/version/active target,read_only,P0,verified_live,Confirmed via Antigravity
+connection,list_open_documents,Enumerate open docs,read_only,P1,planned,Validate Application.Documents collection
+document,create_document,Create and bind fresh document,mutating,P0,implemented_unverified,Live tests needed for exact dimensions each time
+document,save_document,Save target as new CDR path,mutating,P0,verified_live,Save succeeded after X7 save options
+document,export_pdf,Publish target as PDF,export,P1,implemented_unverified,"Verify signature, exact output and page size"
+page,set_page_size,Set exact physical page dimensions,mutating,P0,implemented_unverified,Verify API and coordinate units
+objects,list_objects,Inspect objects and bounds,read_only,P0,implemented_unverified,Verify returned bounds/type/text
+objects,get_object_info,Inspect one object,read_only,P1,planned,Stable IDs required
+shapes,draw_rectangle,Create rectangle,mutating,P0,verified_live,Visible in successful smoke test
+shapes,draw_ellipse,Create ellipse,mutating,P1,implemented_unverified,Live test needed
+text,add_text,Create editable artistic text,mutating,P0,verified_live,Visible in successful smoke test
+text,set_text_content,Edit text object,mutating,P1,implemented_unverified,Live test and preserve formatting
+appearance,set_fill_color,Set RGB uniform fill,mutating,P1,implemented_unverified,Verify RGB values read back correctly
+appearance,set_outline,Set RGB outline/width,mutating,P1,implemented_unverified,Verify width and color read back
+transform,move_object,Set object position,mutating,P1,implemented_unverified,Validate reference point and coordinates
+transform,resize_object,Set object dimensions,mutating,P1,implemented_unverified,Do not stretch text unintentionally
+transform,duplicate_object,Duplicate object,mutating,P1,implemented_unverified,Stable naming and placement validation
+artwork,import_artwork,Import local artwork,external_io,P1,implemented_unverified,"Check filters, file limit, path validation"
+layers,list_layers,Inspect layers,read_only,P2,planned,Use X7 docs and integration test
+batch,create_chest_number_batch,Create sequential numbered items,mutating,P1,planned,"Deterministic numbering, leading zero and duplicates tests"
+batch,arrange_n_up_print_sheet,Arrange items on sheet,mutating,P1,planned,Geometry and margin tests
+preflight,create_preflight_report,"Check dimensions, bounds, fonts, resolution etc.",read_only,P2,planned,Clearly report checks not performed
+reference,compare_reference_preview,Compare design preview with reference,read_only,P2,planned,Image comparison service adapter
+image_generation,generate_background_image,Generate background via chosen provider,external_io,P2,planned,Provider/API required; confirm sending user data externally

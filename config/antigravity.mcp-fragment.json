@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "coreldraw-ai-operator": {
+      "command": "G:\\sohail\\COREL AI\\CorelDRAW_AI_Operator_Prototype\\CorelDRAW_AI_Operator_Prototype\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "corel_operator.server"
+      ],
+      "cwd": "G:\\sohail\\COREL AI\\CorelDRAW_AI_Operator_Prototype\\CorelDRAW_AI_Operator_Prototype",
+      "env": {
+        "PYTHONPATH": "G:\\sohail\\COREL AI\\CorelDRAW_AI_Operator_Prototype\\CorelDRAW_AI_Operator_Prototype"
+      },
+      "timeoutSeconds": 300
+    }
+  }
+}

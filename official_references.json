@@ -1,0 +1,67 @@
+[
+  {
+    "title": "CorelDRAW Developer Area",
+    "url": "https://community.coreldraw.com/sdk",
+    "relevance": "Official API references, guides and SDK resources."
+  },
+  {
+    "title": "CorelDRAW X7 API reference",
+    "url": "https://community.coreldraw.com/sdk/api/draw/17/",
+    "relevance": "Target API release for CorelDRAW X7."
+  },
+  {
+    "title": "CorelDRAW Programming Guide",
+    "url": "https://community.coreldraw.com/sdk/w/guide",
+    "relevance": "Automation, macros, scripting and object model."
+  },
+  {
+    "title": "Controlling CorelDRAW from another process",
+    "url": "https://community.coreldraw.com/sdk/w/articles/217/controlling-coreldraw-or-corel-designer-applications-from-other-processes",
+    "relevance": "External COM automation and CorelDRAW.Application.17."
+  },
+  {
+    "title": "X7 Application class",
+    "url": "https://community.coreldraw.com/sdk/api/draw/17/c/application",
+    "relevance": "Top-level application object."
+  },
+  {
+    "title": "X7 Shape class",
+    "url": "https://community.coreldraw.com/sdk/api/draw/17/c/shape",
+    "relevance": "Shape operations, transforms and properties."
+  },
+  {
+    "title": "X7 Page class",
+    "url": "https://community.coreldraw.com/sdk/api/draw/17/c/page",
+    "relevance": "Page and layout properties."
+  },
+  {
+    "title": "X7 Layer.CreateArtisticText",
+    "url": "https://community.coreldraw.com/sdk/api/draw/17/m/layer.createartistictext",
+    "relevance": "Editable artistic text creation."
+  },
+  {
+    "title": "X7 Fill.UniformColor",
+    "url": "https://community.coreldraw.com/sdk/api/draw/17/p/fill.uniformcolor",
+    "relevance": "Uniform fill color."
+  },
+  {
+    "title": "X7 Outline class",
+    "url": "https://community.coreldraw.com/sdk/api/draw/17/c/outline",
+    "relevance": "Outline properties and methods."
+  },
+  {
+    "title": "X7 StructSaveAsOptions",
+    "url": "https://community.coreldraw.com/sdk/api/draw/17/c/structsaveasoptions",
+    "relevance": "Native CDR save options."
+  },
+  {
+    "title": "X7 Object Model Diagram",
+    "url": "https://community.coreldraw.com/sdk_files/CorelDRAW%20Object%20Model%20Diagram.pdf",
+    "relevance": "Classes and relationships in object model."
+  },
+  {
+    "title": "CorelDRAW X7 User Guide",
+    "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/User-Guide/CorelDRAW-X7.pdf",
+    "relevance": "Feature availability and local macro documentation references."
+  }
+]

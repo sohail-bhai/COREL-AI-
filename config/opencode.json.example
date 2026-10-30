@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "coreldraw-ai-operator": {
+      "type": "local",
+      "command": [
+        "ABSOLUTE_PATH_TO_PROJECT\\.venv\\Scripts\\python.exe",
+        "-m",
+        "corel_operator.server"
+      ],
+      "enabled": true,
+      "environment": {
+        "PYTHONPATH": "ABSOLUTE_PATH_TO_PROJECT"
+      }
+    }
+  }
+}

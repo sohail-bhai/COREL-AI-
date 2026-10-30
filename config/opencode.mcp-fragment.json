@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "coreldraw-ai-operator": {
+      "type": "local",
+      "command": [
+        "G:\\sohail\\COREL AI\\CorelDRAW_AI_Operator_Prototype\\CorelDRAW_AI_Operator_Prototype\\.venv\\Scripts\\python.exe",
+        "-m",
+        "corel_operator.server"
+      ],
+      "cwd": "G:\\sohail\\COREL AI\\CorelDRAW_AI_Operator_Prototype\\CorelDRAW_AI_Operator_Prototype",
+      "enabled": true,
+      "environment": {
+        "PYTHONPATH": "G:\\sohail\\COREL AI\\CorelDRAW_AI_Operator_Prototype\\CorelDRAW_AI_Operator_Prototype"
+      },
+      "timeout": 120000
+    }
+  }
+}

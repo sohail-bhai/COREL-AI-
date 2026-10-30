@@ -1,0 +1,45 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Local Python environments
+.venv/
+venv/
+env/
+
+# Local secrets and machine-specific configuration
+.env
+.env.*
+!.env.example
+
+# Editors and operating-system files
+.idea/
+.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Generated logs, temporary files, backups, and test output
+logs/
+tmp/
+.tmp/
+output/
+artifacts/
+backups/
+*.log
+*.tmp
+*.bak
+*.swp
+~$*
+
+# CorelDRAW working documents can contain large or confidential client artwork.
+# Reviewed, non-confidential fixtures can be force-added deliberately if needed.
+*.cdr

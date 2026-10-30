@@ -1,0 +1,40 @@
+ANTIGRAVITY MASTER TASK — BUILD CORELDraw AI OPERATOR
+
+Read `ANTIGRAVITY_MASTER_SPEC.md` in full before editing code.
+
+You are continuing an existing working CorelDRAW AI Operator prototype. Do not rewrite the project from scratch.
+
+Known state:
+- Windows 11
+- Python 3.11.9 64-bit
+- CorelDRAW X7 build 17.0.0.491
+- Antigravity MCP connection works
+- `corel_status` works
+- a prompt already created a new CorelDRAW document with a rectangle and editable text
+- CDR save works after passing CorelDRAW X7 save options
+- MCP SDK must remain v1-compatible (`mcp>=1.28,<2`) unless you perform and test a deliberate migration
+- project path: G:\sohail\COREL AI\CorelDRAW_AI_Operator_Prototype\CorelDRAW_AI_Operator_Prototype
+
+Your mission:
+1. Inspect the actual installed project files and report the current status.
+2. Back up or commit before editing.
+3. Treat the master spec as the product contract.
+4. Build a true CorelDRAW X7 Automation Capability Catalog using official X7 API docs, local Macro Editor help, and safe type-library inspection. Do not invent methods.
+5. Separate (A) raw Corel API inventory, (B) curated atomic MCP tools, and (C) high-level workflows.
+6. Generate JSON, CSV and Markdown catalogs with source links, version support, schemas, safety class and test state.
+7. Implement tools incrementally and verify them against a disposable CorelDRAW document before marking them verified.
+8. Preserve target-document safety, overwrite protection, fixed COM STA thread, explicit units and structured error results.
+9. Keep Antigravity's existing MCP configuration working.
+10. Report exact file changes, commands run, tests passed/failed and unsupported capabilities.
+
+DO NOT:
+- silently modify PVC EACH 1 PRINT.cdr or any other active client file;
+- expose arbitrary VBA/Python/shell execution as an MCP tool;
+- label all CorelDRAW UI buttons as automatable APIs;
+- expose every raw COM method directly to the model;
+- claim an operation works because the code compiles;
+- mark a tool verified without a passing live test on CorelDRAW X7;
+- overwrite CDR/PDF files without explicit approval;
+- use modern API methods without confirming X7 support.
+
+First response should be an audit plan plus current status, then start with repository inventory and catalog generation. The first deliverable should be a capability catalog and a truthful status table, not hundreds of untested tools.

@@ -1,0 +1,623 @@
+"""CorelDRAW X7-oriented COM bridge for the CorelDRAW AI Operator prototype.
+
+Operations target a document created by this bridge. Editing an already-open document requires
+an explicit `use_active_document` call so a client design isn't modified by accident.
+"""
+from __future__ import annotations
+
+import os
+from contextlib import contextmanager
+from pathlib import Path
+from typing import Any, Iterator
+
+
+class CorelBridgeError(RuntimeError):
+    pass
+
+
+class CorelBridge:
+    CDR_INCH = 1
+    CDR_BOTTOM_LEFT = 5
+    MAX_IMPORT_BYTES = 250 * 1024 * 1024
+    ALLOWED_IMPORT_EXTENSIONS = {
+        ".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".gif",
+        ".svg", ".pdf", ".eps", ".ai", ".wmf", ".emf", ".cmx"
+    }
+
+    def __init__(self) -> None:
+        self.app: Any | None = None
+        self.target_doc: Any | None = None
+
+    def connect(self) -> dict[str, Any]:
+        if os.name != "nt":
+            raise CorelBridgeError("CorelDRAW COM automation is available only on Windows.")
+        try:
+            import win32com.client  # type: ignore
+        except ImportError as exc:
+            raise CorelBridgeError(
+                "pywin32 is missing. Run: python -m pip install -r requirements.txt"
+            ) from exc
+
+        errors = []
+        for mode in ("GetActiveObject", "Dispatch"):
+            try:
+                self.app = (
+                    win32com.client.GetActiveObject("CorelDRAW.Application")
+                    if mode == "GetActiveObject"
+                    else win32com.client.Dispatch("CorelDRAW.Application")
+                )
+                break
+            except Exception as exc:
+                errors.append(f"{mode}: {exc}")
+        if self.app is None:
+            raise CorelBridgeError(
+                "Could not connect to CorelDRAW. Open CorelDRAW and retry. Details: "
+                + " | ".join(errors)
+            )
+        return self.status()
+
+    def _require_app(self) -> Any:
+        if self.app is None:
+            self.connect()
+        return self.app
+
+    def _active_document(self) -> Any | None:
+        try:
+            return self._require_app().ActiveDocument
+        except Exception:
+            return None
+
+    def _target_document(self) -> Any:
+        """Return the bridge's bound target, never silently fall back to another active file."""
+        if self.target_doc is not None:
+            return self.target_doc
+        raise CorelBridgeError(
+            "No target document is bound. Call create_document for a new file, or explicitly call "
+            "use_active_document(confirm_existing_document=True) to allow editing the current file."
+        )
+
+    def use_active_document(self, confirm_existing_document: bool) -> dict[str, Any]:
+        if confirm_existing_document is not True:
+            raise CorelBridgeError(
+                "To protect client work, this operation requires confirm_existing_document=True."
+            )
+        doc = self._active_document()
+        if doc is None:
+            raise CorelBridgeError("CorelDRAW has no active document to bind.")
+        self.target_doc = doc
+        return {
+            "bound": True,
+            "target_document_name": _safe_attr(doc, "Name"),
+            "warning": "Subsequent editing operations will modify this document. Save a backup first."
+        }
+
+    @contextmanager
+    def _in_inches(self, doc: Any) -> Iterator[None]:
+        previous = None
+        changed = False
+        try:
+            previous = int(doc.Unit)
+            if previous != self.CDR_INCH:
+                doc.Unit = self.CDR_INCH
+                changed = True
+            yield
+        finally:
+            if changed and previous is not None:
+                try:
+                    doc.Unit = previous
+                except Exception:
+                    pass
+
+    @contextmanager
+    def _reference_point(self, doc: Any, point: int = CDR_BOTTOM_LEFT) -> Iterator[None]:
+        previous = None
+        changed = False
+        try:
+            previous = int(doc.ReferencePoint)
+            if previous != point:
+                doc.ReferencePoint = point
+                changed = True
+            yield
+        finally:
+            if changed and previous is not None:
+                try:
+                    doc.ReferencePoint = previous
+                except Exception:
+                    pass
+
+    @staticmethod
+    def _page_dimensions(page: Any) -> dict[str, Any]:
+        try:
+            result = page.GetSize()
+            if isinstance(result, (tuple, list)) and len(result) >= 2:
+                return {"width_document_units": float(result[0]),
+                        "height_document_units": float(result[1])}
+        except Exception:
+            pass
+        result: dict[str, Any] = {}
+        for key, attr in (("width_document_units", "SizeWidth"),
+                          ("height_document_units", "SizeHeight")):
+            try:
+                result[key] = float(getattr(page, attr))
+            except Exception:
+                result[key] = None
+        return result
+
+    def status(self) -> dict[str, Any]:
+        app = self._require_app()
+        info: dict[str, Any] = {"connected": True}
+        for key, attr in (("version", "Version"), ("caption", "Caption"), ("visible", "Visible")):
+            try:
+                info[key] = getattr(app, attr)
+            except Exception:
+                info[key] = None
+        active = self._active_document()
+        info["active_document_name"] = _safe_attr(active, "Name") if active is not None else None
+        info["active_document_open"] = active is not None
+        info["target_document_name"] = _safe_attr(self.target_doc, "Name") if self.target_doc is not None else None
+        info["target_document_bound"] = self.target_doc is not None
+        inspected = self.target_doc if self.target_doc is not None else active
+        if inspected is not None:
+            info["document_name"] = _safe_attr(inspected, "Name")
+            try:
+                info["page_count"] = int(inspected.Pages.Count)
+            except Exception:
+                info["page_count"] = None
+            try:
+                info["unit_code"] = int(inspected.Unit)
+                info["unit_name"] = {
+                    0: "tenth-micron", 1: "inch", 2: "foot", 3: "millimeter",
+                    4: "centimeter", 5: "pixel", 6: "mile", 7: "meter",
+                    8: "kilometer", 9: "didot", 10: "agate", 11: "yard",
+                    12: "pica", 13: "cicero", 14: "point", 15: "Q", 16: "H"
+                }.get(info["unit_code"], "unknown")
+            except Exception:
+                info["unit_code"] = None
+                info["unit_name"] = None
+            try:
+                info["page_size"] = self._page_dimensions(inspected.ActivePage)
+            except Exception:
+                info["page_size"] = None
+        return info
+
+    def create_document(self, width_in: float = 8.27, height_in: float = 11.69) -> dict[str, Any]:
+        app = self._require_app()
+        if not (0 < width_in <= 200 and 0 < height_in <= 200):
+            raise CorelBridgeError("Page dimensions must be greater than 0 and at most 200 inches.")
+        try:
+            doc = app.CreateDocument()
+            doc.Unit = self.CDR_INCH
+            doc.ActivePage.SetSize(float(width_in), float(height_in))
+            try:
+                doc.ReferencePoint = self.CDR_BOTTOM_LEFT
+            except Exception:
+                pass
+            try:
+                doc.Activate()
+            except Exception:
+                pass
+            self.target_doc = doc
+        except Exception as exc:
+            raise CorelBridgeError(
+                "CorelDRAW X7 could not create/size/bind the document. Full COM error: " + str(exc)
+            ) from exc
+        return {
+            "created": True,
+            "target_document_name": self._safe_target_name(),
+            "width_inches_requested": width_in,
+            "height_inches_requested": height_in,
+            "target_bound": True
+        }
+
+    def _safe_target_name(self) -> str | None:
+        return _safe_attr(self.target_doc, "Name") if self.target_doc is not None else None
+
+    @staticmethod
+    def _get_layer(doc: Any) -> Any:
+        try:
+            return doc.ActivePage.ActiveLayer
+        except Exception:
+            try:
+                return doc.ActiveLayer
+            except Exception as exc:
+                raise CorelBridgeError("Could not locate the active CorelDRAW layer.") from exc
+
+    @staticmethod
+    def _shapes(doc: Any) -> Any:
+        try:
+            return doc.ActivePage.Shapes
+        except Exception as exc:
+            raise CorelBridgeError("Could not read shapes from the target document's active page.") from exc
+
+    @staticmethod
+    def _shape_at(doc: Any, shape_index: int) -> Any:
+        if shape_index < 1:
+            raise CorelBridgeError("shape_index is 1-based and must be at least 1.")
+        shapes = CorelBridge._shapes(doc)
+        try:
+            count = int(shapes.Count)
+        except Exception as exc:
+            raise CorelBridgeError("Could not read the page's shape count.") from exc
+        if shape_index > count:
+            raise CorelBridgeError(f"shape_index {shape_index} is outside the current range 1..{count}.")
+        try:
+            return shapes.Item(shape_index)
+        except Exception:
+            try:
+                return shapes[shape_index]
+            except Exception as exc:
+                raise CorelBridgeError(f"Could not access shape index {shape_index}.") from exc
+
+    def _find_shape(self, doc: Any, object_name: str = "", shape_index: int = 0) -> Any:
+        has_name = bool(object_name.strip())
+        has_index = int(shape_index) > 0
+        if has_name == has_index:
+            raise CorelBridgeError("Specify exactly one selector: object_name OR shape_index.")
+        if has_name:
+            shapes = self._shapes(doc)
+            matches = []
+            for i in range(1, int(shapes.Count) + 1):
+                shape = self._shape_at(doc, i)
+                if str(_safe_attr(shape, "Name") or "") == object_name:
+                    matches.append(shape)
+            if not matches:
+                raise CorelBridgeError(f"No shape named {object_name!r} exists on the active page.")
+            if len(matches) > 1:
+                raise CorelBridgeError(f"Shape name {object_name!r} is not unique; rename objects first.")
+            return matches[0]
+        return self._shape_at(doc, int(shape_index))
+
+    def _unique_name(self, doc: Any, requested: str, prefix: str) -> str:
+        clean = requested.strip() if requested and requested.strip() else ""
+        existing = set()
+        shapes = self._shapes(doc)
+        for i in range(1, int(shapes.Count) + 1):
+            existing.add(str(_safe_attr(self._shape_at(doc, i), "Name") or ""))
+        if not clean:
+            n = 1
+            while f"{prefix}_{n:03d}" in existing:
+                n += 1
+            return f"{prefix}_{n:03d}"
+        base = clean[:120]
+        candidate = base
+        n = 2
+        while candidate in existing:
+            candidate = f"{base}_{n}"
+            n += 1
+        return candidate
+
+    def _name_shape(self, doc: Any, shape: Any, requested: str, prefix: str) -> str:
+        name = self._unique_name(doc, requested, prefix)
+        try:
+            shape.Name = name
+        except Exception as exc:
+            raise CorelBridgeError("Object was created but could not be named for later edits: " + str(exc)) from exc
+        return name
+
+    def add_text(self, text: str, x_in: float, y_in: float, size_pt: float = 24,
+                 font: str = "Arial", bold: bool = False,
+                 object_name: str = "") -> dict[str, Any]:
+        if not text.strip():
+            raise CorelBridgeError("Text cannot be empty.")
+        if not (1 <= size_pt <= 500):
+            raise CorelBridgeError("Font size must be between 1 and 500 points.")
+        doc = self._target_document()
+        layer = self._get_layer(doc)
+        try:
+            with self._in_inches(doc):
+                shape = layer.CreateArtisticText(
+                    float(x_in), float(y_in), str(text), 0, 0, str(font),
+                    float(size_pt), -1 if bold else 0
+                )
+                name = self._name_shape(doc, shape, object_name, "AI_Text")
+            return {"created": True, "type": "text", "object_name": name, "text": text,
+                    "font": font, "size_points": size_pt, "bold": bold,
+                    "note": "Editable artistic-text object created."}
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW X7 rejected CreateArtisticText or naming. Full COM error: " + str(exc)) from exc
+
+    def draw_rectangle(self, x_in: float, y_in: float, width_in: float, height_in: float,
+                       object_name: str = "") -> dict[str, Any]:
+        if width_in <= 0 or height_in <= 0:
+            raise CorelBridgeError("Rectangle width and height must be positive.")
+        doc = self._target_document()
+        try:
+            with self._in_inches(doc):
+                shape = self._get_layer(doc).CreateRectangle2(
+                    float(x_in), float(y_in), float(width_in), float(height_in)
+                )
+                name = self._name_shape(doc, shape, object_name, "AI_Rectangle")
+            return {"created": True, "type": "rectangle", "object_name": name,
+                    "x_inches": x_in, "y_inches": y_in,
+                    "width_inches": width_in, "height_inches": height_in}
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW X7 rejected CreateRectangle2 or naming. Full COM error: " + str(exc)) from exc
+
+    def draw_ellipse(self, x_in: float, y_in: float, width_in: float, height_in: float,
+                     object_name: str = "") -> dict[str, Any]:
+        if width_in <= 0 or height_in <= 0:
+            raise CorelBridgeError("Ellipse width and height must be positive.")
+        doc = self._target_document()
+        try:
+            with self._in_inches(doc):
+                shape = self._get_layer(doc).CreateEllipse2(
+                    float(x_in + width_in / 2), float(y_in + height_in / 2),
+                    float(width_in / 2), float(height_in / 2)
+                )
+                name = self._name_shape(doc, shape, object_name, "AI_Ellipse")
+            return {"created": True, "type": "ellipse", "object_name": name,
+                    "x_inches": x_in, "y_inches": y_in,
+                    "width_inches": width_in, "height_inches": height_in}
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW X7 rejected CreateEllipse2 or naming. Full COM error: " + str(exc)) from exc
+
+    def list_objects(self, max_objects: int = 200) -> dict[str, Any]:
+        if not (1 <= max_objects <= 1000):
+            raise CorelBridgeError("max_objects must be between 1 and 1000.")
+        doc = self._target_document()
+        result = []
+        with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
+            shapes = self._shapes(doc)
+            count = int(shapes.Count)
+            for i in range(1, min(count, max_objects) + 1):
+                shape = self._shape_at(doc, i)
+                summary: dict[str, Any] = {
+                    "shape_index": i,
+                    "object_name": str(_safe_attr(shape, "Name") or ""),
+                    "shape_type_code": _safe_attr(shape, "Type"),
+                }
+                for key, attr in (("x_inches", "PositionX"), ("y_inches", "PositionY"),
+                                  ("width_inches", "SizeWidth"), ("height_inches", "SizeHeight")):
+                    try:
+                        summary[key] = round(float(getattr(shape, attr)), 4)
+                    except Exception:
+                        summary[key] = None
+                try:
+                    summary["text"] = str(shape.Text.Story.Text)[:500]
+                except Exception:
+                    summary["text"] = None
+                try:
+                    summary["outline_width_points"] = float(shape.Outline.Width)
+                except Exception:
+                    summary["outline_width_points"] = None
+                result.append(summary)
+        return {"document_name": self._safe_target_name(), "object_count": len(result),
+                "total_on_page": count, "truncated": count > len(result),
+                "coordinate_reference": "object reference point is bottom-left; measurements are inches",
+                "objects": result}
+
+    @staticmethod
+    def _validate_rgb(red: int, green: int, blue: int) -> None:
+        if not all(isinstance(v, int) and 0 <= v <= 255 for v in (red, green, blue)):
+            raise CorelBridgeError("RGB values must be integers from 0 to 255.")
+
+    def set_fill_color(self, red: int, green: int, blue: int,
+                       object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+        self._validate_rgb(red, green, blue)
+        doc = self._target_document()
+        shape = self._find_shape(doc, object_name, shape_index)
+        try:
+            color = self._require_app().CreateRGBColor(red, green, blue)
+            shape.Fill.ApplyUniformFill(color)
+            name = str(_safe_attr(shape, "Name") or "")
+            return {"updated": True, "object_name": name, "shape_index": self._index_for_shape(doc, shape),
+                    "fill_rgb": [red, green, blue]}
+        except Exception as exc:
+            raise CorelBridgeError("Could not set fill color in CorelDRAW X7. Full COM error: " + str(exc)) from exc
+
+    def set_outline(self, red: int, green: int, blue: int, width_points: float = 1.0,
+                    object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+        self._validate_rgb(red, green, blue)
+        if not (0 <= width_points <= 72):
+            raise CorelBridgeError("Outline width must be between 0 and 72 points; use 0 to remove it.")
+        doc = self._target_document()
+        shape = self._find_shape(doc, object_name, shape_index)
+        try:
+            if width_points == 0:
+                shape.Outline.SetNoOutline()
+                return {"updated": True, "object_name": str(_safe_attr(shape, "Name") or ""),
+                        "outline_removed": True}
+            color = self._require_app().CreateRGBColor(red, green, blue)
+            shape.Outline.Color = color
+            shape.Outline.Width = float(width_points)
+            return {"updated": True, "object_name": str(_safe_attr(shape, "Name") or ""),
+                    "outline_rgb": [red, green, blue], "width_points": width_points}
+        except Exception as exc:
+            raise CorelBridgeError("Could not set outline in CorelDRAW X7. Full COM error: " + str(exc)) from exc
+
+    def move_object(self, x_inches: float, y_inches: float,
+                    object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+        doc = self._target_document()
+        shape = self._find_shape(doc, object_name, shape_index)
+        try:
+            with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
+                shape.SetPosition(float(x_inches), float(y_inches))
+                actual_x = float(shape.PositionX)
+                actual_y = float(shape.PositionY)
+            return {"moved": True, "object_name": str(_safe_attr(shape, "Name") or ""),
+                    "x_inches": round(actual_x, 4), "y_inches": round(actual_y, 4),
+                    "reference_point": "bottom-left"}
+        except Exception as exc:
+            raise CorelBridgeError("Could not move object in CorelDRAW X7. Full COM error: " + str(exc)) from exc
+
+    def resize_object(self, width_inches: float = 0, height_inches: float = 0,
+                      keep_aspect_ratio: bool = False,
+                      object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+        if width_inches <= 0 and height_inches <= 0:
+            raise CorelBridgeError("Provide a positive width or height in inches.")
+        if (width_inches <= 0 or height_inches <= 0) and not keep_aspect_ratio:
+            raise CorelBridgeError("Provide both width and height, or set keep_aspect_ratio=True.")
+        doc = self._target_document()
+        shape = self._find_shape(doc, object_name, shape_index)
+        try:
+            with self._in_inches(doc):
+                old_w, old_h = float(shape.SizeWidth), float(shape.SizeHeight)
+                if keep_aspect_ratio:
+                    if old_w <= 0 or old_h <= 0:
+                        raise CorelBridgeError("Cannot preserve aspect ratio for a zero-size object.")
+                    if width_inches > 0 and height_inches <= 0:
+                        height_inches = width_inches * old_h / old_w
+                    elif height_inches > 0 and width_inches <= 0:
+                        width_inches = height_inches * old_w / old_h
+                shape.SizeWidth = float(width_inches)
+                shape.SizeHeight = float(height_inches)
+                new_w, new_h = float(shape.SizeWidth), float(shape.SizeHeight)
+            return {"resized": True, "object_name": str(_safe_attr(shape, "Name") or ""),
+                    "old_size_inches": [round(old_w, 4), round(old_h, 4)],
+                    "new_size_inches": [round(new_w, 4), round(new_h, 4)],
+                    "warning": "Resizing text objects by bounding box may stretch glyphs; changing font size is preferable for typography."}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("Could not resize object in CorelDRAW X7. Full COM error: " + str(exc)) from exc
+
+    def set_text_content(self, new_text: str, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+        if not new_text.strip():
+            raise CorelBridgeError("Text cannot be empty.")
+        doc = self._target_document()
+        shape = self._find_shape(doc, object_name, shape_index)
+        try:
+            story = shape.Text.Story
+            old_text = str(story.Text)
+            story.Text = str(new_text)
+            return {"updated": True, "object_name": str(_safe_attr(shape, "Name") or ""),
+                    "old_text": old_text[:200], "new_text": new_text}
+        except Exception as exc:
+            raise CorelBridgeError("Could not edit text; target may not be a text object. Full COM error: " + str(exc)) from exc
+
+    def rename_object(self, new_name: str, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+        if not new_name.strip():
+            raise CorelBridgeError("new_name cannot be blank.")
+        doc = self._target_document()
+        shape = self._find_shape(doc, object_name, shape_index)
+        unique = self._unique_name(doc, new_name, "AI_Object")
+        # If we're renaming the selected object to its current name, preserve it.
+        if unique != new_name and str(_safe_attr(shape, "Name") or "") == new_name:
+            unique = new_name
+        try:
+            old = str(_safe_attr(shape, "Name") or "")
+            shape.Name = unique
+            return {"renamed": True, "old_name": old, "object_name": unique}
+        except Exception as exc:
+            raise CorelBridgeError("Could not rename the object. Full COM error: " + str(exc)) from exc
+
+    def duplicate_object(self, offset_x_inches: float = 0.25, offset_y_inches: float = -0.25,
+                         object_name: str = "", shape_index: int = 0,
+                         new_name: str = "") -> dict[str, Any]:
+        doc = self._target_document()
+        shape = self._find_shape(doc, object_name, shape_index)
+        try:
+            with self._in_inches(doc):
+                new_shape = shape.Duplicate(float(offset_x_inches), float(offset_y_inches))
+                name = self._name_shape(doc, new_shape, new_name, "AI_Copy")
+            return {"duplicated": True, "source_name": str(_safe_attr(shape, "Name") or ""),
+                    "object_name": name, "offset_inches": [offset_x_inches, offset_y_inches],
+                    "shape_index": self._index_for_shape(doc, new_shape)}
+        except Exception as exc:
+            raise CorelBridgeError("Could not duplicate object. Full COM error: " + str(exc)) from exc
+
+    def import_artwork(self, file_path: str, object_name: str = "AI_Artwork") -> dict[str, Any]:
+        path = Path(os.path.abspath(os.path.expanduser(file_path)))
+        if not path.is_file():
+            raise CorelBridgeError(f"Artwork file does not exist: {path}")
+        if path.suffix.lower() not in self.ALLOWED_IMPORT_EXTENSIONS:
+            raise CorelBridgeError(f"Unsupported artwork extension {path.suffix!r}.")
+        if path.stat().st_size > self.MAX_IMPORT_BYTES:
+            raise CorelBridgeError("Artwork is larger than the 250 MB prototype limit.")
+        doc = self._target_document()
+        layer = self._get_layer(doc)
+        before = int(self._shapes(doc).Count)
+        try:
+            try:
+                doc.ClearSelection()
+            except Exception:
+                pass
+            with self._in_inches(doc):
+                layer.Import(str(path))
+            imported = []
+            # CorelDRAW normally selects imported shapes. Prefer that collection.
+            try:
+                selected = doc.SelectionRange
+                for i in range(1, int(selected.Count) + 1):
+                    imported.append(selected.Item(i))
+            except Exception:
+                imported = []
+            # Fallback: report shapes appended to the page if import didn't expose a selection.
+            if not imported:
+                shapes = self._shapes(doc)
+                count = int(shapes.Count)
+                for i in range(before + 1, count + 1):
+                    imported.append(self._shape_at(doc, i))
+            if not imported:
+                raise CorelBridgeError("Import returned but no new/selected objects could be identified.")
+            assigned = []
+            for i, shape in enumerate(imported, start=1):
+                requested = object_name if len(imported) == 1 else f"{object_name}_{i:02d}"
+                assigned.append(self._name_shape(doc, shape, requested, "AI_Artwork"))
+            return {"imported": True, "file_path": str(path), "object_count": len(imported),
+                    "object_names": assigned,
+                    "note": "Imported objects may need move/resize operations. Inspect list_objects before printing."}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW X7 artwork import failed. Full COM error: " + str(exc)) from exc
+
+    def _index_for_shape(self, doc: Any, target: Any) -> int | None:
+        shapes = self._shapes(doc)
+        for i in range(1, int(shapes.Count) + 1):
+            shape = self._shape_at(doc, i)
+            if str(_safe_attr(shape, "Name") or "") == str(_safe_attr(target, "Name") or ""):
+                # Names are unique for all shapes created by this bridge. If imported art has
+                # duplicate names we don't depend on this lookup for its primary identity.
+                return i
+        return None
+
+    def save_document(self, path: str) -> dict[str, Any]:
+        doc = self._target_document()
+        path = os.path.abspath(os.path.expanduser(path))
+        if not path.lower().endswith(".cdr"):
+            raise CorelBridgeError("Save path must end in .cdr.")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        if os.path.exists(path):
+            raise CorelBridgeError(f"Refusing to overwrite existing file: {path}")
+        try:
+            app = self._require_app()
+            options = app.CreateStructSaveAsOptions()
+            options.Filter = 1795          # cdrCDR
+            options.Version = 0            # cdrCurrentVersion
+            options.Range = 0              # cdrAllPages
+            options.EmbedICCProfile = False
+            options.EmbedVBAProject = False
+            options.IncludeCMXData = False
+            options.Overwrite = False
+            doc.SaveAs(path, options)
+            if not os.path.isfile(path):
+                raise CorelBridgeError("CorelDRAW returned from SaveAs, but the file was not created: " + path)
+            return {"saved": True, "path": path, "bytes": os.path.getsize(path),
+                    "document_name": self._safe_target_name()}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW X7 could not save the target document. Full COM error: " + str(exc)) from exc
+
+    def export_pdf(self, path: str) -> dict[str, Any]:
+        doc = self._target_document()
+        path = os.path.abspath(os.path.expanduser(path))
+        if not path.lower().endswith(".pdf"):
+            raise CorelBridgeError("Export path must end in .pdf.")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        if os.path.exists(path):
+            raise CorelBridgeError(f"Refusing to overwrite existing file: {path}")
+        try:
+            doc.PublishToPDF(path)
+            return {"exported": True, "path": path,
+                    "warning": "PDF settings inherit CorelDRAW preferences; verify page size, fonts, color profile, bleed and output settings."}
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW X7 PDF export failed. Full COM error: " + str(exc)) from exc
+
+
+def _safe_attr(obj: Any, attr: str) -> Any:
+    try:
+        return getattr(obj, attr)
+    except Exception:
+        return None
