@@ -176,6 +176,14 @@ Stable error categories now include:
 
 ### 1.6 Harden and verify the existing 17 tools
 
+Batch 5 P0 readback slice completed 2026-10-30:
+
+- [x] Read back page size, document unit, and reference point after `create_document`.
+- [x] Read back actual bounds after rectangle and ellipse creation.
+- [x] Read back artistic-text content, font, size, bold state, and bounds.
+- [x] Verify `export_pdf` creates a nonempty file and return its byte size.
+- [x] Cover the above with fake-COM tests while keeping live mutation disabled by default.
+
 For every existing tool:
 
 1. Confirm the exact X7 API member and argument semantics.
@@ -350,7 +358,7 @@ Work should begin with these small batches:
 | 2 | Version and result contract | Complete | Bridge/schema/profile versions plus stable structured errors |
 | 3 | Unit-test foundation | Complete | Schema, validation, units, targeting, paths, and dispatcher tests |
 | 4 | X7 adapter and diagnostics | Complete | Version-specific connection, runtime details, centralized verified constants |
-| 5 | Existing-tool hardening | Next | Actual-state readback and fixes identified by unit tests |
+| 5 | Existing-tool hardening | In progress | P0 creation/PDF readback complete; styling/import/identity hardening remains |
 | 6 | Guarded live regression | Queued | Recorded disposable-document test of the existing tool set |
 | 7 | Inspection vertical slice | Queued | Document, page, layer, and single-object inspection tools |
 | 8 | First workflow vertical slice | Queued | Chest-number sequence plus sheet-layout calculation |
@@ -396,4 +404,4 @@ The operator must then complete that workflow with deterministic tool calls, evi
 
 ## 18. Next action
 
-Start **Immediate Execution Queue — Batch 5: Existing-tool hardening**. Add actual-state readback and targeted fixes for the safest P0 operations, beginning with document creation and primitive bounds, while keeping live mutation tests explicitly gated.
+Continue **Immediate Execution Queue — Batch 5: Existing-tool hardening**. Next add safe color/outline readback where X7 semantics are evidenced, strengthen imported-object identity, and prepare the explicitly gated disposable-document regression without marking tools live verified prematurely.

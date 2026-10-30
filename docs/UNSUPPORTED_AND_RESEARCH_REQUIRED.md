@@ -14,8 +14,8 @@ This document prevents uncertain behavior from being presented as supported. An 
 | Outline width | `Outline.Width` exists, but the inspected evidence does not prove the bridge's value is in points | Set several known widths in a disposable document, read them back under controlled document units, and visually inspect one result |
 | Text insertion coordinates | `CreateArtisticText` is confirmed, but insertion point/baseline versus resulting bounds is not recorded | Create text at known coordinates and compare insertion point with actual bounds |
 | Text charset | The type-library default is `cdrCharSetMixed (-1)` while the bridge explicitly passes ANSI `0` | Test ASCII and non-ASCII text; select an explicit documented policy |
-| Font substitution | Requested font and size are returned without actual formatting readback | Read `TextRange` font/size and report substitutions |
-| Rectangle/ellipse bounds | Creation methods exist, but actual bounds are not returned by the tools | Read back position and size after creation |
+| Font substitution | Font and size are now read back, but no recorded X7 run demonstrates substitution behavior | Compare requested and actual formatting on X7 with available/missing fonts |
+| Rectangle/ellipse bounds | Actual bounds are returned and fake-COM tested, but not reproduced in a dated X7 run | Verify position and size after creation on a disposable X7 document |
 | Drawing origin | Absolute movement assumes the document's drawing origin does not invalidate page-relative reasoning | Inspect origin and test movement in a disposable document |
 | Resize anchor | Width/height properties are set without an explicit anchor policy | Test with each relevant reference point and standardize the operation |
 | Object identity | Names are mutable; shape indexes change; `Shape.StaticID` exists but persistence semantics are untested | Test StaticID uniqueness/persistence across reorder, save/reopen, and server restart |
@@ -24,7 +24,7 @@ This document prevents uncertain behavior from being presented as supported. An 
 | Import identification | Selection-based detection and collection-position fallback may misidentify multiple imported objects | Test one- and multi-object SVG/PDF/AI imports and inspect selection/range behavior |
 | Import path safety | Extension and size limits exist, but UNC/device paths and allowed-root policy are not explicit | Define normalized path policy and unit tests before broad use |
 | Save options | Enum values and properties are confirmed, but the full effective file settings are not read back | Save/reopen a disposable CDR and inspect version, pages, editability, and expected content |
-| PDF output | `PublishToPDF` is confirmed, but output existence, page dimensions, and inherited settings are not inspected | Verify a unique PDF, inspect page box dimensions, and report unchecked settings |
+| PDF output | Nonempty output existence is verified, but page dimensions, structure, and inherited settings are not inspected | Verify a unique PDF, inspect page box dimensions, and report unchecked settings |
 | COM timeout | The MCP caller can time out while the COM worker continues executing | Design cancellation/recovery or explicit busy-state behavior and test a controlled timeout |
 | Closed target document | The in-memory COM proxy can become stale if the user closes the target | Detect stale targets and return a stable error without falling back to another active document |
 

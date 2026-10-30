@@ -85,11 +85,11 @@ The zero verified count is intentional. The repository reports historical succes
 | Tool | Permission | Priority | Current status | Evidence summary | Primary next check |
 |---|---|---:|---|---|---|
 | `corel_status` | read-only | P0 | implemented_unverified | Version/build/active-document members confirmed; v0.6 runtime metadata has non-COM tests | Reproduce the complete v0.6 envelope through an MCP client |
-| `create_document` | mutating | P0 | implemented_unverified | `CreateDocument` and `Page.SetSize` confirmed; historical creation reported | Read back exact page size and target identity |
+| `create_document` | mutating | P0 | implemented_unverified | `CreateDocument`/`SetSize` confirmed; page size/unit/reference readback has fake-COM tests | Reproduce actual readback on a disposable X7 document |
 | `use_active_document` | mutating | P0 | implemented_unverified | `ActiveDocument` confirmed | Test only with approved throwaway document; add checkpoint policy |
-| `add_text` | mutating | P0 | implemented_unverified | `CreateArtisticText` signature confirmed; historical editable text reported | Verify coordinates, charset, font substitution, bounds, and editability |
-| `draw_rectangle` | mutating | P0 | implemented_unverified | `CreateRectangle2` confirmed; historical visible rectangle reported | Read back exact bounds |
-| `draw_ellipse` | mutating | P1 | implemented_unverified | `CreateEllipse2` confirmed | Verify center/radius conversion and bounds |
+| `add_text` | mutating | P0 | implemented_unverified | `CreateArtisticText` confirmed; content/format/bounds readback has fake-COM tests | Verify coordinates, charset, substitution, bounds, and editability live |
+| `draw_rectangle` | mutating | P0 | implemented_unverified | `CreateRectangle2` confirmed; actual-bounds readback has fake-COM tests | Reproduce exact bounds on X7 |
+| `draw_ellipse` | mutating | P1 | implemented_unverified | `CreateEllipse2` confirmed; center conversion/bounds readback has fake-COM tests | Reproduce exact bounds on X7 |
 | `list_objects` | read-only | P0 | implemented_unverified | Page/shape collections and properties confirmed | Test mixed objects, groups, bounds, text, and outline units |
 | `set_fill_color` | mutating | P1 | implemented_unverified | RGB factory and uniform fill confirmed | Read back actual RGB and fill type |
 | `set_outline` | mutating | P1 | implemented_unverified | Outline members confirmed | Establish width units and read back color/width |
@@ -100,7 +100,7 @@ The zero verified count is intentional. The repository reports historical succes
 | `duplicate_object` | mutating | P1 | implemented_unverified | `Shape.Duplicate` confirmed | Verify offset, actual bounds, and copy identity |
 | `import_artwork` | external I/O | P1 | implemented_unverified | `Layer.Import` confirmed | Test safe fixtures per format and imported-object detection |
 | `save_document` | external I/O | P0 | implemented_unverified | Save options, enums, and `SaveAs` confirmed; historical save reported | Reproduce unique CDR save and inspect resulting file/options |
-| `export_pdf` | export | P1 | implemented_unverified | `PublishToPDF` confirmed | Verify file existence/page size and report inherited settings |
+| `export_pdf` | export | P1 | implemented_unverified | `PublishToPDF` confirmed; nonempty-file verification has fake tests | Parse/verify page size and report inherited settings in a live run |
 
 ## Next approved tools and workflows
 

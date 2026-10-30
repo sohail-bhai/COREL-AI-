@@ -80,6 +80,9 @@ class DocumentTargetingTests(unittest.TestCase):
         self.assertEqual(bridge.target_doc.ReferencePoint, 5)
         self.assertTrue(bridge.target_doc.activated)
         self.assertEqual(result["target_document_name"], "Graphic1")
+        self.assertEqual(result["actual_page_size_inches"], {"width": 8.5, "height": 11.0})
+        self.assertEqual(result["unit_code_actual"], 1)
+        self.assertEqual(result["reference_point_actual"], 5)
 
     def test_active_document_binding_requires_exact_true(self) -> None:
         bridge = CorelBridge()

@@ -171,6 +171,52 @@ class CorelBridge:
                 result[key] = None
         return result
 
+    def _shape_bounds_inches(self, doc: Any, shape: Any) -> dict[str, float | None]:
+        result: dict[str, float | None] = {}
+        with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
+            for key, attr in (
+                ("x", "PositionX"),
+                ("y", "PositionY"),
+                ("width", "SizeWidth"),
+                ("height", "SizeHeight"),
+            ):
+                try:
+                    result[key] = round(float(getattr(shape, attr)), 4)
+                except Exception:
+                    result[key] = None
+        return result
+
+    def _text_readback(self, shape: Any) -> dict[str, Any]:
+        try:
+            story = shape.Text.Story
+        except Exception:
+            return {
+                "text": None,
+                "font": None,
+                "size_points": None,
+                "bold": None,
+                "bold_code": None,
+            }
+        text = _safe_attr(story, "Text")
+        font = _safe_attr(story, "Font")
+        size = _safe_attr(story, "Size")
+        bold_code = _safe_attr(story, "Bold")
+        try:
+            size = float(size)
+        except (TypeError, ValueError):
+            size = None
+        try:
+            bold_code = int(bold_code)
+        except (TypeError, ValueError):
+            bold_code = None
+        return {
+            "text": str(text) if text is not None else None,
+            "font": str(font) if font is not None else None,
+            "size_points": size,
+            "bold": bold_code == self.adapter.CDR_TRUE if bold_code is not None else None,
+            "bold_code": bold_code,
+        }
+
     def status(self) -> dict[str, Any]:
         app = self._require_app()
         info: dict[str, Any] = {
@@ -248,11 +294,18 @@ class CorelBridge:
             raise CorelBridgeError(
                 "CorelDRAW X7 could not create/size/bind the document. Full COM error: " + str(exc)
             ) from exc
+        actual_page_size = self._page_dimensions(doc.ActivePage)
         return {
             "created": True,
             "target_document_name": self._safe_target_name(),
             "width_inches_requested": width_in,
             "height_inches_requested": height_in,
+            "actual_page_size_inches": {
+                "width": actual_page_size.get("width_document_units"),
+                "height": actual_page_size.get("height_document_units"),
+            },
+            "unit_code_actual": _safe_int_attr(doc, "Unit"),
+            "reference_point_actual": _safe_int_attr(doc, "ReferencePoint"),
             "target_bound": True
         }
 
@@ -378,8 +431,12 @@ class CorelBridge:
                     self.adapter.CDR_TRUE if bold else self.adapter.CDR_FALSE,
                 )
                 name = self._name_shape(doc, shape, object_name, "AI_Text")
+            actual_text = self._text_readback(shape)
+            actual_bounds = self._shape_bounds_inches(doc, shape)
             return {"created": True, "type": "text", "object_name": name, "text": text,
                     "font": font, "size_points": size_pt, "bold": bold,
+                    "actual_text": actual_text,
+                    "actual_bounds_inches": actual_bounds,
                     "note": "Editable artistic-text object created."}
         except Exception as exc:
             raise CorelBridgeError("CorelDRAW X7 rejected CreateArtisticText or naming. Full COM error: " + str(exc)) from exc
@@ -398,9 +455,11 @@ class CorelBridge:
                     float(x_in), float(y_in), float(width_in), float(height_in)
                 )
                 name = self._name_shape(doc, shape, object_name, "AI_Rectangle")
+            actual_bounds = self._shape_bounds_inches(doc, shape)
             return {"created": True, "type": "rectangle", "object_name": name,
                     "x_inches": x_in, "y_inches": y_in,
-                    "width_inches": width_in, "height_inches": height_in}
+                    "width_inches": width_in, "height_inches": height_in,
+                    "actual_bounds_inches": actual_bounds}
         except Exception as exc:
             raise CorelBridgeError("CorelDRAW X7 rejected CreateRectangle2 or naming. Full COM error: " + str(exc)) from exc
 
@@ -419,9 +478,11 @@ class CorelBridge:
                     float(width_in / 2), float(height_in / 2)
                 )
                 name = self._name_shape(doc, shape, object_name, "AI_Ellipse")
+            actual_bounds = self._shape_bounds_inches(doc, shape)
             return {"created": True, "type": "ellipse", "object_name": name,
                     "x_inches": x_in, "y_inches": y_in,
-                    "width_inches": width_in, "height_inches": height_in}
+                    "width_inches": width_in, "height_inches": height_in,
+                    "actual_bounds_inches": actual_bounds}
         except Exception as exc:
             raise CorelBridgeError("CorelDRAW X7 rejected CreateEllipse2 or naming. Full COM error: " + str(exc)) from exc
 
@@ -717,8 +778,21 @@ class CorelBridge:
             )
         try:
             doc.PublishToPDF(path)
-            return {"exported": True, "path": path,
+            if not os.path.isfile(path):
+                raise CorelBridgeError(
+                    "CorelDRAW returned from PublishToPDF, but the file was not created: " + path,
+                    ErrorCode.COREL_COM_ERROR,
+                )
+            size = os.path.getsize(path)
+            if size <= 0:
+                raise CorelBridgeError(
+                    "CorelDRAW created an empty PDF file: " + path,
+                    ErrorCode.COREL_COM_ERROR,
+                )
+            return {"exported": True, "path": path, "bytes": size,
                     "warning": "PDF settings inherit CorelDRAW preferences; verify page size, fonts, color profile, bleed and output settings."}
+        except CorelBridgeError:
+            raise
         except Exception as exc:
             raise CorelBridgeError("CorelDRAW X7 PDF export failed. Full COM error: " + str(exc)) from exc
 
@@ -727,6 +801,14 @@ def _safe_attr(obj: Any, attr: str) -> Any:
     try:
         return getattr(obj, attr)
     except Exception:
+        return None
+
+
+def _safe_int_attr(obj: Any, attr: str) -> int | None:
+    value = _safe_attr(obj, attr)
+    try:
+        return int(value)
+    except (TypeError, ValueError, OverflowError):
         return None
 
 
