@@ -2,7 +2,7 @@
   "registry_schema_version": 1,
   "tool_schema_version": 1,
   "json_schema_dialect": "https://json-schema.org/draft/2020-12/schema",
-  "catalog_revision": "2026-10-30",
+  "catalog_revision": "2026-10-31",
   "profile_id": "coreldraw-x7-17",
   "status_values": [
     "planned",
@@ -20,8 +20,8 @@
     "external_io"
   ],
   "registry_notes": [
-    "The first 17 records describe the actual MCP surface in corel_operator/server.py.",
-    "Planned records are catalog entries only and are not exposed by the MCP server.",
+    "Records whose implementation.state is registered describe the actual MCP surface in corel_operator/server.py.",
+    "Records whose implementation.state is planned are catalog entries only and are not exposed by the MCP server.",
     "All current tools remain implemented_unverified until a reproducible X7 live-test report is recorded.",
     "Since bridge 0.6.0 every tool returns tool-schema v1: a stable envelope whose data field contains the operation-specific result."
   ],
@@ -4163,7 +4163,9 @@
       "category": "connection",
       "description": "List open documents with safe identity and dirty/path state without changing the active document.",
       "implementation": {
-        "state": "planned"
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.list_open_documents"
       },
       "input_schema": {
         "type": "object",
@@ -4218,15 +4220,18 @@
       "api_requirements": [
         "Application.Documents"
       ],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_inspection.py"
+        ]
       },
       "known_limitations": [
-        "Document session-ID and restart semantics must be designed before implementation."
+        "Document session IDs are process-local and are not preserved after an MCP server restart.",
+        "COM IUnknown identity is used when available; fake/non-COM objects use Python object identity."
       ],
-      "planned_phase": 2,
+      "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v1-envelope"
     },
     {
@@ -4234,7 +4239,9 @@
       "category": "document_inspection",
       "description": "Return identity, path, dirty state, units, page count, and active-page information for the bound target document.",
       "implementation": {
-        "state": "planned"
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.get_document_info"
       },
       "input_schema": {
         "type": "object",
@@ -4265,6 +4272,9 @@
                     "document"
                   ],
                   "properties": {
+                    "document_name": {
+                      "type": "string"
+                    },
                     "document": {
                       "type": "object"
                     }
@@ -4291,15 +4301,17 @@
         "Document.Unit",
         "Document.ActivePage"
       ],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_inspection.py"
+        ]
       },
       "known_limitations": [
-        "Final identity schema depends on the stable document-session design."
+        "Document session identity is stable only for the lifetime of the bridge process."
       ],
-      "planned_phase": 2,
+      "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v1-envelope"
     },
     {
@@ -4307,7 +4319,9 @@
       "category": "page_inspection",
       "description": "List every page in the target document with index, name, orientation, dimensions, and active state.",
       "implementation": {
-        "state": "planned"
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.list_pages"
       },
       "input_schema": {
         "type": "object",
@@ -4338,6 +4352,9 @@
                     "pages"
                   ],
                   "properties": {
+                    "document_name": {
+                      "type": "string"
+                    },
                     "pages": {
                       "type": "array",
                       "items": {
@@ -4367,15 +4384,18 @@
         "Page.SizeWidth",
         "Page.SizeHeight"
       ],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_inspection.py"
+        ]
       },
       "known_limitations": [
-        "Page collection enumeration and orientation enum still need registry records."
+        "Orientation is returned as the native X7 code until the installed enum evidence is expanded.",
+        "Page dimensions and collection behavior still require a live multi-page X7 test."
       ],
-      "planned_phase": 2,
+      "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v1-envelope"
     },
     {
@@ -4383,7 +4403,9 @@
       "category": "page_inspection",
       "description": "Return explicit lower-left, upper-right, center, width, and height values for one page in inches.",
       "implementation": {
-        "state": "planned"
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.get_page_bounds"
       },
       "input_schema": {
         "type": "object",
@@ -4424,6 +4446,9 @@
                     "unit"
                   ],
                   "properties": {
+                    "document_name": {
+                      "type": "string"
+                    },
                     "page_index": {
                       "type": "integer"
                     },
@@ -4450,19 +4475,21 @@
       ],
       "api_requirements": [
         "Document.Pages",
-        "Page.GetBoundingBox",
         "Page.SizeWidth",
         "Page.SizeHeight"
       ],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_inspection.py"
+        ]
       },
       "known_limitations": [
-        "Drawing-origin and facing-page semantics require tests."
+        "Bounds use an explicit page-local bottom-left coordinate space derived from page size.",
+        "Drawing-origin and facing-page semantics require live X7 tests."
       ],
-      "planned_phase": 2,
+      "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v1-envelope"
     },
     {
@@ -4470,7 +4497,9 @@
       "category": "layer_inspection",
       "description": "List page and master layers with visibility, editability, printability, active state, and object counts.",
       "implementation": {
-        "state": "planned"
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.list_layers"
       },
       "input_schema": {
         "type": "object",
@@ -4510,6 +4539,9 @@
                     "layers"
                   ],
                   "properties": {
+                    "document_name": {
+                      "type": "string"
+                    },
                     "page_index": {
                       "type": "integer"
                     },
@@ -4549,15 +4581,18 @@
         "Layer.Shapes",
         "Shapes.Count"
       ],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_inspection.py"
+        ]
       },
       "known_limitations": [
-        "Layer API inventory records will be expanded immediately before implementation."
+        "Uses Page.AllLayers when available and falls back to Page.Layers.",
+        "Master and special-layer semantics require a live multi-page X7 test."
       ],
-      "planned_phase": 2,
+      "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v1-envelope"
     },
     {
@@ -4565,7 +4600,9 @@
       "category": "object_inspection",
       "description": "Inspect one unambiguously selected object's identity, page/layer, type, bounds, transform, text, fill, and outline.",
       "implementation": {
-        "state": "planned"
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.get_object_info"
       },
       "input_schema": {
         "$ref": "#/schema_definitions/object_selector"
@@ -4594,6 +4631,9 @@
                     "object"
                   ],
                   "properties": {
+                    "document_name": {
+                      "type": "string"
+                    },
                     "object": {
                       "type": "object"
                     }
@@ -4625,15 +4665,18 @@
         "Shape.Fill",
         "Shape.Outline"
       ],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_inspection.py"
+        ]
       },
       "known_limitations": [
-        "Final selector will change after stable bridge object IDs are designed."
+        "Selection is currently limited to a unique bridge name or active-page shape index.",
+        "The returned StaticID-derived object ID is not yet accepted as an input selector and requires live persistence testing."
       ],
-      "planned_phase": 2,
+      "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v1-envelope"
     },
     {

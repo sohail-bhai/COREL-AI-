@@ -91,6 +91,42 @@ def corel_status() -> dict:
 
 
 @mcp.tool()
+def list_open_documents() -> dict:
+    """List open CorelDRAW documents without activating, selecting, or binding any of them."""
+    return _tool("list_open_documents", "list_open_documents")
+
+
+@mcp.tool()
+def get_document_info() -> dict:
+    """Inspect identity, path, dirty state, units, and active page for the bound target document."""
+    return _tool("get_document_info", "get_document_info")
+
+
+@mcp.tool()
+def list_pages() -> dict:
+    """List pages and their actual dimensions for the bound target document without changing the active page."""
+    return _tool("list_pages", "list_pages")
+
+
+@mcp.tool()
+def get_page_bounds(page_index: int) -> dict:
+    """Return page-local bottom-left bounds in inches for one page of the bound target document."""
+    return _tool("get_page_bounds", "get_page_bounds", page_index)
+
+
+@mcp.tool()
+def list_layers(page_index: int) -> dict:
+    """List page and master layers with state and object counts without changing the active layer."""
+    return _tool("list_layers", "list_layers", page_index)
+
+
+@mcp.tool()
+def get_object_info(object_name: str = "", shape_index: int = 0) -> dict:
+    """Inspect one object selected unambiguously by bridge name or 1-based active-page shape index."""
+    return _tool("get_object_info", "get_object_info", object_name, shape_index)
+
+
+@mcp.tool()
 def create_document(width_inches: float = 8.27, height_inches: float = 11.69) -> dict:
     """Create and bind a new target document. Subsequent edits/save target this document even if another window is activated."""
     return _tool("create_document", "create_document", width_inches, height_inches)

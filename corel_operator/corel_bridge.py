@@ -34,6 +34,8 @@ class CorelBridge:
         self.prog_id_used: str | None = None
         self.connection_mode: str | None = None
         self.application_info: dict[str, Any] | None = None
+        self._document_sessions: dict[str, str] = {}
+        self._next_document_session = 1
 
     def connect(self) -> dict[str, Any]:
         if os.name != "nt":
@@ -343,6 +345,175 @@ class CorelBridge:
             except Exception:
                 info["page_size"] = None
         return info
+
+    @staticmethod
+    def _com_identity(value: Any) -> str:
+        """Return a process-local identity key without changing COM selection or focus."""
+        ole = _safe_attr(value, "_oleobj_")
+        if ole is not None:
+            try:
+                return f"iunknown:{int(ole.GetIUnknown())}"
+            except Exception:
+                pass
+        return f"python:{id(value)}"
+
+    def _same_com_object(self, left: Any, right: Any) -> bool:
+        return left is not None and right is not None and self._com_identity(left) == self._com_identity(right)
+
+    def _document_session_id(self, document: Any) -> str:
+        key = self._com_identity(document)
+        session_id = self._document_sessions.get(key)
+        if session_id is None:
+            session_id = f"doc-{self._next_document_session:04d}"
+            self._next_document_session += 1
+            self._document_sessions[key] = session_id
+        return session_id
+
+    @staticmethod
+    def _collection_item(collection: Any, index: int) -> Any:
+        try:
+            return collection.Item(index)
+        except Exception:
+            return collection(index)
+
+    def _page_at(self, document: Any, page_index: int) -> Any:
+        if type(page_index) is not int or page_index < 1:
+            raise CorelBridgeError("page_index must be a positive integer.", ErrorCode.INVALID_ARGUMENT)
+        pages = document.Pages
+        count = int(pages.Count)
+        if page_index > count:
+            raise CorelBridgeError(
+                f"Page {page_index} was not found; the target document has {count} page(s).",
+                ErrorCode.OBJECT_NOT_FOUND,
+                {"page_index": page_index, "page_count": count},
+            )
+        return self._collection_item(pages, page_index)
+
+    def _document_summary(self, document: Any, active: Any, target: Any) -> dict[str, Any]:
+        pages = _safe_attr(document, "Pages")
+        page_count = _safe_int_attr(pages, "Count") if pages is not None else None
+        full_path = _safe_string_attr(document, "FullFileName")
+        return {
+            "session_id": self._document_session_id(document),
+            "name": _safe_string_attr(document, "Name"),
+            "full_path": full_path or None,
+            "saved": bool(full_path),
+            "dirty": _safe_bool_attr(document, "Dirty"),
+            "page_count": page_count,
+            "unit_code": _safe_int_attr(document, "Unit"),
+            "unit_name": self.adapter.unit_name(_safe_int_attr(document, "Unit")),
+            "is_active": self._same_com_object(document, active),
+            "is_bound_target": self._same_com_object(document, target),
+        }
+
+    def list_open_documents(self) -> dict[str, Any]:
+        app = self._require_app()
+        documents = app.Documents
+        active = self._active_document()
+        result = []
+        for index in range(1, int(documents.Count) + 1):
+            document = self._collection_item(documents, index)
+            summary = self._document_summary(document, active, self.target_doc)
+            summary["collection_index"] = index
+            result.append(summary)
+        return {"documents": result}
+
+    def get_document_info(self) -> dict[str, Any]:
+        document = self._target_document()
+        summary = self._document_summary(document, self._active_document(), document)
+        active_page = _safe_attr(document, "ActivePage")
+        summary["active_page_index"] = _safe_int_attr(active_page, "Index")
+        summary["active_page_name"] = _safe_string_attr(active_page, "Name")
+        return {"document_name": _safe_string_attr(document, "Name"), "document": summary}
+
+    def list_pages(self) -> dict[str, Any]:
+        document = self._target_document()
+        active_page = _safe_attr(document, "ActivePage")
+        pages = document.Pages
+        result = []
+        with self._in_inches(document):
+            for index in range(1, int(pages.Count) + 1):
+                page = self._collection_item(pages, index)
+                dimensions = self._page_dimensions(page)
+                result.append({
+                    "page_index": _safe_int_attr(page, "Index") or index,
+                    "name": _safe_string_attr(page, "Name"),
+                    "orientation_code": _safe_int_attr(page, "Orientation"),
+                    "width_inches": dimensions.get("width_document_units"),
+                    "height_inches": dimensions.get("height_document_units"),
+                    "is_active": self._same_com_object(page, active_page),
+                })
+        return {"document_name": _safe_string_attr(document, "Name"), "pages": result}
+
+    def get_page_bounds(self, page_index: int) -> dict[str, Any]:
+        document = self._target_document()
+        page = self._page_at(document, page_index)
+        with self._in_inches(document):
+            dimensions = self._page_dimensions(page)
+        width = dimensions.get("width_document_units")
+        height = dimensions.get("height_document_units")
+        if width is None or height is None:
+            raise CorelBridgeError("Could not read the requested page dimensions.", ErrorCode.COREL_COM_ERROR)
+        return {
+            "document_name": _safe_string_attr(document, "Name"),
+            "page_index": page_index,
+            "bounds": {
+                "lower_left": {"x": 0.0, "y": 0.0},
+                "upper_right": {"x": width, "y": height},
+                "center": {"x": width / 2.0, "y": height / 2.0},
+                "width": width,
+                "height": height,
+                "coordinate_space": "page_local_bottom_left",
+            },
+            "unit": "inch",
+        }
+
+    def list_layers(self, page_index: int) -> dict[str, Any]:
+        document = self._target_document()
+        page = self._page_at(document, page_index)
+        active_layer = _safe_attr(page, "ActiveLayer")
+        layers = _safe_attr(page, "AllLayers")
+        if layers is None:
+            layers = page.Layers
+        result = []
+        for index in range(1, int(layers.Count) + 1):
+            layer = self._collection_item(layers, index)
+            shapes = _safe_attr(layer, "Shapes")
+            result.append({
+                "collection_index": index,
+                "index": _safe_int_attr(layer, "Index"),
+                "absolute_index": _safe_int_attr(layer, "AbsoluteIndex"),
+                "name": _safe_string_attr(layer, "Name"),
+                "visible": _safe_bool_attr(layer, "Visible"),
+                "editable": _safe_bool_attr(layer, "Editable"),
+                "printable": _safe_bool_attr(layer, "Printable"),
+                "master": _safe_bool_attr(layer, "Master"),
+                "is_special": _safe_bool_attr(layer, "IsSpecialLayer"),
+                "object_count": _safe_int_attr(shapes, "Count") if shapes is not None else None,
+                "is_active": self._same_com_object(layer, active_layer),
+            })
+        return {
+            "document_name": _safe_string_attr(document, "Name"),
+            "page_index": page_index,
+            "layers": result,
+        }
+
+    def get_object_info(self, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+        document = self._target_document()
+        shape = self._find_shape(document, object_name, shape_index)
+        identity = self._shape_identity(shape)
+        static_id = identity.get("static_id")
+        document_session_id = self._document_session_id(document)
+        identity["document_session_id"] = document_session_id
+        identity["object_id"] = (
+            f"{document_session_id}:shape:{static_id}" if static_id is not None else None
+        )
+        identity["shape_index"] = self._index_for_shape(document, shape)
+        identity["bounds_inches"] = self._shape_bounds_inches(document, shape)
+        identity["text"] = self._text_readback(shape)
+        identity["fill"] = self._fill_readback(shape)
+        identity["outline"] = self._outline_readback(shape)
+        return {"document_name": _safe_string_attr(document, "Name"), "object": identity}
 
     def create_document(self, width_in: float = 8.27, height_in: float = 11.69) -> dict[str, Any]:
         if not (0 < width_in <= 200 and 0 < height_in <= 200):
@@ -896,6 +1067,16 @@ def _safe_int_attr(obj: Any, attr: str) -> int | None:
     try:
         return int(value)
     except (TypeError, ValueError, OverflowError):
+        return None
+
+
+def _safe_bool_attr(obj: Any, attr: str) -> bool | None:
+    value = _safe_attr(obj, attr)
+    if value is None:
+        return None
+    try:
+        return bool(value)
+    except Exception:
         return None
 
 

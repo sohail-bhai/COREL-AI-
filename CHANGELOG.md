@@ -10,6 +10,9 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 - A separately authorized CorelDRAW X7 regression that creates only a new disposable document, exercises the existing editing operations with synthetic content, uses unique CDR/PDF paths, and writes a dated review report.
 - Live-test report guidance under `docs/test-reports/`, including explicit manual editability and PDF-review requirements.
+- Six read-only inspection tools: `list_open_documents`, `get_document_info`, `list_pages`, `get_page_bounds`, `list_layers`, and `get_object_info`.
+- Process-local document session IDs and StaticID-derived object IDs, both conservatively documented as requiring live persistence tests.
+- Fake-COM coverage for multi-document identity, bound-target inspection, multi-page dimensions, page-local bounds, page/master-layer state, and combined object readback.
 
 ## [0.6.0] - 2026-10-30
 

@@ -11,7 +11,7 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 75 tests
+Ran 83 tests
 OK (skipped=2)
 ```
 
@@ -29,6 +29,7 @@ Coverage includes:
 - adapter constants/capability status and connection-free static diagnostics;
 - document/page, primitive/text bounds, text-format, and PDF-file readback using fake COM objects;
 - native RGB/fill/outline readback plus StaticID/layer/page identity for list, rename, duplicate, and import operations;
+- read-only document, page, layer, and single-object inspection using fake multi-document COM collections;
 - `corel_status` runtime metadata using a fake Application object.
 
 Temporary path-safety fixtures are created under the operating system's `opencode` temporary directory and removed by the tests.
@@ -45,7 +46,7 @@ The validator checks server/registry tool parity, API/evidence references, enum/
 
 ## Guarded live test
 
-`tests/integration/test_corel_live.py` is skipped by default. It currently contains only a read-only status/profile check.
+`tests/integration/test_corel_live.py` is skipped by default. Its read-only gate checks status/profile metadata and enumerates open documents without binding a target.
 
 Run it only when the user explicitly wants to attach to or launch CorelDRAW X7:
 

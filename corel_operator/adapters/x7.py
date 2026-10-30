@@ -113,6 +113,42 @@ class CorelX7Adapter:
             "X7 version and document-status properties are documented and type-library confirmed.",
             ("Application.Version", "Application.ActiveDocument"),
         ),
+        "document.list_open": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Application.Documents is available; process-local identity and closure behavior need live tests.",
+            ("Application.Documents", "Document.Name", "Document.FullFileName"),
+        ),
+        "document.inspect": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Document identity, state, units, pages, and active-page members are type-library confirmed.",
+            ("Document.Name", "Document.Dirty", "Document.Pages", "Document.ActivePage"),
+        ),
+        "page.list": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Page collection and size members are available; multi-page behavior needs live tests.",
+            ("Document.Pages", "Page.Index", "Page.SizeWidth", "Page.SizeHeight"),
+        ),
+        "page.bounds": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Page-local bounds can be derived from size; facing-page semantics need live tests.",
+            ("Page.SizeWidth", "Page.SizeHeight"),
+        ),
+        "layer.list": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Page layer collections and basic layer state members are type-library confirmed.",
+            ("Page.Layers", "Page.AllLayers", "Layer.Name", "Layer.Shapes"),
+        ),
+        "object.inspect": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Shape identity, geometry, text, fill, and outline members are available; nesting remains limited.",
+            ("Shape.Name", "Shape.StaticID", "Shape.Fill", "Shape.Outline"),
+        ),
         "document.create": CapabilitySupport(
             True,
             "implemented_unverified",

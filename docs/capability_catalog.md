@@ -1,12 +1,12 @@
 # CorelDRAW X7 Automation Capability Catalog
 
-**Catalog revision:** 2026-10-30
+**Catalog revision:** 2026-10-31
 
 **Profile:** `coreldraw-x7-17`
 
 **Target:** CorelDRAW X7 / major version 17 / reported build 17.0.0.491
 
-**Completeness:** Partial, focused on the current v0.6 bridge
+**Completeness:** Partial, focused on the current v0.6 bridge and the unreleased inspection slice
 
 **Machine-readable registry:** `catalog/mcp_tool_registry.json`
 
@@ -73,8 +73,8 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic tools — `implemented_unverified` | 17 |
-| Planned atomic/workflow tools — `planned` | 12 |
+| Registered atomic tools — `implemented_unverified` | 23 |
+| Planned atomic/workflow tools — `planned` | 6 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |
 
@@ -101,17 +101,17 @@ The zero verified count is intentional. The repository reports historical succes
 | `import_artwork` | external I/O | P1 | implemented_unverified | `Layer.Import` plus imported identity has fake tests | Test safe fixtures per format and selection/fallback detection live |
 | `save_document` | external I/O | P0 | implemented_unverified | Save options, enums, and `SaveAs` confirmed; historical save reported | Reproduce unique CDR save and inspect resulting file/options |
 | `export_pdf` | export | P1 | implemented_unverified | `PublishToPDF` confirmed; nonempty-file verification has fake tests | Parse/verify page size and report inherited settings in a live run |
+| `list_open_documents` | read-only | P1 | implemented_unverified | Process-local COM identity and no-focus-change behavior have fake-COM tests | Verify identity while opening, saving, and closing X7 documents |
+| `get_document_info` | read-only | P1 | implemented_unverified | Bound-target identity/path/dirty/unit/page fields have fake-COM tests | Test saved and unsaved disposable X7 documents |
+| `list_pages` | read-only | P1 | implemented_unverified | Multi-page enumeration/dimensions have fake-COM tests | Test native orientation codes and dimensions in X7 |
+| `get_page_bounds` | read-only | P1 | implemented_unverified | Explicit page-local bounds calculation has fake-COM tests | Test drawing-origin and facing-page behavior in X7 |
+| `list_layers` | read-only | P1 | implemented_unverified | Layer state/count enumeration has fake-COM tests | Test page, master, and special layers in X7 |
+| `get_object_info` | read-only | P1 | implemented_unverified | Identity, bounds, text, fill, and outline composition has fake-COM tests | Test StaticID persistence and nested-object limitations in X7 |
 
 ## Next approved tools and workflows
 
 The registry contains draft records for:
 
-- `list_open_documents`
-- `get_document_info`
-- `list_pages`
-- `get_page_bounds`
-- `list_layers`
-- `get_object_info`
 - `find_objects`
 - `get_text_properties`
 - `get_fill`
@@ -120,7 +120,7 @@ The registry contains draft records for:
 - `create_chest_number_batch`
 - `arrange_n_up_print_sheet`
 
-These entries are catalog records only. They do not become available to an AI client until implemented in the bridge/server, tested, and documented.
+These remaining entries are catalog records only. They do not become available to an AI client until implemented in the bridge/server, tested, and documented.
 
 ## Important findings from this catalog pass
 

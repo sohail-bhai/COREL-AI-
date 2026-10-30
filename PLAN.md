@@ -20,7 +20,7 @@ The implementation must remain evidence-based. A CorelDRAW operation is not cons
 | MCP connection | Antigravity reportedly called `corel_status` successfully |
 | COM threading | One dedicated serialized COM worker thread is implemented |
 | Document safety | New bridge-created documents are the default target; existing documents require explicit binding |
-| Existing MCP surface | 17 tools are registered |
+| Existing MCP surface | 23 tools are registered: the original 17 plus six read-only inspection tools |
 | Historically demonstrated operations | Status, document creation, rectangle, editable text, and CDR save |
 | Remaining v0.5 operations | Implemented but mostly not verified live |
 | Automated tests | None; `tests/` is currently empty |
@@ -224,19 +224,19 @@ Specific issues to verify or improve:
 
 Implement the read layer needed for reliable planning and correction:
 
-- `list_open_documents`
-- `get_active_document_info`
-- `get_document_info`
-- `list_pages`
-- `get_page_bounds`
-- `list_layers`
-- `get_layer_info`
-- `get_object_info`
-- `find_objects`
-- `get_object_bounds`
-- `get_text_properties`
-- `get_fill`
-- `get_outline`
+- [x] `list_open_documents`
+- [ ] `get_active_document_info`
+- [x] `get_document_info`
+- [x] `list_pages`
+- [x] `get_page_bounds`
+- [x] `list_layers`
+- [ ] `get_layer_info`
+- [x] `get_object_info`
+- [ ] `find_objects`
+- [ ] `get_object_bounds`
+- [ ] `get_text_properties`
+- [ ] `get_fill`
+- [ ] `get_outline`
 
 Identity requirements:
 
@@ -362,7 +362,7 @@ Work should begin with these small batches:
 | 4 | X7 adapter and diagnostics | Complete | Version-specific connection, runtime details, centralized verified constants |
 | 5 | Existing-tool hardening | In progress | P0 creation/PDF and appearance/identity readback complete; guarded regression implemented but not run live |
 | 6 | Guarded live regression | Ready for explicit authorization | Recorded disposable-document test of the existing tool set; dated report format is prepared |
-| 7 | Inspection vertical slice | Queued | Document, page, layer, and single-object inspection tools |
+| 7 | Inspection vertical slice | In progress | Six document/page/layer/single-object tools implemented with fake-COM tests; live read-only evidence remains |
 | 8 | First workflow vertical slice | Queued | Chest-number sequence plus sheet-layout calculation |
 
 Each batch should end with tests, documentation updates, a catalog status update, and a focused commit.
@@ -406,4 +406,4 @@ The operator must then complete that workflow with deterministic tool calls, evi
 
 ## 18. Next action
 
-With explicit user authorization, run **Immediate Execution Queue — Batch 6: Guarded live regression**, review the generated CDR/PDF and dated report, and update evidence without marking unchecked capabilities verified. Without that authorization, begin the Phase 2 read-only inspection vertical slice.
+With explicit user authorization, run **Immediate Execution Queue — Batch 6: Guarded live regression** and review its artifacts. Continue Batch 7 by live-testing the new read-only inspection tools on a disposable document, then implement `get_active_document_info`, `get_layer_info`, and bounded object search without marking unchecked capabilities verified.

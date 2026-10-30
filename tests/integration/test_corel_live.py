@@ -30,6 +30,8 @@ class CorelReadOnlyLiveTests(unittest.TestCase):
         self.assertTrue(status["connected"])
         self.assertEqual(status["version_major"], 17)
         self.assertFalse(status["target_document_bound"])
+        documents = bridge.list_open_documents()["documents"]
+        self.assertTrue(all(not document["is_bound_target"] for document in documents))
 
 
 @unittest.skipUnless(

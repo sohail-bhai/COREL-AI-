@@ -59,6 +59,29 @@ class ServerContractTests(unittest.TestCase):
         self.assertEqual(result["error"]["code"], "NO_TARGET_DOCUMENT")
         self.assertEqual(fake.calls, [("list_objects", (200,), {})])
 
+    def test_inspection_wrappers_dispatch_expected_methods_and_arguments(self) -> None:
+        fake = _FakeDispatcher({})
+        server.dispatcher = fake
+
+        server.list_open_documents()
+        server.get_document_info()
+        server.list_pages()
+        server.get_page_bounds(2)
+        server.list_layers(3)
+        server.get_object_info("headline", 0)
+
+        self.assertEqual(
+            fake.calls,
+            [
+                ("list_open_documents", (), {}),
+                ("get_document_info", (), {}),
+                ("list_pages", (), {}),
+                ("get_page_bounds", (2,), {}),
+                ("list_layers", (3,), {}),
+                ("get_object_info", ("headline", 0), {}),
+            ],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
