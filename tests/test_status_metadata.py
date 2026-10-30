@@ -32,6 +32,8 @@ class StatusMetadataTests(unittest.TestCase):
         self.assertEqual(status["bridge_version"], BRIDGE_VERSION)
         self.assertEqual(status["tool_schema_version"], TOOL_SCHEMA_VERSION)
         self.assertEqual(status["capability_profile_id"], CAPABILITY_PROFILE_ID)
+        self.assertEqual(status["capability_profile"]["preferred_prog_id"], "CorelDRAW.Application.17")
+        self.assertEqual(status["capability_profile"]["verified_capability_count"], 0)
         self.assertEqual(status["prog_id_used"], "CorelDRAW.Application")
         self.assertEqual(status["connection_mode"], "GetActiveObject")
         self.assertEqual(status["version_major"], 17)

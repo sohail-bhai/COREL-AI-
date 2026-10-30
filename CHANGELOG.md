@@ -22,9 +22,11 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 - Tool-schema v1 success/error envelope with operation duration, warnings, target identity when known, and operation-specific `data`.
 - Stable expected error codes and safe fallback handling for unexpected exceptions.
 - `corel_status` runtime metadata for bridge, schema, profile, ProgID, connection mode, Python, MCP SDK, pywin32, and CorelDRAW version/build.
-- Fifty default tests covering versions, result envelopes, schemas/examples, validation, units, targeting, paths, dispatcher behavior, and status metadata; one live CorelDRAW test is skipped unless explicitly enabled.
+- Sixty-two default tests covering versions, result envelopes, schemas/examples, validation, units, targeting, paths, dispatcher behavior, X7 connection strategy, static diagnostics, and status metadata; one live CorelDRAW test is skipped unless explicitly enabled.
 - v0.6 upgrade guide documenting the response migration and complete package-copy requirement.
 - Persistent harness-incident log and future-agent safeguards for recurring Azure cross-resource item failures.
+- CorelDRAW X7 compatibility adapter with explicit ProgID preference, major-version enforcement, centralized verified constants, and evidence-backed capability support.
+- `--static-only` diagnostics for runtime, profile, dependency, and COM-registration checks without connecting to CorelDRAW.
 
 ### Changed
 
@@ -33,6 +35,7 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 - Removed the unconfirmed dynamic `Application.Caption` read from `corel_status`.
 - Added controlled `CorelDispatcher.close()` behavior for tests and future shutdown handling.
 - Rejected Boolean RGB channel values instead of accepting them as Python integers.
+- Changed connection discovery to prefer `CorelDRAW.Application.17`, with the generic ProgID retained only as a validated fallback.
 
 ### Security
 

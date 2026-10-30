@@ -260,7 +260,15 @@
           "bridge_version": "0.6.0",
           "tool_schema_version": 1,
           "capability_profile_id": "coreldraw-x7-17",
-          "prog_id_used": "CorelDRAW.Application",
+          "capability_profile": {
+            "profile_id": "coreldraw-x7-17",
+            "product_major": 17,
+            "preferred_prog_id": "CorelDRAW.Application.17",
+            "capability_count": 18,
+            "available_capability_count": 17,
+            "verified_capability_count": 0
+          },
+          "prog_id_used": "CorelDRAW.Application.17",
           "connection_mode": "GetActiveObject",
           "runtime": {
             "python_version": "3.11.9",
@@ -1537,6 +1545,7 @@
                     "bridge_version",
                     "tool_schema_version",
                     "capability_profile_id",
+                    "capability_profile",
                     "prog_id_used",
                     "connection_mode",
                     "runtime",
@@ -1579,6 +1588,26 @@
                     },
                     "capability_profile_id": {
                       "const": "coreldraw-x7-17"
+                    },
+                    "capability_profile": {
+                      "type": "object",
+                      "required": [
+                        "profile_id",
+                        "product_major",
+                        "preferred_prog_id",
+                        "capability_count",
+                        "available_capability_count",
+                        "verified_capability_count"
+                      ],
+                      "properties": {
+                        "profile_id": {"const": "coreldraw-x7-17"},
+                        "product_major": {"const": 17},
+                        "preferred_prog_id": {"const": "CorelDRAW.Application.17"},
+                        "capability_count": {"type": "integer", "minimum": 1},
+                        "available_capability_count": {"type": "integer", "minimum": 0},
+                        "verified_capability_count": {"type": "integer", "minimum": 0}
+                      },
+                      "additionalProperties": true
                     },
                     "prog_id_used": {
                       "type": [
@@ -1690,8 +1719,8 @@
         ]
       },
       "known_limitations": [
-        "Connection still uses the generic ProgID until the X7 adapter batch prefers CorelDRAW.Application.17.",
-        "Runtime metadata is implemented but still needs a recorded live MCP call."
+        "The explicit X7 connection strategy has fake-COM coverage but still needs a recorded live MCP call.",
+        "The generic ProgID remains a fallback and is accepted only after major-version validation."
       ],
       "introduced": "0.4-or-earlier",
       "result_contract": "tool-schema-v1-envelope"

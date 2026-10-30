@@ -106,7 +106,7 @@
       "status": "registered_locally",
       "used_by": [],
       "evidence": ["installed_com_registration"],
-      "notes": ["Preferred explicit ProgID for the future X7 compatibility adapter.", "The current bridge does not yet use this explicit ProgID."]
+      "notes": ["Preferred and attempted first by the X7 compatibility adapter.", "Connected applications are rejected unless major version 17 is detected."]
     },
     {
       "id": "COM.ProgID.CorelDRAW.Application",
@@ -117,7 +117,7 @@
       "status": "registered_locally",
       "used_by": ["corel_status", "all_current_tools"],
       "evidence": ["installed_com_registration", "prototype_source"],
-      "notes": ["Current bridge uses GetActiveObject/Dispatch with the generic ProgID.", "A future multi-version installation must not assume generic CurVer still targets X7."]
+      "notes": ["Retained as a fallback after the explicit X7 ProgID.", "The adapter validates major version 17 instead of trusting generic CurVer."]
     },
     {
       "id": "Application.ActiveDocument",

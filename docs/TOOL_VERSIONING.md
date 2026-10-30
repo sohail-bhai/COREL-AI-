@@ -65,6 +65,8 @@ Profile metadata must include:
 
 A future CorelDRAW version receives a different profile and adapter. Do not scatter version checks through tool implementations or assume a newer version behaves identically.
 
+The current implementation is `corel_operator/adapters/x7.py`. It owns ProgID order, major-version validation, verified X7 constants, unit names, and capability support details. Individual tools consume the adapter rather than duplicating version checks.
+
 ## 4. Catalog schema versions
 
 Each machine-readable catalog carries its own format version:

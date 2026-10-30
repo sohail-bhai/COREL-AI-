@@ -11,7 +11,7 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 50 tests
+Ran 62 tests
 OK (skipped=1)
 ```
 
@@ -25,6 +25,8 @@ Coverage includes:
 - protected target-document behavior using fake COM objects;
 - import extension/size checks and output overwrite refusal;
 - dedicated dispatcher-thread execution, exception propagation, and shutdown;
+- explicit X7 ProgID preference, generic fallback, and wrong-major rejection;
+- adapter constants/capability status and connection-free static diagnostics;
 - `corel_status` runtime metadata using a fake Application object.
 
 Temporary path-safety fixtures are created under the operating system's `opencode` temporary directory and removed by the tests.

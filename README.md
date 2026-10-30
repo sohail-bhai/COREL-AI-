@@ -24,7 +24,14 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- Fifty default tests, one guarded live-status test, and a catalog consistency validator.
+- Sixty-two default tests, one guarded live-status test, and a catalog consistency validator.
+- An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
+
+Run static diagnostics without connecting to CorelDRAW:
+
+```powershell
+.\.venv\Scripts\python.exe -m corel_operator.diagnostics --static-only
+```
 
 Tool results now use this shape:
 

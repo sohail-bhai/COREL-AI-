@@ -13,24 +13,27 @@ from importlib import metadata
 from pathlib import Path
 from typing import Any, Iterator
 
+from .adapters import CorelX7Adapter
 from .errors import CorelBridgeError, ErrorCode
 from .version import BRIDGE_VERSION, CAPABILITY_PROFILE_ID, TOOL_SCHEMA_VERSION
 
 
 class CorelBridge:
-    CDR_INCH = 1
-    CDR_BOTTOM_LEFT = 5
+    CDR_INCH = CorelX7Adapter.CDR_INCH
+    CDR_BOTTOM_LEFT = CorelX7Adapter.CDR_BOTTOM_LEFT
     MAX_IMPORT_BYTES = 250 * 1024 * 1024
     ALLOWED_IMPORT_EXTENSIONS = {
         ".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".gif",
         ".svg", ".pdf", ".eps", ".ai", ".wmf", ".emf", ".cmx"
     }
 
-    def __init__(self) -> None:
+    def __init__(self, adapter: CorelX7Adapter | None = None) -> None:
+        self.adapter = adapter or CorelX7Adapter()
         self.app: Any | None = None
         self.target_doc: Any | None = None
         self.prog_id_used: str | None = None
         self.connection_mode: str | None = None
+        self.application_info: dict[str, Any] | None = None
 
     def connect(self) -> dict[str, Any]:
         if os.name != "nt":
@@ -46,21 +49,29 @@ class CorelBridge:
                 ErrorCode.COREL_COM_ERROR,
             ) from exc
 
-        errors = []
-        prog_id = "CorelDRAW.Application"
-        for mode in ("GetActiveObject", "Dispatch"):
+        errors: list[str] = []
+        unsupported: list[CorelBridgeError] = []
+        for mode, prog_id in self.adapter.CONNECTION_CANDIDATES:
             try:
-                self.app = (
+                candidate = (
                     win32com.client.GetActiveObject(prog_id)
                     if mode == "GetActiveObject"
                     else win32com.client.Dispatch(prog_id)
                 )
+                application_info = self.adapter.validate_application(candidate, prog_id)
+                self.app = candidate
                 self.prog_id_used = prog_id
                 self.connection_mode = mode
+                self.application_info = application_info
                 break
+            except CorelBridgeError as exc:
+                unsupported.append(exc)
+                errors.append(f"{mode}({prog_id}): {exc}")
             except Exception as exc:
-                errors.append(f"{mode}: {exc}")
+                errors.append(f"{mode}({prog_id}): {exc}")
         if self.app is None:
+            if unsupported:
+                raise unsupported[-1]
             raise CorelBridgeError(
                 "Could not connect to CorelDRAW. Open CorelDRAW and retry. Details: "
                 + " | ".join(errors),
@@ -167,6 +178,7 @@ class CorelBridge:
             "bridge_version": BRIDGE_VERSION,
             "tool_schema_version": TOOL_SCHEMA_VERSION,
             "capability_profile_id": CAPABILITY_PROFILE_ID,
+            "capability_profile": self.adapter.profile_summary(),
             "prog_id_used": self.prog_id_used,
             "connection_mode": self.connection_mode,
             "runtime": {
@@ -202,12 +214,7 @@ class CorelBridge:
                 info["page_count"] = None
             try:
                 info["unit_code"] = int(inspected.Unit)
-                info["unit_name"] = {
-                    0: "tenth-micron", 1: "inch", 2: "foot", 3: "millimeter",
-                    4: "centimeter", 5: "pixel", 6: "mile", 7: "meter",
-                    8: "kilometer", 9: "didot", 10: "agate", 11: "yard",
-                    12: "pica", 13: "cicero", 14: "point", 15: "Q", 16: "H"
-                }.get(info["unit_code"], "unknown")
+                info["unit_name"] = self.adapter.unit_name(info["unit_code"])
             except Exception:
                 info["unit_code"] = None
                 info["unit_name"] = None
@@ -364,8 +371,11 @@ class CorelBridge:
         try:
             with self._in_inches(doc):
                 shape = layer.CreateArtisticText(
-                    float(x_in), float(y_in), str(text), 0, 0, str(font),
-                    float(size_pt), -1 if bold else 0
+                    float(x_in), float(y_in), str(text),
+                    self.adapter.CDR_LANGUAGE_NONE,
+                    self.adapter.CDR_CHARSET_ANSI,
+                    str(font), float(size_pt),
+                    self.adapter.CDR_TRUE if bold else self.adapter.CDR_FALSE,
                 )
                 name = self._name_shape(doc, shape, object_name, "AI_Text")
             return {"created": True, "type": "text", "object_name": name, "text": text,
@@ -677,9 +687,9 @@ class CorelBridge:
         try:
             app = self._require_app()
             options = app.CreateStructSaveAsOptions()
-            options.Filter = 1795          # cdrCDR
-            options.Version = 0            # cdrCurrentVersion
-            options.Range = 0              # cdrAllPages
+            options.Filter = self.adapter.CDR_FILTER_CDR
+            options.Version = self.adapter.CDR_CURRENT_VERSION
+            options.Range = self.adapter.CDR_ALL_PAGES
             options.EmbedICCProfile = False
             options.EmbedVBAProject = False
             options.IncludeCMXData = False

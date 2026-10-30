@@ -13,6 +13,7 @@ class ToolSchemaTests(unittest.TestCase):
         self.assertEqual(counts["registry_records"], 30)
         self.assertEqual(counts["matrix_rows"], 30)
         self.assertEqual(counts["examples_checked"], 90)
+        self.assertEqual(counts["adapter_capabilities"], 18)
         self.assertGreaterEqual(counts["inventory_members"], 88)
 
 

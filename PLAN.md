@@ -132,13 +132,13 @@ Testing requirements:
 - Each live run must use a newly created disposable document and unique output directory.
 - Store a dated, non-confidential test report under `docs/test-reports/`.
 
-### 1.4 Introduce the X7 compatibility boundary
+### 1.4 Introduce the X7 compatibility boundary — completed 2026-10-30
 
-- Prefer the explicit `CorelDRAW.Application.17` ProgID for X7 and report the ProgID actually used.
-- Detect and reject or clearly report an unexpected running major version.
-- Centralize verified X7 enum values and method differences.
-- Add a capability check such as `supports(capability_name)` with evidence/status.
-- Keep version checks out of individual tools wherever possible.
+- [x] Prefer the explicit `CorelDRAW.Application.17` ProgID for X7 and report the ProgID actually used.
+- [x] Detect and reject or clearly report an unexpected running major version.
+- [x] Centralize verified X7 enum values and method differences.
+- [x] Add a capability check such as `supports(capability_name)` with evidence/status.
+- [x] Keep version checks out of individual tools wherever possible.
 
 ### 1.5 Standardize results, errors, and operation records — result/error contract completed; persistent operation logging remains
 
@@ -349,8 +349,8 @@ Work should begin with these small batches:
 | 1 | Catalog foundation | Complete | Required catalog files containing truthful records for current tools |
 | 2 | Version and result contract | Complete | Bridge/schema/profile versions plus stable structured errors |
 | 3 | Unit-test foundation | Complete | Schema, validation, units, targeting, paths, and dispatcher tests |
-| 4 | X7 adapter and diagnostics | Next | Version-specific connection, runtime details, centralized verified constants |
-| 5 | Existing-tool hardening | Queued | Actual-state readback and fixes identified by unit tests |
+| 4 | X7 adapter and diagnostics | Complete | Version-specific connection, runtime details, centralized verified constants |
+| 5 | Existing-tool hardening | Next | Actual-state readback and fixes identified by unit tests |
 | 6 | Guarded live regression | Queued | Recorded disposable-document test of the existing tool set |
 | 7 | Inspection vertical slice | Queued | Document, page, layer, and single-object inspection tools |
 | 8 | First workflow vertical slice | Queued | Chest-number sequence plus sheet-layout calculation |
@@ -396,4 +396,4 @@ The operator must then complete that workflow with deterministic tool calls, evi
 
 ## 18. Next action
 
-Start **Immediate Execution Queue — Batch 4: X7 adapter and diagnostics**. Prefer and verify the explicit X7 ProgID, reject unexpected major versions, centralize verified constants, and expose capability support without changing the default no-live-test policy.
+Start **Immediate Execution Queue — Batch 5: Existing-tool hardening**. Add actual-state readback and targeted fixes for the safest P0 operations, beginning with document creation and primitive bounds, while keeping live mutation tests explicitly gated.

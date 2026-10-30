@@ -16,6 +16,7 @@ CATALOG_DIR = ROOT / "catalog"
 sys.path.insert(0, str(ROOT))
 
 from corel_operator.errors import ErrorCode  # noqa: E402
+from corel_operator.adapters import CorelX7Adapter  # noqa: E402
 from corel_operator.version import (  # noqa: E402
     BRIDGE_VERSION,
     CAPABILITY_PROFILE_ID,
@@ -248,6 +249,34 @@ def validate() -> dict[str, int]:
     if not isinstance(enums, dict) or not enums:
         raise ValueError("enum_reference.json must contain a non-empty enums object")
 
+    expected_constants = {
+        ("cdrUnit", "values", "cdrInch"): CorelX7Adapter.CDR_INCH,
+        ("cdrReferencePoint", "values", "cdrBottomLeft"): CorelX7Adapter.CDR_BOTTOM_LEFT,
+        ("cdrFilter", "values_in_current_bridge", "cdrAutoSense"): CorelX7Adapter.CDR_FILTER_AUTO_SENSE,
+        ("cdrFilter", "values_in_current_bridge", "cdrCDR"): CorelX7Adapter.CDR_FILTER_CDR,
+        ("cdrFileVersion", "values_in_current_bridge", "cdrCurrentVersion"): CorelX7Adapter.CDR_CURRENT_VERSION,
+        ("cdrExportRange", "values", "cdrAllPages"): CorelX7Adapter.CDR_ALL_PAGES,
+        ("cdrTriState", "values", "cdrTrue"): CorelX7Adapter.CDR_TRUE,
+        ("cdrTriState", "values", "cdrFalse"): CorelX7Adapter.CDR_FALSE,
+        ("cdrTextLanguage", "values_in_current_bridge", "cdrLanguageNone"): CorelX7Adapter.CDR_LANGUAGE_NONE,
+        ("cdrTextCharSet", "values_relevant_to_current_bridge", "cdrCharSetANSI"): CorelX7Adapter.CDR_CHARSET_ANSI,
+    }
+    for (enum_name, values_key, value_name), expected in expected_constants.items():
+        actual = enums.get(enum_name, {}).get(values_key, {}).get(value_name)
+        if actual != expected:
+            raise ValueError(
+                f"Adapter constant {value_name}={expected!r} differs from enum catalog {actual!r}"
+            )
+
+    adapter_capabilities = CorelX7Adapter.capabilities()
+    for capability, details in adapter_capabilities.items():
+        unknown_evidence = set(details["evidence"]) - set(member_ids)
+        if unknown_evidence:
+            raise ValueError(
+                f"Adapter capability {capability} references unknown API members: "
+                f"{sorted(unknown_evidence)}"
+            )
+
     return {
         "registered_tools": len(registered_names),
         "registry_records": len(tools),
@@ -256,6 +285,7 @@ def validate() -> dict[str, int]:
         "enum_groups": len(enums),
         "schemas_checked": len(tools) * 2 + len(schema_definitions),
         "examples_checked": len(tools) * 3,
+        "adapter_capabilities": len(adapter_capabilities),
     }
 
 

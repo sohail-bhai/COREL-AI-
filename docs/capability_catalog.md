@@ -126,7 +126,9 @@ These entries are catalog records only. They do not become available to an AI cl
 
 ### Version-aware connection is feasible
 
-The explicit X7 ProgID exists locally, so the compatibility layer should prefer `CorelDRAW.Application.17` and report the ProgID used. The current generic ProgID works in this installation but would be ambiguous if another CorelDRAW version changed `CurVer`.
+The X7 adapter now prefers `CorelDRAW.Application.17`, validates that the connected application reports major version 17, and reports the ProgID/mode used. Generic `CorelDRAW.Application` remains a validated fallback because another installed CorelDRAW version could change `CurVer`.
+
+The adapter exposes evidence/status for 18 approved capabilities. Seventeen are available but still `implemented_unverified`; the claimed point semantics for outline width remain unavailable and `research_required`. No capability is reported as live verified yet.
 
 ### The unconfirmed `Application.Caption` read was removed
 
