@@ -6,13 +6,15 @@ an explicit `use_active_document` call so a client design isn't modified by acci
 from __future__ import annotations
 
 import os
+import platform
+import struct
 from contextlib import contextmanager
+from importlib import metadata
 from pathlib import Path
 from typing import Any, Iterator
 
-
-class CorelBridgeError(RuntimeError):
-    pass
+from .errors import CorelBridgeError, ErrorCode
+from .version import BRIDGE_VERSION, CAPABILITY_PROFILE_ID, TOOL_SCHEMA_VERSION
 
 
 class CorelBridge:
@@ -27,32 +29,42 @@ class CorelBridge:
     def __init__(self) -> None:
         self.app: Any | None = None
         self.target_doc: Any | None = None
+        self.prog_id_used: str | None = None
+        self.connection_mode: str | None = None
 
     def connect(self) -> dict[str, Any]:
         if os.name != "nt":
-            raise CorelBridgeError("CorelDRAW COM automation is available only on Windows.")
+            raise CorelBridgeError(
+                "CorelDRAW COM automation is available only on Windows.",
+                ErrorCode.UNSUPPORTED_IN_PROFILE,
+            )
         try:
             import win32com.client  # type: ignore
         except ImportError as exc:
             raise CorelBridgeError(
-                "pywin32 is missing. Run: python -m pip install -r requirements.txt"
+                "pywin32 is missing. Run: python -m pip install -r requirements.txt",
+                ErrorCode.COREL_COM_ERROR,
             ) from exc
 
         errors = []
+        prog_id = "CorelDRAW.Application"
         for mode in ("GetActiveObject", "Dispatch"):
             try:
                 self.app = (
-                    win32com.client.GetActiveObject("CorelDRAW.Application")
+                    win32com.client.GetActiveObject(prog_id)
                     if mode == "GetActiveObject"
-                    else win32com.client.Dispatch("CorelDRAW.Application")
+                    else win32com.client.Dispatch(prog_id)
                 )
+                self.prog_id_used = prog_id
+                self.connection_mode = mode
                 break
             except Exception as exc:
                 errors.append(f"{mode}: {exc}")
         if self.app is None:
             raise CorelBridgeError(
                 "Could not connect to CorelDRAW. Open CorelDRAW and retry. Details: "
-                + " | ".join(errors)
+                + " | ".join(errors),
+                ErrorCode.COREL_COM_ERROR,
             )
         return self.status()
 
@@ -73,17 +85,22 @@ class CorelBridge:
             return self.target_doc
         raise CorelBridgeError(
             "No target document is bound. Call create_document for a new file, or explicitly call "
-            "use_active_document(confirm_existing_document=True) to allow editing the current file."
+            "use_active_document(confirm_existing_document=True) to allow editing the current file.",
+            ErrorCode.NO_TARGET_DOCUMENT,
         )
 
     def use_active_document(self, confirm_existing_document: bool) -> dict[str, Any]:
         if confirm_existing_document is not True:
             raise CorelBridgeError(
-                "To protect client work, this operation requires confirm_existing_document=True."
+                "To protect client work, this operation requires confirm_existing_document=True.",
+                ErrorCode.CONFIRMATION_REQUIRED,
             )
         doc = self._active_document()
         if doc is None:
-            raise CorelBridgeError("CorelDRAW has no active document to bind.")
+            raise CorelBridgeError(
+                "CorelDRAW has no active document to bind.",
+                ErrorCode.NO_TARGET_DOCUMENT,
+            )
         self.target_doc = doc
         return {
             "bound": True,
@@ -145,8 +162,28 @@ class CorelBridge:
 
     def status(self) -> dict[str, Any]:
         app = self._require_app()
-        info: dict[str, Any] = {"connected": True}
-        for key, attr in (("version", "Version"), ("caption", "Caption"), ("visible", "Visible")):
+        info: dict[str, Any] = {
+            "connected": True,
+            "bridge_version": BRIDGE_VERSION,
+            "tool_schema_version": TOOL_SCHEMA_VERSION,
+            "capability_profile_id": CAPABILITY_PROFILE_ID,
+            "prog_id_used": self.prog_id_used,
+            "connection_mode": self.connection_mode,
+            "runtime": {
+                "python_version": platform.python_version(),
+                "python_bitness": struct.calcsize("P") * 8,
+                "platform": platform.platform(),
+                "mcp_sdk_version": _distribution_version("mcp"),
+                "pywin32_version": _distribution_version("pywin32"),
+            },
+        }
+        for key, attr in (
+            ("version", "Version"),
+            ("version_major", "VersionMajor"),
+            ("version_minor", "VersionMinor"),
+            ("version_build", "VersionBuild"),
+            ("visible", "Visible"),
+        ):
             try:
                 info[key] = getattr(app, attr)
             except Exception:
@@ -181,9 +218,12 @@ class CorelBridge:
         return info
 
     def create_document(self, width_in: float = 8.27, height_in: float = 11.69) -> dict[str, Any]:
-        app = self._require_app()
         if not (0 < width_in <= 200 and 0 < height_in <= 200):
-            raise CorelBridgeError("Page dimensions must be greater than 0 and at most 200 inches.")
+            raise CorelBridgeError(
+                "Page dimensions must be greater than 0 and at most 200 inches.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        app = self._require_app()
         try:
             doc = app.CreateDocument()
             doc.Unit = self.CDR_INCH
@@ -232,14 +272,20 @@ class CorelBridge:
     @staticmethod
     def _shape_at(doc: Any, shape_index: int) -> Any:
         if shape_index < 1:
-            raise CorelBridgeError("shape_index is 1-based and must be at least 1.")
+            raise CorelBridgeError(
+                "shape_index is 1-based and must be at least 1.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
         shapes = CorelBridge._shapes(doc)
         try:
             count = int(shapes.Count)
         except Exception as exc:
             raise CorelBridgeError("Could not read the page's shape count.") from exc
         if shape_index > count:
-            raise CorelBridgeError(f"shape_index {shape_index} is outside the current range 1..{count}.")
+            raise CorelBridgeError(
+                f"shape_index {shape_index} is outside the current range 1..{count}.",
+                ErrorCode.OBJECT_NOT_FOUND,
+            )
         try:
             return shapes.Item(shape_index)
         except Exception:
@@ -252,7 +298,10 @@ class CorelBridge:
         has_name = bool(object_name.strip())
         has_index = int(shape_index) > 0
         if has_name == has_index:
-            raise CorelBridgeError("Specify exactly one selector: object_name OR shape_index.")
+            raise CorelBridgeError(
+                "Specify exactly one selector: object_name OR shape_index.",
+                ErrorCode.AMBIGUOUS_SELECTOR,
+            )
         if has_name:
             shapes = self._shapes(doc)
             matches = []
@@ -261,9 +310,15 @@ class CorelBridge:
                 if str(_safe_attr(shape, "Name") or "") == object_name:
                     matches.append(shape)
             if not matches:
-                raise CorelBridgeError(f"No shape named {object_name!r} exists on the active page.")
+                raise CorelBridgeError(
+                    f"No shape named {object_name!r} exists on the active page.",
+                    ErrorCode.OBJECT_NOT_FOUND,
+                )
             if len(matches) > 1:
-                raise CorelBridgeError(f"Shape name {object_name!r} is not unique; rename objects first.")
+                raise CorelBridgeError(
+                    f"Shape name {object_name!r} is not unique; rename objects first.",
+                    ErrorCode.AMBIGUOUS_SELECTOR,
+                )
             return matches[0]
         return self._shape_at(doc, int(shape_index))
 
@@ -298,9 +353,12 @@ class CorelBridge:
                  font: str = "Arial", bold: bool = False,
                  object_name: str = "") -> dict[str, Any]:
         if not text.strip():
-            raise CorelBridgeError("Text cannot be empty.")
+            raise CorelBridgeError("Text cannot be empty.", ErrorCode.INVALID_ARGUMENT)
         if not (1 <= size_pt <= 500):
-            raise CorelBridgeError("Font size must be between 1 and 500 points.")
+            raise CorelBridgeError(
+                "Font size must be between 1 and 500 points.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
         doc = self._target_document()
         layer = self._get_layer(doc)
         try:
@@ -319,7 +377,10 @@ class CorelBridge:
     def draw_rectangle(self, x_in: float, y_in: float, width_in: float, height_in: float,
                        object_name: str = "") -> dict[str, Any]:
         if width_in <= 0 or height_in <= 0:
-            raise CorelBridgeError("Rectangle width and height must be positive.")
+            raise CorelBridgeError(
+                "Rectangle width and height must be positive.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
         doc = self._target_document()
         try:
             with self._in_inches(doc):
@@ -336,7 +397,10 @@ class CorelBridge:
     def draw_ellipse(self, x_in: float, y_in: float, width_in: float, height_in: float,
                      object_name: str = "") -> dict[str, Any]:
         if width_in <= 0 or height_in <= 0:
-            raise CorelBridgeError("Ellipse width and height must be positive.")
+            raise CorelBridgeError(
+                "Ellipse width and height must be positive.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
         doc = self._target_document()
         try:
             with self._in_inches(doc):
@@ -353,7 +417,10 @@ class CorelBridge:
 
     def list_objects(self, max_objects: int = 200) -> dict[str, Any]:
         if not (1 <= max_objects <= 1000):
-            raise CorelBridgeError("max_objects must be between 1 and 1000.")
+            raise CorelBridgeError(
+                "max_objects must be between 1 and 1000.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
         doc = self._target_document()
         result = []
         with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
@@ -389,7 +456,10 @@ class CorelBridge:
     @staticmethod
     def _validate_rgb(red: int, green: int, blue: int) -> None:
         if not all(isinstance(v, int) and 0 <= v <= 255 for v in (red, green, blue)):
-            raise CorelBridgeError("RGB values must be integers from 0 to 255.")
+            raise CorelBridgeError(
+                "RGB values must be integers from 0 to 255.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
 
     def set_fill_color(self, red: int, green: int, blue: int,
                        object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
@@ -409,7 +479,10 @@ class CorelBridge:
                     object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
         self._validate_rgb(red, green, blue)
         if not (0 <= width_points <= 72):
-            raise CorelBridgeError("Outline width must be between 0 and 72 points; use 0 to remove it.")
+            raise CorelBridgeError(
+                "Outline width must be between 0 and 72 points; use 0 to remove it.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
         doc = self._target_document()
         shape = self._find_shape(doc, object_name, shape_index)
         try:
@@ -444,9 +517,15 @@ class CorelBridge:
                       keep_aspect_ratio: bool = False,
                       object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
         if width_inches <= 0 and height_inches <= 0:
-            raise CorelBridgeError("Provide a positive width or height in inches.")
+            raise CorelBridgeError(
+                "Provide a positive width or height in inches.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
         if (width_inches <= 0 or height_inches <= 0) and not keep_aspect_ratio:
-            raise CorelBridgeError("Provide both width and height, or set keep_aspect_ratio=True.")
+            raise CorelBridgeError(
+                "Provide both width and height, or set keep_aspect_ratio=True.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
         doc = self._target_document()
         shape = self._find_shape(doc, object_name, shape_index)
         try:
@@ -454,7 +533,10 @@ class CorelBridge:
                 old_w, old_h = float(shape.SizeWidth), float(shape.SizeHeight)
                 if keep_aspect_ratio:
                     if old_w <= 0 or old_h <= 0:
-                        raise CorelBridgeError("Cannot preserve aspect ratio for a zero-size object.")
+                        raise CorelBridgeError(
+                            "Cannot preserve aspect ratio for a zero-size object.",
+                            ErrorCode.INVALID_ARGUMENT,
+                        )
                     if width_inches > 0 and height_inches <= 0:
                         height_inches = width_inches * old_h / old_w
                     elif height_inches > 0 and width_inches <= 0:
@@ -473,7 +555,7 @@ class CorelBridge:
 
     def set_text_content(self, new_text: str, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
         if not new_text.strip():
-            raise CorelBridgeError("Text cannot be empty.")
+            raise CorelBridgeError("Text cannot be empty.", ErrorCode.INVALID_ARGUMENT)
         doc = self._target_document()
         shape = self._find_shape(doc, object_name, shape_index)
         try:
@@ -487,7 +569,7 @@ class CorelBridge:
 
     def rename_object(self, new_name: str, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
         if not new_name.strip():
-            raise CorelBridgeError("new_name cannot be blank.")
+            raise CorelBridgeError("new_name cannot be blank.", ErrorCode.INVALID_ARGUMENT)
         doc = self._target_document()
         shape = self._find_shape(doc, object_name, shape_index)
         unique = self._unique_name(doc, new_name, "AI_Object")
@@ -519,11 +601,20 @@ class CorelBridge:
     def import_artwork(self, file_path: str, object_name: str = "AI_Artwork") -> dict[str, Any]:
         path = Path(os.path.abspath(os.path.expanduser(file_path)))
         if not path.is_file():
-            raise CorelBridgeError(f"Artwork file does not exist: {path}")
+            raise CorelBridgeError(
+                f"Artwork file does not exist: {path}",
+                ErrorCode.UNSAFE_PATH,
+            )
         if path.suffix.lower() not in self.ALLOWED_IMPORT_EXTENSIONS:
-            raise CorelBridgeError(f"Unsupported artwork extension {path.suffix!r}.")
+            raise CorelBridgeError(
+                f"Unsupported artwork extension {path.suffix!r}.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
         if path.stat().st_size > self.MAX_IMPORT_BYTES:
-            raise CorelBridgeError("Artwork is larger than the 250 MB prototype limit.")
+            raise CorelBridgeError(
+                "Artwork is larger than the 250 MB prototype limit.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
         doc = self._target_document()
         layer = self._get_layer(doc)
         before = int(self._shapes(doc).Count)
@@ -576,10 +667,13 @@ class CorelBridge:
         doc = self._target_document()
         path = os.path.abspath(os.path.expanduser(path))
         if not path.lower().endswith(".cdr"):
-            raise CorelBridgeError("Save path must end in .cdr.")
+            raise CorelBridgeError("Save path must end in .cdr.", ErrorCode.INVALID_ARGUMENT)
         os.makedirs(os.path.dirname(path), exist_ok=True)
         if os.path.exists(path):
-            raise CorelBridgeError(f"Refusing to overwrite existing file: {path}")
+            raise CorelBridgeError(
+                f"Refusing to overwrite existing file: {path}",
+                ErrorCode.OUTPUT_EXISTS,
+            )
         try:
             app = self._require_app()
             options = app.CreateStructSaveAsOptions()
@@ -604,10 +698,13 @@ class CorelBridge:
         doc = self._target_document()
         path = os.path.abspath(os.path.expanduser(path))
         if not path.lower().endswith(".pdf"):
-            raise CorelBridgeError("Export path must end in .pdf.")
+            raise CorelBridgeError("Export path must end in .pdf.", ErrorCode.INVALID_ARGUMENT)
         os.makedirs(os.path.dirname(path), exist_ok=True)
         if os.path.exists(path):
-            raise CorelBridgeError(f"Refusing to overwrite existing file: {path}")
+            raise CorelBridgeError(
+                f"Refusing to overwrite existing file: {path}",
+                ErrorCode.OUTPUT_EXISTS,
+            )
         try:
             doc.PublishToPDF(path)
             return {"exported": True, "path": path,
@@ -620,4 +717,11 @@ def _safe_attr(obj: Any, attr: str) -> Any:
     try:
         return getattr(obj, attr)
     except Exception:
+        return None
+
+
+def _distribution_version(distribution: str) -> str | None:
+    try:
+        return metadata.version(distribution)
+    except metadata.PackageNotFoundError:
         return None

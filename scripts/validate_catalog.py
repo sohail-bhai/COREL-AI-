@@ -4,6 +4,7 @@ from __future__ import annotations
 import ast
 import csv
 import json
+import sys
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -12,6 +13,14 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG_DIR = ROOT / "catalog"
+sys.path.insert(0, str(ROOT))
+
+from corel_operator.errors import ErrorCode  # noqa: E402
+from corel_operator.version import (  # noqa: E402
+    BRIDGE_VERSION,
+    CAPABILITY_PROFILE_ID,
+    TOOL_SCHEMA_VERSION,
+)
 
 REQUIRED_FILES = (
     ROOT / "CHANGELOG.md",
@@ -77,6 +86,11 @@ def validate() -> dict[str, int]:
     enum_reference = _read_json(CATALOG_DIR / "enum_reference.json")
     registry = _read_json(CATALOG_DIR / "mcp_tool_registry.json")
 
+    if registry.get("tool_schema_version") != TOOL_SCHEMA_VERSION:
+        raise ValueError("Registry tool_schema_version differs from corel_operator/version.py")
+    if registry.get("profile_id") != CAPABILITY_PROFILE_ID:
+        raise ValueError("Registry profile_id differs from corel_operator/version.py")
+
     tools = registry.get("tools")
     if not isinstance(tools, list) or not tools:
         raise ValueError("mcp_tool_registry.json must contain a non-empty tools array")
@@ -96,6 +110,24 @@ def validate() -> dict[str, int]:
             raise ValueError(f"Schema definition {definition_name!r} must be an object")
         Draft202012Validator.check_schema(definition_schema)
 
+    result_envelope = schema_definitions.get("result_envelope", {})
+    result_properties = result_envelope.get("properties", {})
+    if result_properties.get("bridge_version", {}).get("const") != BRIDGE_VERSION:
+        raise ValueError("Result-envelope bridge_version differs from corel_operator/version.py")
+    if result_properties.get("tool_schema_version", {}).get("const") != TOOL_SCHEMA_VERSION:
+        raise ValueError("Result-envelope tool_schema_version differs from corel_operator/version.py")
+    if result_properties.get("profile_id", {}).get("const") != CAPABILITY_PROFILE_ID:
+        raise ValueError("Result-envelope profile_id differs from corel_operator/version.py")
+    expected_error_codes = {code.value for code in ErrorCode}
+    catalog_error_codes = set(
+        schema_definitions.get("error_detail", {})
+        .get("properties", {})
+        .get("code", {})
+        .get("enum", [])
+    )
+    if catalog_error_codes != expected_error_codes:
+        raise ValueError("Catalog error-code enum differs from corel_operator/errors.py")
+
     tool_examples = registry.get("tool_examples")
     if not isinstance(tool_examples, dict):
         raise ValueError("tool_examples must be an object")
@@ -114,6 +146,8 @@ def validate() -> dict[str, int]:
             raise ValueError(f"{name}: invalid permission {tool.get('permission')!r}")
         if tool.get("implementation", {}).get("state") not in {"registered", "planned"}:
             raise ValueError(f"{name}: implementation.state must be registered or planned")
+        if tool.get("result_contract") != "tool-schema-v1-envelope":
+            raise ValueError(f"{name}: missing tool-schema-v1-envelope result contract")
         for schema_key in ("input_schema", "output_schema"):
             schema = tool.get(schema_key)
             if not isinstance(schema, dict):
@@ -128,9 +162,13 @@ def validate() -> dict[str, int]:
                     raise ValueError(f"{name}: missing schema definition {definition!r}")
 
         example = tool_examples[name]
-        if not isinstance(example, dict) or "request" not in example or "success" not in example:
-            raise ValueError(f"{name}: example must contain request and success")
-        for schema_key, example_key in (("input_schema", "request"), ("output_schema", "success")):
+        if not isinstance(example, dict) or not {"request", "success", "error"} <= set(example):
+            raise ValueError(f"{name}: example must contain request, success, and error")
+        for schema_key, example_key in (
+            ("input_schema", "request"),
+            ("output_schema", "success"),
+            ("output_schema", "error"),
+        ):
             rooted_schema = {
                 "$schema": registry.get("json_schema_dialect"),
                 "schema_definitions": schema_definitions,
@@ -217,7 +255,7 @@ def validate() -> dict[str, int]:
         "matrix_rows": len(matrix_rows),
         "enum_groups": len(enums),
         "schemas_checked": len(tools) * 2 + len(schema_definitions),
-        "examples_checked": len(tools) * 2,
+        "examples_checked": len(tools) * 3,
     }
 
 

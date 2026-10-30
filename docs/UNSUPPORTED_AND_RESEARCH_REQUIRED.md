@@ -10,7 +10,7 @@ This document prevents uncertain behavior from being presented as supported. An 
 
 | Area | Current uncertainty | Required evidence before verification |
 |---|---|---|
-| Application caption | `Application.Caption` is read by the bridge but was not found in the official X7 Application class or installed type-library property map | Remove it, replace it with a documented property, or demonstrate a reliable X7 dynamic member with a safe test |
+| Application caption | `Application.Caption` was not found in the official X7 Application class or installed type-library property map and was removed from `corel_status` in v0.6 | Keep unsupported unless future X7 evidence demonstrates a reliable member |
 | Outline width | `Outline.Width` exists, but the inspected evidence does not prove the bridge's value is in points | Set several known widths in a disposable document, read them back under controlled document units, and visually inspect one result |
 | Text insertion coordinates | `CreateArtisticText` is confirmed, but insertion point/baseline versus resulting bounds is not recorded | Create text at known coordinates and compare insertion point with actual bounds |
 | Text charset | The type-library default is `cdrCharSetMixed (-1)` while the bridge explicitly passes ANSI `0` | Test ASCII and non-ASCII text; select an explicit documented policy |

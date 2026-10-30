@@ -96,15 +96,23 @@ Catalog rules:
 - A missing source or untested signature must remain `research_required` or `implemented_unverified`.
 - Do not attempt to expose the entire raw inventory as MCP tools.
 
-### 1.2 Add project and protocol versioning
+### 1.2 Add project and protocol versioning — completed 2026-10-30
 
-- Add one authoritative package version, initially the next development release after prototype v0.5.
-- Add a separate `tool_schema_version`.
-- Add the X7 capability profile ID `coreldraw-x7-17`.
-- Report bridge, Python, MCP, pywin32, CorelDRAW, profile, and ProgID information from `corel_status`.
-- Document semantic-version and schema-version rules.
+- [x] Add one authoritative package version, initially the next development release after prototype v0.5.
+- [x] Add a separate `tool_schema_version`.
+- [x] Add the X7 capability profile ID `coreldraw-x7-17`.
+- [x] Report bridge, Python, MCP, pywin32, CorelDRAW, profile, and ProgID information from `corel_status`.
+- [x] Document semantic-version and schema-version rules.
 
 ### 1.3 Establish automated tests
+
+Initial Batch 2 contract tests completed:
+
+- [x] `tests/test_version.py`
+- [x] `tests/test_results.py`
+- [x] `tests/test_bridge_errors.py`
+- [x] `tests/test_status_metadata.py`
+- [x] `tests/test_server_contract.py`
 
 Add:
 
@@ -132,34 +140,39 @@ Testing requirements:
 - Add a capability check such as `supports(capability_name)` with evidence/status.
 - Keep version checks out of individual tools wherever possible.
 
-### 1.5 Standardize results, errors, and operation records
+### 1.5 Standardize results, errors, and operation records — result/error contract completed; persistent operation logging remains
 
-Define a common tool result contract containing fields such as:
+The v0.6 result contract now contains:
 
-- `ok`
-- `tool`
-- `tool_schema_version`
-- `target_document`
-- `data`
-- `warnings`
-- `error.code`
-- `error.message`
-- `duration_ms`
+- [x] `ok`
+- [x] `tool`
+- [x] `bridge_version`
+- [x] `tool_schema_version`
+- [x] `profile_id`
+- [x] `target_document`
+- [x] `data`
+- [x] `warnings`
+- [x] `error.code`
+- [x] `error.message`
+- [x] `error.details`
+- [x] `duration_ms`
 
-Add stable error categories including:
+Stable error categories now include:
 
-- `NO_TARGET_DOCUMENT`
-- `CONFIRMATION_REQUIRED`
-- `INVALID_ARGUMENT`
-- `OBJECT_NOT_FOUND`
-- `AMBIGUOUS_SELECTOR`
-- `UNSUPPORTED_IN_PROFILE`
-- `UNSAFE_PATH`
-- `OUTPUT_EXISTS`
-- `COREL_COM_ERROR`
-- `OPERATION_TIMEOUT`
+- [x] `NO_TARGET_DOCUMENT`
+- [x] `CONFIRMATION_REQUIRED`
+- [x] `INVALID_ARGUMENT`
+- [x] `OBJECT_NOT_FOUND`
+- [x] `AMBIGUOUS_SELECTOR`
+- [x] `UNSUPPORTED_IN_PROFILE`
+- [x] `UNSAFE_PATH`
+- [x] `OUTPUT_EXISTS`
+- [x] `COREL_COM_ERROR`
+- [x] `OPERATION_TIMEOUT`
+- [x] `WORKER_UNAVAILABLE`
+- [x] `INTERNAL_ERROR`
 
-Operation logs must avoid document contents, credentials, and confidential artwork.
+- [ ] Add persistent operation logs that avoid document contents, credentials, and confidential artwork.
 
 ### 1.6 Harden and verify the existing 17 tools
 
@@ -334,8 +347,8 @@ Work should begin with these small batches:
 | Order | Batch | Status | Result |
 |---:|---|---|---|
 | 1 | Catalog foundation | Complete | Required catalog files containing truthful records for current tools |
-| 2 | Version and result contract | Next | Bridge/schema/profile versions plus stable structured errors |
-| 3 | Unit-test foundation | Queued | Schema, validation, units, targeting, paths, and dispatcher tests |
+| 2 | Version and result contract | Complete | Bridge/schema/profile versions plus stable structured errors |
+| 3 | Unit-test foundation | Next | Schema, validation, units, targeting, paths, and dispatcher tests |
 | 4 | X7 adapter and diagnostics | Queued | Version-specific connection, runtime details, centralized verified constants |
 | 5 | Existing-tool hardening | Queued | Actual-state readback and fixes identified by unit tests |
 | 6 | Guarded live regression | Queued | Recorded disposable-document test of the existing tool set |
@@ -383,4 +396,4 @@ The operator must then complete that workflow with deterministic tool calls, evi
 
 ## 18. Next action
 
-Start **Immediate Execution Queue — Batch 2: Version and result contract**. Add one authoritative bridge version, tool-schema/profile metadata, and a backward-conscious structured result/error contract before changing existing tool behavior.
+Start **Immediate Execution Queue — Batch 3: Unit-test foundation**. Expand the initial v0.6 tests into schema, unit conversion, targeting, path-safety, dispatcher, and guarded integration-test foundations without launching CorelDRAW during the default test run.

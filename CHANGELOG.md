@@ -6,6 +6,8 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-10-30
+
 ### Added
 
 - Evidence-backed initial capability catalog for the 17 registered v0.5 MCP tools.
@@ -16,19 +18,29 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 - Explicit unsupported/research-required register.
 - Product/tool/profile/catalog versioning policy.
 - Local catalog validator that checks JSON Schemas, server-tool parity, API references, evidence IDs, CSV/registry parity, and duplicate records without starting CorelDRAW.
+- Authoritative bridge version, tool-schema version, and capability-profile constants in `corel_operator/version.py`.
+- Tool-schema v1 success/error envelope with operation duration, warnings, target identity when known, and operation-specific `data`.
+- Stable expected error codes and safe fallback handling for unexpected exceptions.
+- `corel_status` runtime metadata for bridge, schema, profile, ProgID, connection mode, Python, MCP SDK, pywin32, and CorelDRAW version/build.
+- Twenty non-COM unit tests covering versions, result envelopes, bridge validation codes, status metadata, and server wrapper behavior.
+- v0.6 upgrade guide documenting the response migration and complete package-copy requirement.
+- Persistent harness-incident log and future-agent safeguards for recurring Azure cross-resource item failures.
 
 ### Changed
 
 - Normalized all registered tools to `implemented_unverified` until historical successes are reproduced in a dated disposable-document test report.
+- Wrapped prior v0.5 success dictionaries under `data`; all tools now use one deterministic top-level contract.
+- Removed the unconfirmed dynamic `Application.Caption` read from `corel_status`.
 
 ### Security
 
 - Documented the prohibition on arbitrary Python, shell, VBA, macro, and unrestricted COM execution.
 - Documented confirmation, overwrite, active-document, local-file, and external-upload safety boundaries.
+- Unexpected exception messages are no longer returned directly to MCP clients; only the exception type is included in safe details.
 
-### Runtime behavior
+### Compatibility note
 
-- No MCP or CorelDRAW runtime behavior changed in this catalog-only batch.
+- v0.6 intentionally replaces the legacy direct success dictionary and `{error: string}` failure shape. Tool-specific success fields are now inside `data`; clients should first check `ok` and then inspect `data` or `error`.
 
 ## [0.5.0] - Historical prototype
 

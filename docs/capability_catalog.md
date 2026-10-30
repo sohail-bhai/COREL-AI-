@@ -6,7 +6,7 @@
 
 **Target:** CorelDRAW X7 / major version 17 / reported build 17.0.0.491
 
-**Completeness:** Partial, focused on the current v0.5 bridge
+**Completeness:** Partial, focused on the current v0.6 bridge
 
 **Machine-readable registry:** `catalog/mcp_tool_registry.json`
 
@@ -84,7 +84,7 @@ The zero verified count is intentional. The repository reports historical succes
 
 | Tool | Permission | Priority | Current status | Evidence summary | Primary next check |
 |---|---|---:|---|---|---|
-| `corel_status` | read-only | P0 | implemented_unverified | Version/active-document members confirmed; historical Antigravity call reported | Reproduce and record runtime fields; remove or replace unconfirmed `Caption` |
+| `corel_status` | read-only | P0 | implemented_unverified | Version/build/active-document members confirmed; v0.6 runtime metadata has non-COM tests | Reproduce the complete v0.6 envelope through an MCP client |
 | `create_document` | mutating | P0 | implemented_unverified | `CreateDocument` and `Page.SetSize` confirmed; historical creation reported | Read back exact page size and target identity |
 | `use_active_document` | mutating | P0 | implemented_unverified | `ActiveDocument` confirmed | Test only with approved throwaway document; add checkpoint policy |
 | `add_text` | mutating | P0 | implemented_unverified | `CreateArtisticText` signature confirmed; historical editable text reported | Verify coordinates, charset, font substitution, bounds, and editability |
@@ -128,9 +128,13 @@ These entries are catalog records only. They do not become available to an AI cl
 
 The explicit X7 ProgID exists locally, so the compatibility layer should prefer `CorelDRAW.Application.17` and report the ProgID used. The current generic ProgID works in this installation but would be ambiguous if another CorelDRAW version changed `CurVer`.
 
-### `Application.Caption` is not confirmed
+### The unconfirmed `Application.Caption` read was removed
 
-The current status implementation safely attempts to read `Application.Caption`, but that property was not found in the official X7 Application class list or installed type-library property map. It remains `research_required`; returning `null` is not evidence of a connection failure.
+`Application.Caption` was not found in the official X7 Application class list or installed type-library property map. Bridge 0.6.0 no longer reads it. The raw inventory retains the record as historical `research_required` evidence so it is not accidentally reintroduced.
+
+### Tool-schema v1 is a stable envelope
+
+Every current and planned registry output uses the same success/error envelope. Operation-specific v0.5 fields remain under `data`; errors carry a stable code, safe message, and details object. The registry includes validated success and error examples for every tool record.
 
 ### Outline-width units are unresolved
 

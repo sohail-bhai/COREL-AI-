@@ -13,7 +13,7 @@ The Python bridge will use Semantic Versioning:
 - minor increment for backward-compatible tools or optional fields;
 - major increment for intentional incompatible changes after a stable public contract exists.
 
-The current repository is described as prototype v0.5, but it does not yet contain one authoritative runtime version constant. Batch 2 will add that source of truth and expose it from `corel_status`.
+The authoritative bridge version is `0.6.0`, defined in `corel_operator/version.py` and exported as `corel_operator.__version__`. `corel_status` and every result envelope read from the same source.
 
 ## 2. Tool schema version
 
@@ -26,10 +26,27 @@ Increment it only when a client must change how it constructs a request or inter
 - renaming/removing a field;
 - changing units or coordinate anchors;
 - changing a selector's identity semantics;
-- replacing the legacy error object with an incompatible response envelope;
+- replacing the current result envelope with an incompatible response shape;
 - changing confirmation behavior incompatibly.
 
 Adding an optional field with a safe default normally does not require a schema-major change, but it does require a bridge minor release and registry/changelog update.
+
+### Tool-schema v1 result envelope
+
+Every registered tool returns:
+
+- `ok`: success/failure boolean;
+- `tool`: stable MCP tool name;
+- `bridge_version`;
+- `tool_schema_version`;
+- `profile_id`;
+- `target_document`: known target identity or `null`;
+- `data`: operation-specific object on success, otherwise `null`;
+- `warnings`: array of warning strings;
+- `error`: `null` on success or `{code, message, details}` on failure;
+- `duration_ms`.
+
+The v0.5 success dictionary is preserved under `data`. The former unstructured `{error: string}` result is replaced by the stable error object in v0.6.
 
 ## 3. Capability profile
 
@@ -129,18 +146,18 @@ Historical narrative reports are retained as evidence but are normalized to `imp
 - Keep provider-specific image/vision APIs outside the CorelDRAW adapter.
 - Update catalog, tests, documentation, and changelog in the same change as a tool contract.
 
-## 10. Planned version source
+## 10. Authoritative version source
 
-Batch 2 should introduce one authoritative module, for example:
+The authoritative module is:
 
 ```text
 corel_operator/version.py
 ```
 
-It should contain or expose:
+It contains or exposes:
 
 - bridge package version;
 - tool schema version;
 - supported capability profile IDs.
 
-Packaging metadata and `corel_status` must read from that source rather than duplicating literals.
+`corel_operator.__init__`, result envelopes, tests, catalog schemas, and `corel_status` use these values. Future packaging metadata must also read from this source rather than duplicating literals.

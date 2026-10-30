@@ -23,20 +23,9 @@
     "The first 17 records describe the actual MCP surface in corel_operator/server.py.",
     "Planned records are catalog entries only and are not exposed by the MCP server.",
     "All current tools remain implemented_unverified until a reproducible X7 live-test report is recorded.",
-    "Current v0.5 wrappers return a legacy {error: string} object on failure; Batch 2 will introduce a stable result envelope."
+    "Since bridge 0.6.0 every tool returns tool-schema v1: a stable envelope whose data field contains the operation-specific result."
   ],
   "schema_definitions": {
-    "legacy_error_result": {
-      "type": "object",
-      "required": ["error"],
-      "properties": {
-        "error": {
-          "type": "string",
-          "minLength": 1
-        }
-      },
-      "additionalProperties": false
-    },
     "object_selector": {
       "type": "object",
       "properties": {
@@ -61,7 +50,9 @@
               "const": 0
             }
           },
-          "required": ["object_name"]
+          "required": [
+            "object_name"
+          ]
         },
         {
           "properties": {
@@ -73,7 +64,9 @@
               "minimum": 1
             }
           },
-          "required": ["shape_index"]
+          "required": [
+            "shape_index"
+          ]
         }
       ]
     },
@@ -96,129 +89,1412 @@
           "maximum": 255
         }
       },
-      "required": ["red", "green", "blue"]
+      "required": [
+        "red",
+        "green",
+        "blue"
+      ]
+    },
+    "error_detail": {
+      "type": "object",
+      "required": [
+        "code",
+        "message",
+        "details"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "NO_TARGET_DOCUMENT",
+            "CONFIRMATION_REQUIRED",
+            "INVALID_ARGUMENT",
+            "OBJECT_NOT_FOUND",
+            "AMBIGUOUS_SELECTOR",
+            "UNSUPPORTED_IN_PROFILE",
+            "UNSAFE_PATH",
+            "OUTPUT_EXISTS",
+            "COREL_COM_ERROR",
+            "OPERATION_TIMEOUT",
+            "WORKER_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "details": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "result_envelope": {
+      "type": "object",
+      "required": [
+        "ok",
+        "tool",
+        "bridge_version",
+        "tool_schema_version",
+        "profile_id",
+        "target_document",
+        "data",
+        "warnings",
+        "error",
+        "duration_ms"
+      ],
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "tool": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bridge_version": {
+          "const": "0.6.0"
+        },
+        "tool_schema_version": {
+          "const": 1
+        },
+        "profile_id": {
+          "const": "coreldraw-x7-17"
+        },
+        "target_document": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "data": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "error": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/schema_definitions/error_detail"
+            }
+          ]
+        },
+        "duration_ms": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "ok": {
+                "const": true
+              }
+            },
+            "required": [
+              "ok"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object"
+              },
+              "error": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "data": {
+                "type": "null"
+              },
+              "error": {
+                "$ref": "#/schema_definitions/error_detail"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
     "corel_status": {
       "request": {},
-      "success": {"connected": true, "active_document_open": false, "target_document_bound": false}
+      "success": {
+        "ok": true,
+        "tool": "corel_status",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "connected": true,
+          "bridge_version": "0.6.0",
+          "tool_schema_version": 1,
+          "capability_profile_id": "coreldraw-x7-17",
+          "prog_id_used": "CorelDRAW.Application",
+          "connection_mode": "GetActiveObject",
+          "runtime": {
+            "python_version": "3.11.9",
+            "python_bitness": 64,
+            "platform": "Windows",
+            "mcp_sdk_version": "1.30.0",
+            "pywin32_version": "312"
+          },
+          "active_document_open": false,
+          "target_document_bound": false
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "corel_status",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "create_document": {
-      "request": {"width_inches": 8.5, "height_inches": 11.0},
-      "success": {"created": true, "target_document_name": "Graphic1", "width_inches_requested": 8.5, "height_inches_requested": 11.0, "target_bound": true}
+      "request": {
+        "width_inches": 8.5,
+        "height_inches": 11.0
+      },
+      "success": {
+        "ok": true,
+        "tool": "create_document",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {
+          "created": true,
+          "target_document_name": "Graphic1",
+          "width_inches_requested": 8.5,
+          "height_inches_requested": 11.0,
+          "target_bound": true
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "create_document",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "use_active_document": {
-      "request": {"confirm_existing_document": true},
-      "success": {"bound": true, "target_document_name": "Approved-Test.cdr", "warning": "Subsequent editing operations will modify this document. Save a backup first."}
+      "request": {
+        "confirm_existing_document": true
+      },
+      "success": {
+        "ok": true,
+        "tool": "use_active_document",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Approved-Test.cdr"
+        },
+        "data": {
+          "bound": true,
+          "target_document_name": "Approved-Test.cdr",
+          "warning": "Subsequent editing operations will modify this document. Save a backup first."
+        },
+        "warnings": [
+          "Subsequent editing operations will modify this document. Save a backup first."
+        ],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "use_active_document",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "add_text": {
-      "request": {"text": "CORELDRAW AI OPERATOR", "x_inches": 1.2, "y_inches": 9.0, "size_points": 22, "font": "Arial", "bold": true, "object_name": "title"},
-      "success": {"created": true, "type": "text", "object_name": "title", "text": "CORELDRAW AI OPERATOR", "font": "Arial", "size_points": 22, "bold": true}
+      "request": {
+        "text": "CORELDRAW AI OPERATOR",
+        "x_inches": 1.2,
+        "y_inches": 9.0,
+        "size_points": 22,
+        "font": "Arial",
+        "bold": true,
+        "object_name": "title"
+      },
+      "success": {
+        "ok": true,
+        "tool": "add_text",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "type": "text",
+          "object_name": "title",
+          "text": "CORELDRAW AI OPERATOR",
+          "font": "Arial",
+          "size_points": 22,
+          "bold": true
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "add_text",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "draw_rectangle": {
-      "request": {"x_inches": 1.0, "y_inches": 8.5, "width_inches": 6.5, "height_inches": 1.3, "object_name": "panel"},
-      "success": {"created": true, "type": "rectangle", "object_name": "panel", "x_inches": 1.0, "y_inches": 8.5, "width_inches": 6.5, "height_inches": 1.3}
+      "request": {
+        "x_inches": 1.0,
+        "y_inches": 8.5,
+        "width_inches": 6.5,
+        "height_inches": 1.3,
+        "object_name": "panel"
+      },
+      "success": {
+        "ok": true,
+        "tool": "draw_rectangle",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "type": "rectangle",
+          "object_name": "panel",
+          "x_inches": 1.0,
+          "y_inches": 8.5,
+          "width_inches": 6.5,
+          "height_inches": 1.3
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "draw_rectangle",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "draw_ellipse": {
-      "request": {"x_inches": 1.0, "y_inches": 1.0, "width_inches": 2.0, "height_inches": 1.0, "object_name": "badge"},
-      "success": {"created": true, "type": "ellipse", "object_name": "badge", "x_inches": 1.0, "y_inches": 1.0, "width_inches": 2.0, "height_inches": 1.0}
+      "request": {
+        "x_inches": 1.0,
+        "y_inches": 1.0,
+        "width_inches": 2.0,
+        "height_inches": 1.0,
+        "object_name": "badge"
+      },
+      "success": {
+        "ok": true,
+        "tool": "draw_ellipse",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "type": "ellipse",
+          "object_name": "badge",
+          "x_inches": 1.0,
+          "y_inches": 1.0,
+          "width_inches": 2.0,
+          "height_inches": 1.0
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "draw_ellipse",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "list_objects": {
-      "request": {"max_objects": 200},
-      "success": {"document_name": "Graphic1", "object_count": 0, "total_on_page": 0, "truncated": false, "coordinate_reference": "object reference point is bottom-left; measurements are inches", "objects": []}
+      "request": {
+        "max_objects": 200
+      },
+      "success": {
+        "ok": true,
+        "tool": "list_objects",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {
+          "document_name": "Graphic1",
+          "object_count": 0,
+          "total_on_page": 0,
+          "truncated": false,
+          "coordinate_reference": "object reference point is bottom-left; measurements are inches",
+          "objects": []
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "list_objects",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "set_fill_color": {
-      "request": {"red": 20, "green": 45, "blue": 90, "object_name": "panel"},
-      "success": {"updated": true, "object_name": "panel", "shape_index": 1, "fill_rgb": [20, 45, 90]}
+      "request": {
+        "red": 20,
+        "green": 45,
+        "blue": 90,
+        "object_name": "panel"
+      },
+      "success": {
+        "ok": true,
+        "tool": "set_fill_color",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "object_name": "panel",
+          "shape_index": 1,
+          "fill_rgb": [
+            20,
+            45,
+            90
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "set_fill_color",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "set_outline": {
-      "request": {"red": 255, "green": 255, "blue": 255, "width_points": 1.0, "object_name": "panel"},
-      "success": {"updated": true, "object_name": "panel", "outline_rgb": [255, 255, 255], "width_points": 1.0}
+      "request": {
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "width_points": 1.0,
+        "object_name": "panel"
+      },
+      "success": {
+        "ok": true,
+        "tool": "set_outline",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "object_name": "panel",
+          "outline_rgb": [
+            255,
+            255,
+            255
+          ],
+          "width_points": 1.0
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "set_outline",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "move_object": {
-      "request": {"x_inches": 1.25, "y_inches": 8.75, "object_name": "title"},
-      "success": {"moved": true, "object_name": "title", "x_inches": 1.25, "y_inches": 8.75, "reference_point": "bottom-left"}
+      "request": {
+        "x_inches": 1.25,
+        "y_inches": 8.75,
+        "object_name": "title"
+      },
+      "success": {
+        "ok": true,
+        "tool": "move_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "moved": true,
+          "object_name": "title",
+          "x_inches": 1.25,
+          "y_inches": 8.75,
+          "reference_point": "bottom-left"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "move_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "resize_object": {
-      "request": {"width_inches": 2.0, "keep_aspect_ratio": true, "object_name": "badge"},
-      "success": {"resized": true, "object_name": "badge", "old_size_inches": [1.0, 0.5], "new_size_inches": [2.0, 1.0], "warning": "Resizing text objects by bounding box may stretch glyphs; changing font size is preferable for typography."}
+      "request": {
+        "width_inches": 2.0,
+        "keep_aspect_ratio": true,
+        "object_name": "badge"
+      },
+      "success": {
+        "ok": true,
+        "tool": "resize_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "resized": true,
+          "object_name": "badge",
+          "old_size_inches": [
+            1.0,
+            0.5
+          ],
+          "new_size_inches": [
+            2.0,
+            1.0
+          ],
+          "warning": "Resizing text objects by bounding box may stretch glyphs; changing font size is preferable for typography."
+        },
+        "warnings": [
+          "Resizing text objects by bounding box may stretch glyphs; changing font size is preferable for typography."
+        ],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "resize_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "set_text_content": {
-      "request": {"new_text": "UPDATED TITLE", "object_name": "title"},
-      "success": {"updated": true, "object_name": "title", "old_text": "OLD TITLE", "new_text": "UPDATED TITLE"}
+      "request": {
+        "new_text": "UPDATED TITLE",
+        "object_name": "title"
+      },
+      "success": {
+        "ok": true,
+        "tool": "set_text_content",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "object_name": "title",
+          "old_text": "OLD TITLE",
+          "new_text": "UPDATED TITLE"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "set_text_content",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "rename_object": {
-      "request": {"new_name": "primary_title", "object_name": "title"},
-      "success": {"renamed": true, "old_name": "title", "object_name": "primary_title"}
+      "request": {
+        "new_name": "primary_title",
+        "object_name": "title"
+      },
+      "success": {
+        "ok": true,
+        "tool": "rename_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "renamed": true,
+          "old_name": "title",
+          "object_name": "primary_title"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "rename_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "duplicate_object": {
-      "request": {"offset_x_inches": 0.25, "offset_y_inches": -0.25, "object_name": "badge", "new_name": "badge_copy"},
-      "success": {"duplicated": true, "source_name": "badge", "object_name": "badge_copy", "offset_inches": [0.25, -0.25], "shape_index": 2}
+      "request": {
+        "offset_x_inches": 0.25,
+        "offset_y_inches": -0.25,
+        "object_name": "badge",
+        "new_name": "badge_copy"
+      },
+      "success": {
+        "ok": true,
+        "tool": "duplicate_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "duplicated": true,
+          "source_name": "badge",
+          "object_name": "badge_copy",
+          "offset_inches": [
+            0.25,
+            -0.25
+          ],
+          "shape_index": 2
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "duplicate_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "import_artwork": {
-      "request": {"file_path": "C:\\Users\\Example\\Documents\\logo.svg", "object_name": "logo"},
-      "success": {"imported": true, "file_path": "C:\\Users\\Example\\Documents\\logo.svg", "object_count": 1, "object_names": ["logo"], "note": "Imported objects may need move/resize operations. Inspect list_objects before printing."}
+      "request": {
+        "file_path": "C:\\Users\\Example\\Documents\\logo.svg",
+        "object_name": "logo"
+      },
+      "success": {
+        "ok": true,
+        "tool": "import_artwork",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "imported": true,
+          "file_path": "C:\\Users\\Example\\Documents\\logo.svg",
+          "object_count": 1,
+          "object_names": [
+            "logo"
+          ],
+          "note": "Imported objects may need move/resize operations. Inspect list_objects before printing."
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "import_artwork",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "save_document": {
-      "request": {"path": "C:\\Users\\Example\\Documents\\CorelDRAW-AI-Operator-Tests\\design-001.cdr"},
-      "success": {"saved": true, "path": "C:\\Users\\Example\\Documents\\CorelDRAW-AI-Operator-Tests\\design-001.cdr", "bytes": 4096, "document_name": "design-001.cdr"}
+      "request": {
+        "path": "C:\\Users\\Example\\Documents\\CorelDRAW-AI-Operator-Tests\\design-001.cdr"
+      },
+      "success": {
+        "ok": true,
+        "tool": "save_document",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "design-001.cdr"
+        },
+        "data": {
+          "saved": true,
+          "path": "C:\\Users\\Example\\Documents\\CorelDRAW-AI-Operator-Tests\\design-001.cdr",
+          "bytes": 4096,
+          "document_name": "design-001.cdr"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "save_document",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "export_pdf": {
-      "request": {"path": "C:\\Users\\Example\\Documents\\CorelDRAW-AI-Operator-Tests\\design-001.pdf"},
-      "success": {"exported": true, "path": "C:\\Users\\Example\\Documents\\CorelDRAW-AI-Operator-Tests\\design-001.pdf", "warning": "PDF settings inherit CorelDRAW preferences; verify page size, fonts, color profile, bleed and output settings."}
+      "request": {
+        "path": "C:\\Users\\Example\\Documents\\CorelDRAW-AI-Operator-Tests\\design-001.pdf"
+      },
+      "success": {
+        "ok": true,
+        "tool": "export_pdf",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "exported": true,
+          "path": "C:\\Users\\Example\\Documents\\CorelDRAW-AI-Operator-Tests\\design-001.pdf",
+          "warning": "PDF settings inherit CorelDRAW preferences; verify page size, fonts, color profile, bleed and output settings."
+        },
+        "warnings": [
+          "PDF settings inherit CorelDRAW preferences; verify page size, fonts, color profile, bleed and output settings."
+        ],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "export_pdf",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "list_open_documents": {
       "request": {},
-      "success": {"documents": []}
+      "success": {
+        "ok": true,
+        "tool": "list_open_documents",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "documents": []
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "list_open_documents",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "get_document_info": {
       "request": {},
-      "success": {"document": {"name": "Graphic1", "dirty": true}}
+      "success": {
+        "ok": true,
+        "tool": "get_document_info",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "document": {
+            "name": "Graphic1",
+            "dirty": true
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_document_info",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "list_pages": {
       "request": {},
-      "success": {"pages": []}
+      "success": {
+        "ok": true,
+        "tool": "list_pages",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "pages": []
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "list_pages",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "get_page_bounds": {
-      "request": {"page_index": 1},
-      "success": {"page_index": 1, "bounds": {"x": 0, "y": 0, "width": 8.5, "height": 11.0}, "unit": "inch"}
+      "request": {
+        "page_index": 1
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_page_bounds",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "page_index": 1,
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 8.5,
+            "height": 11.0
+          },
+          "unit": "inch"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_page_bounds",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "list_layers": {
-      "request": {"page_index": 1},
-      "success": {"page_index": 1, "layers": []}
+      "request": {
+        "page_index": 1
+      },
+      "success": {
+        "ok": true,
+        "tool": "list_layers",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "page_index": 1,
+          "layers": []
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "list_layers",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "get_object_info": {
-      "request": {"object_name": "title"},
-      "success": {"object": {"object_name": "title", "shape_type_code": 6}}
+      "request": {
+        "object_name": "title"
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_object_info",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "object": {
+            "object_name": "title",
+            "shape_type_code": 6
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_object_info",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "find_objects": {
-      "request": {"name_contains": "title", "max_results": 100},
-      "success": {"matches": [], "truncated": false}
+      "request": {
+        "name_contains": "title",
+        "max_results": 100
+      },
+      "success": {
+        "ok": true,
+        "tool": "find_objects",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "matches": [],
+          "truncated": false
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "find_objects",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "get_text_properties": {
-      "request": {"object_name": "title"},
-      "success": {"object_name": "title", "text": {"content": "CORELDRAW AI OPERATOR", "font": "Arial", "size_points": 22}}
+      "request": {
+        "object_name": "title"
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_text_properties",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "object_name": "title",
+          "text": {
+            "content": "CORELDRAW AI OPERATOR",
+            "font": "Arial",
+            "size_points": 22
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_text_properties",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "get_fill": {
-      "request": {"object_name": "panel"},
-      "success": {"object_name": "panel", "fill": {"type": "uniform", "model": "rgb", "value": [20, 45, 90]}}
+      "request": {
+        "object_name": "panel"
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_fill",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "object_name": "panel",
+          "fill": {
+            "type": "uniform",
+            "model": "rgb",
+            "value": [
+              20,
+              45,
+              90
+            ]
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_fill",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "get_outline": {
-      "request": {"object_name": "panel"},
-      "success": {"object_name": "panel", "outline": {"present": true, "width": 1.0, "unit": "research_required"}}
+      "request": {
+        "object_name": "panel"
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_outline",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "object_name": "panel",
+          "outline": {
+            "present": true,
+            "width": 1.0,
+            "unit": "research_required"
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_outline",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "calculate_sheet_layout": {
-      "request": {"item_width_inches": 3.5, "item_height_inches": 2.0, "sheet_width_inches": 11.7, "sheet_height_inches": 16.5, "margin_inches": 0.25, "gutter_inches": 0.125, "allow_rotate": true},
-      "success": {"fits": true, "columns": 3, "rows": 7, "capacity": 21, "placements": []}
+      "request": {
+        "item_width_inches": 3.5,
+        "item_height_inches": 2.0,
+        "sheet_width_inches": 11.7,
+        "sheet_height_inches": 16.5,
+        "margin_inches": 0.25,
+        "gutter_inches": 0.125,
+        "allow_rotate": true
+      },
+      "success": {
+        "ok": true,
+        "tool": "calculate_sheet_layout",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "fits": true,
+          "columns": 3,
+          "rows": 7,
+          "capacity": 21,
+          "placements": []
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "calculate_sheet_layout",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "create_chest_number_batch": {
-      "request": {"start": 1, "end": 200, "zero_pad_width": 3, "item_width_inches": 8.0, "item_height_inches": 6.0, "font": "Arial", "font_size_points": 220},
-      "success": {"created_count": 200, "sequence_validation": {"missing": [], "duplicates": []}, "object_names": ["chest_number_001", "chest_number_002"]}
+      "request": {
+        "start": 1,
+        "end": 200,
+        "zero_pad_width": 3,
+        "item_width_inches": 8.0,
+        "item_height_inches": 6.0,
+        "font": "Arial",
+        "font_size_points": 220
+      },
+      "success": {
+        "ok": true,
+        "tool": "create_chest_number_batch",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created_count": 200,
+          "sequence_validation": {
+            "missing": [],
+            "duplicates": []
+          },
+          "object_names": [
+            "chest_number_001",
+            "chest_number_002"
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "create_chest_number_batch",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "arrange_n_up_print_sheet": {
-      "request": {"object_names": ["card_001", "card_002"], "sheet_width_inches": 11.7, "sheet_height_inches": 16.5, "margin_inches": 0.25, "gutter_inches": 0.125},
-      "success": {"placed_count": 2, "overflow_count": 0, "placements": []}
+      "request": {
+        "object_names": [
+          "card_001",
+          "card_002"
+        ],
+        "sheet_width_inches": 11.7,
+        "sheet_height_inches": 16.5,
+        "margin_inches": 0.25,
+        "gutter_inches": 0.125
+      },
+      "success": {
+        "ok": true,
+        "tool": "arrange_n_up_print_sheet",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "placed_count": 2,
+          "overflow_count": 0,
+          "placements": []
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "arrange_n_up_print_sheet",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     }
   },
   "tools": [
@@ -237,42 +1513,188 @@
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["connected", "active_document_open", "target_document_bound"],
-            "properties": {
-              "connected": {"const": true},
-              "version": {"type": ["string", "null"]},
-              "caption": {"type": ["string", "null"]},
-              "visible": {"type": ["boolean", "null"]},
-              "active_document_name": {"type": ["string", "null"]},
-              "active_document_open": {"type": "boolean"},
-              "target_document_name": {"type": ["string", "null"]},
-              "target_document_bound": {"type": "boolean"},
-              "page_count": {"type": ["integer", "null"]},
-              "unit_code": {"type": ["integer", "null"]},
-              "unit_name": {"type": ["string", "null"]},
-              "page_size": {"type": ["object", "null"]}
-            },
-            "additionalProperties": true
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "connected",
+                    "bridge_version",
+                    "tool_schema_version",
+                    "capability_profile_id",
+                    "prog_id_used",
+                    "connection_mode",
+                    "runtime",
+                    "active_document_open",
+                    "target_document_bound"
+                  ],
+                  "properties": {
+                    "connected": {
+                      "const": true
+                    },
+                    "version": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "version_major": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "version_minor": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "version_build": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "bridge_version": {
+                      "const": "0.6.0"
+                    },
+                    "tool_schema_version": {
+                      "const": 1
+                    },
+                    "capability_profile_id": {
+                      "const": "coreldraw-x7-17"
+                    },
+                    "prog_id_used": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "connection_mode": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "runtime": {
+                      "type": "object",
+                      "required": [
+                        "python_version",
+                        "python_bitness",
+                        "platform",
+                        "mcp_sdk_version",
+                        "pywin32_version"
+                      ],
+                      "properties": {
+                        "python_version": {"type": "string"},
+                        "python_bitness": {"type": "integer"},
+                        "platform": {"type": "string"},
+                        "mcp_sdk_version": {"type": ["string", "null"]},
+                        "pywin32_version": {"type": ["string", "null"]}
+                      },
+                      "additionalProperties": false
+                    },
+                    "visible": {
+                      "type": [
+                        "boolean",
+                        "null"
+                      ]
+                    },
+                    "active_document_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "active_document_open": {
+                      "type": "boolean"
+                    },
+                    "target_document_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "target_document_bound": {
+                      "type": "boolean"
+                    },
+                    "page_count": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "unit_code": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "unit_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "page_size": {
+                      "type": [
+                        "object",
+                        "null"
+                      ]
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required",
       "priority": "P0",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Application.Version", "Application.Visible", "Application.ActiveDocument", "Application.Caption"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Version",
+        "Application.VersionMajor",
+        "Application.VersionMinor",
+        "Application.VersionBuild",
+        "Application.Visible",
+        "Application.ActiveDocument"
+      ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "historical_report_needs_reproduction",
-        "sources": ["README.md", "capability_catalog_seed.csv"]
+        "sources": [
+          "README.md",
+          "capability_catalog_seed.csv"
+        ]
       },
-      "known_limitations": ["Application.Caption is not confirmed in X7 documentation/type-library metadata.", "Does not yet report bridge, MCP, pywin32, Python, ProgID, or capability-profile versions."],
-      "introduced": "0.4-or-earlier"
+      "known_limitations": [
+        "Connection still uses the generic ProgID until the X7 adapter batch prefers CorelDRAW.Application.17.",
+        "Runtime metadata is implemented but still needs a recorded live MCP call."
+      ],
+      "introduced": "0.4-or-earlier",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "create_document",
@@ -286,41 +1708,103 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "width_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200, "default": 8.27},
-          "height_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200, "default": 11.69}
+          "width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200,
+            "default": 8.27
+          },
+          "height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200,
+            "default": 11.69
+          }
         },
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["created", "width_inches_requested", "height_inches_requested", "target_bound"],
-            "properties": {
-              "created": {"const": true},
-              "target_document_name": {"type": ["string", "null"]},
-              "width_inches_requested": {"type": "number"},
-              "height_inches_requested": {"type": "number"},
-              "target_bound": {"const": true}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "created",
+                    "width_inches_requested",
+                    "height_inches_requested",
+                    "target_bound"
+                  ],
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "target_document_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "width_inches_requested": {
+                      "type": "number"
+                    },
+                    "height_inches_requested": {
+                      "type": "number"
+                    },
+                    "target_bound": {
+                      "const": true
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "low",
       "confirmation": "not_required_new_document_only",
       "priority": "P0",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Application.CreateDocument", "Document.Unit", "Document.ActivePage", "Page.SetSize", "Document.ReferencePoint", "Document.Activate"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateDocument",
+        "Document.Unit",
+        "Document.ActivePage",
+        "Page.SetSize",
+        "Document.ReferencePoint",
+        "Document.Activate"
+      ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "historical_report_needs_reproduction",
-        "sources": ["README.md", "ANTIGRAVITY_MASTER_SPEC.md"]
+        "sources": [
+          "README.md",
+          "ANTIGRAVITY_MASTER_SPEC.md"
+        ]
       },
-      "known_limitations": ["Returns requested rather than read-back page dimensions.", "Does not assign a persistent document session ID."],
-      "introduced": "0.4-or-earlier"
+      "known_limitations": [
+        "Returns requested rather than read-back page dimensions.",
+        "Does not assign a persistent document session ID."
+      ],
+      "introduced": "0.4-or-earlier",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "use_active_document",
@@ -334,36 +1818,84 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "confirm_existing_document": {"const": true, "description": "Must be true after the user explicitly authorizes editing the active document."}
+          "confirm_existing_document": {
+            "const": true,
+            "description": "Must be true after the user explicitly authorizes editing the active document."
+          }
         },
-        "required": ["confirm_existing_document"],
+        "required": [
+          "confirm_existing_document"
+        ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["bound", "target_document_name", "warning"],
-            "properties": {
-              "bound": {"const": true},
-              "target_document_name": {"type": ["string", "null"]},
-              "warning": {"type": "string"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "bound",
+                    "target_document_name",
+                    "warning"
+                  ],
+                  "properties": {
+                    "bound": {
+                      "const": true
+                    },
+                    "target_document_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "warning": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "high",
       "confirmation": "required_true",
       "priority": "P0",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Application.ActiveDocument", "Document.Name"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.ActiveDocument",
+        "Document.Name"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["No automatic checkpoint copy or undo transaction is created.", "Identity is an in-memory COM proxy and is lost on server restart."],
-      "introduced": "0.5"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "No automatic checkpoint copy or undo transaction is created.",
+        "Identity is an in-memory COM proxy and is lost on server restart."
+      ],
+      "introduced": "0.5",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "add_text",
@@ -377,50 +1909,132 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "text": {"type": "string", "minLength": 1},
-          "x_inches": {"type": "number"},
-          "y_inches": {"type": "number"},
-          "size_points": {"type": "number", "minimum": 1, "maximum": 500, "default": 24},
-          "font": {"type": "string", "minLength": 1, "default": "Arial"},
-          "bold": {"type": "boolean", "default": false},
-          "object_name": {"type": "string", "maxLength": 120, "default": ""}
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x_inches": {
+            "type": "number"
+          },
+          "y_inches": {
+            "type": "number"
+          },
+          "size_points": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 24
+          },
+          "font": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Arial"
+          },
+          "bold": {
+            "type": "boolean",
+            "default": false
+          },
+          "object_name": {
+            "type": "string",
+            "maxLength": 120,
+            "default": ""
+          }
         },
-        "required": ["text", "x_inches", "y_inches"],
+        "required": [
+          "text",
+          "x_inches",
+          "y_inches"
+        ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["created", "type", "object_name", "text", "font", "size_points", "bold"],
-            "properties": {
-              "created": {"const": true},
-              "type": {"const": "text"},
-              "object_name": {"type": "string"},
-              "text": {"type": "string"},
-              "font": {"type": "string"},
-              "size_points": {"type": "number"},
-              "bold": {"type": "boolean"},
-              "note": {"type": "string"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "created",
+                    "type",
+                    "object_name",
+                    "text",
+                    "font",
+                    "size_points",
+                    "bold"
+                  ],
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "type": {
+                      "const": "text"
+                    },
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "font": {
+                      "type": "string"
+                    },
+                    "size_points": {
+                      "type": "number"
+                    },
+                    "bold": {
+                      "type": "boolean"
+                    },
+                    "note": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "not_required_for_bound_bridge_document",
       "priority": "P0",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Page.ActiveLayer", "Layer.CreateArtisticText", "Shape.Name"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Page.ActiveLayer",
+        "Layer.CreateArtisticText",
+        "Shape.Name"
+      ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "historical_report_needs_reproduction",
-        "sources": ["README.md", "ANTIGRAVITY_MASTER_SPEC.md"]
+        "sources": [
+          "README.md",
+          "ANTIGRAVITY_MASTER_SPEC.md"
+        ]
       },
-      "known_limitations": ["Insertion-point semantics and actual font substitution are not read back.", "Explicit ANSI charset may not handle multilingual text correctly."],
-      "introduced": "0.4-or-earlier"
+      "known_limitations": [
+        "Insertion-point semantics and actual font substitution are not read back.",
+        "Explicit ANSI charset may not handle multilingual text correctly."
+      ],
+      "introduced": "0.4-or-earlier",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "draw_rectangle",
@@ -434,47 +2048,118 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "x_inches": {"type": "number"},
-          "y_inches": {"type": "number"},
-          "width_inches": {"type": "number", "exclusiveMinimum": 0},
-          "height_inches": {"type": "number", "exclusiveMinimum": 0},
-          "object_name": {"type": "string", "maxLength": 120, "default": ""}
+          "x_inches": {
+            "type": "number"
+          },
+          "y_inches": {
+            "type": "number"
+          },
+          "width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "object_name": {
+            "type": "string",
+            "maxLength": 120,
+            "default": ""
+          }
         },
-        "required": ["x_inches", "y_inches", "width_inches", "height_inches"],
+        "required": [
+          "x_inches",
+          "y_inches",
+          "width_inches",
+          "height_inches"
+        ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["created", "type", "object_name", "x_inches", "y_inches", "width_inches", "height_inches"],
-            "properties": {
-              "created": {"const": true},
-              "type": {"const": "rectangle"},
-              "object_name": {"type": "string"},
-              "x_inches": {"type": "number"},
-              "y_inches": {"type": "number"},
-              "width_inches": {"type": "number"},
-              "height_inches": {"type": "number"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "created",
+                    "type",
+                    "object_name",
+                    "x_inches",
+                    "y_inches",
+                    "width_inches",
+                    "height_inches"
+                  ],
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "type": {
+                      "const": "rectangle"
+                    },
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "x_inches": {
+                      "type": "number"
+                    },
+                    "y_inches": {
+                      "type": "number"
+                    },
+                    "width_inches": {
+                      "type": "number"
+                    },
+                    "height_inches": {
+                      "type": "number"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "not_required_for_bound_bridge_document",
       "priority": "P0",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Page.ActiveLayer", "Layer.CreateRectangle2", "Shape.Name"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Page.ActiveLayer",
+        "Layer.CreateRectangle2",
+        "Shape.Name"
+      ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "historical_report_needs_reproduction",
-        "sources": ["README.md", "ANTIGRAVITY_MASTER_SPEC.md"]
+        "sources": [
+          "README.md",
+          "ANTIGRAVITY_MASTER_SPEC.md"
+        ]
       },
-      "known_limitations": ["Returns requested dimensions without actual bounds readback."],
-      "introduced": "0.4-or-earlier"
+      "known_limitations": [
+        "Returns requested dimensions without actual bounds readback."
+      ],
+      "introduced": "0.4-or-earlier",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "draw_ellipse",
@@ -488,44 +2173,115 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "x_inches": {"type": "number"},
-          "y_inches": {"type": "number"},
-          "width_inches": {"type": "number", "exclusiveMinimum": 0},
-          "height_inches": {"type": "number", "exclusiveMinimum": 0},
-          "object_name": {"type": "string", "maxLength": 120, "default": ""}
+          "x_inches": {
+            "type": "number"
+          },
+          "y_inches": {
+            "type": "number"
+          },
+          "width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "object_name": {
+            "type": "string",
+            "maxLength": 120,
+            "default": ""
+          }
         },
-        "required": ["x_inches", "y_inches", "width_inches", "height_inches"],
+        "required": [
+          "x_inches",
+          "y_inches",
+          "width_inches",
+          "height_inches"
+        ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["created", "type", "object_name", "x_inches", "y_inches", "width_inches", "height_inches"],
-            "properties": {
-              "created": {"const": true},
-              "type": {"const": "ellipse"},
-              "object_name": {"type": "string"},
-              "x_inches": {"type": "number"},
-              "y_inches": {"type": "number"},
-              "width_inches": {"type": "number"},
-              "height_inches": {"type": "number"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "created",
+                    "type",
+                    "object_name",
+                    "x_inches",
+                    "y_inches",
+                    "width_inches",
+                    "height_inches"
+                  ],
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "type": {
+                      "const": "ellipse"
+                    },
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "x_inches": {
+                      "type": "number"
+                    },
+                    "y_inches": {
+                      "type": "number"
+                    },
+                    "width_inches": {
+                      "type": "number"
+                    },
+                    "height_inches": {
+                      "type": "number"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "not_required_for_bound_bridge_document",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Page.ActiveLayer", "Layer.CreateEllipse2", "Shape.Name"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Page.ActiveLayer",
+        "Layer.CreateEllipse2",
+        "Shape.Name"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Center/radius conversion and actual bounds have not been live-verified."],
-      "introduced": "0.4-or-earlier"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Center/radius conversion and actual bounds have not been live-verified."
+      ],
+      "introduced": "0.4-or-earlier",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "list_objects",
@@ -539,56 +2295,171 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "max_objects": {"type": "integer", "minimum": 1, "maximum": 1000, "default": 200}
+          "max_objects": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "default": 200
+          }
         },
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["document_name", "object_count", "total_on_page", "truncated", "coordinate_reference", "objects"],
-            "properties": {
-              "document_name": {"type": ["string", "null"]},
-              "object_count": {"type": "integer", "minimum": 0},
-              "total_on_page": {"type": "integer", "minimum": 0},
-              "truncated": {"type": "boolean"},
-              "coordinate_reference": {"type": "string"},
-              "objects": {
-                "type": "array",
-                "items": {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
                   "type": "object",
-                  "required": ["shape_index", "object_name", "shape_type_code"],
+                  "required": [
+                    "document_name",
+                    "object_count",
+                    "total_on_page",
+                    "truncated",
+                    "coordinate_reference",
+                    "objects"
+                  ],
                   "properties": {
-                    "shape_index": {"type": "integer", "minimum": 1},
-                    "object_name": {"type": "string"},
-                    "shape_type_code": {"type": ["integer", "null"]},
-                    "x_inches": {"type": ["number", "null"]},
-                    "y_inches": {"type": ["number", "null"]},
-                    "width_inches": {"type": ["number", "null"]},
-                    "height_inches": {"type": ["number", "null"]},
-                    "text": {"type": ["string", "null"]},
-                    "outline_width_points": {"type": ["number", "null"]}
+                    "document_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "object_count": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "total_on_page": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "truncated": {
+                      "type": "boolean"
+                    },
+                    "coordinate_reference": {
+                      "type": "string"
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "shape_index",
+                          "object_name",
+                          "shape_type_code"
+                        ],
+                        "properties": {
+                          "shape_index": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "object_name": {
+                            "type": "string"
+                          },
+                          "shape_type_code": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "x_inches": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "y_inches": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "width_inches": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "height_inches": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          },
+                          "text": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "outline_width_points": {
+                            "type": [
+                              "number",
+                              "null"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    }
                   },
                   "additionalProperties": false
                 }
               }
-            },
-            "additionalProperties": false
-          },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+            }
+          }
         ]
       },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
       "priority": "P0",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Page.Shapes", "Shapes.Count", "Shapes.Item", "Shape.Name", "Shape.Type", "Shape.PositionX", "Shape.PositionY", "Shape.SizeWidth", "Shape.SizeHeight", "Shape.Text", "Text.Story", "TextRange.Text", "Shape.Outline", "Outline.Width"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Page.Shapes",
+        "Shapes.Count",
+        "Shapes.Item",
+        "Shape.Name",
+        "Shape.Type",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.SizeWidth",
+        "Shape.SizeHeight",
+        "Shape.Text",
+        "Text.Story",
+        "TextRange.Text",
+        "Shape.Outline",
+        "Outline.Width"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Shape indexes are unstable.", "Nested group traversal is undefined.", "Outline width is labeled as points without verified unit semantics.", "Does not return fill colors, stable IDs, page/layer identity, or object rotation."],
-      "introduced": "0.5"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Shape indexes are unstable.",
+        "Nested group traversal is undefined.",
+        "Outline width is labeled as points without verified unit semantics.",
+        "Does not return fill colors, stable IDs, page/layer identity, or object rotation."
+      ],
+      "introduced": "0.5",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "set_fill_color",
@@ -601,37 +2472,102 @@
       },
       "input_schema": {
         "allOf": [
-          {"$ref": "#/schema_definitions/rgb_properties"},
-          {"$ref": "#/schema_definitions/object_selector"}
+          {
+            "$ref": "#/schema_definitions/rgb_properties"
+          },
+          {
+            "$ref": "#/schema_definitions/object_selector"
+          }
         ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["updated", "object_name", "shape_index", "fill_rgb"],
-            "properties": {
-              "updated": {"const": true},
-              "object_name": {"type": "string"},
-              "shape_index": {"type": ["integer", "null"]},
-              "fill_rgb": {"type": "array", "prefixItems": [{"type": "integer"}, {"type": "integer"}, {"type": "integer"}], "minItems": 3, "maxItems": 3}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "updated",
+                    "object_name",
+                    "shape_index",
+                    "fill_rgb"
+                  ],
+                  "properties": {
+                    "updated": {
+                      "const": true
+                    },
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "shape_index": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "fill_rgb": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ],
+                      "minItems": 3,
+                      "maxItems": 3
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "not_required_for_bound_bridge_document",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Application.CreateRGBColor", "Shape.Fill", "Fill.ApplyUniformFill"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateRGBColor",
+        "Shape.Fill",
+        "Fill.ApplyUniformFill"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Returns requested RGB values without reading the applied color back.", "Does not check Shape.CanHaveFill before mutation.", "RGB only; no CMYK/spot-color semantics."],
-      "introduced": "0.5"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Returns requested RGB values without reading the applied color back.",
+        "Does not check Shape.CanHaveFill before mutation.",
+        "RGB only; no CMYK/spot-color semantics."
+      ],
+      "introduced": "0.5",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "set_outline",
@@ -644,44 +2580,102 @@
       },
       "input_schema": {
         "allOf": [
-          {"$ref": "#/schema_definitions/rgb_properties"},
-          {"$ref": "#/schema_definitions/object_selector"},
+          {
+            "$ref": "#/schema_definitions/rgb_properties"
+          },
+          {
+            "$ref": "#/schema_definitions/object_selector"
+          },
           {
             "type": "object",
             "properties": {
-              "width_points": {"type": "number", "minimum": 0, "maximum": 72, "default": 1}
+              "width_points": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 72,
+                "default": 1
+              }
             }
           }
         ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["updated", "object_name"],
-            "properties": {
-              "updated": {"const": true},
-              "object_name": {"type": "string"},
-              "outline_removed": {"type": "boolean"},
-              "outline_rgb": {"type": "array", "minItems": 3, "maxItems": 3},
-              "width_points": {"type": "number"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "updated",
+                    "object_name"
+                  ],
+                  "properties": {
+                    "updated": {
+                      "const": true
+                    },
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "outline_removed": {
+                      "type": "boolean"
+                    },
+                    "outline_rgb": {
+                      "type": "array",
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "width_points": {
+                      "type": "number"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "not_required_for_bound_bridge_document",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Application.CreateRGBColor", "Shape.Outline", "Outline.Color", "Outline.Width", "Outline.SetNoOutline"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateRGBColor",
+        "Shape.Outline",
+        "Outline.Color",
+        "Outline.Width",
+        "Outline.SetNoOutline"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["The MCP parameter is labeled points, but Outline.Width unit semantics are not yet established.", "Color and width are not read back.", "Does not check Shape.CanHaveOutline."],
-      "introduced": "0.5"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "The MCP parameter is labeled points, but Outline.Width unit semantics are not yet established.",
+        "Color and width are not read back.",
+        "Does not check Shape.CanHaveOutline."
+      ],
+      "introduced": "0.5",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "move_object",
@@ -694,45 +2688,103 @@
       },
       "input_schema": {
         "allOf": [
-          {"$ref": "#/schema_definitions/object_selector"},
+          {
+            "$ref": "#/schema_definitions/object_selector"
+          },
           {
             "type": "object",
             "properties": {
-              "x_inches": {"type": "number"},
-              "y_inches": {"type": "number"}
+              "x_inches": {
+                "type": "number"
+              },
+              "y_inches": {
+                "type": "number"
+              }
             },
-            "required": ["x_inches", "y_inches"]
+            "required": [
+              "x_inches",
+              "y_inches"
+            ]
           }
         ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["moved", "object_name", "x_inches", "y_inches", "reference_point"],
-            "properties": {
-              "moved": {"const": true},
-              "object_name": {"type": "string"},
-              "x_inches": {"type": "number"},
-              "y_inches": {"type": "number"},
-              "reference_point": {"const": "bottom-left"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "moved",
+                    "object_name",
+                    "x_inches",
+                    "y_inches",
+                    "reference_point"
+                  ],
+                  "properties": {
+                    "moved": {
+                      "const": true
+                    },
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "x_inches": {
+                      "type": "number"
+                    },
+                    "y_inches": {
+                      "type": "number"
+                    },
+                    "reference_point": {
+                      "const": "bottom-left"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "not_required_for_bound_bridge_document",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.Unit", "Document.ReferencePoint", "Shape.SetPosition", "Shape.PositionX", "Shape.PositionY"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Document.Unit",
+        "Document.ReferencePoint",
+        "Shape.SetPosition",
+        "Shape.PositionX",
+        "Shape.PositionY"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Page drawing origin is not inspected.", "Result is rounded to four decimal places."],
-      "introduced": "0.5"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Page drawing origin is not inspected.",
+        "Result is rounded to four decimal places."
+      ],
+      "introduced": "0.5",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "resize_object",
@@ -745,49 +2797,131 @@
       },
       "input_schema": {
         "allOf": [
-          {"$ref": "#/schema_definitions/object_selector"},
+          {
+            "$ref": "#/schema_definitions/object_selector"
+          },
           {
             "type": "object",
             "properties": {
-              "width_inches": {"type": "number", "minimum": 0, "default": 0},
-              "height_inches": {"type": "number", "minimum": 0, "default": 0},
-              "keep_aspect_ratio": {"type": "boolean", "default": false}
+              "width_inches": {
+                "type": "number",
+                "minimum": 0,
+                "default": 0
+              },
+              "height_inches": {
+                "type": "number",
+                "minimum": 0,
+                "default": 0
+              },
+              "keep_aspect_ratio": {
+                "type": "boolean",
+                "default": false
+              }
             },
             "anyOf": [
-              {"properties": {"width_inches": {"exclusiveMinimum": 0}}, "required": ["width_inches"]},
-              {"properties": {"height_inches": {"exclusiveMinimum": 0}}, "required": ["height_inches"]}
+              {
+                "properties": {
+                  "width_inches": {
+                    "exclusiveMinimum": 0
+                  }
+                },
+                "required": [
+                  "width_inches"
+                ]
+              },
+              {
+                "properties": {
+                  "height_inches": {
+                    "exclusiveMinimum": 0
+                  }
+                },
+                "required": [
+                  "height_inches"
+                ]
+              }
             ]
           }
         ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["resized", "object_name", "old_size_inches", "new_size_inches", "warning"],
-            "properties": {
-              "resized": {"const": true},
-              "object_name": {"type": "string"},
-              "old_size_inches": {"type": "array", "minItems": 2, "maxItems": 2},
-              "new_size_inches": {"type": "array", "minItems": 2, "maxItems": 2},
-              "warning": {"type": "string"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "resized",
+                    "object_name",
+                    "old_size_inches",
+                    "new_size_inches",
+                    "warning"
+                  ],
+                  "properties": {
+                    "resized": {
+                      "const": true
+                    },
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "old_size_inches": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "new_size_inches": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "warning": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "not_required_for_bound_bridge_document",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.Unit", "Shape.SizeWidth", "Shape.SizeHeight"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Document.Unit",
+        "Shape.SizeWidth",
+        "Shape.SizeHeight"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Bounding-box resize can stretch text glyphs.", "Resize anchor depends on document/reference state and is not explicitly controlled."],
-      "introduced": "0.5"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Bounding-box resize can stretch text glyphs.",
+        "Resize anchor depends on document/reference state and is not explicitly controlled."
+      ],
+      "introduced": "0.5",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "set_text_content",
@@ -800,43 +2934,95 @@
       },
       "input_schema": {
         "allOf": [
-          {"$ref": "#/schema_definitions/object_selector"},
+          {
+            "$ref": "#/schema_definitions/object_selector"
+          },
           {
             "type": "object",
             "properties": {
-              "new_text": {"type": "string", "minLength": 1}
+              "new_text": {
+                "type": "string",
+                "minLength": 1
+              }
             },
-            "required": ["new_text"]
+            "required": [
+              "new_text"
+            ]
           }
         ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["updated", "object_name", "old_text", "new_text"],
-            "properties": {
-              "updated": {"const": true},
-              "object_name": {"type": "string"},
-              "old_text": {"type": "string"},
-              "new_text": {"type": "string"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "updated",
+                    "object_name",
+                    "old_text",
+                    "new_text"
+                  ],
+                  "properties": {
+                    "updated": {
+                      "const": true
+                    },
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "old_text": {
+                      "type": "string"
+                    },
+                    "new_text": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "not_required_for_bound_bridge_document",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Shape.Text", "Text.Story", "TextRange.Text"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Shape.Text",
+        "Text.Story",
+        "TextRange.Text"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Formatting preservation is not verified.", "Empty text is intentionally rejected.", "Old text is truncated in the result."],
-      "introduced": "0.5"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Formatting preservation is not verified.",
+        "Empty text is intentionally rejected.",
+        "Old text is truncated in the result."
+      ],
+      "introduced": "0.5",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "rename_object",
@@ -849,42 +3035,92 @@
       },
       "input_schema": {
         "allOf": [
-          {"$ref": "#/schema_definitions/object_selector"},
+          {
+            "$ref": "#/schema_definitions/object_selector"
+          },
           {
             "type": "object",
             "properties": {
-              "new_name": {"type": "string", "minLength": 1, "maxLength": 120}
+              "new_name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              }
             },
-            "required": ["new_name"]
+            "required": [
+              "new_name"
+            ]
           }
         ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["renamed", "old_name", "object_name"],
-            "properties": {
-              "renamed": {"const": true},
-              "old_name": {"type": "string"},
-              "object_name": {"type": "string"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "renamed",
+                    "old_name",
+                    "object_name"
+                  ],
+                  "properties": {
+                    "renamed": {
+                      "const": true
+                    },
+                    "old_name": {
+                      "type": "string"
+                    },
+                    "object_name": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "not_required_for_bound_bridge_document",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Shape.Name", "Page.Shapes", "Shapes.Count", "Shapes.Item"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Shape.Name",
+        "Page.Shapes",
+        "Shapes.Count",
+        "Shapes.Item"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Shape.Name is mutable and not a persistent bridge ID.", "Uniqueness is checked only on the active page's enumerated shapes."],
-      "introduced": "0.5"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Shape.Name is mutable and not a persistent bridge ID.",
+        "Uniqueness is checked only on the active page's enumerated shapes."
+      ],
+      "introduced": "0.5",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "duplicate_object",
@@ -897,45 +3133,109 @@
       },
       "input_schema": {
         "allOf": [
-          {"$ref": "#/schema_definitions/object_selector"},
+          {
+            "$ref": "#/schema_definitions/object_selector"
+          },
           {
             "type": "object",
             "properties": {
-              "offset_x_inches": {"type": "number", "default": 0.25},
-              "offset_y_inches": {"type": "number", "default": -0.25},
-              "new_name": {"type": "string", "maxLength": 120, "default": ""}
+              "offset_x_inches": {
+                "type": "number",
+                "default": 0.25
+              },
+              "offset_y_inches": {
+                "type": "number",
+                "default": -0.25
+              },
+              "new_name": {
+                "type": "string",
+                "maxLength": 120,
+                "default": ""
+              }
             }
           }
         ],
         "unevaluatedProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["duplicated", "source_name", "object_name", "offset_inches", "shape_index"],
-            "properties": {
-              "duplicated": {"const": true},
-              "source_name": {"type": "string"},
-              "object_name": {"type": "string"},
-              "offset_inches": {"type": "array", "minItems": 2, "maxItems": 2},
-              "shape_index": {"type": ["integer", "null"]}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "duplicated",
+                    "source_name",
+                    "object_name",
+                    "offset_inches",
+                    "shape_index"
+                  ],
+                  "properties": {
+                    "duplicated": {
+                      "const": true
+                    },
+                    "source_name": {
+                      "type": "string"
+                    },
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "offset_inches": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "shape_index": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "not_required_for_bound_bridge_document",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.Unit", "Shape.Duplicate", "Shape.Name"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Document.Unit",
+        "Shape.Duplicate",
+        "Shape.Name"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Actual duplicate bounds are not read back.", "Shape-index lookup relies on bridge-generated unique names."],
-      "introduced": "0.5"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Actual duplicate bounds are not read back.",
+        "Shape-index lookup relies on bridge-generated unique names."
+      ],
+      "introduced": "0.5",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "import_artwork",
@@ -949,39 +3249,106 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "file_path": {"type": "string", "minLength": 1},
-          "object_name": {"type": "string", "minLength": 1, "maxLength": 120, "default": "AI_Artwork"}
+          "file_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "object_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "default": "AI_Artwork"
+          }
         },
-        "required": ["file_path"],
+        "required": [
+          "file_path"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["imported", "file_path", "object_count", "object_names", "note"],
-            "properties": {
-              "imported": {"const": true},
-              "file_path": {"type": "string"},
-              "object_count": {"type": "integer", "minimum": 1},
-              "object_names": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-              "note": {"type": "string"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "imported",
+                    "file_path",
+                    "object_count",
+                    "object_names",
+                    "note"
+                  ],
+                  "properties": {
+                    "imported": {
+                      "const": true
+                    },
+                    "file_path": {
+                      "type": "string"
+                    },
+                    "object_count": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "object_names": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "note": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "external_io",
       "risk": "medium",
       "confirmation": "user_must_supply_local_path",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.ClearSelection", "Page.ActiveLayer", "Layer.Import", "Document.SelectionRange", "Page.Shapes", "Shape.Name"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Document.ClearSelection",
+        "Page.ActiveLayer",
+        "Layer.Import",
+        "Document.SelectionRange",
+        "Page.Shapes",
+        "Shape.Name"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Allowed extension does not prove the installed X7 filter can import every listed format.", "UNC/device-path policy is not explicit.", "Fallback assumes new shapes can be identified by collection position.", "Imported bounds and embedded/link status are not reported."],
-      "introduced": "0.5"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Allowed extension does not prove the installed X7 filter can import every listed format.",
+        "UNC/device-path policy is not explicit.",
+        "Fallback assumes new shapes can be identified by collection position.",
+        "Imported bounds and embedded/link status are not reported."
+      ],
+      "introduced": "0.5",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "save_document",
@@ -995,40 +3362,102 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "path": {"type": "string", "minLength": 5, "pattern": "\\.[cC][dD][rR]$"}
+          "path": {
+            "type": "string",
+            "minLength": 5,
+            "pattern": "\\.[cC][dD][rR]$"
+          }
         },
-        "required": ["path"],
+        "required": [
+          "path"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["saved", "path", "bytes", "document_name"],
-            "properties": {
-              "saved": {"const": true},
-              "path": {"type": "string"},
-              "bytes": {"type": "integer", "minimum": 1},
-              "document_name": {"type": ["string", "null"]}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "saved",
+                    "path",
+                    "bytes",
+                    "document_name"
+                  ],
+                  "properties": {
+                    "saved": {
+                      "const": true
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "bytes": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "document_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "external_io",
       "risk": "medium",
       "confirmation": "not_required_for_new_nonexistent_path",
       "priority": "P0",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Application.CreateStructSaveAsOptions", "StructSaveAsOptions.Filter", "StructSaveAsOptions.Version", "StructSaveAsOptions.Range", "StructSaveAsOptions.EmbedICCProfile", "StructSaveAsOptions.EmbedVBAProject", "StructSaveAsOptions.IncludeCMXData", "StructSaveAsOptions.Overwrite", "Document.SaveAs"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateStructSaveAsOptions",
+        "StructSaveAsOptions.Filter",
+        "StructSaveAsOptions.Version",
+        "StructSaveAsOptions.Range",
+        "StructSaveAsOptions.EmbedICCProfile",
+        "StructSaveAsOptions.EmbedVBAProject",
+        "StructSaveAsOptions.IncludeCMXData",
+        "StructSaveAsOptions.Overwrite",
+        "Document.SaveAs"
+      ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "historical_report_needs_reproduction",
-        "sources": ["README.md", "ANTIGRAVITY_MASTER_SPEC.md", "capability_catalog_seed.csv"]
+        "sources": [
+          "README.md",
+          "ANTIGRAVITY_MASTER_SPEC.md",
+          "capability_catalog_seed.csv"
+        ]
       },
-      "known_limitations": ["Creates missing parent directories without a separate allowlist.", "Hard-coded enum values are now type-library-confirmed but not centralized in code.", "No checkpoint/backup semantics for existing documents."],
-      "introduced": "0.4-or-earlier"
+      "known_limitations": [
+        "Creates missing parent directories without a separate allowlist.",
+        "Hard-coded enum values are now type-library-confirmed but not centralized in code.",
+        "No checkpoint/backup semantics for existing documents."
+      ],
+      "introduced": "0.4-or-earlier",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "export_pdf",
@@ -1042,335 +3471,1241 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "path": {"type": "string", "minLength": 5, "pattern": "\\.[pP][dD][fF]$"}
+          "path": {
+            "type": "string",
+            "minLength": 5,
+            "pattern": "\\.[pP][dD][fF]$"
+          }
         },
-        "required": ["path"],
+        "required": [
+          "path"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
-        "oneOf": [
+        "allOf": [
           {
-            "type": "object",
-            "required": ["exported", "path", "warning"],
-            "properties": {
-              "exported": {"const": true},
-              "path": {"type": "string"},
-              "warning": {"type": "string"}
-            },
-            "additionalProperties": false
+            "$ref": "#/schema_definitions/result_envelope"
           },
-          {"$ref": "#/schema_definitions/legacy_error_result"}
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "exported",
+                    "path",
+                    "warning"
+                  ],
+                  "properties": {
+                    "exported": {
+                      "const": true
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "warning": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
         ]
       },
       "permission": "export",
       "risk": "medium",
       "confirmation": "not_required_for_new_nonexistent_path",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.PublishToPDF"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Document.PublishToPDF"
+      ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Does not verify the file exists after PublishToPDF returns.", "Inherits CorelDRAW PDF settings.", "Does not inspect page dimensions, bleed, fonts, color profile, or print readiness."],
-      "introduced": "0.4-or-earlier"
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Does not verify the file exists after PublishToPDF returns.",
+        "Inherits CorelDRAW PDF settings.",
+        "Does not inspect page dimensions, bleed, fonts, color profile, or print readiness."
+      ],
+      "introduced": "0.4-or-earlier",
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "list_open_documents",
       "category": "connection",
       "description": "List open documents with safe identity and dirty/path state without changing the active document.",
-      "implementation": {"state": "planned"},
-      "input_schema": {"type": "object", "properties": {}, "additionalProperties": false},
-      "output_schema": {
+      "implementation": {
+        "state": "planned"
+      },
+      "input_schema": {
         "type": "object",
-        "required": ["documents"],
-        "properties": {
-          "documents": {"type": "array", "items": {"type": "object"}}
-        },
+        "properties": {},
         "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "documents"
+                  ],
+                  "properties": {
+                    "documents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
       },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Application.Documents"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Document session-ID and restart semantics must be designed before implementation."],
-      "planned_phase": 2
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Document session-ID and restart semantics must be designed before implementation."
+      ],
+      "planned_phase": 2,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "get_document_info",
       "category": "document_inspection",
       "description": "Return identity, path, dirty state, units, page count, and active-page information for the bound target document.",
-      "implementation": {"state": "planned"},
-      "input_schema": {"type": "object", "properties": {}, "additionalProperties": false},
-      "output_schema": {"type": "object", "required": ["document"], "properties": {"document": {"type": "object"}}, "additionalProperties": false},
+      "implementation": {
+        "state": "planned"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "document"
+                  ],
+                  "properties": {
+                    "document": {
+                      "type": "object"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.Name", "Document.FullFileName", "Document.Dirty", "Document.Pages", "Document.Unit", "Document.ActivePage"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Document.Name",
+        "Document.FullFileName",
+        "Document.Dirty",
+        "Document.Pages",
+        "Document.Unit",
+        "Document.ActivePage"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Final identity schema depends on the stable document-session design."],
-      "planned_phase": 2
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Final identity schema depends on the stable document-session design."
+      ],
+      "planned_phase": 2,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "list_pages",
       "category": "page_inspection",
       "description": "List every page in the target document with index, name, orientation, dimensions, and active state.",
-      "implementation": {"state": "planned"},
-      "input_schema": {"type": "object", "properties": {}, "additionalProperties": false},
-      "output_schema": {"type": "object", "required": ["pages"], "properties": {"pages": {"type": "array", "items": {"type": "object"}}}, "additionalProperties": false},
+      "implementation": {
+        "state": "planned"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "pages"
+                  ],
+                  "properties": {
+                    "pages": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.Pages", "Page.Index", "Page.Name", "Page.Orientation", "Page.SizeWidth", "Page.SizeHeight"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Document.Pages",
+        "Page.Index",
+        "Page.Name",
+        "Page.Orientation",
+        "Page.SizeWidth",
+        "Page.SizeHeight"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Page collection enumeration and orientation enum still need registry records."],
-      "planned_phase": 2
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Page collection enumeration and orientation enum still need registry records."
+      ],
+      "planned_phase": 2,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "get_page_bounds",
       "category": "page_inspection",
       "description": "Return explicit lower-left, upper-right, center, width, and height values for one page in inches.",
-      "implementation": {"state": "planned"},
+      "implementation": {
+        "state": "planned"
+      },
       "input_schema": {
         "type": "object",
-        "properties": {"page_index": {"type": "integer", "minimum": 1}},
-        "required": ["page_index"],
+        "properties": {
+          "page_index": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "page_index"
+        ],
         "additionalProperties": false
       },
-      "output_schema": {"type": "object", "required": ["page_index", "bounds", "unit"], "properties": {"page_index": {"type": "integer"}, "bounds": {"type": "object"}, "unit": {"const": "inch"}}, "additionalProperties": false},
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "page_index",
+                    "bounds",
+                    "unit"
+                  ],
+                  "properties": {
+                    "page_index": {
+                      "type": "integer"
+                    },
+                    "bounds": {
+                      "type": "object"
+                    },
+                    "unit": {
+                      "const": "inch"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.Pages", "Page.GetBoundingBox", "Page.SizeWidth", "Page.SizeHeight"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Document.Pages",
+        "Page.GetBoundingBox",
+        "Page.SizeWidth",
+        "Page.SizeHeight"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Drawing-origin and facing-page semantics require tests."],
-      "planned_phase": 2
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Drawing-origin and facing-page semantics require tests."
+      ],
+      "planned_phase": 2,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "list_layers",
       "category": "layer_inspection",
       "description": "List page and master layers with visibility, editability, printability, active state, and object counts.",
-      "implementation": {"state": "planned"},
+      "implementation": {
+        "state": "planned"
+      },
       "input_schema": {
         "type": "object",
-        "properties": {"page_index": {"type": "integer", "minimum": 1}},
-        "required": ["page_index"],
+        "properties": {
+          "page_index": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "page_index"
+        ],
         "additionalProperties": false
       },
-      "output_schema": {"type": "object", "required": ["page_index", "layers"], "properties": {"page_index": {"type": "integer"}, "layers": {"type": "array", "items": {"type": "object"}}}, "additionalProperties": false},
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "page_index",
+                    "layers"
+                  ],
+                  "properties": {
+                    "page_index": {
+                      "type": "integer"
+                    },
+                    "layers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.Pages", "Page.Layers", "Page.AllLayers", "Layer.Name", "Layer.Index", "Layer.AbsoluteIndex", "Layer.Visible", "Layer.Editable", "Layer.Printable", "Layer.Master", "Layer.IsSpecialLayer", "Layer.Shapes", "Shapes.Count"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Document.Pages",
+        "Page.Layers",
+        "Page.AllLayers",
+        "Layer.Name",
+        "Layer.Index",
+        "Layer.AbsoluteIndex",
+        "Layer.Visible",
+        "Layer.Editable",
+        "Layer.Printable",
+        "Layer.Master",
+        "Layer.IsSpecialLayer",
+        "Layer.Shapes",
+        "Shapes.Count"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Layer API inventory records will be expanded immediately before implementation."],
-      "planned_phase": 2
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Layer API inventory records will be expanded immediately before implementation."
+      ],
+      "planned_phase": 2,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "get_object_info",
       "category": "object_inspection",
       "description": "Inspect one unambiguously selected object's identity, page/layer, type, bounds, transform, text, fill, and outline.",
-      "implementation": {"state": "planned"},
-      "input_schema": {"$ref": "#/schema_definitions/object_selector"},
-      "output_schema": {"type": "object", "required": ["object"], "properties": {"object": {"type": "object"}}, "additionalProperties": false},
+      "implementation": {
+        "state": "planned"
+      },
+      "input_schema": {
+        "$ref": "#/schema_definitions/object_selector"
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "object"
+                  ],
+                  "properties": {
+                    "object": {
+                      "type": "object"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Page.Shapes", "Shape.Name", "Shape.StaticID", "Shape.Type", "Shape.PositionX", "Shape.PositionY", "Shape.SizeWidth", "Shape.SizeHeight", "Shape.Text", "Shape.Fill", "Shape.Outline"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Page.Shapes",
+        "Shape.Name",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.SizeWidth",
+        "Shape.SizeHeight",
+        "Shape.Text",
+        "Shape.Fill",
+        "Shape.Outline"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Final selector will change after stable bridge object IDs are designed."],
-      "planned_phase": 2
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Final selector will change after stable bridge object IDs are designed."
+      ],
+      "planned_phase": 2,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "find_objects",
       "category": "object_inspection",
       "description": "Search target-document objects using allowlisted criteria and return stable summaries without changing selection.",
-      "implementation": {"state": "planned"},
+      "implementation": {
+        "state": "planned"
+      },
       "input_schema": {
         "type": "object",
         "properties": {
-          "name_contains": {"type": "string"},
-          "shape_type_code": {"type": "integer", "minimum": 0},
-          "text_contains": {"type": "string"},
-          "page_index": {"type": "integer", "minimum": 1},
-          "max_results": {"type": "integer", "minimum": 1, "maximum": 1000, "default": 100}
+          "name_contains": {
+            "type": "string"
+          },
+          "shape_type_code": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "text_contains": {
+            "type": "string"
+          },
+          "page_index": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "max_results": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "default": 100
+          }
         },
         "minProperties": 1,
         "additionalProperties": false
       },
-      "output_schema": {"type": "object", "required": ["matches", "truncated"], "properties": {"matches": {"type": "array", "items": {"type": "object"}}, "truncated": {"type": "boolean"}}, "additionalProperties": false},
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "matches",
+                    "truncated"
+                  ],
+                  "properties": {
+                    "matches": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "truncated": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Page.Shapes", "Shape.Name", "Shape.Type", "Shape.Text"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Page.Shapes",
+        "Shape.Name",
+        "Shape.Type",
+        "Shape.Text"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["CQL will not be exposed until an allowlisted query design is proven safe; initial implementation may enumerate in Python."],
-      "planned_phase": 2
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "CQL will not be exposed until an allowlisted query design is proven safe; initial implementation may enumerate in Python."
+      ],
+      "planned_phase": 2,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "get_text_properties",
       "category": "text_inspection",
       "description": "Return text content, type, font, size, style, alignment, and spacing for one text object.",
-      "implementation": {"state": "planned"},
-      "input_schema": {"$ref": "#/schema_definitions/object_selector"},
-      "output_schema": {"type": "object", "required": ["object_name", "text"], "properties": {"object_name": {"type": "string"}, "text": {"type": "object"}}, "additionalProperties": false},
+      "implementation": {
+        "state": "planned"
+      },
+      "input_schema": {
+        "$ref": "#/schema_definitions/object_selector"
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "object_name",
+                    "text"
+                  ],
+                  "properties": {
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "object"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Shape.Text", "Text.Story", "TextRange.Text", "TextRange.Font", "TextRange.Size", "TextRange.Bold", "TextRange.Italic", "TextRange.Underline", "TextRange.Alignment"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Shape.Text",
+        "Text.Story",
+        "TextRange.Text",
+        "TextRange.Font",
+        "TextRange.Size",
+        "TextRange.Bold",
+        "TextRange.Italic",
+        "TextRange.Underline",
+        "TextRange.Alignment"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Mixed formatting requires an explicit representation and additional X7 inventory work."],
-      "planned_phase": 2
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Mixed formatting requires an explicit representation and additional X7 inventory work."
+      ],
+      "planned_phase": 2,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "get_fill",
       "category": "appearance_inspection",
       "description": "Return the actual fill type and available color details for one object.",
-      "implementation": {"state": "planned"},
-      "input_schema": {"$ref": "#/schema_definitions/object_selector"},
-      "output_schema": {"type": "object", "required": ["object_name", "fill"], "properties": {"object_name": {"type": "string"}, "fill": {"type": "object"}}, "additionalProperties": false},
+      "implementation": {
+        "state": "planned"
+      },
+      "input_schema": {
+        "$ref": "#/schema_definitions/object_selector"
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "object_name",
+                    "fill"
+                  ],
+                  "properties": {
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "fill": {
+                      "type": "object"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Shape.Fill", "Fill.Type", "Fill.UniformColor"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Shape.Fill",
+        "Fill.Type",
+        "Fill.UniformColor"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Color-model and complex-fill schemas require additional enum/member inventory."],
-      "planned_phase": 2
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Color-model and complex-fill schemas require additional enum/member inventory."
+      ],
+      "planned_phase": 2,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "get_outline",
       "category": "appearance_inspection",
       "description": "Return the actual outline type, color, width, and style for one object with explicit units.",
-      "implementation": {"state": "planned"},
-      "input_schema": {"$ref": "#/schema_definitions/object_selector"},
-      "output_schema": {"type": "object", "required": ["object_name", "outline"], "properties": {"object_name": {"type": "string"}, "outline": {"type": "object"}}, "additionalProperties": false},
+      "implementation": {
+        "state": "planned"
+      },
+      "input_schema": {
+        "$ref": "#/schema_definitions/object_selector"
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "object_name",
+                    "outline"
+                  ],
+                  "properties": {
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "outline": {
+                      "type": "object"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Shape.Outline", "Outline.Type", "Outline.Color", "Outline.Width", "Outline.Style"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Shape.Outline",
+        "Outline.Type",
+        "Outline.Color",
+        "Outline.Width",
+        "Outline.Style"
+      ],
       "status": "research_required",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Outline.Width unit semantics must be established before the schema can promise points."],
-      "planned_phase": 2
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Outline.Width unit semantics must be established before the schema can promise points."
+      ],
+      "planned_phase": 2,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "calculate_sheet_layout",
       "category": "batch_layout",
       "description": "Calculate a deterministic N-up placement plan from item, sheet, margin, gutter, and orientation dimensions without touching CorelDRAW.",
-      "implementation": {"state": "planned"},
+      "implementation": {
+        "state": "planned"
+      },
       "input_schema": {
         "type": "object",
         "properties": {
-          "item_width_inches": {"type": "number", "exclusiveMinimum": 0},
-          "item_height_inches": {"type": "number", "exclusiveMinimum": 0},
-          "sheet_width_inches": {"type": "number", "exclusiveMinimum": 0},
-          "sheet_height_inches": {"type": "number", "exclusiveMinimum": 0},
-          "margin_inches": {"type": "number", "minimum": 0, "default": 0},
-          "gutter_inches": {"type": "number", "minimum": 0, "default": 0},
-          "allow_rotate": {"type": "boolean", "default": true}
+          "item_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "item_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "allow_rotate": {
+            "type": "boolean",
+            "default": true
+          }
         },
-        "required": ["item_width_inches", "item_height_inches", "sheet_width_inches", "sheet_height_inches"],
+        "required": [
+          "item_width_inches",
+          "item_height_inches",
+          "sheet_width_inches",
+          "sheet_height_inches"
+        ],
         "additionalProperties": false
       },
-      "output_schema": {"type": "object", "required": ["fits", "columns", "rows", "capacity", "placements"], "properties": {"fits": {"type": "boolean"}, "columns": {"type": "integer"}, "rows": {"type": "integer"}, "capacity": {"type": "integer"}, "placements": {"type": "array", "items": {"type": "object"}}}, "additionalProperties": true},
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "fits",
+                    "columns",
+                    "rows",
+                    "capacity",
+                    "placements"
+                  ],
+                  "properties": {
+                    "fits": {
+                      "type": "boolean"
+                    },
+                    "columns": {
+                      "type": "integer"
+                    },
+                    "rows": {
+                      "type": "integer"
+                    },
+                    "capacity": {
+                      "type": "integer"
+                    },
+                    "placements": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required",
       "priority": "P1",
-      "coreldraw_profiles": ["bridge_algorithm"],
+      "coreldraw_profiles": [
+        "bridge_algorithm"
+      ],
       "api_requirements": [],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Initial algorithm will be rectangular grid packing, not arbitrary nesting."],
-      "planned_phase": 5
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Initial algorithm will be rectangular grid packing, not arbitrary nesting."
+      ],
+      "planned_phase": 5,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "create_chest_number_batch",
       "category": "batch_workflow",
       "description": "Generate a validated sequence of editable chest-number designs with deterministic formatting and placement.",
-      "implementation": {"state": "planned"},
+      "implementation": {
+        "state": "planned"
+      },
       "input_schema": {
         "type": "object",
         "properties": {
-          "start": {"type": "integer"},
-          "end": {"type": "integer"},
-          "zero_pad_width": {"type": "integer", "minimum": 0, "maximum": 12, "default": 0},
-          "item_width_inches": {"type": "number", "exclusiveMinimum": 0},
-          "item_height_inches": {"type": "number", "exclusiveMinimum": 0},
-          "font": {"type": "string", "minLength": 1},
-          "font_size_points": {"type": "number", "exclusiveMinimum": 0}
+          "start": {
+            "type": "integer"
+          },
+          "end": {
+            "type": "integer"
+          },
+          "zero_pad_width": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 12,
+            "default": 0
+          },
+          "item_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "item_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "font": {
+            "type": "string",
+            "minLength": 1
+          },
+          "font_size_points": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
         },
-        "required": ["start", "end", "item_width_inches", "item_height_inches", "font", "font_size_points"],
+        "required": [
+          "start",
+          "end",
+          "item_width_inches",
+          "item_height_inches",
+          "font",
+          "font_size_points"
+        ],
         "additionalProperties": false
       },
-      "output_schema": {"type": "object", "required": ["created_count", "sequence_validation", "object_names"], "properties": {"created_count": {"type": "integer"}, "sequence_validation": {"type": "object"}, "object_names": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": true},
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "created_count",
+                    "sequence_validation",
+                    "object_names"
+                  ],
+                  "properties": {
+                    "created_count": {
+                      "type": "integer"
+                    },
+                    "sequence_validation": {
+                      "type": "object"
+                    },
+                    "object_names": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "validate_complete_job_before_mutation",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Layer.CreateArtisticText", "Shape.Name", "Shape.PositionX", "Shape.PositionY", "Shape.SizeWidth", "Shape.SizeHeight"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Layer.CreateArtisticText",
+        "Shape.Name",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.SizeWidth",
+        "Shape.SizeHeight"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Depends on verified text sizing, font availability, alignment, duplication, and sheet-layout capabilities."],
-      "planned_phase": 5
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Depends on verified text sizing, font availability, alignment, duplication, and sheet-layout capabilities."
+      ],
+      "planned_phase": 5,
+      "result_contract": "tool-schema-v1-envelope"
     },
     {
       "name": "arrange_n_up_print_sheet",
       "category": "batch_workflow",
       "description": "Apply a previously validated N-up placement plan to named objects or generated batch items.",
-      "implementation": {"state": "planned"},
+      "implementation": {
+        "state": "planned"
+      },
       "input_schema": {
         "type": "object",
         "properties": {
-          "object_names": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
-          "sheet_width_inches": {"type": "number", "exclusiveMinimum": 0},
-          "sheet_height_inches": {"type": "number", "exclusiveMinimum": 0},
-          "margin_inches": {"type": "number", "minimum": 0, "default": 0},
-          "gutter_inches": {"type": "number", "minimum": 0, "default": 0}
+          "object_names": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          }
         },
-        "required": ["object_names", "sheet_width_inches", "sheet_height_inches"],
+        "required": [
+          "object_names",
+          "sheet_width_inches",
+          "sheet_height_inches"
+        ],
         "additionalProperties": false
       },
-      "output_schema": {"type": "object", "required": ["placed_count", "overflow_count", "placements"], "properties": {"placed_count": {"type": "integer"}, "overflow_count": {"type": "integer"}, "placements": {"type": "array", "items": {"type": "object"}}}, "additionalProperties": true},
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "placed_count",
+                    "overflow_count",
+                    "placements"
+                  ],
+                  "properties": {
+                    "placed_count": {
+                      "type": "integer"
+                    },
+                    "overflow_count": {
+                      "type": "integer"
+                    },
+                    "placements": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ]
+      },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "validate_layout_before_mutation",
       "priority": "P1",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Page.SetSize", "Shape.SetPosition", "Shape.PositionX", "Shape.PositionY"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Page.SetSize",
+        "Shape.SetPosition",
+        "Shape.PositionX",
+        "Shape.PositionY"
+      ],
       "status": "planned",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["Depends on stable object identity and a tested layout calculator."],
-      "planned_phase": 5
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Depends on stable object identity and a tested layout calculator."
+      ],
+      "planned_phase": 5,
+      "result_contract": "tool-schema-v1-envelope"
     }
   ]
 }

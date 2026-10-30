@@ -86,7 +86,14 @@
       "id": "prototype_source",
       "type": "source_code",
       "path": "corel_operator/corel_bridge.py",
-      "description": "Current v0.5 bridge implementation."
+      "description": "Current bridge implementation."
+    },
+    {
+      "id": "historical_v0_5_source",
+      "type": "git_history",
+      "commit": "f6bf29b",
+      "path": "corel_operator/corel_bridge.py",
+      "description": "Catalog-foundation baseline retaining the historical v0.5 dynamic Caption read."
     }
   ],
   "members": [
@@ -149,6 +156,42 @@
       "live_test_status": "historical_report_needs_reproduction"
     },
     {
+      "id": "Application.VersionMajor",
+      "owner": "Application",
+      "kind": "property",
+      "access": "read",
+      "signature": "VersionMajor -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["corel_status"],
+      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.VersionMajor",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Application.VersionMinor",
+      "owner": "Application",
+      "kind": "property",
+      "access": "read",
+      "signature": "VersionMinor -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["corel_status"],
+      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.VersionMinor",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Application.VersionBuild",
+      "owner": "Application",
+      "kind": "property",
+      "access": "read",
+      "signature": "VersionBuild -> Long",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["corel_status"],
+      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.VersionBuild",
+      "live_test_status": "not_run"
+    },
+    {
       "id": "Application.Visible",
       "owner": "Application",
       "kind": "property",
@@ -167,10 +210,10 @@
       "access": "read",
       "signature": "Caption -> unknown",
       "status": "research_required",
-      "used_by": ["corel_status"],
-      "evidence": ["prototype_source"],
+      "used_by": [],
+      "evidence": ["historical_v0_5_source"],
       "live_test_status": "not_run",
-      "notes": ["The current bridge attempts a safe dynamic read.", "Caption was not found on the official X7 Application class page or installed X7 type-library property map; current code therefore commonly returns null."]
+      "notes": ["Caption was not found on the official X7 Application class page or installed X7 type-library property map.", "The unconfirmed dynamic read was removed from corel_status in bridge 0.6.0."]
     },
     {
       "id": "Application.CreateDocument",
