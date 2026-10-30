@@ -74,18 +74,19 @@ The current proof of concept and this plan are safely stored on GitHub without c
 
 This is the **next implementation milestone**. No broad feature expansion should happen before this phase passes.
 
-### 1.1 Create the truthful capability catalog
+### 1.1 Create the truthful capability catalog — completed 2026-10-30
 
 Create the required deliverables:
 
-- `docs/capability_catalog.md`
-- `catalog/coreldraw_x7_api_inventory.json`
-- `catalog/mcp_tool_registry.json`
-- `catalog/capability_matrix.csv`
-- `catalog/enum_reference.json`
-- `docs/UNSUPPORTED_AND_RESEARCH_REQUIRED.md`
-- `docs/TOOL_VERSIONING.md`
-- `CHANGELOG.md`
+- [x] `docs/capability_catalog.md`
+- [x] `catalog/coreldraw_x7_api_inventory.json`
+- [x] `catalog/mcp_tool_registry.json`
+- [x] `catalog/capability_matrix.csv`
+- [x] `catalog/enum_reference.json`
+- [x] `docs/UNSUPPORTED_AND_RESEARCH_REQUIRED.md`
+- [x] `docs/TOOL_VERSIONING.md`
+- [x] `CHANGELOG.md`
+- [x] `scripts/validate_catalog.py`
 
 Catalog rules:
 
@@ -330,16 +331,16 @@ Pixel-perfect recreation of every flattened reference remains a non-goal; discre
 
 Work should begin with these small batches:
 
-| Order | Batch | Result |
-|---:|---|---|
-| 1 | Catalog foundation | Required catalog files containing truthful records for current tools |
-| 2 | Version and result contract | Bridge/schema/profile versions plus stable structured errors |
-| 3 | Unit-test foundation | Schema, validation, units, targeting, paths, and dispatcher tests |
-| 4 | X7 adapter and diagnostics | Version-specific connection, runtime details, centralized verified constants |
-| 5 | Existing-tool hardening | Actual-state readback and fixes identified by unit tests |
-| 6 | Guarded live regression | Recorded disposable-document test of the existing tool set |
-| 7 | Inspection vertical slice | Document, page, layer, and single-object inspection tools |
-| 8 | First workflow vertical slice | Chest-number sequence plus sheet-layout calculation |
+| Order | Batch | Status | Result |
+|---:|---|---|---|
+| 1 | Catalog foundation | Complete | Required catalog files containing truthful records for current tools |
+| 2 | Version and result contract | Next | Bridge/schema/profile versions plus stable structured errors |
+| 3 | Unit-test foundation | Queued | Schema, validation, units, targeting, paths, and dispatcher tests |
+| 4 | X7 adapter and diagnostics | Queued | Version-specific connection, runtime details, centralized verified constants |
+| 5 | Existing-tool hardening | Queued | Actual-state readback and fixes identified by unit tests |
+| 6 | Guarded live regression | Queued | Recorded disposable-document test of the existing tool set |
+| 7 | Inspection vertical slice | Queued | Document, page, layer, and single-object inspection tools |
+| 8 | First workflow vertical slice | Queued | Chest-number sequence plus sheet-layout calculation |
 
 Each batch should end with tests, documentation updates, a catalog status update, and a focused commit.
 
@@ -382,4 +383,4 @@ The operator must then complete that workflow with deterministic tool calls, evi
 
 ## 18. Next action
 
-Start **Immediate Execution Queue — Batch 1: Catalog foundation**. Do not add broad new drawing features in that batch. Its purpose is to establish the machine-readable source of truth against which all subsequent implementation and verification will be measured.
+Start **Immediate Execution Queue — Batch 2: Version and result contract**. Add one authoritative bridge version, tool-schema/profile metadata, and a backward-conscious structured result/error contract before changing existing tool behavior.

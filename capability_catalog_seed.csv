@@ -1,15 +1,15 @@
 ﻿category,tool_name,purpose,permission,priority,status,validation_notes
-connection,corel_status,Read status/version/active target,read_only,P0,verified_live,Confirmed via Antigravity
+connection,corel_status,Read status/version/active target,read_only,P0,implemented_unverified,Historical Antigravity success reported; reproducible test report required
 connection,list_open_documents,Enumerate open docs,read_only,P1,planned,Validate Application.Documents collection
 document,create_document,Create and bind fresh document,mutating,P0,implemented_unverified,Live tests needed for exact dimensions each time
-document,save_document,Save target as new CDR path,mutating,P0,verified_live,Save succeeded after X7 save options
+document,save_document,Save target as new CDR path,mutating,P0,implemented_unverified,Historical X7 save success reported; reproducible test report required
 document,export_pdf,Publish target as PDF,export,P1,implemented_unverified,"Verify signature, exact output and page size"
 page,set_page_size,Set exact physical page dimensions,mutating,P0,implemented_unverified,Verify API and coordinate units
 objects,list_objects,Inspect objects and bounds,read_only,P0,implemented_unverified,Verify returned bounds/type/text
 objects,get_object_info,Inspect one object,read_only,P1,planned,Stable IDs required
-shapes,draw_rectangle,Create rectangle,mutating,P0,verified_live,Visible in successful smoke test
+shapes,draw_rectangle,Create rectangle,mutating,P0,implemented_unverified,Historically visible; reproducible bounds/readback test required
 shapes,draw_ellipse,Create ellipse,mutating,P1,implemented_unverified,Live test needed
-text,add_text,Create editable artistic text,mutating,P0,verified_live,Visible in successful smoke test
+text,add_text,Create editable artistic text,mutating,P0,implemented_unverified,Historically editable; reproducible content/format/bounds test required
 text,set_text_content,Edit text object,mutating,P1,implemented_unverified,Live test and preserve formatting
 appearance,set_fill_color,Set RGB uniform fill,mutating,P1,implemented_unverified,Verify RGB values read back correctly
 appearance,set_outline,Set RGB outline/width,mutating,P1,implemented_unverified,Verify width and color read back

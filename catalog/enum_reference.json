@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "catalog_revision": "2026-10-30",
+  "profile_id": "coreldraw-x7-17",
+  "scope": "Enums currently used by the bridge or required to interpret its outputs. This is not yet the complete X7 enum inventory.",
+  "source": {
+    "type": "installed_type_library",
+    "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+    "library_id": "{FBF4300F-D921-11D1-B806-00A0C90646A9}",
+    "registered_version": "11.0",
+    "product_version_major": 17,
+    "inspection_date": "2026-10-30",
+    "inspection_mode": "read_only"
+  },
+  "enums": {
+    "cdrUnit": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrUnit",
+      "values": {
+        "cdrTenthMicron": 0,
+        "cdrInch": 1,
+        "cdrFoot": 2,
+        "cdrMillimeter": 3,
+        "cdrCentimeter": 4,
+        "cdrPixel": 5,
+        "cdrMile": 6,
+        "cdrMeter": 7,
+        "cdrKilometer": 8,
+        "cdrDidots": 9,
+        "cdrAgate": 10,
+        "cdrYard": 11,
+        "cdrPica": 12,
+        "cdrCicero": 13,
+        "cdrPoint": 14,
+        "cdrUnitQ": 15,
+        "cdrUnitH": 16
+      },
+      "bridge_usage": ["CDR_INCH=1", "corel_status unit-name mapping"],
+      "notes": ["The bridge's inch value 1 is confirmed.", "Value 2 is cdrFoot, not inches."]
+    },
+    "cdrReferencePoint": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrReferencePoint",
+      "values": {
+        "cdrTopRight": 1,
+        "cdrTopMiddle": 2,
+        "cdrTopLeft": 3,
+        "cdrMiddleLeft": 4,
+        "cdrBottomLeft": 5,
+        "cdrBottomMiddle": 6,
+        "cdrBottomRight": 7,
+        "cdrMiddleRight": 8,
+        "cdrCenter": 9
+      },
+      "bridge_usage": ["CDR_BOTTOM_LEFT=5"]
+    },
+    "cdrFilter": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrFilter",
+      "values_in_current_bridge": {
+        "cdrAutoSense": 0,
+        "cdrCDR": 1795
+      },
+      "bridge_usage": ["Layer.Import default Filter=0", "StructSaveAsOptions.Filter=1795"],
+      "notes": ["Only values currently used by the bridge are included in this initial catalog."]
+    },
+    "cdrFileVersion": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrFileVersion",
+      "values_in_current_bridge": {
+        "cdrCurrentVersion": 0,
+        "cdrVersion17": 17
+      },
+      "bridge_usage": ["StructSaveAsOptions.Version=0"],
+      "notes": ["Current version refers to the running application's native CDR version; it is not the same concept as application build or tool schema version."]
+    },
+    "cdrExportRange": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrExportRange",
+      "values": {
+        "cdrAllPages": 0,
+        "cdrCurrentPage": 1,
+        "cdrSelection": 2
+      },
+      "bridge_usage": ["StructSaveAsOptions.Range=0"]
+    },
+    "cdrTriState": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrTriState",
+      "values": {
+        "cdrFalse": 0,
+        "cdrTrue": -1,
+        "cdrUndefined": -2
+      },
+      "bridge_usage": ["CreateArtisticText Bold uses -1 for true and 0 for false"]
+    },
+    "cdrTextLanguage": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrTextLanguage",
+      "values_in_current_bridge": {
+        "cdrLanguageNone": 0,
+        "cdrLanguageMixed": -1
+      },
+      "bridge_usage": ["CreateArtisticText LanguageID=0"],
+      "notes": ["The full language enum is intentionally deferred from this initial current-use subset."]
+    },
+    "cdrTextCharSet": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrTextCharSet",
+      "values_relevant_to_current_bridge": {
+        "cdrCharSetMixed": -1,
+        "cdrCharSetANSI": 0,
+        "cdrCharSetDefault": 1
+      },
+      "bridge_usage": ["CreateArtisticText currently passes CharSet=0"],
+      "notes": ["The installed type-library method default is -1; the bridge's explicit ANSI value needs multilingual text testing."]
+    },
+    "cdrShapeType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrShapeType",
+      "values": {
+        "cdrNoShape": 0,
+        "cdrRectangleShape": 1,
+        "cdrEllipseShape": 2,
+        "cdrCurveShape": 3,
+        "cdrPolygonShape": 4,
+        "cdrBitmapShape": 5,
+        "cdrTextShape": 6,
+        "cdrGroupShape": 7,
+        "cdrSelectionShape": 8,
+        "cdrGuidelineShape": 9,
+        "cdrBlendGroupShape": 10,
+        "cdrExtrudeGroupShape": 11,
+        "cdrOLEObjectShape": 12,
+        "cdrContourGroupShape": 13,
+        "cdrLinearDimensionShape": 14,
+        "cdrBevelGroupShape": 15,
+        "cdrDropShadowGroupShape": 16,
+        "cdr3DObjectShape": 17,
+        "cdrArtisticMediaGroupShape": 18,
+        "cdrConnectorShape": 19,
+        "cdrMeshFillShape": 20,
+        "cdrCustomShape": 21,
+        "cdrCustomEffectGroupShape": 22,
+        "cdrSymbolShape": 23,
+        "cdrHTMLFormObjectShape": 24,
+        "cdrHTMLActiveObjectShape": 25,
+        "cdrPerfectShape": 26,
+        "cdrEPSShape": 27
+      },
+      "bridge_usage": ["list_objects shape_type_code"]
+    }
+  }
+}
