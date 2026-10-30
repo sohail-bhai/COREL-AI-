@@ -64,7 +64,7 @@ Development will proceed through vertical, testable milestones rather than a lar
 - [x] Connect `origin` to `https://github.com/sohail-bhai/COREL-AI-.git`.
 - [x] Exclude `.venv`, caches, generated output, logs, backups, and CDR working files.
 - [x] Add this implementation plan.
-- [ ] Create and push the baseline commits.
+- [x] Create and push the baseline commits.
 
 ### Exit condition
 
