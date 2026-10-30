@@ -104,7 +104,7 @@ Catalog rules:
 - [x] Report bridge, Python, MCP, pywin32, CorelDRAW, profile, and ProgID information from `corel_status`.
 - [x] Document semantic-version and schema-version rules.
 
-### 1.3 Establish automated tests
+### 1.3 Establish automated tests — foundation completed 2026-10-30
 
 Initial Batch 2 contract tests completed:
 
@@ -114,15 +114,15 @@ Initial Batch 2 contract tests completed:
 - [x] `tests/test_status_metadata.py`
 - [x] `tests/test_server_contract.py`
 
-Add:
+Required foundation:
 
-- `tests/test_tool_schemas.py`
-- `tests/test_validation.py`
-- `tests/test_corel_unit_conversion.py`
-- `tests/test_document_targeting.py`
-- `tests/test_path_safety.py`
-- `tests/test_dispatcher.py`
-- `tests/integration/` for explicitly enabled CorelDRAW tests
+- [x] `tests/test_tool_schemas.py`
+- [x] `tests/test_validation.py`
+- [x] `tests/test_corel_unit_conversion.py`
+- [x] `tests/test_document_targeting.py`
+- [x] `tests/test_path_safety.py`
+- [x] `tests/test_dispatcher.py`
+- [x] `tests/integration/` for explicitly enabled CorelDRAW tests
 
 Testing requirements:
 
@@ -348,8 +348,8 @@ Work should begin with these small batches:
 |---:|---|---|---|
 | 1 | Catalog foundation | Complete | Required catalog files containing truthful records for current tools |
 | 2 | Version and result contract | Complete | Bridge/schema/profile versions plus stable structured errors |
-| 3 | Unit-test foundation | Next | Schema, validation, units, targeting, paths, and dispatcher tests |
-| 4 | X7 adapter and diagnostics | Queued | Version-specific connection, runtime details, centralized verified constants |
+| 3 | Unit-test foundation | Complete | Schema, validation, units, targeting, paths, and dispatcher tests |
+| 4 | X7 adapter and diagnostics | Next | Version-specific connection, runtime details, centralized verified constants |
 | 5 | Existing-tool hardening | Queued | Actual-state readback and fixes identified by unit tests |
 | 6 | Guarded live regression | Queued | Recorded disposable-document test of the existing tool set |
 | 7 | Inspection vertical slice | Queued | Document, page, layer, and single-object inspection tools |
@@ -396,4 +396,4 @@ The operator must then complete that workflow with deterministic tool calls, evi
 
 ## 18. Next action
 
-Start **Immediate Execution Queue — Batch 3: Unit-test foundation**. Expand the initial v0.6 tests into schema, unit conversion, targeting, path-safety, dispatcher, and guarded integration-test foundations without launching CorelDRAW during the default test run.
+Start **Immediate Execution Queue — Batch 4: X7 adapter and diagnostics**. Prefer and verify the explicit X7 ProgID, reject unexpected major versions, centralize verified constants, and expose capability support without changing the default no-live-test policy.

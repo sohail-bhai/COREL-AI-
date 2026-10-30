@@ -22,7 +22,7 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 - Tool-schema v1 success/error envelope with operation duration, warnings, target identity when known, and operation-specific `data`.
 - Stable expected error codes and safe fallback handling for unexpected exceptions.
 - `corel_status` runtime metadata for bridge, schema, profile, ProgID, connection mode, Python, MCP SDK, pywin32, and CorelDRAW version/build.
-- Twenty non-COM unit tests covering versions, result envelopes, bridge validation codes, status metadata, and server wrapper behavior.
+- Fifty default tests covering versions, result envelopes, schemas/examples, validation, units, targeting, paths, dispatcher behavior, and status metadata; one live CorelDRAW test is skipped unless explicitly enabled.
 - v0.6 upgrade guide documenting the response migration and complete package-copy requirement.
 - Persistent harness-incident log and future-agent safeguards for recurring Azure cross-resource item failures.
 
@@ -31,6 +31,8 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 - Normalized all registered tools to `implemented_unverified` until historical successes are reproduced in a dated disposable-document test report.
 - Wrapped prior v0.5 success dictionaries under `data`; all tools now use one deterministic top-level contract.
 - Removed the unconfirmed dynamic `Application.Caption` read from `corel_status`.
+- Added controlled `CorelDispatcher.close()` behavior for tests and future shutdown handling.
+- Rejected Boolean RGB channel values instead of accepting them as Python integers.
 
 ### Security
 

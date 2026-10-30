@@ -8,6 +8,7 @@ A local MCP bridge that lets compatible AI clients operate CorelDRAW X7 through 
 - `docs/capability_catalog.md` is the readable capability/status reference.
 - `catalog/mcp_tool_registry.json` is the machine-readable model-facing tool registry.
 - `catalog/coreldraw_x7_api_inventory.json` contains the current evidence-backed X7 API subset.
+- `docs/TESTING.md` explains default and explicitly enabled live tests.
 
 Historical successes listed below are retained as evidence, but the new registry conservatively marks current tools `implemented_unverified` until they pass a reproducible, dated test against a disposable X7 document.
 
@@ -23,7 +24,7 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- Initial non-COM unit tests and a catalog consistency validator.
+- Fifty default tests, one guarded live-status test, and a catalog consistency validator.
 
 Tool results now use this shape:
 

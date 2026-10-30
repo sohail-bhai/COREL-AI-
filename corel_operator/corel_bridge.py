@@ -455,7 +455,7 @@ class CorelBridge:
 
     @staticmethod
     def _validate_rgb(red: int, green: int, blue: int) -> None:
-        if not all(isinstance(v, int) and 0 <= v <= 255 for v in (red, green, blue)):
+        if not all(type(v) is int and 0 <= v <= 255 for v in (red, green, blue)):
             raise CorelBridgeError(
                 "RGB values must be integers from 0 to 255.",
                 ErrorCode.INVALID_ARGUMENT,

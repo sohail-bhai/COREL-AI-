@@ -62,6 +62,15 @@ class CorelDispatcher:
         self._jobs.put((method_name, args, kwargs, future))
         return future.result(timeout=120)
 
+    def close(self, timeout: float = 5.0) -> None:
+        """Stop the worker after queued work; primarily used by controlled shutdown/tests."""
+        if not self._thread.is_alive():
+            return
+        self._jobs.put(None)
+        self._thread.join(timeout=timeout)
+        if self._thread.is_alive():
+            raise RuntimeError("CorelDRAW COM worker did not stop within the timeout.")
+
 
 dispatcher = CorelDispatcher()
 
