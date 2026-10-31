@@ -395,6 +395,86 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             report = self._write_report(passed, failure)
             print(f"Live design-plan report: {report}")
 
+    def test_align_and_group_live(self) -> None:
+        passed = False
+        failure: str | None = None
+        try:
+            self.status = self._step("connect / corel_status", self.bridge.connect)
+            created = self._step("create_document", lambda: self.bridge.create_document(8.5, 11.0))
+            self.assertTrue(created["created"])
+
+            # 1. Create shapes to manipulate
+            b1 = self._step(
+                "draw_box_1",
+                lambda: self.bridge.draw_rectangle(1.0, 2.0, 2.0, 1.0, "Align_Box1"),
+            )
+            b2 = self._step(
+                "draw_box_2",
+                lambda: self.bridge.draw_rectangle(4.0, 6.0, 2.0, 1.0, "Align_Box2"),
+            )
+            self.assertEqual(b1["object_name"], "Align_Box1")
+            self.assertEqual(b2["object_name"], "Align_Box2")
+
+            # 2. Test align_objects: align left to last_selected (Align_Box2 at x=4.0)
+            aligned = self._step(
+                "align_objects",
+                lambda: self.bridge.align_objects(["Align_Box1", "Align_Box2"], horizontal="left", align_to="last_selected"),
+            )
+            self.assertTrue(aligned["aligned"])
+            b1_bounds = next(o["bounds_inches"] for o in aligned["objects"] if o["object_name"] == "Align_Box1")
+            self.assertAlmostEqual(b1_bounds["x"], 4.0, delta=0.02)
+
+            # 3. Test align_to_page: center Align_Box1 on page
+            page_aligned = self._step(
+                "align_to_page",
+                lambda: self.bridge.align_to_page(["Align_Box1"], horizontal="center", vertical="center"),
+            )
+            self.assertTrue(page_aligned["aligned"])
+            b1_centered = next(o["bounds_inches"] for o in page_aligned["objects"] if o["object_name"] == "Align_Box1")
+            expected_x = (8.5 - 2.0) / 2.0
+            expected_y = (11.0 - 1.0) / 2.0
+            self.assertAlmostEqual(b1_centered["x"], expected_x, delta=0.02)
+            self.assertAlmostEqual(b1_centered["y"], expected_y, delta=0.02)
+
+            # 4. Test group_shapes
+            grouped = self._step(
+                "group_shapes",
+                lambda: self.bridge.group_shapes(["Align_Box1", "Align_Box2"], group_name="Live_Group"),
+            )
+            self.assertTrue(grouped["grouped"])
+            self.assertEqual(grouped["group_name"], "Live_Group")
+            self.assertEqual(grouped["shape_count"], 2)
+
+            objects_after_group = self._step("list_objects_after_group", lambda: self.bridge.list_objects(50))
+            group_names = {item["object_name"] for item in objects_after_group["objects"]}
+            self.assertIn("Live_Group", group_names)
+
+            # 5. Test ungroup_shapes
+            ungrouped = self._step(
+                "ungroup_shapes",
+                lambda: self.bridge.ungroup_shapes(object_name="Live_Group", ungroup_all=False),
+            )
+            self.assertTrue(ungrouped["ungrouped"])
+            self.assertEqual(ungrouped["shapes_released"], 2)
+
+            objects_after_ungroup = self._step("list_objects_after_ungroup", lambda: self.bridge.list_objects(50))
+            final_names = {item["object_name"] for item in objects_after_ungroup["objects"]}
+            self.assertIn("Align_Box1", final_names)
+            self.assertIn("Align_Box2", final_names)
+            self.assertNotIn("Live_Group", final_names)
+
+            align_cdr = self.output_dir / "disposable-align-group.cdr"
+            saved = self._step("save_document", lambda: self.bridge.save_document(str(align_cdr)))
+            self.assertGreater(saved["bytes"], 0)
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            self._close_saved_target_if_needed()
+            report = self._write_report(passed, failure)
+            print(f"Live align-group report: {report}")
+
 
 
 if __name__ == "__main__":

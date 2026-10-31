@@ -73,7 +73,7 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic and workflow tools — `implemented_unverified` | 29 |
+| Registered atomic and workflow tools — `implemented_unverified` | 33 |
 | Planned atomic/workflow tools — `planned` | 5 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |
@@ -113,6 +113,10 @@ The zero verified count is intentional. The repository reports historical succes
 | `validate_design_plan` | read-only | P1 | implemented_unverified | Pure deterministic JSON schema, bounding box, palette, and typography validation without CorelDRAW dependency | Covered by unit tests |
 | `preview_design_plan` | read-only | P1 | implemented_unverified | Calculates composite bounding box, font inventory, and color palette statistics for visual planning | Covered by unit tests |
 | `execute_design_plan` | mutating | P1 | implemented_unverified | Executes multi-element plan transactionally with `BeginCommandGroup` and atomic `Undo` rollback on failure | Verified live on CorelDRAW X7 disposable document |
+| `align_objects` | mutating | P1 | implemented_unverified | Aligns two or more shapes horizontally and/or vertically relative to a reference target | Verified live on CorelDRAW X7 disposable document |
+| `align_to_page` | mutating | P1 | implemented_unverified | Aligns shapes or shape ranges to page edges or page center individually or collectively as a group | Verified live on CorelDRAW X7 disposable document |
+| `group_shapes` | mutating | P1 | implemented_unverified | Groups multiple shapes on active page into a named composite group shape | Verified live on CorelDRAW X7 disposable document |
+| `ungroup_shapes` | mutating | P1 | implemented_unverified | Ungroups a group shape into individual child shapes with optional recursive ungrouping | Verified live on CorelDRAW X7 disposable document |
 
 ## Next approved tools and workflows
 

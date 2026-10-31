@@ -52,6 +52,28 @@ class CorelX7Adapter:
     CDR_CHARSET_ANSI = 0
     CDR_FALSE = 0
     CDR_TRUE = -1
+    CDR_GROUP_SHAPE = 7
+
+    CDR_ALIGN_DISTRIBUTE_H_NONE = 0
+    CDR_ALIGN_DISTRIBUTE_H_ALIGN_RIGHT = 1
+    CDR_ALIGN_DISTRIBUTE_H_ALIGN_LEFT = 2
+    CDR_ALIGN_DISTRIBUTE_H_ALIGN_CENTER = 3
+
+    CDR_ALIGN_DISTRIBUTE_V_NONE = 0
+    CDR_ALIGN_DISTRIBUTE_V_ALIGN_TOP = 1
+    CDR_ALIGN_DISTRIBUTE_V_ALIGN_BOTTOM = 2
+    CDR_ALIGN_DISTRIBUTE_V_ALIGN_CENTER = 3
+
+    CDR_ALIGN_SHAPES_TO_LAST_SELECTED = 0
+    CDR_ALIGN_SHAPES_TO_EDGE_OF_PAGE = 1
+    CDR_ALIGN_SHAPES_TO_CENTER_OF_PAGE = 2
+
+    CDR_ALIGN_LEFT = 1
+    CDR_ALIGN_RIGHT = 2
+    CDR_ALIGN_H_CENTER = 3
+    CDR_ALIGN_TOP = 4
+    CDR_ALIGN_BOTTOM = 8
+    CDR_ALIGN_V_CENTER = 12
 
     FILL_TYPE_NAMES = {
         0: "none",
@@ -250,6 +272,30 @@ class CorelX7Adapter:
             "implemented_unverified",
             "Document.PublishToPDF exists; effective PDF settings remain unverified.",
             ("Document.PublishToPDF",),
+        ),
+        "shape.align_objects": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "ShapeRange.AlignAndDistribute aligns multiple shapes to reference target.",
+            ("Application.CreateShapeRange", "ShapeRange.AlignAndDistribute"),
+        ),
+        "shape.align_to_page": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "ShapeRange.AlignAndDistribute and AlignRangeToPage align shapes to page edges or center.",
+            ("Application.CreateShapeRange", "ShapeRange.AlignAndDistribute", "ShapeRange.AlignRangeToPage", "ShapeRange.AlignRangeToPageCenter"),
+        ),
+        "shape.group": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "ShapeRange.Group combines shapes into a single group shape.",
+            ("Application.CreateShapeRange", "ShapeRange.Group"),
+        ),
+        "shape.ungroup": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Shape.Ungroup and UngroupAll release shapes from groups.",
+            ("Shape.Ungroup", "Shape.UngroupAll"),
         ),
     }
 

@@ -47,6 +47,12 @@
       "description": "CorelDRAW X7 Shape class."
     },
     {
+      "id": "official_x7_shaperange",
+      "type": "official_documentation",
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/c/ShapeRange",
+      "description": "CorelDRAW X7 ShapeRange class."
+    },
+    {
       "id": "official_x7_fill",
       "type": "official_documentation",
       "url": "https://community.coreldraw.com/sdk/api/draw/17/c/Fill",
@@ -1334,6 +1340,90 @@
       "evidence": ["official_x7_save_options", "installed_x7_typelib", "prototype_source"],
       "live_test_status": "historical_report_needs_reproduction",
       "notes": ["Bridge also performs an operating-system existence check before invoking CorelDRAW."]
+    },
+    {
+      "id": "Application.CreateShapeRange",
+      "owner": "Application",
+      "kind": "method",
+      "access": "read_only_factory",
+      "signature": "CreateShapeRange() -> ShapeRange",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["align_objects", "align_to_page", "group_shapes"],
+      "evidence": ["official_x7_application", "installed_x7_typelib"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Application.CreateShapeRange",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "ShapeRange.AlignAndDistribute",
+      "owner": "ShapeRange",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "AlignAndDistribute(MethodH, MethodV, AlignTo, DistributeArea, UseOutline, TextAlignOrigin, PointX, PointY, DistributeRect) -> None",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["align_objects", "align_to_page"],
+      "evidence": ["official_x7_shaperange", "installed_x7_typelib"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/ShapeRange.AlignAndDistribute",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "ShapeRange.AlignRangeToPage",
+      "owner": "ShapeRange",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "AlignRangeToPage(Type) -> None",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["align_to_page"],
+      "evidence": ["official_x7_shaperange", "installed_x7_typelib"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/ShapeRange.AlignRangeToPage",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "ShapeRange.AlignRangeToPageCenter",
+      "owner": "ShapeRange",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "AlignRangeToPageCenter(Type) -> None",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["align_to_page"],
+      "evidence": ["official_x7_shaperange", "installed_x7_typelib"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/ShapeRange.AlignRangeToPageCenter",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "ShapeRange.Group",
+      "owner": "ShapeRange",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Group() -> Shape",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["group_shapes"],
+      "evidence": ["official_x7_shaperange", "installed_x7_typelib"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/ShapeRange.Group",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.Ungroup",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Ungroup() -> None",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["ungroup_shapes"],
+      "evidence": ["official_x7_shape", "installed_x7_typelib"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.Ungroup",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.UngroupAll",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "UngroupAll() -> None",
+      "status": "documented_and_typelib_confirmed",
+      "used_by": ["ungroup_shapes"],
+      "evidence": ["official_x7_shape", "installed_x7_typelib"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.UngroupAll",
+      "live_test_status": "not_run"
     }
   ]
 }

@@ -135,6 +135,36 @@ class ServerContractTests(unittest.TestCase):
         self.assertEqual(exec_res["tool"], "execute_design_plan")
         self.assertEqual(fake.calls[0][0], "execute_design_plan")
 
+    def test_align_and_group_wrappers_contract(self) -> None:
+        fake = _FakeDispatcher({"aligned": True, "object_count": 2})
+        server.dispatcher = fake
+
+        res_align = server.align_objects(["Box1", "Box2"], horizontal="left")
+        self.assertTrue(res_align["ok"])
+        self.assertEqual(res_align["tool"], "align_objects")
+        self.assertEqual(fake.calls[0][0], "align_objects")
+
+        fake_page = _FakeDispatcher({"aligned": True, "align_to": "page"})
+        server.dispatcher = fake_page
+        res_page = server.align_to_page(["Box1"], horizontal="center", vertical="center")
+        self.assertTrue(res_page["ok"])
+        self.assertEqual(res_page["tool"], "align_to_page")
+        self.assertEqual(fake_page.calls[0][0], "align_to_page")
+
+        fake_group = _FakeDispatcher({"grouped": True, "group_name": "TestGrp"})
+        server.dispatcher = fake_group
+        res_group = server.group_shapes(["Box1", "Box2"], "TestGrp")
+        self.assertTrue(res_group["ok"])
+        self.assertEqual(res_group["tool"], "group_shapes")
+        self.assertEqual(fake_group.calls[0][0], "group_shapes")
+
+        fake_ungroup = _FakeDispatcher({"ungrouped": True, "object_name": "TestGrp"})
+        server.dispatcher = fake_ungroup
+        res_ungroup = server.ungroup_shapes(object_name="TestGrp")
+        self.assertTrue(res_ungroup["ok"])
+        self.assertEqual(res_ungroup["tool"], "ungroup_shapes")
+        self.assertEqual(fake_ungroup.calls[0][0], "ungroup_shapes")
+
 
 if __name__ == "__main__":
     unittest.main()

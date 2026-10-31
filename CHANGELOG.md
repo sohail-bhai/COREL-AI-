@@ -8,6 +8,12 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Native Alignment & Grouping Tools (Option C):
+  - Mutating `align_objects` MCP tool aligning two or more shapes horizontally (left, center, right) and/or vertically (top, center, bottom) relative to a reference target (`last_selected` or `first_selected`).
+  - Mutating `align_to_page` MCP tool snapping shapes to page edges or centering on page axes, individually or collectively as a group (`align_as_group`).
+  - Mutating `group_shapes` MCP tool grouping two or more shapes on the active page into a single named composite shape (`Type == 7`).
+  - Mutating `ungroup_shapes` MCP tool releasing child shapes from groups with support for top-level or recursive (`ungroup_all`) ungrouping.
+  - Live integration test `test_align_and_group_live` executed against CorelDRAW X7 build 17.0.0.491 verifying alignment to reference shapes, centering to page, grouping into composite shape, and ungrouping back to original shapes.
 - Structured Design Plan Engine (Option B):
   - Pure `validate_design_plan` MCP tool enforcing design plan schema v1.0, checking element bounds, required fields, styling consistency, and max element limit (500).
   - Pure `preview_design_plan` MCP tool computing composite bounding box, bounding box margins, unique color palette (RGB counts and hex values), and typography summary.

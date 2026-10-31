@@ -2184,6 +2184,231 @@
         },
         "duration_ms": 10.0
       }
+    },
+    "align_objects": {
+      "request": {
+        "object_names": [
+          "Box1",
+          "Box2"
+        ],
+        "horizontal": "left",
+        "align_to": "last_selected"
+      },
+      "success": {
+        "ok": true,
+        "tool": "align_objects",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {
+          "aligned": true,
+          "align_to": "last_selected",
+          "horizontal": "left",
+          "vertical": "none",
+          "object_count": 2,
+          "objects": [
+            {
+              "object_name": "Box1",
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 1.0,
+                "width": 2.0,
+                "height": 1.0
+              }
+            },
+            {
+              "object_name": "Box2",
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 3.0,
+                "width": 2.0,
+                "height": 1.0
+              }
+            }
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 32.5
+      },
+      "error": {
+        "ok": false,
+        "tool": "align_objects",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "align_objects requires at least two object names.",
+          "details": {}
+        },
+        "duration_ms": 1.2
+      }
+    },
+    "align_to_page": {
+      "request": {
+        "object_names": [
+          "Main_Card"
+        ],
+        "horizontal": "center",
+        "vertical": "center"
+      },
+      "success": {
+        "ok": true,
+        "tool": "align_to_page",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {
+          "aligned": true,
+          "align_to": "page",
+          "horizontal": "center",
+          "vertical": "center",
+          "align_as_group": false,
+          "object_count": 1,
+          "objects": [
+            {
+              "object_name": "Main_Card",
+              "bounds_inches": {
+                "x": 2.25,
+                "y": 4.5,
+                "width": 4.0,
+                "height": 2.0
+              }
+            }
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 28.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "align_to_page",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Specify at least one horizontal or vertical alignment option other than 'none'.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "group_shapes": {
+      "request": {
+        "object_names": [
+          "BadgeBackground",
+          "BadgeIcon"
+        ],
+        "group_name": "BadgeComponent"
+      },
+      "success": {
+        "ok": true,
+        "tool": "group_shapes",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {
+          "grouped": true,
+          "group_name": "BadgeComponent",
+          "shape_count": 2,
+          "child_names": [
+            "BadgeBackground",
+            "BadgeIcon"
+          ],
+          "bounds_inches": {
+            "x": 1.0,
+            "y": 2.0,
+            "width": 3.0,
+            "height": 2.0
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 31.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "group_shapes",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "group_shapes requires at least two object names.",
+          "details": {}
+        },
+        "duration_ms": 1.1
+      }
+    },
+    "ungroup_shapes": {
+      "request": {
+        "object_name": "BadgeComponent",
+        "ungroup_all": false
+      },
+      "success": {
+        "ok": true,
+        "tool": "ungroup_shapes",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {
+          "ungrouped": true,
+          "object_name": "BadgeComponent",
+          "ungroup_all": false,
+          "shapes_released": 2
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 22.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "ungroup_shapes",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Target shape 'SimpleRectangle' is of type 1, not a group shape.",
+          "details": {}
+        },
+        "duration_ms": 1.5
+      }
     }
   },
   "tools": [
@@ -6122,6 +6347,947 @@
         "Rollback relies on CorelDRAW command group undo."
       ],
       "planned_phase": 4,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "align_objects",
+      "category": "shape_transform",
+      "description": "Align two or more shapes relative to a reference target (last_selected or first_selected) horizontally and/or vertically.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.align_objects"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_names": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 2
+          },
+          "horizontal": {
+            "type": "string",
+            "enum": [
+              "none",
+              "left",
+              "center",
+              "right"
+            ]
+          },
+          "vertical": {
+            "type": "string",
+            "enum": [
+              "none",
+              "top",
+              "center",
+              "bottom"
+            ]
+          },
+          "align_to": {
+            "type": "string",
+            "enum": [
+              "last_selected",
+              "first_selected"
+            ]
+          }
+        },
+        "required": [
+          "object_names"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "aligned",
+                    "align_to",
+                    "horizontal",
+                    "vertical",
+                    "object_count",
+                    "objects"
+                  ],
+                  "properties": {
+                    "aligned": {
+                      "const": true
+                    },
+                    "align_to": {
+                      "type": "string"
+                    },
+                    "horizontal": {
+                      "type": "string"
+                    },
+                    "vertical": {
+                      "type": "string"
+                    },
+                    "object_count": {
+                      "type": "integer",
+                      "minimum": 2
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "object_name",
+                          "bounds_inches"
+                        ],
+                        "properties": {
+                          "object_name": {
+                            "type": "string"
+                          },
+                          "bounds_inches": {
+                            "$ref": "#/schema_definitions/bounds_inches"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Align two rectangles left to reference object",
+          "input": {
+            "object_names": [
+              "Box1",
+              "Box2"
+            ],
+            "horizontal": "left",
+            "align_to": "last_selected"
+          },
+          "output": {
+            "ok": true,
+            "tool": "align_objects",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": {
+              "aligned": true,
+              "align_to": "last_selected",
+              "horizontal": "left",
+              "vertical": "none",
+              "object_count": 2,
+              "objects": [
+                {
+                  "object_name": "Box1",
+                  "bounds_inches": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "width": 2.0,
+                    "height": 1.0
+                  }
+                },
+                {
+                  "object_name": "Box2",
+                  "bounds_inches": {
+                    "x": 1.0,
+                    "y": 3.0,
+                    "width": 2.0,
+                    "height": 1.0
+                  }
+                }
+              ]
+            },
+            "warnings": [],
+            "error": null,
+            "duration_ms": 32.5
+          }
+        },
+        {
+          "title": "Align three shapes center both axes to first selected",
+          "input": {
+            "object_names": [
+              "Header",
+              "Subheader",
+              "Icon"
+            ],
+            "horizontal": "center",
+            "vertical": "center",
+            "align_to": "first_selected"
+          },
+          "output": {
+            "ok": true,
+            "tool": "align_objects",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": {
+              "aligned": true,
+              "align_to": "first_selected",
+              "horizontal": "center",
+              "vertical": "center",
+              "object_count": 3,
+              "objects": [
+                {
+                  "object_name": "Header",
+                  "bounds_inches": {
+                    "x": 2.0,
+                    "y": 4.0,
+                    "width": 4.0,
+                    "height": 1.0
+                  }
+                },
+                {
+                  "object_name": "Subheader",
+                  "bounds_inches": {
+                    "x": 2.5,
+                    "y": 4.25,
+                    "width": 3.0,
+                    "height": 0.5
+                  }
+                },
+                {
+                  "object_name": "Icon",
+                  "bounds_inches": {
+                    "x": 3.5,
+                    "y": 4.1,
+                    "width": 1.0,
+                    "height": 0.8
+                  }
+                }
+              ]
+            },
+            "warnings": [],
+            "error": null,
+            "duration_ms": 45.1
+          }
+        },
+        {
+          "title": "Error when less than two object names provided",
+          "input": {
+            "object_names": [
+              "Box1"
+            ],
+            "horizontal": "left"
+          },
+          "output": {
+            "ok": false,
+            "tool": "align_objects",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": null,
+            "warnings": [],
+            "error": {
+              "code": "INVALID_ARGUMENT",
+              "message": "align_objects requires at least two object names.",
+              "details": {}
+            },
+            "duration_ms": 1.2
+          }
+        }
+      ],
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "validate_target_and_objects",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateShapeRange",
+        "ShapeRange.AlignAndDistribute"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Requires at least two distinct objects on the active page."
+      ],
+      "planned_phase": 3,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "align_to_page",
+      "category": "shape_transform",
+      "description": "Align one or more shapes to page edges or center, individually or collectively as a group.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.align_to_page"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_names": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "horizontal": {
+            "type": "string",
+            "enum": [
+              "none",
+              "left",
+              "center",
+              "right"
+            ]
+          },
+          "vertical": {
+            "type": "string",
+            "enum": [
+              "none",
+              "top",
+              "center",
+              "bottom"
+            ]
+          },
+          "align_as_group": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "object_names"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "aligned",
+                    "align_to",
+                    "horizontal",
+                    "vertical",
+                    "align_as_group",
+                    "object_count",
+                    "objects"
+                  ],
+                  "properties": {
+                    "aligned": {
+                      "const": true
+                    },
+                    "align_to": {
+                      "const": "page"
+                    },
+                    "horizontal": {
+                      "type": "string"
+                    },
+                    "vertical": {
+                      "type": "string"
+                    },
+                    "align_as_group": {
+                      "type": "boolean"
+                    },
+                    "object_count": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "object_name",
+                          "bounds_inches"
+                        ],
+                        "properties": {
+                          "object_name": {
+                            "type": "string"
+                          },
+                          "bounds_inches": {
+                            "$ref": "#/schema_definitions/bounds_inches"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Center single object on page both axes",
+          "input": {
+            "object_names": [
+              "Main_Card"
+            ],
+            "horizontal": "center",
+            "vertical": "center"
+          },
+          "output": {
+            "ok": true,
+            "tool": "align_to_page",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": {
+              "aligned": true,
+              "align_to": "page",
+              "horizontal": "center",
+              "vertical": "center",
+              "align_as_group": false,
+              "object_count": 1,
+              "objects": [
+                {
+                  "object_name": "Main_Card",
+                  "bounds_inches": {
+                    "x": 2.25,
+                    "y": 4.5,
+                    "width": 4.0,
+                    "height": 2.0
+                  }
+                }
+              ]
+            },
+            "warnings": [],
+            "error": null,
+            "duration_ms": 28.0
+          }
+        },
+        {
+          "title": "Align two shapes collectively to top-left of page as a group",
+          "input": {
+            "object_names": [
+              "Logo",
+              "BrandText"
+            ],
+            "horizontal": "left",
+            "vertical": "top",
+            "align_as_group": true
+          },
+          "output": {
+            "ok": true,
+            "tool": "align_to_page",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": {
+              "aligned": true,
+              "align_to": "page",
+              "horizontal": "left",
+              "vertical": "top",
+              "align_as_group": true,
+              "object_count": 2,
+              "objects": [
+                {
+                  "object_name": "Logo",
+                  "bounds_inches": {
+                    "x": 0.0,
+                    "y": 9.5,
+                    "width": 1.5,
+                    "height": 1.5
+                  }
+                },
+                {
+                  "object_name": "BrandText",
+                  "bounds_inches": {
+                    "x": 1.8,
+                    "y": 10.0,
+                    "width": 3.0,
+                    "height": 0.8
+                  }
+                }
+              ]
+            },
+            "warnings": [],
+            "error": null,
+            "duration_ms": 34.7
+          }
+        },
+        {
+          "title": "Error when neither horizontal nor vertical specified",
+          "input": {
+            "object_names": [
+              "Main_Card"
+            ],
+            "horizontal": "none",
+            "vertical": "none"
+          },
+          "output": {
+            "ok": false,
+            "tool": "align_to_page",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": null,
+            "warnings": [],
+            "error": {
+              "code": "INVALID_ARGUMENT",
+              "message": "Specify at least one horizontal or vertical alignment option other than 'none'.",
+              "details": {}
+            },
+            "duration_ms": 1.0
+          }
+        }
+      ],
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "validate_target_and_objects",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateShapeRange",
+        "ShapeRange.AlignAndDistribute",
+        "ShapeRange.AlignRangeToPage",
+        "ShapeRange.AlignRangeToPageCenter"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Aligns relative to active page bounds in current document ruler units."
+      ],
+      "planned_phase": 3,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "group_shapes",
+      "category": "shape_hierarchy",
+      "description": "Group two or more shapes on the active page into a single named group shape.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.group_shapes"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_names": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 2
+          },
+          "group_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "object_names"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "grouped",
+                    "group_name",
+                    "shape_count",
+                    "child_names",
+                    "bounds_inches"
+                  ],
+                  "properties": {
+                    "grouped": {
+                      "const": true
+                    },
+                    "group_name": {
+                      "type": "string"
+                    },
+                    "shape_count": {
+                      "type": "integer",
+                      "minimum": 2
+                    },
+                    "child_names": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "bounds_inches": {
+                      "$ref": "#/schema_definitions/bounds_inches"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Group two objects into a badge component",
+          "input": {
+            "object_names": [
+              "BadgeBackground",
+              "BadgeIcon"
+            ],
+            "group_name": "BadgeComponent"
+          },
+          "output": {
+            "ok": true,
+            "tool": "group_shapes",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": {
+              "grouped": true,
+              "group_name": "BadgeComponent",
+              "shape_count": 2,
+              "child_names": [
+                "BadgeBackground",
+                "BadgeIcon"
+              ],
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 2.0,
+                "width": 3.0,
+                "height": 2.0
+              }
+            },
+            "warnings": [],
+            "error": null,
+            "duration_ms": 31.0
+          }
+        },
+        {
+          "title": "Group shapes with auto-generated name",
+          "input": {
+            "object_names": [
+              "Header",
+              "Footer"
+            ]
+          },
+          "output": {
+            "ok": true,
+            "tool": "group_shapes",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": {
+              "grouped": true,
+              "group_name": "AI_Group_001",
+              "shape_count": 2,
+              "child_names": [
+                "Header",
+                "Footer"
+              ],
+              "bounds_inches": {
+                "x": 0.5,
+                "y": 0.5,
+                "width": 5.0,
+                "height": 8.0
+              }
+            },
+            "warnings": [],
+            "error": null,
+            "duration_ms": 29.4
+          }
+        },
+        {
+          "title": "Error when less than two objects specified",
+          "input": {
+            "object_names": [
+              "SoloShape"
+            ]
+          },
+          "output": {
+            "ok": false,
+            "tool": "group_shapes",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": null,
+            "warnings": [],
+            "error": {
+              "code": "INVALID_ARGUMENT",
+              "message": "group_shapes requires at least two object names.",
+              "details": {}
+            },
+            "duration_ms": 1.1
+          }
+        }
+      ],
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "validate_target_and_objects",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateShapeRange",
+        "ShapeRange.Group"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Group shapes become a single composite shape on the active page."
+      ],
+      "planned_phase": 3,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "ungroup_shapes",
+      "category": "shape_hierarchy",
+      "description": "Ungroup a group shape into individual shapes. Use ungroup_all=True to ungroup nested groups recursively.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.ungroup_shapes"
+      },
+      "input_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/object_selector"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "ungroup_all": {
+                "type": "boolean"
+              }
+            }
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "ungrouped",
+                    "object_name",
+                    "ungroup_all",
+                    "shapes_released"
+                  ],
+                  "properties": {
+                    "ungrouped": {
+                      "const": true
+                    },
+                    "object_name": {
+                      "type": "string"
+                    },
+                    "ungroup_all": {
+                      "type": "boolean"
+                    },
+                    "shapes_released": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Ungroup top level of a group shape",
+          "input": {
+            "object_name": "BadgeComponent",
+            "ungroup_all": false
+          },
+          "output": {
+            "ok": true,
+            "tool": "ungroup_shapes",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": {
+              "ungrouped": true,
+              "object_name": "BadgeComponent",
+              "ungroup_all": false,
+              "shapes_released": 2
+            },
+            "warnings": [],
+            "error": null,
+            "duration_ms": 22.0
+          }
+        },
+        {
+          "title": "Ungroup all nested groups recursively by shape index",
+          "input": {
+            "shape_index": 1,
+            "ungroup_all": true
+          },
+          "output": {
+            "ok": true,
+            "tool": "ungroup_shapes",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": {
+              "ungrouped": true,
+              "object_name": "NestedGroup",
+              "ungroup_all": true,
+              "shapes_released": 5
+            },
+            "warnings": [],
+            "error": null,
+            "duration_ms": 35.8
+          }
+        },
+        {
+          "title": "Error when target shape is not a group shape",
+          "input": {
+            "object_name": "SimpleRectangle"
+          },
+          "output": {
+            "ok": false,
+            "tool": "ungroup_shapes",
+            "bridge_version": "0.6.0",
+            "tool_schema_version": 1,
+            "profile_id": "coreldraw-x7-17",
+            "target_document": {
+              "name": "Graphic1"
+            },
+            "data": null,
+            "warnings": [],
+            "error": {
+              "code": "INVALID_ARGUMENT",
+              "message": "Target shape 'SimpleRectangle' is of type 1, not a group shape.",
+              "details": {}
+            },
+            "duration_ms": 1.5
+          }
+        }
+      ],
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "validate_target_and_objects",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Shape.Ungroup",
+        "Shape.UngroupAll"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Only shapes of type cdrGroupShape (7) can be ungrouped."
+      ],
+      "planned_phase": 3,
       "result_contract": "tool-schema-v1-envelope"
     }
   ]

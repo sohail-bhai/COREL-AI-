@@ -927,6 +927,335 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("Could not duplicate object. Full COM error: " + str(exc)) from exc
 
+    def align_objects(
+        self,
+        object_names: list[str],
+        horizontal: str = "none",
+        vertical: str = "none",
+        align_to: str = "last_selected",
+    ) -> dict[str, Any]:
+        """Align two or more shapes relative to the reference object (last_selected or first_selected)."""
+        if not isinstance(object_names, list) or len(object_names) < 2:
+            raise CorelBridgeError(
+                "align_objects requires at least two object names.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        if len(set(object_names)) != len(object_names):
+            raise CorelBridgeError(
+                "Duplicate object names are not allowed in align_objects.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        h_norm = str(horizontal).lower().strip()
+        v_norm = str(vertical).lower().strip()
+        target_norm = str(align_to).lower().strip()
+
+        h_map = {
+            "none": self.adapter.CDR_ALIGN_DISTRIBUTE_H_NONE,
+            "right": self.adapter.CDR_ALIGN_DISTRIBUTE_H_ALIGN_RIGHT,
+            "left": self.adapter.CDR_ALIGN_DISTRIBUTE_H_ALIGN_LEFT,
+            "center": self.adapter.CDR_ALIGN_DISTRIBUTE_H_ALIGN_CENTER,
+        }
+        v_map = {
+            "none": self.adapter.CDR_ALIGN_DISTRIBUTE_V_NONE,
+            "top": self.adapter.CDR_ALIGN_DISTRIBUTE_V_ALIGN_TOP,
+            "bottom": self.adapter.CDR_ALIGN_DISTRIBUTE_V_ALIGN_BOTTOM,
+            "center": self.adapter.CDR_ALIGN_DISTRIBUTE_V_ALIGN_CENTER,
+        }
+
+        if h_norm not in h_map:
+            raise CorelBridgeError(
+                f"Invalid horizontal alignment {horizontal!r}; must be one of {sorted(h_map.keys())}.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        if v_norm not in v_map:
+            raise CorelBridgeError(
+                f"Invalid vertical alignment {vertical!r}; must be one of {sorted(v_map.keys())}.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        if h_norm == "none" and v_norm == "none":
+            raise CorelBridgeError(
+                "Specify at least one horizontal or vertical alignment option other than 'none'.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        if target_norm not in ("last_selected", "first_selected"):
+            raise CorelBridgeError(
+                f"Invalid align_to {align_to!r}; must be 'last_selected' or 'first_selected'.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+
+        doc = self._target_document()
+        app = self._require_app()
+
+        shapes: list[Any] = []
+        for name in object_names:
+            shape = self._find_shape(doc, object_name=name)
+            shapes.append(shape)
+
+        if target_norm == "last_selected":
+            ordered_shapes = [shapes[-1]] + shapes[:-1]
+        else:
+            ordered_shapes = [shapes[0]] + shapes[1:]
+
+        with self._in_inches(doc):
+            sr = app.CreateShapeRange()
+            for s in ordered_shapes:
+                sr.Add(s)
+
+            method_h = h_map[h_norm]
+            method_v = v_map[v_norm]
+
+            sr.AlignAndDistribute(
+                method_h,
+                method_v,
+                self.adapter.CDR_ALIGN_SHAPES_TO_LAST_SELECTED,
+                0,
+                False,
+                2,
+                0.0,
+                0.0,
+                None,
+            )
+
+        results = []
+        for name, shape in zip(object_names, shapes):
+            bounds = self._shape_bounds_inches(doc, shape)
+            results.append({
+                "object_name": name,
+                "bounds_inches": bounds,
+            })
+
+        return {
+            "aligned": True,
+            "align_to": target_norm,
+            "horizontal": h_norm,
+            "vertical": v_norm,
+            "object_count": len(object_names),
+            "objects": results,
+        }
+
+    def align_to_page(
+        self,
+        object_names: list[str],
+        horizontal: str = "none",
+        vertical: str = "none",
+        align_as_group: bool = False,
+    ) -> dict[str, Any]:
+        """Align one or more shapes to the page edges or center."""
+        if not isinstance(object_names, list) or len(object_names) < 1:
+            raise CorelBridgeError(
+                "align_to_page requires at least one object name.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        if len(set(object_names)) != len(object_names):
+            raise CorelBridgeError(
+                "Duplicate object names are not allowed in align_to_page.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        h_norm = str(horizontal).lower().strip()
+        v_norm = str(vertical).lower().strip()
+
+        valid_h = ("none", "left", "center", "right")
+        valid_v = ("none", "top", "center", "bottom")
+
+        if h_norm not in valid_h:
+            raise CorelBridgeError(
+                f"Invalid horizontal alignment {horizontal!r}; must be one of {list(valid_h)}.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        if v_norm not in valid_v:
+            raise CorelBridgeError(
+                f"Invalid vertical alignment {vertical!r}; must be one of {list(valid_v)}.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        if h_norm == "none" and v_norm == "none":
+            raise CorelBridgeError(
+                "Specify at least one horizontal or vertical alignment option other than 'none'.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+
+        doc = self._target_document()
+        app = self._require_app()
+
+        shapes: list[Any] = []
+        for name in object_names:
+            shape = self._find_shape(doc, object_name=name)
+            shapes.append(shape)
+
+        with self._in_inches(doc):
+            sr = app.CreateShapeRange()
+            for s in shapes:
+                sr.Add(s)
+
+            if align_as_group and len(shapes) > 1:
+                if h_norm == "center" and v_norm == "center":
+                    sr.AlignRangeToPageCenter(self.adapter.CDR_ALIGN_H_CENTER | self.adapter.CDR_ALIGN_V_CENTER)
+                else:
+                    if h_norm == "center":
+                        sr.AlignRangeToPageCenter(self.adapter.CDR_ALIGN_H_CENTER)
+                    elif h_norm == "left":
+                        sr.AlignRangeToPage(self.adapter.CDR_ALIGN_LEFT)
+                    elif h_norm == "right":
+                        sr.AlignRangeToPage(self.adapter.CDR_ALIGN_RIGHT)
+
+                    if v_norm == "center":
+                        sr.AlignRangeToPageCenter(self.adapter.CDR_ALIGN_V_CENTER)
+                    elif v_norm == "top":
+                        sr.AlignRangeToPage(self.adapter.CDR_ALIGN_TOP)
+                    elif v_norm == "bottom":
+                        sr.AlignRangeToPage(self.adapter.CDR_ALIGN_BOTTOM)
+            else:
+                h_map = {
+                    "none": self.adapter.CDR_ALIGN_DISTRIBUTE_H_NONE,
+                    "right": self.adapter.CDR_ALIGN_DISTRIBUTE_H_ALIGN_RIGHT,
+                    "left": self.adapter.CDR_ALIGN_DISTRIBUTE_H_ALIGN_LEFT,
+                    "center": self.adapter.CDR_ALIGN_DISTRIBUTE_H_ALIGN_CENTER,
+                }
+                v_map = {
+                    "none": self.adapter.CDR_ALIGN_DISTRIBUTE_V_NONE,
+                    "top": self.adapter.CDR_ALIGN_DISTRIBUTE_V_ALIGN_TOP,
+                    "bottom": self.adapter.CDR_ALIGN_DISTRIBUTE_V_ALIGN_BOTTOM,
+                    "center": self.adapter.CDR_ALIGN_DISTRIBUTE_V_ALIGN_CENTER,
+                }
+
+                if h_norm == "center" and v_norm == "center":
+                    sr.AlignAndDistribute(
+                        h_map["center"], v_map["center"],
+                        self.adapter.CDR_ALIGN_SHAPES_TO_CENTER_OF_PAGE,
+                        0, False, 2, 0.0, 0.0, None,
+                    )
+                else:
+                    if h_norm == "center":
+                        sr.AlignAndDistribute(
+                            h_map["center"], self.adapter.CDR_ALIGN_DISTRIBUTE_V_NONE,
+                            self.adapter.CDR_ALIGN_SHAPES_TO_CENTER_OF_PAGE,
+                            0, False, 2, 0.0, 0.0, None,
+                        )
+                    elif h_norm != "none":
+                        sr.AlignAndDistribute(
+                            h_map[h_norm], self.adapter.CDR_ALIGN_DISTRIBUTE_V_NONE,
+                            self.adapter.CDR_ALIGN_SHAPES_TO_EDGE_OF_PAGE,
+                            0, False, 2, 0.0, 0.0, None,
+                        )
+                    if v_norm == "center":
+                        sr.AlignAndDistribute(
+                            self.adapter.CDR_ALIGN_DISTRIBUTE_H_NONE, v_map["center"],
+                            self.adapter.CDR_ALIGN_SHAPES_TO_CENTER_OF_PAGE,
+                            0, False, 2, 0.0, 0.0, None,
+                        )
+                    elif v_norm != "none":
+                        sr.AlignAndDistribute(
+                            self.adapter.CDR_ALIGN_DISTRIBUTE_H_NONE, v_map[v_norm],
+                            self.adapter.CDR_ALIGN_SHAPES_TO_EDGE_OF_PAGE,
+                            0, False, 2, 0.0, 0.0, None,
+                        )
+
+        results = []
+        for name, shape in zip(object_names, shapes):
+            bounds = self._shape_bounds_inches(doc, shape)
+            results.append({
+                "object_name": name,
+                "bounds_inches": bounds,
+            })
+
+        return {
+            "aligned": True,
+            "align_to": "page",
+            "horizontal": h_norm,
+            "vertical": v_norm,
+            "align_as_group": align_as_group,
+            "object_count": len(object_names),
+            "objects": results,
+        }
+
+    def group_shapes(self, object_names: list[str], group_name: str = "") -> dict[str, Any]:
+        """Group multiple shapes on the active page into a single named group shape."""
+        if not isinstance(object_names, list) or len(object_names) < 2:
+            raise CorelBridgeError(
+                "group_shapes requires at least two object names.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        if len(set(object_names)) != len(object_names):
+            raise CorelBridgeError(
+                "Duplicate object names are not allowed in group_shapes.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+
+        doc = self._target_document()
+        app = self._require_app()
+
+        shapes: list[Any] = []
+        for name in object_names:
+            shape = self._find_shape(doc, object_name=name)
+            shapes.append(shape)
+
+        try:
+            with self._in_inches(doc):
+                sr = app.CreateShapeRange()
+                for s in shapes:
+                    sr.Add(s)
+                group_shape = sr.Group()
+                name = self._name_shape(doc, group_shape, group_name, "AI_Group")
+
+            child_names = []
+            try:
+                child_count = int(group_shape.Shapes.Count)
+                for i in range(1, child_count + 1):
+                    c = group_shape.Shapes.Item(i)
+                    child_names.append(str(_safe_attr(c, "Name") or ""))
+            except Exception:
+                child_names = list(object_names)
+
+            actual_bounds = self._shape_bounds_inches(doc, group_shape)
+            return {
+                "grouped": True,
+                "group_name": name,
+                "shape_count": len(child_names),
+                "child_names": child_names,
+                "bounds_inches": actual_bounds,
+            }
+        except Exception as exc:
+            raise CorelBridgeError(f"Could not group shapes in CorelDRAW X7: {exc}") from exc
+
+    def ungroup_shapes(
+        self,
+        object_name: str = "",
+        shape_index: int = 0,
+        ungroup_all: bool = False,
+    ) -> dict[str, Any]:
+        """Ungroup a group shape into individual shapes."""
+        doc = self._target_document()
+        shape = self._find_shape(doc, object_name, shape_index)
+
+        shape_type = _safe_attr(shape, "Type")
+        if shape_type != self.adapter.CDR_GROUP_SHAPE:
+            raise CorelBridgeError(
+                f"Target shape {object_name or shape_index!r} is of type {shape_type}, not a group shape.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+
+        resolved_name = str(_safe_attr(shape, "Name") or "")
+        child_count = 0
+        try:
+            child_count = int(shape.Shapes.Count)
+        except Exception:
+            child_count = 0
+
+        try:
+            with self._in_inches(doc):
+                if ungroup_all:
+                    shape.UngroupAll()
+                else:
+                    shape.Ungroup()
+
+            return {
+                "ungrouped": True,
+                "object_name": resolved_name,
+                "ungroup_all": ungroup_all,
+                "shapes_released": child_count,
+            }
+        except Exception as exc:
+            raise CorelBridgeError(f"Could not ungroup shape {resolved_name!r}: {exc}") from exc
+
     def import_artwork(self, file_path: str, object_name: str = "AI_Artwork") -> dict[str, Any]:
         path = Path(os.path.abspath(os.path.expanduser(file_path)))
         if not path.is_file():

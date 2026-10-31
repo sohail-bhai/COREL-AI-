@@ -332,5 +332,43 @@ def export_pdf(path: str) -> dict:
     return _tool("export_pdf", "export_pdf", path)
 
 
+@mcp.tool()
+def align_objects(
+    object_names: list[str],
+    horizontal: str = "none",
+    vertical: str = "none",
+    align_to: str = "last_selected",
+) -> dict:
+    """Align two or more shapes relative to a reference target (last_selected or first_selected)."""
+    return _tool("align_objects", "align_objects", object_names, horizontal, vertical, align_to)
+
+
+@mcp.tool()
+def align_to_page(
+    object_names: list[str],
+    horizontal: str = "none",
+    vertical: str = "none",
+    align_as_group: bool = False,
+) -> dict:
+    """Align one or more shapes to page edges or page center, individually or collectively as a group."""
+    return _tool("align_to_page", "align_to_page", object_names, horizontal, vertical, align_as_group)
+
+
+@mcp.tool()
+def group_shapes(object_names: list[str], group_name: str = "") -> dict:
+    """Group two or more shapes on the active page into a single named group shape."""
+    return _tool("group_shapes", "group_shapes", object_names, group_name)
+
+
+@mcp.tool()
+def ungroup_shapes(
+    object_name: str = "",
+    shape_index: int = 0,
+    ungroup_all: bool = False,
+) -> dict:
+    """Ungroup a group shape into individual shapes. Use ungroup_all=True to ungroup nested groups recursively."""
+    return _tool("ungroup_shapes", "ungroup_shapes", object_name, shape_index, ungroup_all)
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
