@@ -1256,7 +1256,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError(f"Could not ungroup shape {resolved_name!r}: {exc}") from exc
 
-    def import_artwork(self, file_path: str, object_name: str = "AI_Artwork") -> dict[str, Any]:
+    def _validate_artwork_path(self, file_path: str) -> Path:
         path = Path(os.path.abspath(os.path.expanduser(file_path)))
         if not path.is_file():
             raise CorelBridgeError(
@@ -1273,6 +1273,10 @@ class CorelBridge:
                 "Artwork is larger than the 250 MB prototype limit.",
                 ErrorCode.INVALID_ARGUMENT,
             )
+        return path
+
+    def import_artwork(self, file_path: str, object_name: str = "AI_Artwork") -> dict[str, Any]:
+        path = self._validate_artwork_path(file_path)
         doc = self._target_document()
         layer = self._get_layer(doc)
         before = int(self._shapes(doc).Count)
@@ -1334,6 +1338,53 @@ class CorelBridge:
                 # duplicate names we don't depend on this lookup for its primary identity.
                 return i
         return None
+
+    def _design_plan_shape_snapshot(self, doc: Any) -> dict[str, Any]:
+        shapes = self._shapes(doc)
+        tokens: list[str] = []
+        names: list[str] = []
+        for index in range(1, int(shapes.Count) + 1):
+            shape = self._shape_at(doc, index)
+            name = str(_safe_attr(shape, "Name") or "")
+            names.append(name)
+            static_id = _safe_int_attr(shape, "StaticID")
+            shape_type = _safe_int_attr(shape, "Type")
+            if static_id is not None:
+                tokens.append(f"static_id:{static_id}")
+            else:
+                tokens.append(f"name:{name}|type:{shape_type}")
+        tokens.sort()
+        return {
+            "count": int(shapes.Count),
+            "tokens": tokens,
+            "names": names,
+        }
+
+    def _verify_design_plan_rollback(
+        self,
+        doc: Any,
+        baseline: dict[str, Any],
+        created_names: list[str],
+    ) -> dict[str, Any]:
+        try:
+            current = self._design_plan_shape_snapshot(doc)
+        except Exception as exc:
+            return {
+                "verified": False,
+                "verification_error_type": type(exc).__name__,
+            }
+
+        created_name_set = set(created_names)
+        remaining = sorted(name for name in current["names"] if name in created_name_set)
+        identity_restored = current["tokens"] == baseline["tokens"]
+        count_restored = current["count"] == baseline["count"]
+        return {
+            "verified": count_restored and identity_restored and not remaining,
+            "before_count": baseline["count"],
+            "after_count": current["count"],
+            "identity_restored": identity_restored,
+            "created_objects_remaining": remaining,
+        }
 
     def create_chest_number_batch(
         self,
@@ -1512,7 +1563,19 @@ class CorelBridge:
         rollback_on_failure: bool = True,
     ) -> dict[str, Any]:
         """Execute a validated multi-element design plan transactionally with atomic rollback."""
-        validate_design_plan(plan)
+        validation = validate_design_plan(plan)
+        if not validation["ready_for_execution"]:
+            raise CorelBridgeError(
+                "Design plan failed execution preflight.",
+                ErrorCode.INVALID_ARGUMENT,
+                {"blocking_issues": validation["blocking_issues"]},
+            )
+
+        # Validate every local asset before document creation or any CorelDRAW mutation.
+        # import_artwork validates again immediately before import to reduce TOCTOU risk.
+        for elem in plan["elements"]:
+            if elem["type"] == "artwork":
+                self._validate_artwork_path(elem["file_path"])
 
         if create_new_document:
             cw = float(plan["canvas"]["width_inches"])
@@ -1522,12 +1585,29 @@ class CorelBridge:
         doc = self._target_document()
         layer = self._get_layer(doc)
 
+        rollback_baseline: dict[str, Any] | None = None
+        if rollback_on_failure:
+            try:
+                rollback_baseline = self._design_plan_shape_snapshot(doc)
+            except Exception as exc:
+                raise CorelBridgeError(
+                    "Could not establish a pre-execution state for rollback verification; no plan elements were created.",
+                    ErrorCode.COREL_COM_ERROR,
+                    {"exception_type": type(exc).__name__},
+                ) from exc
+
         has_command_group = False
         try:
             doc.BeginCommandGroup(f"AI Plan: {plan.get('name', 'Design Plan')}")
             has_command_group = True
-        except Exception:
+        except Exception as exc:
             has_command_group = False
+            if rollback_on_failure:
+                raise CorelBridgeError(
+                    "Could not start a CorelDRAW command group; no plan elements were created.",
+                    ErrorCode.COREL_COM_ERROR,
+                    {"exception_type": type(exc).__name__},
+                ) from exc
 
         executed_elements: list[dict[str, Any]] = []
         created_shape_names: list[str] = []
@@ -1538,6 +1618,7 @@ class CorelBridge:
                     elem_id = str(elem["id"])
                     elem_type = str(elem["type"])
                     created_shape = None
+                    created_names_before = len(created_shape_names)
 
                     if elem_type == "rectangle":
                         x = float(elem["x_inches"])
@@ -1609,45 +1690,93 @@ class CorelBridge:
                             created_shape.Outline.Color = color
                             created_shape.Outline.Width = ow
 
+                    element_object_names = created_shape_names[created_names_before:]
                     executed_elements.append({
                         "id": elem_id,
                         "type": elem_type,
-                        "object_name": elem_id,
+                        "object_name": element_object_names[0] if len(element_object_names) == 1 else None,
+                        "object_names": element_object_names,
                         "status": "created",
                     })
 
+                if has_command_group:
+                    doc.EndCommandGroup()
+                    has_command_group = False
+
             except Exception as step_exc:
+                command_group_closed = False
                 if has_command_group:
                     try:
                         doc.EndCommandGroup()
+                        command_group_closed = True
                     except Exception:
                         pass
-                    if rollback_on_failure:
-                        try:
-                            doc.Undo()
-                        except Exception:
-                            pass
+
+                rollback_result: dict[str, Any] = {
+                    "requested": rollback_on_failure,
+                    "attempted": False,
+                    "undo_succeeded": False,
+                    "verified": False,
+                    "command_group_closed": command_group_closed,
+                }
+                if has_command_group and rollback_on_failure:
+                    rollback_result["attempted"] = True
+                    try:
+                        doc.Undo()
+                        rollback_result["undo_succeeded"] = True
+                    except Exception as rollback_exc:
+                        rollback_result["undo_error_type"] = type(rollback_exc).__name__
+
+                    if rollback_result["undo_succeeded"] and rollback_baseline is not None:
+                        rollback_result.update(
+                            self._verify_design_plan_rollback(
+                                doc,
+                                rollback_baseline,
+                                created_shape_names,
+                            )
+                        )
+
+                if rollback_result["verified"]:
+                    rollback_message = "Changes were rolled back and the prior page state was verified."
+                elif rollback_on_failure:
+                    rollback_message = "Rollback could not be verified; review the target document before further mutation."
+                else:
+                    rollback_message = "Rollback was not requested; partial changes may remain."
+                error_details: dict[str, Any] = {
+                    "failed_element": elem.get("id"),
+                    "executed_count": len(executed_elements),
+                    "rollback": rollback_result,
+                    "exception_type": type(step_exc).__name__,
+                }
+                if isinstance(step_exc, CorelBridgeError):
+                    error_details["cause_code"] = step_exc.code.value
                 raise CorelBridgeError(
-                    f"Plan execution failed on element {elem.get('id', 'unknown')!r}: {step_exc}. "
-                    + ("Changes were rolled back." if (has_command_group and rollback_on_failure) else ""),
+                    f"Plan execution failed on element {elem.get('id', 'unknown')!r}. "
+                    + rollback_message,
                     step_exc.code if isinstance(step_exc, CorelBridgeError) else ErrorCode.COREL_COM_ERROR,
-                    {"failed_element": elem.get("id"), "executed_count": len(executed_elements)},
+                    error_details,
                 ) from step_exc
 
-        if has_command_group:
-            try:
-                doc.EndCommandGroup()
-            except Exception:
-                pass
-
         # Post-execution verification & discrepancy reporting
-        objects_summary = self.list_objects(max_objects=200)
+        objects_summary = self.list_objects(max_objects=1000)
         page_objects = {obj["object_name"]: obj for obj in objects_summary.get("objects", [])}
         discrepancies: list[str] = []
-        for elem in plan["elements"]:
-            eid = elem["id"]
-            if eid not in page_objects and not any(name.startswith(eid) for name in page_objects):
-                discrepancies.append(f"Element {eid!r} was not found on the page after execution.")
+        for executed in executed_elements:
+            actual_objects = [
+                page_objects[name]
+                for name in executed["object_names"]
+                if name in page_objects
+            ]
+            executed["actual_objects"] = actual_objects
+            missing_names = [
+                name for name in executed["object_names"] if name not in page_objects
+            ]
+            if missing_names:
+                discrepancies.append(
+                    f"Element {executed['id']!r} objects were not found after execution: "
+                    + ", ".join(repr(name) for name in missing_names)
+                    + "."
+                )
 
         return {
             "executed": True,

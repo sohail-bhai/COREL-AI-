@@ -1983,7 +1983,9 @@
           "elements_by_type": {
             "rectangle": 1
           },
-          "warnings": []
+          "warnings": [],
+          "blocking_issues": [],
+          "ready_for_execution": true
         },
         "warnings": [],
         "error": null,
@@ -2080,6 +2082,7 @@
           "typography": [],
           "estimated_coverage_ratio": 0.1283,
           "warnings": [],
+          "blocking_issues": [],
           "ready_for_execution": true
         },
         "warnings": [],
@@ -6127,7 +6130,9 @@
                   "required": [
                     "valid",
                     "element_count",
-                    "canvas"
+                    "canvas",
+                    "blocking_issues",
+                    "ready_for_execution"
                   ],
                   "properties": {
                     "valid": {
@@ -6138,6 +6143,15 @@
                     },
                     "canvas": {
                       "type": "object"
+                    },
+                    "blocking_issues": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "ready_for_execution": {
+                      "type": "boolean"
                     }
                   },
                   "additionalProperties": true
@@ -6157,11 +6171,13 @@
       "api_requirements": [],
       "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "non_live_passed",
+        "sources": [
+          "tests/test_design_plans.py"
+        ]
       },
       "known_limitations": [
-        "Pure JSON schema and geometric validation only."
+        "Pure JSON schema and geometric validation only; local artwork files are checked immediately before execution."
       ],
       "planned_phase": 4,
       "result_contract": "tool-schema-v1-envelope"
@@ -6209,7 +6225,9 @@
                     "valid",
                     "canvas",
                     "elements_summary",
-                    "bounding_box"
+                    "bounding_box",
+                    "blocking_issues",
+                    "ready_for_execution"
                   ],
                   "properties": {
                     "valid": {
@@ -6223,6 +6241,15 @@
                     },
                     "bounding_box": {
                       "type": "object"
+                    },
+                    "blocking_issues": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "ready_for_execution": {
+                      "type": "boolean"
                     }
                   },
                   "additionalProperties": true
@@ -6242,8 +6269,10 @@
       "api_requirements": [],
       "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "non_live_passed",
+        "sources": [
+          "tests/test_design_plans.py"
+        ]
       },
       "known_limitations": [
         "Estimates bounds and palette without live rendering."
@@ -6340,11 +6369,16 @@
       ],
       "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "live_x7_passed_manual_review_pending",
+        "sources": [
+          "tests/test_design_plans.py",
+          "tests/integration/test_corel_live.py",
+          "docs/test-reports/2026-10-31T164625558391Z-x7-disposable-regression.md"
+        ]
       },
       "known_limitations": [
-        "Rollback relies on CorelDRAW command group undo."
+        "Rollback relies on CorelDRAW command-group Undo plus post-Undo object-state verification.",
+        "Manual editability review of the dated disposable CDR artifact is still pending."
       ],
       "planned_phase": 4,
       "result_contract": "tool-schema-v1-envelope"

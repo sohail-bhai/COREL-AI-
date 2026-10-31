@@ -74,11 +74,11 @@ Evidence is evaluated in this order:
 | Registry layer/status | Count |
 |---|---:|
 | Registered atomic and workflow tools — `implemented_unverified` | 33 |
-| Planned atomic/workflow tools — `planned` | 5 |
+| Planned atomic/workflow tools — `planned` | 4 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |
 
-The zero verified count is intentional. The repository reports historical successes, but it does not yet contain the reproducible dated test report required by the current product contract.
+The zero verified count is intentional. Dated disposable X7 reports now exist, but required manual artifact reviews and capability-specific evidence updates are not complete.
 
 ## Existing MCP tools
 
@@ -110,9 +110,9 @@ The zero verified count is intentional. The repository reports historical succes
 | `calculate_sheet_layout` | read-only | P1 | implemented_unverified | Pure rectangular-grid calculator; no CorelDRAW dependency | Add deterministic geometry and overflow coverage; review coordinates before using for print production |
 | `plan_chest_number_batch` | read-only | P1 | implemented_unverified | Pure sequence and optional sheet-fit preflight with zero-padded labels and deterministic object names | Add boundary, fit, and zero-padding coverage before implementing document creation |
 | `create_chest_number_batch` | mutating | P1 | implemented_unverified | Generates numbered bibs, borders, headers, and text directly on the target document | Verified live on CorelDRAW X7 disposable document |
-| `validate_design_plan` | read-only | P1 | implemented_unverified | Pure deterministic JSON schema, bounding box, palette, and typography validation without CorelDRAW dependency | Covered by unit tests |
-| `preview_design_plan` | read-only | P1 | implemented_unverified | Calculates composite bounding box, font inventory, and color palette statistics for visual planning | Covered by unit tests |
-| `execute_design_plan` | mutating | P1 | implemented_unverified | Executes multi-element plan transactionally with `BeginCommandGroup` and atomic `Undo` rollback on failure | Verified live on CorelDRAW X7 disposable document |
+| `validate_design_plan` | read-only | P1 | implemented_unverified | Enforces a Draft 2020-12 schema plus domain rules and separates blocking canvas issues from explicitly allowed overflow warnings | Keep pure validation side-effect free; artwork files are preflighted immediately before execution |
+| `preview_design_plan` | read-only | P1 | implemented_unverified | Calculates bounds, palette, typography, warnings, blocking issues, and execution readiness without starting CorelDRAW | Compare estimated text bounds with disposable X7 readback |
+| `execute_design_plan` | mutating | P1 | implemented_unverified | Preflights artwork, returns actual object readback, sanitizes failures, and verifies post-Undo state after rollback | Disposable X7 execution/rollback passed; manually review the dated CDR artifact |
 | `align_objects` | mutating | P1 | implemented_unverified | Aligns two or more shapes horizontally and/or vertically relative to a reference target | Verified live on CorelDRAW X7 disposable document |
 | `align_to_page` | mutating | P1 | implemented_unverified | Aligns shapes or shape ranges to page edges or page center individually or collectively as a group | Verified live on CorelDRAW X7 disposable document |
 | `group_shapes` | mutating | P1 | implemented_unverified | Groups multiple shapes on active page into a named composite group shape | Verified live on CorelDRAW X7 disposable document |
@@ -136,7 +136,7 @@ These remaining entries are catalog records only. They do not become available t
 
 The X7 adapter now prefers `CorelDRAW.Application.17`, validates that the connected application reports major version 17, and reports the ProgID/mode used. Generic `CorelDRAW.Application` remains a validated fallback because another installed CorelDRAW version could change `CurVer`.
 
-The adapter exposes evidence/status for 18 approved capabilities. Seventeen are available but still `implemented_unverified`; the claimed point semantics for outline width remain unavailable and `research_required`. No capability is reported as live verified yet.
+The adapter exposes evidence/status for 28 approved capabilities. Twenty-seven are available but still `implemented_unverified`; the claimed point semantics for outline width remain unavailable and `research_required`. No capability is reported as live verified yet.
 
 ### The unconfirmed `Application.Caption` read was removed
 

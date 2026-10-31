@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from corel_operator.corel_bridge import CorelBridge, CorelBridgeError
+from corel_operator.errors import ErrorCode
 
 
 LIVE_ENABLED = os.environ.get("COREL_LIVE_TESTS") == "1"
@@ -128,6 +129,24 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         REPORT_DIR.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H%M%S%fZ")
         report_path = REPORT_DIR / f"{stamp}-x7-disposable-regression.md"
+        cdr_artifacts = sorted(self.output_dir.glob("*.cdr"))
+        pdf_artifacts = sorted(self.output_dir.glob("*.pdf"))
+        artifact_lines = (
+            [f"- CDR: `{path}` ({path.stat().st_size} bytes)" for path in cdr_artifacts]
+            or ["- CDR: not generated"]
+        )
+        artifact_lines.extend(
+            [f"- PDF: `{path}` ({path.stat().st_size} bytes)" for path in pdf_artifacts]
+            or ["- PDF: not generated"]
+        )
+        artifact_lines.append(f"- Synthetic SVG fixture: `{self.svg_path}`")
+        manual_review_lines = [
+            "- Open each generated CDR and confirm objects remain editable."
+            if cdr_artifacts else "- No CDR was generated; CDR editability review is not applicable.",
+            "- Inspect each generated PDF for page size, fonts, colors, and rendering."
+            if pdf_artifacts else "- No PDF was generated; PDF review is not applicable.",
+            "- Do not mark tools live-verified until this report and the artifacts have been reviewed.",
+        ]
         rows = [
             f"| {item['name']} | {item['status']} | {item['duration_ms']} | {str(item['detail']).replace('|', '/')} |"
             for item in self.steps
@@ -153,9 +172,7 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             "",
             "## Artifacts",
             "",
-            f"- CDR: `{self.cdr_path}` ({self.cdr_path.stat().st_size if self.cdr_path.is_file() else 'missing'} bytes)",
-            f"- PDF: `{self.pdf_path}` ({self.pdf_path.stat().st_size if self.pdf_path.is_file() else 'missing'} bytes)",
-            f"- Synthetic SVG fixture: `{self.svg_path}`",
+            *artifact_lines,
             "",
             "## Cleanup",
             "",
@@ -163,9 +180,7 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             "",
             "## Manual review still required",
             "",
-            "- Open the CDR and confirm objects remain editable.",
-            "- Inspect the PDF page size, fonts, colors, and rendering.",
-            "- Do not mark tools live-verified until this report and the artifacts have been reviewed.",
+            *manual_review_lines,
         ]
         report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return report_path
@@ -352,7 +367,9 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self.assertIn("badge_icon_circle", names)
             self.assertIn("badge_title", names)
 
-            # Test atomic rollback on failure
+            # Test live command-group Undo with a deterministic bridge failure after
+            # the first CorelDRAW mutation. The asset itself passes path preflight.
+            self._write_svg_fixture()
             failing_plan = {
                 "version": "1.0",
                 "name": "Live Failing Plan",
@@ -369,12 +386,22 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
                     {
                         "id": "rollback_artwork_fail",
                         "type": "artwork",
-                        "file_path": "C:\\nonexistent_artwork_12345.svg",
+                        "file_path": str(self.svg_path),
                     },
                 ],
             }
-            with self.assertRaises(CorelBridgeError):
-                self._step("execute_failing_plan_rollback", lambda: self.bridge.execute_design_plan(failing_plan))
+            original_import_artwork = self.bridge.import_artwork
+
+            def force_import_failure(file_path: str, object_name: str = "AI_Artwork") -> dict[str, Any]:
+                raise CorelBridgeError("Synthetic post-preflight failure.", ErrorCode.COREL_COM_ERROR)
+
+            self.bridge.import_artwork = force_import_failure  # type: ignore[method-assign]
+            try:
+                with self.assertRaises(CorelBridgeError) as rollback_context:
+                    self._step("execute_failing_plan_rollback", lambda: self.bridge.execute_design_plan(failing_plan))
+            finally:
+                self.bridge.import_artwork = original_import_artwork  # type: ignore[method-assign]
+            self.assertTrue(rollback_context.exception.details["rollback"]["verified"])
 
             # Verify that rollback_rect was rolled back and is not on page
             after_rollback = self._step("list_objects_after_rollback", lambda: self.bridge.list_objects(50))

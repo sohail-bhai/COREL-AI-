@@ -2,9 +2,9 @@
 from __future__ import annotations
 
 import math
-import os
-from pathlib import Path
 from typing import Any
+
+from jsonschema import Draft202012Validator
 
 from .errors import CorelBridgeError, ErrorCode
 
@@ -73,9 +73,13 @@ DESIGN_PLAN_SCHEMA: dict[str, Any] = {
                     },
                     "x_inches": {
                         "type": "number",
+                        "minimum": -200,
+                        "maximum": 400,
                     },
                     "y_inches": {
                         "type": "number",
+                        "minimum": -200,
+                        "maximum": 400,
                     },
                     "width_inches": {
                         "type": "number",
@@ -111,6 +115,7 @@ DESIGN_PLAN_SCHEMA: dict[str, Any] = {
                     "file_path": {
                         "type": "string",
                         "minLength": 1,
+                        "maxLength": 2048,
                     },
                     "fill": {
                         "type": "object",
@@ -134,13 +139,46 @@ DESIGN_PLAN_SCHEMA: dict[str, Any] = {
                         },
                     },
                 },
+                "allOf": [
+                    {
+                        "if": {
+                            "properties": {"type": {"enum": ["rectangle", "ellipse"]}},
+                            "required": ["type"],
+                        },
+                        "then": {
+                            "required": ["x_inches", "y_inches", "width_inches", "height_inches"],
+                        },
+                    },
+                    {
+                        "if": {
+                            "properties": {"type": {"const": "text"}},
+                            "required": ["type"],
+                        },
+                        "then": {
+                            "required": ["x_inches", "y_inches", "text"],
+                        },
+                    },
+                    {
+                        "if": {
+                            "properties": {"type": {"const": "artwork"}},
+                            "required": ["type"],
+                        },
+                        "then": {
+                            "required": ["file_path"],
+                        },
+                    },
+                ],
             },
         },
         "validations": {
             "type": "object",
-            "additionalProperties": True,
+            "additionalProperties": False,
             "properties": {
-                "expected_element_count": {"type": "integer", "minimum": 1},
+                "expected_element_count": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": MAX_PLAN_ELEMENTS,
+                },
                 "bounding_box_within_canvas": {"type": "boolean", "default": True},
             },
         },
@@ -148,10 +186,48 @@ DESIGN_PLAN_SCHEMA: dict[str, Any] = {
 }
 
 
+_DESIGN_PLAN_VALIDATOR = Draft202012Validator(DESIGN_PLAN_SCHEMA)
+
+
+def _format_schema_path(parts: Any) -> str:
+    path = "plan"
+    for part in parts:
+        if isinstance(part, int):
+            path += f"[{part}]"
+        else:
+            path += f".{part}"
+    return path
+
+
+def _validate_design_plan_schema(plan: dict[str, Any]) -> None:
+    errors = sorted(
+        _DESIGN_PLAN_VALIDATOR.iter_errors(plan),
+        key=lambda error: (
+            _format_schema_path(error.absolute_path),
+            ".".join(str(part) for part in error.absolute_schema_path),
+        ),
+    )
+    if not errors:
+        return
+
+    error = errors[0]
+    path = _format_schema_path(error.absolute_path)
+    raise CorelBridgeError(
+        f"Design plan schema validation failed at {path}: {error.message}",
+        ErrorCode.INVALID_ARGUMENT,
+        {
+            "path": path,
+            "validator": str(error.validator),
+        },
+    )
+
+
 def validate_design_plan(plan: Any) -> dict[str, Any]:
     """Pure, deterministic validation of a design plan against the schema and domain rules."""
     if not isinstance(plan, dict):
         raise CorelBridgeError("Design plan must be a JSON object.", ErrorCode.INVALID_ARGUMENT)
+
+    _validate_design_plan_schema(plan)
 
     if plan.get("version") != PLAN_SCHEMA_VERSION:
         raise CorelBridgeError(
@@ -182,6 +258,9 @@ def validate_design_plan(plan: Any) -> dict[str, Any]:
     seen_ids: set[str] = set()
     elements_by_type: dict[str, int] = {}
     warnings: list[str] = []
+    blocking_issues: list[str] = []
+    validations = plan.get("validations", {})
+    require_bounds_within_canvas = validations.get("bounding_box_within_canvas", True)
 
     for index, elem in enumerate(elements, start=1):
         if not isinstance(elem, dict):
@@ -214,10 +293,19 @@ def validate_design_plan(plan: Any) -> dict[str, Any]:
 
         w = elem.get("width_inches")
         h = elem.get("height_inches")
+        for dim_name, val in (("width_inches", w), ("height_inches", h)):
+            if val is not None and (
+                isinstance(val, bool)
+                or not isinstance(val, (int, float))
+                or not math.isfinite(val)
+                or val <= 0
+                or val > 200
+            ):
+                raise CorelBridgeError(
+                    f"Element {elem_id!r}: {dim_name} must be a positive finite number <= 200.",
+                    ErrorCode.INVALID_ARGUMENT,
+                )
         if elem_type in ("rectangle", "ellipse"):
-            for dim_name, val in (("width_inches", w), ("height_inches", h)):
-                if isinstance(val, bool) or not isinstance(val, (int, float)) or not math.isfinite(val) or val <= 0:
-                    raise CorelBridgeError(f"Element {elem_id!r}: {dim_name} must be a positive finite number.", ErrorCode.INVALID_ARGUMENT)
             if x is None or y is None:
                 raise CorelBridgeError(f"Element {elem_id!r}: x_inches and y_inches are required for {elem_type}.", ErrorCode.INVALID_ARGUMENT)
 
@@ -230,6 +318,12 @@ def validate_design_plan(plan: Any) -> dict[str, Any]:
             size_pt = elem.get("font_size_points", 24.0)
             if isinstance(size_pt, bool) or not isinstance(size_pt, (int, float)) or not (1 <= size_pt <= 500):
                 raise CorelBridgeError(f"Element {elem_id!r}: font_size_points must be between 1 and 500.", ErrorCode.INVALID_ARGUMENT)
+            font = elem.get("font", "Arial")
+            if not isinstance(font, str) or not font.strip():
+                raise CorelBridgeError(
+                    f"Element {elem_id!r}: font must be a non-empty string.",
+                    ErrorCode.INVALID_ARGUMENT,
+                )
 
         if elem_type == "artwork":
             file_path = elem.get("file_path")
@@ -258,16 +352,20 @@ def validate_design_plan(plan: Any) -> dict[str, Any]:
                     if isinstance(c_val, bool) or not isinstance(c_val, int) or not (0 <= c_val <= 255):
                         raise CorelBridgeError(f"Element {elem_id!r}: outline.{c_name} must be integer 0-255.", ErrorCode.INVALID_ARGUMENT)
 
-        # Boundary warning check
+        boundary_issues: list[str] = []
         if x is not None and y is not None:
             if x < 0 or x > cw or y < 0 or y > ch:
-                warnings.append(f"Element {elem_id!r} placement ({x}, {y}) is outside canvas bounds ({cw} x {ch}).")
+                boundary_issues.append(f"Element {elem_id!r} placement ({x}, {y}) is outside canvas bounds ({cw} x {ch}).")
             if w is not None and (x + w > cw):
-                warnings.append(f"Element {elem_id!r} right edge ({round(x + w, 2)}) exceeds canvas width ({cw}).")
+                boundary_issues.append(f"Element {elem_id!r} right edge ({round(x + w, 2)}) exceeds canvas width ({cw}).")
             if h is not None and (y + h > ch):
-                warnings.append(f"Element {elem_id!r} top edge ({round(y + h, 2)}) exceeds canvas height ({ch}).")
+                boundary_issues.append(f"Element {elem_id!r} top edge ({round(y + h, 2)}) exceeds canvas height ({ch}).")
 
-    validations = plan.get("validations", {})
+        if require_bounds_within_canvas:
+            blocking_issues.extend(boundary_issues)
+        else:
+            warnings.extend(boundary_issues)
+
     expected_count = validations.get("expected_element_count")
     if expected_count is not None and expected_count != len(elements):
         raise CorelBridgeError(
@@ -283,6 +381,8 @@ def validate_design_plan(plan: Any) -> dict[str, Any]:
         "canvas": {"width_inches": cw, "height_inches": ch, "unit": "inch"},
         "elements_by_type": elements_by_type,
         "warnings": warnings,
+        "blocking_issues": blocking_issues,
+        "ready_for_execution": not blocking_issues,
     }
 
 
@@ -376,5 +476,6 @@ def preview_design_plan(plan: Any) -> dict[str, Any]:
         "typography": typography_list,
         "estimated_coverage_ratio": coverage_ratio,
         "warnings": validation["warnings"],
-        "ready_for_execution": True,
+        "blocking_issues": validation["blocking_issues"],
+        "ready_for_execution": validation["ready_for_execution"],
     }

@@ -11,15 +11,15 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 83 tests
-OK (skipped=2)
+Ran 140 tests
+OK (skipped=5)
 ```
 
 Coverage includes:
 
 - authoritative bridge/schema/profile versions;
 - tool-schema v1 success and error envelopes;
-- all catalog JSON Schemas and 90 request/success/error examples;
+- all catalog JSON Schemas and 114 request/success/error examples;
 - bridge argument validation and stable error codes;
 - inch-unit and reference-point context restoration;
 - protected target-document behavior using fake COM objects;
@@ -30,6 +30,8 @@ Coverage includes:
 - document/page, primitive/text bounds, text-format, and PDF-file readback using fake COM objects;
 - native RGB/fill/outline readback plus StaticID/layer/page identity for list, rename, duplicate, and import operations;
 - read-only document, page, layer, and single-object inspection using fake multi-document COM collections;
+- canonical design-plan schema/domain validation, asset preflight, preview readiness, actual-state readback, sanitized failures, command-group cleanup, and verified rollback;
+- alignment and grouping validation/dispatch with guarded disposable-document live gates;
 - `corel_status` runtime metadata using a fake Application object.
 
 Temporary path-safety fixtures are created under the operating system's `opencode` temporary directory and removed by the tests.

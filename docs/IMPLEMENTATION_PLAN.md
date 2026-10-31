@@ -25,16 +25,16 @@ As of this plan date:
 - Document targeting, stable result envelopes, error codes, an X7 adapter, diagnostics,
   catalog validation, inspection tools, sheet-layout planning, and chest-number generation
   are present.
-- The registry contains 34 tools: 29 `implemented_unverified`, four `planned`, and one
+- The registry contains 38 records: 33 `implemented_unverified`, four `planned`, and one
   `research_required`.
 - A disposable X7 regression has exercised `create_chest_number_batch`, but manual CDR/PDF
   review and complete evidence updates are still required.
-- A design-plan vertical slice (`validate_design_plan`, `preview_design_plan`, and
-  `execute_design_plan`) is in progress, with initial pure/fake-COM tests and a guarded live
-  gate present in the working tree.
-- The current working tree passes 115 default tests with four live tests skipped, and the
-  standalone catalog validator passes. The design-plan slice still needs edge-case coverage,
-  rollback proof, a disposable live run, and manual artifact review before it is complete.
+- The design-plan vertical slice (`validate_design_plan`, `preview_design_plan`, and
+  `execute_design_plan`) has schema/runtime parity coverage, blocking preflight, asset-path
+  preflight, actual-state readback, sanitized errors, and verified fake-COM rollback behavior.
+- The current working tree passes 140 default tests with five live tests skipped, and the
+  standalone catalog validator passes. A disposable X7 design-plan run has passed; manual CDR
+  artifact review is still required before the tools can be marked `verified`.
 - All implemented tools remain conservatively unverified until their applicable live and
   manual checks are recorded.
 
@@ -380,6 +380,10 @@ These are the next reviewable tickets:
 | 8 | ID-001 | Detect stale document/object references | No fallback to a different active target |
 | 9 | SAFE-001 | Add redacted operation records | No secrets/content on MCP stdout |
 | 10 | SAFE-002 | Define busy/timeout recovery state | Mutations blocked while state is unknown |
+
+DP-001 through DP-005 now pass their automated and disposable-X7 gates. Manual review of the
+dated design-plan CDR remains pending, so the tools retain `implemented_unverified` status.
+`INS-001` is the next implementation ticket.
 
 Do not begin broad typography, visual AI, or additional batch types until tickets 1–10 pass
 their gates.

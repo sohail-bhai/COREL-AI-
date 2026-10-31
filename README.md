@@ -26,7 +26,7 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- Eighty-three default tests (two skipped live gates), guarded read-only and disposable-document regressions, and a catalog consistency validator.
+- 140 default tests (five guarded live gates skipped), disposable-document regressions, and a catalog consistency validator.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Six implemented-unverified read-only inspection tools for open documents, target-document details, pages, page bounds, layers, and single objects.
@@ -84,10 +84,12 @@ Those checks confirm the basic pipeline works. The new v0.5 tools below need a l
 
 Your existing project is already connected to Antigravity. Do not replace its MCP configuration. Follow `docs/UPGRADE_TO_V0.6.md`; v0.6 adds package modules and a new response contract, so copying only `corel_bridge.py` and `server.py` is no longer sufficient. `docs/UPGRADE_FROM_V0.4.md` is retained as historical v0.5 guidance.
 
-Requirements pin MCP SDK v1 because the server uses `mcp.server.fastmcp`:
+Requirements pin MCP SDK v1 because the server uses `mcp.server.fastmcp`; JSON Schema is a
+direct runtime dependency for design-plan validation:
 
 ```text
 mcp>=1.28,<2
+jsonschema>=4.21,<5
 pywin32>=306; platform_system == "Windows"
 ```
 

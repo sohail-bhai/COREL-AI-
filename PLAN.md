@@ -409,22 +409,18 @@ The operator must then complete that workflow with deterministic tool calls, evi
 
 ## 18. Active Roadmap & Next Actions
 
-1. **Option A: Batch Chest-Number Creation (`create_chest_number_batch`) — ACTIVE**:
-   - Leverage `build_chest_number_sequence` and `calculate_sheet_layout` to generate physical items inside the bound CorelDRAW target document.
-   - For each number in the sequence:
-     - Optionally draw bounding frame rectangle (if requested or by default for border).
-     - Place bold artistic text centered or positioned within each item's cell bounds.
-     - Assign unique deterministic object names (e.g. `chest_number_001_text`, `chest_number_001_box`).
-     - Support single-page N-up sheet layout as well as multi-page generation (one item per page if requested).
-     - Guard against creating unvalidated batches or missing values.
+1. **Option A: Batch Chest-Number Creation (`create_chest_number_batch`) — COMPLETE VERTICAL SLICE**:
+   - Deterministic sequence/layout planning, bounded document creation, unit coverage, and a disposable X7 run are complete.
+   - Multi-page generation, text fitting, production manifests, and manual artifact review remain future hardening work.
 
-2. **Option B: Structured Design Plan Engine (`validate_design_plan`, `execute_design_plan`) — QUEUED (HIGH VALUE)**:
-   - High-value architectural subsystem requiring deep design and validation before execution.
-   - Comprehensive plan schema: document setup, layer specification, primitive declarations, styling rules, typography hierarchy, grouping hierarchy, and post-execution inspection criteria.
-   - Dry-run validation (`validate_design_plan`) with no side-effects.
-   - Transactional execution with error interception and document checkpoint / rollback to prevent partial dirty states.
+2. **Option B: Structured Design Plan Engine — COMPLETE STABILIZATION SLICE**:
+   - `validate_design_plan`, `preview_design_plan`, and `execute_design_plan` are registered with canonical schema validation, blocking preflight, asset preflight, actual-state readback, sanitized failures, and verified rollback checks.
+   - A disposable X7 execution/rollback regression passes; manual CDR editability review remains required before `verified` status.
 
-3. **Option C: Alignment, Distribution & Grouping Tools — QUEUED**:
-   - `align_objects`, `align_to_page`, `distribute_objects`.
-   - `group_shapes`, `ungroup_shapes`.
+3. **Option C: Alignment & Grouping — COMPLETE VERTICAL SLICE**:
+   - `align_objects`, `align_to_page`, `group_shapes`, and `ungroup_shapes` have unit and disposable X7 coverage.
+   - `distribute_objects` remains unimplemented and must follow the normal X7 evidence/test process.
 
+4. **Next active milestone: Inspection and reliable identity**:
+   - Implement bounded `find_objects`, then object bounds, text, fill, and layer inspection.
+   - Detect stale document/object references and ambiguous nested/group selectors before adding broader editing tools.
