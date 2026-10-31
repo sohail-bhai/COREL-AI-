@@ -110,6 +110,31 @@ class ServerContractTests(unittest.TestCase):
         self.assertEqual(result["tool"], "create_chest_number_batch")
         self.assertEqual(fake.calls[0][0], "create_chest_number_batch")
 
+    def test_design_plan_wrappers_contract(self) -> None:
+        plan = {
+            "version": "1.0",
+            "name": "contract_test_plan",
+            "canvas": {"width_inches": 8.5, "height_inches": 11.0},
+            "elements": [{"id": "box_01", "type": "rectangle", "x_inches": 1.0, "y_inches": 1.0, "width_inches": 2.0, "height_inches": 1.0}],
+        }
+        val_res = server.validate_design_plan(plan)
+        self.assertTrue(val_res["ok"])
+        self.assertEqual(val_res["tool"], "validate_design_plan")
+        self.assertTrue(val_res["data"]["valid"])
+
+        prev_res = server.preview_design_plan(plan)
+        self.assertTrue(prev_res["ok"])
+        self.assertEqual(prev_res["tool"], "preview_design_plan")
+        self.assertIn("bounding_box", prev_res["data"])
+
+        fake = _FakeDispatcher({"executed": True, "elements_executed": 1})
+        server.dispatcher = fake
+
+        exec_res = server.execute_design_plan(plan)
+        self.assertTrue(exec_res["ok"])
+        self.assertEqual(exec_res["tool"], "execute_design_plan")
+        self.assertEqual(fake.calls[0][0], "execute_design_plan")
+
 
 if __name__ == "__main__":
     unittest.main()

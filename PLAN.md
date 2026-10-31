@@ -364,8 +364,8 @@ Work should begin with these small batches:
 | 6 | Guarded live regression | Complete | Executed against CorelDRAW X7 17.0.0.491 on disposable document; all operations passed; report in docs/test-reports/ |
 | 7 | Inspection vertical slice | In progress | Six document/page/layer/single-object tools implemented with unit tests |
 | 8 | First workflow vertical slice | Complete | Read-only sheet layout and chest-number sequence planning implemented and verified with 100% unit tests |
-| 9 | Mutating batch creation (Option A) | In progress | Execute chest-number batch and layout directly in bound CorelDRAW document (`create_chest_number_batch`) |
-| 10 | Structured design plan engine (Option B) | Queued | High-value, deep-detail design plan execution engine with transactional rollback and post-operation validation |
+| 9 | Mutating batch creation (Option A) | Complete | `create_chest_number_batch` implemented, unit tested, and verified live on CorelDRAW X7 disposable document |
+| 10 | Structured design plan engine (Option B) | Complete | High-value, deep-detail design plan engine with validation, preview, transactional CommandGroup execution, atomic Undo rollback, and live X7 verification |
 | 11 | Alignment and grouping tools (Option C) | Queued | Native CorelDRAW align-to-page, align-and-distribute, and group/ungroup MCP tools |
 
 Each batch should end with tests, documentation updates, a catalog status update, and a focused commit.

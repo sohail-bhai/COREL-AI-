@@ -1935,6 +1935,255 @@
         },
         "duration_ms": 0.1
       }
+    },
+    "validate_design_plan": {
+      "request": {
+        "plan": {
+          "version": "1.0",
+          "name": "sample_badge",
+          "canvas": {
+            "width_inches": 8.5,
+            "height_inches": 11.0,
+            "unit": "inch"
+          },
+          "elements": [
+            {
+              "id": "badge_box",
+              "type": "rectangle",
+              "x_inches": 1.0,
+              "y_inches": 5.0,
+              "width_inches": 4.0,
+              "height_inches": 3.0,
+              "fill": {
+                "red": 30,
+                "green": 60,
+                "blue": 120
+              }
+            }
+          ]
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "validate_design_plan",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "valid": true,
+          "name": "sample_badge",
+          "version": "1.0",
+          "element_count": 1,
+          "canvas": {
+            "width_inches": 8.5,
+            "height_inches": 11.0,
+            "unit": "inch"
+          },
+          "elements_by_type": {
+            "rectangle": 1
+          },
+          "warnings": []
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "validate_design_plan",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Design plan validation failed.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
+    "preview_design_plan": {
+      "request": {
+        "plan": {
+          "version": "1.0",
+          "name": "sample_badge",
+          "canvas": {
+            "width_inches": 8.5,
+            "height_inches": 11.0,
+            "unit": "inch"
+          },
+          "elements": [
+            {
+              "id": "badge_box",
+              "type": "rectangle",
+              "x_inches": 1.0,
+              "y_inches": 5.0,
+              "width_inches": 4.0,
+              "height_inches": 3.0,
+              "fill": {
+                "red": 30,
+                "green": 60,
+                "blue": 120
+              }
+            }
+          ]
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "preview_design_plan",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "valid": true,
+          "name": "sample_badge",
+          "description": "",
+          "canvas": {
+            "width_inches": 8.5,
+            "height_inches": 11.0,
+            "aspect_ratio": 0.7727,
+            "area_sq_inches": 93.5
+          },
+          "elements_summary": {
+            "total_count": 1,
+            "by_type": {
+              "rectangle": 1
+            },
+            "z_order": [
+              "badge_box"
+            ]
+          },
+          "bounding_box": {
+            "min_x_inches": 1.0,
+            "min_y_inches": 5.0,
+            "max_x_inches": 5.0,
+            "max_y_inches": 8.0,
+            "width_inches": 4.0,
+            "height_inches": 3.0
+          },
+          "color_palette": {
+            "count": 1,
+            "colors_rgb": [
+              [
+                30,
+                60,
+                120
+              ]
+            ]
+          },
+          "typography": [],
+          "estimated_coverage_ratio": 0.1283,
+          "warnings": [],
+          "ready_for_execution": true
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "preview_design_plan",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Preview calculation failed.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
+    "execute_design_plan": {
+      "request": {
+        "plan": {
+          "version": "1.0",
+          "name": "sample_badge",
+          "canvas": {
+            "width_inches": 8.5,
+            "height_inches": 11.0,
+            "unit": "inch"
+          },
+          "elements": [
+            {
+              "id": "badge_box",
+              "type": "rectangle",
+              "x_inches": 1.0,
+              "y_inches": 5.0,
+              "width_inches": 4.0,
+              "height_inches": 3.0,
+              "fill": {
+                "red": 30,
+                "green": 60,
+                "blue": 120
+              }
+            }
+          ]
+        },
+        "create_new_document": false,
+        "rollback_on_failure": true
+      },
+      "success": {
+        "ok": true,
+        "tool": "execute_design_plan",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {
+          "executed": true,
+          "name": "sample_badge",
+          "document_name": "Graphic1",
+          "elements_planned": 1,
+          "elements_executed": 1,
+          "object_names": [
+            "badge_box"
+          ],
+          "elements": [
+            {
+              "id": "badge_box",
+              "type": "rectangle",
+              "object_name": "badge_box",
+              "status": "created"
+            }
+          ],
+          "discrepancies": [],
+          "post_execution_verification": true,
+          "total_page_objects": 1
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 25.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "execute_design_plan",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "COREL_COM_ERROR",
+          "message": "Execution failed and changes were rolled back.",
+          "details": {}
+        },
+        "duration_ms": 10.0
+      }
     }
   },
   "tools": [
@@ -5609,6 +5858,270 @@
         "Depends on stable object identity and a tested layout calculator."
       ],
       "planned_phase": 5,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "validate_design_plan",
+      "category": "design_plan",
+      "description": "Validate a multi-element design plan against schema and domain rules without modifying CorelDRAW.",
+      "implementation": {
+        "state": "registered"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "plan"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "valid",
+                    "element_count",
+                    "canvas"
+                  ],
+                  "properties": {
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "element_count": {
+                      "type": "integer"
+                    },
+                    "canvas": {
+                      "type": "object"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "bridge_algorithm"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Pure JSON schema and geometric validation only."
+      ],
+      "planned_phase": 4,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "preview_design_plan",
+      "category": "design_plan",
+      "description": "Preview layout statistics, palette, typography, and bounding box of a design plan without modifying CorelDRAW.",
+      "implementation": {
+        "state": "registered"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "plan"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "valid",
+                    "canvas",
+                    "elements_summary",
+                    "bounding_box"
+                  ],
+                  "properties": {
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "canvas": {
+                      "type": "object"
+                    },
+                    "elements_summary": {
+                      "type": "object"
+                    },
+                    "bounding_box": {
+                      "type": "object"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "bridge_algorithm"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Estimates bounds and palette without live rendering."
+      ],
+      "planned_phase": 4,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "execute_design_plan",
+      "category": "design_plan",
+      "description": "Execute a structured multi-element design plan transactionally with atomic rollback on failure.",
+      "implementation": {
+        "state": "registered"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "type": "object"
+          },
+          "create_new_document": {
+            "type": "boolean",
+            "default": false
+          },
+          "rollback_on_failure": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": [
+          "plan"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "executed",
+                    "elements_executed",
+                    "object_names"
+                  ],
+                  "properties": {
+                    "executed": {
+                      "type": "boolean"
+                    },
+                    "elements_executed": {
+                      "type": "integer"
+                    },
+                    "object_names": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "validate_design_plan_before_execution",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Layer.CreateRectangle2",
+        "Layer.CreateEllipse2",
+        "Layer.CreateArtisticText",
+        "Shape.Name",
+        "Fill.ApplyUniformFill"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "Rollback relies on CorelDRAW command group undo."
+      ],
+      "planned_phase": 4,
       "result_contract": "tool-schema-v1-envelope"
     }
   ]

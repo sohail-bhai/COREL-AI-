@@ -17,6 +17,7 @@ from .adapters import CorelX7Adapter
 from .errors import CorelBridgeError, ErrorCode
 from .version import BRIDGE_VERSION, CAPABILITY_PROFILE_ID, TOOL_SCHEMA_VERSION
 from .workflows import build_chest_number_sequence
+from .design_plans import validate_design_plan
 
 
 class CorelBridge:
@@ -1173,6 +1174,163 @@ class CorelBridge:
                 "items_placed": len(created_items),
             },
             "items": created_items,
+        }
+
+    def execute_design_plan(
+        self,
+        plan: dict[str, Any],
+        create_new_document: bool = False,
+        rollback_on_failure: bool = True,
+    ) -> dict[str, Any]:
+        """Execute a validated multi-element design plan transactionally with atomic rollback."""
+        validate_design_plan(plan)
+
+        if create_new_document:
+            cw = float(plan["canvas"]["width_inches"])
+            ch = float(plan["canvas"]["height_inches"])
+            self.create_document(width_in=cw, height_in=ch)
+
+        doc = self._target_document()
+        layer = self._get_layer(doc)
+
+        has_command_group = False
+        try:
+            doc.BeginCommandGroup(f"AI Plan: {plan.get('name', 'Design Plan')}")
+            has_command_group = True
+        except Exception:
+            has_command_group = False
+
+        executed_elements: list[dict[str, Any]] = []
+        created_shape_names: list[str] = []
+
+        with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
+            try:
+                for elem in plan["elements"]:
+                    elem_id = str(elem["id"])
+                    elem_type = str(elem["type"])
+                    created_shape = None
+
+                    if elem_type == "rectangle":
+                        x = float(elem["x_inches"])
+                        y = float(elem["y_inches"])
+                        w = float(elem["width_inches"])
+                        h = float(elem["height_inches"])
+                        created_shape = layer.CreateRectangle2(x, y, w, h)
+                        name = self._name_shape(doc, created_shape, elem_id, "AI_Rect")
+                        created_shape_names.append(name)
+
+                    elif elem_type == "ellipse":
+                        x = float(elem["x_inches"])
+                        y = float(elem["y_inches"])
+                        w = float(elem["width_inches"])
+                        h = float(elem["height_inches"])
+                        created_shape = layer.CreateEllipse2(
+                            float(x + w / 2.0), float(y + h / 2.0),
+                            float(w / 2.0), float(h / 2.0)
+                        )
+                        name = self._name_shape(doc, created_shape, elem_id, "AI_Ellipse")
+                        created_shape_names.append(name)
+
+                    elif elem_type == "text":
+                        x = float(elem["x_inches"])
+                        y = float(elem["y_inches"])
+                        text_str = str(elem["text"])
+                        font = str(elem.get("font", "Arial"))
+                        font_size = float(elem.get("font_size_points", 24.0))
+                        bold = bool(elem.get("bold", False))
+                        created_shape = layer.CreateArtisticText(
+                            x, y, text_str,
+                            self.adapter.CDR_LANGUAGE_NONE,
+                            self.adapter.CDR_CHARSET_ANSI,
+                            font, font_size,
+                            self.adapter.CDR_TRUE if bold else self.adapter.CDR_FALSE,
+                        )
+                        name = self._name_shape(doc, created_shape, elem_id, "AI_Text")
+                        created_shape_names.append(name)
+
+                    elif elem_type == "artwork":
+                        art_result = self.import_artwork(elem["file_path"], elem_id)
+                        created_shape_names.extend(art_result.get("object_names", []))
+                        if "x_inches" in elem and "y_inches" in elem:
+                            self.move_object(elem["x_inches"], elem["y_inches"], object_name=elem_id)
+                        if "width_inches" in elem or "height_inches" in elem:
+                            self.resize_object(
+                                elem.get("width_inches", 0.0), elem.get("height_inches", 0.0),
+                                keep_aspect_ratio=True, object_name=elem_id
+                            )
+
+                    # Apply fill styling
+                    if created_shape is not None and elem.get("fill"):
+                        fill = elem["fill"]
+                        color = self._require_app().CreateRGBColor(
+                            int(fill["red"]), int(fill["green"]), int(fill["blue"])
+                        )
+                        created_shape.Fill.ApplyUniformFill(color)
+
+                    # Apply outline styling
+                    if created_shape is not None and elem.get("outline"):
+                        outline = elem["outline"]
+                        ow = float(outline.get("width_points", 1.0))
+                        if ow <= 0:
+                            created_shape.Outline.SetNoOutline()
+                        else:
+                            color = self._require_app().CreateRGBColor(
+                                int(outline.get("red", 0)), int(outline.get("green", 0)), int(outline.get("blue", 0))
+                            )
+                            created_shape.Outline.Color = color
+                            created_shape.Outline.Width = ow
+
+                    executed_elements.append({
+                        "id": elem_id,
+                        "type": elem_type,
+                        "object_name": elem_id,
+                        "status": "created",
+                    })
+
+            except Exception as step_exc:
+                if has_command_group:
+                    try:
+                        doc.EndCommandGroup()
+                    except Exception:
+                        pass
+                    if rollback_on_failure:
+                        try:
+                            doc.Undo()
+                        except Exception:
+                            pass
+                raise CorelBridgeError(
+                    f"Plan execution failed on element {elem.get('id', 'unknown')!r}: {step_exc}. "
+                    + ("Changes were rolled back." if (has_command_group and rollback_on_failure) else ""),
+                    step_exc.code if isinstance(step_exc, CorelBridgeError) else ErrorCode.COREL_COM_ERROR,
+                    {"failed_element": elem.get("id"), "executed_count": len(executed_elements)},
+                ) from step_exc
+
+        if has_command_group:
+            try:
+                doc.EndCommandGroup()
+            except Exception:
+                pass
+
+        # Post-execution verification & discrepancy reporting
+        objects_summary = self.list_objects(max_objects=200)
+        page_objects = {obj["object_name"]: obj for obj in objects_summary.get("objects", [])}
+        discrepancies: list[str] = []
+        for elem in plan["elements"]:
+            eid = elem["id"]
+            if eid not in page_objects and not any(name.startswith(eid) for name in page_objects):
+                discrepancies.append(f"Element {eid!r} was not found on the page after execution.")
+
+        return {
+            "executed": True,
+            "name": plan["name"],
+            "document_name": self._safe_target_name(),
+            "elements_planned": len(plan["elements"]),
+            "elements_executed": len(executed_elements),
+            "object_names": created_shape_names,
+            "elements": executed_elements,
+            "discrepancies": discrepancies,
+            "post_execution_verification": len(discrepancies) == 0,
+            "total_page_objects": objects_summary.get("total_on_page", len(created_shape_names)),
         }
 
     def save_document(self, path: str) -> dict[str, Any]:

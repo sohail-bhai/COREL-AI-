@@ -73,8 +73,8 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic tools — `implemented_unverified` | 23 |
-| Planned atomic/workflow tools — `planned` | 6 |
+| Registered atomic and workflow tools — `implemented_unverified` | 29 |
+| Planned atomic/workflow tools — `planned` | 5 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |
 
@@ -110,6 +110,9 @@ The zero verified count is intentional. The repository reports historical succes
 | `calculate_sheet_layout` | read-only | P1 | implemented_unverified | Pure rectangular-grid calculator; no CorelDRAW dependency | Add deterministic geometry and overflow coverage; review coordinates before using for print production |
 | `plan_chest_number_batch` | read-only | P1 | implemented_unverified | Pure sequence and optional sheet-fit preflight with zero-padded labels and deterministic object names | Add boundary, fit, and zero-padding coverage before implementing document creation |
 | `create_chest_number_batch` | mutating | P1 | implemented_unverified | Generates numbered bibs, borders, headers, and text directly on the target document | Verified live on CorelDRAW X7 disposable document |
+| `validate_design_plan` | read-only | P1 | implemented_unverified | Pure deterministic JSON schema, bounding box, palette, and typography validation without CorelDRAW dependency | Covered by unit tests |
+| `preview_design_plan` | read-only | P1 | implemented_unverified | Calculates composite bounding box, font inventory, and color palette statistics for visual planning | Covered by unit tests |
+| `execute_design_plan` | mutating | P1 | implemented_unverified | Executes multi-element plan transactionally with `BeginCommandGroup` and atomic `Undo` rollback on failure | Verified live on CorelDRAW X7 disposable document |
 
 ## Next approved tools and workflows
 

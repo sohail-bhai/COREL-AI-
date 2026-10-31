@@ -12,6 +12,10 @@ from .workflows import (
     build_chest_number_sequence as _build_chest_number_sequence,
     calculate_sheet_layout as _calculate_sheet_layout,
 )
+from .design_plans import (
+    validate_design_plan as _validate_design_plan,
+    preview_design_plan as _preview_design_plan,
+)
 
 mcp = FastMCP("coreldraw-ai-operator")
 
@@ -228,6 +232,40 @@ def create_chest_number_batch(start: int, end: int,
         font, font_size_points, zero_pad_width,
         sheet_width_inches, sheet_height_inches, margin_inches, gutter_inches,
         bold, draw_border, header_text, footer_text, allow_rotate,
+    )
+
+
+@mcp.tool()
+def validate_design_plan(plan: dict) -> dict:
+    """Validate a multi-element design plan against schema and domain rules without modifying CorelDRAW."""
+    started = perf_counter()
+    try:
+        data = _validate_design_plan(plan)
+        warnings = data.get("warnings", [])
+        return success_result("validate_design_plan", data, (perf_counter() - started) * 1000, warnings)
+    except Exception as exc:
+        return error_result("validate_design_plan", exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+def preview_design_plan(plan: dict) -> dict:
+    """Preview layout statistics, palette, typography, and bounding box of a design plan without modifying CorelDRAW."""
+    started = perf_counter()
+    try:
+        data = _preview_design_plan(plan)
+        warnings = data.get("warnings", [])
+        return success_result("preview_design_plan", data, (perf_counter() - started) * 1000, warnings)
+    except Exception as exc:
+        return error_result("preview_design_plan", exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+def execute_design_plan(plan: dict, create_new_document: bool = False,
+                        rollback_on_failure: bool = True) -> dict:
+    """Execute a structured multi-element design plan transactionally with atomic rollback on failure."""
+    return _tool(
+        "execute_design_plan", "execute_design_plan",
+        plan, create_new_document, rollback_on_failure,
     )
 
 

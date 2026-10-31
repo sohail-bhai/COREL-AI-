@@ -4,7 +4,9 @@ A local MCP bridge that lets compatible AI clients operate CorelDRAW X7 through 
 
 ## Roadmap and capability status
 
-- `PLAN.md` is the staged implementation plan.
+- `PLAN.md` is the strategic staged roadmap.
+- `docs/IMPLEMENTATION_PLAN.md` is the prioritized future implementation plan with concrete
+  implementation steps, milestone gates, and the immediate execution queue.
 - `docs/capability_catalog.md` is the readable capability/status reference.
 - `catalog/mcp_tool_registry.json` is the machine-readable model-facing tool registry.
 - `catalog/coreldraw_x7_api_inventory.json` contains the current evidence-backed X7 API subset.

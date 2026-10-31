@@ -8,6 +8,11 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Structured Design Plan Engine (Option B):
+  - Pure `validate_design_plan` MCP tool enforcing design plan schema v1.0, checking element bounds, required fields, styling consistency, and max element limit (500).
+  - Pure `preview_design_plan` MCP tool computing composite bounding box, bounding box margins, unique color palette (RGB counts and hex values), and typography summary.
+  - Mutating `execute_design_plan` MCP tool transactionally executing multi-element plans in CorelDRAW X7 using `doc.BeginCommandGroup()`, `doc.EndCommandGroup()`, and atomic `doc.Undo()` rollback on element failure, followed by automated post-execution discrepancy verification.
+  - Live integration test `test_execute_design_plan_live` executed against CorelDRAW X7 build 17.0.0.491 verifying successful execution and rollback behavior.
 - `create_chest_number_batch` MCP mutating tool: generates bounded sequential chest numbers, bounding boxes, and optional header/footer text directly in the bound CorelDRAW document using calculated N-up sheet placement coordinates.
 - A pure `calculate_sheet_layout` MCP tool that compares rotated and unrotated rectangular grids, returns deterministic placement coordinates, and caps coordinate output at 2000 placements.
 - A pure `plan_chest_number_batch` MCP tool that validates a bounded numeric range and optionally assigns each zero-padded item a sheet placement before any document edit.

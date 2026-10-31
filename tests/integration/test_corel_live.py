@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
-from corel_operator.corel_bridge import CorelBridge
+from corel_operator.corel_bridge import CorelBridge, CorelBridgeError
 
 
 LIVE_ENABLED = os.environ.get("COREL_LIVE_TESTS") == "1"
@@ -106,7 +106,8 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         doc = self.bridge.target_doc
         if doc is None:
             return
-        if not self.cdr_path.is_file():
+        saved_cdrs = list(self.output_dir.glob("*.cdr")) if self.output_dir.is_dir() else []
+        if not saved_cdrs and not self.cdr_path.is_file():
             try:
                 self.bridge.save_document(str(self.cdr_path))
                 self.cleanup_notes.append("Saved the disposable document during cleanup before closing it.")
@@ -119,6 +120,7 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             doc.Close()
             self.bridge.target_doc = None
             self.cleanup_notes.append("Closed the saved disposable document.")
+            time.sleep(0.5)
         except Exception as exc:
             self.cleanup_notes.append(f"Saved disposable document could not be closed: {type(exc).__name__}: {exc}")
 
@@ -290,6 +292,109 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self._close_saved_target_if_needed()
             report = self._write_report(passed, failure)
             print(f"Live chest-number report: {report}")
+
+    def test_execute_design_plan_live(self) -> None:
+        passed = False
+        failure: str | None = None
+        try:
+            self.status = self._step("connect / corel_status", self.bridge.connect)
+            created = self._step("create_document", lambda: self.bridge.create_document(8.5, 11.0))
+            self.assertTrue(created["created"])
+
+            plan = {
+                "version": "1.0",
+                "name": "Live Event Badge",
+                "canvas": {"width_inches": 8.5, "height_inches": 11.0},
+                "elements": [
+                    {
+                        "id": "badge_card",
+                        "type": "rectangle",
+                        "x_inches": 1.0,
+                        "y_inches": 6.0,
+                        "width_inches": 4.0,
+                        "height_inches": 2.5,
+                        "fill": {"red": 30, "green": 90, "blue": 180},
+                        "outline": {"red": 255, "green": 255, "blue": 255, "width_points": 2.0},
+                    },
+                    {
+                        "id": "badge_icon_circle",
+                        "type": "ellipse",
+                        "x_inches": 1.5,
+                        "y_inches": 6.5,
+                        "width_inches": 1.5,
+                        "height_inches": 1.5,
+                        "fill": {"red": 240, "green": 240, "blue": 240},
+                    },
+                    {
+                        "id": "badge_title",
+                        "type": "text",
+                        "x_inches": 1.2,
+                        "y_inches": 7.8,
+                        "text": "VIP ACCESS",
+                        "font": "Arial",
+                        "font_size_points": 18.0,
+                        "bold": True,
+                        "fill": {"red": 255, "green": 255, "blue": 255},
+                    },
+                ],
+                "validations": {"expected_element_count": 3},
+            }
+
+            result = self._step("execute_design_plan", lambda: self.bridge.execute_design_plan(plan))
+            self.assertTrue(result["executed"])
+            self.assertEqual(result["elements_executed"], 3)
+            self.assertTrue(result["post_execution_verification"])
+            self.assertEqual(len(result["discrepancies"]), 0)
+
+            objects = self._step("list_objects", lambda: self.bridge.list_objects(50))
+            names = {item["object_name"] for item in objects["objects"]}
+            self.assertIn("badge_card", names)
+            self.assertIn("badge_icon_circle", names)
+            self.assertIn("badge_title", names)
+
+            # Test atomic rollback on failure
+            failing_plan = {
+                "version": "1.0",
+                "name": "Live Failing Plan",
+                "canvas": {"width_inches": 8.5, "height_inches": 11.0},
+                "elements": [
+                    {
+                        "id": "rollback_rect",
+                        "type": "rectangle",
+                        "x_inches": 5.5,
+                        "y_inches": 6.0,
+                        "width_inches": 2.0,
+                        "height_inches": 2.0,
+                    },
+                    {
+                        "id": "rollback_artwork_fail",
+                        "type": "artwork",
+                        "file_path": "C:\\nonexistent_artwork_12345.svg",
+                    },
+                ],
+            }
+            with self.assertRaises(CorelBridgeError):
+                self._step("execute_failing_plan_rollback", lambda: self.bridge.execute_design_plan(failing_plan))
+
+            # Verify that rollback_rect was rolled back and is not on page
+            after_rollback = self._step("list_objects_after_rollback", lambda: self.bridge.list_objects(50))
+            after_names = {item["object_name"] for item in after_rollback["objects"]}
+            self.assertNotIn("rollback_rect", after_names)
+            # Original shapes should still remain
+            self.assertIn("badge_card", after_names)
+
+            plan_cdr = self.output_dir / "disposable-design-plan.cdr"
+            saved = self._step("save_document", lambda: self.bridge.save_document(str(plan_cdr)))
+            self.assertGreater(saved["bytes"], 0)
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            self._close_saved_target_if_needed()
+            report = self._write_report(passed, failure)
+            print(f"Live design-plan report: {report}")
+
 
 
 if __name__ == "__main__":
