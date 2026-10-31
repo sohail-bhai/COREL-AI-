@@ -28,6 +28,8 @@ Validate the catalog without starting CorelDRAW:
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Six implemented-unverified read-only inspection tools for open documents, target-document details, pages, page bounds, layers, and single objects.
+- `calculate_sheet_layout`, a read-only N-up print-sheet calculator with rotation selection and row-major coordinates; it does not connect to CorelDRAW.
+- `plan_chest_number_batch`, a read-only preflight that validates ranges, preserves zero-padding, and optionally returns a complete sheet-fit and placement plan.
 
 Run static diagnostics without connecting to CorelDRAW:
 

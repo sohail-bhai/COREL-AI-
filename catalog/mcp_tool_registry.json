@@ -1873,6 +1873,56 @@
         },
         "duration_ms": 0.1
       }
+    },
+    "plan_chest_number_batch": {
+      "request": {
+        "start": 1,
+        "end": 3,
+        "zero_pad_width": 3
+      },
+      "success": {
+        "ok": true,
+        "tool": "plan_chest_number_batch",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "count": 3,
+          "sequence_validation": {
+            "missing": [],
+            "duplicates": []
+          },
+          "sequence_valid": true,
+          "layout_checked": false,
+          "fits_sheet": false,
+          "layout": null,
+          "items": [
+            {"value": 1, "label": "001", "object_name": "chest_number_001"},
+            {"value": 2, "label": "002", "object_name": "chest_number_002"},
+            {"value": 3, "label": "003", "object_name": "chest_number_003"}
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "plan_chest_number_batch",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     }
   },
   "tools": [
@@ -5008,7 +5058,7 @@
       "category": "batch_layout",
       "description": "Calculate a deterministic N-up placement plan from item, sheet, margin, gutter, and orientation dimensions without touching CorelDRAW.",
       "implementation": {
-        "state": "planned"
+        "state": "registered"
       },
       "input_schema": {
         "type": "object",
@@ -5114,14 +5164,77 @@
         "bridge_algorithm"
       ],
       "api_requirements": [],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
         "status": "not_run",
         "sources": []
       },
       "known_limitations": [
-        "Initial algorithm will be rectangular grid packing, not arbitrary nesting."
+        "Uses rectangular row-major grids only; it does not perform arbitrary nesting or account for bleed, crop marks, or printer hardware margins.",
+        "Placement coordinates are capped at 2000 while reported capacity remains exact."
       ],
+      "planned_phase": 5,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "plan_chest_number_batch",
+      "category": "batch_workflow_planning",
+      "description": "Preview and validate a chest-number sequence; optionally calculate its complete sheet layout without editing CorelDRAW.",
+      "implementation": {
+        "state": "registered"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "start": {"type": "integer", "minimum": 0},
+          "end": {"type": "integer", "minimum": 0},
+          "zero_pad_width": {"type": "integer", "minimum": 0, "maximum": 12, "default": 0},
+          "item_width_inches": {"type": "number", "exclusiveMinimum": 0},
+          "item_height_inches": {"type": "number", "exclusiveMinimum": 0},
+          "sheet_width_inches": {"type": "number", "exclusiveMinimum": 0},
+          "sheet_height_inches": {"type": "number", "exclusiveMinimum": 0},
+          "margin_inches": {"type": "number", "minimum": 0, "default": 0},
+          "gutter_inches": {"type": "number", "minimum": 0, "default": 0},
+          "allow_rotate": {"type": "boolean", "default": true}
+        },
+        "required": ["start", "end"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {"$ref": "#/schema_definitions/result_envelope"},
+          {
+            "if": {"properties": {"ok": {"const": true}}, "required": ["ok"]},
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": ["count", "sequence_validation", "sequence_valid", "layout_checked", "fits_sheet", "layout", "items"],
+                  "properties": {
+                    "count": {"type": "integer"},
+                    "sequence_validation": {"type": "object"},
+                    "sequence_valid": {"type": "boolean"},
+                    "layout_checked": {"type": "boolean"},
+                    "fits_sheet": {"type": "boolean"},
+                    "layout": {"oneOf": [{"type": "object"}, {"type": "null"}]},
+                    "items": {"type": "array", "items": {"type": "object"}}
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": ["bridge_algorithm"],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {"status": "not_run", "sources": []},
+      "known_limitations": ["A sequence is capped at 1000 values; all four item/sheet dimensions are required for layout; this tool does not validate font sizing or create artwork."],
       "planned_phase": 5,
       "result_contract": "tool-schema-v1-envelope"
     },

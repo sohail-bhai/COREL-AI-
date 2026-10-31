@@ -8,6 +8,10 @@ from typing import Any
 from mcp.server.fastmcp import FastMCP
 from .corel_bridge import CorelBridge
 from .results import error_result, success_result
+from .workflows import (
+    build_chest_number_sequence as _build_chest_number_sequence,
+    calculate_sheet_layout as _calculate_sheet_layout,
+)
 
 mcp = FastMCP("coreldraw-ai-operator")
 
@@ -163,6 +167,47 @@ def draw_ellipse(x_inches: float, y_inches: float, width_inches: float, height_i
 def list_objects(max_objects: int = 200) -> dict:
     """List objects on the target page including object names, indexes, positions, sizes and text where available."""
     return _tool("list_objects", "list_objects", max_objects)
+
+
+@mcp.tool()
+def calculate_sheet_layout(item_width_inches: float, item_height_inches: float,
+                           sheet_width_inches: float, sheet_height_inches: float,
+                           margin_inches: float = 0.0, gutter_inches: float = 0.0,
+                           allow_rotate: bool = True) -> dict:
+    """Calculate a row-major N-up print layout without connecting to or editing CorelDRAW."""
+    started = perf_counter()
+    try:
+        data = _calculate_sheet_layout(
+            item_width_inches, item_height_inches, sheet_width_inches,
+            sheet_height_inches, margin_inches, gutter_inches, allow_rotate,
+        )
+        warnings = []
+        if data.get("placements_truncated"):
+            warnings.append("Placement coordinates were capped at 2000; capacity remains exact.")
+        return success_result("calculate_sheet_layout", data, (perf_counter() - started) * 1000, warnings)
+    except Exception as exc:
+        return error_result("calculate_sheet_layout", exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+def plan_chest_number_batch(start: int, end: int, zero_pad_width: int = 0,
+                            item_width_inches: float | None = None,
+                            item_height_inches: float | None = None,
+                            sheet_width_inches: float | None = None,
+                            sheet_height_inches: float | None = None,
+                            margin_inches: float = 0.0, gutter_inches: float = 0.0,
+                            allow_rotate: bool = True) -> dict:
+    """Preview a validated chest-number sequence and optional sheet placement without editing CorelDRAW."""
+    started = perf_counter()
+    try:
+        data = _build_chest_number_sequence(
+            start, end, zero_pad_width, item_width_inches, item_height_inches,
+            sheet_width_inches, sheet_height_inches, margin_inches, gutter_inches,
+            allow_rotate,
+        )
+        return success_result("plan_chest_number_batch", data, (perf_counter() - started) * 1000)
+    except Exception as exc:
+        return error_result("plan_chest_number_batch", exc, (perf_counter() - started) * 1000)
 
 
 @mcp.tool()

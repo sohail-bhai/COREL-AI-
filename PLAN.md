@@ -20,7 +20,7 @@ The implementation must remain evidence-based. A CorelDRAW operation is not cons
 | MCP connection | Antigravity reportedly called `corel_status` successfully |
 | COM threading | One dedicated serialized COM worker thread is implemented |
 | Document safety | New bridge-created documents are the default target; existing documents require explicit binding |
-| Existing MCP surface | 23 tools are registered: the original 17 plus six read-only inspection tools |
+| Existing MCP surface | 25 tools are registered: the original 17, six read-only inspection tools, and two pure workflow-planning tools |
 | Historically demonstrated operations | Status, document creation, rectangle, editable text, and CDR save |
 | Remaining v0.5 operations | Implemented but mostly not verified live |
 | Automated tests | None; `tests/` is currently empty |
@@ -363,7 +363,7 @@ Work should begin with these small batches:
 | 5 | Existing-tool hardening | In progress | P0 creation/PDF and appearance/identity readback complete; guarded regression implemented but not run live |
 | 6 | Guarded live regression | Ready for explicit authorization | Recorded disposable-document test of the existing tool set; dated report format is prepared |
 | 7 | Inspection vertical slice | In progress | Six document/page/layer/single-object tools implemented with fake-COM tests; live read-only evidence remains |
-| 8 | First workflow vertical slice | Queued | Chest-number sequence plus sheet-layout calculation |
+| 8 | First workflow vertical slice | In progress | Read-only sheet layout and chest-number sequence planning implemented; CorelDRAW creation remains queued |
 
 Each batch should end with tests, documentation updates, a catalog status update, and a focused commit.
 

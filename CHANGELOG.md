@@ -8,6 +8,8 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- A pure `calculate_sheet_layout` MCP tool that compares rotated and unrotated rectangular grids, returns deterministic placement coordinates, and caps coordinate output at 2000 placements.
+- A pure `plan_chest_number_batch` MCP tool that validates a bounded numeric range and optionally assigns each zero-padded item a sheet placement before any document edit.
 - A separately authorized CorelDRAW X7 regression that creates only a new disposable document, exercises the existing editing operations with synthetic content, uses unique CDR/PDF paths, and writes a dated review report.
 - Live-test report guidance under `docs/test-reports/`, including explicit manual editability and PDF-review requirements.
 - Six read-only inspection tools: `list_open_documents`, `get_document_info`, `list_pages`, `get_page_bounds`, `list_layers`, and `get_object_info`.

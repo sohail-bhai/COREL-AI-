@@ -82,6 +82,25 @@ class ServerContractTests(unittest.TestCase):
             ],
         )
 
+    def test_workflow_wrappers_return_standard_result_envelopes(self) -> None:
+        layout_result = server.calculate_sheet_layout(3.0, 2.0, 10.0, 8.0)
+        self.assertTrue(layout_result["ok"])
+        self.assertEqual(layout_result["tool"], "calculate_sheet_layout")
+        self.assertIn("capacity", layout_result["data"])
+
+        bad_layout = server.calculate_sheet_layout(-1.0, 2.0, 10.0, 8.0)
+        self.assertFalse(bad_layout["ok"])
+        self.assertEqual(bad_layout["error"]["code"], "INVALID_ARGUMENT")
+
+        batch_result = server.plan_chest_number_batch(1, 10, zero_pad_width=3)
+        self.assertTrue(batch_result["ok"])
+        self.assertEqual(batch_result["tool"], "plan_chest_number_batch")
+        self.assertEqual(batch_result["data"]["count"], 10)
+
+        bad_batch = server.plan_chest_number_batch(10, 1)
+        self.assertFalse(bad_batch["ok"])
+        self.assertEqual(bad_batch["error"]["code"], "INVALID_ARGUMENT")
+
 
 if __name__ == "__main__":
     unittest.main()
