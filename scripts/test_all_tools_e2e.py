@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import shutil
 import sys
 import tempfile
 import time
@@ -186,8 +187,14 @@ def run_comprehensive_e2e() -> dict[str, any]:
         }
         results["total_objects_created"] = objs["total_on_page"]
 
+        workspace_output = ROOT / "output"
+        workspace_output.mkdir(exist_ok=True)
+        shutil.copy2(cdr_output, workspace_output / "all_tools_verified.cdr")
+        shutil.copy2(pdf_output, workspace_output / "all_tools_verified.pdf")
+
         print(f"\nSUCCESS: Generated CDR file: {cdr_output} ({cdr_output.stat().st_size:,} bytes)")
         print(f"SUCCESS: Generated PDF file: {pdf_output} ({pdf_output.stat().st_size:,} bytes)")
+        print(f"Copied to workspace output folder: {workspace_output}")
         print(f"Total objects on page: {objs['total_on_page']}")
 
     finally:
