@@ -502,7 +502,7 @@ class DesignPlanExecutionTests(unittest.TestCase):
         self.assertTrue(rectangle.Outline.no_outline)
         self.assertEqual(ellipse.Fill.applied_color, {"red": 255, "green": 215, "blue": 0})
         self.assertEqual(text.Fill.applied_color, {"red": 255, "green": 255, "blue": 255})
-        self.assertEqual(text.Outline.Width, 1.5)
+        self.assertAlmostEqual(text.Outline.Width, 1.5 / 72.0, places=4)
         self.assertEqual(text.Outline.Color, {"red": 1, "green": 2, "blue": 3})
 
     def test_execute_design_plan_artwork_uses_import_move_and_resize(self) -> None:

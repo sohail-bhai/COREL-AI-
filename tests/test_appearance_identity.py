@@ -151,7 +151,7 @@ class AppearanceAndIdentityTests(unittest.TestCase):
         actual = result["actual_outline"]
         self.assertTrue(actual["present"])
         self.assertEqual(actual["type"], "outline")
-        self.assertEqual(actual["width_raw"], 2.0)
+        self.assertAlmostEqual(actual["width_raw"], 2.0 / 72.0, places=4)
         self.assertEqual(actual["width_units"], "coreldraw_outline_width_unverified")
         self.assertEqual(actual["color"]["value"], {"red": 255, "green": 0, "blue": 0})
 

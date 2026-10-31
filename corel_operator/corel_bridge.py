@@ -818,7 +818,8 @@ class CorelBridge:
                         "actual_outline": self._outline_readback(shape)}
             color = self._require_app().CreateRGBColor(red, green, blue)
             shape.Outline.Color = color
-            shape.Outline.Width = float(width_points)
+            with self._in_inches(doc):
+                shape.Outline.Width = float(width_points) / 72.0
             return {"updated": True, "object_name": str(_safe_attr(shape, "Name") or ""),
                     "outline_rgb": [red, green, blue], "width_points": width_points,
                     "actual_outline": self._outline_readback(shape)}
@@ -1688,7 +1689,8 @@ class CorelBridge:
                                 int(outline.get("red", 0)), int(outline.get("green", 0)), int(outline.get("blue", 0))
                             )
                             created_shape.Outline.Color = color
-                            created_shape.Outline.Width = ow
+                            with self._in_inches(doc):
+                                created_shape.Outline.Width = ow / 72.0
 
                     element_object_names = created_shape_names[created_names_before:]
                     executed_elements.append({
