@@ -248,6 +248,49 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             report = self._write_report(passed, failure)
             print(f"Live regression report: {report}")
 
+    def test_create_chest_number_batch_live(self) -> None:
+        passed = False
+        failure: str | None = None
+        try:
+            self.status = self._step("connect / corel_status", self.bridge.connect)
+            created = self._step("create_document", lambda: self.bridge.create_document(8.5, 11.0))
+            self.assertTrue(created["created"])
+
+            batch = self._step(
+                "create_chest_number_batch",
+                lambda: self.bridge.create_chest_number_batch(
+                    start=1,
+                    end=4,
+                    item_width_inches=3.5,
+                    item_height_inches=2.2,
+                    zero_pad_width=3,
+                    font="Arial",
+                    font_size_points=48.0,
+                    draw_border=True,
+                    header_text="MARATHON 2026",
+                ),
+            )
+            self.assertEqual(batch["created_count"], 4)
+            self.assertEqual(len(batch["items"]), 4)
+
+            objects = self._step("list_objects", lambda: self.bridge.list_objects(50))
+            names = {item["object_name"] for item in objects["objects"]}
+            self.assertIn("chest_number_001_box", names)
+            self.assertIn("chest_number_001_number", names)
+            self.assertIn("chest_number_001_header", names)
+
+            batch_cdr = self.output_dir / "disposable-chest-numbers.cdr"
+            saved = self._step("save_document", lambda: self.bridge.save_document(str(batch_cdr)))
+            self.assertGreater(saved["bytes"], 0)
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            self._close_saved_target_if_needed()
+            report = self._write_report(passed, failure)
+            print(f"Live chest-number report: {report}")
+
 
 if __name__ == "__main__":
     unittest.main()

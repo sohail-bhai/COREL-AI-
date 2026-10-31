@@ -220,5 +220,152 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(ctx.exception.code, ErrorCode.INVALID_ARGUMENT)
 
 
+class _MockShape:
+    def __init__(self, x: float, y: float, w: float, h: float) -> None:
+        self.Name = ""
+        self.PositionX = x
+        self.PositionY = y
+        self.SizeWidth = w
+        self.SizeHeight = h
+
+    def SetPosition(self, x: float, y: float) -> None:
+        self.PositionX = x
+        self.PositionY = y
+
+
+class _MockLayer:
+    def __init__(self, shapes: list[_MockShape]) -> None:
+        self.shapes = shapes
+
+    def CreateRectangle2(self, x, y, width, height):
+        shape = _MockShape(x, y, width, height)
+        self.shapes.append(shape)
+        return shape
+
+    def CreateArtisticText(self, left, bottom, text, lang, charset, font, size, bold):
+        shape = _MockShape(left, bottom, 2.0, 0.5)
+        self.shapes.append(shape)
+        return shape
+
+
+class _MockShapesCollection:
+    def __init__(self, shapes: list[_MockShape]) -> None:
+        self.items = shapes
+
+    @property
+    def Count(self) -> int:
+        return len(self.items)
+
+    def Item(self, index: int):
+        return self.items[index - 1]
+
+
+class _MockPage:
+    def __init__(self, width: float = 8.5, height: float = 11.0) -> None:
+        self.SizeWidth = width
+        self.SizeHeight = height
+        self.shapes: list[_MockShape] = []
+        self.ActiveLayer = _MockLayer(self.shapes)
+        self.Shapes = _MockShapesCollection(self.shapes)
+
+    def GetSize(self):
+        return (self.SizeWidth, self.SizeHeight)
+
+
+class _MockDocument:
+    def __init__(self, width: float = 8.5, height: float = 11.0) -> None:
+        self.Name = "TestBatchDoc"
+        self.Unit = 1
+        self.ReferencePoint = 5
+        self.ActivePage = _MockPage(width, height)
+
+
+class CreateChestNumberBatchBridgeTests(unittest.TestCase):
+    def setUp(self) -> None:
+        from corel_operator.corel_bridge import CorelBridge
+        self.bridge = CorelBridge()
+        self.doc = _MockDocument(8.5, 11.0)
+        self.bridge.target_doc = self.doc
+
+    def test_create_chest_number_batch_success(self) -> None:
+        result = self.bridge.create_chest_number_batch(
+            start=1,
+            end=4,
+            item_width_inches=3.0,
+            item_height_inches=2.0,
+            zero_pad_width=3,
+            draw_border=True,
+        )
+        self.assertTrue(result["created"])
+        self.assertEqual(result["created_count"], 4)
+        self.assertEqual(result["count"], 4)
+        self.assertEqual(len(result["items"]), 4)
+        self.assertEqual(len(result["object_names"]), 8)  # 4 boxes + 4 numbers
+        self.assertIn("chest_number_001_box", result["object_names"])
+        self.assertIn("chest_number_001_number", result["object_names"])
+
+    def test_create_chest_number_batch_with_header_and_footer(self) -> None:
+        result = self.bridge.create_chest_number_batch(
+            start=10,
+            end=11,
+            item_width_inches=3.0,
+            item_height_inches=2.0,
+            zero_pad_width=0,
+            header_text="SUMMER RACE",
+            footer_text="5K RUN",
+            draw_border=True,
+        )
+        self.assertEqual(result["created_count"], 2)
+        # 2 items * 4 shapes each (box, header, number, footer) = 8 shapes
+        self.assertEqual(len(result["object_names"]), 8)
+        self.assertIn("chest_number_10_header", result["object_names"])
+        self.assertIn("chest_number_10_footer", result["object_names"])
+        self.assertIn("chest_number_10_number", result["object_names"])
+        self.assertIn("chest_number_10_box", result["object_names"])
+
+    def test_create_chest_number_batch_capacity_error(self) -> None:
+        # 6x6 items on 8.5x11: only 1 column and 1 row fits (capacity 1), requesting 4 items
+        with self.assertRaises(CorelBridgeError) as ctx:
+            self.bridge.create_chest_number_batch(
+                start=1,
+                end=4,
+                item_width_inches=6.0,
+                item_height_inches=6.0,
+            )
+        self.assertEqual(ctx.exception.code, ErrorCode.INVALID_ARGUMENT)
+
+    def test_create_chest_number_batch_no_target_document(self) -> None:
+        self.bridge.target_doc = None
+        with self.assertRaises(CorelBridgeError) as ctx:
+            self.bridge.create_chest_number_batch(
+                start=1,
+                end=2,
+                item_width_inches=3.0,
+                item_height_inches=2.0,
+            )
+        self.assertEqual(ctx.exception.code, ErrorCode.NO_TARGET_DOCUMENT)
+
+    def test_create_chest_number_batch_font_validation(self) -> None:
+        with self.assertRaises(CorelBridgeError) as ctx:
+            self.bridge.create_chest_number_batch(
+                start=1,
+                end=2,
+                item_width_inches=3.0,
+                item_height_inches=2.0,
+                font="",
+            )
+        self.assertEqual(ctx.exception.code, ErrorCode.INVALID_ARGUMENT)
+
+        with self.assertRaises(CorelBridgeError) as ctx:
+            self.bridge.create_chest_number_batch(
+                start=1,
+                end=2,
+                item_width_inches=3.0,
+                item_height_inches=2.0,
+                font_size_points=0,
+            )
+        self.assertEqual(ctx.exception.code, ErrorCode.INVALID_ARGUMENT)
+
+
 if __name__ == "__main__":
     unittest.main()

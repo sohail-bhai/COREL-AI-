@@ -101,6 +101,15 @@ class ServerContractTests(unittest.TestCase):
         self.assertFalse(bad_batch["ok"])
         self.assertEqual(bad_batch["error"]["code"], "INVALID_ARGUMENT")
 
+    def test_create_chest_number_batch_dispatches(self) -> None:
+        fake = _FakeDispatcher({"created": True, "created_count": 2})
+        server.dispatcher = fake
+
+        result = server.create_chest_number_batch(1, 2, 4.0, 3.0)
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["tool"], "create_chest_number_batch")
+        self.assertEqual(fake.calls[0][0], "create_chest_number_batch")
+
 
 if __name__ == "__main__":
     unittest.main()

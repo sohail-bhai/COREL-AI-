@@ -16,6 +16,7 @@ from typing import Any, Iterator
 from .adapters import CorelX7Adapter
 from .errors import CorelBridgeError, ErrorCode
 from .version import BRIDGE_VERSION, CAPABILITY_PROFILE_ID, TOOL_SCHEMA_VERSION
+from .workflows import build_chest_number_sequence
 
 
 class CorelBridge:
@@ -1003,6 +1004,176 @@ class CorelBridge:
                 # duplicate names we don't depend on this lookup for its primary identity.
                 return i
         return None
+
+    def create_chest_number_batch(
+        self,
+        start: int,
+        end: int,
+        item_width_inches: float,
+        item_height_inches: float,
+        font: str = "Arial",
+        font_size_points: float = 72.0,
+        zero_pad_width: int = 0,
+        sheet_width_inches: float | None = None,
+        sheet_height_inches: float | None = None,
+        margin_inches: float = 0.0,
+        gutter_inches: float = 0.0,
+        bold: bool = True,
+        draw_border: bool = True,
+        header_text: str = "",
+        footer_text: str = "",
+        allow_rotate: bool = False,
+    ) -> dict[str, Any]:
+        """Generate a validated sequence of editable chest-number designs on the bound target document."""
+        doc = self._target_document()
+
+        # Determine sheet dimensions: explicitly provided or read from bound target document active page
+        if sheet_width_inches is None or sheet_height_inches is None:
+            with self._in_inches(doc):
+                dims = self._page_dimensions(doc.ActivePage)
+            sheet_w = dims.get("width_document_units")
+            sheet_h = dims.get("height_document_units")
+            if sheet_w is None or sheet_h is None or sheet_w <= 0 or sheet_h <= 0:
+                raise CorelBridgeError("Could not determine page dimensions for batch layout.", ErrorCode.COREL_COM_ERROR)
+            sheet_width_inches = sheet_w if sheet_width_inches is None else sheet_width_inches
+            sheet_height_inches = sheet_h if sheet_height_inches is None else sheet_height_inches
+
+        # Build and validate sequence and layout plan using workflows helper
+        plan = build_chest_number_sequence(
+            start=start,
+            end=end,
+            zero_pad_width=zero_pad_width,
+            item_width_inches=item_width_inches,
+            item_height_inches=item_height_inches,
+            sheet_width_inches=sheet_width_inches,
+            sheet_height_inches=sheet_height_inches,
+            margin_inches=margin_inches,
+            gutter_inches=gutter_inches,
+            allow_rotate=allow_rotate,
+        )
+
+        layout = plan["layout"]
+        if layout is None or not plan["fits_sheet"]:
+            capacity = layout["capacity"] if layout else 0
+            raise CorelBridgeError(
+                f"Requested {plan['count']} chest numbers, but sheet capacity is {capacity}. "
+                "Adjust item size, margins, or sheet dimensions to fit.",
+                ErrorCode.INVALID_ARGUMENT,
+                {"requested_count": plan["count"], "capacity": capacity, "layout": layout},
+            )
+
+        if not (1 <= font_size_points <= 500):
+            raise CorelBridgeError("font_size_points must be between 1 and 500.", ErrorCode.INVALID_ARGUMENT)
+        if not font or not font.strip():
+            raise CorelBridgeError("font cannot be empty.", ErrorCode.INVALID_ARGUMENT)
+
+        layer = self._get_layer(doc)
+        created_names: list[str] = []
+        created_items: list[dict[str, Any]] = []
+
+        with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
+            for item in plan["items"]:
+                placement = item["placement"]
+                px = float(placement["x_inches"])
+                py = float(placement["y_inches"])
+                pw = float(placement["width_inches"])
+                ph = float(placement["height_inches"])
+                num_label = str(item["label"])
+                prefix = str(item["object_name"])
+
+                item_record: dict[str, Any] = {
+                    "value": item["value"],
+                    "label": num_label,
+                    "placement": placement,
+                    "shapes": {},
+                }
+
+                # 1. Draw border rectangle if requested
+                if draw_border:
+                    box = layer.CreateRectangle2(px, py, pw, ph)
+                    box_name = self._name_shape(doc, box, f"{prefix}_box", "AI_Box")
+                    created_names.append(box_name)
+                    item_record["shapes"]["box"] = box_name
+
+                # 2. Header text if provided
+                if header_text.strip():
+                    h_size = max(6.0, min(font_size_points * 0.28, 24.0))
+                    h_shape = layer.CreateArtisticText(
+                        px, py, str(header_text.strip()),
+                        self.adapter.CDR_LANGUAGE_NONE,
+                        self.adapter.CDR_CHARSET_ANSI,
+                        str(font), float(h_size),
+                        self.adapter.CDR_TRUE if bold else self.adapter.CDR_FALSE,
+                    )
+                    h_name = self._name_shape(doc, h_shape, f"{prefix}_header", "AI_Text")
+                    hw = float(h_shape.SizeWidth)
+                    hh = float(h_shape.SizeHeight)
+                    hx = round(px + max(0.0, (pw - hw) / 2.0), 4)
+                    hy = round(py + max(0.0, ph - hh - max(0.1, ph * 0.08)), 4)
+                    h_shape.SetPosition(hx, hy)
+                    created_names.append(h_name)
+                    item_record["shapes"]["header"] = h_name
+
+                # 3. Main number text
+                n_shape = layer.CreateArtisticText(
+                    px, py, num_label,
+                    self.adapter.CDR_LANGUAGE_NONE,
+                    self.adapter.CDR_CHARSET_ANSI,
+                    str(font), float(font_size_points),
+                    self.adapter.CDR_TRUE if bold else self.adapter.CDR_FALSE,
+                )
+                n_name = self._name_shape(doc, n_shape, f"{prefix}_number", "AI_Text")
+                nw = float(n_shape.SizeWidth)
+                nh = float(n_shape.SizeHeight)
+                nx = round(px + max(0.0, (pw - nw) / 2.0), 4)
+                ny = round(py + max(0.0, (ph - nh) / 2.0), 4)
+                n_shape.SetPosition(nx, ny)
+                created_names.append(n_name)
+                item_record["shapes"]["number"] = n_name
+
+                # 4. Footer text if provided
+                if footer_text.strip():
+                    f_size = max(6.0, min(font_size_points * 0.22, 18.0))
+                    f_shape = layer.CreateArtisticText(
+                        px, py, str(footer_text.strip()),
+                        self.adapter.CDR_LANGUAGE_NONE,
+                        self.adapter.CDR_CHARSET_ANSI,
+                        str(font), float(f_size),
+                        self.adapter.CDR_FALSE,
+                    )
+                    f_name = self._name_shape(doc, f_shape, f"{prefix}_footer", "AI_Text")
+                    fw = float(f_shape.SizeWidth)
+                    fh = float(f_shape.SizeHeight)
+                    fx = round(px + max(0.0, (pw - fw) / 2.0), 4)
+                    fy = round(py + max(0.05, ph * 0.08), 4)
+                    f_shape.SetPosition(fx, fy)
+                    created_names.append(f_name)
+                    item_record["shapes"]["footer"] = f_name
+
+                created_items.append(item_record)
+
+        return {
+            "created": True,
+            "created_count": len(created_items),
+            "batch_type": "chest_numbers",
+            "document_name": self._safe_target_name(),
+            "start": start,
+            "end": end,
+            "count": plan["count"],
+            "zero_pad_width": zero_pad_width,
+            "sequence_validation": plan["sequence_validation"],
+            "object_names": created_names,
+            "item_dimensions_inches": {"width": item_width_inches, "height": item_height_inches},
+            "sheet_dimensions_inches": {"width": sheet_width_inches, "height": sheet_height_inches},
+            "layout": {
+                "columns": layout["columns"],
+                "rows": layout["rows"],
+                "capacity": layout["capacity"],
+                "rotated": layout["rotated"],
+                "items_placed": len(created_items),
+            },
+            "items": created_items,
+        }
 
     def save_document(self, path: str) -> dict[str, Any]:
         doc = self._target_document()

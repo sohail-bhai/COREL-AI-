@@ -211,6 +211,27 @@ def plan_chest_number_batch(start: int, end: int, zero_pad_width: int = 0,
 
 
 @mcp.tool()
+def create_chest_number_batch(start: int, end: int,
+                              item_width_inches: float, item_height_inches: float,
+                              font: str = "Arial", font_size_points: float = 72.0,
+                              zero_pad_width: int = 0,
+                              sheet_width_inches: float | None = None,
+                              sheet_height_inches: float | None = None,
+                              margin_inches: float = 0.0, gutter_inches: float = 0.0,
+                              bold: bool = True, draw_border: bool = True,
+                              header_text: str = "", footer_text: str = "",
+                              allow_rotate: bool = False) -> dict:
+    """Generate a validated sequence of editable chest-number designs on the bound target document."""
+    return _tool(
+        "create_chest_number_batch", "create_chest_number_batch",
+        start, end, item_width_inches, item_height_inches,
+        font, font_size_points, zero_pad_width,
+        sheet_width_inches, sheet_height_inches, margin_inches, gutter_inches,
+        bold, draw_border, header_text, footer_text, allow_rotate,
+    )
+
+
+@mcp.tool()
 def set_fill_color(red: int, green: int, blue: int, object_name: str = "", shape_index: int = 0) -> dict:
     """Set an object's solid fill using RGB 0-255. Specify exactly one selector: object_name or 1-based shape_index."""
     return _tool("set_fill_color", "set_fill_color", red, green, blue, object_name, shape_index)

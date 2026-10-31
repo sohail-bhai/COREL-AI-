@@ -364,7 +364,9 @@ Work should begin with these small batches:
 | 6 | Guarded live regression | Complete | Executed against CorelDRAW X7 17.0.0.491 on disposable document; all operations passed; report in docs/test-reports/ |
 | 7 | Inspection vertical slice | In progress | Six document/page/layer/single-object tools implemented with unit tests |
 | 8 | First workflow vertical slice | Complete | Read-only sheet layout and chest-number sequence planning implemented and verified with 100% unit tests |
-| 9 | Mutating batch creation | Queued | Execute chest-number batch and layout directly in bound CorelDRAW document |
+| 9 | Mutating batch creation (Option A) | In progress | Execute chest-number batch and layout directly in bound CorelDRAW document (`create_chest_number_batch`) |
+| 10 | Structured design plan engine (Option B) | Queued | High-value, deep-detail design plan execution engine with transactional rollback and post-operation validation |
+| 11 | Alignment and grouping tools (Option C) | Queued | Native CorelDRAW align-to-page, align-and-distribute, and group/ungroup MCP tools |
 
 Each batch should end with tests, documentation updates, a catalog status update, and a focused commit.
 
@@ -405,6 +407,24 @@ The product reaches its intended outcome when a user can safely say:
 
 The operator must then complete that workflow with deterministic tool calls, evidence-backed X7 capabilities, explicit safety decisions, actual-state verification, and an honest report of anything unsupported or unchecked.
 
-## 18. Next action
+## 18. Active Roadmap & Next Actions
 
-With explicit user authorization, run **Immediate Execution Queue — Batch 6: Guarded live regression** and review its artifacts. Continue Batch 7 by live-testing the new read-only inspection tools on a disposable document, then implement `get_active_document_info`, `get_layer_info`, and bounded object search without marking unchecked capabilities verified.
+1. **Option A: Batch Chest-Number Creation (`create_chest_number_batch`) — ACTIVE**:
+   - Leverage `build_chest_number_sequence` and `calculate_sheet_layout` to generate physical items inside the bound CorelDRAW target document.
+   - For each number in the sequence:
+     - Optionally draw bounding frame rectangle (if requested or by default for border).
+     - Place bold artistic text centered or positioned within each item's cell bounds.
+     - Assign unique deterministic object names (e.g. `chest_number_001_text`, `chest_number_001_box`).
+     - Support single-page N-up sheet layout as well as multi-page generation (one item per page if requested).
+     - Guard against creating unvalidated batches or missing values.
+
+2. **Option B: Structured Design Plan Engine (`validate_design_plan`, `execute_design_plan`) — QUEUED (HIGH VALUE)**:
+   - High-value architectural subsystem requiring deep design and validation before execution.
+   - Comprehensive plan schema: document setup, layer specification, primitive declarations, styling rules, typography hierarchy, grouping hierarchy, and post-execution inspection criteria.
+   - Dry-run validation (`validate_design_plan`) with no side-effects.
+   - Transactional execution with error interception and document checkpoint / rollback to prevent partial dirty states.
+
+3. **Option C: Alignment, Distribution & Grouping Tools — QUEUED**:
+   - `align_objects`, `align_to_page`, `distribute_objects`.
+   - `group_shapes`, `ungroup_shapes`.
+

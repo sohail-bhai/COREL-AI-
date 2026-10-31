@@ -1898,9 +1898,21 @@
           "fits_sheet": false,
           "layout": null,
           "items": [
-            {"value": 1, "label": "001", "object_name": "chest_number_001"},
-            {"value": 2, "label": "002", "object_name": "chest_number_002"},
-            {"value": 3, "label": "003", "object_name": "chest_number_003"}
+            {
+              "value": 1,
+              "label": "001",
+              "object_name": "chest_number_001"
+            },
+            {
+              "value": 2,
+              "label": "002",
+              "object_name": "chest_number_002"
+            },
+            {
+              "value": 3,
+              "label": "003",
+              "object_name": "chest_number_003"
+            }
           ]
         },
         "warnings": [],
@@ -5186,38 +5198,118 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "start": {"type": "integer", "minimum": 0},
-          "end": {"type": "integer", "minimum": 0},
-          "zero_pad_width": {"type": "integer", "minimum": 0, "maximum": 12, "default": 0},
-          "item_width_inches": {"type": "number", "exclusiveMinimum": 0},
-          "item_height_inches": {"type": "number", "exclusiveMinimum": 0},
-          "sheet_width_inches": {"type": "number", "exclusiveMinimum": 0},
-          "sheet_height_inches": {"type": "number", "exclusiveMinimum": 0},
-          "margin_inches": {"type": "number", "minimum": 0, "default": 0},
-          "gutter_inches": {"type": "number", "minimum": 0, "default": 0},
-          "allow_rotate": {"type": "boolean", "default": true}
+          "start": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "zero_pad_width": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 12,
+            "default": 0
+          },
+          "item_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "item_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "allow_rotate": {
+            "type": "boolean",
+            "default": true
+          }
         },
-        "required": ["start", "end"],
+        "required": [
+          "start",
+          "end"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "allOf": [
-          {"$ref": "#/schema_definitions/result_envelope"},
           {
-            "if": {"properties": {"ok": {"const": true}}, "required": ["ok"]},
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
             "then": {
               "properties": {
                 "data": {
                   "type": "object",
-                  "required": ["count", "sequence_validation", "sequence_valid", "layout_checked", "fits_sheet", "layout", "items"],
+                  "required": [
+                    "count",
+                    "sequence_validation",
+                    "sequence_valid",
+                    "layout_checked",
+                    "fits_sheet",
+                    "layout",
+                    "items"
+                  ],
                   "properties": {
-                    "count": {"type": "integer"},
-                    "sequence_validation": {"type": "object"},
-                    "sequence_valid": {"type": "boolean"},
-                    "layout_checked": {"type": "boolean"},
-                    "fits_sheet": {"type": "boolean"},
-                    "layout": {"oneOf": [{"type": "object"}, {"type": "null"}]},
-                    "items": {"type": "array", "items": {"type": "object"}}
+                    "count": {
+                      "type": "integer"
+                    },
+                    "sequence_validation": {
+                      "type": "object"
+                    },
+                    "sequence_valid": {
+                      "type": "boolean"
+                    },
+                    "layout_checked": {
+                      "type": "boolean"
+                    },
+                    "fits_sheet": {
+                      "type": "boolean"
+                    },
+                    "layout": {
+                      "oneOf": [
+                        {
+                          "type": "object"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
                   },
                   "additionalProperties": false
                 }
@@ -5230,11 +5322,18 @@
       "risk": "low",
       "confirmation": "not_required",
       "priority": "P1",
-      "coreldraw_profiles": ["bridge_algorithm"],
+      "coreldraw_profiles": [
+        "bridge_algorithm"
+      ],
       "api_requirements": [],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "not_run", "sources": []},
-      "known_limitations": ["A sequence is capped at 1000 values; all four item/sheet dimensions are required for layout; this tool does not validate font sizing or create artwork."],
+      "test_evidence": {
+        "status": "not_run",
+        "sources": []
+      },
+      "known_limitations": [
+        "A sequence is capped at 1000 values; all four item/sheet dimensions are required for layout; this tool does not validate font sizing or create artwork."
+      ],
       "planned_phase": 5,
       "result_contract": "tool-schema-v1-envelope"
     },
@@ -5243,7 +5342,7 @@
       "category": "batch_workflow",
       "description": "Generate a validated sequence of editable chest-number designs with deterministic formatting and placement.",
       "implementation": {
-        "state": "planned"
+        "state": "registered"
       },
       "input_schema": {
         "type": "object",
@@ -5275,6 +5374,44 @@
           "font_size_points": {
             "type": "number",
             "exclusiveMinimum": 0
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0.0
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0.0
+          },
+          "bold": {
+            "type": "boolean",
+            "default": true
+          },
+          "draw_border": {
+            "type": "boolean",
+            "default": true
+          },
+          "header_text": {
+            "type": "string",
+            "default": ""
+          },
+          "footer_text": {
+            "type": "string",
+            "default": ""
+          },
+          "allow_rotate": {
+            "type": "boolean",
+            "default": false
           }
         },
         "required": [
@@ -5346,9 +5483,10 @@
         "Shape.PositionX",
         "Shape.PositionY",
         "Shape.SizeWidth",
-        "Shape.SizeHeight"
+        "Shape.SizeHeight",
+        "Layer.CreateRectangle2"
       ],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
         "status": "not_run",
         "sources": []

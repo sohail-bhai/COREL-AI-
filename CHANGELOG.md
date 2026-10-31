@@ -8,6 +8,7 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- `create_chest_number_batch` MCP mutating tool: generates bounded sequential chest numbers, bounding boxes, and optional header/footer text directly in the bound CorelDRAW document using calculated N-up sheet placement coordinates.
 - A pure `calculate_sheet_layout` MCP tool that compares rotated and unrotated rectangular grids, returns deterministic placement coordinates, and caps coordinate output at 2000 placements.
 - A pure `plan_chest_number_batch` MCP tool that validates a bounded numeric range and optionally assigns each zero-padded item a sheet placement before any document edit.
 - A separately authorized CorelDRAW X7 regression that creates only a new disposable document, exercises the existing editing operations with synthetic content, uses unique CDR/PDF paths, and writes a dated review report.

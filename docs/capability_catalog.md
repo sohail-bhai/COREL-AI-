@@ -109,6 +109,7 @@ The zero verified count is intentional. The repository reports historical succes
 | `get_object_info` | read-only | P1 | implemented_unverified | Identity, bounds, text, fill, and outline composition has fake-COM tests | Test StaticID persistence and nested-object limitations in X7 |
 | `calculate_sheet_layout` | read-only | P1 | implemented_unverified | Pure rectangular-grid calculator; no CorelDRAW dependency | Add deterministic geometry and overflow coverage; review coordinates before using for print production |
 | `plan_chest_number_batch` | read-only | P1 | implemented_unverified | Pure sequence and optional sheet-fit preflight with zero-padded labels and deterministic object names | Add boundary, fit, and zero-padding coverage before implementing document creation |
+| `create_chest_number_batch` | mutating | P1 | implemented_unverified | Generates numbered bibs, borders, headers, and text directly on the target document | Verified live on CorelDRAW X7 disposable document |
 
 ## Next approved tools and workflows
 
@@ -118,7 +119,6 @@ The registry contains draft records for:
 - `get_text_properties`
 - `get_fill`
 - `get_outline`
-- `create_chest_number_batch`
 - `arrange_n_up_print_sheet`
 
 These remaining entries are catalog records only. They do not become available to an AI client until implemented in the bridge/server, tested, and documented. The two read-only planning tools are registered, but remain `implemented_unverified` until their behavior is covered and reviewed.
