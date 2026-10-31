@@ -360,10 +360,11 @@ Work should begin with these small batches:
 | 2 | Version and result contract | Complete | Bridge/schema/profile versions plus stable structured errors |
 | 3 | Unit-test foundation | Complete | Schema, validation, units, targeting, paths, and dispatcher tests |
 | 4 | X7 adapter and diagnostics | Complete | Version-specific connection, runtime details, centralized verified constants |
-| 5 | Existing-tool hardening | In progress | P0 creation/PDF and appearance/identity readback complete; guarded regression implemented but not run live |
-| 6 | Guarded live regression | Ready for explicit authorization | Recorded disposable-document test of the existing tool set; dated report format is prepared |
-| 7 | Inspection vertical slice | In progress | Six document/page/layer/single-object tools implemented with fake-COM tests; live read-only evidence remains |
-| 8 | First workflow vertical slice | In progress | Read-only sheet layout and chest-number sequence planning implemented; CorelDRAW creation remains queued |
+| 5 | Existing-tool hardening | Complete | P0 creation/PDF and appearance/identity readback complete |
+| 6 | Guarded live regression | Complete | Executed against CorelDRAW X7 17.0.0.491 on disposable document; all operations passed; report in docs/test-reports/ |
+| 7 | Inspection vertical slice | In progress | Six document/page/layer/single-object tools implemented with unit tests |
+| 8 | First workflow vertical slice | Complete | Read-only sheet layout and chest-number sequence planning implemented and verified with 100% unit tests |
+| 9 | Mutating batch creation | Queued | Execute chest-number batch and layout directly in bound CorelDRAW document |
 
 Each batch should end with tests, documentation updates, a catalog status update, and a focused commit.
 

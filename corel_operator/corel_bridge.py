@@ -950,8 +950,20 @@ class CorelBridge:
                 doc.ClearSelection()
             except Exception:
                 pass
+            app = self._require_app()
+            import_options = None
+            try:
+                import_options = app.CreateStructImportOptions()
+            except Exception:
+                import_options = None
             with self._in_inches(doc):
-                layer.Import(str(path))
+                if import_options is not None:
+                    try:
+                        layer.Import(str(path), 0, import_options)
+                    except TypeError:
+                        layer.Import(str(path))
+                else:
+                    layer.Import(str(path))
             imported = []
             # CorelDRAW normally selects imported shapes. Prefer that collection.
             try:

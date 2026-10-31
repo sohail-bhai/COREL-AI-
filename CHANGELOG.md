@@ -16,6 +16,11 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 - Process-local document session IDs and StaticID-derived object IDs, both conservatively documented as requiring live persistence tests.
 - Fake-COM coverage for multi-document identity, bound-target inspection, multi-page dimensions, page-local bounds, page/master-layer state, and combined object readback.
 
+### Fixed
+
+- Resolved a COM `VT_DISPATCH` marshaling error in `import_artwork` on CorelDRAW X7 by creating and passing an explicit `CreateStructImportOptions` object.
+- Executed the full guarded live regression against CorelDRAW X7 17.0.0.491 on Windows 11 with all 17 operations passing and generating valid CDR and PDF files.
+
 ## [0.6.0] - 2026-10-30
 
 ### Added
