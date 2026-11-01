@@ -246,6 +246,18 @@
       "live_test_status": "historical_report_needs_reproduction"
     },
     {
+      "id": "Application.CreateCurve",
+      "owner": "Application",
+      "kind": "method",
+      "access": "read_only_factory",
+      "signature": "CreateCurve(Document) -> Curve",
+      "status": "typelib_confirmed",
+      "used_by": ["guarded_imposition_live_fixture"],
+      "evidence": ["installed_x7_typelib"],
+      "live_test_status": "live_x7_passed_2026-11-01",
+      "notes": ["Used only to construct a synthetic disposable contour fixture; it is not exposed as an MCP tool."]
+    },
+    {
       "id": "Application.CreateRGBColor",
       "owner": "Application",
       "kind": "method",
@@ -437,9 +449,9 @@
       "signature": "AddPagesEx(NumberOfPages, Width, Height)",
       "status": "typelib_confirmed",
       "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
-      "live_test_status": "not_run",
-      "notes": ["Signature was read directly from the installed X7 type library on 2026-11-01; output-page behavior still requires a disposable live test."]
+      "evidence": ["installed_x7_typelib"],
+      "live_test_status": "live_x7_passed_2026-11-01",
+      "notes": ["Created exactly one sized output page during the guarded disposable imposition regression."]
     },
     {
       "id": "Document.DeletePages",
@@ -462,7 +474,7 @@
       "status": "typelib_confirmed",
       "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["installed_x7_typelib", "prototype_source"],
-      "live_test_status": "not_run"
+      "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
       "id": "Page.CreateLayer",
@@ -473,7 +485,7 @@
       "status": "typelib_confirmed",
       "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["installed_x7_typelib", "prototype_source"],
-      "live_test_status": "not_run"
+      "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
       "id": "Page.Delete",
@@ -484,8 +496,8 @@
       "status": "typelib_confirmed",
       "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["installed_x7_typelib", "prototype_source"],
-      "live_test_status": "not_run",
-      "notes": ["Rollback targets only the output page created by the same operation."]
+      "live_test_status": "live_x7_passed_2026-11-01",
+      "notes": ["A forced post-placement discrepancy deleted only the newly created output page and preserved the source plus the prior successful output page."]
     },
     {
       "id": "Page.ActiveLayer",
@@ -792,6 +804,30 @@
       "notes": ["Filter=0 is cdrAutoSense.", "The bridge's extension allowlist is broader than the formats that have been live-tested."]
     },
     {
+      "id": "Layer.CreateCurve",
+      "owner": "Layer",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "CreateCurve(Source) -> Shape",
+      "status": "typelib_confirmed",
+      "used_by": ["guarded_imposition_live_fixture"],
+      "evidence": ["installed_x7_typelib"],
+      "live_test_status": "live_x7_passed_2026-11-01",
+      "notes": ["Used only to construct synthetic disposable test artwork; it is not exposed as an MCP tool."]
+    },
+    {
+      "id": "Layer.Paste",
+      "owner": "Layer",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Paste() -> Shape",
+      "status": "typelib_confirmed",
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "live_test_status": "cross_page_group_live_x7_passed_2026-11-01",
+      "notes": ["The X7 fallback pastes a copied source group onto the explicit output layer and necessarily replaces current system clipboard contents."]
+    },
+    {
       "id": "Shapes.Count",
       "owner": "Shapes",
       "kind": "property",
@@ -836,11 +872,11 @@
       "access": "read",
       "signature": "StaticID -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": [],
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["official_x7_shape", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.StaticID",
-      "live_test_status": "not_run",
-      "notes": ["Candidate for stable object identity; persistence and uniqueness semantics must be tested before adoption."]
+      "live_test_status": "unique_within_live_imposition_run_2026-11-01",
+      "notes": ["Four imposed groups returned distinct StaticIDs in one disposable X7 run; persistence across save/reopen remains unverified."]
     },
     {
       "id": "Shape.Layer",
@@ -852,7 +888,7 @@
       "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Layer",
-      "live_test_status": "not_run"
+      "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
       "id": "Shape.Page",
@@ -864,7 +900,7 @@
       "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Page",
-      "live_test_status": "not_run"
+      "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
       "id": "Shape.Type",
@@ -973,7 +1009,7 @@
       "used_by": ["move_object", "prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.SetPosition",
-      "live_test_status": "not_run"
+      "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
       "id": "Shape.Duplicate",
@@ -985,7 +1021,19 @@
       "used_by": ["duplicate_object", "prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.Duplicate",
-      "live_test_status": "not_run"
+      "live_test_status": "live_x7_passed_2026-11-01"
+    },
+    {
+      "id": "Shape.Copy",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "ui_state_mutating",
+      "signature": "Copy()",
+      "status": "typelib_confirmed",
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "live_test_status": "cross_page_group_live_x7_passed_2026-11-01",
+      "notes": ["Copies the approved source to the system clipboard without moving or renaming it; clipboard replacement is disclosed in the result."]
     },
     {
       "id": "Shape.CopyToLayer",
@@ -993,11 +1041,11 @@
       "kind": "method",
       "access": "mutating",
       "signature": "CopyToLayer(Layer) -> Shape",
-      "status": "typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
-      "live_test_status": "not_run",
-      "notes": ["Cross-page copy behavior and returned child identities require disposable X7 verification."]
+      "status": "documented_and_typelib_confirmed_behavior_research_required",
+      "used_by": [],
+      "evidence": ["installed_x7_typelib"],
+      "live_test_status": "failed_cross_page_group_copy_17.0.0.491_2026-11-01",
+      "notes": ["The method exists but raised COM error -2147352567 / inner -2147467259 when copying the synthetic repeat group to a layer on a new page. The bridge uses the live-probed Shape.Copy plus Layer.Paste equivalent instead."]
     },
     {
       "id": "Shape.Rotate",
@@ -1008,7 +1056,40 @@
       "status": "typelib_confirmed",
       "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["installed_x7_typelib", "prototype_source"],
-      "live_test_status": "not_run"
+      "live_test_status": "live_x7_passed_2026-11-01"
+    },
+    {
+      "id": "Curve.CreateSubPath",
+      "owner": "Curve",
+      "kind": "method",
+      "access": "mutating_factory",
+      "signature": "CreateSubPath(x, y) -> SubPath",
+      "status": "typelib_confirmed",
+      "used_by": ["guarded_imposition_live_fixture"],
+      "evidence": ["installed_x7_typelib"],
+      "live_test_status": "live_x7_passed_2026-11-01"
+    },
+    {
+      "id": "SubPath.AppendLineSegment",
+      "owner": "SubPath",
+      "kind": "method",
+      "access": "mutating_factory",
+      "signature": "AppendLineSegment(x, y, AppendAtBeginning=false)",
+      "status": "typelib_confirmed",
+      "used_by": ["guarded_imposition_live_fixture"],
+      "evidence": ["installed_x7_typelib"],
+      "live_test_status": "live_x7_passed_2026-11-01"
+    },
+    {
+      "id": "SubPath.Closed",
+      "owner": "SubPath",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "Closed -> Boolean",
+      "status": "typelib_confirmed",
+      "used_by": ["guarded_imposition_live_fixture", "inspect_repeat_unit"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
       "id": "SubPath.GetPolyline",
@@ -1020,7 +1101,7 @@
       "used_by": ["inspect_repeat_unit", "prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["official_x7_subpath", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17.6/m/SubPath.GetPolyline",
-      "live_test_status": "not_run"
+      "live_test_status": "straight_contour_passed_2026-11-01_curved_fixture_pending"
     },
     {
       "id": "Text.Story",

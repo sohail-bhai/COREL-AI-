@@ -2053,6 +2053,7 @@ class CorelBridge:
         output_page: Any | None = None
         output_layer: Any | None = None
         command_group_open = False
+        clipboard_modified = False
         created: list[dict[str, Any]] = []
         actual_contours: list[list[list[float]]] = []
         try:
@@ -2075,7 +2076,12 @@ class CorelBridge:
                 output_page.Activate()
                 output_page.SetSize(float(plan["sheet_width_inches"]), float(plan["sheet_height_inches"]))
                 output_layer = output_page.CreateLayer(output_layer_name.strip())
-                copied_source = source.CopyToLayer(output_layer)
+                source_page.Activate()
+                source.Copy()
+                clipboard_modified = True
+                output_page.Activate()
+                output_layer.Activate()
+                copied_source = output_layer.Paste()
                 if copied_source is None:
                     layer_shapes = _safe_attr(output_layer, "Shapes")
                     layer_count = _safe_int_attr(layer_shapes, "Count") if layer_shapes is not None else None
@@ -2219,6 +2225,7 @@ class CorelBridge:
                     "rollback_attempted": rollback_attempted,
                     "rollback_verified": rollback_verified,
                     "source_unchanged": source_unchanged,
+                    "clipboard_modified": clipboard_modified,
                     "exception_type": type(exc).__name__,
                 },
             ) from exc
@@ -2239,6 +2246,9 @@ class CorelBridge:
             },
             "source_identity": source_before,
             "source_preserved": True,
+            "source_copy_method": "clipboard_copy_paste",
+            "clipboard_modified": clipboard_modified,
+            "warnings": ["CorelDRAW X7 cross-page copying replaced the current system clipboard contents."],
             "rollback_policy": "delete_new_output_page_only",
             "post_execution_verification": True,
         }
@@ -2365,6 +2375,8 @@ class CorelBridge:
             "source_preservation": {
                 "output_mode": "new_page_same_document",
                 "source_will_be_moved_or_renamed": False,
+                "source_copy_method": "clipboard_copy_paste",
+                "clipboard_will_be_modified": True,
                 "rollback_policy": "delete_new_output_page_only",
             },
             "print_ready": False,
@@ -2450,6 +2462,7 @@ class CorelBridge:
                 "message": "The bounded planner did not materialize every requested placement coordinate.",
             })
         warnings.append("Production marks, controlled export, and output-profile checks are not implemented; print_ready remains false.")
+        warnings.append("Execution will replace current system clipboard contents during the X7 cross-page copy.")
 
         fingerprint_payload = {
             "schema": "imposition-plan-v1",
@@ -2464,6 +2477,8 @@ class CorelBridge:
                 "mode": "new_page_same_document",
                 "object_name_prefix": object_name_prefix,
                 "output_layer_name": output_layer_name,
+                "source_copy_method": "clipboard_copy_paste",
+                "clipboard_modified": True,
             },
             "layout": plan,
         }
@@ -2505,6 +2520,14 @@ class CorelBridge:
             object_name_prefix,
             output_layer_name,
         )
+        if execution["clipboard_modified"]:
+            common["warnings"] = [
+                warning for warning in common["warnings"]
+                if not warning.startswith("Execution will replace current system clipboard")
+            ]
+            for warning in execution["warnings"]:
+                if warning not in common["warnings"]:
+                    common["warnings"].append(warning)
         return {
             "status": "completed",
             **common,

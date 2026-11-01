@@ -14,7 +14,9 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
   - Fingerprints bind source document/page/group identity, normalized contour geometry, production inputs, output policy, and deterministic placements; changed source state invalidates approval.
   - Obvious rectangles bypass cutter questions, while contour jobs ask about 180° rotation only when it improves copies per sheet.
   - Execution creates an explicit layer on a new page, copies rather than transforms the source, keeps repeats independent, verifies readback/collisions, and rolls back by deleting only its new page.
-  - Installed X7 type-library inspection confirmed `Document.AddPagesEx`, `Page.Activate`, `Page.CreateLayer`, `Page.Delete`, `Document.DeletePages`, `Shape.CopyToLayer`, and `Shape.Rotate`; runtime behavior remains live-unverified.
+  - The guarded X7 run verified straight-contour flattening, 0°/180° groups, contour placement, collision readback, distinct identities, unchanged source state, and forced output-page-only rollback; manual CDR review remains pending.
+  - X7 `Shape.CopyToLayer` failed for the cross-page group despite its type-library signature. The bridge now uses the live-tested `Shape.Copy` / `Layer.Paste` equivalent and discloses that this replaces current system clipboard contents.
+  - Both the failed `CopyToLayer` report and passing fallback report are retained under `docs/test-reports/` so capability evidence remains honest.
 - Shape-aware packaging imposition:
   - `classify_imposition_job` sends obvious rectangles directly to N-up without asking irrelevant cutter questions; non-rectangular work receives conditional cutter/dieline/rotation Q&A.
   - `inspect_repeat_unit` requires one independently grouped vector repeat and one uniquely named closed dieline, rejects likely combined multi-copy sources, and flattens X7 curves through `SubPath.GetPolyline`.

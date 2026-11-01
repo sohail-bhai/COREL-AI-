@@ -7948,7 +7948,7 @@
       "coreldraw_profiles": ["coreldraw-x7-17"],
       "api_requirements": ["SubPath.GetPolyline"],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "unit_passed", "sources": ["tests/test_contour_nesting.py"]},
+      "test_evidence": {"status": "live_x7_passed", "sources": ["tests/test_contour_nesting.py", "tests/integration/test_corel_live.py", "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"]},
       "known_limitations": ["Requires one top-level group and one uniquely named closed single-subpath dieline."],
       "planned_phase": 6,
       "result_contract": "tool-schema-v1-envelope"
@@ -7985,10 +7985,10 @@
       "confirmation": "requires_completed_contour_qa",
       "priority": "P0",
       "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.AddPagesEx", "Document.DeletePages", "Page.Activate", "Page.CreateLayer", "Page.Delete", "Shape.CopyToLayer", "Shape.Duplicate", "Shape.Rotate", "Shape.SetPosition", "SubPath.GetPolyline"],
+      "api_requirements": ["Document.AddPagesEx", "Document.DeletePages", "Layer.Paste", "Page.Activate", "Page.CreateLayer", "Page.Delete", "Shape.Copy", "Shape.Duplicate", "Shape.Rotate", "Shape.SetPosition", "SubPath.GetPolyline"],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "unit_passed", "sources": ["tests/test_contour_nesting.py"]},
-      "known_limitations": ["Executes one new output page per call and requires live X7 verification of cross-page copying, GetPolyline precision, group rotation readback, and targeted page rollback."],
+      "test_evidence": {"status": "live_x7_passed_manual_review_pending", "sources": ["tests/test_contour_nesting.py", "tests/integration/test_corel_live.py", "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"]},
+      "known_limitations": ["Executes one new output page per call. X7 cross-page transfer uses Shape.Copy plus Layer.Paste because CopyToLayer failed live; this replaces current system clipboard contents and is disclosed in the result."],
       "planned_phase": 6,
       "result_contract": "tool-schema-v1-envelope"
     },
@@ -8026,10 +8026,10 @@
       "confirmation": "requires_true_and_matching_plan_fingerprint",
       "priority": "P0",
       "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.AddPagesEx", "Document.DeletePages", "Page.Activate", "Page.CreateLayer", "Page.Delete", "Shape.CopyToLayer", "Shape.Duplicate", "Shape.Rotate", "Shape.SetPosition", "SubPath.GetPolyline"],
+      "api_requirements": ["Document.AddPagesEx", "Document.DeletePages", "Layer.Paste", "Page.Activate", "Page.CreateLayer", "Page.Delete", "Shape.Copy", "Shape.Duplicate", "Shape.Rotate", "Shape.SetPosition", "SubPath.GetPolyline"],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "unit_passed", "sources": ["tests/test_contour_nesting.py"]},
-      "known_limitations": ["Executes only quantities that fit one output page, keeps rectangular vector jobs upright in this slice, and does not yet add production marks or controlled export settings."],
+      "test_evidence": {"status": "live_x7_passed_manual_review_pending", "sources": ["tests/test_contour_nesting.py", "tests/integration/test_corel_live.py", "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"]},
+      "known_limitations": ["Executes only quantities that fit one output page, keeps rectangular vector jobs upright, replaces current system clipboard contents during X7 cross-page transfer, and does not yet add production marks or controlled export settings."],
       "planned_phase": 6,
       "result_contract": "tool-schema-v1-envelope"
     }

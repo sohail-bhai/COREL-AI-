@@ -16,4 +16,6 @@ The test creates a new document, synthetic vector artwork, and a unique output d
 
 Each enabled run writes a dated Markdown report here and leaves its CDR, PDF, and SVG artifacts in the unique temporary output directory for manual review. Reports must not contain client artwork, credentials, prompts, or document contents from pre-existing files.
 
+The imposition gate creates its own asymmetric vector fixture and document. Its X7 cross-page fallback uses `Shape.Copy` / `Layer.Paste`, so the authorized run replaces current system clipboard contents; it never reads or binds pre-existing artwork.
+
 A passing automated report does **not** establish visual quality or print readiness. Review the generated CDR for editability and the PDF for dimensions and rendering before changing catalog records from `implemented_unverified` to `verified`.

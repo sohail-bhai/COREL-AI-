@@ -26,7 +26,7 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 174 default tests (five guarded live gates skipped), disposable-document regressions, and a catalog consistency validator.
+- 175 default tests (six guarded live gates skipped), disposable-document regressions, and a catalog consistency validator.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Six implemented-unverified read-only inspection tools for open documents, target-document details, pages, page bounds, layers, and single objects.
@@ -37,8 +37,8 @@ Validate the catalog without starting CorelDRAW:
 - `classify_imposition_job`, which routes obvious rectangles directly to N-up and asks cutter/rotation questions only for non-rectangular contour work.
 - `inspect_repeat_unit`, which requires one independent vector repeat group and one named closed dieline, then uses CorelDRAW X7 `SubPath.GetPolyline` to produce deterministic contour geometry.
 - `plan_contour_nesting`, a pure collision-checked 0°/180° paired-row optimizer for interlocking dielines.
-- `prepare_contour_nesting`, which copies the pristine repeat to a new output page, preserves one top-level group per copy, verifies contour clearance, and leaves the source group/page unchanged.
-- `prepare_imposition_job`, the preferred model-facing classify/plan/approve/execute workflow. It asks rotation questions only when capacity improves, fingerprints the complete plan and source identity, requires the matching fingerprint for mutation, and rolls back by deleting only its new output page.
+- `prepare_contour_nesting`, which copies the pristine repeat to a new output page, preserves one top-level group per copy, verifies contour clearance, and leaves the source group/page unchanged. X7 cross-page transfer uses the live-tested `Shape.Copy`/`Layer.Paste` fallback and reports that it replaces clipboard contents.
+- `prepare_imposition_job`, the preferred model-facing classify/plan/approve/execute workflow. It asks rotation questions only when capacity improves, fingerprints the complete plan and source identity, requires the matching fingerprint for mutation, and rolls back by deleting only its new output page. The guarded X7 execution/rollback run passes; manual CDR review remains pending.
 
 Imposition routing is deliberate: ordinary rectangular artwork uses rectangular N-up without cutter questions. Packaging/dieline work uses explicit repeat and contour inspection; the orchestrator asks unresolved cutting-method questions and asks about 180° rotation only when it improves capacity. An already combined multi-copy image/group is rejected because copies cannot be transformed and verified independently.
 

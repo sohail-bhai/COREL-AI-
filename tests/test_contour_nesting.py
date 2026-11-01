@@ -131,8 +131,8 @@ class _Group:
         duplicate.RotationAngle = self.RotationAngle
         return duplicate
 
-    def CopyToLayer(self, layer):
-        return _Group(layer.Shapes, self.dieline.points, self.Name)
+    def Copy(self):
+        self.Page.document.clipboard_shape = self
 
     def Rotate(self, degrees):
         left, bottom = self.PositionX, self.PositionY
@@ -155,6 +155,10 @@ class _Layer:
 
     def Activate(self):
         self.page.ActiveLayer = self
+
+    def Paste(self):
+        source = self.page.document.clipboard_shape
+        return _Group(self.Shapes, source.dieline.points, source.Name)
 
 
 class _Page:
@@ -196,6 +200,7 @@ class _Document:
         self.Unit = 1
         self.ReferencePoint = 5
         self.fail_output_position = False
+        self.clipboard_shape = None
         first_page = _Page(self, 1)
         self.Pages = _Collection([first_page])
         self._active_page = first_page
@@ -384,6 +389,8 @@ class ContourNestingTests(unittest.TestCase):
         self.assertEqual(planned["status"], "planned")
         self.assertTrue(planned["ready_for_execution"])
         self.assertTrue(planned["plan_fingerprint"].startswith("sha256:"))
+        self.assertTrue(planned["source_preservation"]["clipboard_will_be_modified"])
+        self.assertTrue(any("will replace" in warning for warning in planned["warnings"]))
         self.assertEqual(document.Pages.Count, 1)
 
         completed = bridge.prepare_imposition_job(
@@ -401,6 +408,8 @@ class ContourNestingTests(unittest.TestCase):
 
         self.assertEqual(completed["status"], "completed")
         self.assertTrue(completed["source_preserved"])
+        self.assertTrue(any("replaced" in warning for warning in completed["warnings"]))
+        self.assertFalse(any("will replace" in warning for warning in completed["warnings"]))
         self.assertEqual(completed["execution"]["output"]["page_index"], 2)
         self.assertEqual(document.Pages.Item(1).Shapes.Item(1).Name, "Repeat_Unit")
 

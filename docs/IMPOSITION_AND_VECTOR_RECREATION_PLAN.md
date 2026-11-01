@@ -3,16 +3,18 @@
 **Plan revision:** 2026-11-01  
 **Target:** CorelDRAW Graphics Suite X7, build 17.0.0.491  
 **Clients:** Antigravity, OpenCode, and other approved MCP clients  
-**Status:** Approved roadmap; A1/A2 implemented-unverified on 2026-11-01, disposable X7 verification pending
+**Status:** Approved roadmap; A0–A2 straight-contour X7 gate passed on 2026-11-01, manual CDR and curved-contour review pending
 
 ### Implementation checkpoint — 2026-11-01
 
 - `prepare_imposition_job` now owns classify/plan/approve/execute routing for selected vector repeats.
 - The first call is non-mutating; execution requires `confirm_execution=true` plus the exact SHA-256 fingerprint recomputed from source identity, production inputs, output policy, and deterministic geometry.
 - Obvious rectangles bypass cutter questions. Contour jobs ask about 180° rotation only when the rotated candidate improves sheet capacity.
-- Execution creates one new page and explicit output layer, copies the source with the installed X7 type-library-confirmed `Shape.CopyToLayer` signature, keeps every repeat as an independent group, and verifies actual contours.
+- Execution creates one new page and explicit output layer, keeps every repeat as an independent group, and verifies actual contours. X7 build 17.0.0.491 rejected cross-page group `Shape.CopyToLayer`, so the implementation uses the live-tested `Shape.Copy` / `Layer.Paste` equivalent and reports that this replaces clipboard contents.
 - Failure cleanup deletes only the newly added output page and verifies that the approved source signature is unchanged.
-- These behaviors have fake-COM/unit evidence only. `AddPagesEx`, `CopyToLayer`, page deletion, curve flattening, group rotation, and coordinate readback remain `implemented_unverified` until an explicitly authorized disposable X7 run.
+- The guarded disposable run passed `AddPagesEx`, straight-contour `GetPolyline`, clipboard cross-page group transfer, 180° rotation/readback, contour-based placement, collision verification, distinct group identities, unchanged source identity, and forced output-page-only rollback. Evidence: `docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md`.
+- The preceding failed report is retained because it proves `CopyToLayer` is unsuitable for this cross-page group case: `docs/test-reports/2026-11-01T100635081789Z-x7-disposable-regression.md`.
+- Manual review of the retained CDR and rounded/Bézier `GetPolyline` fixtures remain required before `verified` status.
 - Multi-sheet materialization and production layers/marks/controlled exports remain A5/A6 work.
 
 ## 1. Outcomes
@@ -73,9 +75,9 @@ Execution must recompute and match the approved plan fingerprint. This prevents 
 
 ## 4. Workstream A — Reliable imposition orchestration
 
-### A0. Live-verify the existing contour vertical slice
+### A0. Live-verify the existing contour vertical slice — straight-contour gate passed
 
-The pure planner and fake-COM execution are implemented. Before expanding them, run guarded tests against a disposable X7 document.
+The pure planner and fake-COM execution are implemented. The asymmetric straight-segment acceptance fixture passed on disposable X7 build 17.0.0.491, including forced rollback. Rounded and Bézier precision plus positive-clearance rounding fixtures remain open.
 
 Verify:
 
@@ -149,12 +151,12 @@ New output page/document
 
 Tasks:
 
-- Research and live-verify X7 `CopyToLayer` or the safest equivalent cross-page/cross-document operation.
-- Never move or rename the approved source group.
-- Record source document/page/object identity in the plan.
-- Reject execution if source identity changes after approval.
-- Put print artwork, dielines, fold lines, and marks on explicit output layers.
-- Roll back and remove only the newly created output page/document on failure.
+- [x] Research and live-verify X7 `CopyToLayer` or the safest equivalent cross-page operation. `CopyToLayer` failed; `Shape.Copy` / `Layer.Paste` passed and discloses clipboard replacement.
+- [x] Never move or rename the approved source group.
+- [x] Record source document/page/object identity in the plan.
+- [x] Reject execution if source identity changes after approval.
+- [ ] Put print artwork, dielines, fold lines, and marks on separate explicit output layers. The current slice creates one explicit repeat layer.
+- [x] Roll back and remove only the newly created output page on failure.
 
 ### A3. Inspect a selected repeat automatically
 

@@ -11,15 +11,15 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 174 tests
-OK (skipped=5)
+Ran 175 tests
+OK (skipped=6)
 ```
 
 Coverage includes:
 
 - authoritative bridge/schema/profile versions;
 - tool-schema v1 success and error envelopes;
-- all catalog JSON Schemas and 114 request/success/error examples;
+- all catalog JSON Schemas and 135 request/success/error examples;
 - bridge argument validation and stable error codes;
 - inch-unit and reference-point context restoration;
 - protected target-document behavior using fake COM objects;
@@ -71,5 +71,15 @@ $env:COREL_LIVE_MUTATION_TESTS = "1"
 ```
 
 This test creates and binds its own new document before exercising the existing editing operations. It uses a unique directory beneath the operating system's `opencode` temporary directory, refuses output overwrites through the bridge, and writes a dated report under `docs/test-reports/`. Generated CDR, PDF, and SVG artifacts remain outside the repository for manual review.
+
+Run only the source-preserving imposition gate with:
+
+```powershell
+$env:COREL_LIVE_TESTS = "1"
+$env:COREL_LIVE_MUTATION_TESTS = "1"
+.\.venv\Scripts\python.exe -m unittest tests.integration.test_corel_live.CorelDisposableDocumentLiveTests.test_imposition_orchestration_live -v
+```
+
+This gate creates one synthetic asymmetric vector repeat, verifies fingerprint-gated 0°/180° output on a new page, confirms the source signature remains unchanged, then forces a collision discrepancy and verifies that only the new rollback page is deleted. CorelDRAW X7 cross-page transfer uses `Shape.Copy` plus `Layer.Paste`, which replaces the current system clipboard contents and is reported by the tool.
 
 Do not set either flag in shared automation. A passing run is not enough to claim visual quality or print readiness, and catalog records must remain `implemented_unverified` until the dated report and artifacts are reviewed.

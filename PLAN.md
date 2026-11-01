@@ -24,7 +24,7 @@ The implementation must remain evidence-based. A CorelDRAW operation is not cons
 | Existing MCP surface | 40 tools are registered, including design plans, print imposition, contour nesting, and unified imposition orchestration |
 | Historically demonstrated operations | Status, document creation, rectangle, editable text, and CDR save |
 | Remaining v0.5 operations | Implemented but mostly not verified live |
-| Automated tests | 174 tests pass; five guarded live gates are skipped by default |
+| Automated tests | 175 tests pass; six guarded live gates are skipped by default |
 | Capability inventory | Evidence-backed registry, capability matrix, enum reference, API inventory, and schema validation are present |
 | Advanced workflows | Design plans, batches, raster print planning, best-fit N-up, paired-row contour nesting, and fingerprint-gated source-preserving imposition are implemented at varying verification levels |
 
@@ -372,8 +372,8 @@ Work should begin with these small batches:
 | 10 | Structured design plan engine (Option B) | Complete | High-value, deep-detail design plan engine with validation, preview, transactional CommandGroup execution, atomic Undo rollback, and live X7 verification |
 | 11 | Alignment and grouping tools (Option C) | Complete | `align_objects`, `align_to_page`, `group_shapes`, `ungroup_shapes` implemented, unit tested, and verified live on CorelDRAW X7 |
 | 12 | Generated-artwork print foundation | Implemented; live verification pending | Raster preflight, exact-size sheet creation, contain/cover/stretch placement, effective DPI, bleed/safe boxes, deterministic best-fit mixed-rotation N-up, production quantities, and structured report |
-| 13 | Vector dieline contour nesting | Implemented; live verification pending | Conditional cutter Q&A, one-repeat inspection, X7 curve flattening, deterministic 0°/180° paired rows, independent copy groups, and post-placement collision verification |
-| 14 | Unified imposition orchestration | Implemented; live verification pending | `prepare_imposition_job` classifies, asks only capacity-relevant rotation questions, fingerprints source plus geometry, requires approval, writes independent groups to a new page, and removes only that page on failure |
+| 13 | Vector dieline contour nesting | Live X7 passed; manual/curved review pending | Straight-contour flattening, deterministic 0°/180° rows, independent groups, placement, collision verification, source preservation, and targeted rollback passed on disposable X7 artwork |
+| 14 | Unified imposition orchestration | Live X7 passed; manual review pending | `prepare_imposition_job` fingerprint-gated planning/execution passed on X7; the retained editable CDR still requires manual review before verified status |
 | 15 | Reference-to-vector foundation | Planned | Reference preflight, provider-neutral analysis schema, design-plan v2, and simple editable-vector reconstruction |
 | 16 | Recreation comparison loop | Planned | Deterministic preview comparison, bounded targeted correction, and fidelity/editability report |
 
@@ -432,9 +432,10 @@ The operator must then complete that workflow with deterministic tool calls, evi
 
 4. **Current active milestone: Imposition orchestration and source preservation — IMPLEMENTED-UNVERIFIED SLICE**:
    - `prepare_imposition_job` now provides one classify/plan/approve/execute route with deterministic plan fingerprints and source-identity revalidation.
-   - Execution copies the repeat through type-library-confirmed X7 APIs to an explicit layer on a new page; the original page/group is never renamed or moved, and failure cleanup targets only the new page.
-   - Fake-COM coverage verifies conditional Q&A, fingerprint mismatch rejection, independent groups, source preservation, and targeted rollback.
-   - Still required: an explicitly authorized disposable X7 run for `GetPolyline`, `AddPagesEx`, `CopyToLayer`, 180° rotation, placement, collision readback, and page-deletion rollback.
+   - Execution copies the repeat through live-tested `Shape.Copy` / `Layer.Paste` to an explicit layer on a new page; the original page/group is never renamed or moved, and failure cleanup targets only the new page. This X7 fallback replaces current clipboard contents and reports that side effect.
+   - Fake-COM coverage and the guarded X7 run verify conditional Q&A, fingerprint approval, independent 0°/180° groups, source preservation, placement/collision readback, and targeted rollback.
+   - `Shape.CopyToLayer` is not used because it failed for the cross-page group on build 17.0.0.491. The failure and passing fallback reports are retained under `docs/test-reports/`.
+   - Still required before `verified`: manually inspect the retained CDR and exercise rounded/Bézier contour flattening.
    - Multi-sheet execution, separate production layers/marks, and controlled export remain later A5/A6 work.
 
 5. **Following milestone: Reference design to editable vector CDR**:

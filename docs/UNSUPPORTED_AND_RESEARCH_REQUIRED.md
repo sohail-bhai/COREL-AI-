@@ -1,6 +1,6 @@
 # Unsupported and Research-Required Capabilities
 
-**Revision:** 2026-10-30
+**Revision:** 2026-11-01
 
 **Target profile:** `coreldraw-x7-17`
 
@@ -27,6 +27,7 @@ This document prevents uncertain behavior from being presented as supported. An 
 | PDF output | Nonempty output existence is verified, but page dimensions, structure, and inherited settings are not inspected | Verify a unique PDF, inspect page box dimensions, and report unchecked settings |
 | COM timeout | The MCP caller can time out while the COM worker continues executing | Design cancellation/recovery or explicit busy-state behavior and test a controlled timeout |
 | Closed target document | The in-memory COM proxy can become stale if the user closes the target | Detect stale targets and return a stable error without falling back to another active document |
+| Cross-page group copying | X7 `Shape.CopyToLayer` exists but failed for the disposable cross-page repeat group; the verified `Shape.Copy` / `Layer.Paste` fallback replaces system clipboard contents | Keep the clipboard warning in the approval plan and investigate a non-clipboard equivalent before removing this limitation |
 
 ## Planned capabilities requiring API expansion
 

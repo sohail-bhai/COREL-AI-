@@ -7,6 +7,7 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
+from unittest.mock import patch
 
 from corel_operator.corel_bridge import CorelBridge, CorelBridgeError
 from corel_operator.errors import ErrorCode
@@ -102,6 +103,40 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             '</svg>',
             encoding="utf-8",
         )
+
+    def _create_asymmetric_imposition_fixture(self) -> dict[str, Any]:
+        """Create one synthetic grouped repeat without reading or importing user artwork."""
+        doc = self.bridge.target_doc
+        app = self.bridge.app
+        if doc is None or app is None:
+            raise AssertionError("A bridge-created target document is required for the fixture.")
+        points = [
+            (0.25, 0.25),
+            (4.25, 0.25),
+            (4.25, 2.25),
+            (1.25, 2.25),
+            (1.25, 4.25),
+            (0.25, 4.25),
+        ]
+        with self.bridge._in_inches(doc), self.bridge._reference_point(doc, self.bridge.CDR_BOTTOM_LEFT):
+            curve = app.CreateCurve(doc)
+            subpath = curve.CreateSubPath(*points[0])
+            for x, y in points[1:]:
+                subpath.AppendLineSegment(x, y)
+            subpath.Closed = True
+            dieline = doc.ActivePage.ActiveLayer.CreateCurve(curve)
+            dieline.Name = "CutContour"
+        artwork = self.bridge.draw_rectangle(0.4, 0.4, 0.6, 0.6, "Repeat_Artwork")
+        grouped = self.bridge.group_shapes(
+            [artwork["object_name"], "CutContour"],
+            group_name="Repeat_Unit",
+        )
+        return {
+            "grouped": grouped["grouped"],
+            "group_name": grouped["group_name"],
+            "child_names": grouped["child_names"],
+            "point_count": len(points),
+        }
 
     def _close_saved_target_if_needed(self) -> None:
         doc = self.bridge.target_doc
@@ -421,6 +456,155 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self._close_saved_target_if_needed()
             report = self._write_report(passed, failure)
             print(f"Live design-plan report: {report}")
+
+    def test_imposition_orchestration_live(self) -> None:
+        passed = False
+        failure: str | None = None
+        try:
+            self.status = self._step("connect / corel_status", self.bridge.connect)
+            self.assertEqual(self.status["version_major"], 17)
+            created = self._step("create disposable imposition document", lambda: self.bridge.create_document(8.0, 6.0))
+            self.assertTrue(created["created"])
+
+            fixture = self._step("create asymmetric vector repeat", self._create_asymmetric_imposition_fixture)
+            self.assertTrue(fixture["grouped"])
+            self.assertEqual(fixture["group_name"], "Repeat_Unit")
+            self.assertIn("CutContour", fixture["child_names"])
+
+            inspection = self._step(
+                "inspect_repeat_unit",
+                lambda: self.bridge.inspect_repeat_unit(
+                    "Repeat_Unit", "CutContour", "digital_cutter", True, 5,
+                ),
+            )
+            self.assertTrue(inspection["ready"])
+            self.assertEqual(inspection["workflow"], "contour_nesting")
+            self.assertEqual(inspection["footprint_kind"], "contour")
+            self.assertGreaterEqual(len(inspection["contour_points_inches"]), fixture["point_count"])
+            source_before = inspection["source_identity"]
+
+            planned = self._step(
+                "prepare_imposition_job plan",
+                lambda: self.bridge.prepare_imposition_job(
+                    "Repeat_Unit",
+                    "CutContour",
+                    8.0,
+                    6.0,
+                    quantity=4,
+                    margin_inches=0.0,
+                    cutting_method="digital_cutter",
+                    allow_180_rotation=True,
+                ),
+            )
+            self.assertEqual(planned["status"], "planned")
+            self.assertTrue(planned["ready_for_execution"])
+            self.assertEqual(planned["plan"]["copies_per_sheet"], 4)
+            self.assertEqual(planned["plan"]["layout_strategy"], "alternating_0_180_rows")
+            self.assertTrue(planned["plan_fingerprint"].startswith("sha256:"))
+            doc = self.bridge.target_doc
+            self.assertIsNotNone(doc)
+            self.assertEqual(int(doc.Pages.Count), 1)
+
+            completed = self._step(
+                "prepare_imposition_job execute",
+                lambda: self.bridge.prepare_imposition_job(
+                    "Repeat_Unit",
+                    "CutContour",
+                    8.0,
+                    6.0,
+                    quantity=4,
+                    margin_inches=0.0,
+                    cutting_method="digital_cutter",
+                    allow_180_rotation=True,
+                    confirm_execution=True,
+                    approved_plan_fingerprint=planned["plan_fingerprint"],
+                ),
+            )
+            self.assertEqual(completed["status"], "completed")
+            self.assertTrue(completed["source_preserved"])
+            execution = completed["execution"]
+            self.assertTrue(execution["post_execution_verification"])
+            self.assertEqual(execution["created_count"], 4)
+            self.assertEqual(execution["output"]["page_index"], 2)
+            self.assertEqual(execution["output"]["layer_name"], "Imposition_Repeats")
+            self.assertEqual(execution["source_copy_method"], "clipboard_copy_paste")
+            self.assertTrue(execution["clipboard_modified"])
+            self.assertTrue(any("clipboard" in warning.lower() for warning in completed["warnings"]))
+            self.assertEqual(
+                [item["actual_rotation_degrees"] for item in execution["objects"]],
+                [0.0, 0.0, 180.0, 180.0],
+            )
+            static_ids = [item["object"]["static_id"] for item in execution["objects"]]
+            self.assertEqual(len(set(static_ids)), 4)
+            self.assertEqual(int(doc.Pages.Count), 2)
+
+            source_page = self.bridge._page_at(doc, 1)
+            source_page.Activate()
+            source_after = self._step(
+                "verify source after successful imposition",
+                lambda: self.bridge.inspect_repeat_unit(
+                    "Repeat_Unit", "CutContour", "digital_cutter", True, 5,
+                ),
+            )
+            self.assertEqual(source_after["source_identity"], source_before)
+
+            rollback_plan = self._step(
+                "prepare forced-rollback plan",
+                lambda: self.bridge.prepare_imposition_job(
+                    "Repeat_Unit",
+                    "CutContour",
+                    8.0,
+                    6.0,
+                    quantity=4,
+                    margin_inches=0.0,
+                    cutting_method="digital_cutter",
+                    allow_180_rotation=True,
+                    object_name_prefix="Rollback_Copy",
+                ),
+            )
+            with patch("corel_operator.corel_bridge.contours_have_conflicts", return_value=True):
+                with self.assertRaises(CorelBridgeError) as rollback_context:
+                    self._step(
+                        "forced imposition collision rollback",
+                        lambda: self.bridge.prepare_imposition_job(
+                            "Repeat_Unit",
+                            "CutContour",
+                            8.0,
+                            6.0,
+                            quantity=4,
+                            margin_inches=0.0,
+                            cutting_method="digital_cutter",
+                            allow_180_rotation=True,
+                            object_name_prefix="Rollback_Copy",
+                            confirm_execution=True,
+                            approved_plan_fingerprint=rollback_plan["plan_fingerprint"],
+                        ),
+                    )
+            self.assertTrue(rollback_context.exception.details["rollback_attempted"])
+            self.assertTrue(rollback_context.exception.details["rollback_verified"])
+            self.assertTrue(rollback_context.exception.details["source_unchanged"])
+            self.assertTrue(rollback_context.exception.details["clipboard_modified"])
+            self.assertEqual(int(doc.Pages.Count), 2)
+            self.assertEqual(int(self.bridge._page_at(doc, 2).Shapes.Count), 4)
+            source_after_rollback = self._step(
+                "verify source after imposition rollback",
+                lambda: self.bridge.inspect_repeat_unit(
+                    "Repeat_Unit", "CutContour", "digital_cutter", True, 5,
+                ),
+            )
+            self.assertEqual(source_after_rollback["source_identity"], source_before)
+
+            imposition_cdr = self.output_dir / "disposable-imposition.cdr"
+            saved = self._step("save imposition artifact", lambda: self.bridge.save_document(str(imposition_cdr)))
+            self.assertGreater(saved["bytes"], 0)
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            self._close_saved_target_if_needed()
+            report = self._write_report(passed, failure)
+            print(f"Live imposition report: {report}")
 
     def test_align_and_group_live(self) -> None:
         passed = False

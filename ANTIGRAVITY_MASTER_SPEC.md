@@ -557,6 +557,7 @@ Imposition routing must also be deterministic:
 - Use `plan_contour_nesting` / `prepare_contour_nesting` only with one independently grouped repeat and one explicit closed vector dieline.
 - Prefer `prepare_imposition_job` for model-facing vector imposition. Its first call plans only; mutation requires explicit confirmation plus the matching source-and-geometry plan fingerprint.
 - Preserve the approved source page/group unchanged. Imposed repeats belong on a new output page, and rollback may remove only output created by that operation.
+- On X7 build 17.0.0.491, cross-page group transfer uses the live-tested `Shape.Copy` / `Layer.Paste` fallback because `Shape.CopyToLayer` failed. The plan must warn before approval that execution replaces current system clipboard contents.
 - Never flatten or group all imposed copies into one image. Each executed repeat remains a separately named top-level group.
 - GPT interprets production intent; Python computes rotations, contour clearance, positions, capacity, and collision verification.
 
