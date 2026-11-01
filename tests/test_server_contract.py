@@ -88,6 +88,15 @@ class ServerContractTests(unittest.TestCase):
         self.assertEqual(layout_result["tool"], "calculate_sheet_layout")
         self.assertIn("capacity", layout_result["data"])
 
+        best_fit = server.calculate_sheet_layout(
+            5.0, 2.0, 9.0, 14.0,
+            rotation_policy="best_fit",
+            requested_quantity=100,
+        )
+        self.assertTrue(best_fit["ok"])
+        self.assertEqual(best_fit["data"]["capacity"], 11)
+        self.assertEqual(best_fit["data"]["sheets_required"], 10)
+
         bad_layout = server.calculate_sheet_layout(-1.0, 2.0, 10.0, 8.0)
         self.assertFalse(bad_layout["ok"])
         self.assertEqual(bad_layout["error"]["code"], "INVALID_ARGUMENT")

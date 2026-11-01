@@ -26,12 +26,14 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 140 default tests (five guarded live gates skipped), disposable-document regressions, and a catalog consistency validator.
+- 157 default tests (five guarded live gates skipped), disposable-document regressions, and a catalog consistency validator.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Six implemented-unverified read-only inspection tools for open documents, target-document details, pages, page bounds, layers, and single objects.
-- `calculate_sheet_layout`, a read-only N-up print-sheet calculator with rotation selection and row-major coordinates; it does not connect to CorelDRAW.
+- `calculate_sheet_layout`, a read-only N-up optimizer for upright, rotated, mixed-row, mixed-column, and sheet-orientation candidates, including per-edge/gripper allowances, waste, alternatives, and production-quantity math.
 - `plan_chest_number_batch`, a read-only preflight that validates ranges, preserves zero-padding, and optionally returns a complete sheet-fit and placement plan.
+- `plan_print_job`, a no-Corel preflight for one raster artwork: exact finished/sheet sizes, bleed and safe boxes, contain/cover/stretch geometry, effective DPI, best-fit imposition, sheet counts, waste, and per-copy rotation coordinates.
+- `prepare_print_job`, a new-document-only workflow that imports the validated artwork, applies planned fit/crop and per-copy rotation, creates named copies, and reads back their actual bounds. It deliberately does not claim print-ready output.
 
 Run static diagnostics without connecting to CorelDRAW:
 

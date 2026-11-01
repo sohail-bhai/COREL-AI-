@@ -1,13 +1,12 @@
 """Pure, deterministic planning helpers that do not connect to CorelDRAW."""
 from __future__ import annotations
 
-import math
 from typing import Any
 
 from .errors import CorelBridgeError, ErrorCode
+from .imposition import MAX_LAYOUT_PLACEMENTS, optimize_sheet_layout
 
 
-MAX_LAYOUT_PLACEMENTS = 2000
 MAX_CHEST_NUMBER_SEQUENCE = 1000
 
 
@@ -91,90 +90,26 @@ def calculate_sheet_layout(
     margin_inches: float = 0.0,
     gutter_inches: float = 0.0,
     allow_rotate: bool = True,
+    rotation_policy: str | None = None,
+    sheet_orientation: str = "fixed",
+    margin_left_inches: float | None = None,
+    margin_top_inches: float | None = None,
+    margin_right_inches: float | None = None,
+    margin_bottom_inches: float | None = None,
+    gripper_inches: float = 0.0,
+    gripper_edge: str = "bottom",
+    mark_clearance_inches: float = 0.0,
+    requested_quantity: int | None = None,
 ) -> dict[str, Any]:
-    """Return a row-major N-up grid, selecting the orientation with greatest capacity.
+    """Return an exact, guillotine-friendly N-up sheet layout.
 
     Coordinates are measured in inches from the sheet's lower-left corner. The
-    item dimensions in each placement reflect any selected 90-degree rotation.
-    No CorelDRAW document is read or modified.
+    optimizer evaluates upright, fully rotated, mixed-row, mixed-column, and
+    requested sheet-orientation candidates. No CorelDRAW document is modified.
     """
-    values = {
-        "item_width_inches": item_width_inches,
-        "item_height_inches": item_height_inches,
-        "sheet_width_inches": sheet_width_inches,
-        "sheet_height_inches": sheet_height_inches,
-        "margin_inches": margin_inches,
-        "gutter_inches": gutter_inches,
-    }
-    for name, raw in values.items():
-        try:
-            finite = math.isfinite(raw) if isinstance(raw, (int, float)) and not isinstance(raw, bool) else False
-        except (OverflowError, TypeError):
-            finite = False
-        if not finite:
-            raise CorelBridgeError(f"{name} must be a finite number.", ErrorCode.INVALID_ARGUMENT)
-        if name in ("margin_inches", "gutter_inches"):
-            if raw < 0:
-                raise CorelBridgeError(f"{name} cannot be negative.", ErrorCode.INVALID_ARGUMENT)
-        elif raw <= 0:
-            raise CorelBridgeError(f"{name} must be greater than zero.", ErrorCode.INVALID_ARGUMENT)
-    if not isinstance(allow_rotate, bool):
-        raise CorelBridgeError("allow_rotate must be a boolean.", ErrorCode.INVALID_ARGUMENT)
-
-    usable_width = sheet_width_inches - margin_inches - margin_inches
-    usable_height = sheet_height_inches - margin_inches - margin_inches
-    if not math.isfinite(usable_width) or not math.isfinite(usable_height):
-        raise CorelBridgeError("The dimensions produce non-finite usable sheet bounds.", ErrorCode.INVALID_ARGUMENT)
-
-    def grid(width: float, height: float) -> tuple[int, int, int]:
-        def count(usable: float, item: float) -> int:
-            if usable <= 0:
-                return 0
-            numerator = usable + gutter_inches
-            denominator = item + gutter_inches
-            if not math.isfinite(numerator) or not math.isfinite(denominator):
-                raise CorelBridgeError("The dimensions overflow while calculating the layout.", ErrorCode.INVALID_ARGUMENT)
-            ratio = numerator / denominator
-            if not math.isfinite(ratio):
-                raise CorelBridgeError("The dimensions exceed the supported numeric range.", ErrorCode.INVALID_ARGUMENT)
-            return max(0, math.floor(ratio))
-
-        columns = count(usable_width, width)
-        rows = count(usable_height, height)
-        return columns, rows, columns * rows
-
-    normal = grid(item_width_inches, item_height_inches)
-    rotated = grid(item_height_inches, item_width_inches) if allow_rotate else (0, 0, 0)
-    is_rotated = rotated[2] > normal[2]
-    columns, rows, capacity = rotated if is_rotated else normal
-    placed_count = min(capacity, MAX_LAYOUT_PLACEMENTS)
-    item_width = item_height_inches if is_rotated else item_width_inches
-    item_height = item_width_inches if is_rotated else item_height_inches
-    placements = [
-        {
-            "index": index + 1,
-            "row": index // columns + 1,
-            "column": index % columns + 1,
-            "x_inches": round(margin_inches + (index % columns) * (item_width + gutter_inches), 6),
-            "y_inches": round(sheet_height_inches - margin_inches - item_height - (index // columns) * (item_height + gutter_inches), 6),
-            "width_inches": item_width,
-            "height_inches": item_height,
-            "rotated": is_rotated,
-        }
-        for index in range(placed_count)
-    ] if columns else []
-
-    result: dict[str, Any] = {
-        "fits": capacity > 0,
-        "columns": columns,
-        "rows": rows,
-        "capacity": capacity,
-        "rotated": is_rotated,
-        "usable_width_inches": round(max(0.0, usable_width), 6),
-        "usable_height_inches": round(max(0.0, usable_height), 6),
-        "placements": placements,
-    }
-    if capacity > MAX_LAYOUT_PLACEMENTS:
-        result["placements_truncated"] = True
-        result["placements_limit"] = MAX_LAYOUT_PLACEMENTS
-    return result
+    return optimize_sheet_layout(
+        item_width_inches, item_height_inches, sheet_width_inches, sheet_height_inches,
+        margin_inches, gutter_inches, allow_rotate, rotation_policy, sheet_orientation,
+        margin_left_inches, margin_top_inches, margin_right_inches, margin_bottom_inches,
+        gripper_inches, gripper_edge, mark_clearance_inches, requested_quantity,
+    )

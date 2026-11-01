@@ -16,6 +16,7 @@ from .design_plans import (
     validate_design_plan as _validate_design_plan,
     preview_design_plan as _preview_design_plan,
 )
+from .print_jobs import plan_print_job as _plan_print_job
 
 mcp = FastMCP("coreldraw-ai-operator")
 
@@ -177,13 +178,27 @@ def list_objects(max_objects: int = 200) -> dict:
 def calculate_sheet_layout(item_width_inches: float, item_height_inches: float,
                            sheet_width_inches: float, sheet_height_inches: float,
                            margin_inches: float = 0.0, gutter_inches: float = 0.0,
-                           allow_rotate: bool = True) -> dict:
-    """Calculate a row-major N-up print layout without connecting to or editing CorelDRAW."""
+                           allow_rotate: bool = True,
+                           rotation_policy: str | None = None,
+                           sheet_orientation: str = "fixed",
+                           margin_left_inches: float | None = None,
+                           margin_top_inches: float | None = None,
+                           margin_right_inches: float | None = None,
+                           margin_bottom_inches: float | None = None,
+                           gripper_inches: float = 0.0,
+                           gripper_edge: str = "bottom",
+                           mark_clearance_inches: float = 0.0,
+                           requested_quantity: int | None = None) -> dict:
+    """Optimize upright, rotated, or mixed-strip N-up layouts without editing CorelDRAW."""
     started = perf_counter()
     try:
         data = _calculate_sheet_layout(
             item_width_inches, item_height_inches, sheet_width_inches,
             sheet_height_inches, margin_inches, gutter_inches, allow_rotate,
+            rotation_policy, sheet_orientation, margin_left_inches,
+            margin_top_inches, margin_right_inches, margin_bottom_inches,
+            gripper_inches, gripper_edge, mark_clearance_inches,
+            requested_quantity,
         )
         warnings = []
         if data.get("placements_truncated"):
@@ -212,6 +227,93 @@ def plan_chest_number_batch(start: int, end: int, zero_pad_width: int = 0,
         return success_result("plan_chest_number_batch", data, (perf_counter() - started) * 1000)
     except Exception as exc:
         return error_result("plan_chest_number_batch", exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+def plan_print_job(
+    file_path: str,
+    finished_width_inches: float,
+    finished_height_inches: float,
+    sheet_width_inches: float,
+    sheet_height_inches: float,
+    copies: int = 1,
+    bleed_inches: float = 0.0,
+    safe_margin_inches: float = 0.125,
+    margin_inches: float = 0.25,
+    gutter_inches: float = 0.125,
+    minimum_dpi: float = 150.0,
+    artwork_includes_bleed: bool = False,
+    fit_mode: str = "contain",
+    allow_low_resolution: bool = False,
+    rotation_policy: str = "never",
+    sheet_orientation: str = "fixed",
+    margin_left_inches: float | None = None,
+    margin_top_inches: float | None = None,
+    margin_right_inches: float | None = None,
+    margin_bottom_inches: float | None = None,
+    gripper_inches: float = 0.0,
+    gripper_edge: str = "bottom",
+    mark_clearance_inches: float = 0.0,
+) -> dict:
+    """Preflight raster artwork and deterministic best-fit N-up imposition without opening CorelDRAW."""
+    started = perf_counter()
+    try:
+        data = _plan_print_job(
+            file_path, finished_width_inches, finished_height_inches,
+            sheet_width_inches, sheet_height_inches, copies=copies,
+            bleed_inches=bleed_inches, safe_margin_inches=safe_margin_inches,
+            margin_inches=margin_inches, gutter_inches=gutter_inches,
+            minimum_dpi=minimum_dpi, artwork_includes_bleed=artwork_includes_bleed,
+            fit_mode=fit_mode, allow_low_resolution=allow_low_resolution,
+            rotation_policy=rotation_policy, sheet_orientation=sheet_orientation,
+            margin_left_inches=margin_left_inches, margin_top_inches=margin_top_inches,
+            margin_right_inches=margin_right_inches, margin_bottom_inches=margin_bottom_inches,
+            gripper_inches=gripper_inches, gripper_edge=gripper_edge,
+            mark_clearance_inches=mark_clearance_inches,
+        )
+        return success_result("plan_print_job", data, (perf_counter() - started) * 1000, data["preflight"]["warnings"])
+    except Exception as exc:
+        return error_result("plan_print_job", exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+def prepare_print_job(
+    file_path: str,
+    finished_width_inches: float,
+    finished_height_inches: float,
+    sheet_width_inches: float,
+    sheet_height_inches: float,
+    copies: int = 1,
+    bleed_inches: float = 0.0,
+    safe_margin_inches: float = 0.125,
+    margin_inches: float = 0.25,
+    gutter_inches: float = 0.125,
+    minimum_dpi: float = 150.0,
+    artwork_includes_bleed: bool = False,
+    fit_mode: str = "contain",
+    allow_low_resolution: bool = False,
+    object_name_prefix: str = "Print_Artwork",
+    rotation_policy: str = "never",
+    sheet_orientation: str = "fixed",
+    margin_left_inches: float | None = None,
+    margin_top_inches: float | None = None,
+    margin_right_inches: float | None = None,
+    margin_bottom_inches: float | None = None,
+    gripper_inches: float = 0.0,
+    gripper_edge: str = "bottom",
+    mark_clearance_inches: float = 0.0,
+) -> dict:
+    """Create a new print sheet and place fitted/cropped raster copies after production preflight."""
+    return _tool(
+        "prepare_print_job", "prepare_print_job", file_path,
+        finished_width_inches, finished_height_inches, sheet_width_inches,
+        sheet_height_inches, copies, bleed_inches, safe_margin_inches,
+        margin_inches, gutter_inches, minimum_dpi, artwork_includes_bleed,
+        fit_mode, allow_low_resolution, object_name_prefix,
+        rotation_policy, sheet_orientation, margin_left_inches,
+        margin_top_inches, margin_right_inches, margin_bottom_inches,
+        gripper_inches, gripper_edge, mark_clearance_inches,
+    )
 
 
 @mcp.tool()

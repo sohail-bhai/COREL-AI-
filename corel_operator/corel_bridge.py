@@ -18,6 +18,7 @@ from .errors import CorelBridgeError, ErrorCode
 from .version import BRIDGE_VERSION, CAPABILITY_PROFILE_ID, TOOL_SCHEMA_VERSION
 from .workflows import build_chest_number_sequence
 from .design_plans import validate_design_plan
+from .print_jobs import materialize_placement_artwork, plan_print_job
 
 
 class CorelBridge:
@@ -1791,6 +1792,182 @@ class CorelBridge:
             "discrepancies": discrepancies,
             "post_execution_verification": len(discrepancies) == 0,
             "total_page_objects": objects_summary.get("total_on_page", len(created_shape_names)),
+        }
+
+    def prepare_print_job(
+        self,
+        file_path: str,
+        finished_width_inches: float,
+        finished_height_inches: float,
+        sheet_width_inches: float,
+        sheet_height_inches: float,
+        copies: int = 1,
+        bleed_inches: float = 0.0,
+        safe_margin_inches: float = 0.125,
+        margin_inches: float = 0.25,
+        gutter_inches: float = 0.125,
+        minimum_dpi: float = 150.0,
+        artwork_includes_bleed: bool = False,
+        fit_mode: str = "contain",
+        allow_low_resolution: bool = False,
+        object_name_prefix: str = "Print_Artwork",
+        rotation_policy: str = "never",
+        sheet_orientation: str = "fixed",
+        margin_left_inches: float | None = None,
+        margin_top_inches: float | None = None,
+        margin_right_inches: float | None = None,
+        margin_bottom_inches: float | None = None,
+        gripper_inches: float = 0.0,
+        gripper_edge: str = "bottom",
+        mark_clearance_inches: float = 0.0,
+    ) -> dict[str, Any]:
+        """Create a new one-sheet document and place validated raster copies."""
+        plan = plan_print_job(
+            file_path,
+            finished_width_inches,
+            finished_height_inches,
+            sheet_width_inches,
+            sheet_height_inches,
+            copies=copies,
+            bleed_inches=bleed_inches,
+            safe_margin_inches=safe_margin_inches,
+            margin_inches=margin_inches,
+            gutter_inches=gutter_inches,
+            minimum_dpi=minimum_dpi,
+            artwork_includes_bleed=artwork_includes_bleed,
+            fit_mode=fit_mode,
+            allow_low_resolution=allow_low_resolution,
+            rotation_policy=rotation_policy,
+            sheet_orientation=sheet_orientation,
+            margin_left_inches=margin_left_inches,
+            margin_top_inches=margin_top_inches,
+            margin_right_inches=margin_right_inches,
+            margin_bottom_inches=margin_bottom_inches,
+            gripper_inches=gripper_inches,
+            gripper_edge=gripper_edge,
+            mark_clearance_inches=mark_clearance_inches,
+        )
+        if not plan["ready_for_execution"]:
+            raise CorelBridgeError(
+                "Print job failed preflight; no CorelDRAW document was created.",
+                ErrorCode.INVALID_ARGUMENT,
+                {"blocking_issues": plan["preflight"]["blocking_issues"]},
+            )
+        if not isinstance(object_name_prefix, str) or not object_name_prefix.strip():
+            raise CorelBridgeError("object_name_prefix must be a non-empty string.", ErrorCode.INVALID_ARGUMENT)
+
+        job = plan["job"]
+        document_result = self.create_document(
+            width_in=float(job["sheet_size_inches"]["width"]),
+            height_in=float(job["sheet_size_inches"]["height"]),
+        )
+        doc = self._target_document()
+        baseline_count = int(self._shapes(doc).Count)
+        command_group_open = False
+        created_objects: list[dict[str, Any]] = []
+        try:
+            doc.BeginCommandGroup("AI Prepare Print Job")
+            command_group_open = True
+            first_name = f"{object_name_prefix.strip()}_001"
+            with materialize_placement_artwork(file_path, plan) as placement_file:
+                imported = self.import_artwork(placement_file, first_name)
+                if imported["object_count"] != 1:
+                    raise CorelBridgeError(
+                        "The general print-job workflow requires artwork that imports as exactly one object.",
+                        ErrorCode.INVALID_ARGUMENT,
+                        {"imported_object_count": imported["object_count"]},
+                    )
+                source = self._find_shape(doc, object_name=imported["object_names"][0])
+
+                with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
+                    # Duplicate the pristine import before rotating any copy. Otherwise an
+                    # all-rotated layout would duplicate an already-rotated source.
+                    shapes = [source]
+                    for index in range(2, len(plan["placements"]) + 1):
+                        shape = source.Duplicate(0.0, 0.0)
+                        self._name_shape(doc, shape, f"{object_name_prefix.strip()}_{index:03d}", "Print_Artwork")
+                        shapes.append(shape)
+                    for index, (shape, placement) in enumerate(zip(shapes, plan["placements"]), start=1):
+                        box = placement["artwork_box"]
+                        rotation = int(placement.get("rotation_degrees", 0))
+                        if rotation:
+                            shape.SizeWidth = float(box["height_inches"])
+                            shape.SizeHeight = float(box["width_inches"])
+                            shape.Rotate(float(rotation))
+                        else:
+                            shape.SizeWidth = float(box["width_inches"])
+                            shape.SizeHeight = float(box["height_inches"])
+                        shape.SetPosition(float(box["x_inches"]), float(box["y_inches"]))
+                        created_objects.append({
+                            "copy": index,
+                            "object_name": str(_safe_attr(shape, "Name") or ""),
+                            "object": self._shape_identity(shape),
+                            "actual_bounds_inches": self._shape_bounds_inches(doc, shape),
+                            "placement_box": placement["placement_box"],
+                            "trim_box": placement["trim_box"],
+                            "safe_box": placement["safe_box"],
+                            "rotation_degrees": rotation,
+                        })
+
+            doc.EndCommandGroup()
+            command_group_open = False
+        except Exception as exc:
+            if command_group_open:
+                try:
+                    doc.EndCommandGroup()
+                except Exception:
+                    pass
+            rollback_verified = False
+            try:
+                doc.Undo()
+                rollback_verified = int(self._shapes(doc).Count) == baseline_count
+            except Exception:
+                rollback_verified = False
+            raise CorelBridgeError(
+                "Print-job placement failed. "
+                + ("Created objects were rolled back." if rollback_verified else "Rollback could not be verified."),
+                exc.code if isinstance(exc, CorelBridgeError) else ErrorCode.COREL_COM_ERROR,
+                {"rollback_verified": rollback_verified, "exception_type": type(exc).__name__},
+            ) from exc
+
+        discrepancies: list[str] = []
+        actual_page_size = document_result["actual_page_size_inches"]
+        for axis in ("width", "height"):
+            actual = actual_page_size.get(axis)
+            expected = float(job["sheet_size_inches"][axis])
+            if actual is None or abs(float(actual) - expected) > 0.001:
+                discrepancies.append(f"Actual page {axis} {actual!r} differs from planned {expected:.6f} inches.")
+        for created, placement in zip(created_objects, plan["placements"]):
+            actual_bounds = created["actual_bounds_inches"]
+            expected_box = placement["artwork_box"]
+            for actual_key, expected_key in (
+                ("x", "x_inches"),
+                ("y", "y_inches"),
+                ("width", "width_inches"),
+                ("height", "height_inches"),
+            ):
+                actual = actual_bounds.get(actual_key)
+                expected = float(expected_box[expected_key])
+                if actual is None or abs(float(actual) - expected) > 0.001:
+                    discrepancies.append(
+                        f"{created['object_name']!r} {actual_key} {actual!r} differs from planned {expected:.6f} inches."
+                    )
+
+        return {
+            "prepared": True,
+            "print_ready": False,
+            "document_name": self._safe_target_name(),
+            "actual_page_size_inches": actual_page_size,
+            "created_count": len(created_objects),
+            "objects": created_objects,
+            "plan": plan,
+            "discrepancies": discrepancies,
+            "post_execution_verification": len(created_objects) == copies and not discrepancies,
+            "next_steps": [
+                "Inspect the placed objects and trim boxes visually before saving or exporting.",
+                "Use a unique CDR path to preserve the editable production file.",
+                "Current PDF export settings are not yet controlled by this workflow; do not label the PDF print-ready without external verification.",
+            ],
         }
 
     def save_document(self, path: str) -> dict[str, Any]:

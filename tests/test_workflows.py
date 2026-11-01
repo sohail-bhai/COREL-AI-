@@ -101,6 +101,76 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(layout["placements_limit"], MAX_LAYOUT_PLACEMENTS)
         self.assertEqual(len(layout["placements"]), MAX_LAYOUT_PLACEMENTS)
 
+    def test_best_fit_evaluates_mixed_rows_and_columns(self) -> None:
+        layout = calculate_sheet_layout(
+            5.0, 2.0, 9.0, 14.0,
+            rotation_policy="best_fit",
+            requested_quantity=100,
+        )
+
+        self.assertEqual(layout["layout_strategy"], "mixed_rotated_columns")
+        self.assertEqual(layout["capacity"], 11)
+        self.assertTrue(layout["mixed_rotation"])
+        self.assertEqual(layout["sheets_required"], 10)
+        self.assertEqual(layout["total_produced"], 110)
+        self.assertEqual(layout["overage"], 10)
+        capacities = {
+            item["layout_strategy"]: item["capacity"]
+            for item in layout["alternatives"]
+        }
+        self.assertEqual(capacities["upright_grid"], 7)
+        self.assertEqual(capacities["rotated_grid"], 8)
+        self.assertEqual(capacities["mixed_rotated_rows"], 10)
+        self.assertEqual(capacities["mixed_rotated_columns"], 11)
+        self.assertEqual(sum(not item["rotated"] for item in layout["placements"]), 7)
+        self.assertEqual(sum(item["rotated"] for item in layout["placements"]), 4)
+
+    def test_best_fit_placements_stay_in_bounds_and_do_not_overlap(self) -> None:
+        layout = calculate_sheet_layout(
+            5.0, 2.0, 9.5, 14.5,
+            margin_inches=0.25,
+            gutter_inches=0.125,
+            rotation_policy="best_fit",
+        )
+
+        placements = layout["placements"]
+        margins = layout["margins_inches"]
+        for item in placements:
+            self.assertGreaterEqual(item["x_inches"], margins["left"] - 1e-6)
+            self.assertGreaterEqual(item["y_inches"], margins["bottom"] - 1e-6)
+            self.assertLessEqual(item["x_inches"] + item["width_inches"], layout["sheet_width_inches"] - margins["right"] + 1e-6)
+            self.assertLessEqual(item["y_inches"] + item["height_inches"], layout["sheet_height_inches"] - margins["top"] + 1e-6)
+        for index, first in enumerate(placements):
+            for second in placements[index + 1:]:
+                separated = (
+                    first["x_inches"] + first["width_inches"] <= second["x_inches"] + 1e-6
+                    or second["x_inches"] + second["width_inches"] <= first["x_inches"] + 1e-6
+                    or first["y_inches"] + first["height_inches"] <= second["y_inches"] + 1e-6
+                    or second["y_inches"] + second["height_inches"] <= first["y_inches"] + 1e-6
+                )
+                self.assertTrue(separated)
+
+    def test_orientation_and_allowance_policies_are_exact(self) -> None:
+        layout = calculate_sheet_layout(
+            3.0, 4.0, 12.0, 8.0,
+            rotation_policy="never",
+            sheet_orientation="best_fit",
+            margin_left_inches=0.25,
+            margin_right_inches=0.25,
+            margin_top_inches=0.25,
+            margin_bottom_inches=0.25,
+            gripper_inches=0.5,
+            gripper_edge="bottom",
+            mark_clearance_inches=0.125,
+        )
+
+        self.assertEqual(layout["sheet_orientation"], "portrait")
+        self.assertTrue(layout["sheet_orientation_changed"])
+        self.assertEqual(layout["margins_inches"]["bottom"], 0.875)
+        self.assertEqual(layout["margins_inches"]["top"], 0.375)
+        self.assertEqual(layout["rotation_policy"], "never")
+        self.assertFalse(layout["rotation_used"])
+
     def test_calculate_sheet_layout_invalid_arguments(self) -> None:
         invalid_cases = [
             (-1.0, 2.0, 10.0, 10.0, 0.0, 0.0, True),

@@ -483,6 +483,92 @@
     }
   },
   "tool_examples": {
+    "plan_print_job": {
+      "request": {
+        "file_path": "C:\\Artwork\\poster.png",
+        "finished_width_inches": 4,
+        "finished_height_inches": 6,
+        "sheet_width_inches": 13,
+        "sheet_height_inches": 19,
+        "copies": 4,
+        "fit_mode": "cover"
+      },
+      "success": {
+        "ok": true,
+        "tool": "plan_print_job",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "ready_for_execution": true,
+          "print_ready": false
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1
+      },
+      "error": {
+        "ok": false,
+        "tool": "plan_print_job",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
+    "prepare_print_job": {
+      "request": {
+        "file_path": "C:\\Artwork\\poster.png",
+        "finished_width_inches": 4,
+        "finished_height_inches": 6,
+        "sheet_width_inches": 13,
+        "sheet_height_inches": 19,
+        "copies": 4,
+        "fit_mode": "cover"
+      },
+      "success": {
+        "ok": true,
+        "tool": "prepare_print_job",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {
+          "prepared": true,
+          "created_count": 4
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 25
+      },
+      "error": {
+        "ok": false,
+        "tool": "prepare_print_job",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
     "corel_status": {
       "request": {},
       "success": {
@@ -5543,9 +5629,381 @@
       "result_contract": "tool-schema-v1-envelope"
     },
     {
+      "name": "plan_print_job",
+      "category": "print_production_planning",
+      "description": "Inspect one raster artwork file and produce deterministic best-fit imposition, production quantities, fit/crop geometry, effective DPI, bleed, safe area, waste, and per-copy rotation without opening CorelDRAW.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "planner": "corel_operator.print_jobs.plan_print_job"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "file_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "finished_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "finished_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "copies": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 1
+          },
+          "bleed_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "default": 0
+          },
+          "safe_margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0.125
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0.25
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0.125
+          },
+          "minimum_dpi": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 2400,
+            "default": 150
+          },
+          "artwork_includes_bleed": {
+            "type": "boolean",
+            "default": false
+          },
+          "fit_mode": {
+            "type": "string",
+            "enum": [
+              "contain",
+              "cover",
+              "stretch"
+            ],
+            "default": "contain"
+          },
+          "allow_low_resolution": {
+            "type": "boolean",
+            "default": false
+          },
+          "rotation_policy": {
+            "type": "string",
+            "enum": ["never", "all", "best_fit"],
+            "default": "never"
+          },
+          "sheet_orientation": {
+            "type": "string",
+            "enum": ["fixed", "portrait", "landscape", "best_fit"],
+            "default": "fixed"
+          },
+          "margin_left_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 20,
+            "default": null
+          },
+          "margin_top_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 20,
+            "default": null
+          },
+          "margin_right_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 20,
+            "default": null
+          },
+          "margin_bottom_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 20,
+            "default": null
+          },
+          "gripper_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0
+          },
+          "gripper_edge": {
+            "type": "string",
+            "enum": ["top", "right", "bottom", "left"],
+            "default": "bottom"
+          },
+          "mark_clearance_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0
+          }
+        },
+        "required": [
+          "file_path",
+          "finished_width_inches",
+          "finished_height_inches",
+          "sheet_width_inches",
+          "sheet_height_inches"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "$ref": "#/schema_definitions/result_envelope"
+      },
+      "permission": "external_io",
+      "risk": "low",
+      "confirmation": "not_required_read_only_local_file_inspection",
+      "priority": "P0",
+      "coreldraw_profiles": [
+        "bridge_algorithm"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "unit_passed",
+        "sources": [
+          "tests/test_print_jobs.py"
+        ]
+      },
+      "known_limitations": [
+        "Handles one bounded raster artwork file; it reports multi-sheet quantities but the execution workflow prepares one imposed sheet document at a time.",
+        "Safe-area geometry is calculated, but artwork content is not semantically inspected.",
+        "The report never claims print-ready status because output profiles, marks, fonts, and exported PDF properties are not checked."
+      ],
+      "planned_phase": 6,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "prepare_print_job",
+      "category": "print_production_workflow",
+      "description": "Create a new exact-size CorelDRAW sheet, import validated raster artwork, apply contain/cover/stretch geometry, and place deterministic named N-up copies with planned per-copy rotation after blocking preflight passes.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.prepare_print_job"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "file_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "finished_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "finished_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "copies": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 1
+          },
+          "bleed_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "default": 0
+          },
+          "safe_margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0.125
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0.25
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0.125
+          },
+          "minimum_dpi": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 2400,
+            "default": 150
+          },
+          "artwork_includes_bleed": {
+            "type": "boolean",
+            "default": false
+          },
+          "fit_mode": {
+            "type": "string",
+            "enum": [
+              "contain",
+              "cover",
+              "stretch"
+            ],
+            "default": "contain"
+          },
+          "allow_low_resolution": {
+            "type": "boolean",
+            "default": false
+          },
+          "object_name_prefix": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Print_Artwork"
+          },
+          "rotation_policy": {
+            "type": "string",
+            "enum": ["never", "all", "best_fit"],
+            "default": "never"
+          },
+          "sheet_orientation": {
+            "type": "string",
+            "enum": ["fixed", "portrait", "landscape", "best_fit"],
+            "default": "fixed"
+          },
+          "margin_left_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 20,
+            "default": null
+          },
+          "margin_top_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 20,
+            "default": null
+          },
+          "margin_right_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 20,
+            "default": null
+          },
+          "margin_bottom_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 20,
+            "default": null
+          },
+          "gripper_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0
+          },
+          "gripper_edge": {
+            "type": "string",
+            "enum": ["top", "right", "bottom", "left"],
+            "default": "bottom"
+          },
+          "mark_clearance_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0
+          }
+        },
+        "required": [
+          "file_path",
+          "finished_width_inches",
+          "finished_height_inches",
+          "sheet_width_inches",
+          "sheet_height_inches"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "$ref": "#/schema_definitions/result_envelope"
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required_new_document_only",
+      "priority": "P0",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateDocument",
+        "Document.Unit",
+        "Document.ActivePage",
+        "Page.SetSize",
+        "Document.ReferencePoint",
+        "Page.ActiveLayer",
+        "Layer.Import",
+        "Document.SelectionRange",
+        "Page.Shapes",
+        "Shape.Name",
+        "Shape.SizeWidth",
+        "Shape.SizeHeight",
+        "Shape.SetPosition",
+        "Shape.Duplicate"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed_live_not_run",
+        "sources": [
+          "tests/test_print_jobs.py"
+        ]
+      },
+      "known_limitations": [
+        "Cover mode creates a temporary lossless TIFF center-crop derivative before import; X7 import and final color behavior still require a disposable live test.",
+        "Creates one new document and rejects copy counts that exceed one-sheet capacity.",
+        "Does not create print marks, cut paths, spot colors, or controlled PDF output."
+      ],
+      "planned_phase": 6,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
       "name": "calculate_sheet_layout",
       "category": "batch_layout",
-      "description": "Calculate a deterministic N-up placement plan from item, sheet, margin, gutter, and orientation dimensions without touching CorelDRAW.",
+      "description": "Calculate deterministic upright, rotated, mixed-strip, and sheet-orientation N-up candidates with allowances, waste, and production quantities without touching CorelDRAW.",
       "implementation": {
         "state": "registered"
       },
@@ -5581,6 +6039,56 @@
           "allow_rotate": {
             "type": "boolean",
             "default": true
+          },
+          "rotation_policy": {
+            "type": ["string", "null"],
+            "enum": ["never", "all", "best_fit", null],
+            "default": null
+          },
+          "sheet_orientation": {
+            "type": "string",
+            "enum": ["fixed", "portrait", "landscape", "best_fit"],
+            "default": "fixed"
+          },
+          "margin_left_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "default": null
+          },
+          "margin_top_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "default": null
+          },
+          "margin_right_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "default": null
+          },
+          "margin_bottom_inches": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "default": null
+          },
+          "gripper_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "gripper_edge": {
+            "type": "string",
+            "enum": ["top", "right", "bottom", "left"],
+            "default": "bottom"
+          },
+          "mark_clearance_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "requested_quantity": {
+            "type": ["integer", "null"],
+            "minimum": 1,
+            "default": null
           }
         },
         "required": [
@@ -5659,7 +6167,8 @@
         "sources": []
       },
       "known_limitations": [
-        "Uses rectangular row-major grids only; it does not perform arbitrary nesting or account for bleed, crop marks, or printer hardware margins.",
+        "Uses guillotine-friendly rectangular grids and complete mixed strips rather than arbitrary Tetris-style nesting.",
+        "Bleed must be included in the supplied item dimensions; mark clearance and printer/gripper allowances are geometric reservations only.",
         "Placement coordinates are capped at 2000 while reported capacity remains exact."
       ],
       "planned_phase": 5,

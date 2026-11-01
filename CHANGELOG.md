@@ -8,6 +8,16 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Deterministic best-fit print imposition:
+  - `calculate_sheet_layout` can explicitly evaluate upright grids, fully rotated grids, mixed rotated rows, mixed rotated columns, and portrait/landscape sheet candidates.
+  - The optimizer returns ranked alternatives, per-copy rotation and coordinates, usable/paper waste, guillotine-cutting complexity, and quantity/sheet/overage calculations without scaling artwork.
+  - Per-edge printer margins, gripper/feed allowance, mark clearance, gutters, and bleed-inclusive placement sizes participate in the exact geometry.
+  - `plan_print_job` exposes the production math and centers incomplete best-fit strips; `prepare_print_job` now executes and verifies planned 90-degree rotations.
+- Print-production foundation for generated raster artwork:
+  - Pure `plan_print_job` MCP tool for bounded raster inspection, exact finished/sheet sizes, bleed and safe-area geometry, contain/cover/stretch fit modes, effective-DPI checks, deterministic one-sheet N-up placement, and structured blocking/warning checks.
+  - Mutating `prepare_print_job` MCP tool that creates only a new sheet, imports one validated artwork object, creates deterministic named copies, reads back actual bounds, and rolls back placement failures.
+  - Cover mode uses a temporary lossless center-cropped TIFF derivative so the imported object preserves aspect ratio without depending on an unverified X7 clipping API.
+  - The report always returns `print_ready: false` until marks, output profiles, and controlled export checks are implemented and verified.
 - Native Alignment & Grouping Tools (Option C):
   - Mutating `align_objects` MCP tool aligning two or more shapes horizontally (left, center, right) and/or vertically (top, center, bottom) relative to a reference target (`last_selected` or `first_selected`).
   - Mutating `align_to_page` MCP tool snapping shapes to page edges or centering on page axes, individually or collectively as a group (`align_as_group`).

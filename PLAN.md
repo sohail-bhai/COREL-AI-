@@ -367,6 +367,7 @@ Work should begin with these small batches:
 | 9 | Mutating batch creation (Option A) | Complete | `create_chest_number_batch` implemented, unit tested, and verified live on CorelDRAW X7 disposable document |
 | 10 | Structured design plan engine (Option B) | Complete | High-value, deep-detail design plan engine with validation, preview, transactional CommandGroup execution, atomic Undo rollback, and live X7 verification |
 | 11 | Alignment and grouping tools (Option C) | Complete | `align_objects`, `align_to_page`, `group_shapes`, `ungroup_shapes` implemented, unit tested, and verified live on CorelDRAW X7 |
+| 12 | Generated-artwork print foundation | Implemented; live verification pending | Raster preflight, exact-size sheet creation, contain/cover/stretch placement, effective DPI, bleed/safe boxes, deterministic best-fit mixed-rotation N-up, production quantities, and structured report |
 
 Each batch should end with tests, documentation updates, a catalog status update, and a focused commit.
 
@@ -421,6 +422,7 @@ The operator must then complete that workflow with deterministic tool calls, evi
    - `align_objects`, `align_to_page`, `group_shapes`, and `ungroup_shapes` have unit and disposable X7 coverage.
    - `distribute_objects` remains unimplemented and must follow the normal X7 evidence/test process.
 
-4. **Next active milestone: Inspection and reliable identity**:
-   - Implement bounded `find_objects`, then object bounds, text, fill, and layer inspection.
-   - Detect stale document/object references and ambiguous nested/group selectors before adding broader editing tools.
+4. **Next active milestone: Generated-artwork print production**:
+   - Live-verify `plan_print_job` and `prepare_print_job` on disposable X7 documents using contain and cover artwork.
+   - Then add evidence-backed print/crop marks and a controlled PDF export preset without bypassing preflight.
+   - Continue reliable-identity work in parallel before broader general editing tools are added.
