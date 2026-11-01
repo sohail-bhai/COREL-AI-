@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": "2026-10-30",
+  "catalog_revision": "2026-11-01",
   "profile": {
     "profile_id": "coreldraw-x7-17",
     "product": "CorelDRAW Graphics Suite X7",
@@ -47,6 +47,12 @@
       "description": "CorelDRAW X7 Shape class."
     },
     {
+      "id": "official_x7_subpath",
+      "type": "official_documentation",
+      "url": "https://community.coreldraw.com/sdk/api/draw/17.6/m/SubPath.GetPolyline",
+      "description": "CorelDRAW X7.6 SubPath.GetPolyline curve-flattening method."
+    },
+    {
       "id": "official_x7_shaperange",
       "type": "official_documentation",
       "url": "https://community.coreldraw.com/sdk/api/draw/17/c/ShapeRange",
@@ -83,7 +89,7 @@
       "library_id": "{FBF4300F-D921-11D1-B806-00A0C90646A9}",
       "registered_type_library_version": "11.0",
       "product_version_major": 17,
-      "inspection_date": "2026-10-30",
+      "inspection_date": "2026-11-01",
       "inspection_mode": "read_only",
       "description": "Registered 64-bit CorelDRAW X7 type library inspected through pythoncom/pywin32 without invoking COM methods. The registered library version is hexadecimal 0x11, which is decimal 17."
     },
@@ -422,6 +428,64 @@
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Document.PublishToPDF",
       "live_test_status": "not_run",
       "notes": ["Uses the document's existing PDFSettings; successful return does not establish print readiness."]
+    },
+    {
+      "id": "Document.AddPagesEx",
+      "owner": "Document",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "AddPagesEx(NumberOfPages, Width, Height)",
+      "status": "typelib_confirmed",
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run",
+      "notes": ["Signature was read directly from the installed X7 type library on 2026-11-01; output-page behavior still requires a disposable live test."]
+    },
+    {
+      "id": "Document.DeletePages",
+      "owner": "Document",
+      "kind": "method",
+      "access": "destructive",
+      "signature": "DeletePages(StartPage, NumPages=1) -> Boolean",
+      "status": "typelib_confirmed",
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run",
+      "notes": ["Used only as a targeted rollback fallback for the newly appended output page."]
+    },
+    {
+      "id": "Page.Activate",
+      "owner": "Page",
+      "kind": "method",
+      "access": "ui_state_mutating",
+      "signature": "Activate()",
+      "status": "typelib_confirmed",
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Page.CreateLayer",
+      "owner": "Page",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "CreateLayer(LayerName) -> Layer",
+      "status": "typelib_confirmed",
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Page.Delete",
+      "owner": "Page",
+      "kind": "method",
+      "access": "destructive",
+      "signature": "Delete()",
+      "status": "typelib_confirmed",
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run",
+      "notes": ["Rollback targets only the output page created by the same operation."]
     },
     {
       "id": "Page.ActiveLayer",
@@ -906,7 +970,7 @@
       "access": "mutating",
       "signature": "SetPosition(PositionX, PositionY)",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["move_object"],
+      "used_by": ["move_object", "prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.SetPosition",
       "live_test_status": "not_run"
@@ -918,9 +982,44 @@
       "access": "mutating",
       "signature": "Duplicate(OffsetX=0, OffsetY=0) -> Shape",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["duplicate_object"],
+      "used_by": ["duplicate_object", "prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.Duplicate",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.CopyToLayer",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "CopyToLayer(Layer) -> Shape",
+      "status": "typelib_confirmed",
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run",
+      "notes": ["Cross-page copy behavior and returned child identities require disposable X7 verification."]
+    },
+    {
+      "id": "Shape.Rotate",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Rotate(Angle)",
+      "status": "typelib_confirmed",
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "SubPath.GetPolyline",
+      "owner": "SubPath",
+      "kind": "method",
+      "access": "read",
+      "signature": "GetPolyline(CurvePrecision=0) -> Curve",
+      "status": "documented_unverified_on_reported_build",
+      "used_by": ["inspect_repeat_unit", "prepare_contour_nesting", "prepare_imposition_job"],
+      "evidence": ["official_x7_subpath", "prototype_source"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17.6/m/SubPath.GetPolyline",
       "live_test_status": "not_run"
     },
     {

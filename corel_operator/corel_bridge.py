@@ -19,6 +19,13 @@ from .version import BRIDGE_VERSION, CAPABILITY_PROFILE_ID, TOOL_SCHEMA_VERSION
 from .workflows import build_chest_number_sequence
 from .design_plans import validate_design_plan
 from .print_jobs import materialize_placement_artwork, plan_print_job
+from .contour_nesting import (
+    classify_imposition_job,
+    contours_have_conflicts,
+    imposition_plan_fingerprint,
+    plan_contour_nesting,
+    plan_imposition_layout,
+)
 
 
 class CorelBridge:
@@ -629,6 +636,145 @@ class CorelBridge:
                 )
             return matches[0]
         return self._shape_at(doc, int(shape_index))
+
+    def _named_descendants(self, shape: Any, object_name: str) -> list[Any]:
+        """Find named children recursively while keeping repeat groups independent."""
+        matches: list[Any] = []
+        children = _safe_attr(shape, "Shapes")
+        count = _safe_int_attr(children, "Count") if children is not None else None
+        if not count:
+            return matches
+        for index in range(1, count + 1):
+            child = self._collection_item(children, index)
+            if _safe_string_attr(child, "Name") == object_name:
+                matches.append(child)
+            matches.extend(self._named_descendants(child, object_name))
+        return matches
+
+    def _curve_polygon_points_inches(self, doc: Any, shape: Any, curve_precision: int) -> list[list[float]]:
+        """Flatten one closed X7 subpath with Corel's native GetPolyline API."""
+        curve = _safe_attr(shape, "Curve")
+        subpaths = _safe_attr(curve, "SubPaths") if curve is not None else None
+        count = _safe_int_attr(subpaths, "Count") if subpaths is not None else None
+        if count != 1:
+            raise CorelBridgeError(
+                "The dieline must contain exactly one closed subpath.",
+                ErrorCode.INVALID_ARGUMENT,
+                {"subpath_count": count},
+            )
+        subpath = self._collection_item(subpaths, 1)
+        closed = _safe_attr(subpath, "Closed")
+        if closed in (False, 0, None):
+            raise CorelBridgeError("The dieline subpath must be closed.", ErrorCode.INVALID_ARGUMENT)
+        try:
+            polyline = subpath.GetPolyline(int(curve_precision))
+            nodes = polyline.Nodes
+            node_count = int(nodes.Count)
+        except Exception as exc:
+            raise CorelBridgeError(
+                "Could not flatten the dieline with CorelDRAW's GetPolyline API.",
+                ErrorCode.COREL_COM_ERROR,
+            ) from exc
+        if not 3 <= node_count <= 5001:
+            raise CorelBridgeError(
+                "The flattened dieline must contain 3 to 5,000 points.",
+                ErrorCode.INVALID_ARGUMENT,
+                {"node_count": node_count},
+            )
+        points: list[list[float]] = []
+        with self._in_inches(doc):
+            for index in range(1, node_count + 1):
+                node = self._collection_item(nodes, index)
+                try:
+                    x, y = float(node.PositionX), float(node.PositionY)
+                except Exception:
+                    try:
+                        position = node.GetPosition()
+                        x, y = float(position[0]), float(position[1])
+                    except Exception as exc:
+                        raise CorelBridgeError(
+                            "Could not read a flattened dieline node position.",
+                            ErrorCode.COREL_COM_ERROR,
+                        ) from exc
+                if not points or abs(points[-1][0] - x) > 1e-9 or abs(points[-1][1] - y) > 1e-9:
+                    points.append([x, y])
+        if len(points) > 3 and abs(points[0][0] - points[-1][0]) <= 1e-9 and abs(points[0][1] - points[-1][1]) <= 1e-9:
+            points.pop()
+        return points
+
+    def _descendant_identity_summary(self, shape: Any, limit: int = 5000) -> list[dict[str, Any]]:
+        """Return a bounded structural signature for approval-time source identity."""
+        result: list[dict[str, Any]] = []
+
+        def children_of(parent: Any) -> list[Any]:
+            children = _safe_attr(parent, "Shapes")
+            count = _safe_int_attr(children, "Count") if children is not None else None
+            return [self._collection_item(children, index) for index in range(1, (count or 0) + 1)]
+
+        stack = list(reversed(children_of(shape)))
+        while stack:
+            if len(result) >= limit:
+                raise CorelBridgeError(
+                    "The repeat unit exceeds the supported 5,000-descendant inspection limit.",
+                    ErrorCode.INVALID_ARGUMENT,
+                )
+            child = stack.pop()
+            result.append({
+                "object_name": _safe_string_attr(child, "Name") or "",
+                "static_id": _safe_int_attr(child, "StaticID"),
+                "shape_type_code": _safe_int_attr(child, "Type"),
+            })
+            stack.extend(reversed(children_of(child)))
+        return result
+
+    def _repeat_source_signature(
+        self,
+        doc: Any,
+        source: Any,
+        dieline_name: str,
+        curve_precision: int,
+    ) -> dict[str, Any]:
+        """Capture document/page/group/contour identity without changing page focus."""
+        matches = self._named_descendants(source, dieline_name)
+        if len(matches) != 1:
+            raise CorelBridgeError(
+                "The source group must contain exactly one uniquely named dieline.",
+                ErrorCode.AMBIGUOUS_SELECTOR if matches else ErrorCode.OBJECT_NOT_FOUND,
+                {"dieline_name": dieline_name, "matches": len(matches)},
+            )
+        absolute_points = self._curve_polygon_points_inches(doc, matches[0], curve_precision)
+        minimum_x = min(point[0] for point in absolute_points)
+        minimum_y = min(point[1] for point in absolute_points)
+        maximum_x = max(point[0] for point in absolute_points)
+        maximum_y = max(point[1] for point in absolute_points)
+        source_page = _safe_attr(source, "Page")
+        if source_page is None:
+            source_page = _safe_attr(doc, "ActivePage")
+        source_identity = self._shape_identity(source)
+        source_identity["page_index"] = source_identity.get("page_index") or _safe_int_attr(source_page, "Index")
+        return {
+            "document_session_id": self._document_session_id(doc),
+            "document_name": _safe_string_attr(doc, "Name"),
+            "document_full_path": _safe_string_attr(doc, "FullFileName") or None,
+            "page_index": _safe_int_attr(source_page, "Index"),
+            "page_name": _safe_string_attr(source_page, "Name"),
+            "source_group": source_identity,
+            "source_group_bounds_inches": self._shape_bounds_inches(doc, source),
+            "source_rotation_degrees": round(float(_safe_float_attr(source, "RotationAngle") or 0.0) % 360.0, 6),
+            "descendants": self._descendant_identity_summary(source),
+            "dieline": self._shape_identity(matches[0]),
+            "dieline_name": dieline_name,
+            "contour_bounds_inches": {
+                "x": round(minimum_x, 6),
+                "y": round(minimum_y, 6),
+                "width": round(maximum_x - minimum_x, 6),
+                "height": round(maximum_y - minimum_y, 6),
+            },
+            "contour_points_inches": [
+                [round(x - minimum_x, 6), round(y - minimum_y, 6)]
+                for x, y in absolute_points
+            ],
+        }
 
     def _unique_name(self, doc: Any, requested: str, prefix: str) -> str:
         clean = requested.strip() if requested and requested.strip() else ""
@@ -1792,6 +1938,579 @@ class CorelBridge:
             "discrepancies": discrepancies,
             "post_execution_verification": len(discrepancies) == 0,
             "total_page_objects": objects_summary.get("total_on_page", len(created_shape_names)),
+        }
+
+    def inspect_repeat_unit(
+        self,
+        source_group_name: str,
+        dieline_name: str,
+        cutting_method: str = "unknown",
+        allow_180_rotation: bool | None = None,
+        curve_precision: int = 5,
+    ) -> dict[str, Any]:
+        """Inspect one grouped repeat and route rectangular or contour imposition."""
+        if not isinstance(source_group_name, str) or not source_group_name.strip():
+            raise CorelBridgeError("source_group_name must be a non-empty string.", ErrorCode.INVALID_ARGUMENT)
+        if not isinstance(dieline_name, str) or not dieline_name.strip():
+            raise CorelBridgeError("dieline_name must be a non-empty string.", ErrorCode.INVALID_ARGUMENT)
+        if isinstance(curve_precision, bool) or not isinstance(curve_precision, int) or not 1 <= curve_precision <= 10:
+            raise CorelBridgeError("curve_precision must be an integer from 1 to 10.", ErrorCode.INVALID_ARGUMENT)
+        doc = self._target_document()
+        source = self._find_shape(doc, object_name=source_group_name)
+        if _safe_int_attr(source, "Type") != self.adapter.CDR_GROUP_SHAPE:
+            raise CorelBridgeError(
+                "The source repeat must be one top-level group containing its artwork and dieline.",
+                ErrorCode.INVALID_ARGUMENT,
+            )
+        source_signature = self._repeat_source_signature(doc, source, dieline_name, curve_precision)
+        normalized = source_signature["contour_points_inches"]
+        contour_width = float(source_signature["contour_bounds_inches"]["width"])
+        contour_height = float(source_signature["contour_bounds_inches"]["height"])
+        contour_area = abs(sum(
+            normalized[index][0] * normalized[(index + 1) % len(normalized)][1]
+            - normalized[(index + 1) % len(normalized)][0] * normalized[index][1]
+            for index in range(len(normalized))
+        )) / 2.0
+        rectangularity = contour_area / (contour_width * contour_height) if contour_width > 0 and contour_height > 0 else 0.0
+        footprint_kind = "rectangular" if rectangularity >= 0.995 else "contour"
+        group_bounds = source_signature["source_group_bounds_inches"]
+        group_width = float(group_bounds.get("width") or 0.0)
+        group_height = float(group_bounds.get("height") or 0.0)
+        possible_combined = (
+            contour_width > 0 and group_width > contour_width * 1.5
+        ) or (
+            contour_height > 0 and group_height > contour_height * 1.5
+        )
+        rotation = float(source_signature["source_rotation_degrees"])
+        classification = classify_imposition_job(
+            footprint_kind,
+            True,
+            cutting_method,
+            allow_180_rotation,
+            possible_combined,
+        )
+        if abs(rotation % 360.0) > 0.001:
+            classification["blocking_issues"].append({
+                "code": "SOURCE_ALREADY_ROTATED",
+                "message": "Reset the source repeat group to 0 degrees before deterministic nesting.",
+            })
+            classification["ready"] = False
+        return {
+            "source_group_name": source_group_name,
+            "dieline_name": dieline_name,
+            "source_group": source_signature["source_group"],
+            "source_identity": source_signature,
+            "source_group_bounds_inches": group_bounds,
+            "footprint_kind": footprint_kind,
+            "rectangularity": round(rectangularity, 6),
+            "possible_combined_source": possible_combined,
+            "contour_width_inches": round(contour_width, 6),
+            "contour_height_inches": round(contour_height, 6),
+            "contour_points_inches": normalized,
+            "curve_precision": curve_precision,
+            **classification,
+        }
+
+    def _execute_vector_imposition_plan(
+        self,
+        source: Any,
+        dieline_name: str,
+        plan: dict[str, Any],
+        copies: int,
+        curve_precision: int,
+        object_name_prefix: str,
+        output_layer_name: str,
+    ) -> dict[str, Any]:
+        """Copy one repeat to a new page, place independent groups, and verify source preservation."""
+        doc = self._target_document()
+        if not isinstance(object_name_prefix, str) or not object_name_prefix.strip():
+            raise CorelBridgeError("object_name_prefix must be a non-empty string.", ErrorCode.INVALID_ARGUMENT)
+        if not isinstance(output_layer_name, str) or not output_layer_name.strip():
+            raise CorelBridgeError("output_layer_name must be a non-empty string.", ErrorCode.INVALID_ARGUMENT)
+        placements = list(plan.get("placements", []))[:copies]
+        if len(placements) != copies:
+            raise CorelBridgeError(
+                "The approved plan does not contain every requested placement coordinate.",
+                ErrorCode.INVALID_ARGUMENT,
+                {"requested_copies": copies, "available_placements": len(placements)},
+            )
+        if int(plan.get("sheets_required", 0)) != 1:
+            raise CorelBridgeError(
+                "This execution slice supports one output sheet; multi-sheet execution is not implemented yet.",
+                ErrorCode.INVALID_ARGUMENT,
+                {"sheets_required": plan.get("sheets_required")},
+            )
+
+        source_page = _safe_attr(source, "Page")
+        if source_page is None:
+            source_page = _safe_attr(doc, "ActivePage")
+        source_before = self._repeat_source_signature(doc, source, dieline_name, curve_precision)
+        pages = _safe_attr(doc, "Pages")
+        baseline_page_count = _safe_int_attr(pages, "Count") if pages is not None else None
+        if baseline_page_count is None:
+            raise CorelBridgeError("Could not read the target document page count.", ErrorCode.COREL_COM_ERROR)
+
+        output_page: Any | None = None
+        output_layer: Any | None = None
+        command_group_open = False
+        created: list[dict[str, Any]] = []
+        actual_contours: list[list[list[float]]] = []
+        try:
+            doc.BeginCommandGroup("AI Prepare Imposition Job")
+            command_group_open = True
+            with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
+                doc.AddPagesEx(
+                    1,
+                    float(plan["sheet_width_inches"]),
+                    float(plan["sheet_height_inches"]),
+                )
+                actual_page_count = int(doc.Pages.Count)
+                if actual_page_count != baseline_page_count + 1:
+                    raise CorelBridgeError(
+                        "CorelDRAW did not create exactly one output page.",
+                        ErrorCode.COREL_COM_ERROR,
+                        {"before": baseline_page_count, "after": actual_page_count},
+                    )
+                output_page = self._page_at(doc, actual_page_count)
+                output_page.Activate()
+                output_page.SetSize(float(plan["sheet_width_inches"]), float(plan["sheet_height_inches"]))
+                output_layer = output_page.CreateLayer(output_layer_name.strip())
+                copied_source = source.CopyToLayer(output_layer)
+                if copied_source is None:
+                    layer_shapes = _safe_attr(output_layer, "Shapes")
+                    layer_count = _safe_int_attr(layer_shapes, "Count") if layer_shapes is not None else None
+                    if not layer_count:
+                        raise CorelBridgeError(
+                            "CorelDRAW did not return or expose the copied source group.",
+                            ErrorCode.COREL_COM_ERROR,
+                        )
+                    copied_source = self._collection_item(layer_shapes, layer_count)
+                if _safe_int_attr(copied_source, "Type") != self.adapter.CDR_GROUP_SHAPE:
+                    raise CorelBridgeError(
+                        "The output copy is not an independent top-level group.",
+                        ErrorCode.COREL_COM_ERROR,
+                    )
+
+                groups = [copied_source]
+                for _ in range(2, copies + 1):
+                    groups.append(copied_source.Duplicate(0.0, 0.0))
+                for index, group in enumerate(groups, start=1):
+                    group.Name = f"{object_name_prefix.strip()}_{index:03d}"
+
+                for index, (group, placement) in enumerate(zip(groups, placements), start=1):
+                    rotation = int(placement["rotation_degrees"])
+                    if rotation:
+                        group.Rotate(float(rotation))
+                    contours = self._named_descendants(group, dieline_name)
+                    if len(contours) != 1:
+                        raise CorelBridgeError(
+                            "A copied repeat group did not retain exactly one dieline.",
+                            ErrorCode.COREL_COM_ERROR,
+                        )
+                    before = self._curve_polygon_points_inches(doc, contours[0], curve_precision)
+                    minimum_x = min(point[0] for point in before)
+                    minimum_y = min(point[1] for point in before)
+                    offset_x = float(placement["x_inches"]) - minimum_x
+                    offset_y = float(placement["y_inches"]) - minimum_y
+                    group.SetPosition(float(group.PositionX) + offset_x, float(group.PositionY) + offset_y)
+                    after = self._curve_polygon_points_inches(doc, contours[0], curve_precision)
+                    actual_contours.append(after)
+                    actual_rotation = float(_safe_float_attr(group, "RotationAngle") or 0.0) % 360.0
+                    if abs(actual_rotation - rotation) > 0.001:
+                        raise CorelBridgeError(
+                            "CorelDRAW rotation readback differs from the imposition plan.",
+                            ErrorCode.COREL_COM_ERROR,
+                            {"planned_rotation": rotation, "actual_rotation": actual_rotation},
+                        )
+                    contour_bounds = {
+                        "x": round(min(point[0] for point in after), 6),
+                        "y": round(min(point[1] for point in after), 6),
+                        "width": round(max(point[0] for point in after) - min(point[0] for point in after), 6),
+                        "height": round(max(point[1] for point in after) - min(point[1] for point in after), 6),
+                    }
+                    expected_width = float(placement.get("width_inches", plan["footprint_width_inches"]))
+                    expected_height = float(placement.get("height_inches", plan["footprint_height_inches"]))
+                    if (
+                        abs(contour_bounds["x"] - float(placement["x_inches"])) > 0.001
+                        or abs(contour_bounds["y"] - float(placement["y_inches"])) > 0.001
+                        or abs(contour_bounds["width"] - expected_width) > 0.001
+                        or abs(contour_bounds["height"] - expected_height) > 0.001
+                    ):
+                        raise CorelBridgeError(
+                            "CorelDRAW contour readback differs from the planned placement.",
+                            ErrorCode.COREL_COM_ERROR,
+                            {"planned": placement, "actual_contour_bounds": contour_bounds},
+                        )
+                    edge_allowance = float(plan["margin_inches"]) + float(plan["bleed_inches"])
+                    if (
+                        contour_bounds["x"] < edge_allowance - 0.001
+                        or contour_bounds["y"] < edge_allowance - 0.001
+                        or contour_bounds["x"] + contour_bounds["width"] > float(plan["sheet_width_inches"]) - edge_allowance + 0.001
+                        or contour_bounds["y"] + contour_bounds["height"] > float(plan["sheet_height_inches"]) - edge_allowance + 0.001
+                    ):
+                        raise CorelBridgeError(
+                            "A placed dieline falls outside the planned printable contour area.",
+                            ErrorCode.COREL_COM_ERROR,
+                            {"actual_contour_bounds": contour_bounds, "edge_allowance_inches": edge_allowance},
+                        )
+                    created.append({
+                        "copy": placement.get("copy", placement.get("index", index)),
+                        "object_name": str(group.Name),
+                        "object": self._shape_identity(group),
+                        "rotation_degrees": rotation,
+                        "actual_rotation_degrees": round(actual_rotation, 6),
+                        "group_bounds_inches": self._shape_bounds_inches(doc, group),
+                        "contour_bounds_inches": contour_bounds,
+                    })
+
+                if contours_have_conflicts(actual_contours, float(plan["effective_contour_clearance_inches"])):
+                    raise CorelBridgeError(
+                        "Post-placement contour verification detected an overlap or insufficient clearance.",
+                        ErrorCode.COREL_COM_ERROR,
+                    )
+                if int(self._shapes(doc).Count) != copies:
+                    raise CorelBridgeError(
+                        "The number of independent top-level repeat groups differs from the plan.",
+                        ErrorCode.COREL_COM_ERROR,
+                    )
+                source_after = self._repeat_source_signature(doc, source, dieline_name, curve_precision)
+                if source_after != source_before:
+                    raise CorelBridgeError(
+                        "The approved source changed during imposition execution.",
+                        ErrorCode.COREL_COM_ERROR,
+                    )
+                output_dimensions = self._page_dimensions(output_page)
+            doc.EndCommandGroup()
+            command_group_open = False
+        except Exception as exc:
+            if command_group_open:
+                try:
+                    doc.EndCommandGroup()
+                except Exception:
+                    pass
+            rollback_attempted = output_page is not None or int(doc.Pages.Count) > baseline_page_count
+            if output_page is None and int(doc.Pages.Count) > baseline_page_count:
+                try:
+                    output_page = self._page_at(doc, baseline_page_count + 1)
+                except Exception:
+                    output_page = None
+            if output_page is not None:
+                try:
+                    output_page.Delete()
+                except Exception:
+                    try:
+                        doc.DeletePages(baseline_page_count + 1, 1)
+                    except Exception:
+                        pass
+            try:
+                source_page.Activate()
+            except Exception:
+                pass
+            try:
+                source_unchanged = self._repeat_source_signature(doc, source, dieline_name, curve_precision) == source_before
+            except Exception:
+                source_unchanged = False
+            rollback_verified = int(doc.Pages.Count) == baseline_page_count and source_unchanged
+            raise CorelBridgeError(
+                "Imposition execution failed. "
+                + ("The new output page was removed and the source was preserved." if rollback_verified else "Rollback could not be verified."),
+                exc.code if isinstance(exc, CorelBridgeError) else ErrorCode.COREL_COM_ERROR,
+                {
+                    "rollback_attempted": rollback_attempted,
+                    "rollback_verified": rollback_verified,
+                    "source_unchanged": source_unchanged,
+                    "exception_type": type(exc).__name__,
+                },
+            ) from exc
+
+        return {
+            "prepared": True,
+            "workflow": plan["workflow"],
+            "created_count": len(created),
+            "independent_repeat_groups": True,
+            "objects": created,
+            "output": {
+                "mode": "new_page_same_document",
+                "page_index": _safe_int_attr(output_page, "Index"),
+                "page_name": _safe_string_attr(output_page, "Name"),
+                "layer_name": _safe_string_attr(output_layer, "Name") or output_layer_name.strip(),
+                "width_inches": output_dimensions.get("width_document_units"),
+                "height_inches": output_dimensions.get("height_document_units"),
+            },
+            "source_identity": source_before,
+            "source_preserved": True,
+            "rollback_policy": "delete_new_output_page_only",
+            "post_execution_verification": True,
+        }
+
+    def prepare_contour_nesting(
+        self,
+        source_group_name: str,
+        dieline_name: str,
+        sheet_width_inches: float,
+        sheet_height_inches: float,
+        copies: int = 1,
+        margin_inches: float = 0.25,
+        gutter_inches: float = 0.0,
+        bleed_inches: float = 0.0,
+        cutting_method: str = "unknown",
+        allow_180_rotation: bool | None = None,
+        sheet_orientation: str = "fixed",
+        curve_precision: int = 5,
+        object_name_prefix: str = "Nested_Copy",
+        output_layer_name: str = "Imposition_Repeats",
+    ) -> dict[str, Any]:
+        """Execute one source-preserving contour sheet for expert/low-level use."""
+        inspection = self.inspect_repeat_unit(
+            source_group_name, dieline_name, cutting_method, allow_180_rotation, curve_precision,
+        )
+        if not inspection["ready"] or inspection["workflow"] != "contour_nesting":
+            raise CorelBridgeError(
+                "The repeat unit is not ready for contour nesting.",
+                ErrorCode.INVALID_ARGUMENT,
+                {
+                    "questions": inspection["questions"],
+                    "blocking_issues": inspection["blocking_issues"],
+                    "recommended_workflow": inspection["workflow"],
+                },
+            )
+        plan = plan_contour_nesting(
+            inspection["contour_points_inches"],
+            sheet_width_inches,
+            sheet_height_inches,
+            quantity=copies,
+            margin_inches=margin_inches,
+            gutter_inches=gutter_inches,
+            bleed_inches=bleed_inches,
+            cutting_method=cutting_method,
+            allow_180_rotation=allow_180_rotation,
+            sheet_orientation=sheet_orientation,
+        )
+        if not plan["ready"] or plan["copies_per_sheet"] < copies:
+            raise CorelBridgeError(
+                "The requested repeat count does not fit one nested sheet.",
+                ErrorCode.INVALID_ARGUMENT,
+                {
+                    "copies": copies,
+                    "copies_per_sheet": plan.get("copies_per_sheet", 0),
+                    "sheets_required": plan.get("sheets_required", 0),
+                },
+            )
+        doc = self._target_document()
+        source = self._find_shape(doc, object_name=source_group_name)
+        result = self._execute_vector_imposition_plan(
+            source,
+            dieline_name,
+            plan,
+            copies,
+            curve_precision,
+            object_name_prefix,
+            output_layer_name,
+        )
+        result["plan"] = plan
+        return result
+
+    def prepare_imposition_job(
+        self,
+        source_group_name: str,
+        dieline_name: str,
+        sheet_width_inches: float,
+        sheet_height_inches: float,
+        quantity: int = 1,
+        margin_inches: float = 0.25,
+        gutter_inches: float = 0.0,
+        bleed_inches: float = 0.0,
+        cutting_method: str = "unknown",
+        allow_180_rotation: bool | None = None,
+        sheet_orientation: str = "fixed",
+        curve_precision: int = 5,
+        object_name_prefix: str = "Imposed_Copy",
+        output_layer_name: str = "Imposition_Repeats",
+        confirm_execution: bool = False,
+        approved_plan_fingerprint: str = "",
+    ) -> dict[str, Any]:
+        """Inspect, route, plan, approve, and optionally execute one vector imposition sheet."""
+        if not isinstance(confirm_execution, bool):
+            raise CorelBridgeError("confirm_execution must be a boolean.", ErrorCode.INVALID_ARGUMENT)
+        if not isinstance(approved_plan_fingerprint, str):
+            raise CorelBridgeError("approved_plan_fingerprint must be a string.", ErrorCode.INVALID_ARGUMENT)
+        if not isinstance(object_name_prefix, str) or not object_name_prefix.strip():
+            raise CorelBridgeError("object_name_prefix must be a non-empty string.", ErrorCode.INVALID_ARGUMENT)
+        if not isinstance(output_layer_name, str) or not output_layer_name.strip():
+            raise CorelBridgeError("output_layer_name must be a non-empty string.", ErrorCode.INVALID_ARGUMENT)
+        object_name_prefix = object_name_prefix.strip()
+        output_layer_name = output_layer_name.strip()
+
+        inspection_rotation = allow_180_rotation
+        if allow_180_rotation is None and cutting_method in {"digital_cutter", "die_cut"}:
+            inspection_rotation = False
+        inspection = self.inspect_repeat_unit(
+            source_group_name,
+            dieline_name,
+            cutting_method,
+            inspection_rotation,
+            curve_precision,
+        )
+        questions = list(inspection["questions"])
+        blocking_issues = list(inspection["blocking_issues"])
+        warnings: list[str] = []
+        common = {
+            "workflow": inspection["workflow"],
+            "questions": questions,
+            "blocking_issues": blocking_issues,
+            "warnings": warnings,
+            "plan_fingerprint": "",
+            "ready_for_execution": False,
+            "source_identity": inspection["source_identity"],
+            "source_preservation": {
+                "output_mode": "new_page_same_document",
+                "source_will_be_moved_or_renamed": False,
+                "rollback_policy": "delete_new_output_page_only",
+            },
+            "print_ready": False,
+        }
+        if questions:
+            return {"status": "needs_input", **common}
+        if blocking_issues:
+            return {"status": "failed", **common}
+
+        effective_rotation = bool(allow_180_rotation)
+        if inspection["workflow"] == "contour_nesting" and allow_180_rotation is None:
+            upright = plan_imposition_layout(
+                inspection["contour_points_inches"],
+                inspection["footprint_kind"],
+                inspection["workflow"],
+                sheet_width_inches,
+                sheet_height_inches,
+                quantity,
+                margin_inches,
+                gutter_inches,
+                bleed_inches,
+                cutting_method,
+                False,
+                sheet_orientation,
+            )
+            rotated = plan_imposition_layout(
+                inspection["contour_points_inches"],
+                inspection["footprint_kind"],
+                inspection["workflow"],
+                sheet_width_inches,
+                sheet_height_inches,
+                quantity,
+                margin_inches,
+                gutter_inches,
+                bleed_inches,
+                cutting_method,
+                True,
+                sheet_orientation,
+            )
+            if int(rotated["copies_per_sheet"]) > int(upright["copies_per_sheet"]):
+                common["questions"] = [{
+                    "id": "allow_180_rotation",
+                    "question": "May complete repeat units rotate 180 degrees, considering grain and design direction?",
+                    "options": [True, False],
+                    "required": True,
+                    "impact": {
+                        "upright_copies_per_sheet": upright["copies_per_sheet"],
+                        "rotated_copies_per_sheet": rotated["copies_per_sheet"],
+                    },
+                }]
+                return {"status": "needs_input", **common}
+            plan = upright
+            warnings.append("A 180-degree rotation decision was not requested because it does not improve sheet capacity.")
+        else:
+            plan = plan_imposition_layout(
+                inspection["contour_points_inches"],
+                inspection["footprint_kind"],
+                inspection["workflow"],
+                sheet_width_inches,
+                sheet_height_inches,
+                quantity,
+                margin_inches,
+                gutter_inches,
+                bleed_inches,
+                cutting_method,
+                effective_rotation,
+                sheet_orientation,
+            )
+
+        if not plan["ready"]:
+            blocking_issues.append({
+                "code": "NO_LAYOUT_FITS",
+                "message": "The repeat contour does not fit within the requested sheet and allowances.",
+            })
+        if int(plan.get("sheets_required", 0)) > 1:
+            blocking_issues.append({
+                "code": "MULTI_SHEET_EXECUTION_NOT_IMPLEMENTED",
+                "message": "The layout is valid, but this slice executes only jobs that fit one output sheet.",
+            })
+        if quantity > len(plan.get("placements", [])):
+            blocking_issues.append({
+                "code": "PLACEMENT_COORDINATES_UNAVAILABLE",
+                "message": "The bounded planner did not materialize every requested placement coordinate.",
+            })
+        warnings.append("Production marks, controlled export, and output-profile checks are not implemented; print_ready remains false.")
+
+        fingerprint_payload = {
+            "schema": "imposition-plan-v1",
+            "source_identity": inspection["source_identity"],
+            "production": {
+                "quantity": quantity,
+                "cutting_method": cutting_method,
+                "allow_180_rotation": effective_rotation,
+                "curve_precision": curve_precision,
+            },
+            "output_policy": {
+                "mode": "new_page_same_document",
+                "object_name_prefix": object_name_prefix,
+                "output_layer_name": output_layer_name,
+            },
+            "layout": plan,
+        }
+        fingerprint = imposition_plan_fingerprint(fingerprint_payload)
+        common.update({
+            "workflow": plan["workflow"],
+            "blocking_issues": blocking_issues,
+            "warnings": warnings,
+            "plan_fingerprint": fingerprint,
+            "ready_for_execution": bool(plan["ready"] and not blocking_issues),
+            "plan": plan,
+        })
+        if not confirm_execution:
+            return {"status": "planned" if plan["ready"] else "failed", **common}
+        if blocking_issues or not plan["ready"]:
+            raise CorelBridgeError(
+                "The imposition plan has blocking issues and cannot be executed.",
+                ErrorCode.INVALID_ARGUMENT,
+                {"blocking_issues": blocking_issues},
+            )
+        if not approved_plan_fingerprint or approved_plan_fingerprint != fingerprint:
+            raise CorelBridgeError(
+                "Execution requires the exact fingerprint returned by the current approved plan.",
+                ErrorCode.CONFIRMATION_REQUIRED,
+                {
+                    "approved_plan_fingerprint": approved_plan_fingerprint or None,
+                    "current_plan_fingerprint": fingerprint,
+                },
+            )
+
+        doc = self._target_document()
+        source = self._find_shape(doc, object_name=source_group_name)
+        execution = self._execute_vector_imposition_plan(
+            source,
+            dieline_name,
+            plan,
+            quantity,
+            curve_precision,
+            object_name_prefix,
+            output_layer_name,
+        )
+        return {
+            "status": "completed",
+            **common,
+            "ready_for_execution": False,
+            "execution": execution,
+            "source_preserved": execution["source_preserved"],
         }
 
     def prepare_print_job(

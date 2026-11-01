@@ -1,6 +1,7 @@
 # CorelDRAW AI Operator — Implementation Plan
 
 **Plan date:** 2026-10-30  
+**Roadmap revision:** 2026-11-01
 **Target application:** CorelDRAW Graphics Suite X7, version 17.0.0.491  
 **Primary runtime:** Windows 11, Python 3.11, MCP SDK v1  
 **Product stage:** Working proof of concept entering stabilization  
@@ -20,12 +21,12 @@ The implementation must remain evidence-based. A CorelDRAW operation is not cons
 | MCP connection | Antigravity reportedly called `corel_status` successfully |
 | COM threading | One dedicated serialized COM worker thread is implemented |
 | Document safety | New bridge-created documents are the default target; existing documents require explicit binding |
-| Existing MCP surface | 25 tools are registered: the original 17, six read-only inspection tools, and two pure workflow-planning tools |
+| Existing MCP surface | 40 tools are registered, including design plans, print imposition, contour nesting, and unified imposition orchestration |
 | Historically demonstrated operations | Status, document creation, rectangle, editable text, and CDR save |
 | Remaining v0.5 operations | Implemented but mostly not verified live |
-| Automated tests | None; `tests/` is currently empty |
-| Capability inventory | A small seed CSV exists, but the required evidence-backed catalog does not |
-| Advanced workflows | Design plans, batches, previews, correction, and preflight are not implemented |
+| Automated tests | 174 tests pass; five guarded live gates are skipped by default |
+| Capability inventory | Evidence-backed registry, capability matrix, enum reference, API inventory, and schema validation are present |
+| Advanced workflows | Design plans, batches, raster print planning, best-fit N-up, paired-row contour nesting, and fingerprint-gated source-preserving imposition are implemented at varying verification levels |
 
 This baseline is provisional until it is reproduced and recorded. Conflicting or stale documentation must be corrected as part of stabilization.
 
@@ -53,6 +54,8 @@ Development will proceed through vertical, testable milestones rather than a lar
 5. Implement deterministic batch workflows.
 6. Add production preflight and visual correction.
 7. Add reference recreation, external imagery, and additional compatibility only after the core is reliable.
+
+The implementation-ready continuation for imposition orchestration and reference-to-vector reconstruction is maintained in [`docs/IMPOSITION_AND_VECTOR_RECREATION_PLAN.md`](docs/IMPOSITION_AND_VECTOR_RECREATION_PLAN.md).
 
 ## 5. Phase 0 — Repository and safety baseline
 
@@ -333,6 +336,7 @@ The report must distinguish `passed`, `failed`, `warning`, and `not_checked`. Th
 
 ## 12. Phase 7 — Reference recreation and generated artwork
 
+- Follow the implementation-ready workstream in [`docs/IMPOSITION_AND_VECTOR_RECREATION_PLAN.md`](docs/IMPOSITION_AND_VECTOR_RECREATION_PLAN.md).
 - Analyze a reference into editable text, primitive vector elements, and complex artwork regions.
 - Rebuild simple elements natively in CorelDRAW.
 - Import approved raster/SVG artwork for complex areas.
@@ -368,6 +372,10 @@ Work should begin with these small batches:
 | 10 | Structured design plan engine (Option B) | Complete | High-value, deep-detail design plan engine with validation, preview, transactional CommandGroup execution, atomic Undo rollback, and live X7 verification |
 | 11 | Alignment and grouping tools (Option C) | Complete | `align_objects`, `align_to_page`, `group_shapes`, `ungroup_shapes` implemented, unit tested, and verified live on CorelDRAW X7 |
 | 12 | Generated-artwork print foundation | Implemented; live verification pending | Raster preflight, exact-size sheet creation, contain/cover/stretch placement, effective DPI, bleed/safe boxes, deterministic best-fit mixed-rotation N-up, production quantities, and structured report |
+| 13 | Vector dieline contour nesting | Implemented; live verification pending | Conditional cutter Q&A, one-repeat inspection, X7 curve flattening, deterministic 0°/180° paired rows, independent copy groups, and post-placement collision verification |
+| 14 | Unified imposition orchestration | Implemented; live verification pending | `prepare_imposition_job` classifies, asks only capacity-relevant rotation questions, fingerprints source plus geometry, requires approval, writes independent groups to a new page, and removes only that page on failure |
+| 15 | Reference-to-vector foundation | Planned | Reference preflight, provider-neutral analysis schema, design-plan v2, and simple editable-vector reconstruction |
+| 16 | Recreation comparison loop | Planned | Deterministic preview comparison, bounded targeted correction, and fidelity/editability report |
 
 Each batch should end with tests, documentation updates, a catalog status update, and a focused commit.
 
@@ -422,7 +430,14 @@ The operator must then complete that workflow with deterministic tool calls, evi
    - `align_objects`, `align_to_page`, `group_shapes`, and `ungroup_shapes` have unit and disposable X7 coverage.
    - `distribute_objects` remains unimplemented and must follow the normal X7 evidence/test process.
 
-4. **Next active milestone: Generated-artwork print production**:
-   - Live-verify `plan_print_job` and `prepare_print_job` on disposable X7 documents using contain and cover artwork.
-   - Then add evidence-backed print/crop marks and a controlled PDF export preset without bypassing preflight.
-   - Continue reliable-identity work in parallel before broader general editing tools are added.
+4. **Current active milestone: Imposition orchestration and source preservation — IMPLEMENTED-UNVERIFIED SLICE**:
+   - `prepare_imposition_job` now provides one classify/plan/approve/execute route with deterministic plan fingerprints and source-identity revalidation.
+   - Execution copies the repeat through type-library-confirmed X7 APIs to an explicit layer on a new page; the original page/group is never renamed or moved, and failure cleanup targets only the new page.
+   - Fake-COM coverage verifies conditional Q&A, fingerprint mismatch rejection, independent groups, source preservation, and targeted rollback.
+   - Still required: an explicitly authorized disposable X7 run for `GetPolyline`, `AddPagesEx`, `CopyToLayer`, 180° rotation, placement, collision readback, and page-deletion rollback.
+   - Multi-sheet execution, separate production layers/marks, and controlled export remain later A5/A6 work.
+
+5. **Following milestone: Reference design to editable vector CDR**:
+   - Execute the staged plan in `docs/IMPOSITION_AND_VECTOR_RECREATION_PLAN.md`.
+   - Start with reference-file preflight, physical calibration, `reference-analysis-v1`, and `design-plan-v2`.
+   - Deliver simple editable vector layouts before attempting advanced tracing, generated artwork, or complex hybrid reconstruction.

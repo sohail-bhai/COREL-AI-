@@ -17,6 +17,10 @@ from .design_plans import (
     preview_design_plan as _preview_design_plan,
 )
 from .print_jobs import plan_print_job as _plan_print_job
+from .contour_nesting import (
+    classify_imposition_job as _classify_imposition_job,
+    plan_contour_nesting as _plan_contour_nesting,
+)
 
 mcp = FastMCP("coreldraw-ai-operator")
 
@@ -206,6 +210,126 @@ def calculate_sheet_layout(item_width_inches: float, item_height_inches: float,
         return success_result("calculate_sheet_layout", data, (perf_counter() - started) * 1000, warnings)
     except Exception as exc:
         return error_result("calculate_sheet_layout", exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+def classify_imposition_job(
+    footprint_kind: str = "auto",
+    has_explicit_cut_contour: bool = False,
+    cutting_method: str = "unknown",
+    allow_180_rotation: bool | None = None,
+    source_is_combined: bool = False,
+) -> dict:
+    """Choose rectangular N-up or contour nesting, asking cutter questions only for non-rectangular work."""
+    started = perf_counter()
+    try:
+        data = _classify_imposition_job(
+            footprint_kind, has_explicit_cut_contour, cutting_method,
+            allow_180_rotation, source_is_combined,
+        )
+        return success_result("classify_imposition_job", data, (perf_counter() - started) * 1000)
+    except Exception as exc:
+        return error_result("classify_imposition_job", exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+def plan_contour_nesting(
+    contour_points_inches: list[list[float]],
+    sheet_width_inches: float,
+    sheet_height_inches: float,
+    quantity: int = 1,
+    margin_inches: float = 0.25,
+    gutter_inches: float = 0.0,
+    bleed_inches: float = 0.0,
+    cutting_method: str = "unknown",
+    allow_180_rotation: bool | None = None,
+    sheet_orientation: str = "fixed",
+    geometry_tolerance_inches: float = 0.0005,
+) -> dict:
+    """Plan deterministic 0/180-degree paired rows from an explicit closed cut contour."""
+    started = perf_counter()
+    try:
+        data = _plan_contour_nesting(
+            contour_points_inches, sheet_width_inches, sheet_height_inches,
+            quantity, margin_inches, gutter_inches, bleed_inches,
+            cutting_method, allow_180_rotation, sheet_orientation,
+            geometry_tolerance_inches,
+        )
+        return success_result("plan_contour_nesting", data, (perf_counter() - started) * 1000)
+    except Exception as exc:
+        return error_result("plan_contour_nesting", exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+def inspect_repeat_unit(
+    source_group_name: str,
+    dieline_name: str,
+    cutting_method: str = "unknown",
+    allow_180_rotation: bool | None = None,
+    curve_precision: int = 5,
+) -> dict:
+    """Inspect one vector repeat group and its named dieline, then return workflow questions or readiness."""
+    return _tool(
+        "inspect_repeat_unit", "inspect_repeat_unit", source_group_name,
+        dieline_name, cutting_method, allow_180_rotation, curve_precision,
+    )
+
+
+@mcp.tool()
+def prepare_contour_nesting(
+    source_group_name: str,
+    dieline_name: str,
+    sheet_width_inches: float,
+    sheet_height_inches: float,
+    copies: int = 1,
+    margin_inches: float = 0.25,
+    gutter_inches: float = 0.0,
+    bleed_inches: float = 0.0,
+    cutting_method: str = "unknown",
+    allow_180_rotation: bool | None = None,
+    sheet_orientation: str = "fixed",
+    curve_precision: int = 5,
+    object_name_prefix: str = "Nested_Copy",
+    output_layer_name: str = "Imposition_Repeats",
+) -> dict:
+    """Create separately grouped vector repeats on a new page using a verified contour-nesting plan."""
+    return _tool(
+        "prepare_contour_nesting", "prepare_contour_nesting", source_group_name,
+        dieline_name, sheet_width_inches, sheet_height_inches, copies,
+        margin_inches, gutter_inches, bleed_inches, cutting_method,
+        allow_180_rotation, sheet_orientation, curve_precision,
+        object_name_prefix, output_layer_name,
+    )
+
+
+@mcp.tool()
+def prepare_imposition_job(
+    source_group_name: str,
+    dieline_name: str,
+    sheet_width_inches: float,
+    sheet_height_inches: float,
+    quantity: int = 1,
+    margin_inches: float = 0.25,
+    gutter_inches: float = 0.0,
+    bleed_inches: float = 0.0,
+    cutting_method: str = "unknown",
+    allow_180_rotation: bool | None = None,
+    sheet_orientation: str = "fixed",
+    curve_precision: int = 5,
+    object_name_prefix: str = "Imposed_Copy",
+    output_layer_name: str = "Imposition_Repeats",
+    confirm_execution: bool = False,
+    approved_plan_fingerprint: str = "",
+) -> dict:
+    """Plan first, then fingerprint-gate source-preserving vector imposition execution."""
+    return _tool(
+        "prepare_imposition_job", "prepare_imposition_job", source_group_name,
+        dieline_name, sheet_width_inches, sheet_height_inches, quantity,
+        margin_inches, gutter_inches, bleed_inches, cutting_method,
+        allow_180_rotation, sheet_orientation, curve_precision,
+        object_name_prefix, output_layer_name, confirm_execution,
+        approved_plan_fingerprint,
+    )
 
 
 @mcp.tool()

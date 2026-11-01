@@ -97,6 +97,23 @@ class ServerContractTests(unittest.TestCase):
         self.assertEqual(best_fit["data"]["capacity"], 11)
         self.assertEqual(best_fit["data"]["sheets_required"], 10)
 
+        routing = server.classify_imposition_job("rectangular")
+        self.assertTrue(routing["ok"])
+        self.assertEqual(routing["data"]["workflow"], "rectangular_n_up")
+        self.assertEqual(routing["data"]["questions"], [])
+
+        contour = server.plan_contour_nesting(
+            [[0, 0], [4, 0], [4, 2], [1, 2], [1, 4], [0, 4]],
+            8,
+            6,
+            quantity=4,
+            margin_inches=0,
+            cutting_method="digital_cutter",
+            allow_180_rotation=True,
+        )
+        self.assertTrue(contour["ok"])
+        self.assertEqual(contour["data"]["copies_per_sheet"], 4)
+
         bad_layout = server.calculate_sheet_layout(-1.0, 2.0, 10.0, 8.0)
         self.assertFalse(bad_layout["ok"])
         self.assertEqual(bad_layout["error"]["code"], "INVALID_ARGUMENT")
@@ -118,6 +135,27 @@ class ServerContractTests(unittest.TestCase):
         self.assertTrue(result["ok"])
         self.assertEqual(result["tool"], "create_chest_number_batch")
         self.assertEqual(fake.calls[0][0], "create_chest_number_batch")
+
+    def test_imposition_orchestrator_dispatches_approval_fields(self) -> None:
+        fake = _FakeDispatcher({"status": "planned", "plan_fingerprint": "sha256:abc"})
+        server.dispatcher = fake
+
+        result = server.prepare_imposition_job(
+            "Repeat_Unit",
+            "CutContour",
+            8.0,
+            6.0,
+            quantity=4,
+            cutting_method="digital_cutter",
+            allow_180_rotation=True,
+            confirm_execution=True,
+            approved_plan_fingerprint="sha256:abc",
+        )
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["tool"], "prepare_imposition_job")
+        self.assertEqual(fake.calls[0][0], "prepare_imposition_job")
+        self.assertEqual(fake.calls[0][1][-2:], (True, "sha256:abc"))
 
     def test_design_plan_wrappers_contract(self) -> None:
         plan = {

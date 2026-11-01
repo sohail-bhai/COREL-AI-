@@ -8,6 +8,18 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Implementation-ready roadmap for unified imposition orchestration, source-preserving output, conditional production Q&A, and reference-image-to-editable-vector CDR reconstruction in `docs/IMPOSITION_AND_VECTOR_RECREATION_PLAN.md`.
+- Unified vector-imposition orchestration:
+  - `prepare_imposition_job` provides one non-mutating plan call followed by explicit `confirm_execution` and exact SHA-256 plan-fingerprint approval.
+  - Fingerprints bind source document/page/group identity, normalized contour geometry, production inputs, output policy, and deterministic placements; changed source state invalidates approval.
+  - Obvious rectangles bypass cutter questions, while contour jobs ask about 180° rotation only when it improves copies per sheet.
+  - Execution creates an explicit layer on a new page, copies rather than transforms the source, keeps repeats independent, verifies readback/collisions, and rolls back by deleting only its new page.
+  - Installed X7 type-library inspection confirmed `Document.AddPagesEx`, `Page.Activate`, `Page.CreateLayer`, `Page.Delete`, `Document.DeletePages`, `Shape.CopyToLayer`, and `Shape.Rotate`; runtime behavior remains live-unverified.
+- Shape-aware packaging imposition:
+  - `classify_imposition_job` sends obvious rectangles directly to N-up without asking irrelevant cutter questions; non-rectangular work receives conditional cutter/dieline/rotation Q&A.
+  - `inspect_repeat_unit` requires one independently grouped vector repeat and one uniquely named closed dieline, rejects likely combined multi-copy sources, and flattens X7 curves through `SubPath.GetPolyline`.
+  - `plan_contour_nesting` performs deterministic polygon validation, bleed/gutter clearance checks, and production-friendly complete-row 0°/180° interlocking rather than visual placement guesses.
+  - `prepare_contour_nesting` copies the pristine source to a new page first, keeps every output copy as a separate named top-level group, applies planned rotations/positions, verifies actual contours, and preserves the original source page/group.
 - Deterministic best-fit print imposition:
   - `calculate_sheet_layout` can explicitly evaluate upright grids, fully rotated grids, mixed rotated rows, mixed rotated columns, and portrait/landscape sheet candidates.
   - The optimizer returns ranked alternatives, per-copy rotation and coordinates, usable/paper waste, guillotine-cutting complexity, and quantity/sheet/overage calculations without scaling artwork.

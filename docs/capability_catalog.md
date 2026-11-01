@@ -1,12 +1,12 @@
 # CorelDRAW X7 Automation Capability Catalog
 
-**Catalog revision:** 2026-10-31
+**Catalog revision:** 2026-11-01
 
 **Profile:** `coreldraw-x7-17`
 
 **Target:** CorelDRAW X7 / major version 17 / reported build 17.0.0.491
 
-**Completeness:** Partial, focused on the current v0.6 bridge and the unreleased inspection slice
+**Completeness:** Partial, focused on the current v0.6 bridge and implemented-unverified workflow slices
 
 **Machine-readable registry:** `catalog/mcp_tool_registry.json`
 
@@ -110,6 +110,11 @@ The zero verified count is intentional. Dated disposable X7 reports now exist, b
 | `calculate_sheet_layout` | read-only | P1 | implemented_unverified | Pure best-fit geometry covers uniform and mixed rotations, sheet orientation, allowances, waste, alternatives, and production quantities | Review representative coordinates and cutting plans before production use |
 | `plan_print_job` | external I/O | P0 | implemented_unverified | Pure bounded raster inspection plus fit/crop, effective-DPI, bleed/safe-area, best-fit imposition, and sheet-count planning has unit coverage | Exercise representative color/profile/orientation fixtures and retain reports |
 | `prepare_print_job` | mutating | P0 | implemented_unverified | New-document-only import, mixed-rotation placement, and named-copy readback have fake-COM coverage including lossless cover-crop materialization | Run contain, cover, and mixed-rotation jobs on a disposable X7 document and inspect actual output |
+| `classify_imposition_job` | read-only | P0 | implemented_unverified | Unit coverage proves obvious rectangles produce no cutter questions while contours return only unresolved production questions | Verify routing language with Antigravity and OpenCode prompts |
+| `plan_contour_nesting` | read-only | P0 | implemented_unverified | Pure polygon geometry covers simple-contour validation, bleed/gutter clearance, paired 0°/180° rows, waste, and quantities | Review retained plans for representative package dielines |
+| `inspect_repeat_unit` | read-only | P0 | implemented_unverified | Fake-COM coverage verifies independent-group and named-dieline inspection with conditional Q&A | Live-verify X7 `SubPath.GetPolyline` precision on straight and curved dielines |
+| `prepare_contour_nesting` | mutating | P0 | implemented_unverified | Fake-COM execution copies the source to a new output page, preserves one top-level group per repeat, verifies contour clearance, and removes only that page on failure | Live-verify X7 cross-page copying, grouped rotation, placement, and targeted rollback |
+| `prepare_imposition_job` | mutating | P0 | implemented_unverified | Preferred classify/plan/approve/execute workflow uses a deterministic fingerprint, conditional rotation Q&A, source identity checks, and source-preserving output | Run and manually inspect rectangular and contour jobs on disposable X7 artwork |
 | `plan_chest_number_batch` | read-only | P1 | implemented_unverified | Pure sequence and optional sheet-fit preflight with zero-padded labels and deterministic object names | Add boundary, fit, and zero-padding coverage before implementing document creation |
 | `create_chest_number_batch` | mutating | P1 | implemented_unverified | Generates numbered bibs, borders, headers, and text directly on the target document | Verified live on CorelDRAW X7 disposable document |
 | `validate_design_plan` | read-only | P1 | implemented_unverified | Enforces a Draft 2020-12 schema plus domain rules and separates blocking canvas issues from explicitly allowed overflow warnings | Keep pure validation side-effect free; artwork files are preflighted immediately before execution |

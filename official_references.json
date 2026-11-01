@@ -63,5 +63,10 @@
     "title": "CorelDRAW X7 User Guide",
     "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/User-Guide/CorelDRAW-X7.pdf",
     "relevance": "Feature availability and local macro documentation references."
+  },
+  {
+    "title": "CorelDRAW X7.6 SubPath.GetPolyline",
+    "url": "https://community.coreldraw.com/sdk/api/draw/17.6/m/SubPath.GetPolyline",
+    "relevance": "Official API used to approximate curved closed dielines as deterministic line-segment contours for nesting."
   }
 ]

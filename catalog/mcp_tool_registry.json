@@ -2,7 +2,7 @@
   "registry_schema_version": 1,
   "tool_schema_version": 1,
   "json_schema_dialect": "https://json-schema.org/draft/2020-12/schema",
-  "catalog_revision": "2026-10-31",
+  "catalog_revision": "2026-11-01",
   "profile_id": "coreldraw-x7-17",
   "status_values": [
     "planned",
@@ -2455,6 +2455,31 @@
         },
         "duration_ms": 1.1
       }
+    },
+    "classify_imposition_job": {
+      "request": {"footprint_kind": "rectangular"},
+      "success": {"ok": true, "tool": "classify_imposition_job", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": null, "data": {}, "warnings": [], "error": null, "duration_ms": 0.1},
+      "error": {"ok": false, "tool": "classify_imposition_job", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": null, "data": null, "warnings": [], "error": {"code": "INVALID_ARGUMENT", "message": "Invalid footprint kind.", "details": {}}, "duration_ms": 0.1}
+    },
+    "plan_contour_nesting": {
+      "request": {"contour_points_inches": [[0, 0], [4, 0], [4, 2], [1, 2], [1, 4], [0, 4]], "sheet_width_inches": 8, "sheet_height_inches": 6, "cutting_method": "digital_cutter", "allow_180_rotation": true},
+      "success": {"ok": true, "tool": "plan_contour_nesting", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": null, "data": {}, "warnings": [], "error": null, "duration_ms": 1.0},
+      "error": {"ok": false, "tool": "plan_contour_nesting", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": null, "data": null, "warnings": [], "error": {"code": "INVALID_ARGUMENT", "message": "The cut contour is invalid.", "details": {}}, "duration_ms": 0.2}
+    },
+    "inspect_repeat_unit": {
+      "request": {"source_group_name": "Repeat_Unit", "dieline_name": "CutContour"},
+      "success": {"ok": true, "tool": "inspect_repeat_unit", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": {}, "warnings": [], "error": null, "duration_ms": 2.0},
+      "error": {"ok": false, "tool": "inspect_repeat_unit", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": null, "warnings": [], "error": {"code": "OBJECT_NOT_FOUND", "message": "The dieline was not found.", "details": {}}, "duration_ms": 0.5}
+    },
+    "prepare_contour_nesting": {
+      "request": {"source_group_name": "Repeat_Unit", "dieline_name": "CutContour", "sheet_width_inches": 8, "sheet_height_inches": 6, "copies": 4, "cutting_method": "digital_cutter", "allow_180_rotation": true},
+      "success": {"ok": true, "tool": "prepare_contour_nesting", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": {}, "warnings": [], "error": null, "duration_ms": 15.0},
+      "error": {"ok": false, "tool": "prepare_contour_nesting", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": null, "warnings": [], "error": {"code": "INVALID_ARGUMENT", "message": "The repeat unit is not ready for contour nesting.", "details": {}}, "duration_ms": 1.0}
+    },
+    "prepare_imposition_job": {
+      "request": {"source_group_name": "Repeat_Unit", "dieline_name": "CutContour", "sheet_width_inches": 8, "sheet_height_inches": 6, "quantity": 4, "cutting_method": "digital_cutter", "allow_180_rotation": true},
+      "success": {"ok": true, "tool": "prepare_imposition_job", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": {}, "warnings": [], "error": null, "duration_ms": 4.0},
+      "error": {"ok": false, "tool": "prepare_imposition_job", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": null, "warnings": [], "error": {"code": "CONFIRMATION_REQUIRED", "message": "Execution requires the exact fingerprint returned by the current approved plan.", "details": {}}, "duration_ms": 1.0}
     },
     "ungroup_shapes": {
       "request": {
@@ -7831,6 +7856,181 @@
         "Only shapes of type cdrGroupShape (7) can be ungrouped."
       ],
       "planned_phase": 3,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "classify_imposition_job",
+      "category": "print_production_planning",
+      "description": "Route obvious rectangular jobs without cutter questions and request missing production facts only for non-rectangular contour work.",
+      "implementation": {"state": "registered", "server": "corel_operator/server.py", "planner": "corel_operator.contour_nesting.classify_imposition_job"},
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "footprint_kind": {"type": "string", "enum": ["auto", "rectangular", "contour"], "default": "auto"},
+          "has_explicit_cut_contour": {"type": "boolean", "default": false},
+          "cutting_method": {"type": "string", "enum": ["unknown", "digital_cutter", "die_cut", "guillotine"], "default": "unknown"},
+          "allow_180_rotation": {"type": ["boolean", "null"], "default": null},
+          "source_is_combined": {"type": "boolean", "default": false}
+        },
+        "additionalProperties": false
+      },
+      "output_schema": {"$ref": "#/schema_definitions/result_envelope"},
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P0",
+      "coreldraw_profiles": ["bridge_algorithm"],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {"status": "unit_passed", "sources": ["tests/test_contour_nesting.py"]},
+      "known_limitations": ["Auto routing depends on an explicit contour signal or repeat-unit inspection."],
+      "planned_phase": 6,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "plan_contour_nesting",
+      "category": "print_production_planning",
+      "description": "Plan deterministic, collision-checked complete rows from a closed cut contour, including safe 0/180-degree paired-row interlocking.",
+      "implementation": {"state": "registered", "server": "corel_operator/server.py", "planner": "corel_operator.contour_nesting.plan_contour_nesting"},
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "contour_points_inches": {"type": "array", "minItems": 3, "maxItems": 5001, "items": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}}},
+          "sheet_width_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
+          "sheet_height_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
+          "quantity": {"type": "integer", "minimum": 1, "maximum": 5000, "default": 1},
+          "margin_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0.25},
+          "gutter_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0},
+          "bleed_inches": {"type": "number", "minimum": 0, "maximum": 2, "default": 0},
+          "cutting_method": {"type": "string", "enum": ["unknown", "digital_cutter", "die_cut", "guillotine"], "default": "unknown"},
+          "allow_180_rotation": {"type": ["boolean", "null"], "default": null},
+          "sheet_orientation": {"type": "string", "enum": ["fixed", "portrait", "landscape", "best_fit"], "default": "fixed"},
+          "geometry_tolerance_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.05, "default": 0.0005}
+        },
+        "required": ["contour_points_inches", "sheet_width_inches", "sheet_height_inches"],
+        "additionalProperties": false
+      },
+      "output_schema": {"$ref": "#/schema_definitions/result_envelope"},
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P0",
+      "coreldraw_profiles": ["bridge_algorithm"],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {"status": "unit_passed", "sources": ["tests/test_contour_nesting.py"]},
+      "known_limitations": ["Optimizes complete aligned rows at 0 and 180 degrees; it does not perform unrestricted free-form nesting or horizontal row staggering."],
+      "planned_phase": 6,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "inspect_repeat_unit",
+      "category": "print_production_inspection",
+      "description": "Inspect one grouped vector repeat and named closed dieline, flatten curves through CorelDRAW, reject combined sources, and return conditional workflow questions.",
+      "implementation": {"state": "registered", "server": "corel_operator/server.py", "bridge_method": "CorelBridge.inspect_repeat_unit"},
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "source_group_name": {"type": "string", "minLength": 1},
+          "dieline_name": {"type": "string", "minLength": 1},
+          "cutting_method": {"type": "string", "enum": ["unknown", "digital_cutter", "die_cut", "guillotine"], "default": "unknown"},
+          "allow_180_rotation": {"type": ["boolean", "null"], "default": null},
+          "curve_precision": {"type": "integer", "minimum": 1, "maximum": 10, "default": 5}
+        },
+        "required": ["source_group_name", "dieline_name"],
+        "additionalProperties": false
+      },
+      "output_schema": {"$ref": "#/schema_definitions/result_envelope"},
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required_for_bound_document_inspection",
+      "priority": "P0",
+      "coreldraw_profiles": ["coreldraw-x7-17"],
+      "api_requirements": ["SubPath.GetPolyline"],
+      "status": "implemented_unverified",
+      "test_evidence": {"status": "unit_passed", "sources": ["tests/test_contour_nesting.py"]},
+      "known_limitations": ["Requires one top-level group and one uniquely named closed single-subpath dieline."],
+      "planned_phase": 6,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "prepare_contour_nesting",
+      "category": "print_production_execution",
+      "description": "Copy one pristine vector repeat to a new output page, create independently named groups, apply planned 0/180 rotations, and verify contour clearance without moving or renaming the source.",
+      "implementation": {"state": "registered", "server": "corel_operator/server.py", "bridge_method": "CorelBridge.prepare_contour_nesting"},
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "source_group_name": {"type": "string", "minLength": 1},
+          "dieline_name": {"type": "string", "minLength": 1},
+          "sheet_width_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
+          "sheet_height_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
+          "copies": {"type": "integer", "minimum": 1, "maximum": 5000, "default": 1},
+          "margin_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0.25},
+          "gutter_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0},
+          "bleed_inches": {"type": "number", "minimum": 0, "maximum": 2, "default": 0},
+          "cutting_method": {"type": "string", "enum": ["unknown", "digital_cutter", "die_cut", "guillotine"], "default": "unknown"},
+          "allow_180_rotation": {"type": ["boolean", "null"], "default": null},
+          "sheet_orientation": {"type": "string", "enum": ["fixed", "portrait", "landscape", "best_fit"], "default": "fixed"},
+          "curve_precision": {"type": "integer", "minimum": 1, "maximum": 10, "default": 5},
+          "object_name_prefix": {"type": "string", "minLength": 1, "default": "Nested_Copy"},
+          "output_layer_name": {"type": "string", "minLength": 1, "default": "Imposition_Repeats"}
+        },
+        "required": ["source_group_name", "dieline_name", "sheet_width_inches", "sheet_height_inches"],
+        "additionalProperties": false
+      },
+      "output_schema": {"$ref": "#/schema_definitions/result_envelope"},
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "requires_completed_contour_qa",
+      "priority": "P0",
+      "coreldraw_profiles": ["coreldraw-x7-17"],
+      "api_requirements": ["Document.AddPagesEx", "Document.DeletePages", "Page.Activate", "Page.CreateLayer", "Page.Delete", "Shape.CopyToLayer", "Shape.Duplicate", "Shape.Rotate", "Shape.SetPosition", "SubPath.GetPolyline"],
+      "status": "implemented_unverified",
+      "test_evidence": {"status": "unit_passed", "sources": ["tests/test_contour_nesting.py"]},
+      "known_limitations": ["Executes one new output page per call and requires live X7 verification of cross-page copying, GetPolyline precision, group rotation readback, and targeted page rollback."],
+      "planned_phase": 6,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "prepare_imposition_job",
+      "category": "print_production_workflow",
+      "description": "Preferred plan/approval/execute orchestrator for selected vector repeats. It routes rectangular and contour jobs, asks only geometry-relevant production questions, fingerprints the approved plan, and preserves the source on a separate output page.",
+      "implementation": {"state": "registered", "server": "corel_operator/server.py", "bridge_method": "CorelBridge.prepare_imposition_job"},
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "source_group_name": {"type": "string", "minLength": 1},
+          "dieline_name": {"type": "string", "minLength": 1},
+          "sheet_width_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
+          "sheet_height_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
+          "quantity": {"type": "integer", "minimum": 1, "maximum": 5000, "default": 1},
+          "margin_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0.25},
+          "gutter_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0},
+          "bleed_inches": {"type": "number", "minimum": 0, "maximum": 2, "default": 0},
+          "cutting_method": {"type": "string", "enum": ["unknown", "digital_cutter", "die_cut", "guillotine"], "default": "unknown"},
+          "allow_180_rotation": {"type": ["boolean", "null"], "default": null},
+          "sheet_orientation": {"type": "string", "enum": ["fixed", "portrait", "landscape", "best_fit"], "default": "fixed"},
+          "curve_precision": {"type": "integer", "minimum": 1, "maximum": 10, "default": 5},
+          "object_name_prefix": {"type": "string", "minLength": 1, "default": "Imposed_Copy"},
+          "output_layer_name": {"type": "string", "minLength": 1, "default": "Imposition_Repeats"},
+          "confirm_execution": {"type": "boolean", "default": false},
+          "approved_plan_fingerprint": {"type": "string", "maxLength": 71, "default": ""}
+        },
+        "required": ["source_group_name", "dieline_name", "sheet_width_inches", "sheet_height_inches"],
+        "additionalProperties": false
+      },
+      "output_schema": {"$ref": "#/schema_definitions/result_envelope"},
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "requires_true_and_matching_plan_fingerprint",
+      "priority": "P0",
+      "coreldraw_profiles": ["coreldraw-x7-17"],
+      "api_requirements": ["Document.AddPagesEx", "Document.DeletePages", "Page.Activate", "Page.CreateLayer", "Page.Delete", "Shape.CopyToLayer", "Shape.Duplicate", "Shape.Rotate", "Shape.SetPosition", "SubPath.GetPolyline"],
+      "status": "implemented_unverified",
+      "test_evidence": {"status": "unit_passed", "sources": ["tests/test_contour_nesting.py"]},
+      "known_limitations": ["Executes only quantities that fit one output page, keeps rectangular vector jobs upright in this slice, and does not yet add production marks or controlled export settings."],
+      "planned_phase": 6,
       "result_contract": "tool-schema-v1-envelope"
     }
   ]

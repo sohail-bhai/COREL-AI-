@@ -11,7 +11,7 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 140 tests
+Ran 174 tests
 OK (skipped=5)
 ```
 
@@ -32,6 +32,7 @@ Coverage includes:
 - read-only document, page, layer, and single-object inspection using fake multi-document COM collections;
 - canonical design-plan schema/domain validation, asset preflight, preview readiness, actual-state readback, sanitized failures, command-group cleanup, and verified rollback;
 - alignment and grouping validation/dispatch with guarded disposable-document live gates;
+- contour routing/planning plus fingerprint-gated source-preserving imposition, new-page output, independent repeat groups, source-change rejection, and output-page-only rollback using fake COM objects;
 - `corel_status` runtime metadata using a fake Application object.
 
 Temporary path-safety fixtures are created under the operating system's `opencode` temporary directory and removed by the tests.

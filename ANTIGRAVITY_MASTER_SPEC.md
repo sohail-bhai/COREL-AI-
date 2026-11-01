@@ -543,12 +543,22 @@ These are workflow tools over the atomic drawing tools:
 - `duplicate_template_for_rows`
 - `arrange_n_up_print_sheet`
 - `calculate_sheet_layout`
+- `prepare_imposition_job`
 - `validate_sequence_no_gaps_or_duplicates`
 - `report_missing_fields`
 - `export_batch_to_individual_files`
 - `export_batch_to_combined_pdf`
 - `create_spreadsheet_field_mapping`
 Batch generation should be deterministic: Python generates exact values and loops; the LLM should not manually invent 200 number objects one by one.
+
+Imposition routing must also be deterministic:
+- Obvious rectangular artwork uses `calculate_sheet_layout` / `plan_print_job`; do not ask which cutter will be used.
+- Non-rectangular packaging or dieline work first uses `inspect_repeat_unit` and asks only its returned unresolved questions.
+- Use `plan_contour_nesting` / `prepare_contour_nesting` only with one independently grouped repeat and one explicit closed vector dieline.
+- Prefer `prepare_imposition_job` for model-facing vector imposition. Its first call plans only; mutation requires explicit confirmation plus the matching source-and-geometry plan fingerprint.
+- Preserve the approved source page/group unchanged. Imposed repeats belong on a new output page, and rollback may remove only output created by that operation.
+- Never flatten or group all imposed copies into one image. Each executed repeat remains a separately named top-level group.
+- GPT interprets production intent; Python computes rotations, contour clearance, positions, capacity, and collision verification.
 
 ### O. Preview, validation and print preflight
 - `export_preview`
