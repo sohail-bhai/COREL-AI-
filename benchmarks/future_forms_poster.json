@@ -1,0 +1,73 @@
+{
+  "benchmark_id": "future-forms-poster-v1",
+  "title": "Future Forms 2026 poster",
+  "task": "Create an original, premium A4 portrait conference poster in CorelDRAW X7 using only editable vector shapes and artistic text. The design should feel like a contemporary international design-festival identity: bold typographic hierarchy, intentional asymmetry, generous negative space, a geometric orbital focal point, and production-clean alignment.",
+  "constraints": {
+    "canvas_inches": {"width": 8.27, "height": 11.69},
+    "vector_only": true,
+    "editable_text": true,
+    "minimum_safe_margin_inches": 0.3,
+    "palette": {
+      "midnight": [11, 16, 38],
+      "cream": [244, 241, 232],
+      "coral": [255, 90, 95],
+      "aqua": [85, 230, 193]
+    },
+    "required_text": [
+      "GLOBAL CREATIVE SUMMIT",
+      "BERLIN / 18-20 SEP",
+      "FUTURE",
+      "FORMS",
+      "DESIGNING WHAT'S NEXT",
+      "26",
+      "EDITION",
+      "18-20 SEPTEMBER",
+      "TYPOGRAPHY / MOTION / AI",
+      "IDEAS / SYSTEMS / CULTURE",
+      "HKW BERLIN",
+      "WORKSHOPS + TALKS + EXHIBITIONS",
+      "FUTUREFORMS.EXAMPLE",
+      "FF / 026",
+      "BUILD THE UNEXPECTED."
+    ],
+    "required_named_groups": [
+      "Orbit_System_Group",
+      "Dot_Matrix_Group",
+      "Signal_Dots_Group",
+      "Year_Rings_Group",
+      "Info_Panel_Frame_Group"
+    ],
+    "required_deliverables": ["cdr", "pdf", "json_tool_trace"]
+  },
+  "desired_output": {
+    "composition": "Small metadata header at top, oversized FUTURE/FORMS title in the upper-left, compact 26 edition badge at upper-right, orbital focal system in the lower-right, dot matrix and event details balancing the lower-left, and a quiet footer.",
+    "hierarchy": "FORMS is the strongest element, FUTURE is secondary, the orbital motif is the visual anchor, and metadata remains clearly subordinate.",
+    "finish": "No accidental clipping, collisions, illegible copy, default-looking black outlines, or unexplained elements. Repetition, spacing, and palette use should feel systematic.",
+    "editability": "All artwork remains native vector geometry or editable artistic text in the CDR file.",
+    "expected_minimum_plan_elements": 50,
+    "expected_minimum_distinct_operations": 15,
+    "expected_failed_operations": 0
+  },
+  "scoring": {
+    "automated": {
+      "document_and_artifacts": 15,
+      "content_fidelity": 20,
+      "tool_execution_and_readback": 25
+    },
+    "visual_review": {
+      "hierarchy": 10,
+      "layout_and_balance": 10,
+      "system_consistency": 8,
+      "legibility": 7,
+      "originality_and_polish": 5
+    },
+    "pass_score": 80,
+    "hard_gates": [
+      "CorelDRAW connection succeeds",
+      "page size matches the brief",
+      "zero recorded operation failures",
+      "all required text is present",
+      "CDR and PDF files are non-empty"
+    ]
+  }
+}

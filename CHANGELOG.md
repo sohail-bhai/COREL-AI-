@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Alhamdulillah vector-recreation V2 reference foundation with bounded image
+  preflight, source hashing, exact-A4 perspective rectification, reversible
+  pixel-to-Corel transforms, measured inner-field margins, non-overwriting
+  reference-only workspaces, a dedicated preparation CLI, and unit coverage.
+- Independent Alhamdulillah Phase 2 visual gate for retained field, plaque, and
+  trellis geometry, with exact-input fingerprints, fail-closed dimension and
+  artifact checks, a dedicated validation CLI, and synthetic pass/fail tests.
 - Implementation-ready roadmap for unified imposition orchestration, source-preserving output, conditional production Q&A, and reference-image-to-editable-vector CDR reconstruction in `docs/IMPOSITION_AND_VECTOR_RECREATION_PLAN.md`.
 - Unified vector-imposition orchestration:
   - `prepare_imposition_job` provides one non-mutating plan call followed by explicit `confirm_execution` and exact SHA-256 plan-fingerprint approval.

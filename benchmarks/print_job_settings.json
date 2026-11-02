@@ -1,0 +1,65 @@
+{
+  "benchmark_id": "print-job-settings-v1",
+  "title": "Poster production audit and live print-job settings test",
+  "poster_pdf_target": {
+    "trim_width_inches": 8.27,
+    "trim_height_inches": 11.69,
+    "commercial_full_bleed_requirements": {
+      "trim_box_present": true,
+      "bleed_box_present": true,
+      "cmyk_or_managed_output": true,
+      "output_intent_present": true,
+      "embedded_font_evidence": true
+    }
+  },
+  "live_job": {
+    "artwork": {
+      "format": "TIFF",
+      "color_space": "CMYK",
+      "width_pixels": 1125,
+      "height_pixels": 675,
+      "dpi": 300,
+      "includes_bleed": true,
+      "icc_profile_expected": false
+    },
+    "finished_size_inches": {"width": 3.5, "height": 2.0},
+    "bleed_inches": 0.125,
+    "placed_size_inches": {"width": 3.75, "height": 2.25},
+    "safe_margin_inches": 0.125,
+    "safe_size_inches": {"width": 3.25, "height": 1.75},
+    "sheet_size_inches": {"width": 12.0, "height": 18.0},
+    "base_margin_inches": 0.25,
+    "gutter_inches": 0.125,
+    "mark_clearance_inches": 0.125,
+    "gripper_inches": 0.375,
+    "gripper_edge": "bottom",
+    "effective_margins_inches": {
+      "left": 0.375,
+      "top": 0.375,
+      "right": 0.375,
+      "bottom": 0.75
+    },
+    "rotation_policy": "best_fit",
+    "sheet_orientation": "fixed",
+    "expected_layout_strategy": "mixed_rotated_columns",
+    "expected_capacity": 19,
+    "production_quantity": 250,
+    "expected_sheets_required": 14,
+    "expected_total_produced": 266,
+    "expected_overage": 16,
+    "minimum_effective_dpi": 300,
+    "one_sheet_execution_copies": 19
+  },
+  "expected_limitations": [
+    "The fixture has no embedded ICC profile and must generate a warning.",
+    "Mark clearance is reserved, but crop and registration marks are not created.",
+    "The tool does not apply or validate an output profile.",
+    "The default PDF export preset is not controlled or certified by this workflow.",
+    "prepare_print_job must report print_ready=false even after successful placement."
+  ],
+  "scoring": {
+    "live_workflow_points": 70,
+    "poster_pdf_audit_points": 30,
+    "press_ready_requires_all_poster_pdf_requirements": true
+  }
+}
