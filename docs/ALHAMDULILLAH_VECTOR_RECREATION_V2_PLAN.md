@@ -173,20 +173,37 @@ printable layer.
 ### Phase 2 gate status — 2026-11-02
 
 `PASS_PHASE2_STRUCTURE` proves clipping, printable-bitmap exclusion, PDF vector
-integrity, reference-layer isolation, and top-level page containment only. It
-does **not** authorize Phase 3. The independent validator is:
+integrity, reference-layer isolation, and top-level page containment only. The
+independent validator is:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\validate_alhamdulillah_v2_phase2.py `
-  --workspace output\alhamdulillah_a4_vector_v2_20261102_101051
+  --workspace output\alhamdulillah_a4_vector_v2_recovered_20261102
 ```
 
 It compares the retained preview directly with the rectified reference and
 binds its report to the exact input bytes with SHA-256 fingerprints. The current
-retained run is `FAIL_PHASE2_GATE`: field error is 0.1901 mm and plaque IoU is
-0.985840 (both pass), while trellis precision is 0.505591, recall is 0.296237,
-and tolerant F1 is 0.373583 (fail). Arabic tracing remains blocked until a new
-retained structural run passes `phase2_geometry_validation.json`.
+recovered run is `PASS_PHASE2_GATE`: field error is 0.1902 mm, plaque IoU is
+0.986893, and tolerant trellis F1 is 0.904986. Its rectified-reference SHA-256
+is the same `5c7bbccf...a9884` used by the earlier passing run. The calibrated
+corner record is now durable in
+`config/alhamdulillah-v2-corner-measurements.json`, so ignored output cleanup no
+longer destroys the measurements needed to reproduce this gate.
+
+### Phase 3 automated status — 2026-11-02
+
+`scripts/prepare_alhamdulillah_v2_arabic_mask.py` reproducibly extracts the
+warm/bright calligraphy candidate only inside the passing plaque geometry. The
+analysis mask is never imported as printable artwork. The retained trace run
+`phase3_arabic_recovered_trace02` contains 22 native CorelDRAW curve components,
+zero visible text objects, zero printable bitmaps, and a vector PDF with no image
+objects. Full-render differencing against the retained Phase 2 preview gives a
+strict silhouette IoU of 0.960760, and the Phase 2 source CDR hash is unchanged.
+
+The result is `PASS_PHASE3_AUTOMATED_GATE_REVIEW_REQUIRED`, not final Phase 3
+approval. A person must still review the full overlay, confirm the visible
+reading `الحمد لله`, and reject any retained glare or detached pattern fragment
+before Phase 4 typography is authorized.
 
 ### Phase 0 — preserve and prepare
 

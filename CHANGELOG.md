@@ -15,6 +15,11 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 - Independent Alhamdulillah Phase 2 visual gate for retained field, plaque, and
   trellis geometry, with exact-input fingerprints, fail-closed dimension and
   artifact checks, a dedicated validation CLI, and synthetic pass/fail tests.
+- Reproducible Alhamdulillah Phase 3 calligraphy extraction and tracing with a
+  plaque-bounded analysis mask, connected-component and counterform retention,
+  low-node native CorelDRAW curves, non-overwriting CDR/PDF runs, source-hash
+  preservation, full-render silhouette differencing, and an explicit manual
+  reading/overlay review gate.
 - Implementation-ready roadmap for unified imposition orchestration, source-preserving output, conditional production Q&A, and reference-image-to-editable-vector CDR reconstruction in `docs/IMPOSITION_AND_VECTOR_RECREATION_PLAN.md`.
 - Unified vector-imposition orchestration:
   - `prepare_imposition_job` provides one non-mutating plan call followed by explicit `confirm_execution` and exact SHA-256 plan-fingerprint approval.

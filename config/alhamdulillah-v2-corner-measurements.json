@@ -1,0 +1,42 @@
+{
+  "schema_version": "a4-corner-measurements-v1",
+  "project_name": "Alhamdulillah A4 Vector Recreation V2",
+  "coordinate_space": {
+    "file": "reference_rotated_for_corner_marking.png",
+    "origin": "top-left image edge",
+    "x_axis": "right",
+    "y_axis": "down",
+    "width_pixels": 1280,
+    "height_pixels": 960
+  },
+  "rotation_after_exif": "counterclockwise_90",
+  "allow_extrapolated_page_corners": true,
+  "allow_extrapolated_inner_field_corners": true,
+  "page_corners_pixels": {
+    "top_left": [30.9, 6.3],
+    "top_right": [1251.7, 33.4],
+    "bottom_right": [1321.6, 907.2],
+    "bottom_left": [-9.6, 927.1]
+  },
+  "inner_printed_field_corners_pixels": {
+    "top_left": [50.51555, 44.190543],
+    "top_right": [1237.508047, 68.743874],
+    "bottom_right": [1302.487398, 898.887016],
+    "bottom_left": [13.980526, 917.677329]
+  },
+  "uncertain_regions": [
+    {
+      "label": "camera_frame_crops_bottom_page_corners",
+      "impact": "Outer bottom corners require bounded line extrapolation."
+    },
+    {
+      "label": "photographic_glare_and_jpeg_compression",
+      "impact": "Fine calligraphy and color boundaries require manual overlay review."
+    }
+  ],
+  "measurement_method": {
+    "page_corners": "Retained measured values from the passing 2026-11-02 Phase 2 calibration.",
+    "inner_printed_field_corners": "Reconstructed through the retained rectified-to-source transform from the passing validator bounds [21.247, 40.325, 1268.176, 901.784] pixels after ignored output artifacts were externally removed."
+  },
+  "source_sha256": "0cba66ecd35ade83374d1c885a55cc7f93f314ab6ccf99b9f1adc113f2af31a9"
+}

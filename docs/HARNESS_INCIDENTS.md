@@ -20,8 +20,9 @@ Use the same resource that created the item to access it.
 | 5 | 2026-10-30 | `bacb6bc0971c8c9fdc5866375d4e311b` | Occurred immediately after a small sequential local `grep` used to locate registry records. No browser, parallel wrapper, background job, subagent, preview, or managed item was used. | Further confirms a provider/harness routing fault independent of repository command type. Prevention cannot be guaranteed from project workflow; local files and frequent Git commits remain the reliable recovery path. |
 | 6 | 2026-10-30 | `de567845bd8f62fac414c2167f6ab8bd` | Request ID `20261030175919304938962lnjXXiFt`. Appeared while OpenCode rendered a 175-line local file-read result; the user supplied a screenshot showing the failed item immediately below the read operation. | Stronger evidence that larger tool outputs may be retained as managed items and later routed across Azure resources. Cap reads/output to small chunks (about 80 lines maximum) and avoid large rendered results. |
 | 7 | 2026-10-30 | `1c36ff46e747cb133f1daf28f775f50b` | Appeared after a local temporary script and a short catalog-validator traceback. The output was small, sequential, and contained no browser/preview/background artifact. | Confirms output size is not the root cause. Most likely the provider routes a session/item lookup between Azure resources even though Azure item IDs are resource-scoped. |
+| 8 | 2026-11-02 | response `resp_04ed6db6bfadb686006ae85b4468108…` (user report; no trace ID supplied) | Reported while continuing the retained Alhamdulillah V2 work. The failed response was truncated, so its exact immediately preceding operation is unavailable from durable local state. | Continue from repository files, keep calls sequential and bounded, and give the provider operator the response ID if a full trace becomes available. |
 
-**Unique incident count:** 7
+**Unique incident count:** 8
 
 ## Current root-cause hypothesis
 
