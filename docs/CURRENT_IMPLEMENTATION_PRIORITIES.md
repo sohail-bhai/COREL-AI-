@@ -17,8 +17,10 @@ lighting, or fidelity correction is in the active queue.
 
 ### 1. Reliable inspection and common-operation verification
 
-- Implement INS-001: bounded `find_objects` with explicit document/page/layer
-  scope, nested group traversal, and deterministic duplicate-name handling.
+- INS-001 is implemented: bounded `find_objects` has explicit bound-document,
+  page/layer scope, nested group traversal, and deterministic duplicate-name
+  retention. Default tests and catalog validation pass; the prepared disposable
+  X7 search gate remains pending. See [OBJECT_SEARCH.md](OBJECT_SEARCH.md).
 - Add focused text, bounds, fill, and outline inspection for safe revisions.
 - Review the retained common-work CDR evidence and live-verify the applicable
   text replacement, move/resize, duplicate, align, group, save, and PDF tools.

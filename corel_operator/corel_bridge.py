@@ -18,6 +18,7 @@ from .errors import CorelBridgeError, ErrorCode
 from .version import BRIDGE_VERSION, CAPABILITY_PROFILE_ID, TOOL_SCHEMA_VERSION
 from .workflows import build_chest_number_sequence
 from .design_plans import validate_design_plan
+from .object_search import validate_search_inputs
 from .print_jobs import materialize_placement_artwork, plan_print_job
 from .contour_nesting import (
     classify_imposition_job,
@@ -524,6 +525,134 @@ class CorelBridge:
         identity["fill"] = self._fill_readback(shape)
         identity["outline"] = self._outline_readback(shape)
         return {"document_name": _safe_string_attr(document, "Name"), "object": identity}
+
+    def find_objects(
+        self, name_contains: str = "", shape_type_code: int | None = None,
+        text_contains: str = "", page_index: int | None = None,
+        layer_name: str = "", max_results: int = 100, include_nested: bool = True,
+        case_sensitive: bool = False, max_depth: int = 8, max_scan: int = 5000,
+    ) -> dict[str, Any]:
+        """Inspect a bounded, deterministic page/layer/group traversal without selection."""
+        validate_search_inputs(
+            name_contains, shape_type_code, text_contains, page_index, layer_name,
+            max_results, include_nested, case_sensitive, max_depth, max_scan,
+        )
+        document = self._target_document()
+        session_id = self._document_session_id(document)
+        matches: list[dict[str, Any]] = []
+        reasons: set[str] = set()
+        scanned_entries = 0
+        scanned_objects = 0
+        stop = False
+        normalize = (lambda value: value) if case_sensitive else str.casefold
+        name_filter = normalize(name_contains)
+        text_filter = normalize(text_contains)
+        layer_filter = normalize(layer_name)
+
+        def consume() -> bool:
+            nonlocal scanned_entries, stop
+            if scanned_entries >= max_scan:
+                reasons.add("max_scan")
+                stop = True
+                return False
+            scanned_entries += 1
+            return True
+
+        def walk(collection: Any, path: tuple[int, ...], ancestors: frozenset[str]):
+            nonlocal scanned_objects
+            count = int(collection.Count)
+            for index in range(1, count + 1):
+                if stop or not consume():
+                    return
+                shape = self._collection_item(collection, index)
+                scanned_objects += 1
+                key = self._com_identity(shape)
+                if key in ancestors:
+                    reasons.add("cycle")
+                    continue
+                shape_path = (*path, index)
+                yield shape, shape_path
+                if stop:
+                    return
+                if include_nested and int(shape.Type) == self.adapter.CDR_GROUP_SHAPE:
+                    children = shape.Shapes
+                    if int(children.Count) > 0:
+                        if len(shape_path) - 1 >= max_depth:
+                            reasons.add("max_depth")
+                        else:
+                            yield from walk(children, shape_path, ancestors | {key})
+
+        try:
+            if page_index is not None:
+                # Check existence before enumeration, including when a layer filter has no hits.
+                self._page_at(document, page_index)
+                page_indices = (page_index,)
+            else:
+                page_indices = range(1, int(document.Pages.Count) + 1)
+            for current_page_index in page_indices:
+                if stop or not consume():
+                    break
+                page = self._collection_item(document.Pages, current_page_index)
+                layers = _safe_attr(page, "AllLayers")
+                if layers is None:
+                    layers = page.Layers
+                for layer_index in range(1, int(layers.Count) + 1):
+                    if stop or not consume():
+                        break
+                    layer = self._collection_item(layers, layer_index)
+                    current_layer_name = str(layer.Name or "")
+                    if layer_filter and normalize(current_layer_name) != layer_filter:
+                        continue
+                    for shape, shape_path in walk(layer.Shapes, (), frozenset()):
+                        name = str(shape.Name or "")
+                        type_code = int(shape.Type)
+                        if name_filter and name_filter not in normalize(name):
+                            continue
+                        if shape_type_code is not None and type_code != shape_type_code:
+                            continue
+                        text = None
+                        if type_code == self.adapter.CDR_TEXT_SHAPE:
+                            text = str(shape.Text.Story.Text or "")
+                        if text_filter and (text is None or text_filter not in normalize(text)):
+                            continue
+                        # One additional matching object proves result truncation. Reaching
+                        # the limit alone does not falsely mark an exact-size search incomplete.
+                        if len(matches) >= max_results:
+                            reasons.add("max_results")
+                            stop = True
+                            break
+                        static_id = _safe_int_attr(shape, "StaticID")
+                        matches.append({
+                            "object_name": name[:256],
+                            "name_truncated": len(name) > 256,
+                            "static_id": static_id,
+                            "object_id": f"{session_id}:shape:{static_id}" if static_id is not None else None,
+                            "shape_type_code": type_code,
+                            "page_index": current_page_index,
+                            "layer_index": layer_index,
+                            "layer_name": current_layer_name[:256],
+                            "layer_name_truncated": len(current_layer_name) > 256,
+                            "group_depth": len(shape_path) - 1,
+                            "shape_path": list(shape_path),
+                            "text_preview": text[:160] if text is not None else None,
+                            "text_truncated": text is not None and len(text) > 160,
+                        })
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError(
+                "Could not complete object inspection on the bound document.",
+                ErrorCode.COREL_COM_ERROR,
+            ) from exc
+        return {
+            "document_name": _safe_string_attr(document, "Name"),
+            "document_session_id": session_id,
+            "matches": matches,
+            "truncated": bool(reasons),
+            "incomplete_reasons": sorted(reasons),
+            "scanned_objects": scanned_objects,
+            "scanned_entries": scanned_entries,
+        }
 
     def create_document(self, width_in: float = 8.27, height_in: float = 11.69) -> dict[str, Any]:
         if not (0 < width_in <= 200 and 0 < height_in <= 200):

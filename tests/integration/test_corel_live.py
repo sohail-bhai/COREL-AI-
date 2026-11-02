@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import tempfile
 import time
@@ -92,6 +93,7 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         useful_keys = (
             "target_document_name", "object_name", "object_count", "path", "bytes",
             "created", "updated", "moved", "resized", "renamed", "duplicated", "imported",
+            "scanned_objects", "scanned_entries", "truncated", "incomplete_reasons",
         )
         parts = [f"{key}={result[key]!r}" for key in useful_keys if key in result]
         return ", ".join(parts) or "completed"
@@ -605,6 +607,120 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self._close_saved_target_if_needed()
             report = self._write_report(passed, failure)
             print(f"Live imposition report: {report}")
+
+    def test_find_objects_live(self) -> None:
+        """Search only synthetic, disposable two-page artwork and retain readback."""
+        passed = False
+        failure: str | None = None
+        try:
+            self.status = self._step("connect / corel_status", self.bridge.connect)
+            self._step("create_document", lambda: self.bridge.create_document(8.5, 11.0))
+            doc = self.bridge.target_doc
+            front = doc.ActivePage
+            front_layer = front.CreateLayer("SearchArtwork")
+            front_layer.Activate()
+
+            self._step("create_nested_title", lambda: self.bridge.add_text(
+                "Member Alice", 1.0, 2.0, 18, "Arial", False, "SearchTitle",
+            ))
+            self._step("create_inner_box", lambda: self.bridge.draw_rectangle(
+                1.0, 3.0, 1.0, 1.0, "SearchInnerBox",
+            ))
+            self._step("group_inner", lambda: self.bridge.group_shapes(
+                ["SearchTitle", "SearchInnerBox"], "SearchInner",
+            ))
+            self._step("create_outer_box", lambda: self.bridge.draw_rectangle(
+                4.0, 3.0, 1.0, 1.0, "SearchOuterBox",
+            ))
+            self._step("group_outer", lambda: self.bridge.group_shapes(
+                ["SearchInner", "SearchOuterBox"], "SearchOuter",
+            ))
+            # A group descendant and a new top-level object intentionally share a name.
+            self._step("create_front_title", lambda: self.bridge.add_text(
+                "Member Bob", 1.0, 5.0, 18, "Arial", False, "SearchTitle",
+            ))
+
+            with self.bridge._in_inches(doc):
+                doc.AddPagesEx(1, 8.5, 11.0)
+            back = self.bridge._page_at(doc, 2)
+            back.Activate()
+            back_layer = back.CreateLayer("SearchArtwork")
+            back_layer.Activate()
+            self._step("create_back_title", lambda: self.bridge.add_text(
+                "Member Carol", 1.0, 2.0, 18, "Arial", False, "SearchTitle",
+            ))
+            self.bridge._find_shape(doc, "SearchTitle").CreateSelection()
+            original_unit, original_reference, original_dirty = doc.Unit, doc.ReferencePoint, doc.Dirty
+            original_selection = [
+                int(self.bridge._collection_item(doc.SelectionRange, i).StaticID)
+                for i in range(1, int(doc.SelectionRange.Count) + 1)
+            ]
+
+            all_matches = self._step("find_all_pages_nested_duplicates", lambda: self.bridge.find_objects(
+                name_contains="searchtitle", layer_name="SearchArtwork",
+            ))
+            self.assertFalse(all_matches["truncated"])
+            self.assertEqual(len(all_matches["matches"]), 3)
+            self.assertEqual(sorted(m["group_depth"] for m in all_matches["matches"]), [0, 0, 2])
+            self.assertEqual(sorted(m["page_index"] for m in all_matches["matches"]), [1, 1, 2])
+            ids = [m["static_id"] for m in all_matches["matches"]]
+            self.assertTrue(all(value is not None for value in ids))
+            self.assertEqual(len(set(ids)), 3)
+            self.assertEqual(all_matches, self.bridge.find_objects(
+                name_contains="searchtitle", layer_name="SearchArtwork",
+            ))
+
+            scoped = self._step("find_page_layer_type_text", lambda: self.bridge.find_objects(
+                name_contains="SearchTitle", shape_type_code=6, text_contains="alice",
+                page_index=1, layer_name="SearchArtwork",
+            ))
+            self.assertEqual(len(scoped["matches"]), 1)
+            self.assertEqual(scoped["matches"][0]["group_depth"], 2)
+            top_level = self._step("find_top_level_only", lambda: self.bridge.find_objects(
+                name_contains="SearchTitle", layer_name="SearchArtwork", include_nested=False,
+            ))
+            self.assertEqual(len(top_level["matches"]), 2)
+            self.assertFalse(top_level["truncated"])
+            limited = self._step("find_result_limit", lambda: self.bridge.find_objects(
+                name_contains="SearchTitle", layer_name="SearchArtwork", max_results=1,
+            ))
+            self.assertEqual(limited["incomplete_reasons"], ["max_results"])
+            depth_limited = self._step("find_depth_limit", lambda: self.bridge.find_objects(
+                name_contains="SearchTitle", layer_name="SearchArtwork", max_depth=1,
+            ))
+            self.assertEqual(depth_limited["incomplete_reasons"], ["max_depth"])
+            scan_limited = self._step("find_scan_limit", lambda: self.bridge.find_objects(max_scan=1))
+            self.assertEqual(scan_limited["scanned_entries"], 1)
+            self.assertEqual(scan_limited["incomplete_reasons"], ["max_scan"])
+
+            self.assertTrue(self.bridge._same_com_object(doc.ActivePage, back))
+            self.assertTrue(self.bridge._same_com_object(doc.ActivePage.ActiveLayer, back_layer))
+            self.assertEqual((doc.Unit, doc.ReferencePoint, doc.Dirty), (original_unit, original_reference, original_dirty))
+            selection = [
+                int(self.bridge._collection_item(doc.SelectionRange, i).StaticID)
+                for i in range(1, int(doc.SelectionRange.Count) + 1)
+            ]
+            self.assertEqual(selection, original_selection)
+
+            readback_path = self.output_dir / "find-objects-readback.json"
+            with readback_path.open("x", encoding="utf-8") as handle:
+                json.dump({
+                    "all_pages": all_matches, "scoped": scoped, "top_level": top_level,
+                    "result_limit": limited, "depth_limit": depth_limited, "scan_limit": scan_limited,
+                }, handle, indent=2)
+                handle.write("\n")
+            self._step("retain_search_readback", lambda: {"path": str(readback_path), "bytes": readback_path.stat().st_size})
+            saved = self._step("save_disposable_search_document", lambda: self.bridge.save_document(
+                str(self.output_dir / "disposable-object-search.cdr"),
+            ))
+            self.assertGreater(saved["bytes"], 0)
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            self._close_saved_target_if_needed()
+            self._write_report(passed, failure)
 
     def test_align_and_group_live(self) -> None:
         passed = False

@@ -127,6 +127,35 @@ class ServerContractTests(unittest.TestCase):
         self.assertFalse(bad_batch["ok"])
         self.assertEqual(bad_batch["error"]["code"], "INVALID_ARGUMENT")
 
+    def test_find_objects_dispatches_every_filter_and_limit(self) -> None:
+        fake = _FakeDispatcher({"document_name": "Target.cdr", "matches": []})
+        server.dispatcher = fake
+
+        result = server.find_objects("title", 6, "Member", 2, "Artwork", 5, False, True, 3, 25)
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["tool"], "find_objects")
+        self.assertEqual(result["target_document"], {"name": "Target.cdr"})
+        self.assertEqual(fake.calls, [
+            ("find_objects", ("title", 6, "Member", 2, "Artwork", 5, False, True, 3, 25), {})
+        ])
+
+    def test_find_objects_preserves_incomplete_results_and_stable_errors(self) -> None:
+        fake = _FakeDispatcher({
+            "matches": [], "truncated": True, "incomplete_reasons": ["max_scan"],
+        })
+        server.dispatcher = fake
+        result = server.find_objects(max_scan=1)
+        self.assertTrue(result["ok"])
+        self.assertTrue(result["data"]["truncated"])
+        self.assertEqual(result["data"]["incomplete_reasons"], ["max_scan"])
+
+        fake.error = CorelBridgeError("No target is bound.", ErrorCode.NO_TARGET_DOCUMENT)
+        result = server.find_objects()
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["error"]["code"], "NO_TARGET_DOCUMENT")
+        self.assertIsNone(result["data"])
+
     def test_create_chest_number_batch_dispatches(self) -> None:
         fake = _FakeDispatcher({"created": True, "created_count": 2})
         server.dispatcher = fake

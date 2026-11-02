@@ -382,7 +382,7 @@ These are the next reviewable tickets:
 | 3 | DP-003 | Extend fake-COM execution/readback tests | All element types, styling, and discrepancies covered |
 | 4 | DP-004 | Prove and report rollback behavior | Forced failure has verified post-state |
 | 5 | DP-005 | Run guarded disposable design-plan test | Dated report and editable CDR produced |
-| 6 | INS-001 | Implement bounded `find_objects` | Duplicate/nested selectors deterministic |
+| 6 | INS-001 | Bounded `find_objects` implemented; disposable X7 gate prepared | Duplicate/nested results deterministic in fake-COM tests; live gate pending |
 | 7 | INS-002 | Implement text, bounds, and fill inspection | Requested and actual properties returned |
 | 8 | ID-001 | Detect stale document/object references | No fallback to a different active target |
 | 9 | SAFE-001 | Add redacted operation records | No secrets/content on MCP stdout |
@@ -390,7 +390,10 @@ These are the next reviewable tickets:
 
 DP-001 through DP-005 now pass their automated and disposable-X7 gates. Manual review of the
 dated design-plan CDR remains pending, so the tools retain `implemented_unverified` status.
-`INS-001` is the next implementation ticket.
+`INS-001` now passes its default tests and catalog/schema gates; the prepared
+disposable-X7 search gate remains pending. Its IDs/paths remain inspection-only.
+`INS-002` (focused property inspection) and `ID-001` (stale references) are the
+next implementation tickets. See [OBJECT_SEARCH.md](OBJECT_SEARCH.md).
 
 Do not begin broad typography, visual AI, or additional batch types until tickets 1–10 pass
 their gates.

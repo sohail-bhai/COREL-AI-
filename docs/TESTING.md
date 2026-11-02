@@ -11,8 +11,8 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 175 tests
-OK (skipped=6)
+Ran 221 tests
+OK (skipped=7)
 ```
 
 Coverage includes:
@@ -30,6 +30,9 @@ Coverage includes:
 - document/page, primitive/text bounds, text-format, and PDF-file readback using fake COM objects;
 - native RGB/fill/outline readback plus StaticID/layer/page identity for list, rename, duplicate, and import operations;
 - read-only document, page, layer, and single-object inspection using fake multi-document COM collections;
+- bounded literal object search across pages/layers/groups, duplicate names,
+  master locations, Unicode filters, exact scan/result limits, cycle detection,
+  non-mutating inspection, and strict actual-result schemas using fake COM;
 - canonical design-plan schema/domain validation, asset preflight, preview readiness, actual-state readback, sanitized failures, command-group cleanup, and verified rollback;
 - alignment and grouping validation/dispatch with guarded disposable-document live gates;
 - contour routing/planning plus fingerprint-gated source-preserving imposition, new-page output, independent repeat groups, source-change rejection, and output-page-only rollback using fake COM objects;
@@ -71,6 +74,19 @@ $env:COREL_LIVE_MUTATION_TESTS = "1"
 ```
 
 This test creates and binds its own new document before exercising the existing editing operations. It uses a unique directory beneath the operating system's `opencode` temporary directory, refuses output overwrites through the bridge, and writes a dated report under `docs/test-reports/`. Generated CDR, PDF, and SVG artifacts remain outside the repository for manual review.
+
+The prepared object-search gate creates a new two-page synthetic document with
+duplicate text names and nested groups. It verifies page/layer/type/text scope,
+depth/result/scan limits, stable repeated inspection, and unchanged active
+page/layer, selection, units, reference point, and dirty state. It retains CDR
+artwork, JSON readback, and a dated report. It remains skipped by default and
+must be explicitly enabled with both flags:
+
+```powershell
+$env:COREL_LIVE_TESTS = "1"
+$env:COREL_LIVE_MUTATION_TESTS = "1"
+.\.venv\Scripts\python.exe -m unittest tests.integration.test_corel_live.CorelDisposableDocumentLiveTests.test_find_objects_live -v
+```
 
 Run only the source-preserving imposition gate with:
 

@@ -2,7 +2,7 @@
   "registry_schema_version": 1,
   "tool_schema_version": 1,
   "json_schema_dialect": "https://json-schema.org/draft/2020-12/schema",
-  "catalog_revision": "2026-11-01",
+  "catalog_revision": "2026-11-02",
   "profile_id": "coreldraw-x7-17",
   "status_values": [
     "planned",
@@ -1664,7 +1664,11 @@
     "find_objects": {
       "request": {
         "name_contains": "title",
-        "max_results": 100
+        "shape_type_code": 6,
+        "page_index": 1,
+        "layer_name": "Artwork",
+        "max_results": 100,
+        "include_nested": true
       },
       "success": {
         "ok": true,
@@ -1672,10 +1676,53 @@
         "bridge_version": "0.6.0",
         "tool_schema_version": 1,
         "profile_id": "coreldraw-x7-17",
-        "target_document": null,
+        "target_document": {
+          "name": "Target.cdr"
+        },
         "data": {
-          "matches": [],
-          "truncated": false
+          "document_name": "Target.cdr",
+          "document_session_id": "doc-0001",
+          "matches": [
+            {
+              "object_name": "TITLE",
+              "name_truncated": false,
+              "static_id": 101,
+              "object_id": "doc-0001:shape:101",
+              "shape_type_code": 6,
+              "page_index": 1,
+              "layer_index": 1,
+              "layer_name": "Artwork",
+              "layer_name_truncated": false,
+              "group_depth": 0,
+              "shape_path": [
+                1
+              ],
+              "text_preview": "Member Alice",
+              "text_truncated": false
+            },
+            {
+              "object_name": "TITLE",
+              "name_truncated": false,
+              "static_id": 103,
+              "object_id": "doc-0001:shape:103",
+              "shape_type_code": 6,
+              "page_index": 1,
+              "layer_index": 1,
+              "layer_name": "Artwork",
+              "layer_name_truncated": false,
+              "group_depth": 1,
+              "shape_path": [
+                2,
+                1
+              ],
+              "text_preview": "Member Bob",
+              "text_truncated": false
+            }
+          ],
+          "truncated": false,
+          "incomplete_reasons": [],
+          "scanned_objects": 5,
+          "scanned_entries": 8
         },
         "warnings": [],
         "error": null,
@@ -5332,35 +5379,73 @@
     {
       "name": "find_objects",
       "category": "object_inspection",
-      "description": "Search target-document objects using allowlisted criteria and return stable summaries without changing selection.",
+      "description": "Read-only, bounded literal search on the bound document with explicit page/layer scope and deterministic nested-group paths. Duplicate names are retained.",
       "implementation": {
-        "state": "planned"
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.find_objects"
       },
       "input_schema": {
         "type": "object",
         "properties": {
           "name_contains": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 256,
+            "default": ""
           },
           "shape_type_code": {
-            "type": "integer",
-            "minimum": 0
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "default": null
           },
           "text_contains": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 1024,
+            "default": ""
           },
           "page_index": {
-            "type": "integer",
-            "minimum": 1
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "default": null
+          },
+          "layer_name": {
+            "type": "string",
+            "maxLength": 256,
+            "default": ""
           },
           "max_results": {
             "type": "integer",
             "minimum": 1,
             "maximum": 1000,
             "default": 100
+          },
+          "include_nested": {
+            "type": "boolean",
+            "default": true
+          },
+          "case_sensitive": {
+            "type": "boolean",
+            "default": false
+          },
+          "max_depth": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 16,
+            "default": 8
+          },
+          "max_scan": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "default": 5000
           }
         },
-        "minProperties": 1,
         "additionalProperties": false
       },
       "output_schema": {
@@ -5384,18 +5469,135 @@
                 "data": {
                   "type": "object",
                   "required": [
+                    "document_name",
+                    "document_session_id",
                     "matches",
-                    "truncated"
+                    "truncated",
+                    "incomplete_reasons",
+                    "scanned_objects",
+                    "scanned_entries"
                   ],
                   "properties": {
+                    "document_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "document_session_id": {
+                      "type": "string"
+                    },
                     "matches": {
                       "type": "array",
+                      "maxItems": 1000,
                       "items": {
-                        "type": "object"
+                        "type": "object",
+                        "required": [
+                          "object_name",
+                          "name_truncated",
+                          "static_id",
+                          "object_id",
+                          "shape_type_code",
+                          "page_index",
+                          "layer_index",
+                          "layer_name",
+                          "layer_name_truncated",
+                          "group_depth",
+                          "shape_path",
+                          "text_preview",
+                          "text_truncated"
+                        ],
+                        "properties": {
+                          "object_name": {
+                            "type": "string",
+                            "maxLength": 256
+                          },
+                          "name_truncated": {
+                            "type": "boolean"
+                          },
+                          "static_id": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "object_id": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "shape_type_code": {
+                            "type": "integer"
+                          },
+                          "page_index": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "layer_index": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "layer_name": {
+                            "type": "string",
+                            "maxLength": 256
+                          },
+                          "layer_name_truncated": {
+                            "type": "boolean"
+                          },
+                          "group_depth": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 16
+                          },
+                          "shape_path": {
+                            "type": "array",
+                            "minItems": 1,
+                            "maxItems": 17,
+                            "items": {
+                              "type": "integer",
+                              "minimum": 1
+                            }
+                          },
+                          "text_preview": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "maxLength": 160
+                          },
+                          "text_truncated": {
+                            "type": "boolean"
+                          }
+                        },
+                        "additionalProperties": false
                       }
                     },
                     "truncated": {
                       "type": "boolean"
+                    },
+                    "incomplete_reasons": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "max_results",
+                          "max_scan",
+                          "max_depth",
+                          "cycle"
+                        ]
+                      }
+                    },
+                    "scanned_objects": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 10000
+                    },
+                    "scanned_entries": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 10000
                     }
                   },
                   "additionalProperties": false
@@ -5408,26 +5610,45 @@
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_but_target_must_be_bound",
-      "priority": "P1",
+      "priority": "P0",
       "coreldraw_profiles": [
         "coreldraw-x7-17"
       ],
       "api_requirements": [
-        "Page.Shapes",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Page.Layers",
+        "Layer.Name",
+        "Layer.Shapes",
+        "Shapes.Count",
+        "Shapes.Item",
         "Shape.Name",
         "Shape.Type",
-        "Shape.Text"
+        "Shape.Shapes",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Text.Story",
+        "TextRange.Text"
       ],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_object_search.py",
+          "tests/test_server_contract.py"
+        ]
       },
       "known_limitations": [
-        "CQL will not be exposed until an allowlisted query design is proven safe; initial implementation may enumerate in Python."
+        "Results and StaticID-derived IDs are inspection data only; editing accepts the existing unique-name or explicit active-page index selectors.",
+        "Document session IDs are bridge-local and are not persistent across restart or guaranteed after save/reopen.",
+        "Collection order and group paths describe this inspection and may change after edits; duplicate names are never silently collapsed.",
+        "Master-layer objects can appear once per applicable page with the same StaticID and distinct page locations.",
+        "Only cdrGroupShape children are traversed; PowerClip, symbols, and other container types are outside this scope.",
+        "max_scan counts page, layer, and shape visits; inspect truncated and incomplete_reasons before treating absence or result counts as complete.",
+        "All-page nested search and StaticID behavior still require a guarded disposable X7 live test."
       ],
-      "planned_phase": 2,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": "0.7.0-dev"
     },
     {
       "name": "get_text_properties",

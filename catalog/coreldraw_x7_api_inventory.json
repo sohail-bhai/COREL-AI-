@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": "2026-11-01",
+  "catalog_revision": "2026-11-02",
   "profile": {
     "profile_id": "coreldraw-x7-17",
     "product": "CorelDRAW Graphics Suite X7",
@@ -877,6 +877,19 @@
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.StaticID",
       "live_test_status": "unique_within_live_imposition_run_2026-11-01",
       "notes": ["Four imposed groups returned distinct StaticIDs in one disposable X7 run; persistence across save/reopen remains unverified."]
+    },
+    {
+      "id": "Shape.Shapes",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read",
+      "signature": "Shapes -> Shapes collection of group children",
+      "status": "typelib_confirmed",
+      "used_by": ["find_objects", "inspect_repeat_unit", "prepare_imposition_job"],
+      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Shapes",
+      "live_test_status": "not_run_for_find_objects",
+      "notes": ["IVGShape.Shapes property-get existence was confirmed by read-only type-library inspection on 2026-11-02; nested search behavior remains unverified live."]
     },
     {
       "id": "Shape.Layer",

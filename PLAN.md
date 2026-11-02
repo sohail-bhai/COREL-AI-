@@ -28,10 +28,10 @@ The implementation must remain evidence-based. A CorelDRAW operation is not cons
 | MCP connection | Antigravity reportedly called `corel_status` successfully |
 | COM threading | One dedicated serialized COM worker thread is implemented |
 | Document safety | New bridge-created documents are the default target; existing documents require explicit binding |
-| Existing MCP surface | 40 tools are registered, including design plans, print imposition, contour nesting, and unified imposition orchestration |
+| Existing MCP surface | 41 tools are registered, including bounded object search, design plans, print imposition, contour nesting, and unified imposition orchestration |
 | Historically demonstrated operations | Status, document creation, rectangle, editable text, and CDR save |
 | Remaining v0.5 operations | Implemented but mostly not verified live |
-| Automated tests | 175 tests pass; six guarded live gates are skipped by default |
+| Automated tests | 221 tests run successfully; seven guarded live gates are skipped by default |
 | Capability inventory | Evidence-backed registry, capability matrix, enum reference, API inventory, and schema validation are present |
 | Advanced workflows | Design plans, batches, raster print planning, best-fit N-up, paired-row contour nesting, and fingerprint-gated source-preserving imposition are implemented at varying verification levels |
 
@@ -242,7 +242,7 @@ Implement the read layer needed for reliable planning and correction:
 - [x] `list_layers`
 - [ ] `get_layer_info`
 - [x] `get_object_info`
-- [ ] `find_objects`
+- [x] `find_objects` — bounded scoped/group inspection implemented; disposable X7 live gate pending
 - [ ] `get_object_bounds`
 - [ ] `get_text_properties`
 - [ ] `get_fill`
@@ -373,7 +373,7 @@ Work should begin with these small batches:
 | 4 | X7 adapter and diagnostics | Complete | Version-specific connection, runtime details, centralized verified constants |
 | 5 | Existing-tool hardening | Complete | P0 creation/PDF and appearance/identity readback complete |
 | 6 | Guarded live regression | Complete | Executed against CorelDRAW X7 17.0.0.491 on disposable document; all operations passed; report in docs/test-reports/ |
-| 7 | Inspection vertical slice | In progress | Six document/page/layer/single-object tools implemented with unit tests |
+| 7 | Inspection vertical slice | In progress | Seven document/page/layer/object inspection tools implemented with unit tests; scoped nested search live gate pending |
 | 8 | First workflow vertical slice | Complete | Read-only sheet layout and chest-number sequence planning implemented and verified with 100% unit tests |
 | 9 | Mutating batch creation (Option A) | Complete | `create_chest_number_batch` implemented, unit tested, and verified live on CorelDRAW X7 disposable document |
 | 10 | Structured design plan engine (Option B) | Complete | High-value, deep-detail design plan engine with validation, preview, transactional CommandGroup execution, atomic Undo rollback, and live X7 verification |

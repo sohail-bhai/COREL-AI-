@@ -8,6 +8,12 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Bounded read-only `find_objects` (INS-001) with literal name/text/type filters,
+  explicit page/layer scope, deterministic nested-group paths, duplicate-name
+  retention, scan/depth/result completeness reporting, bounded summaries, and
+  stable validation/COM errors. Registry schemas, adapter metadata, 20 focused
+  fake-COM tests, dispatcher coverage, and a guarded disposable X7 gate are
+  included; live search verification remains pending.
 - Alhamdulillah vector-recreation V2 reference foundation with bounded image
   preflight, source hashing, exact-A4 perspective rectification, reversible
   pixel-to-Corel transforms, measured inner-field margins, non-overwriting

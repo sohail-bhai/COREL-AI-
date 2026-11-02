@@ -53,6 +53,7 @@ class CorelX7Adapter:
     CDR_FALSE = 0
     CDR_TRUE = -1
     CDR_GROUP_SHAPE = 7
+    CDR_TEXT_SHAPE = 6
 
     CDR_ALIGN_DISTRIBUTE_H_NONE = 0
     CDR_ALIGN_DISTRIBUTE_H_ALIGN_RIGHT = 1
@@ -170,6 +171,12 @@ class CorelX7Adapter:
             "implemented_unverified",
             "Shape identity, geometry, text, fill, and outline members are available; nesting remains limited.",
             ("Shape.Name", "Shape.StaticID", "Shape.Fill", "Shape.Outline"),
+        ),
+        "object.find": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Bounded page/layer/group enumeration uses X7-confirmed members; live search behavior remains unverified.",
+            ("Page.AllLayers", "Layer.Shapes", "Shape.Shapes", "Shape.StaticID", "TextRange.Text"),
         ),
         "document.create": CapabilitySupport(
             True,

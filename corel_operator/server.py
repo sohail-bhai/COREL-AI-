@@ -140,6 +140,27 @@ def get_object_info(object_name: str = "", shape_index: int = 0) -> dict:
 
 
 @mcp.tool()
+def find_objects(
+    name_contains: str = "", shape_type_code: int | None = None,
+    text_contains: str = "", page_index: int | None = None,
+    layer_name: str = "", max_results: int = 100, include_nested: bool = True,
+    case_sensitive: bool = False, max_depth: int = 8, max_scan: int = 5000,
+) -> dict:
+    """Search the bound document by literal name/text, type, page, or layer; never select or edit.
+
+    A null page_index searches all pages. Filters combine with AND. Layer names
+    match exactly; name/text filters match substrings. Results retain duplicates
+    and include group paths. Check truncated/incomplete_reasons before treating
+    a search as complete. Returned IDs/paths are inspection data, not edit selectors.
+    """
+    return _tool(
+        "find_objects", "find_objects", name_contains, shape_type_code,
+        text_contains, page_index, layer_name, max_results, include_nested,
+        case_sensitive, max_depth, max_scan,
+    )
+
+
+@mcp.tool()
 def create_document(width_inches: float = 8.27, height_inches: float = 11.69) -> dict:
     """Create and bind a new target document. Subsequent edits/save target this document even if another window is activated."""
     return _tool("create_document", "create_document", width_inches, height_inches)
