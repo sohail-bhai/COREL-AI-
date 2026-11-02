@@ -1,11 +1,18 @@
 # CorelDRAW AI Operator — Implementation Plan
 
 **Plan date:** 2026-10-30  
-**Roadmap revision:** 2026-11-01
+**Roadmap revision:** 2026-11-02
 **Target application:** CorelDRAW Graphics Suite X7, version 17.0.0.491  
 **Primary runtime:** Windows 11, Python 3.11, MCP SDK v1  
 **Product stage:** Working proof of concept entering stabilization  
 **Product contract:** `ANTIGRAVITY_MASTER_SPEC.md`
+
+**Active priorities (2026-11-02):** Common editing, layout, reusable templates,
+and print production follow
+[`docs/CURRENT_IMPLEMENTATION_PRIORITIES.md`](docs/CURRENT_IMPLEMENTATION_PRIORITIES.md).
+The user deferred custom calligraphy and other-language reconstruction to the
+future backlog. Alhamdulillah V2 remains a retained intermediate checkpoint;
+its remaining visual gates do not block common-work development.
 
 ## 1. Objective
 

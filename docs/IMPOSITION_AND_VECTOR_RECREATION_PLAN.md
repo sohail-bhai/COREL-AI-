@@ -5,6 +5,12 @@
 **Clients:** Antigravity, OpenCode, and other approved MCP clients  
 **Status:** Approved roadmap; A0–A2 straight-contour X7 gate passed on 2026-11-01, manual CDR and curved-contour review pending
 
+**Priority update — 2026-11-02:**
+[`CURRENT_IMPLEMENTATION_PRIORITIES.md`](CURRENT_IMPLEMENTATION_PRIORITIES.md)
+defines the active delivery order. Common editing, templates, batches, and
+imposition take priority. Custom calligraphy and other-language reconstruction
+are future backlog work; the reconstruction order below is not the active queue.
+
 ### Implementation checkpoint — 2026-11-01
 
 - `prepare_imposition_job` now owns classify/plan/approve/execute routing for selected vector repeats.

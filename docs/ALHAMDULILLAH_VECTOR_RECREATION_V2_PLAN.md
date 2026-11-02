@@ -1,5 +1,17 @@
 # Alhamdulillah A4 Vector Recreation — V2 Fidelity Plan
 
+## Priority status — deferred by the user on 2026-11-02
+
+The user reviewed the current result and moved custom calligraphy and
+other-language reconstruction into the future backlog. Preserve the V1/V2
+artifacts, measurements, code, and validation reports. The automated Phase 3
+result remains a checkpoint requiring visual review, not final approval.
+
+Further tracing, English matching, lighting, and fidelity correction for this
+artwork are outside the active queue. Resume this plan only when the user
+requests it. Common-work priorities are maintained in
+[`CURRENT_IMPLEMENTATION_PRIORITIES.md`](CURRENT_IMPLEMENTATION_PRIORITIES.md).
+
 ## Goal
 
 Rebuild the supplied photographed design as a clean A4 landscape CorelDRAW

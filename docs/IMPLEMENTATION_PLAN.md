@@ -7,6 +7,13 @@
 - **Strategic reference:** `PLAN.md`
 - **Product contract:** `ANTIGRAVITY_MASTER_SPEC.md`
 
+**Priority update — 2026-11-02:** Follow
+[`CURRENT_IMPLEMENTATION_PRIORITIES.md`](CURRENT_IMPLEMENTATION_PRIORITIES.md)
+for the active delivery order: inspection and common-operation verification,
+recovery, everyday text/layout, templates/batches, then print production.
+Custom calligraphy and other-language reconstruction are deferred by the user;
+the milestones below remain technical references and safety gates.
+
 ## 1. Purpose
 
 This is the operational plan for the next implementation stages. `PLAN.md` remains the
