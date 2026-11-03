@@ -827,6 +827,43 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self._close_saved_target_if_needed()
             self._write_report(passed, failure)
 
+    def test_closed_document_guard_live(self) -> None:
+        """Close one owned fixture and prove an edit cannot reach the other one."""
+        passed = False
+        failure: str | None = None
+        try:
+            self.status = self._step("connect / corel_status", self.bridge.connect)
+            self._step("create_first_fixture", lambda: self.bridge.create_document(8.5, 11.0))
+            first = self.bridge.target_doc
+            self._step("save_first_fixture", lambda: self.bridge.save_document(
+                str(self.output_dir / "closed-target.cdr"),
+            ))
+            self._step("create_second_fixture", lambda: self.bridge.create_document(8.5, 11.0))
+            second = self.bridge.target_doc
+            self._step("save_second_fixture", lambda: self.bridge.save_document(
+                str(self.output_dir / "remaining-target.cdr"),
+            ))
+            self.bridge._bind_target_document(first)
+            first.Close()
+            with self.assertRaises(CorelBridgeError) as caught:
+                self.bridge.move_object(1, 2, object_name="MissingSyntheticShape")
+            self.assertEqual(caught.exception.code, ErrorCode.NO_TARGET_DOCUMENT)
+            self.assertIsNone(self.bridge.target_doc)
+            self.assertTrue(self.bridge._same_com_object(self.bridge.app.ActiveDocument, second))
+            self.assertEqual(int(second.ActivePage.Shapes.Count), 0)
+            self.assertFalse(second.Dirty)
+            self._step("verify_closed_target_refusal", lambda: {
+                "error_code": caught.exception.code.value, "remaining_document_unchanged": True,
+            })
+            self.bridge._bind_target_document(second)
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            self._close_saved_target_if_needed()
+            self._write_report(passed, failure)
+
     def test_align_and_group_live(self) -> None:
         passed = False
         failure: str | None = None

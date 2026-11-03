@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 
 from corel_operator.corel_bridge import CorelBridge
+from fake_documents import attach_open_document
 from corel_operator.contour_nesting import (
     classify_imposition_job,
     contours_have_conflicts,
@@ -309,7 +310,7 @@ class ContourNestingTests(unittest.TestCase):
 
     def test_repeat_inspection_returns_conditional_questions(self) -> None:
         bridge = CorelBridge()
-        bridge.target_doc = _Document()
+        attach_open_document(bridge, _Document())
 
         result = bridge.inspect_repeat_unit("Repeat_Unit", "CutContour")
 
@@ -323,7 +324,7 @@ class ContourNestingTests(unittest.TestCase):
             [0, 0], [4, 0], [4, 3], [0, 3],
         ]
         bridge = CorelBridge()
-        bridge.target_doc = document
+        attach_open_document(bridge, document)
 
         result = bridge.inspect_repeat_unit("Repeat_Unit", "CutContour")
 
@@ -335,7 +336,7 @@ class ContourNestingTests(unittest.TestCase):
     def test_execution_keeps_every_repeat_as_an_independent_group(self) -> None:
         bridge = CorelBridge()
         document = _Document()
-        bridge.target_doc = document
+        attach_open_document(bridge, document)
         source = document.ActivePage.Shapes.items[0]
         source_points = [list(point) for point in source.dieline.points]
         _Group(
@@ -373,7 +374,7 @@ class ContourNestingTests(unittest.TestCase):
     def test_orchestrator_plans_then_executes_only_matching_fingerprint(self) -> None:
         bridge = CorelBridge()
         document = _Document()
-        bridge.target_doc = document
+        attach_open_document(bridge, document)
 
         planned = bridge.prepare_imposition_job(
             "Repeat_Unit",
@@ -416,7 +417,7 @@ class ContourNestingTests(unittest.TestCase):
     def test_orchestrator_rejects_changed_source_after_approval(self) -> None:
         bridge = CorelBridge()
         document = _Document()
-        bridge.target_doc = document
+        attach_open_document(bridge, document)
         planned = bridge.prepare_imposition_job(
             "Repeat_Unit", "CutContour", 8, 6, quantity=4, margin_inches=0,
             cutting_method="digital_cutter", allow_180_rotation=True,
@@ -436,7 +437,7 @@ class ContourNestingTests(unittest.TestCase):
 
     def test_orchestrator_asks_rotation_only_when_capacity_improves(self) -> None:
         bridge = CorelBridge()
-        bridge.target_doc = _Document()
+        attach_open_document(bridge, _Document())
 
         result = bridge.prepare_imposition_job(
             "Repeat_Unit", "CutContour", 8, 6, quantity=4, margin_inches=0,
@@ -450,7 +451,7 @@ class ContourNestingTests(unittest.TestCase):
 
     def test_orchestrator_skips_rotation_question_when_capacity_is_unchanged(self) -> None:
         bridge = CorelBridge()
-        bridge.target_doc = _Document()
+        attach_open_document(bridge, _Document())
 
         result = bridge.prepare_imposition_job(
             "Repeat_Unit", "CutContour", 4, 4, quantity=1, margin_inches=0,
@@ -468,7 +469,7 @@ class ContourNestingTests(unittest.TestCase):
             [0, 0], [4, 0], [4, 3], [0, 3],
         ]
         bridge = CorelBridge()
-        bridge.target_doc = document
+        attach_open_document(bridge, document)
 
         result = bridge.prepare_imposition_job(
             "Repeat_Unit", "CutContour", 8, 6, quantity=2, margin_inches=0,
@@ -493,7 +494,7 @@ class ContourNestingTests(unittest.TestCase):
         bridge = CorelBridge()
         document = _Document()
         document.fail_output_position = True
-        bridge.target_doc = document
+        attach_open_document(bridge, document)
         source = document.ActivePage.Shapes.Item(1)
         original_points = [list(point) for point in source.dieline.points]
 

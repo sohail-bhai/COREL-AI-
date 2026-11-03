@@ -8,6 +8,7 @@ from __future__ import annotations
 import math
 import os
 import platform
+import re
 import struct
 from contextlib import contextmanager
 from importlib import metadata
@@ -38,6 +39,7 @@ class CorelBridge:
     CDR_INCH = CorelX7Adapter.CDR_INCH
     CDR_BOTTOM_LEFT = CorelX7Adapter.CDR_BOTTOM_LEFT
     MAX_IMPORT_BYTES = 250 * 1024 * 1024
+    MAX_OPEN_DOCUMENTS = 1000
     ALLOWED_IMPORT_EXTENSIONS = {
         ".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".gif",
         ".svg", ".pdf", ".eps", ".ai", ".wmf", ".emf", ".cmx"
@@ -52,6 +54,8 @@ class CorelBridge:
         self.application_info: dict[str, Any] | None = None
         self._document_sessions: dict[str, str] = {}
         self._next_document_session = 1
+        self._target_application_key: str | None = None
+        self._target_document_key: str | None = None
 
     def connect(self) -> dict[str, Any]:
         if os.name != "nt":
@@ -77,6 +81,9 @@ class CorelBridge:
                     else win32com.client.Dispatch(prog_id)
                 )
                 application_info = self.adapter.validate_application(candidate, prog_id)
+                if self.app is not None and not self._same_com_object(self.app, candidate):
+                    self._invalidate_target_document()
+                    self._document_sessions.clear()
                 self.app = candidate
                 self.prog_id_used = prog_id
                 self.connection_mode = mode
@@ -109,14 +116,75 @@ class CorelBridge:
             return None
 
     def _target_document(self) -> Any:
-        """Return the bridge's bound target, never silently fall back to another active file."""
+        """Verify the bound document is still open in the same application before use."""
+        if self.target_doc is None:
+            raise CorelBridgeError(
+                "No target document is bound. Call create_document for a new file, or explicitly call "
+                "use_active_document(confirm_existing_document=True) to allow editing the current file.",
+                ErrorCode.NO_TARGET_DOCUMENT,
+            )
+        if self.app is None:
+            self._invalidate_target_document()
+            raise CorelBridgeError("The bound application is no longer available.", ErrorCode.NO_TARGET_DOCUMENT)
+        application_key = self._com_identity(self.app, strict=True)
+        if self._target_application_key not in (None, application_key):
+            self._invalidate_target_document()
+            raise CorelBridgeError(
+                "The application changed; explicitly bind a new target document.", ErrorCode.NO_TARGET_DOCUMENT,
+            )
+        document_key = self._com_identity(self.target_doc, strict=True)
+        if self._target_document_key not in (None, document_key):
+            self._invalidate_target_document()
+            raise CorelBridgeError(
+                "The document binding changed without an explicit bind operation.", ErrorCode.NO_TARGET_DOCUMENT,
+            )
+        documents = self._open_document_proxies(self.app)
+        if not any(self._same_com_object(self.target_doc, document, strict=True) for document in documents):
+            self._invalidate_target_document()
+            raise CorelBridgeError(
+                "The bound document was closed or replaced; explicitly bind a new target document.",
+                ErrorCode.NO_TARGET_DOCUMENT,
+            )
+        self._target_application_key = application_key
+        self._target_document_key = document_key
+        return self.target_doc
+
+    def _invalidate_target_document(self) -> None:
         if self.target_doc is not None:
-            return self.target_doc
-        raise CorelBridgeError(
-            "No target document is bound. Call create_document for a new file, or explicitly call "
-            "use_active_document(confirm_existing_document=True) to allow editing the current file.",
-            ErrorCode.NO_TARGET_DOCUMENT,
-        )
+            key = self._target_document_key or self._com_identity(self.target_doc)
+            self._document_sessions.pop(key, None)
+        self.target_doc = None
+        self._target_application_key = None
+        self._target_document_key = None
+
+    def _bind_target_document(self, document: Any, new_document: bool = False) -> None:
+        try:
+            application_key = self._com_identity(self.app, strict=True)
+            document_key = self._com_identity(document, strict=True)
+        except CorelBridgeError:
+            self._invalidate_target_document()
+            raise
+        self.target_doc = document
+        self._target_application_key = application_key
+        self._target_document_key = document_key
+        if new_document:
+            self._document_sessions.pop(self._target_document_key, None)
+        self._target_document()
+        self._document_session_id(document)
+
+    def _open_document_proxies(self, app: Any) -> list[Any]:
+        try:
+            collection = app.Documents
+            count = int(collection.Count)
+            if not 0 <= count <= self.MAX_OPEN_DOCUMENTS:
+                raise ValueError("Document enumeration limit")
+            return [self._collection_item(collection, index) for index in range(1, count + 1)]
+        except Exception as exc:
+            raise CorelBridgeError(
+                "Could not verify open documents; the bound target has not been used. "
+                "Document inspection is limited to 1000 open documents.",
+                ErrorCode.COREL_COM_ERROR,
+            ) from exc
 
     def use_active_document(self, confirm_existing_document: bool) -> dict[str, Any]:
         if confirm_existing_document is not True:
@@ -130,7 +198,7 @@ class CorelBridge:
                 "CorelDRAW has no active document to bind.",
                 ErrorCode.NO_TARGET_DOCUMENT,
             )
-        self.target_doc = doc
+        self._bind_target_document(doc)
         return {
             "bound": True,
             "target_document_name": _safe_attr(doc, "Name"),
@@ -325,6 +393,12 @@ class CorelBridge:
 
     def status(self) -> dict[str, Any]:
         app = self._require_app()
+        if self.target_doc is not None:
+            try:
+                self._target_document()
+            except CorelBridgeError as exc:
+                if exc.code != ErrorCode.NO_TARGET_DOCUMENT:
+                    raise
         info: dict[str, Any] = {
             "connected": True,
             "bridge_version": BRIDGE_VERSION,
@@ -377,21 +451,54 @@ class CorelBridge:
         return info
 
     @staticmethod
-    def _com_identity(value: Any) -> str:
+    def _com_identity(value: Any, strict: bool = False) -> str:
         """Return a process-local identity key without changing COM selection or focus."""
         ole = _safe_attr(value, "_oleobj_")
         if ole is not None:
+            query_interface = _safe_attr(ole, "QueryInterface")
+            if callable(query_interface):
+                try:
+                    import pythoncom  # type: ignore
+
+                    unknown = query_interface(pythoncom.IID_IUnknown)
+                    # pywin32 documents repr as wrapper address plus attached IUnknown
+                    # address. PyIUnknown is unhashable and has no GetIUnknown method.
+                    match = re.search(r"with obj at (0x[0-9a-fA-F]+)>", repr(unknown))
+                    if match is None:
+                        raise ValueError("Unsupported IUnknown representation")
+                    return f"iunknown:{int(match.group(1), 16)}"
+                except Exception as exc:
+                    if strict:
+                        raise CorelBridgeError(
+                            "Could not verify COM object identity.", ErrorCode.COREL_COM_ERROR,
+                        ) from exc
             try:
                 return f"iunknown:{int(ole.GetIUnknown())}"
             except Exception:
                 pass
         return f"python:{id(value)}"
 
-    def _same_com_object(self, left: Any, right: Any) -> bool:
-        return left is not None and right is not None and self._com_identity(left) == self._com_identity(right)
+    def _same_com_object(self, left: Any, right: Any, strict: bool = False) -> bool:
+        if left is None or right is None:
+            return False
+        if left is right:
+            return True
+        left_ole, right_ole = _safe_attr(left, "_oleobj_"), _safe_attr(right, "_oleobj_")
+        if callable(_safe_attr(left_ole, "QueryInterface")) and callable(_safe_attr(right_ole, "QueryInterface")):
+            try:
+                import pythoncom  # type: ignore
+
+                return bool(left_ole.QueryInterface(pythoncom.IID_IUnknown) == right_ole.QueryInterface(pythoncom.IID_IUnknown))
+            except Exception as exc:
+                if strict:
+                    raise CorelBridgeError(
+                        "Could not compare COM object identity.", ErrorCode.COREL_COM_ERROR,
+                    ) from exc
+                return False
+        return self._com_identity(left, strict=strict) == self._com_identity(right, strict=strict)
 
     def _document_session_id(self, document: Any) -> str:
-        key = self._com_identity(document)
+        key = self._com_identity(document, strict=True)
         session_id = self._document_sessions.get(key)
         if session_id is None:
             session_id = f"doc-{self._next_document_session:04d}"
@@ -438,11 +545,18 @@ class CorelBridge:
 
     def list_open_documents(self) -> dict[str, Any]:
         app = self._require_app()
-        documents = app.Documents
+        documents = self._open_document_proxies(app)
+        open_keys = {self._com_identity(document, strict=True) for document in documents}
+        if self.target_doc is not None and (
+            self._com_identity(self.target_doc) not in open_keys
+            or self._target_application_key not in (None, self._com_identity(app))
+        ):
+            self._invalidate_target_document()
+        for key in set(self._document_sessions) - open_keys:
+            self._document_sessions.pop(key, None)
         active = self._active_document()
         result = []
-        for index in range(1, int(documents.Count) + 1):
-            document = self._collection_item(documents, index)
+        for index, document in enumerate(documents, start=1):
             summary = self._document_summary(document, active, self.target_doc)
             summary["collection_index"] = index
             result.append(summary)
@@ -871,7 +985,7 @@ class CorelBridge:
                 doc.Activate()
             except Exception:
                 pass
-            self.target_doc = doc
+            self._bind_target_document(doc, new_document=True)
         except Exception as exc:
             raise CorelBridgeError(
                 "CorelDRAW X7 could not create/size/bind the document. Full COM error: " + str(exc)

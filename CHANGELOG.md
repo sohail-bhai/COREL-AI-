@@ -8,6 +8,14 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Bound-document liveness for ID-001: targeted operations verify bounded open
+  document membership and application identity, clear closed/replaced bindings,
+  retire stale sessions, and refuse unreadable/oversized collections before
+  editing. Twenty-four fake-COM tests and a deferred two-document X7 gate are
+  included. Native identity now uses the installed pywin32 IUnknown representation
+  and equality rather than an unavailable getter; a generic COM smoke check
+  confirms proxy stability without starting Corel. Composite object references
+  remain the next identity portion.
 - Focused read-only object inspection (INS-002): `get_object_bounds`,
   `get_text_properties`, and `get_fill` with strict active-page selectors,
   bounded story/identity/color output, explicit unavailable/indeterminate

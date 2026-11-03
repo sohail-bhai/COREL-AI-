@@ -3,6 +3,8 @@ from __future__ import annotations
 import os
 import tempfile
 import unittest
+
+from fake_documents import attach_open_document
 from pathlib import Path
 
 from corel_operator.corel_bridge import CorelBridge
@@ -16,7 +18,7 @@ TEMP_ROOT.mkdir(parents=True, exist_ok=True)
 class PathSafetyTests(unittest.TestCase):
     def setUp(self) -> None:
         self.bridge = CorelBridge()
-        self.bridge.target_doc = object()
+        attach_open_document(self.bridge, object())
 
     def assert_code(self, expected: ErrorCode, function, *args) -> None:
         with self.assertRaises(CorelBridgeError) as context:

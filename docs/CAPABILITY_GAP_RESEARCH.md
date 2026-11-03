@@ -34,7 +34,7 @@ is a requirements reference, not X7 automation evidence.
 
 | Workflow family | Current coverage | Missing behavior and implementation target |
 |---|---|---|
-| Reliable targeting | Explicit document binding; bounded search; unique-name checks | Detect closed/replaced documents and stale objects; session-scoped references; safe refusal |
+| Reliable targeting | Explicit binding; bounded search; unique-name checks; implemented open-document liveness guard | Session-scoped object references and stale-object refusal |
 | Recovery and records | Serialized STA; verified fake rollback in selected workflows | Redacted operation records; explicit busy/timeout/unknown-state handling; safe reconciliation |
 | Document/page/layer work | New document, inspect pages/layers, CDR save | Controlled open/close, page management, editable/visible layers, source checkpoints |
 | Everyday typography | Artistic text creation/replacement; aggregate inspection | Paragraph frames, font/size/style/alignment revisions, spacing, overflow and font checks |

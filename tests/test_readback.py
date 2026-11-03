@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import tempfile
 import unittest
+
+from fake_documents import attach_open_document
 from pathlib import Path
 
 from corel_operator.corel_bridge import CorelBridge
@@ -111,7 +113,7 @@ class ActualReadbackTests(unittest.TestCase):
     def setUp(self) -> None:
         self.bridge = CorelBridge()
         self.document = _Document()
-        self.bridge.target_doc = self.document
+        attach_open_document(self.bridge, self.document)
 
     def test_rectangle_returns_actual_bounds_and_restores_document_state(self) -> None:
         result = self.bridge.draw_rectangle(1, 2, 3, 4, "panel")
@@ -152,7 +154,7 @@ class ActualReadbackTests(unittest.TestCase):
     def test_pdf_export_verifies_nonempty_output(self) -> None:
         with tempfile.TemporaryDirectory(dir=TEMP_ROOT) as directory:
             path = Path(directory) / "preview.pdf"
-            self.bridge.target_doc = _PublishingDocument(b"%PDF-test")
+            attach_open_document(self.bridge, _PublishingDocument(b"%PDF-test"))
 
             result = self.bridge.export_pdf(str(path))
 
@@ -163,7 +165,7 @@ class ActualReadbackTests(unittest.TestCase):
     def test_pdf_export_rejects_missing_output(self) -> None:
         with tempfile.TemporaryDirectory(dir=TEMP_ROOT) as directory:
             path = Path(directory) / "missing.pdf"
-            self.bridge.target_doc = _PublishingDocument(None)
+            attach_open_document(self.bridge, _PublishingDocument(None))
 
             with self.assertRaises(CorelBridgeError) as context:
                 self.bridge.export_pdf(str(path))
@@ -174,7 +176,7 @@ class ActualReadbackTests(unittest.TestCase):
     def test_pdf_export_rejects_empty_output(self) -> None:
         with tempfile.TemporaryDirectory(dir=TEMP_ROOT) as directory:
             path = Path(directory) / "empty.pdf"
-            self.bridge.target_doc = _PublishingDocument(b"")
+            attach_open_document(self.bridge, _PublishingDocument(b""))
 
             with self.assertRaises(CorelBridgeError) as context:
                 self.bridge.export_pdf(str(path))

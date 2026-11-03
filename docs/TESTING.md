@@ -11,8 +11,8 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 256 tests
-OK (skipped=8)
+Ran 281 tests
+OK (skipped=9)
 ```
 
 Coverage includes:
@@ -23,6 +23,8 @@ Coverage includes:
 - bridge argument validation and stable error codes;
 - inch-unit and reference-point context restoration;
 - protected target-document behavior using fake COM objects;
+- closed/replaced/lost-document and application detection using bounded open
+  collections, COM proxy identity, retired sessions, and rejection before edits;
 - import extension/size checks and output overwrite refusal;
 - dedicated dispatcher-thread execution, exception propagation, and shutdown;
 - explicit X7 ProgID preference, generic fallback, and wrong-major rejection;
@@ -109,6 +111,15 @@ authorization:
 $env:COREL_LIVE_TESTS = "1"
 $env:COREL_LIVE_MUTATION_TESTS = "1"
 .\.venv\Scripts\python.exe -m unittest tests.integration.test_corel_live.CorelDisposableDocumentLiveTests.test_focused_object_inspection_live -v
+```
+
+The closed-document guard gate creates and saves two owned synthetic documents,
+closes the bound one, and verifies edit refusal with the other unchanged:
+
+```powershell
+$env:COREL_LIVE_TESTS = "1"
+$env:COREL_LIVE_MUTATION_TESTS = "1"
+.\.venv\Scripts\python.exe -m unittest tests.integration.test_corel_live.CorelDisposableDocumentLiveTests.test_closed_document_guard_live -v
 ```
 
 Run only the source-preserving imposition gate with:

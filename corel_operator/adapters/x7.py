@@ -145,8 +145,8 @@ class CorelX7Adapter:
         "document.inspect": CapabilitySupport(
             True,
             "implemented_unverified",
-            "Document identity, state, units, pages, and active-page members are type-library confirmed.",
-            ("Document.Name", "Document.Dirty", "Document.Pages", "Document.ActivePage"),
+            "Document state members are confirmed; bounded open-document identity guards detect stale bindings in fake-COM tests.",
+            ("Application.Documents", "Document.Name", "Document.Dirty", "Document.Pages", "Document.ActivePage"),
         ),
         "page.list": CapabilitySupport(
             True,
@@ -205,8 +205,8 @@ class CorelX7Adapter:
         "document.bind_active": CapabilitySupport(
             True,
             "implemented_unverified",
-            "Application.ActiveDocument is available; bridge confirmation remains mandatory.",
-            ("Application.ActiveDocument",),
+            "Active-document binding requires confirmation and live collection membership; runtime lifetime behavior remains unverified.",
+            ("Application.ActiveDocument", "Application.Documents"),
         ),
         "text.create_artistic": CapabilitySupport(
             True,

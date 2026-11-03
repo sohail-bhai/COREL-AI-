@@ -4,6 +4,7 @@ import unittest
 
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
+from fake_documents import OpenDocuments
 
 
 class _FakePage:
@@ -44,10 +45,12 @@ class _FakeApplication:
     def __init__(self, active_document: _FakeDocument | None = None) -> None:
         self.ActiveDocument = active_document
         self.created: list[_FakeDocument] = []
+        self.Documents = OpenDocuments(*([active_document] if active_document is not None else []))
 
     def CreateDocument(self) -> _FakeDocument:
         document = _FakeDocument(f"Graphic{len(self.created) + 1}")
         self.created.append(document)
+        self.Documents.items.append(document)
         return document
 
 

@@ -4,6 +4,7 @@ import unittest
 from typing import Any
 
 from corel_operator.corel_bridge import CorelBridge
+from fake_documents import attach_open_document
 from corel_operator.errors import CorelBridgeError, ErrorCode
 
 
@@ -127,7 +128,7 @@ class AlignAndGroupUnitTests(unittest.TestCase):
         self.doc = _MockDocument(8.5, 11.0)
         self.app = _MockApp(self.doc)
         self.bridge.app = self.app
-        self.bridge.target_doc = self.doc
+        attach_open_document(self.bridge, self.doc)
         self.bridge.target_doc_name = self.doc.Name
 
         # Populate document with shapes

@@ -156,7 +156,7 @@
       "access": "read",
       "signature": "Documents -> Documents collection",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_open_documents"],
+      "used_by": ["list_open_documents", "corel_status", "create_document", "use_active_document", "add_text", "draw_rectangle", "draw_ellipse", "list_objects", "set_fill_color", "set_outline", "move_object", "resize_object", "set_text_content", "rename_object", "duplicate_object", "import_artwork", "save_document", "export_pdf", "get_document_info", "list_pages", "get_page_bounds", "list_layers", "get_object_info", "get_object_bounds", "find_objects", "get_text_properties", "get_fill", "prepare_print_job", "create_chest_number_batch", "execute_design_plan", "align_objects", "align_to_page", "group_shapes", "ungroup_shapes", "inspect_repeat_unit", "prepare_contour_nesting", "prepare_imposition_job"],
       "evidence": ["official_x7_application", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.Documents",
       "live_test_status": "not_run"

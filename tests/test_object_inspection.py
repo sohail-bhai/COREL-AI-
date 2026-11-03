@@ -3,6 +3,8 @@ from __future__ import annotations
 import copy
 import json
 import unittest
+
+from fake_documents import attach_open_document
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -55,7 +57,7 @@ class ObjectInspectionTests(unittest.TestCase):
         self.other = SimpleNamespace(Name="Client.cdr", ActivePage=_Broken())
         self.bridge = CorelBridge()
         self.bridge.app = SimpleNamespace(ActiveDocument=self.other)
-        self.bridge.target_doc = self.document
+        attach_open_document(self.bridge, self.document)
 
     def assert_error(self, code, method, **kwargs):
         with self.assertRaises(CorelBridgeError) as caught:
@@ -112,7 +114,8 @@ class ObjectInspectionTests(unittest.TestCase):
                     raise RuntimeError("secret")
                 inner.point = value
 
-        self.bridge.target_doc = document = Document()
+        document = Document()
+        attach_open_document(self.bridge, document)
         error = self.assert_error(ErrorCode.COREL_COM_ERROR, "get_object_bounds", shape_index=1)
         self.assertIn("restore", str(error))
         self.assertEqual(document.Unit, 3)

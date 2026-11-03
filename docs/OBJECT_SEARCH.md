@@ -70,7 +70,8 @@ IDs and paths describe this inspection and are not edit selectors. Session IDs
 are bridge-local; shape paths change after reorder/regroup, and StaticID
 persistence across reopen/restart is unverified. Existing edits continue to
 require a unique active-page name or an explicit active-page shape index.
-Closed-document/reference detection is tracked separately as ID-001.
+Closed-document detection now uses the [bound-document guard](DOCUMENT_TARGETING.md).
+Composite object-reference resolution remains the next part of ID-001.
 PowerClip, symbols, and other non-group containers are outside this traversal.
 
 ## Verification

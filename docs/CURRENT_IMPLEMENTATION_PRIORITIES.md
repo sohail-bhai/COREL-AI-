@@ -50,8 +50,11 @@ capability status, and keep live verification deferred.
 - Standalone outline inspection remains pending X7 outline-unit research.
 - Review the retained common-work CDR evidence and live-verify the applicable
   text replacement, move/resize, duplicate, align, group, save, and PDF tools.
-- Next: detect stale references (ID-001); focused inspection already refuses
-  ambiguous active-page names.
+- ID-001 document liveness is implemented: targeted operations check bounded
+  open-document membership and invalidate closed/replaced bindings without
+  active-document fallback. See [DOCUMENT_TARGETING.md](DOCUMENT_TARGETING.md).
+- Next: composite object references and reference-aware revisions; focused
+  inspection already refuses ambiguous active-page names.
 
 **Gate:** The intended object can be found and inspected without mutation;
 common edits report actual state on an explicitly authorized disposable target.

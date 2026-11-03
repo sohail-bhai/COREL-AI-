@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import unittest
+
+from fake_documents import attach_open_document
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -60,8 +62,8 @@ class ObjectSearchTests(unittest.TestCase):
         )
         self.other = SimpleNamespace(Name="Other.cdr")
         self.bridge = CorelBridge()
-        self.bridge.target_doc = self.document
         self.bridge.app = SimpleNamespace(ActiveDocument=self.other)
+        attach_open_document(self.bridge, self.document)
 
     def test_all_pages_nested_duplicates_are_distinct_and_deterministic(self):
         first = self.bridge.find_objects(name_contains="title")

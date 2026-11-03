@@ -5,6 +5,7 @@ import unittest
 from pathlib import Path
 
 from corel_operator.corel_bridge import CorelBridge
+from fake_documents import attach_open_document
 
 
 TEMP_ROOT = Path(tempfile.gettempdir()) / "opencode"
@@ -133,7 +134,7 @@ class AppearanceAndIdentityTests(unittest.TestCase):
         self.shape.Name = "panel"
         self.bridge = CorelBridge()
         self.bridge.app = _Application()
-        self.bridge.target_doc = self.document
+        attach_open_document(self.bridge, self.document)
 
     def test_fill_update_returns_native_rgb_readback(self) -> None:
         result = self.bridge.set_fill_color(20, 45, 90, object_name="panel")

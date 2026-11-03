@@ -23,7 +23,8 @@ property section. `object` includes actual name, type, StaticID when available,
 page/layer, active-page index, bridge-local session ID, and inspection-only ID.
 Names/layer names are capped at 256 characters with explicit truncation flags.
 IDs are not edit selectors and are not persistent across bridge restarts.
-Closed-document and stale-reference detection remains ID-001.
+Closed-document detection uses the [bound-document guard](DOCUMENT_TARGETING.md).
+Composite object-reference resolution remains the next part of ID-001.
 
 ## Bounds
 

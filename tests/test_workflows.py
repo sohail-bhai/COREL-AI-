@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import unittest
 
+from fake_documents import attach_open_document
+
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.workflows import (
     MAX_CHEST_NUMBER_SEQUENCE,
@@ -355,7 +357,7 @@ class CreateChestNumberBatchBridgeTests(unittest.TestCase):
         from corel_operator.corel_bridge import CorelBridge
         self.bridge = CorelBridge()
         self.doc = _MockDocument(8.5, 11.0)
-        self.bridge.target_doc = self.doc
+        attach_open_document(self.bridge, self.doc)
 
     def test_create_chest_number_batch_success(self) -> None:
         result = self.bridge.create_chest_number_batch(

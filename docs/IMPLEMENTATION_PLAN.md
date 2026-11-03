@@ -390,7 +390,7 @@ These are the next reviewable tickets:
 | 5 | DP-005 | Run guarded disposable design-plan test | Dated report and editable CDR produced |
 | 6 | INS-001 | Bounded `find_objects` implemented; disposable X7 gate prepared | Duplicate/nested results deterministic in fake-COM tests; live gate pending |
 | 7 | INS-002 | Focused text, bounds, and native fill inspection implemented; disposable X7 gate prepared | Strict selectors and bounded actual readback pass fake-COM/schema gates; live gate pending |
-| 8 | ID-001 | Detect stale document/object references | No fallback to a different active target |
+| 8 | ID-001 | Document-liveness guard implemented; composite object references next | Closed/replaced targets are cleared before use; reference-aware revisions remain pending |
 | 9 | SAFE-001 | Add redacted operation records | No secrets/content on MCP stdout |
 | 10 | SAFE-002 | Define busy/timeout recovery state | Mutations blocked while state is unknown |
 
@@ -401,8 +401,9 @@ disposable-X7 search gate remains pending. Its IDs/paths remain inspection-only.
 `INS-002` now passes fake-COM, strict request/result schema, and catalog gates;
 its disposable-X7 geometry/text/fill and unchanged-state gate is prepared.
 See [OBJECT_INSPECTION.md](OBJECT_INSPECTION.md). `ID-001` (stale references)
-is the next implementation ticket. See [OBJECT_SEARCH.md](OBJECT_SEARCH.md)
-for the search contract and its separate live gate.
+is in progress: [DOCUMENT_TARGETING.md](DOCUMENT_TARGETING.md) documents the
+implemented document guard; composite object references are next. See
+[OBJECT_SEARCH.md](OBJECT_SEARCH.md) for the separate search contract/live gate.
 
 Do not begin broad typography, visual AI, or additional batch types until tickets 1–10 pass
 their applicable API-research and automated safety gates. Per the 2026-11-03 user decision,

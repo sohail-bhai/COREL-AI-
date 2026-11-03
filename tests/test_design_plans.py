@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import tempfile
 import unittest
+
+from fake_documents import attach_open_document
 from pathlib import Path
 from typing import Any
 
@@ -418,8 +420,8 @@ class DesignPlanExecutionTests(unittest.TestCase):
         from corel_operator.corel_bridge import CorelBridge
         self.bridge = CorelBridge()
         self.doc = _MockDocument(8.5, 11.0)
-        self.bridge.target_doc = self.doc
         self.bridge.app = _MockApp()
+        attach_open_document(self.bridge, self.doc)
 
     def test_execute_design_plan_rejects_blocking_preflight_before_com(self) -> None:
         plan = {
@@ -644,7 +646,7 @@ class DesignPlanExecutionTests(unittest.TestCase):
                 raise RuntimeError("sensitive command-group close failure")
 
         doc = _EndFailDocument(8.5, 11.0)
-        self.bridge.target_doc = doc
+        attach_open_document(self.bridge, doc)
         plan = {
             "version": "1.0",
             "name": "end_group_failure",
@@ -682,7 +684,7 @@ class DesignPlanExecutionTests(unittest.TestCase):
 
         self.doc = _NoOpUndoDocument(8.5, 11.0)
         self.doc.ActivePage.ActiveLayer = _FailingLayer(self.doc.ActivePage.shapes)
-        self.bridge.target_doc = self.doc
+        attach_open_document(self.bridge, self.doc)
         plan = {
             "version": "1.0",
             "name": "unverified_rollback",
@@ -707,7 +709,7 @@ class DesignPlanExecutionTests(unittest.TestCase):
                 raise RuntimeError("Command groups unavailable")
 
         self.doc = _NoCommandGroupDocument(8.5, 11.0)
-        self.bridge.target_doc = self.doc
+        attach_open_document(self.bridge, self.doc)
         plan = {
             "version": "1.0",
             "name": "no_command_group",

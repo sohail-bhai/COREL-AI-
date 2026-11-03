@@ -123,10 +123,14 @@ class _PrintDocument:
 
 class _PrintApplication:
     def __init__(self) -> None:
+        from fake_documents import OpenDocuments
+
         self.document = None
+        self.Documents = OpenDocuments()
 
     def CreateDocument(self):
         self.document = _PrintDocument()
+        self.Documents.items.append(self.document)
         return self.document
 
     @staticmethod

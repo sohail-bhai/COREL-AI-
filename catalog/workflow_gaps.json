@@ -93,9 +93,8 @@
         "get_fill"
       ],
       "missing_behavior": [
-        "Closed/replaced document detection",
         "Session-scoped object references",
-        "Stale-object refusal"
+        "Reference-aware edits and stale-object refusal"
       ],
       "source_ids": [
         "lookup_api"
@@ -103,8 +102,11 @@
       "depends_on": [
         "ID-001"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "in_progress",
+      "live_status": "deferred",
+      "implemented_behavior": [
+        "Bound-document/application liveness and stale-binding invalidation"
+      ]
     },
     {
       "id": "recovery",

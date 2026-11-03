@@ -3421,7 +3421,8 @@
         "Application.VersionMinor",
         "Application.VersionBuild",
         "Application.Visible",
-        "Application.ActiveDocument"
+        "Application.ActiveDocument",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -3568,7 +3569,8 @@
         "Document.ActivePage",
         "Page.SetSize",
         "Document.ReferencePoint",
-        "Document.Activate"
+        "Document.Activate",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -3662,7 +3664,8 @@
       ],
       "api_requirements": [
         "Application.ActiveDocument",
-        "Document.Name"
+        "Document.Name",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -3816,7 +3819,8 @@
         "TextRange.Text",
         "TextRange.Font",
         "TextRange.Size",
-        "TextRange.Bold"
+        "TextRange.Bold",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -3950,7 +3954,8 @@
         "Shape.PositionX",
         "Shape.PositionY",
         "Shape.SizeWidth",
-        "Shape.SizeHeight"
+        "Shape.SizeHeight",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -4083,7 +4088,8 @@
         "Shape.PositionX",
         "Shape.PositionY",
         "Shape.SizeWidth",
-        "Shape.SizeHeight"
+        "Shape.SizeHeight",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -4302,7 +4308,8 @@
         "Color.Tint",
         "Shape.StaticID",
         "Shape.Layer",
-        "Shape.Page"
+        "Shape.Page",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -4428,7 +4435,8 @@
         "Color.HexValue",
         "Color.Name",
         "Color.SpotColorName",
-        "Color.Tint"
+        "Color.Tint",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -4552,7 +4560,8 @@
         "Color.HexValue",
         "Color.Name",
         "Color.SpotColorName",
-        "Color.Tint"
+        "Color.Tint",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -4661,7 +4670,8 @@
         "Document.ReferencePoint",
         "Shape.SetPosition",
         "Shape.PositionX",
-        "Shape.PositionY"
+        "Shape.PositionY",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -4798,7 +4808,8 @@
       "api_requirements": [
         "Document.Unit",
         "Shape.SizeWidth",
-        "Shape.SizeHeight"
+        "Shape.SizeHeight",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -4898,7 +4909,8 @@
       "api_requirements": [
         "Shape.Text",
         "Text.Story",
-        "TextRange.Text"
+        "TextRange.Text",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -5005,7 +5017,8 @@
         "Shape.StaticID",
         "Shape.Type",
         "Shape.Layer",
-        "Shape.Page"
+        "Shape.Page",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -5128,7 +5141,8 @@
         "Shape.StaticID",
         "Shape.Type",
         "Shape.Layer",
-        "Shape.Page"
+        "Shape.Page",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -5251,7 +5265,8 @@
         "Shape.StaticID",
         "Shape.Type",
         "Shape.Layer",
-        "Shape.Page"
+        "Shape.Page",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -5357,7 +5372,8 @@
         "StructSaveAsOptions.EmbedVBAProject",
         "StructSaveAsOptions.IncludeCMXData",
         "StructSaveAsOptions.Overwrite",
-        "Document.SaveAs"
+        "Document.SaveAs",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -5455,7 +5471,8 @@
         "coreldraw-x7-17"
       ],
       "api_requirements": [
-        "Document.PublishToPDF"
+        "Document.PublishToPDF",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -5611,7 +5628,8 @@
         "Document.Dirty",
         "Document.Pages",
         "Document.Unit",
-        "Document.ActivePage"
+        "Document.ActivePage",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -5694,7 +5712,8 @@
         "Page.Name",
         "Page.Orientation",
         "Page.SizeWidth",
-        "Page.SizeHeight"
+        "Page.SizeHeight",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -5788,7 +5807,8 @@
       "api_requirements": [
         "Document.Pages",
         "Page.SizeWidth",
-        "Page.SizeHeight"
+        "Page.SizeHeight",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -5891,7 +5911,8 @@
         "Layer.Master",
         "Layer.IsSpecialLayer",
         "Layer.Shapes",
-        "Shapes.Count"
+        "Shapes.Count",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -5975,7 +5996,8 @@
         "Shape.SizeHeight",
         "Shape.Text",
         "Shape.Fill",
-        "Shape.Outline"
+        "Shape.Outline",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -6071,7 +6093,8 @@
         "Shape.SizeWidth",
         "Shape.SizeHeight",
         "Document.Unit",
-        "Document.ReferencePoint"
+        "Document.ReferencePoint",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -6344,7 +6367,8 @@
         "Shape.StaticID",
         "Shape.Text",
         "Text.Story",
-        "TextRange.Text"
+        "TextRange.Text",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -6495,7 +6519,8 @@
         "TextRange.Bold",
         "TextRange.Italic",
         "TextRange.Underline",
-        "TextRange.Alignment"
+        "TextRange.Alignment",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -6602,7 +6627,8 @@
         "Color.CMYKBlack",
         "Color.Gray",
         "Color.SpotColorName",
-        "Color.Tint"
+        "Color.Tint",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -7051,7 +7077,8 @@
         "Shape.SizeWidth",
         "Shape.SizeHeight",
         "Shape.SetPosition",
-        "Shape.Duplicate"
+        "Shape.Duplicate",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -7538,7 +7565,8 @@
         "Shape.PositionY",
         "Shape.SizeWidth",
         "Shape.SizeHeight",
-        "Layer.CreateRectangle2"
+        "Layer.CreateRectangle2",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -7942,7 +7970,8 @@
         "Layer.CreateEllipse2",
         "Layer.CreateArtisticText",
         "Shape.Name",
-        "Fill.ApplyUniformFill"
+        "Fill.ApplyUniformFill",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -8234,7 +8263,8 @@
       ],
       "api_requirements": [
         "Application.CreateShapeRange",
-        "ShapeRange.AlignAndDistribute"
+        "ShapeRange.AlignAndDistribute",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -8506,7 +8536,8 @@
         "Application.CreateShapeRange",
         "ShapeRange.AlignAndDistribute",
         "ShapeRange.AlignRangeToPage",
-        "ShapeRange.AlignRangeToPageCenter"
+        "ShapeRange.AlignRangeToPageCenter",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -8715,7 +8746,8 @@
       ],
       "api_requirements": [
         "Application.CreateShapeRange",
-        "ShapeRange.Group"
+        "ShapeRange.Group",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -8888,7 +8920,8 @@
       ],
       "api_requirements": [
         "Shape.Ungroup",
-        "Shape.UngroupAll"
+        "Shape.UngroupAll",
+        "Application.Documents"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -8989,7 +9022,10 @@
       "confirmation": "not_required_for_bound_document_inspection",
       "priority": "P0",
       "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["SubPath.GetPolyline"],
+      "api_requirements": [
+        "SubPath.GetPolyline",
+        "Application.Documents"
+      ],
       "status": "implemented_unverified",
       "test_evidence": {"status": "live_x7_passed", "sources": ["tests/test_contour_nesting.py", "tests/integration/test_corel_live.py", "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"]},
       "known_limitations": ["Requires one top-level group and one uniquely named closed single-subpath dieline."],
@@ -9028,7 +9064,20 @@
       "confirmation": "requires_completed_contour_qa",
       "priority": "P0",
       "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.AddPagesEx", "Document.DeletePages", "Layer.Paste", "Page.Activate", "Page.CreateLayer", "Page.Delete", "Shape.Copy", "Shape.Duplicate", "Shape.Rotate", "Shape.SetPosition", "SubPath.GetPolyline"],
+      "api_requirements": [
+        "Document.AddPagesEx",
+        "Document.DeletePages",
+        "Layer.Paste",
+        "Page.Activate",
+        "Page.CreateLayer",
+        "Page.Delete",
+        "Shape.Copy",
+        "Shape.Duplicate",
+        "Shape.Rotate",
+        "Shape.SetPosition",
+        "SubPath.GetPolyline",
+        "Application.Documents"
+      ],
       "status": "implemented_unverified",
       "test_evidence": {"status": "live_x7_passed_manual_review_pending", "sources": ["tests/test_contour_nesting.py", "tests/integration/test_corel_live.py", "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"]},
       "known_limitations": ["Executes one new output page per call. X7 cross-page transfer uses Shape.Copy plus Layer.Paste because CopyToLayer failed live; this replaces current system clipboard contents and is disclosed in the result."],
@@ -9069,7 +9118,20 @@
       "confirmation": "requires_true_and_matching_plan_fingerprint",
       "priority": "P0",
       "coreldraw_profiles": ["coreldraw-x7-17"],
-      "api_requirements": ["Document.AddPagesEx", "Document.DeletePages", "Layer.Paste", "Page.Activate", "Page.CreateLayer", "Page.Delete", "Shape.Copy", "Shape.Duplicate", "Shape.Rotate", "Shape.SetPosition", "SubPath.GetPolyline"],
+      "api_requirements": [
+        "Document.AddPagesEx",
+        "Document.DeletePages",
+        "Layer.Paste",
+        "Page.Activate",
+        "Page.CreateLayer",
+        "Page.Delete",
+        "Shape.Copy",
+        "Shape.Duplicate",
+        "Shape.Rotate",
+        "Shape.SetPosition",
+        "SubPath.GetPolyline",
+        "Application.Documents"
+      ],
       "status": "implemented_unverified",
       "test_evidence": {"status": "live_x7_passed_manual_review_pending", "sources": ["tests/test_contour_nesting.py", "tests/integration/test_corel_live.py", "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"]},
       "known_limitations": ["Executes only quantities that fit one output page, keeps rectangular vector jobs upright, replaces current system clipboard contents during X7 cross-page transfer, and does not yet add production marks or controlled export settings."],
