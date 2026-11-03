@@ -522,6 +522,22 @@ def inspect_text_template(object_name: str="",shape_index: int=0,object_referenc
 
 @mcp.tool()
 @recorded_operation
+def create_contour_offsets(object_reference: dict, offset_inches: float, direction: str = "outside", steps: int = 1,
+                           color: dict | None = None, corner_type: str = "round", miter_limit: float = 0.,
+                           result_name_prefix: str = "AI_Contour") -> dict:
+    """Create independent editable inside/outside contours from a closed vector.
+
+    Copy the source, apply 1-32 native steps, reconcile distance/corner controls and
+    separate into owned ordinary curves. Output is an opaque process fill without
+    an outline. Return measured curves and signed refs; cutting accuracy remains
+    unverified. Known empty inside results are explicit. Cleanup refuses foreign trees.
+    """
+    return _tool("create_contour_offsets", "create_contour_offsets", object_reference, offset_inches, direction,
+                 steps, color, corner_type, miter_limit, result_name_prefix)
+
+
+@mcp.tool()
+@recorded_operation
 def get_gradient_fill(object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Inspect up to 32 native gradient stops, parameters and coordinates.
 

@@ -1,0 +1,524 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IVGEffect",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((29, 50339584), 0, None), 0)",
+      "documentation": "Gets the effect with a cdrEffectType type"
+    },
+    {
+      "interface": "IVGEffect",
+      "names": [
+        "Contour"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, ((26, (29, 50371840)), 0, None), 0)",
+      "documentation": "Gets the contour effect for the object"
+    },
+    {
+      "interface": "IVGEffect",
+      "names": [
+        "Separate"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743824, (), (), 4, 1, 4, 0, 184, ((26, (29, 50366720)), 0, None), 0)",
+      "documentation": "Separates the blend effect for the object"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "Application"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, ((26, (29, 50362240)), 0, None), 0)",
+      "documentation": "Gets the application to which the object belongs"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "Parent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50370048)), 0, None), 0)",
+      "documentation": "Gets the parent of which this object is a child"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "Direction"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((29, 50340992), 0, None), 0)",
+      "documentation": "Gets or sets the direction of cdrContourDirection type"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "Direction"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743810, (), (((29, 50340992), 1, None),), 4, 4, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Gets or sets the direction of cdrContourDirection type"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "Offset"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (5, 0, None), 0)",
+      "documentation": "Gets or sets the contour offset"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "Offset"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743812, (), ((5, 1, None),), 4, 4, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Gets or sets the contour offset"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "Steps"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, (3, 0, None), 0)",
+      "documentation": "Gets or sets the number of steps in the contour"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "Steps"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743814, (), ((3, 1, None),), 4, 4, 4, 0, 112, (24, 0, None), 0)",
+      "documentation": "Gets or sets the number of steps in the contour"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "ColorBlendType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, ((29, 50332032), 0, None), 0)",
+      "documentation": "Gets or sets the color blend type"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "ColorBlendType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), (((29, 50332032), 1, None),), 4, 4, 4, 0, 128, (24, 0, None), 0)",
+      "documentation": "Gets or sets the color blend type"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "OutlineColor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 136, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Gets or sets the contour outline color"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "OutlineColor"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743818, (), (((26, (29, 50365696)), 1, None),), 4, 4, 4, 0, 144, (24, 0, None), 0)",
+      "documentation": "Gets or sets the contour outline color"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "FillColor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (), 4, 2, 4, 0, 152, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Gets or sets the contour fill color"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "FillColor"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743820, (), (((26, (29, 50365696)), 1, None),), 4, 4, 4, 0, 160, (24, 0, None), 0)",
+      "documentation": "Gets or sets the contour fill color"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "FillColorTo"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743822, (), (), 4, 2, 4, 0, 168, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Gets or sets the contour fillto color"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "FillColorTo"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743822, (), (((26, (29, 50365696)), 1, None),), 4, 4, 4, 0, 176, (24, 0, None), 0)",
+      "documentation": "Gets or sets the contour fillto color"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "LinkAcceleration"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743824, (), (), 4, 2, 4, 0, 184, (11, 0, None), 0)",
+      "documentation": "Gets or sets the Link Acceleration"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "LinkAcceleration"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743824, (), ((11, 1, None),), 4, 4, 4, 0, 192, (24, 0, None), 0)",
+      "documentation": "Gets or sets the Link Acceleration"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "ColorAcceleration"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743826, (), (), 4, 2, 4, 0, 200, (3, 0, None), 0)",
+      "documentation": "Gets or sets the Color Acceleration"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "ColorAcceleration"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743826, (), ((3, 1, None),), 4, 4, 4, 0, 208, (24, 0, None), 0)",
+      "documentation": "Gets or sets the Color Acceleration"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "SpacingAcceleration"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743828, (), (), 4, 2, 4, 0, 216, (3, 0, None), 0)",
+      "documentation": "Gets or sets the Spacing Acceleration"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "SpacingAcceleration"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743828, (), ((3, 1, None),), 4, 4, 4, 0, 224, (24, 0, None), 0)",
+      "documentation": "Gets or sets the Spacing Acceleration"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "ContourGroup"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743830, (), (), 4, 2, 4, 0, 232, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Gets the contour group shape"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "EndCapType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743831, (), (), 4, 2, 4, 0, 240, ((29, 50348544), 0, None), 0)",
+      "documentation": "Gets or sets the type of contour to apply at the end of open paths"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "EndCapType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743831, (), (((29, 50348544), 1, None),), 4, 4, 4, 0, 248, (24, 0, None), 0)",
+      "documentation": "Gets or sets the type of contour to apply at the end of open paths"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "CornerType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743833, (), (), 4, 2, 4, 0, 256, ((29, 50348672), 0, None), 0)",
+      "documentation": "Gets or sets the type of contour to apply at the cusp corners"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "CornerType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743833, (), (((29, 50348672), 1, None),), 4, 4, 4, 0, 264, (24, 0, None), 0)",
+      "documentation": "Gets or sets the type of contour to apply at the cusp corners"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "MiterLimit"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743835, (), (), 4, 2, 4, 0, 272, (5, 0, None), 0)",
+      "documentation": "Gets or sets the miter limit for contour corners"
+    },
+    {
+      "interface": "IVGEffectContour",
+      "names": [
+        "MiterLimit"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743835, (), ((5, 1, None),), 4, 4, 4, 0, 280, (24, 0, None), 0)",
+      "documentation": "Gets or sets the miter limit for contour corners"
+    },
+    {
+      "interface": "IVGEffects",
+      "names": [
+        "Item",
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None),), 4, 2, 4, 0, 72, ((26, (29, 50370048)), 0, None), 0)",
+      "documentation": "Gets a reference to the effect specified, in base 1"
+    },
+    {
+      "interface": "IVGEffects",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (3, 0, None), 0)",
+      "documentation": "Gets the number of items in the collection of effects"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "ConvertToCurves"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743811, (), (), 4, 1, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Converts a shape to curves"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743828, (), (), 4, 2, 4, 0, 216, ((29, 50336896), 0, None), 0)",
+      "documentation": "Gets the shape's type"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Ungroup"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743845, (), (), 4, 1, 4, 0, 352, (24, 0, None), 0)",
+      "documentation": "Ungroups a group"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "UngroupAll"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743846, (), (), 4, 1, 4, 0, 360, (24, 0, None), 0)",
+      "documentation": "Ungroups all nested groups"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Effects"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743879, (), (), 4, 2, 4, 0, 624, ((26, (29, 50370176)), 0, None), 0)",
+      "documentation": "Gets collection of effects applied to object"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "CreateContour",
+        "Direction",
+        "Offset",
+        "Steps",
+        "BlendType",
+        "OutlineColor",
+        "FillColor",
+        "FillColor2",
+        "SpacingAccel",
+        "ColorAccel",
+        "EndCapType",
+        "CornerType",
+        "MiterLimit"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743894, (), (((29, 50340992), 49, 1), (5, 49, 0.0), (3, 49, 1), ((29, 50332032), 49, 0), ((26, (29, 50365696)), 49, 0), ((26, (29, 50365696)), 49, 0), ((26, (29, 50365696)), 49, 0), (3, 49, 0), (3, 49, 0), ((29, 50348544), 49, 2), ((29, 50348672), 49, 4), (5, 49, 0.0)), 4, 1, 4, 0, 744, ((26, (29, 50370048)), 0, None), 0)",
+      "documentation": "Creates a contour effect"
+    }
+  ],
+  "enums": {
+    "cdrShapeType": {
+      "cdrNoShape": 0,
+      "cdrRectangleShape": 1,
+      "cdrEllipseShape": 2,
+      "cdrCurveShape": 3,
+      "cdrPolygonShape": 4,
+      "cdrBitmapShape": 5,
+      "cdrTextShape": 6,
+      "cdrGroupShape": 7,
+      "cdrSelectionShape": 8,
+      "cdrGuidelineShape": 9,
+      "cdrBlendGroupShape": 10,
+      "cdrExtrudeGroupShape": 11,
+      "cdrOLEObjectShape": 12,
+      "cdrContourGroupShape": 13,
+      "cdrLinearDimensionShape": 14,
+      "cdrBevelGroupShape": 15,
+      "cdrDropShadowGroupShape": 16,
+      "cdr3DObjectShape": 17,
+      "cdrArtisticMediaGroupShape": 18,
+      "cdrConnectorShape": 19,
+      "cdrMeshFillShape": 20,
+      "cdrCustomShape": 21,
+      "cdrCustomEffectGroupShape": 22,
+      "cdrSymbolShape": 23,
+      "cdrHTMLFormObjectShape": 24,
+      "cdrHTMLActiveObjectShape": 25,
+      "cdrPerfectShape": 26,
+      "cdrEPSShape": 27
+    },
+    "cdrEffectType": {
+      "cdrBlend": 0,
+      "cdrExtrude": 1,
+      "cdrEnvelope": 2,
+      "cdrTextOnPath": 3,
+      "cdrControlPath": 4,
+      "cdrDropShadow": 5,
+      "cdrContour": 6,
+      "cdrDistortion": 7,
+      "cdrPerspective": 8,
+      "cdrLens": 9,
+      "cdrCustomEffect": 10
+    },
+    "cdrContourDirection": {
+      "cdrContourInside": 0,
+      "cdrContourOutside": 1,
+      "cdrContourToCenter": 2
+    },
+    "cdrContourEndCapType": {
+      "cdrContourButtCap": 0,
+      "cdrContourRoundCap": 1,
+      "cdrContourSquareCap": 2
+    },
+    "cdrContourCornerType": {
+      "cdrContourCornerBevel": 0,
+      "cdrContourCornerOffsetBevel": 1,
+      "cdrContourCornerRound": 2,
+      "cdrContourCornerMiteredBevel": 3,
+      "cdrContourCornerMiteredOffsetBevel": 4,
+      "cdrContourCornerMiteredRound": 5
+    }
+  }
+}

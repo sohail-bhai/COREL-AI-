@@ -51,6 +51,13 @@ artifacts. Native stop collection/endpoints, controls/coordinates, editable text
 and rendered interpolation require that run and manual review. Transparent,
 mixed-model and nonlinear fills remain broader appearance work.
 
+The contour-offset gate creates disposable rectangle, ellipse, closed cubic and
+compound sources, applies native inside/outside controls, separates editable
+curves and saves readback/CDR/PDF artifacts. It checks measured source/controller/
+generated geometry and native receipts. Exact offset distance, hole winding,
+miter-limit semantics, rendered quality and any cutting approval still require
+native/manual evidence.
+
 Use `tests/integration/test_corel_live.py` with explicit live and disposable
 mutation flags only when the user resumes native verification. All generated
 fixtures and outputs belong to that run's unique temporary directory. Existing

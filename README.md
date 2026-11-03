@@ -30,11 +30,11 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 637 tests (613 automated checks pass; twenty-four guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
+- 675 tests (650 automated checks pass; twenty-five guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Signed session references for precise nested edits, opt-in redacted operation
-  records, and explicit worker/recovery state across 76 MCP tools. Three local
+  records, and explicit worker/recovery state across 77 MCP tools. Three local
   state/outcome/reconciliation tools block unsafe follow-up mutations after
   timeout or partial failure; see [`docs/WORKER_RECOVERY.md`](docs/WORKER_RECOVERY.md).
 - Editable paragraph frames, whole-story font/size/style/alignment revisions,
@@ -65,6 +65,9 @@ Validate the catalog without starting CorelDRAW:
 - Bounded native gradient inspection and guarded opaque RGB/CMYK multicolor
   gradients, with exact stops/controls and measured preservation; see
   [`docs/GRADIENTS.md`](docs/GRADIENTS.md).
+- Source-preserving inside/outside contour derivatives with explicit native
+  controls, editable curve outputs, measured geometry and owned-tree recovery;
+  see [`docs/CONTOUR_OFFSETS.md`](docs/CONTOUR_OFFSETS.md).
 - A complete deferred verification inventory for every registered tool; see
   [`docs/CONSOLIDATED_LIVE_VERIFICATION.md`](docs/CONSOLIDATED_LIVE_VERIFICATION.md).
 - Bound-document liveness checks that clear closed/replaced targets and prevent

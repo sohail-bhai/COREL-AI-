@@ -59,7 +59,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 76
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 77
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -81,7 +81,7 @@ capability status, and keep live verification deferred.
   Owned-output cleanup, final row readback and measured source preservation are
   covered. See [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md).
 - Controlled zero-bleed PDF export and local page/font inspection are implemented
-  with 22 focused checks and a deferred native gate. All 76 tools are included in
+  with 22 focused checks and a deferred native gate. All 77 tools are included in
   the consolidated coverage inventory. See [PDF_PRODUCTION.md](PDF_PRODUCTION.md)
   and [CONSOLIDATED_LIVE_VERIFICATION.md](CONSOLIDATED_LIVE_VERIFICATION.md).
 - General vectors are implemented: line/cubic creation, full geometry inspection,
@@ -112,7 +112,12 @@ capability status, and keep live verification deferred.
   editable unlinked text, measured other-channel preservation and partial-write
   quarantine are covered. Native interpolation/coordinates and CDR/PDF review
   remain deferred. See [GRADIENTS.md](GRADIENTS.md).
-- Next: contour offsets and broader prepress;
+- Source-preserving inside/outside contour derivatives are implemented with 37
+  focused checks. Native controls, controller/leaf geometry, editable outputs,
+  compound/nested ownership, known partial-failure cleanup and foreign-scope
+  recovery are covered. Exact native offsets, winding, miter/cutting behavior
+  and manual artifacts remain deferred. See [CONTOUR_OFFSETS.md](CONTOUR_OFFSETS.md).
+- Next: page/layer organization, image preparation and broader prepress;
   spacing/fitting, layer organization and existing-document checkpoints remain gaps.
 
 **Gate:** The intended object can be found and inspected without mutation;

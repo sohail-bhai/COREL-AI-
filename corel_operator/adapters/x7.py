@@ -89,6 +89,12 @@ class CorelX7Adapter:
     CDR_DIRECT_FOUNTAIN_BLEND = 0
     CDR_CUSTOM_FOUNTAIN_BLEND = 3
     CDR_FOUNTAIN_SPREAD_PAD = 0
+    CDR_CONTOUR_EFFECT = 6
+    CDR_CONTOUR_GROUP_SHAPE = 13
+    CDR_CONTOUR_BUTT_CAP = 0
+    CONTOUR_DIRECTION_CODES = {"inside": 0, "outside": 1}
+    CONTOUR_CORNER_CODES = {"bevel": 0, "offset_bevel": 1, "round": 2,
+                            "mitered_bevel": 3, "mitered_offset_bevel": 4, "mitered_round": 5}
 
     FILL_TYPE_NAMES = {
         0: "none",
@@ -144,6 +150,8 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "vectors.contour_offsets": CapabilitySupport(True, "implemented_unverified", "Copied closed vectors produce separated editable contour derivatives with native distance/corner controls, complete owned-tree cleanup and measured source preservation; exact arbitrary-curve/cutting behavior remains deferred.",
+            ("Shape.CreateContour", "Shape.Effects", "Effect.Contour", "Effect.Separate", "EffectContour.ContourGroup")),
         "appearance.gradient_inspection": CapabilitySupport(True, "implemented_unverified", "Bounded native stop/parameter/coordinate metadata and current-session fingerprints; missing getters remain explicit.",
             ("Fill.Fountain", "FountainFill.Colors", "FountainColors.Item", "FountainColor.Position", "FountainColor.Color")),
         "appearance.gradient_fill": CapabilitySupport(True, "implemented_unverified", "Opaque direct 2-32-stop RGB/CMYK gradients reconcile parameters, colors and measured geometry/other channels; revisions require a fingerprint and partial writes quarantine.",

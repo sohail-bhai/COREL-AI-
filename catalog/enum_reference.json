@@ -395,6 +395,73 @@
       "notes": [
         "Installed 2026-11-03; native/rendered checks deferred."
       ]
+    },
+    "cdrEffectType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrEffectType",
+      "values": {
+        "cdrBlend": 0,
+        "cdrExtrude": 1,
+        "cdrEnvelope": 2,
+        "cdrTextOnPath": 3,
+        "cdrControlPath": 4,
+        "cdrDropShadow": 5,
+        "cdrContour": 6,
+        "cdrDistortion": 7,
+        "cdrPerspective": 8,
+        "cdrLens": 9,
+        "cdrCustomEffect": 10
+      },
+      "bridge_usage": [
+        "ContourOffsetBridgeMixin"
+      ],
+      "notes": [
+        "Installed 2026-11-03; native/cutting checks deferred."
+      ]
+    },
+    "cdrContourDirection": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrContourDirection",
+      "values": {
+        "cdrContourInside": 0,
+        "cdrContourOutside": 1,
+        "cdrContourToCenter": 2
+      },
+      "bridge_usage": [
+        "ContourOffsetBridgeMixin"
+      ],
+      "notes": [
+        "Installed 2026-11-03; native/cutting checks deferred."
+      ]
+    },
+    "cdrContourEndCapType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrContourEndCapType",
+      "values": {
+        "cdrContourButtCap": 0,
+        "cdrContourRoundCap": 1,
+        "cdrContourSquareCap": 2
+      },
+      "bridge_usage": [
+        "ContourOffsetBridgeMixin"
+      ],
+      "notes": [
+        "Installed 2026-11-03; native/cutting checks deferred."
+      ]
+    },
+    "cdrContourCornerType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrContourCornerType",
+      "values": {
+        "cdrContourCornerBevel": 0,
+        "cdrContourCornerOffsetBevel": 1,
+        "cdrContourCornerRound": 2,
+        "cdrContourCornerMiteredBevel": 3,
+        "cdrContourCornerMiteredOffsetBevel": 4,
+        "cdrContourCornerMiteredRound": 5
+      },
+      "bridge_usage": [
+        "ContourOffsetBridgeMixin"
+      ],
+      "notes": [
+        "Installed 2026-11-03; native/cutting checks deferred."
+      ]
     }
   }
 }

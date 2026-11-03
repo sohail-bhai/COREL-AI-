@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Source-preserving editable contour derivatives for closed vectors, with native
+  inside/outside distance, step and corner controls. Thirty-seven focused checks
+  cover controller/leaf geometry, compound/nested ownership, verified cleanup of
+  known partial native effects and quarantine of foreign/stray outputs. Installed
+  X7 evidence and readable contour help are retained. Exact offsets/winding,
+  miter/cutting behavior and native CDR/PDF review remain deferred. The surface
+  has 77 registered tools; 650 automated checks pass and 25 live gates are skipped.
 - Two gradient tools for native inspection and guarded opaque direct RGB/CMYK
   multicolor fills. Thirty checks cover stop/component/parameter reconciliation,
   editable text/vector preservation, stale fingerprints, incomplete metadata and

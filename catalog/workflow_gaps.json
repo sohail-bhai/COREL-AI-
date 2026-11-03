@@ -47,6 +47,12 @@
       "kind": "official_primary_source",
       "x7_specific": true
     },
+    "contour_help": {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Contouring-objects.html",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
     "gradient_help": {
       "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Applying-fountain-fills.html",
       "accessed": "2026-11-03",
@@ -300,15 +306,18 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_contour_offsets"
       ],
       "missing_behavior": [
-        "Contour offsets, adjacent deletion/fitting and open endpoint cropping",
+        "Adjacent deletion/fitting and open endpoint cropping",
+        "Open/text/effect-source contours, interactive effects and exact native offset/cutting verification",
         "General curve conversion and nested shaping inputs",
         "Native closure/CopyAssign coordinates, shaping appearance and compound fill-winding verification"
       ],
       "source_ids": [
         "shapes_guide",
+        "contour_help",
         "x7_guide"
       ],
       "depends_on": [
@@ -324,7 +333,12 @@
         "docs/test-reports/2026-11-03-vector-editing-non-live.md",
         "docs/VECTOR_TOPOLOGY.md",
         "tests/test_vector_topology.py",
-        "docs/test-reports/2026-11-03-vector-topology-non-live.md"
+        "docs/test-reports/2026-11-03-vector-topology-non-live.md",
+        "docs/CONTOUR_OFFSETS.md",
+        "docs/x7_contour_offset_api_evidence.json",
+        "docs/contour_offset_online_evidence.json",
+        "tests/test_contour_offsets.py",
+        "docs/test-reports/2026-11-03-contour-offsets-non-live.md"
       ]
     },
     {

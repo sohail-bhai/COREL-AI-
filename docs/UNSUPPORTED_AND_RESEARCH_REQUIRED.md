@@ -49,7 +49,9 @@ applicable consolidated checks pass:
   in-place PowerClip edit mode. Opaque direct process gradients, uniform
   transparency and source-preserving clip/extract/rebuild workflows are implemented;
 - layer/page organization, guides and outline-aware safe-area reflow;
-- contour offsets, adjacent-node fitting/cropping and broader nested shaping;
+- open/text/effect-source contours, exact native offset/cutting verification,
+  adjacent-node fitting/cropping and broader nested shaping. Copied closed-vector
+  inside/outside contour derivatives are implemented with offline gates;
 - bitmap effective DPI, links, crop, and replacement;
 - preview export with deterministic resolution and color settings;
 - bleed, safe-margin, overlap, font, color, and asset preflight.

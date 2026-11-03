@@ -285,6 +285,17 @@ def validate() -> dict[str, int]:
         ("cdrFountainFillBlendType", "values", "cdrDirectFountainFillBlend"): CorelX7Adapter.CDR_DIRECT_FOUNTAIN_BLEND,
         ("cdrFountainFillBlendType", "values", "cdrCustomFountainFillBlend"): CorelX7Adapter.CDR_CUSTOM_FOUNTAIN_BLEND,
         ("cdrFountainFillSpreadMethod", "values", "cdrFountainFillSpreadMethodPad"): CorelX7Adapter.CDR_FOUNTAIN_SPREAD_PAD,
+        ("cdrEffectType", "values", "cdrContour"): CorelX7Adapter.CDR_CONTOUR_EFFECT,
+        ("cdrShapeType", "values", "cdrContourGroupShape"): CorelX7Adapter.CDR_CONTOUR_GROUP_SHAPE,
+        ("cdrContourDirection", "values", "cdrContourInside"): CorelX7Adapter.CONTOUR_DIRECTION_CODES['inside'],
+        ("cdrContourDirection", "values", "cdrContourOutside"): CorelX7Adapter.CONTOUR_DIRECTION_CODES['outside'],
+        ("cdrContourEndCapType", "values", "cdrContourButtCap"): CorelX7Adapter.CDR_CONTOUR_BUTT_CAP,
+        ("cdrContourCornerType", "values", "cdrContourCornerBevel"): CorelX7Adapter.CONTOUR_CORNER_CODES['bevel'],
+        ("cdrContourCornerType", "values", "cdrContourCornerOffsetBevel"): CorelX7Adapter.CONTOUR_CORNER_CODES['offset_bevel'],
+        ("cdrContourCornerType", "values", "cdrContourCornerRound"): CorelX7Adapter.CONTOUR_CORNER_CODES['round'],
+        ("cdrContourCornerType", "values", "cdrContourCornerMiteredBevel"): CorelX7Adapter.CONTOUR_CORNER_CODES['mitered_bevel'],
+        ("cdrContourCornerType", "values", "cdrContourCornerMiteredOffsetBevel"): CorelX7Adapter.CONTOUR_CORNER_CODES['mitered_offset_bevel'],
+        ("cdrContourCornerType", "values", "cdrContourCornerMiteredRound"): CorelX7Adapter.CONTOUR_CORNER_CODES['mitered_round'],
     }
     for (enum_name, values_key, value_name), expected in expected_constants.items():
         actual = enums.get(enum_name, {}).get(values_key, {}).get(value_name)

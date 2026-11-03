@@ -1,0 +1,48 @@
+{
+  "browser_used": false,
+  "sources": [
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.createcontour",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.createcontour",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/effect.separate",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/m/effect.separate",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.contourgroup",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.contourgroup",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Contouring-objects.html",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Contouring-objects.html",
+      "excerpts": [
+        " CorelDRAW Help | Contouring objects CorelDRAW Help : Special effects : Adding 3D effects to objects : Contouring objects Quick links to procedures on this page: \u2022 To contour an object \u2022 To copy or clone a contour \u2022 To set the fill color for a contour object \u2022 To specify an outline color for the contour object \u2022 To set the fill progression \u2022 To separate an object from its contour lines Contouring objects You can contour an object to create a series of concentric lines that progress to the inside or outside of the object. CorelDRAW also lets you set the number and distance of the contour lines. In addition to creating interesting 3D effects, you can use contours to create cuttable outlines for output to devices such as plotters, engraving machines, and vinyl cutters. After contouring an object, you can copy or clone its contour settings to another object. Y",
+        "relDRAW Help | Contouring objects CorelDRAW Help : Special effects : Adding 3D effects to objects : Contouring objects Quick links to procedures on this page: \u2022 To contour an object \u2022 To copy or clone a contour \u2022 To set the fill color for a contour object \u2022 To specify an outline color for the contour object \u2022 To set the fill progression \u2022 To separate an object from its contour lines Contouring objects You can contour an object to create a series of concentric lines that progress to the inside or outside of the object. CorelDRAW also lets you set the number and distance of the contour lines. In addition to creating interesting 3D effects, you can use contours to create cuttable outlines for output to devices such as plotters, engraving machines, and vinyl cutters. After contouring an object, you can copy or clone its contour settings to another object. You can also change the colors of the fill between the contour lines and the contour o",
+        "ts : Adding 3D effects to objects : Contouring objects Quick links to procedures on this page: \u2022 To contour an object \u2022 To copy or clone a contour \u2022 To set the fill color for a contour object \u2022 To specify an outline color for the contour object \u2022 To set the fill progression \u2022 To separate an object from its contour lines Contouring objects You can contour an object to create a series of concentric lines that progress to the inside or outside of the object. CorelDRAW also lets you set the number and distance of the contour lines. In addition to creating interesting 3D effects, you can use contours to create cuttable outlines for output to devices such as plotters, engraving machines, and vinyl cutters. After contouring an object, you can copy or clone its contour settings to another object. You can also change the colors of the fill between the contour lines and the contour outlines themselves. You can set a color progression in the conto",
+        "touring objects Quick links to procedures on this page: \u2022 To contour an object \u2022 To copy or clone a contour \u2022 To set the fill color for a contour object \u2022 To specify an outline color for the contour object \u2022 To set the fill progression \u2022 To separate an object from its contour lines Contouring objects You can contour an object to create a series of concentric lines that progress to the inside or outside of the object. CorelDRAW also lets you set the number and distance of the contour lines. In addition to creating interesting 3D effects, you can use contours to create cuttable outlines for output to devices such as plotters, engraving machines, and vinyl cutters. After contouring an object, you can copy or clone its contour settings to another object. You can also change the colors of the fill between the contour lines and the contour outlines themselves. You can set a color progression in the contour effect, where one color blends into ",
+        "res on this page: \u2022 To contour an object \u2022 To copy or clone a contour \u2022 To set the fill color for a contour object \u2022 To specify an outline color for the contour object \u2022 To set the fill progression \u2022 To separate an object from its contour lines Contouring objects You can contour an object to create a series of concentric lines that progress to the inside or outside of the object. CorelDRAW also lets you set the number and distance of the contour lines. In addition to creating interesting 3D effects, you can use contours to create cuttable outlines for output to devices such as plotters, engraving machines, and vinyl cutters. After contouring an object, you can copy or clone its contour settings to another object. You can also change the colors of the fill between the contour lines and the contour outlines themselves. You can set a color progression in the contour effect, where one color blends into another. The color progression can fol"
+      ],
+      "relevant_text_found": true
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Applying-contours.html",
+      "accessed": "2026-11-03",
+      "error_type": "HTTPError"
+    }
+  ]
+}

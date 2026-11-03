@@ -402,6 +402,60 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed,failure)
 
+    def test_contour_offsets_live(self) -> None:
+        """Deferred copied closed-vector contours, native controls and separation."""
+        passed = False; failure = None
+        try:
+            self.status = self._step("connect", self.bridge.connect)
+            self._step("create contour fixture", lambda: self.bridge.create_document(8.5, 11))
+            rectangle = self._step("contour rectangle", lambda: self.bridge.draw_rectangle(1, 1, 3, 2, "OffsetRectangle"))
+            rect_ref = self.bridge.get_object_info(object_name=rectangle['object_name'])['object']['object_reference']
+            ellipse = self._step("contour ellipse", lambda: self.bridge.draw_ellipse(5, 5, 2, 1.5, "OffsetEllipse"))
+            ellipse_ref = self.bridge.get_object_info(object_name=ellipse['object_name'])['object']['object_reference']
+            cubic = self._step("closed cubic source", lambda: self.bridge.create_vector_path([
+                {'start': {'x': 1, 'y': 5}, 'closed': True, 'segments': [
+                    {'type': 'cubic', 'control1': {'x': 1, 'y': 8}, 'control2': {'x': 4, 'y': 8}, 'end': {'x': 4, 'y': 5}},
+                    {'type': 'line', 'end': {'x': 1, 'y': 5}}]}], "OffsetCubic"))
+            cubic_ref = cubic['objects'][0]['object']['object_reference']
+            compound = self._step("compound closed source", lambda: self.bridge.create_vector_path([
+                {'start': {'x': 5, 'y': 1}, 'closed': True, 'segments': [
+                    {'type': 'line', 'end': {'x': 7, 'y': 1}}, {'type': 'line', 'end': {'x': 7, 'y': 4}},
+                    {'type': 'line', 'end': {'x': 5, 'y': 4}}, {'type': 'line', 'end': {'x': 5, 'y': 1}}]},
+                {'start': {'x': 5.5, 'y': 2}, 'closed': True, 'segments': [
+                    {'type': 'line', 'end': {'x': 5.5, 'y': 3}}, {'type': 'line', 'end': {'x': 6.5, 'y': 3}},
+                    {'type': 'line', 'end': {'x': 6.5, 'y': 2}}, {'type': 'line', 'end': {'x': 5.5, 'y': 2}}]}], "OffsetCompound"))
+            compound_ref = compound['objects'][0]['object']['object_reference']
+            records = []
+            for reference, direction in ((rect_ref, 'outside'), (ellipse_ref, 'outside'), (cubic_ref, 'inside'), (compound_ref, 'outside')):
+                normalized = self._step("explicit contour fixture fill", lambda: self.bridge.set_process_color(
+                    {'model': 'rgb', 'red': 80, 'green': 140, 'blue': 210}, replace_non_uniform=True, object_reference=reference))
+                self.assertEqual(normalized['actual_fill']['type_code'], 1)
+                outline = self._step("explicit contour fixture outline", lambda: self.bridge.set_outline(0, 0, 0, 0, object_reference=reference))
+                self.assertEqual(outline['actual_outline']['type_code'], 0)
+                transparency = self._step("explicit contour fixture transparency", lambda: self.bridge.set_uniform_transparency(
+                    0, replace_existing=True, object_reference=reference))
+                self.assertEqual(transparency['transparency']['type_code'], 0)
+                before = self.bridge._offset_source_signature(self.bridge.target_doc, self.bridge._resolve_object_reference(self.bridge.target_doc, reference)[0])
+                result = self._step("create_contour_offsets " + direction, lambda: self.bridge.create_contour_offsets(
+                    reference, .05, direction=direction, steps=2, color={'model': 'cmyk', 'cyan': 10, 'magenta': 60, 'yellow': 80, 'black': 0},
+                    result_name_prefix='NativeOffset_' + str(len(records))))
+                self.assertTrue(result['source_preservation']['verified'])
+                self.assertEqual(result['native_parameters']['Steps'], 2)
+                self.assertGreater(result['created_count'], 0)
+                self.assertEqual(self.bridge._offset_source_signature(self.bridge.target_doc, self.bridge._resolve_object_reference(self.bridge.target_doc, reference)[0]), before)
+                for item in result['objects']:
+                    self.assertTrue(all(path['closed'] for path in item['curve']['paths']))
+                    self.assertIsNotNone(item['object']['object_reference'])
+                records.append(result)
+            (self.output_dir / 'contour-offset-readback.json').write_text(json.dumps(records, indent=2), encoding='utf-8')
+            self._step("save contour fixture", lambda: self.bridge.save_document(str(self.output_dir / 'contour-offsets.cdr')))
+            self._step("export contour fixture", lambda: self.bridge.export_pdf_controlled(str(self.output_dir / 'contour-offsets.pdf')))
+            passed = True
+        except BaseException as exc:
+            failure = f'{type(exc).__name__}: {exc}'; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed, failure)
+
     def test_gradient_fills_live(self) -> None:
         """Deferred multi-stop/types/editable-text gate with CDR/PDF artifacts."""
         from corel_operator.errors import CorelBridgeError, ErrorCode

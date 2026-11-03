@@ -3598,6 +3598,69 @@
         "unavailable_properties"
       ],
       "additionalProperties": false
+    },
+    "contour_native_parameters": {
+      "type": "object",
+      "properties": {
+        "Direction": {
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "Steps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "ColorBlendType": {
+          "const": 0
+        },
+        "ColorAcceleration": {
+          "const": 0
+        },
+        "SpacingAcceleration": {
+          "const": 0
+        },
+        "EndCapType": {
+          "const": 0
+        },
+        "CornerType": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "Offset": {
+          "type": "number"
+        },
+        "MiterLimit": {
+          "type": "number"
+        },
+        "OutlineColor": {
+          "$ref": "#/schema_definitions/native_color_readback"
+        },
+        "FillColor": {
+          "$ref": "#/schema_definitions/native_color_readback"
+        },
+        "FillColorTo": {
+          "$ref": "#/schema_definitions/native_color_readback"
+        }
+      },
+      "required": [
+        "Direction",
+        "Steps",
+        "ColorBlendType",
+        "ColorAcceleration",
+        "SpacingAcceleration",
+        "EndCapType",
+        "CornerType",
+        "Offset",
+        "MiterLimit",
+        "OutlineColor",
+        "FillColor",
+        "FillColorTo"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -11639,6 +11702,338 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Gradient request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "create_contour_offsets": {
+      "request": {
+        "object_reference": {
+          "version": 1,
+          "bridge_session_id": "a2e8563d835b76ce6ca3250bcc05dfbb",
+          "document_session_id": "doc-0001",
+          "page_identity": "111961aaf04bb06f6dbfe65ff42dd5c35f82809968a63bd670d7c86fc0d63bd5",
+          "layer_identity": "cbc10537d3b0ebaec93f46a08f5021e3d2bf88188ed94a64bee547a786b7182a",
+          "ancestor_identities": [],
+          "shape_identity": "37c8f822952b284531e47785d8cf79f220cdd89c6f82af1e1d2391b16afeab64",
+          "static_id": 100,
+          "object_name": "ContourSource",
+          "shape_type_code": 3,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            1
+          ],
+          "signature": "d8299b0f1a39fc2fcfbca764b10d9bc85bc0b0e251966cdade4808e81a63e298"
+        },
+        "offset_inches": 0.1,
+        "steps": 2,
+        "color": {
+          "model": "cmyk",
+          "cyan": 20,
+          "magenta": 40,
+          "yellow": 60,
+          "black": 80
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "create_contour_offsets",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "empty_result": false,
+          "created_count": 2,
+          "objects": [
+            {
+              "object": {
+                "object_name": "AI_Contour_001",
+                "static_id": 103,
+                "shape_type_code": 3,
+                "layer_name": "Vectors",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:103",
+                "shape_index": 3,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "a2e8563d835b76ce6ca3250bcc05dfbb",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "111961aaf04bb06f6dbfe65ff42dd5c35f82809968a63bd670d7c86fc0d63bd5",
+                  "layer_identity": "cbc10537d3b0ebaec93f46a08f5021e3d2bf88188ed94a64bee547a786b7182a",
+                  "ancestor_identities": [],
+                  "shape_identity": "d2d71186ca05e204cbcf809457c483c892d15d4bdcf29b5b48c57dae30821dd3",
+                  "static_id": 103,
+                  "object_name": "AI_Contour_001",
+                  "shape_type_code": 3,
+                  "page_index": 1,
+                  "layer_index": 2,
+                  "shape_path": [
+                    3
+                  ],
+                  "signature": "2fb7a39a116048694c823e325b7327cc9ca56410bb94ac62910ba9e908c1778d"
+                }
+              },
+              "curve": {
+                "schema": "curve-geometry-v1",
+                "shape_identity": "d2d71186ca05e204cbcf809457c483c892d15d4bdcf29b5b48c57dae30821dd3",
+                "document_session_id": "doc-0001",
+                "paths": [
+                  {
+                    "start": {
+                      "x": 0.9,
+                      "y": 0.9
+                    },
+                    "segments": [
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 4.1000000000000005,
+                          "y": 0.9
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 4.1000000000000005,
+                          "y": 3.1
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 0.9,
+                          "y": 3.1
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 0.9,
+                          "y": 0.9
+                        }
+                      }
+                    ],
+                    "closed": true
+                  }
+                ],
+                "node_types": [
+                  [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "node_count": 4,
+                "segment_count": 4,
+                "bounds_inches": {
+                  "x": 0.9,
+                  "y": 0.9,
+                  "width": 3.2000000000000006,
+                  "height": 2.2
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "fingerprint": "cc3eee1c0a86b0ccdfbdd16fbc48e56d36f06a64817ff2b36649e32ca88b55aa"
+              },
+              "editable": true,
+              "representation": "native_curve",
+              "verification_status": "implemented_unverified"
+            },
+            {
+              "object": {
+                "object_name": "AI_Contour_002",
+                "static_id": 104,
+                "shape_type_code": 3,
+                "layer_name": "Vectors",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:104",
+                "shape_index": 4,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "a2e8563d835b76ce6ca3250bcc05dfbb",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "111961aaf04bb06f6dbfe65ff42dd5c35f82809968a63bd670d7c86fc0d63bd5",
+                  "layer_identity": "cbc10537d3b0ebaec93f46a08f5021e3d2bf88188ed94a64bee547a786b7182a",
+                  "ancestor_identities": [],
+                  "shape_identity": "18e16170b4ed3ad2248a0bae0d06661822b1af2c177f4127b563a76c1ae4281a",
+                  "static_id": 104,
+                  "object_name": "AI_Contour_002",
+                  "shape_type_code": 3,
+                  "page_index": 1,
+                  "layer_index": 2,
+                  "shape_path": [
+                    4
+                  ],
+                  "signature": "7d41120a710c79d6ffb34d4897f85bd5e86753241094f3afb289e65693b5d674"
+                }
+              },
+              "curve": {
+                "schema": "curve-geometry-v1",
+                "shape_identity": "18e16170b4ed3ad2248a0bae0d06661822b1af2c177f4127b563a76c1ae4281a",
+                "document_session_id": "doc-0001",
+                "paths": [
+                  {
+                    "start": {
+                      "x": 0.8,
+                      "y": 0.8
+                    },
+                    "segments": [
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 4.2,
+                          "y": 0.8
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 4.2,
+                          "y": 3.2
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 0.8,
+                          "y": 3.2
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 0.8,
+                          "y": 0.8
+                        }
+                      }
+                    ],
+                    "closed": true
+                  }
+                ],
+                "node_types": [
+                  [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "node_count": 4,
+                "segment_count": 4,
+                "bounds_inches": {
+                  "x": 0.8,
+                  "y": 0.8,
+                  "width": 3.4000000000000004,
+                  "height": 2.4000000000000004
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "fingerprint": "567433d4ba9b14ce1249b1aea91a66a76c3f2b0ce92b96ac191ddbfd93e57984"
+              },
+              "editable": true,
+              "representation": "native_curve",
+              "verification_status": "implemented_unverified"
+            }
+          ],
+          "direction": "outside",
+          "offset_inches": 0.1,
+          "requested_steps": 2,
+          "native_parameters": {
+            "Direction": 1,
+            "Steps": 2,
+            "ColorBlendType": 0,
+            "ColorAcceleration": 0,
+            "SpacingAcceleration": 0,
+            "EndCapType": 0,
+            "CornerType": 2,
+            "Offset": 0.1,
+            "MiterLimit": 0.0,
+            "OutlineColor": {
+              "type_code": 2,
+              "model": "cmyk",
+              "hex_value": null,
+              "name": null,
+              "value": {
+                "cyan": 20,
+                "magenta": 40,
+                "yellow": 60,
+                "black": 80
+              }
+            },
+            "FillColor": {
+              "type_code": 2,
+              "model": "cmyk",
+              "hex_value": null,
+              "name": null,
+              "value": {
+                "cyan": 20,
+                "magenta": 40,
+                "yellow": 60,
+                "black": 80
+              }
+            },
+            "FillColorTo": {
+              "type_code": 2,
+              "model": "cmyk",
+              "hex_value": null,
+              "name": null,
+              "value": {
+                "cyan": 20,
+                "magenta": 40,
+                "yellow": 60,
+                "black": 80
+              }
+            }
+          },
+          "source_fingerprint": "fc4fcbc8311041c8f3f952bc9eb389c3a2f0df7af12932ef0fa6a558f87631ae",
+          "source_preservation": {
+            "verified": true,
+            "scope": "root_membership_relative_order_complete_measured_source_geometry_supported_appearance"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Native parameters and complete measured curves are reconciled; exact arbitrary-curve offset distance, winding, collapsed steps, miter-limit semantics and cutting/print readiness require consolidated/manual verification."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "create_contour_offsets",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Contour request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -25234,6 +25629,427 @@
         "Individual vectors and artistic/unlinked paragraph text; existing ordinary process-color outlines and no/fully-readable uniform transparency. Mixed/linked stories and other effects require separate workflows.",
         "Existing gradients require a current-session fingerprint; unreadable gradients are refused. Other non-uniform fill replacement must be explicit.",
         "Partial assignments require inspection/reconciliation without automatic undo. Native metadata does not prove visual fidelity, ICC conversion or production readiness."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "create_contour_offsets",
+      "category": "vectors",
+      "description": "Create independently owned editable inside/outside contour curves from copied closed vectors, with native controls, complete measured source preservation and safe cleanup.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.create_contour_offsets"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_reference": {
+            "$ref": "#/schema_definitions/object_reference"
+          },
+          "offset_inches": {
+            "type": "number",
+            "minimum": 0.0001,
+            "maximum": 100
+          },
+          "direction": {
+            "enum": [
+              "inside",
+              "outside"
+            ],
+            "default": "outside"
+          },
+          "steps": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 32,
+            "default": 1
+          },
+          "color": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/process_color"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "corner_type": {
+            "enum": [
+              "bevel",
+              "offset_bevel",
+              "round",
+              "mitered_bevel",
+              "mitered_offset_bevel",
+              "mitered_round"
+            ],
+            "default": "round"
+          },
+          "miter_limit": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 0
+          },
+          "result_name_prefix": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 110,
+            "pattern": "^[^\u0000-\u001f]+$",
+            "default": "AI_Contour"
+          }
+        },
+        "required": [
+          "object_reference",
+          "offset_inches"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "type": "boolean"
+                    },
+                    "empty_result": {
+                      "type": "boolean"
+                    },
+                    "created_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 64
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/schema_definitions/curve_inspection"
+                      },
+                      "minItems": 0,
+                      "maxItems": 64
+                    },
+                    "direction": {
+                      "enum": [
+                        "inside",
+                        "outside"
+                      ]
+                    },
+                    "offset_inches": {
+                      "type": "number",
+                      "minimum": 0.0001,
+                      "maximum": 100
+                    },
+                    "requested_steps": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 32
+                    },
+                    "native_parameters": {
+                      "$ref": "#/schema_definitions/contour_native_parameters"
+                    },
+                    "source_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "source_preservation": {
+                      "type": "object",
+                      "properties": {
+                        "verified": {
+                          "const": true
+                        },
+                        "scope": {
+                          "const": "root_membership_relative_order_complete_measured_source_geometry_supported_appearance"
+                        }
+                      },
+                      "required": [
+                        "verified",
+                        "scope"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "empty_result",
+                    "created_count",
+                    "objects",
+                    "direction",
+                    "offset_inches",
+                    "requested_steps",
+                    "native_parameters",
+                    "source_fingerprint",
+                    "source_preservation",
+                    "verification_status",
+                    "warnings"
+                  ],
+                  "additionalProperties": false,
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "created_count": {
+                            "const": 0
+                          }
+                        },
+                        "required": [
+                          "created_count"
+                        ]
+                      },
+                      "then": {
+                        "properties": {
+                          "created": {
+                            "const": false
+                          },
+                          "empty_result": {
+                            "const": true
+                          },
+                          "objects": {
+                            "maxItems": 0
+                          },
+                          "direction": {
+                            "const": "inside"
+                          }
+                        }
+                      },
+                      "else": {
+                        "properties": {
+                          "created": {
+                            "const": true
+                          },
+                          "empty_result": {
+                            "const": false
+                          },
+                          "objects": {
+                            "minItems": 1
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateCMYKColor",
+        "Application.CreateCurve",
+        "Application.CreateRGBColor",
+        "Application.Documents",
+        "Bitmap.ResolutionX",
+        "Bitmap.ResolutionY",
+        "Bitmap.SizeHeight",
+        "Bitmap.SizeWidth",
+        "Color.CMYKBlack",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.RGBBlue",
+        "Color.RGBGreen",
+        "Color.RGBRed",
+        "Color.SpotColorName",
+        "Color.Tint",
+        "Color.Type",
+        "Curve.CreateSubPath",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Effect.Contour",
+        "Effect.Separate",
+        "Effect.Type",
+        "EffectContour.ColorAcceleration",
+        "EffectContour.ColorBlendType",
+        "EffectContour.ContourGroup",
+        "EffectContour.CornerType",
+        "EffectContour.Direction",
+        "EffectContour.EndCapType",
+        "EffectContour.FillColor",
+        "EffectContour.FillColorTo",
+        "EffectContour.MiterLimit",
+        "EffectContour.Offset",
+        "EffectContour.OutlineColor",
+        "EffectContour.Parent",
+        "EffectContour.SpacingAcceleration",
+        "EffectContour.Steps",
+        "Effects.Count",
+        "Effects.Item",
+        "Fill.ApplyUniformFill",
+        "Fill.Fountain",
+        "Fill.Type",
+        "Fill.UniformColor",
+        "FountainColor.BlendType",
+        "FountainColor.Color",
+        "FountainColor.MidPoint",
+        "FountainColor.Opacity",
+        "FountainColor.Position",
+        "FountainColors.Count",
+        "FountainColors.First",
+        "FountainColors.Item",
+        "FountainColors.Last",
+        "FountainFill.Angle",
+        "FountainFill.Anisotropic",
+        "FountainFill.BlendAcceleration",
+        "FountainFill.BlendType",
+        "FountainFill.CenterOffsetX",
+        "FountainFill.CenterOffsetY",
+        "FountainFill.Colors",
+        "FountainFill.EdgePad",
+        "FountainFill.End2X",
+        "FountainFill.End2Y",
+        "FountainFill.EndColor",
+        "FountainFill.EndX",
+        "FountainFill.EndY",
+        "FountainFill.HasHSBBlends",
+        "FountainFill.HasNonLinearBlends",
+        "FountainFill.IsTransparent",
+        "FountainFill.MergeMode",
+        "FountainFill.MidPoint",
+        "FountainFill.ScaleX",
+        "FountainFill.ScaleY",
+        "FountainFill.Skew",
+        "FountainFill.SmoothBlend",
+        "FountainFill.SpreadMethod",
+        "FountainFill.StartColor",
+        "FountainFill.StartX",
+        "FountainFill.StartY",
+        "FountainFill.Steps",
+        "FountainFill.Type",
+        "Layer.Activate",
+        "Layer.CreateCurve",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Outline.Color",
+        "Outline.SetNoOutline",
+        "Outline.Width",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "PowerClip.ContentsLocked",
+        "PowerClip.Parent",
+        "PowerClip.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.Bitmap",
+        "Shape.ConvertToCurves",
+        "Shape.CreateContour",
+        "Shape.Curve",
+        "Shape.Delete",
+        "Shape.DisplayCurve",
+        "Shape.Duplicate",
+        "Shape.Effects",
+        "Shape.Fill",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Outline",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.PowerClip",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Transparency",
+        "Shape.Type",
+        "Shape.Ungroup",
+        "Shape.ZOrder",
+        "SubPath.AppendCurveSegment2",
+        "SubPath.AppendLineSegment",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments",
+        "Text.Frames",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Bold",
+        "TextRange.Font",
+        "TextRange.Size",
+        "TextRange.Text",
+        "Transparency.AppliedTo",
+        "Transparency.ApplyNoTransparency",
+        "Transparency.MergeMode",
+        "Transparency.Type",
+        "Transparency.Uniform"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_contour_offsets.py",
+          "docs/CONTOUR_OFFSETS.md",
+          "docs/x7_contour_offset_api_evidence.json",
+          "docs/contour_offset_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native contour-group/separation/ungroup identity and coordinate behavior, exact arbitrary-curve offsets, winding and cutting/print output await consolidated native/manual verification.",
+        "One exact root closed rectangle/ellipse/polygon/curve source without existing effects or clipping. Supported process/no fills, complete process gradients and ordinary process outlines/uniform transparency only.",
+        "1-32 requested steps, 64 output curves, 1000 original/owned shapes, 32 levels and 16384 generated nodes. Compound paths are retained without fabricated per-step ordering; inside collapse is explicit.",
+        "Generated curves have an explicit opaque RGB/CMYK fill and no outline/effect. Open path caps, text conversion, preserved interactive contours and effect-source revisions remain broader work.",
+        "Round outside bounds and inside margin envelopes are reconciled; other corners require direction bounds/native controls. Miter-limit native semantics and arbitrary pointwise offset distance are not independently established.",
+        "Cleanup deletes only proven owned trees/effect affiliates. Foreign aliases, unknown receipts, changed sources and failed cleanup require exact-state reconciliation without automatic undo."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

@@ -168,6 +168,13 @@
       "path": "docs/x7_gradient_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "Installed gradient descriptors without application access."
+    },
+    {
+      "id": "x7_contour_offset_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_contour_offset_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "Installed contour/effect lifecycle descriptors without application access."
     }
   ],
   "members": [
@@ -293,7 +300,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_application",
@@ -438,7 +446,8 @@
       "used_by": [
         "guarded_imposition_live_fixture",
         "create_vector_path",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -460,7 +469,8 @@
         "set_outline",
         "set_process_color",
         "set_uniform_transparency",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_application",
@@ -625,7 +635,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_document",
@@ -668,7 +679,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_document",
@@ -713,7 +725,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_document",
@@ -1037,7 +1050,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_page",
@@ -1082,7 +1096,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_page",
@@ -1378,7 +1393,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1455,7 +1471,8 @@
       "used_by": [
         "guarded_imposition_live_fixture",
         "create_vector_path",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -1563,7 +1580,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1612,7 +1630,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1658,7 +1677,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1707,7 +1727,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1754,7 +1775,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1799,7 +1821,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1840,7 +1863,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1881,7 +1905,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1922,7 +1947,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1963,7 +1989,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1994,7 +2021,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2024,7 +2052,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2051,7 +2080,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2103,7 +2133,8 @@
         "break_apart_curve",
         "revise_curve_topology",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2177,7 +2208,8 @@
       "used_by": [
         "guarded_imposition_live_fixture",
         "create_vector_path",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2194,7 +2226,8 @@
       "used_by": [
         "guarded_imposition_live_fixture",
         "create_vector_path",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2223,7 +2256,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2270,7 +2304,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2299,7 +2334,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2326,7 +2362,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2352,7 +2389,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2378,7 +2416,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2457,7 +2496,8 @@
         "set_fill_color",
         "set_process_color",
         "set_uniform_transparency",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_fill",
@@ -2477,7 +2517,8 @@
       "used_by": [
         "get_fill",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_fill",
@@ -2496,7 +2537,8 @@
       "used_by": [
         "get_fill",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_fill",
@@ -2524,7 +2566,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2552,7 +2595,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2579,7 +2623,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2606,7 +2651,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2631,7 +2677,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2655,7 +2702,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2679,7 +2727,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2703,7 +2752,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2727,7 +2777,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2754,7 +2805,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2779,7 +2831,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2803,7 +2856,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2827,7 +2881,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_color",
@@ -2849,7 +2904,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_outline",
@@ -2891,7 +2947,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_outline",
@@ -2913,7 +2970,8 @@
       "signature": "SetNoOutline()",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "set_outline"
+        "set_outline",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_outline",
@@ -3164,7 +3222,8 @@
       "signature": "Ungroup() -> None",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "ungroup_shapes"
+        "ungroup_shapes",
+        "create_contour_offsets"
       ],
       "evidence": [
         "official_x7_shape",
@@ -3206,7 +3265,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3252,7 +3312,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3277,7 +3338,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3468,7 +3530,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3501,7 +3564,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3535,7 +3599,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3712,7 +3777,8 @@
         "break_apart_curve",
         "revise_curve_topology",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3736,7 +3802,8 @@
         "break_apart_curve",
         "revise_curve_topology",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3760,7 +3827,8 @@
         "break_apart_curve",
         "revise_curve_topology",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -4204,7 +4272,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4232,7 +4301,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4260,7 +4330,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4288,7 +4359,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4316,7 +4388,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4344,7 +4417,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4372,7 +4446,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4400,7 +4475,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4428,7 +4504,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4456,7 +4533,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4484,7 +4562,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4512,7 +4591,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4540,7 +4620,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4568,7 +4649,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4596,7 +4678,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4617,7 +4700,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4645,7 +4729,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4668,7 +4753,8 @@
         "break_apart_curve",
         "revise_curve_topology",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4696,7 +4782,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4713,7 +4800,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "create_vector_path",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4741,7 +4829,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4769,7 +4858,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4980,7 +5070,8 @@
       "used_by": [
         "set_process_color",
         "set_uniform_transparency",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5001,7 +5092,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5022,7 +5114,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5043,7 +5136,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5064,7 +5158,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5085,7 +5180,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5101,7 +5197,8 @@
       "signature": "ApplyNoTransparency",
       "status": "typelib_confirmed",
       "used_by": [
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5135,7 +5232,8 @@
       "used_by": [
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5153,7 +5251,8 @@
       "used_by": [
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5171,7 +5270,8 @@
       "used_by": [
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5189,7 +5289,8 @@
       "used_by": [
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5207,7 +5308,8 @@
       "used_by": [
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5225,7 +5327,8 @@
       "used_by": [
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5243,7 +5346,8 @@
       "used_by": [
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5261,7 +5365,8 @@
       "used_by": [
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5279,7 +5384,8 @@
       "used_by": [
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5345,7 +5451,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5362,7 +5469,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5379,7 +5487,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5396,7 +5505,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5413,7 +5523,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5430,7 +5541,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5447,7 +5559,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5464,7 +5577,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5481,7 +5595,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5498,7 +5613,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5515,7 +5631,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5532,7 +5649,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5549,7 +5667,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5566,7 +5685,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5583,7 +5703,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5600,7 +5721,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5617,7 +5739,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5634,7 +5757,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5651,7 +5775,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5668,7 +5793,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5685,7 +5811,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5702,7 +5829,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5719,7 +5847,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5736,7 +5865,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5753,7 +5883,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5770,7 +5901,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5787,7 +5919,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5804,7 +5937,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5821,7 +5955,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5838,7 +5973,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5855,7 +5991,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5872,7 +6009,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5889,7 +6027,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5906,7 +6045,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5923,7 +6063,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5940,7 +6081,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5957,7 +6099,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5974,7 +6117,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_gradient_fill",
-        "set_gradient_fill"
+        "set_gradient_fill",
+        "create_contour_offsets"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6028,6 +6172,342 @@
         "x7_gradient_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/fountainfill.makeopaque",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Effect.Contour",
+      "owner": "Effect",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Contour",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effect.contour",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Effect.Separate",
+      "owner": "Effect",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Separate",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/effect.separate",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Effect.Type",
+      "owner": "Effect",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Type",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effect.type",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.ColorAcceleration",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "ColorAcceleration",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.coloracceleration",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.ColorBlendType",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "ColorBlendType",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.colorblendtype",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.ContourGroup",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "ContourGroup",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.contourgroup",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.CornerType",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "CornerType",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.cornertype",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.Direction",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Direction",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.direction",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.EndCapType",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "EndCapType",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.endcaptype",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.FillColor",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "FillColor",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.fillcolor",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.FillColorTo",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "FillColorTo",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.fillcolorto",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.MiterLimit",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "MiterLimit",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.miterlimit",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.Offset",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Offset",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.offset",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.OutlineColor",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "OutlineColor",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.outlinecolor",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.Parent",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Parent",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.parent",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.SpacingAcceleration",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "SpacingAcceleration",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.spacingacceleration",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "EffectContour.Steps",
+      "owner": "EffectContour",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Steps",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effectcontour.steps",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Effects.Count",
+      "owner": "Effects",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Count",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effects.count",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Effects.Item",
+      "owner": "Effects",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Item, Index",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/effects.item",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.CreateContour",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "CreateContour, Direction, Offset, Steps, BlendType, OutlineColor, FillColor, FillColor2, SpacingAccel, ColorAccel, EndCapType, CornerType, MiterLimit",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.createcontour",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.Effects",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Effects",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_contour_offsets"
+      ],
+      "evidence": [
+        "x7_contour_offset_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.effects",
       "live_test_status": "not_run_deferred"
     }
   ]

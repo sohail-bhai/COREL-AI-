@@ -44,7 +44,7 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 76 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 77 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
@@ -68,7 +68,7 @@ shaping appearance and fill winding await the consolidated gate. The additional
 [topology revision tool](VECTOR_TOPOLOGY.md) inserts nodes through exact line/cubic
 subdivision and deletes nonadjacent nodes through explicit reconnection geometry,
 preserving the source. Twenty-two focused checks pass. Adjacent deletion/fitting,
-endpoint cropping and contour offsets remain broader work.
+endpoint cropping remain broader work.
 
 [Controlled process colors](PROCESS_COLORS.md) now assign native RGB/CMYK fill
 or existing ordinary-outline color with complete component and measured
@@ -93,6 +93,13 @@ apply opaque direct RGB/CMYK multicolor fills with fingerprint-guarded revisions
 Thirty focused checks cover component/parameter reconciliation, vector/text
 preservation, unavailable metadata and recovery. Native interpolation/coordinates,
 broader gradient effects and manual CDR/PDF review remain pending.
+
+The [contour derivative tool](CONTOUR_OFFSETS.md) copies closed vectors, applies
+inside/outside controls and separates native results into ordinary editable
+curves with verified geometry/ownership readback. Thirty-seven focused checks
+cover source appearance, nested/compound shapes, partial failure cleanup and
+foreign-scope recovery. Exact native offsets/winding, miter/cutting behavior and
+CDR/PDF review remain deferred.
 
 ## Evidence hierarchy
 
@@ -129,7 +136,7 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic and workflow tools — `implemented_unverified` | 76 |
+| Registered atomic and workflow tools — `implemented_unverified` | 77 |
 | Planned atomic/workflow tools — `planned` | 1 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |
