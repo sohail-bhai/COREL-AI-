@@ -29,6 +29,11 @@ subdivision, explicit reconnection, primitive/rotated CopyAssign coordinates and
 copied basic appearance. Recovery gates cover synthetic partial/late failures; real modal
 and busy behavior still needs controlled observation during the later session.
 
+The process-color gate covers exact native RGB/CMYK components on vectors/text,
+ordinary-outline recoloring and measured geometry/other-channel preservation.
+Its PDF/CDR artifacts require separate visual/color/prepress review; exact native
+components do not establish ICC conversion or separation correctness.
+
 Use `tests/integration/test_corel_live.py` with explicit live and disposable
 mutation flags only when the user resumes native verification. All generated
 fixtures and outputs belong to that run's unique temporary directory. Existing

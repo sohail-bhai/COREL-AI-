@@ -326,6 +326,42 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed,failure)
 
+    def test_native_process_colors_live(self) -> None:
+        """Deferred native RGB/CMYK component/outline/text gate on its own fixtures."""
+        passed=False; failure=None
+        try:
+            self.status=self._step("connect",self.bridge.connect)
+            self._step("create process-color fixture",lambda:self.bridge.create_document(8.5,11))
+            box=self._step("color vector fixture",lambda:self.bridge.draw_rectangle(1,1,3,2,"ProcessVector"))
+            reference=self.bridge.get_object_info(object_name=box["object_name"])["object"]["object_reference"]
+            before=self.bridge.get_curve_geometry(object_reference=reference)["curve"]
+            for color in ({"model":"rgb","red":20,"green":100,"blue":180},
+                          {"model":"cmyk","cyan":80,"magenta":40,"yellow":0,"black":10}):
+                result=self._step("set_process_color "+color["model"],lambda:self.bridge.set_process_color(color,object_reference=reference))
+                self.assertEqual(result["actual_color"]["model"],color["model"])
+                self.assertEqual(result["actual_color"]["value"],{key:value for key,value in color.items() if key!="model"})
+                self.assertEqual(self.bridge.get_curve_geometry(object_reference=reference)["curve"],before)
+            self._step("prepare existing ordinary outline",lambda:self.bridge.set_outline(0,0,0,1,object_reference=reference))
+            shape=self.bridge._find_shape(self.bridge.target_doc,object_name=box["object_name"])
+            before_outline=self.bridge._outline_readback(shape); before_fill=self.bridge._fill_readback(shape)
+            outline=self._step("CMYK ordinary outline",lambda:self.bridge.set_process_color(
+                {"model":"cmyk","cyan":0,"magenta":0,"yellow":0,"black":100},channel="outline",object_reference=reference))
+            self.assertEqual(outline["actual_outline"]["width_raw"],before_outline["width_raw"])
+            self.assertEqual(outline["actual_fill"],before_fill)
+            title=self._step("process text fixture",lambda:self.bridge.add_text("Editable CMYK title",1,5,18,"Arial",True,"ProcessTitle"))
+            title_ref=self.bridge.get_object_info(object_name=title["object_name"])["object"]["object_reference"]
+            text_before=self.bridge.get_text_properties(object_reference=title_ref)["text"]
+            self._step("CMYK text fill",lambda:self.bridge.set_process_color(
+                {"model":"cmyk","cyan":0,"magenta":100,"yellow":80,"black":0},object_reference=title_ref))
+            self.assertEqual(self.bridge.get_text_properties(object_reference=title_ref)["text"],text_before)
+            self._step("save process colors",lambda:self.bridge.save_document(str(self.output_dir/"process-colors.cdr")))
+            self._step("export process colors",lambda:self.bridge.export_pdf_controlled(str(self.output_dir/"process-colors.pdf")))
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed,failure)
+
     def test_document_inspection_live(self) -> None:
         """Consolidated inspection checks on a synthetic document with two pages."""
         passed=False; failure=None

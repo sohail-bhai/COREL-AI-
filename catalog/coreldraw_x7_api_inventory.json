@@ -147,6 +147,13 @@
       "path": "docs/x7_vector_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "Installed X7 curve/node/shaping signatures and enums, read without application access."
+    },
+    {
+      "id": "x7_appearance_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_appearance_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "Installed process-color/outline/fill/transparency/clipping signatures without application access."
     }
   ],
   "members": [
@@ -264,7 +271,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_application",
@@ -428,7 +436,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "set_fill_color",
-        "set_outline"
+        "set_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_application",
@@ -585,7 +594,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_document",
@@ -622,7 +632,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_document",
@@ -661,7 +672,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_document",
@@ -977,7 +989,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_page",
@@ -1014,7 +1027,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_page",
@@ -1302,7 +1316,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1479,7 +1494,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1520,7 +1536,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1558,7 +1575,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1600,7 +1618,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1640,7 +1659,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1677,7 +1697,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1711,7 +1732,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1745,7 +1767,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1779,7 +1802,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1813,7 +1837,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1837,7 +1862,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1859,7 +1885,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "set_fill_color",
-        "get_fill"
+        "get_fill",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1879,7 +1906,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "list_objects",
-        "set_outline"
+        "set_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2042,7 +2070,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2083,7 +2112,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "set_process_color"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2106,7 +2136,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "set_process_color"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2127,7 +2158,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "set_process_color"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2147,7 +2179,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "set_process_color"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2167,7 +2200,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "set_process_color"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2243,7 +2277,8 @@
       "signature": "ApplyUniformFill(Color)",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "set_fill_color"
+        "set_fill_color",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_fill",
@@ -2299,7 +2334,8 @@
         "set_fill_color",
         "set_outline",
         "get_fill",
-        "get_outline"
+        "get_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2320,7 +2356,8 @@
         "list_objects",
         "set_fill_color",
         "set_outline",
-        "get_fill"
+        "get_fill",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2340,7 +2377,8 @@
         "list_objects",
         "set_fill_color",
         "set_outline",
-        "get_fill"
+        "get_fill",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2360,7 +2398,8 @@
         "list_objects",
         "set_fill_color",
         "set_outline",
-        "get_fill"
+        "get_fill",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2378,7 +2417,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "get_fill",
-        "get_outline"
+        "get_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2395,7 +2435,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "get_fill",
-        "get_outline"
+        "get_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2412,7 +2453,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "get_fill",
-        "get_outline"
+        "get_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2429,7 +2471,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "get_fill",
-        "get_outline"
+        "get_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2446,7 +2489,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "get_fill",
-        "get_outline"
+        "get_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2466,7 +2510,8 @@
         "set_fill_color",
         "set_outline",
         "get_fill",
-        "get_outline"
+        "get_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2484,7 +2529,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "get_fill",
-        "get_outline"
+        "get_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2501,7 +2547,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "get_fill",
-        "get_outline"
+        "get_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2518,7 +2565,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "get_fill",
-        "get_outline"
+        "get_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_color",
@@ -2534,7 +2582,8 @@
       "signature": "Color -> Color",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "set_outline"
+        "set_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_outline",
@@ -2570,7 +2619,8 @@
       "status": "documented_and_typelib_confirmed_behavior_research_required",
       "used_by": [
         "list_objects",
-        "set_outline"
+        "set_outline",
+        "set_process_color"
       ],
       "evidence": [
         "official_x7_outline",
@@ -3127,7 +3177,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3154,7 +3205,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3182,7 +3234,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3839,7 +3892,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3861,7 +3915,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3883,7 +3938,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3905,7 +3961,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3927,7 +3984,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3949,7 +4007,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3971,7 +4030,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3993,7 +4053,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4015,7 +4076,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4037,7 +4099,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4059,7 +4122,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4081,7 +4145,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4103,7 +4168,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4125,7 +4191,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4147,7 +4214,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4190,7 +4258,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4233,7 +4302,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4272,7 +4342,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4294,7 +4365,8 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "set_process_color"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4492,6 +4564,22 @@
         "x7_vector_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/curve.copyassign",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Application.CreateCMYKColor",
+      "owner": "Application",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "CreateCMYKColor, Cyan, Magenta, Yellow, Black",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_process_color"
+      ],
+      "evidence": [
+        "x7_appearance_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/application.createcmykcolor",
       "live_test_status": "not_run_deferred"
     }
   ]

@@ -522,6 +522,20 @@ def inspect_text_template(object_name: str="",shape_index: int=0,object_referenc
 
 @mcp.tool()
 @recorded_operation
+def set_process_color(color: dict,channel: str="fill",replace_non_uniform: bool=False,
+    object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
+    """Set exact native RGB/CMYK process fill or an existing ordinary outline color.
+
+    color uses model=rgb and red/green/blue 0-255, or model=cmyk and cyan/magenta/
+    yellow/black 0-100. Gradient/pattern replacement is explicit. Full component,
+    other-channel and measured geometry/text readback gate success. No ICC/PDF-X proof.
+    """
+    return _tool("set_process_color","set_process_color",color,channel,replace_non_uniform,
+        object_name,shape_index,object_reference)
+
+
+@mcp.tool()
+@recorded_operation
 def create_vector_path(paths: list[dict],object_name: str="") -> dict:
     """Create editable inch-based line/cubic subpaths with complete native readback.
 

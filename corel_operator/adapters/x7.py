@@ -136,6 +136,8 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "appearance.process_color": CapabilitySupport(True,"implemented_unverified","Native RGB/CMYK process fill/ordinary-outline assignment verifies complete components and measured geometry/other-channel preservation; no ICC/spot proof.",
+            ("Application.CreateRGBColor","Application.CreateCMYKColor","Fill.ApplyUniformFill","Outline.Color")),
         "vector.revise_topology": CapabilitySupport(True,"implemented_unverified","Source-preserving parameter subdivision and explicit nonadjacent node reconnection with complete native geometry/appearance readback.",
             ("Curve.CopyAssign","Shape.Duplicate","Node.Type")),
         "vector.create_path": CapabilitySupport(True,"implemented_unverified","Bounded editable line/cubic subpaths with complete native geometry readback; live gate pending.",

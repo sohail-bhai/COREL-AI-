@@ -328,11 +328,12 @@
       "registered_tools": [
         "set_fill_color",
         "set_outline",
-        "get_fill"
+        "get_fill",
+        "set_process_color"
       ],
       "missing_behavior": [
         "Proven outline width units",
-        "Native CMYK/spot writes",
+        "Native spot creation/conversion and ICC/separation workflows",
         "Transparency/gradients and PowerClip"
       ],
       "source_ids": [
@@ -343,8 +344,14 @@
         "ID-001",
         "SAFE-002"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "partial_implemented_unverified",
+      "live_status": "deferred",
+      "evidence": [
+        "docs/PROCESS_COLORS.md",
+        "docs/x7_appearance_api_evidence.json",
+        "tests/test_process_colors.py",
+        "docs/test-reports/2026-11-03-process-colors-non-live.md"
+      ]
     },
     {
       "id": "images",

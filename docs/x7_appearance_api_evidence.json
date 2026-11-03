@@ -1,0 +1,2829 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IVGApplication",
+      "names": [
+        "CreateRGBColor",
+        "Red",
+        "Green",
+        "Blue"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743858, (), ((3, 1, None), (3, 1, None), (3, 1, None)), 4, 1, 4, 0, 456, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Creates an RGB color"
+    },
+    {
+      "interface": "IVGApplication",
+      "names": [
+        "CreateCMYKColor",
+        "Cyan",
+        "Magenta",
+        "Yellow",
+        "Black"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743860, (), ((3, 1, None), (3, 1, None), (3, 1, None), (3, 1, None)), 4, 1, 4, 0, 472, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Creates a CMYK color"
+    },
+    {
+      "interface": "IVGApplication",
+      "names": [
+        "ConvertUnits",
+        "Value",
+        "FromUnit",
+        "ToUnit"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743907, (), ((5, 1, None), ((29, 50336000), 1, None), ((29, 50336000), 1, None)), 4, 1, 4, 0, 848, (5, 0, None), 0)",
+      "documentation": "Converts a measurement from one unit to another"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Application"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, (9, 0, None), 0)",
+      "documentation": "Gets the application to which the object belongs"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Parent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, (9, 0, None), 0)",
+      "documentation": "Gets the parent of which this object is a child"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((29, 50333696), 0, None), 0)",
+      "documentation": "Gets color type"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "RGBAssign",
+        "Red",
+        "Green",
+        "Blue"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743811, (), ((3, 1, None), (3, 1, None), (3, 1, None)), 4, 1, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Assigns the RGB color model"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "RGBRed"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (3, 0, None), 0)",
+      "documentation": "Gets or sets the RGB Red color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "RGBRed"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743812, (), ((3, 1, None),), 4, 4, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Gets or sets the RGB Red color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "RGBGreen"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, (3, 0, None), 0)",
+      "documentation": "Gets or sets the RGB Green color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "RGBGreen"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743814, (), ((3, 1, None),), 4, 4, 4, 0, 112, (24, 0, None), 0)",
+      "documentation": "Gets or sets the RGB Green color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "RGBBlue"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (3, 0, None), 0)",
+      "documentation": "Gets or sets the RGB Blue color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "RGBBlue"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((3, 1, None),), 4, 4, 4, 0, 128, (24, 0, None), 0)",
+      "documentation": "Gets or sets the RGB Blue color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToRGB"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743818, (), (), 4, 1, 4, 0, 136, (24, 0, None), 0)",
+      "documentation": "Converts the color model to RGB"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYKAssign",
+        "Cyan",
+        "Magenta",
+        "Yellow",
+        "Black"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743819, (), ((3, 1, None), (3, 1, None), (3, 1, None), (3, 1, None)), 4, 1, 4, 0, 144, (24, 0, None), 0)",
+      "documentation": "Assigns the CMYK color model"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYKCyan"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (), 4, 2, 4, 0, 152, (3, 0, None), 0)",
+      "documentation": "Gets or sets the CMYK Cyan color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYKCyan"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743820, (), ((3, 1, None),), 4, 4, 4, 0, 160, (24, 0, None), 0)",
+      "documentation": "Gets or sets the CMYK Cyan color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYKYellow"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743822, (), (), 4, 2, 4, 0, 168, (3, 0, None), 0)",
+      "documentation": "Gets or sets the CMYK Yellow color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYKYellow"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743822, (), ((3, 1, None),), 4, 4, 4, 0, 176, (24, 0, None), 0)",
+      "documentation": "Gets or sets the CMYK Yellow color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYKMagenta"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743824, (), (), 4, 2, 4, 0, 184, (3, 0, None), 0)",
+      "documentation": "Gets or sets the CMYK Magenta color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYKMagenta"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743824, (), ((3, 1, None),), 4, 4, 4, 0, 192, (24, 0, None), 0)",
+      "documentation": "Gets or sets the CMYK Magenta color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYKBlack"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743826, (), (), 4, 2, 4, 0, 200, (3, 0, None), 0)",
+      "documentation": "Gets or sets the CMYK Black color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYKBlack"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743826, (), ((3, 1, None),), 4, 4, 4, 0, 208, (24, 0, None), 0)",
+      "documentation": "Gets or sets the CMYK Black color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToCMYK"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743828, (), (), 4, 1, 4, 0, 216, (24, 0, None), 0)",
+      "documentation": "Converts the color model to CMYK"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYAssign",
+        "Cyan",
+        "Magenta",
+        "Yellow"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743829, (), ((3, 1, None), (3, 1, None), (3, 1, None)), 4, 1, 4, 0, 224, (24, 0, None), 0)",
+      "documentation": "Assigns the CMY color model"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYCyan"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743830, (), (), 4, 2, 4, 0, 232, (3, 0, None), 0)",
+      "documentation": "Gets or sets the CMY Cyan color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYCyan"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743830, (), ((3, 1, None),), 4, 4, 4, 0, 240, (24, 0, None), 0)",
+      "documentation": "Gets or sets the CMY Cyan color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYMagenta"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743832, (), (), 4, 2, 4, 0, 248, (3, 0, None), 0)",
+      "documentation": "Gets or sets the CMY Magenta color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYMagenta"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743832, (), ((3, 1, None),), 4, 4, 4, 0, 256, (24, 0, None), 0)",
+      "documentation": "Gets or sets the CMY Magenta color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYYellow"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743834, (), (), 4, 2, 4, 0, 264, (3, 0, None), 0)",
+      "documentation": "Gets or sets the CMY Yellow color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CMYYellow"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743834, (), ((3, 1, None),), 4, 4, 4, 0, 272, (24, 0, None), 0)",
+      "documentation": "Gets or sets the CMY Yellow color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToCMY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743836, (), (), 4, 1, 4, 0, 280, (24, 0, None), 0)",
+      "documentation": "Converts the color model to CMY"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HSBAssign",
+        "Hue",
+        "Saturation",
+        "Brightness"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743837, (), ((3, 1, None), (3, 1, None), (3, 1, None)), 4, 1, 4, 0, 288, (24, 0, None), 0)",
+      "documentation": "Assigns the HSB color model"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HSBHue"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743838, (), (), 4, 2, 4, 0, 296, (3, 0, None), 0)",
+      "documentation": "Gets or sets the HSB Hue value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HSBHue"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743838, (), ((3, 1, None),), 4, 4, 4, 0, 304, (24, 0, None), 0)",
+      "documentation": "Gets or sets the HSB Hue value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HSBSaturation"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743840, (), (), 4, 2, 4, 0, 312, (3, 0, None), 0)",
+      "documentation": "Gets or sets the HSB Saturation value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HSBSaturation"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743840, (), ((3, 1, None),), 4, 4, 4, 0, 320, (24, 0, None), 0)",
+      "documentation": "Gets or sets the HSB Saturation value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HSBBrightness"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743842, (), (), 4, 2, 4, 0, 328, (3, 0, None), 0)",
+      "documentation": "Gets or sets the HSB Brightness value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HSBBrightness"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743842, (), ((3, 1, None),), 4, 4, 4, 0, 336, (24, 0, None), 0)",
+      "documentation": "Gets or sets the HSB Brightness value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToHSB"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743844, (), (), 4, 1, 4, 0, 344, (24, 0, None), 0)",
+      "documentation": "Converts the color model to HSB"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HLSAssign",
+        "Hue",
+        "Lightness",
+        "Saturation"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743845, (), ((3, 1, None), (3, 1, None), (3, 1, None)), 4, 1, 4, 0, 352, (24, 0, None), 0)",
+      "documentation": "Assigns the HLS color model"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HLSHue"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743846, (), (), 4, 2, 4, 0, 360, (3, 0, None), 0)",
+      "documentation": "Gets or sets the HLS Hue value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HLSHue"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743846, (), ((3, 1, None),), 4, 4, 4, 0, 368, (24, 0, None), 0)",
+      "documentation": "Gets or sets the HLS Hue value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HLSLightness"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743848, (), (), 4, 2, 4, 0, 376, (3, 0, None), 0)",
+      "documentation": "Gets or sets the HLS Lightness value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HLSLightness"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743848, (), ((3, 1, None),), 4, 4, 4, 0, 384, (24, 0, None), 0)",
+      "documentation": "Gets or sets the HLS Lightness value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HLSSaturation"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743850, (), (), 4, 2, 4, 0, 392, (3, 0, None), 0)",
+      "documentation": "Gets or sets the HLS Saturation value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HLSSaturation"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743850, (), ((3, 1, None),), 4, 4, 4, 0, 400, (24, 0, None), 0)",
+      "documentation": "Gets or sets the HLS Saturation value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToHLS"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743852, (), (), 4, 1, 4, 0, 408, (24, 0, None), 0)",
+      "documentation": "Converts the color model to HLS"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "BWAssign",
+        "White"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743853, (), ((11, 1, None),), 4, 1, 4, 0, 416, (24, 0, None), 0)",
+      "documentation": "Assigns a Black and White color model; Only accepts a boolean"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "BW"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743854, (), (), 4, 2, 4, 0, 424, (11, 0, None), 0)",
+      "documentation": "Gets or sets Black and White state"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "BW"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743854, (), ((11, 1, None),), 4, 4, 4, 0, 432, (24, 0, None), 0)",
+      "documentation": "Gets or sets Black and White state"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToBW"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743856, (), (), 4, 1, 4, 0, 440, (24, 0, None), 0)",
+      "documentation": "Converts the color model to Black and White"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "GrayAssign",
+        "GrayValue"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743857, (), ((3, 1, None),), 4, 1, 4, 0, 448, (24, 0, None), 0)",
+      "documentation": "Assigns the Grayscale color model"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Gray"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743858, (), (), 4, 2, 4, 0, 456, (3, 0, None), 0)",
+      "documentation": "Gets or sets the Gray value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Gray"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743858, (), ((3, 1, None),), 4, 4, 4, 0, 464, (24, 0, None), 0)",
+      "documentation": "Gets or sets the Gray value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToGray"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743860, (), (), 4, 1, 4, 0, 472, (24, 0, None), 0)",
+      "documentation": "Converts the color model to Grayscale"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CorelScriptAssign",
+        "ColorModel",
+        "V1",
+        "V2",
+        "V3",
+        "V4",
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743861, (), ((3, 1, None), (3, 1, None), (3, 49, 0), (3, 49, 0), (3, 49, 0), (3, 49, 0), (3, 49, 0), (3, 49, 0)), 4, 1, 4, 0, 480, (24, 0, None), 0)",
+      "documentation": "Assigns a color object based on Corel SCRIPT color specification values"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CorelScriptGetComponent",
+        "ColorModel",
+        "V1",
+        "V2",
+        "V3",
+        "V4",
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743862, (), (((26, 3), 2, None), ((26, 3), 2, None), ((26, 3), 50, 0), ((26, 3), 50, 0), ((26, 3), 50, 0), ((26, 3), 50, 0), ((26, 3), 50, 0), ((26, 3), 50, 0)), 4, 1, 4, 0, 488, (24, 0, None), 0)",
+      "documentation": "Gets Corel SCRIPT values from a color object for use in Corel SCRIPT"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "UserAssign",
+        "ParentWindowHandle"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743863, (), ((3, 49, 0),), 4, 1, 4, 0, 496, (24, 0, None), 0)",
+      "documentation": "Brings up the Color dialog to allow the user to assign a color"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CopyAssign",
+        "Color"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743864, (), (((26, (29, 50365696)), 1, None),), 4, 1, 4, 0, 504, (24, 0, None), 0)",
+      "documentation": "Copies color model assignment"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Name",
+        "Components"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743865, (), ((11, 49, False),), 4, 2, 4, 0, 512, (8, 0, None), 0)",
+      "documentation": "Gets color name"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "YIQAssign",
+        "y",
+        "I",
+        "Q"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743866, (), ((3, 1, None), (3, 1, None), (3, 1, None)), 4, 1, 4, 0, 520, (24, 0, None), 0)",
+      "documentation": "Assigns the YIQ color model"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "YIQLuminanceY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743867, (), (), 4, 2, 4, 0, 528, (3, 0, None), 0)",
+      "documentation": "Gets or sets the YIQ Y color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "YIQLuminanceY"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743867, (), ((3, 1, None),), 4, 4, 4, 0, 536, (24, 0, None), 0)",
+      "documentation": "Gets or sets the YIQ Y color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "YIQChromaI"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743869, (), (), 4, 2, 4, 0, 544, (3, 0, None), 0)",
+      "documentation": "Gets or sets the YIQ I color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "YIQChromaI"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743869, (), ((3, 1, None),), 4, 4, 4, 0, 552, (24, 0, None), 0)",
+      "documentation": "Gets or sets the YIQ I color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "YIQChromaQ"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743871, (), (), 4, 2, 4, 0, 560, (3, 0, None), 0)",
+      "documentation": "Gets or sets the YIQ Q color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "YIQChromaQ"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743871, (), ((3, 1, None),), 4, 4, 4, 0, 568, (24, 0, None), 0)",
+      "documentation": "Gets or sets the YIQ Q color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToYIQ"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743873, (), (), 4, 1, 4, 0, 576, (24, 0, None), 0)",
+      "documentation": "Converts the color model to YIQ"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "LabAssign",
+        "L",
+        "A",
+        "B"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743874, (), ((3, 1, None), (3, 1, None), (3, 1, None)), 4, 1, 4, 0, 584, (24, 0, None), 0)",
+      "documentation": "Assigns the LAB color model"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "LabLuminance"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743875, (), (), 4, 2, 4, 0, 592, (3, 0, None), 0)",
+      "documentation": "Gets or sets the LAB L color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "LabLuminance"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743875, (), ((3, 1, None),), 4, 4, 4, 0, 600, (24, 0, None), 0)",
+      "documentation": "Gets or sets the LAB L color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "LabComponentA"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743877, (), (), 4, 2, 4, 0, 608, (3, 0, None), 0)",
+      "documentation": "Gets or sets the LAB A color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "LabComponentA"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743877, (), ((3, 1, None),), 4, 4, 4, 0, 616, (24, 0, None), 0)",
+      "documentation": "Gets or sets the LAB A color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "LabComponentB"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743879, (), (), 4, 2, 4, 0, 624, (3, 0, None), 0)",
+      "documentation": "Gets or sets the LAB B color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "LabComponentB"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743879, (), ((3, 1, None),), 4, 4, 4, 0, 632, (24, 0, None), 0)",
+      "documentation": "Gets or sets the LAB B color value"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToLab"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743881, (), (), 4, 1, 4, 0, 640, (24, 0, None), 0)",
+      "documentation": "Converts the color model to LAB"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "RegistrationAssign"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743882, (), (), 4, 1, 4, 0, 648, (24, 0, None), 0)",
+      "documentation": "Assigns the Registration color model"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "FixedAssign",
+        "PaletteID",
+        "PaletteIndex",
+        "Tint"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743883, (), (((29, 50332288), 1, None), (3, 1, None), (3, 49, 100)), 4, 1, 4, 0, 656, (24, 0, None), 64)",
+      "documentation": "Assigns a Fixed Palette Color"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "PaletteID"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743884, (), (), 4, 2, 4, 0, 664, ((29, 50332288), 0, None), 64)",
+      "documentation": "Gets the Fixed Palette Color's ID"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "PaletteIndex"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743885, (), (), 4, 2, 4, 0, 672, (3, 0, None), 64)",
+      "documentation": "Gets or sets the Fixed Palette Color's Index"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "PaletteIndex"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743885, (), ((3, 1, None),), 4, 4, 4, 0, 680, (24, 0, None), 64)",
+      "documentation": "Gets or sets the Fixed Palette Color's Index"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Tint"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743887, (), (), 4, 2, 4, 0, 688, (3, 0, None), 0)",
+      "documentation": "Gets or sets the Fixed Palette Color's Tint"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Tint"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743887, (), ((3, 1, None),), 4, 4, 4, 0, 696, (24, 0, None), 0)",
+      "documentation": "Gets or sets the Fixed Palette Color's Tint"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToFixed",
+        "PaletteID"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743889, (), (((29, 50332288), 1, None),), 4, 1, 4, 0, 704, (24, 0, None), 64)",
+      "documentation": "Converts the color model to a color in the given Fixed Palette"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "UserAssignEx",
+        "ParentWindowHandle"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743890, (), ((3, 49, 0),), 4, 1, 4, 0, 712, (11, 0, None), 0)",
+      "documentation": "Brings up the Color dialog to allow the user to assign a color"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "SetName",
+        "Name"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743891, (), ((8, 1, None),), 4, 1, 4, 0, 720, (24, 0, None), 0)",
+      "documentation": "Assigns a name to an unnamed color"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "BlendWith",
+        "Color",
+        "MixRatio"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743892, (), (((26, (29, 50365696)), 1, None), (3, 1, None)), 4, 1, 4, 0, 728, (24, 0, None), 0)",
+      "documentation": "Mixes the color with the given color using the specified ratio"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "IsSame",
+        "Color"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743893, (), (((26, (29, 50365696)), 1, None),), 4, 1, 4, 0, 736, (11, 0, None), 0)",
+      "documentation": "Returns True if the two colors are of the same color model, with equal color values"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "IsInGamut"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743894, (), (), 4, 2, 4, 0, 744, (11, 0, None), 0)",
+      "documentation": "Returns True if the color is within the current printer gamut"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "InGamutColor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743895, (), (), 4, 2, 4, 0, 752, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Returns the corrected color to be within the current printer gamut"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "IsCMYK"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743896, (), (), 4, 2, 4, 0, 760, (11, 0, None), 0)",
+      "documentation": "Returns True if the color is CMYK"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "IsGray"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743897, (), (), 4, 2, 4, 0, 768, (11, 0, None), 0)",
+      "documentation": "Returns True if the color has only black component"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "IsWhite"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743898, (), (), 4, 2, 4, 0, 776, (11, 0, None), 0)",
+      "documentation": "Returns True if the color is white"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "IsSpot"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743899, (), (), 4, 2, 4, 0, 784, (11, 0, None), 0)",
+      "documentation": "Returns True if the color is a spot color"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "IsTintable"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743900, (), (), 4, 2, 4, 0, 792, (11, 0, None), 0)",
+      "documentation": "Returns True if the color can have tints"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "IsValidDuotoneColor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743901, (), (), 4, 2, 4, 0, 800, (11, 0, None), 0)",
+      "documentation": "Returns True if the color can be used in duotones"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ValidDuotoneColor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743902, (), (), 4, 2, 4, 0, 808, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Returns the corrected color to be used in duotones"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "GetColorDistanceFrom",
+        "Color"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743903, (), (((26, (29, 50365696)), 1, None),), 4, 1, 4, 0, 816, (3, 0, None), 0)",
+      "documentation": "Returns a relative measurement of distance between two colors in a color space"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "IsSimilar",
+        "Color"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743904, (), (((26, (29, 50365696)), 1, None),), 4, 1, 4, 0, 824, (11, 0, None), 64)",
+      "documentation": "Returns True if the given two spot colors are similar (e.g. Pantone coated/uncoated pairs)"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ToString"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743905, (), (), 4, 1, 4, 0, 832, (8, 0, None), 0)",
+      "documentation": "Returns color information encoded into a string"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "StringAssign",
+        "ColorString"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743906, (), ((8, 1, None),), 4, 1, 4, 0, 840, (11, 0, None), 0)",
+      "documentation": "Decodes a string into color information"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Invalidate"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743907, (), (), 4, 1, 4, 0, 848, (24, 0, None), 0)",
+      "documentation": "Clears the color to an invalid state"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HexValue"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743908, (), (), 4, 2, 4, 0, 856, (8, 0, None), 0)",
+      "documentation": "Gets or sets the web-compatible RGB value of the color as a hexadecimal string"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "HexValue"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743908, (), ((8, 1, None),), 4, 4, 4, 0, 864, (24, 0, None), 0)",
+      "documentation": "Gets or sets the web-compatible RGB value of the color as a hexadecimal string"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "GetCopy"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743910, (), (), 4, 1, 4, 0, 872, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Creates a new color objects using a copy of the color information"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "RGBValue"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743911, (), (), 4, 2, 4, 0, 880, (3, 0, None), 0)",
+      "documentation": "Specifies the RGB color value as a single integer"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "RGBValue"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743911, (), ((3, 1, None),), 4, 4, 4, 0, 888, (24, 0, None), 0)",
+      "documentation": "Specifies the RGB color value as a single integer"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "CopyAppearance",
+        "Color",
+        "SourceColorContext"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743913, (), (((26, (29, 50365696)), 1, None), ((26, (29, 50365824)), 49, 0)), 4, 1, 4, 0, 896, (24, 0, None), 0)",
+      "documentation": "Copies one color into another and converts the color values into the destination color's color context. The optional source color context could be used to override source color's color context"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ColorContext"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743914, (), (), 4, 2, 4, 0, 904, ((26, (29, 50365824)), 0, None), 0)",
+      "documentation": "Returns a read-only color context associated with this color object"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertTo",
+        "ColorType",
+        "DestinationColorContext",
+        "SourceColorContext"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743915, (), (((29, 50333696), 1, None), ((26, (29, 50365824)), 49, 0), ((26, (29, 50365824)), 49, 0)), 4, 1, 4, 0, 912, (11, 0, None), 0)",
+      "documentation": "Converts the color to a given color type. Optionally the source and or destination color context could be specified. Returns True if the color conversion has been performed"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "Palette"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743916, (), (), 4, 2, 4, 0, 920, ((26, (29, 50366208)), 0, None), 0)",
+      "documentation": "Returns a palette this color is obtained from, if one exists"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "SpotAssign",
+        "PaletteIdentifier",
+        "SpotColorID",
+        "Tint"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743917, (), ((8, 1, None), (3, 1, None), (3, 49, 100)), 4, 1, 4, 0, 928, (24, 0, None), 0)",
+      "documentation": "Assigns a spot color from a given palette"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "SpotAssignByName",
+        "PaletteIdentifier",
+        "SpotColorName",
+        "Tint"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743918, (), ((8, 1, None), (8, 1, None), (3, 49, 100)), 4, 1, 4, 0, 936, (24, 0, None), 0)",
+      "documentation": "Assigns a spot color from a given palette by name"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "ConvertToPalette",
+        "PaletteIdentifier"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743919, (), ((8, 1, None),), 4, 1, 4, 0, 944, (24, 0, None), 0)",
+      "documentation": "Finds the matching color from the specified palette"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "SpotColorID"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743920, (), (), 4, 2, 4, 0, 952, (3, 0, None), 0)",
+      "documentation": "Gets or sets the color ID that identifies a spot color within its corresponding palette"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "SpotColorID"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743920, (), ((3, 1, None),), 4, 4, 4, 0, 960, (24, 0, None), 0)",
+      "documentation": "Gets or sets the color ID that identifies a spot color within its corresponding palette"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "SpotColorName"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743922, (), (), 4, 2, 4, 0, 968, (8, 0, None), 0)",
+      "documentation": "Returns the name of the spot color this color is derived from"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "PaletteAssign",
+        "PaletteIdentifier",
+        "ColorIndex"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743923, (), ((8, 1, None), (3, 1, None)), 4, 1, 4, 0, 976, (24, 0, None), 0)",
+      "documentation": "Assigns a color from a specific palette"
+    },
+    {
+      "interface": "IVGColor",
+      "names": [
+        "PaletteIdentifier"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743924, (), (), 4, 2, 4, 0, 984, (8, 0, None), 0)",
+      "documentation": "Returns a unique identifier of the palette this color is obtained from"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, ((29, 50331776), 0, None), 0)",
+      "documentation": "Gets fill type"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "UniformColor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Gets or sets a uniform color"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "UniformColor"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743809, (), (((26, (29, 50365696)), 1, None),), 4, 4, 4, 0, 72, (24, 0, None), 0)",
+      "documentation": "Gets or sets a uniform color"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Fountain"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50367232)), 0, None), 0)",
+      "documentation": "Gets or sets Fountain properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Fountain"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743811, (), (((26, (29, 50367232)), 1, None),), 4, 4, 4, 0, 88, (24, 0, None), 0)",
+      "documentation": "Gets or sets Fountain properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Pattern"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50367616)), 0, None), 0)",
+      "documentation": "Gets or sets Pattern properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Pattern"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743813, (), (((26, (29, 50367616)), 1, None),), 4, 4, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": "Gets or sets Pattern properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Texture"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743815, (), (), 4, 2, 4, 0, 112, ((26, (29, 50367872)), 0, None), 0)",
+      "documentation": "Gets or sets Texture properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Texture"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743815, (), (((26, (29, 50367872)), 1, None),), 4, 4, 4, 0, 120, (24, 0, None), 0)",
+      "documentation": "Gets or sets Texture properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "PostScript"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, ((26, (29, 50368256)), 0, None), 0)",
+      "documentation": "Gets or sets PostScript properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "PostScript"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743817, (), (((26, (29, 50368256)), 1, None),), 4, 4, 4, 0, 136, (24, 0, None), 0)",
+      "documentation": "Gets or sets PostScript properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "ApplyNoFill"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743819, (), (), 4, 1, 4, 0, 144, (24, 0, None), 0)",
+      "documentation": "Apply no Fill to the shape"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "ApplyUniformFill",
+        "Color"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743820, (), (((26, (29, 50365696)), 1, None),), 4, 1, 4, 0, 152, (24, 0, None), 0)",
+      "documentation": "Apply a Uniform Fill to the shape"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "ApplyFountainFill",
+        "StartColor",
+        "EndColor",
+        "Type",
+        "Angle",
+        "Steps",
+        "EdgePad",
+        "MidPoint",
+        "BlendType",
+        "CenterOffsetX",
+        "CenterOffsetY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743821, (), (((26, (29, 50365696)), 49, 0), ((26, (29, 50365696)), 49, 0), ((29, 50331904), 49, 1), (5, 49, 0.0), (3, 49, 0), (3, 49, 0), (3, 49, 50), ((29, 50332032), 49, 0), (5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 160, ((26, (29, 50367232)), 0, None), 0)",
+      "documentation": "Apply a Fountain Fill to the shape"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "ApplyPatternFill",
+        "Type",
+        "FileName",
+        "PatternCanvasIndex",
+        "FrontColor",
+        "EndColor",
+        "TransformWithShape"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743822, (), (((29, 50334208), 1, None), (8, 17, None), (3, 49, 1), ((26, (29, 50365696)), 49, 0), ((26, (29, 50365696)), 49, 0), (11, 49, False)), 4, 1, 4, 0, 168, ((26, (29, 50367616)), 0, None), 0)",
+      "documentation": "Apply a Pattern Fill to the shape"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "ApplyTextureFill",
+        "TextureName",
+        "LibraryName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743823, (), ((8, 1, None), (8, 17, None)), 4, 1, 4, 0, 176, ((26, (29, 50367872)), 0, None), 0)",
+      "documentation": "Apply a Texture Fill to the shape"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "ApplyPostscriptFill",
+        "IndexOrName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743824, (), ((12, 1, None),), 4, 1, 4, 0, 184, ((26, (29, 50368256)), 0, None), 0)",
+      "documentation": "Apply a PostScript Fill to the shape"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "GetCopy"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743825, (), (), 4, 1, 4, 0, 192, ((26, (29, 50367104)), 0, None), 0)",
+      "documentation": "Returns an unattached copy of the fill object"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "CopyAssign",
+        "SourceFill"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743826, (), (((26, (29, 50367104)), 1, None),), 4, 1, 4, 0, 200, (24, 0, None), 0)",
+      "documentation": "Copies properties of the given fill"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "UserAssign",
+        "FillType",
+        "PatternType",
+        "ParentWindowHandle"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743827, (), (((29, 50331776), 49, 0), ((29, 50334208), 49, 0), (3, 49, 0)), 4, 1, 4, 0, 208, (11, 0, None), 0)",
+      "documentation": "Shows the corresponding fill properties dialog"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "PSScreen"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743828, (), (), 4, 2, 4, 0, 216, ((26, (29, 50368384)), 0, None), 0)",
+      "documentation": "Specifies the PostScript halftone screen options for the fill"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Hatch"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743829, (), (), 4, 2, 4, 0, 224, ((26, (29, 50368512)), 0, None), 0)",
+      "documentation": "Gets or sets hatch fill properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Hatch"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743829, (), (((26, (29, 50368512)), 1, None),), 4, 4, 4, 0, 232, (24, 0, None), 0)",
+      "documentation": "Gets or sets hatch fill properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "CompareWith",
+        "Fill"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743831, (), (((26, (29, 50367104)), 1, None),), 4, 1, 4, 0, 240, (11, 0, None), 0)",
+      "documentation": "Compares the properties of the two fills"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "ApplyCustomHatchFill",
+        "Angle",
+        "Spacing",
+        "Shift",
+        "OriginX",
+        "OriginY",
+        "Width",
+        "Color",
+        "Style",
+        "DashDotLength",
+        "PenWidth",
+        "BackColor",
+        "TransformWithShape",
+        "ScaleLinesWithShape",
+        "UseWorldCoordinates",
+        "FillScale",
+        "LineScale",
+        "FillAngle",
+        "FillSkew"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743832, (), ((5, 1, None), (5, 1, None), (5, 49, 0.0), (5, 49, 0.0), (5, 49, 0.0), (5, 49, -1.0), ((26, (29, 50365696)), 49, 0), ((26, (29, 50366848)), 49, 0), (5, 49, -1.0), (5, 49, 0.0), ((26, (29, 50365696)), 49, 0), (11, 49, False), (11, 49, False), (11, 49, False), (5, 49, 0.0), (5, 49, 0.0), (5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 248, ((26, (29, 50368512)), 0, None), 0)",
+      "documentation": "Applies a custom hatch fill"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "ApplyHatchFill",
+        "LibraryName",
+        "HatchNameOrIndex",
+        "BackColor",
+        "TransformWithShape",
+        "ScaleLinesWithShape",
+        "UseWorldCoordinates",
+        "FillScale",
+        "LineScale",
+        "FillAngle",
+        "FillSkew"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743833, (), ((8, 1, None), (12, 1, None), ((26, (29, 50365696)), 49, 0), (11, 49, False), (11, 49, False), (11, 49, False), (5, 49, 0.0), (5, 49, 0.0), (5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 256, ((26, (29, 50368512)), 0, None), 0)",
+      "documentation": "Applies a preset hatch fill from a library"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "ToString"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743834, (), (), 4, 1, 4, 0, 264, (8, 0, None), 1)",
+      "documentation": "Returns fill information encoded into a string"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "StringAssign",
+        "FillString"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743835, (), ((8, 1, None),), 4, 1, 4, 0, 272, (11, 0, None), 1)",
+      "documentation": "Decodes a string into fill information"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Width"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, (5, 0, None), 0)",
+      "documentation": "Gets or sets an outline's width"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Width"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743808, (), ((5, 1, None),), 4, 4, 4, 0, 64, (24, 0, None), 0)",
+      "documentation": "Gets or sets an outline's width"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Color"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Gets or sets an outline's color"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Color"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743810, (), (((26, (29, 50365696)), 1, None),), 4, 4, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Gets or sets an outline's color"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "ConvertToObject"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743812, (), (), 4, 1, 4, 0, 88, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Converts an outline into an object"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((29, 50337280), 0, None), 0)",
+      "documentation": "Gets or sets an outline's type"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Type"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743813, (), (((29, 50337280), 1, None),), 4, 4, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": "Gets or sets an outline's type"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Style"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743815, (), (), 4, 2, 4, 0, 112, ((26, (29, 50366848)), 0, None), 0)",
+      "documentation": "Gets or sets an outline's style"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Style"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743815, (), (((26, (29, 50366848)), 1, None),), 4, 4, 4, 0, 120, (24, 0, None), 0)",
+      "documentation": "Gets or sets an outline's style"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "StartArrow"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, ((26, (29, 50366976)), 0, None), 0)",
+      "documentation": "Gets or sets the left arrow"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "StartArrow"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743817, (), (((26, (29, 50366976)), 1, None),), 4, 4, 4, 0, 136, (24, 0, None), 0)",
+      "documentation": "Gets or sets the left arrow"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "EndArrow"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743819, (), (), 4, 2, 4, 0, 144, ((26, (29, 50366976)), 0, None), 0)",
+      "documentation": "Gets or sets the right arrow"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "EndArrow"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743819, (), (((26, (29, 50366976)), 1, None),), 4, 4, 4, 0, 152, (24, 0, None), 0)",
+      "documentation": "Gets or sets the right arrow"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "NibStretch"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743821, (), (), 4, 2, 4, 0, 160, (3, 0, None), 0)",
+      "documentation": "Gets or sets NibStretch"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "NibStretch"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743821, (), ((3, 1, None),), 4, 4, 4, 0, 168, (24, 0, None), 0)",
+      "documentation": "Gets or sets NibStretch"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "NibAngle"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743823, (), (), 4, 2, 4, 0, 176, (5, 0, None), 0)",
+      "documentation": "Gets or sets NibAngle"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "NibAngle"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743823, (), ((5, 1, None),), 4, 4, 4, 0, 184, (24, 0, None), 0)",
+      "documentation": "Gets or sets NibAngle"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "BehindFill"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743825, (), (), 4, 2, 4, 0, 192, (11, 0, None), 0)",
+      "documentation": "Gets or sets BehindFill"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "BehindFill"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743825, (), ((11, 1, None),), 4, 4, 4, 0, 200, (24, 0, None), 0)",
+      "documentation": "Gets or sets BehindFill"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "LineCaps"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743827, (), (), 4, 2, 4, 0, 208, ((29, 50339072), 0, None), 0)",
+      "documentation": "Gets or sets LineCaps"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "LineCaps"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743827, (), (((29, 50339072), 1, None),), 4, 4, 4, 0, 216, (24, 0, None), 0)",
+      "documentation": "Gets or sets LineCaps"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "LineJoin"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743829, (), (), 4, 2, 4, 0, 224, ((29, 50339200), 0, None), 0)",
+      "documentation": "Gets or sets LineJoin"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "LineJoin"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743829, (), (((29, 50339200), 1, None),), 4, 4, 4, 0, 232, (24, 0, None), 0)",
+      "documentation": "Gets or sets LineJoin"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "ScaleWithShape"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743831, (), (), 4, 2, 4, 0, 240, (11, 0, None), 0)",
+      "documentation": "Gets or sets ScaleWithShape"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "ScaleWithShape"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743831, (), ((11, 1, None),), 4, 4, 4, 0, 248, (24, 0, None), 0)",
+      "documentation": "Gets or sets ScaleWithShape"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "SetProperties",
+        "Width",
+        "Style",
+        "Color",
+        "StartArrow",
+        "EndArrow",
+        "BehindFill",
+        "ScaleWithShape",
+        "LineCaps",
+        "LineJoin",
+        "NibAngle",
+        "NibStretch",
+        "DashDotLength",
+        "PenWidth",
+        "MiterLimit"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743833, (), ((5, 49, -1.0), ((26, (29, 50366848)), 49, 0), ((26, (29, 50365696)), 49, 0), ((26, (29, 50366976)), 49, 0), ((26, (29, 50366976)), 49, 0), ((29, 50342144), 49, -2), ((29, 50342144), 49, -2), ((29, 50339072), 49, -1), ((29, 50339200), 49, -1), (5, 49, -9999.0), (3, 49, 0), (5, 49, -1.0), (5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 256, (24, 0, None), 0)",
+      "documentation": "Sets all outline properties"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Size"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743834, (), (), 4, 2, 4, 0, 264, (5, 0, None), 64)",
+      "documentation": "Gets or sets the absolute length of dash-dot pattern"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Size"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743834, (), ((5, 1, None),), 4, 4, 4, 0, 272, (24, 0, None), 64)",
+      "documentation": "Gets or sets the absolute length of dash-dot pattern"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "GetCopy"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743836, (), (), 4, 1, 4, 0, 280, ((26, (29, 50368896)), 0, None), 0)",
+      "documentation": "Gets an unattached copy of the outline object"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "CopyAssign",
+        "SourceOutline"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743837, (), (((26, (29, 50368896)), 1, None),), 4, 1, 4, 0, 288, (24, 0, None), 0)",
+      "documentation": "Copies the properties of the given outline"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "UserAssign",
+        "ParentWindowHandle"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743838, (), ((3, 49, 0),), 4, 1, 4, 0, 296, (11, 0, None), 0)",
+      "documentation": "Shows the outline properties dialog"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "PSScreen"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743839, (), (), 4, 2, 4, 0, 304, ((26, (29, 50368384)), 0, None), 0)",
+      "documentation": "Specifies the PostScript halftone screen options for the outline"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "CompareWith",
+        "Outline"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743840, (), (((26, (29, 50368896)), 1, None),), 4, 1, 4, 0, 312, (11, 0, None), 0)",
+      "documentation": "Compares two outlines and returns True if they are equal"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "DashDotLength"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743841, (), (), 4, 2, 4, 0, 320, (5, 0, None), 0)",
+      "documentation": "Gets or sets the absolute length of dash-dot pattern"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "DashDotLength"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743841, (), ((5, 1, None),), 4, 4, 4, 0, 328, (24, 0, None), 0)",
+      "documentation": "Gets or sets the absolute length of dash-dot pattern"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "ToString"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743843, (), (), 4, 1, 4, 0, 336, (8, 0, None), 1)",
+      "documentation": "Returns outline information encoded into a string"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "StringAssign",
+        "OutlineString"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743844, (), ((8, 1, None),), 4, 1, 4, 0, 344, (11, 0, None), 1)",
+      "documentation": "Decodes a string into outline information"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "PenWidth"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743845, (), (), 4, 2, 4, 0, 352, (5, 0, None), 0)",
+      "documentation": "Gets or sets the outline pen width used to render enhanced outlines"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "PenWidth"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743845, (), ((5, 1, None),), 4, 4, 4, 0, 360, (24, 0, None), 0)",
+      "documentation": "Gets or sets the outline pen width used to render enhanced outlines"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "MiterLimit"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743847, (), (), 4, 2, 4, 0, 368, (5, 0, None), 0)",
+      "documentation": "Gets or sets the miter limit for outline corners"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "MiterLimit"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743847, (), ((5, 1, None),), 4, 4, 4, 0, 376, (24, 0, None), 0)",
+      "documentation": "Gets or sets the miter limit for outline corners"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "SetNoOutline"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743849, (), (), 4, 1, 4, 0, 384, (24, 0, None), 0)",
+      "documentation": "Removes the outline"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "StartArrowOptions"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743850, (), (), 4, 2, 4, 0, 392, ((26, (29, 50369024)), 0, None), 0)",
+      "documentation": "Gets or sets left arrowhead parameters"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "StartArrowOptions"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743850, (), (((26, (29, 50369024)), 1, None),), 4, 4, 4, 0, 400, (24, 0, None), 0)",
+      "documentation": "Gets or sets left arrowhead parameters"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "EndArrowOptions"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743852, (), (), 4, 2, 4, 0, 408, ((26, (29, 50369024)), 0, None), 0)",
+      "documentation": "Gets or sets right arrowhead parameters"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "EndArrowOptions"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743852, (), (((26, (29, 50369024)), 1, None),), 4, 4, 4, 0, 416, (24, 0, None), 0)",
+      "documentation": "Gets or sets right arrowhead parameters"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Justification"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743854, (), (), 4, 2, 4, 0, 424, ((29, 50350720), 0, None), 0)",
+      "documentation": "Gets or sets the outline justification options"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "Justification"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743854, (), (((29, 50350720), 1, None),), 4, 4, 4, 0, 432, (24, 0, None), 0)",
+      "documentation": "Gets or sets the outline justification options"
+    },
+    {
+      "interface": "IVGOutline",
+      "names": [
+        "SetPropertiesEx",
+        "Width",
+        "Style",
+        "Color",
+        "StartArrow",
+        "EndArrow",
+        "BehindFill",
+        "ScaleWithShape",
+        "LineCaps",
+        "LineJoin",
+        "NibAngle",
+        "NibStretch",
+        "DashDotLength",
+        "PenWidth",
+        "MiterLimit",
+        "Justification"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743856, (), ((5, 49, -1.0), ((26, (29, 50366848)), 49, 0), ((26, (29, 50365696)), 49, 0), ((26, (29, 50366976)), 49, 0), ((26, (29, 50366976)), 49, 0), ((29, 50342144), 49, -2), ((29, 50342144), 49, -2), ((29, 50339072), 49, -1), ((29, 50339200), 49, -1), (5, 49, -9999.0), (3, 49, 0), (5, 49, -1.0), (5, 49, 0.0), (5, 49, 0.0), ((29, 50350720), 49, -1)), 4, 1, 4, 0, 440, (24, 0, None), 0)",
+      "documentation": "Sets all outline properties"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Application"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, ((26, (29, 50362240)), 0, None), 0)",
+      "documentation": "Gets the application to which the object belongs"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Parent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Gets the parent of which this object is a child"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Shapes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((26, (29, 50363008)), 0, None), 0)",
+      "documentation": "Gets the shapes in the powerclip"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "ContentsLocked"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, (11, 0, None), 0)",
+      "documentation": "Gets or sets whether to lock the contents of the powerclip"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "ContentsLocked"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743811, (), ((11, 1, None),), 4, 4, 4, 0, 88, (24, 0, None), 0)",
+      "documentation": "Gets or sets whether to lock the contents of the powerclip"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "EnterEditMode"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743813, (), (), 4, 1, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Enters the edit mode"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "LeaveEditMode"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743814, (), (), 4, 1, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": "Leaves the edit mode"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "ExtractShapes"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743815, (), (), 4, 1, 4, 0, 112, ((26, (29, 50366720)), 0, None), 0)",
+      "documentation": "Extracts PowerClip shapes from the frame"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Outline"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743829, (), (), 4, 2, 4, 0, 224, ((26, (29, 50368896)), 0, None), 0)",
+      "documentation": "Allows users to access the outline properties"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Fill"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743830, (), (), 4, 2, 4, 0, 232, ((26, (29, 50367104)), 0, None), 0)",
+      "documentation": "Gets or sets the fill properties"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Fill"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743830, (), (((26, (29, 50367104)), 1, None),), 4, 4, 4, 0, 592, (24, 0, None), 0)",
+      "documentation": "Gets or sets the fill properties"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "AddToPowerClip",
+        "Shape",
+        "CenterInContainer"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743899, (), (((26, (29, 50363136)), 1, None), ((29, 50342144), 49, -2)), 4, 1, 4, 0, 784, (24, 0, None), 0)",
+      "documentation": "Adds this shape to a power clip"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "PowerClip"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743901, (), (), 4, 2, 4, 0, 800, ((26, (29, 50376192)), 0, None), 0)",
+      "documentation": "Gets the powerclip"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Transparency"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743916, (), (), 4, 2, 4, 0, 920, ((26, (29, 50377088)), 0, None), 0)",
+      "documentation": "Gets transparency for current object if applicable"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Application"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, (9, 0, None), 0)",
+      "documentation": "Gets the application to which the object belongs"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Parent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, (9, 0, None), 0)",
+      "documentation": "Gets the parent of which this object is a child"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((29, 50334976), 0, None), 0)",
+      "documentation": "Gets the transparency type"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Uniform"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, (3, 0, None), 0)",
+      "documentation": "Gets or sets the uniformity of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Uniform"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743811, (), ((3, 1, None),), 4, 4, 4, 0, 88, (24, 0, None), 0)",
+      "documentation": "Gets or sets the uniformity of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Fountain"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50367232)), 0, None), 0)",
+      "documentation": "Gets or sets the fountain fill properties of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Fountain"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743813, (), (((26, (29, 50367232)), 1, None),), 4, 4, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": "Gets or sets the fountain fill properties of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Pattern"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743815, (), (), 4, 2, 4, 0, 112, ((26, (29, 50367616)), 0, None), 0)",
+      "documentation": "Gets or sets the pattern fill properties of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Pattern"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743815, (), (((26, (29, 50367616)), 1, None),), 4, 4, 4, 0, 120, (24, 0, None), 0)",
+      "documentation": "Gets or sets the pattern fill properties of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Texture"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, ((26, (29, 50367872)), 0, None), 0)",
+      "documentation": "Gets or sets the texture fill properties of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Texture"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743817, (), (((26, (29, 50367872)), 1, None),), 4, 4, 4, 0, 136, (24, 0, None), 0)",
+      "documentation": "Gets or sets the texture fill properties of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Start"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743819, (), (), 4, 2, 4, 0, 144, (3, 0, None), 0)",
+      "documentation": "Gets or sets the start value of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Start"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743819, (), ((3, 1, None),), 4, 4, 4, 0, 152, (24, 0, None), 0)",
+      "documentation": "Gets or sets the start value of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "End"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743821, (), (), 4, 2, 4, 0, 160, (3, 0, None), 0)",
+      "documentation": "Gets or sets the end value of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "End"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743821, (), ((3, 1, None),), 4, 4, 4, 0, 168, (24, 0, None), 0)",
+      "documentation": "Gets or sets the end value of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Frozen"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743823, (), (), 4, 2, 4, 0, 176, (11, 0, None), 0)",
+      "documentation": "Gets whether or not the transparency is frozen"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "ApplyNoTransparency"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743824, (), (), 4, 1, 4, 0, 184, (24, 0, None), 0)",
+      "documentation": "Removes all transparencies from object"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "ApplyUniformTransparency",
+        "Value"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743825, (), ((3, 0, None),), 4, 1, 4, 0, 192, (24, 0, None), 0)",
+      "documentation": "Applies a uniform fill transparency to the object"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "ApplyFountainTransparency",
+        "Start",
+        "End",
+        "Type",
+        "Angle",
+        "Steps",
+        "EdgePad",
+        "MidPoint",
+        "CenterOffsetX",
+        "CenterOffsetY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743826, (), ((3, 49, 0), (3, 49, 100), ((29, 50331904), 49, 1), (5, 49, 0.0), (3, 49, 0), (3, 49, 0), (3, 49, 50), (5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 200, ((26, (29, 50367232)), 0, None), 0)",
+      "documentation": "Applies a fountain fill transparency to the object"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "ApplyPatternTransparency",
+        "Type",
+        "FileName",
+        "PatternCanvasIndex",
+        "Front",
+        "Back",
+        "TransformWithShape"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743827, (), (((29, 50334208), 1, None), (8, 17, None), (3, 49, 1), (3, 49, 0), (3, 49, 100), (11, 49, False)), 4, 1, 4, 0, 208, ((26, (29, 50367616)), 0, None), 0)",
+      "documentation": "Applies a pattern fill transparency to the object"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "ApplyTextureTransparency",
+        "TextureName",
+        "LibraryName",
+        "Front",
+        "Back"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743828, (), ((8, 1, None), (8, 17, None), (3, 49, 0), (3, 49, 100)), 4, 1, 4, 0, 216, ((26, (29, 50367872)), 0, None), 0)",
+      "documentation": "Applies a texture fill transparency to the object"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Freeze"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743829, (), (), 4, 1, 4, 0, 224, (24, 0, None), 0)",
+      "documentation": "Freezes the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "Unfreeze"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743830, (), (), 4, 1, 4, 0, 232, (24, 0, None), 0)",
+      "documentation": "Unfreezes the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "AppliedTo"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743831, (), (), 4, 2, 4, 0, 240, ((29, 50335104), 0, None), 0)",
+      "documentation": "Gets or sets AppliedTo property of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "AppliedTo"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743831, (), (((29, 50335104), 1, None),), 4, 4, 4, 0, 248, (24, 0, None), 0)",
+      "documentation": "Gets or sets AppliedTo property of the transparency"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "MergeMode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743833, (), (), 4, 2, 4, 0, 256, ((29, 50336256), 0, None), 0)",
+      "documentation": "Gets or sets the MergeMode property"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "MergeMode"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743833, (), (((29, 50336256), 1, None),), 4, 4, 4, 0, 264, (24, 0, None), 0)",
+      "documentation": "Gets or sets the MergeMode property"
+    },
+    {
+      "interface": "IVGTransparency",
+      "names": [
+        "UserAssign",
+        "TransparencyType",
+        "PatternType",
+        "ParentWindowHandle"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743835, (), (((29, 50334976), 49, 0), ((29, 50334208), 49, 0), (3, 49, 0)), 4, 1, 4, 0, 272, (11, 0, None), 0)",
+      "documentation": "Shows the corresponding transparency properties dialog"
+    }
+  ],
+  "enums": {
+    "cdrFillType": {
+      "cdrNoFill": 0,
+      "cdrUniformFill": 1,
+      "cdrFountainFill": 2,
+      "cdrPostscriptFill": 3,
+      "cdrTextureFill": 8,
+      "cdrPatternFill": 9,
+      "cdrHatchFill": 10
+    },
+    "cdrColorType": {
+      "cdrColorPantone": 1,
+      "cdrColorCMYK": 2,
+      "cdrColorCMY": 4,
+      "cdrColorRGB": 5,
+      "cdrColorHSB": 6,
+      "cdrColorHLS": 7,
+      "cdrColorBlackAndWhite": 8,
+      "cdrColorGray": 9,
+      "cdrColorYIQ": 11,
+      "cdrColorLab": 12,
+      "cdrColorPantoneHex": 14,
+      "cdrColorRegistration": 20,
+      "cdrColorSpot": 25,
+      "cdrColorMixed": 99,
+      "cdrColorUserInk": 22,
+      "cdrColorMultiChannel": 26
+    },
+    "cdrTransparencyType": {
+      "cdrNoTransparency": 0,
+      "cdrUniformTransparency": 1,
+      "cdrFountainTransparency": 2,
+      "cdrPatternTransparency": 3,
+      "cdrTextureTransparency": 4
+    },
+    "cdrMergeMode": {
+      "cdrMergeNormal": 0,
+      "cdrMergeAND": 1,
+      "cdrMergeOR": 2,
+      "cdrMergeXOR": 3,
+      "cdrMergeInvert": 6,
+      "cdrMergeAdd": 7,
+      "cdrMergeSubtract": 8,
+      "cdrMergeMultiply": 9,
+      "cdrMergeDivide": 10,
+      "cdrMergeIfLighter": 11,
+      "cdrMergeIfDarker": 12,
+      "cdrMergeTexturize": 13,
+      "cdrMergeColor": 14,
+      "cdrMergeHue": 15,
+      "cdrMergeSaturation": 16,
+      "cdrMergeLightness": 17,
+      "cdrMergeRed": 18,
+      "cdrMergeGreen": 19,
+      "cdrMergeBlue": 20,
+      "cdrMergeDifference": 24,
+      "cdrMergeBehind": 27,
+      "cdrMergeScreen": 28,
+      "cdrMergeOverlay": 29,
+      "cdrMergeSoftlight": 30,
+      "cdrMergeHardlight": 31,
+      "cdrMergeDodge": 33,
+      "cdrMergeBurn": 34,
+      "cdrMergeExclusion": 36
+    },
+    "cdrOutlineType": {
+      "cdrNoOutline": 0,
+      "cdrOutline": 1,
+      "cdrEnhancedOutline": 2
+    }
+  }
+}

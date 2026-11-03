@@ -8,6 +8,14 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Controlled native RGB/CMYK process fills and existing ordinary-outline colors.
+  Native factory/final components, measured vector/text geometry and the other
+  appearance channel gate success; non-uniform fill replacement is explicit.
+  Eighteen checks cover failures, unsupported targets, source preservation and
+  worker quarantine. Installed X7 appearance/clipping signatures are retained
+  without application access. The surface has 69 registered tools; 531 checks
+  pass and 21 live gates remain deferred. Native color/print verification, ICC/
+  spot workflows and outline-width units remain pending.
 - Source-preserving node topology revisions: exact line/cubic subdivision,
   explicit nonadjacent-node reconnection and source-to-output node mapping.
   Owned CopyAssign outputs retain basic fill/outline with verified cusp types;
