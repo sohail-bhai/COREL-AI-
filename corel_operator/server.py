@@ -1,18 +1,27 @@
 """MCP stdio server for CorelDRAW X7; COM actions run on one dedicated thread."""
 from __future__ import annotations
+import copy
+import math
 import queue
 import threading
 import uuid
 from concurrent.futures import Future
+from collections import OrderedDict
+from datetime import datetime, timezone
 from functools import wraps
 from time import perf_counter
 from typing import Any
 from mcp.server.fastmcp import FastMCP
 from .corel_bridge import CorelBridge
+from .errors import CorelBridgeError, ErrorCode
 from .results import error_result, success_result
 from .operation_records import (
     OperationJournal, RecordedOperation, current_operation, input_summary,
-    result_metadata, target_ids,
+    exception_code, result_metadata, target_ids,
+)
+from .worker_state import (
+    DispatchJob, MAX_OPERATION_HISTORY, READ_ONLY_METHODS, failure_recovery_reason,
+    native_busy, validate_operation_id, validate_recovery_probe,
 )
 from .workflows import (
     build_chest_number_sequence as _build_chest_number_sequence,
@@ -59,16 +68,183 @@ def recorded_operation(function):
 
 
 class CorelDispatcher:
-    def __init__(self) -> None:
-        self._jobs: queue.Queue[Any] = queue.Queue()
+    def __init__(self, call_timeout_seconds: float = 120.0) -> None:
+        if type(call_timeout_seconds) not in (int, float) or not math.isfinite(call_timeout_seconds) or not 0 < call_timeout_seconds <= 120:
+            raise CorelBridgeError("Worker timeout must be positive and at most 120 seconds.", ErrorCode.INVALID_ARGUMENT)
+        self.call_timeout_seconds = float(call_timeout_seconds)
+        self._jobs: queue.Queue[Any] = queue.Queue(maxsize=32)
+        self._lock = threading.RLock()
         self._ready = threading.Event()
         self._startup_error: str | None = None
+        self._closing = False
+        self._stop_requested = False
+        self._active_job: DispatchJob | None = None
+        self._recovery: dict | None = None
+        self._history: OrderedDict[str, dict] = OrderedDict()
         self._thread = threading.Thread(target=self._worker, name="CorelDRAW-COM-STA", daemon=True)
         self._thread.start()
         if not self._ready.wait(timeout=15):
             raise RuntimeError("CorelDRAW COM worker did not initialize within 15 seconds.")
         if self._startup_error:
             raise RuntimeError(self._startup_error)
+
+    @staticmethod
+    def _job_metadata(job: DispatchJob, status: str, summary: dict | None = None) -> dict:
+        return {
+            "operation_id": job.operation_id, "method": job.method, "status": status,
+            "mutation": job.mutation, "timed_out": job.timed_out,
+            "submitted_at_utc": job.submitted_utc,
+            "duration_ms": round(max(0., (perf_counter() - job.submitted) * 1000), 3),
+            "reconciliation": job.reconciliation,
+            "recovery_operation_id": job.recovery_operation_id, "summary": summary,
+        }
+
+    def _remember(self, job: DispatchJob, status: str, summary: dict):
+        self._history[job.operation_id] = self._job_metadata(job, status, summary)
+        while len(self._history) > MAX_OPERATION_HISTORY:
+            pinned = self._recovery["operation_id"] if self._recovery is not None else None
+            oldest = next(key for key in self._history if key != pinned)
+            self._history.pop(oldest)
+
+    def snapshot(self) -> dict:
+        """Return bounded Python metadata immediately, including while native work is blocked."""
+        with self._lock:
+            alive = self._thread.is_alive() and self._startup_error is None
+            job = self._active_job
+            state = "unavailable" if not alive or self._closing else (
+                "timed_out_but_running" if job is not None and job.timed_out else
+                "running" if job is not None else "idle"
+            )
+            active = None if job is None else self._job_metadata(job, "timed_out_but_running" if job.timed_out else "running" if job.started else "pending")
+            return copy.deepcopy({
+                "state": state, "worker_alive": alive, "closing": self._closing,
+                "accepting_mutations": state == "idle" and self._recovery is None and not self._jobs.full(),
+                "recovery_required": self._recovery is not None, "recovery": self._recovery,
+                "active_operation": active,
+                "last_operation": next(reversed(self._history.values()), None),
+                "retained_operations": len(self._history), "call_timeout_seconds": self.call_timeout_seconds,
+            })
+
+    def operation_status(self, operation_id: str) -> dict:
+        validate_operation_id(operation_id)
+        with self._lock:
+            if self._active_job is not None and self._active_job.operation_id == operation_id:
+                return self.snapshot()["active_operation"]
+            result = self._history.get(operation_id)
+            if result is None:
+                raise CorelBridgeError("No current or retained operation matches this ID.", ErrorCode.OBJECT_NOT_FOUND)
+            return copy.deepcopy(result)
+
+    def _check_available(self):
+        if self._closing or not self._thread.is_alive() or self._startup_error:
+            raise CorelBridgeError("CorelDRAW COM worker is not running or is closing.", ErrorCode.WORKER_UNAVAILABLE)
+        if self._active_job is not None:
+            raise CorelBridgeError(
+                "CorelDRAW is executing another operation. Inspect get_operator_state before retrying.",
+                ErrorCode.WORKER_BUSY,
+                {"active_operation_id": self._active_job.operation_id,
+                 "timed_out": self._active_job.timed_out},
+            )
+
+    def _submit(self, method_name: str, args: tuple, kwargs: dict, reconciliation=False,
+                recovery_operation_id=None, acknowledge_partial_changes=False):
+        mutation = method_name not in READ_ONLY_METHODS and not reconciliation
+        with self._lock:
+            self._check_available()
+            if reconciliation:
+                if self._recovery is None or self._recovery["operation_id"] != recovery_operation_id:
+                    raise CorelBridgeError("Recovery operation ID no longer matches the blocked state.", ErrorCode.RECOVERY_REQUIRED)
+            elif mutation and self._recovery is not None:
+                raise CorelBridgeError(
+                    "Mutation is blocked until the completed operation is reconciled.", ErrorCode.RECOVERY_REQUIRED,
+                    {"recovery_operation_id": self._recovery["operation_id"], "reason": self._recovery["reason"]},
+                )
+            record = current_operation.get()
+            job = DispatchJob(
+                record.operation_id if record is not None else uuid.uuid4().hex,
+                method_name, args, kwargs, Future(), record, mutation, perf_counter(),
+                datetime.now(timezone.utc).isoformat(), reconciliation=reconciliation,
+                recovery_operation_id=recovery_operation_id,
+                acknowledge_partial_changes=acknowledge_partial_changes,
+            )
+            self._active_job = job
+            try:
+                self._jobs.put_nowait(job)
+            except queue.Full as exc:
+                self._active_job = None
+                raise CorelBridgeError("Worker queue capacity is exhausted.", ErrorCode.WORKER_BUSY) from exc
+        try:
+            return job.future.result(timeout=self.call_timeout_seconds)
+        except TimeoutError:
+            with self._lock:
+                if job.future.done():
+                    # A native TimeoutError is an actual completed exception, not a wait timeout.
+                    return job.future.result(timeout=0)
+                job.timed_out = True
+                cancelled = job.future.cancel()
+                if cancelled:
+                    self._remember(job, "cancelled", {"result_code": ErrorCode.OPERATION_TIMEOUT.value})
+                    if self._active_job is job:
+                        self._active_job = None
+                elif mutation and self._recovery is None:
+                    self._recovery = {"operation_id": job.operation_id, "reason": "mutation_timed_out", "requires_partial_ack": False}
+                raise CorelBridgeError(
+                    "The caller timed out; inspect get_operator_state before continuing. Running COM work is not cancelled.",
+                    ErrorCode.OPERATION_TIMEOUT,
+                    {"operation_id": job.operation_id, "cancelled_before_execution": cancelled,
+                     "mutation": mutation, "recovery_required": self._recovery is not None},
+                ) from None
+
+    def call(self, method_name: str, *args: Any, **kwargs: Any) -> Any:
+        return self._submit(method_name, args, kwargs)
+
+    def reconcile(self, operation_id: str, acknowledge_partial_changes: bool = False) -> dict:
+        validate_operation_id(operation_id)
+        if type(acknowledge_partial_changes) is not bool:
+            raise CorelBridgeError("acknowledge_partial_changes must be a boolean.", ErrorCode.INVALID_ARGUMENT)
+        return self._submit("reconcile_document_state", (), {}, reconciliation=True,
+                            recovery_operation_id=operation_id, acknowledge_partial_changes=acknowledge_partial_changes)
+
+    def _reconcile_on_worker(self, job: DispatchJob) -> dict:
+        probe = self._bridge.reconcile_document_state()
+        validate_recovery_probe(probe)
+        with self._lock:
+            if self._recovery is None or self._recovery["operation_id"] != job.recovery_operation_id:
+                raise CorelBridgeError("Recovery state changed; inspect get_operator_state again.", ErrorCode.RECOVERY_REQUIRED)
+            if self._recovery["requires_partial_ack"] and not job.acknowledge_partial_changes:
+                raise CorelBridgeError(
+                    "Partial changes may remain. Inspect the target and explicitly acknowledge them before recovery.",
+                    ErrorCode.CONFIRMATION_REQUIRED,
+                    {"recovery_operation_id": job.recovery_operation_id, "document_state": probe},
+                )
+            previous = copy.deepcopy(self._history.get(job.recovery_operation_id))
+            self._recovery = None
+            return {"reconciled": True, "recovery_operation_id": job.recovery_operation_id,
+                    "document_state": probe, "previous_operation": previous}
+
+    def _complete(self, job: DispatchJob, result=None, error=None):
+        with self._lock:
+            summary = result_metadata(result, error)
+            summary["native_busy"] = error is not None and native_busy(error)
+            if error is not None and not job.reconciliation:
+                mutation_started = getattr(self._bridge, "_operation_mutation_started", None)
+                reason = failure_recovery_reason(error, job.mutation, mutation_started)
+                if reason is not None and (self._recovery is None or self._recovery["operation_id"] == job.operation_id):
+                    self._recovery = {"operation_id": job.operation_id, "reason": reason,
+                                      "requires_partial_ack": job.mutation and mutation_started is not False}
+            if job.timed_out and job.mutation and self._recovery is None:
+                self._recovery = {"operation_id": job.operation_id, "reason": "mutation_timed_out", "requires_partial_ack": False}
+            self._remember(job, "failed" if error is not None else "completed", summary)
+            if error is None:
+                job.future.set_result(result)
+            else:
+                try:
+                    error.operator_operation_id = job.operation_id
+                except Exception:
+                    pass
+                job.future.set_exception(error)
+            if self._active_job is job:
+                self._active_job = None
 
     def _worker(self) -> None:
         pythoncom = None
@@ -77,8 +253,8 @@ class CorelDispatcher:
             pythoncom = _pythoncom
             pythoncom.CoInitialize()
             self._bridge = CorelBridge()
-        except Exception as exc:
-            self._startup_error = "Could not initialize the dedicated Windows COM thread. Check pywin32. Details: " + str(exc)
+        except Exception:
+            self._startup_error = "Could not initialize the dedicated Windows COM worker. Check pywin32."
             self._ready.set()
             return
         self._ready.set()
@@ -87,45 +263,52 @@ class CorelDispatcher:
                 job = self._jobs.get()
                 if job is None:
                     break
-                method_name, args, kwargs, future, operation = job
-                if not future.set_running_or_notify_cancel():
-                    if operation is not None:
-                        operation.journal.write(operation.operation_id, operation.tool, "worker_cancelled")
+                with self._lock:
+                    running = job.future.set_running_or_notify_cancel()
+                    if running:
+                        job.started = True
+                if not running:
+                    if job.record is not None:
+                        job.record.journal.write(job.operation_id, job.record.tool, "worker_cancelled")
                     continue
                 started = perf_counter()
-                if operation is not None:
-                    operation.journal.write(operation.operation_id, operation.tool, "worker_started", target_ids=target_ids(self._bridge))
+                self._bridge._operation_mutation_started = None
+                if job.record is not None:
+                    job.record.journal.write(job.operation_id, job.record.tool, "worker_started", target_ids=target_ids(self._bridge))
                 try:
-                    result = getattr(self._bridge, method_name)(*args, **kwargs)
-                    if operation is not None:
-                        operation.journal.write(operation.operation_id, operation.tool, "worker_completed", target_ids=target_ids(self._bridge), duration_ms=(perf_counter() - started) * 1000, **result_metadata(result))
-                    future.set_result(result)
+                    result = self._reconcile_on_worker(job) if job.reconciliation else getattr(self._bridge, job.method)(*job.args, **job.kwargs)
+                    if job.record is not None:
+                        job.record.journal.write(job.operation_id, job.record.tool, "worker_completed", target_ids=target_ids(self._bridge), duration_ms=(perf_counter() - started) * 1000, **result_metadata(result))
                 except BaseException as exc:
-                    if operation is not None:
-                        operation.journal.write(operation.operation_id, operation.tool, "worker_failed", target_ids=target_ids(self._bridge), duration_ms=(perf_counter() - started) * 1000, **result_metadata(error=exc))
-                    future.set_exception(exc)
+                    if job.record is not None:
+                        job.record.journal.write(job.operation_id, job.record.tool, "worker_failed", target_ids=target_ids(self._bridge), duration_ms=(perf_counter() - started) * 1000, **result_metadata(error=exc))
+                    self._complete(job, error=exc)
+                else:
+                    self._complete(job, result=result)
         finally:
+            # Native proxies belong to this STA and must be released before uninitializing it.
+            self._bridge = None
             if pythoncom is not None:
                 try:
                     pythoncom.CoUninitialize()
                 except Exception:
                     pass
 
-    def call(self, method_name: str, *args: Any, **kwargs: Any) -> Any:
-        if not self._thread.is_alive():
-            raise RuntimeError("CorelDRAW COM worker is not running.")
-        future: Future[Any] = Future()
-        self._jobs.put((method_name, args, kwargs, future, current_operation.get()))
-        return future.result(timeout=120)
-
     def close(self, timeout: float = 5.0) -> None:
-        """Stop the worker after queued work; primarily used by controlled shutdown/tests."""
-        if not self._thread.is_alive():
-            return
-        self._jobs.put(None)
+        with self._lock:
+            if not self._thread.is_alive():
+                self._closing = True
+                return
+            self._closing = True
+            if not self._stop_requested:
+                try:
+                    self._jobs.put_nowait(None)
+                except queue.Full as exc:
+                    raise RuntimeError("CorelDRAW worker stop queue is full; retry shutdown after native work finishes.") from exc
+                self._stop_requested = True
         self._thread.join(timeout=timeout)
         if self._thread.is_alive():
-            raise RuntimeError("CorelDRAW COM worker did not stop within the timeout.")
+            raise RuntimeError("CorelDRAW COM worker did not stop within the timeout; native work may continue.")
 
 
 dispatcher = CorelDispatcher()
@@ -137,7 +320,65 @@ def _tool(tool_name: str, method: str, *args: Any, **kwargs: Any) -> dict:
         data = dispatcher.call(method, *args, **kwargs)
         return success_result(tool_name, data, (perf_counter() - started) * 1000)
     except Exception as exc:
-        return error_result(tool_name, exc, (perf_counter() - started) * 1000)
+        return _operator_error(tool_name, exc, started)
+
+
+def _operator_error(tool_name: str, exc: BaseException, started: float) -> dict:
+    result = error_result(tool_name, exc, (perf_counter() - started) * 1000)
+    operation_id = getattr(exc, "operator_operation_id", None)
+    if operation_id is None and isinstance(exc, CorelBridgeError):
+        operation_id = exc.details.get("operation_id")
+    if operation_id is not None:
+        try:
+            validate_operation_id(operation_id)
+            result["operation_id"] = operation_id
+        except CorelBridgeError:
+            pass
+    snapshot = getattr(dispatcher, "snapshot", None)
+    if callable(snapshot):
+        state = snapshot()
+        result["error"]["details"]["worker_state"] = state["state"]
+        result["error"]["details"]["recovery_required"] = state["recovery_required"]
+        if state["recovery"] is not None:
+            result["error"]["details"]["recovery_operation_id"] = state["recovery"]["operation_id"]
+    return result
+
+
+@mcp.tool()
+@recorded_operation
+def get_operator_state() -> dict:
+    """Read worker/recovery state immediately without connecting to or calling CorelDRAW."""
+    started = perf_counter()
+    try:
+        return success_result("get_operator_state", dispatcher.snapshot(), (perf_counter() - started) * 1000)
+    except Exception as exc:
+        return error_result("get_operator_state", exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+@recorded_operation
+def get_operation_status(operation_id: str) -> dict:
+    """Read a current or retained operation's bounded outcome; never retry it or access artwork."""
+    started = perf_counter()
+    try:
+        return success_result("get_operation_status", dispatcher.operation_status(operation_id), (perf_counter() - started) * 1000)
+    except Exception as exc:
+        return error_result("get_operation_status", exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+@recorded_operation
+def reconcile_operator_state(operation_id: str, acknowledge_partial_changes: bool = False) -> dict:
+    """Recheck finite target state after native work stops, using the exact recovery operation ID.
+
+    Failed mutations require inspecting and explicitly acknowledging any partial
+    changes. This does not undo or repeat the operation, rebind, or reconnect.
+    """
+    started = perf_counter()
+    try:
+        return success_result("reconcile_operator_state", dispatcher.reconcile(operation_id, acknowledge_partial_changes), (perf_counter() - started) * 1000)
+    except Exception as exc:
+        return _operator_error("reconcile_operator_state", exc, started)
 
 
 @mcp.tool()

@@ -11,15 +11,15 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 281 tests
-OK (skipped=9)
+Ran 376 tests
+OK (skipped=11)
 ```
 
 Coverage includes:
 
 - authoritative bridge/schema/profile versions;
 - tool-schema v1 success and error envelopes;
-- all catalog JSON Schemas and 138 request/success/error examples;
+- all catalog JSON Schemas and 147 request/success/error examples;
 - bridge argument validation and stable error codes;
 - inch-unit and reference-point context restoration;
 - protected target-document behavior using fake COM objects;
@@ -27,6 +27,9 @@ Coverage includes:
   collections, COM proxy identity, retired sessions, and rejection before edits;
 - import extension/size checks and output overwrite refusal;
 - dedicated dispatcher-thread execution, exception propagation, and shutdown;
+- explicit native worker state, pending-timeout cancellation, deadline races,
+  late success/failure, partial-edit quarantine, native edit-stage tracking,
+  strict reconciliation, pinned outcome history, and bounded shutdown;
 - explicit X7 ProgID preference, generic fallback, and wrong-major rejection;
 - adapter constants/capability status and connection-free static diagnostics;
 - document/page, primitive/text bounds, text-format, and PDF-file readback using fake COM objects;
@@ -67,6 +70,15 @@ MCP creation/edit/save flow. See [OPERATION_RECORDS.md](OPERATION_RECORDS.md).
 
 ## Guarded live test
 
+`test_worker_recovery_live` is also prepared for the consolidated campaign.
+It creates native synthetic text through the MCP worker, delays the return to
+force a caller timeout, verifies blocked follow-up edits and finite reconciliation,
+then injects a failure after a second native edit and verifies partial-change
+acknowledgement. It checks journal redaction and saves its owned CDR. The delay
+is a test fixture; real modal/busy HRESULT behavior still needs a separate manual
+check on disposable artwork. It does not force-terminate or replay native work.
+See [WORKER_RECOVERY.md](WORKER_RECOVERY.md).
+
 **User decision — 2026-11-03:** Defer live verification to one later consolidated
 pass covering all implemented features. Keep running default tests, catalog
 validation, and static diagnostics for each implementation batch. Retain the
@@ -82,7 +94,7 @@ exact child, tests rename/duplicate/delete, saves and reopens only its own CDR,
 and refuses references from the retired document or a restarted bridge. It
 retains JSON StaticID/reference readback without claiming persistence before
 execution. Gate name: `test_object_references_live`. It remains deferred with
-the other nine guarded live gates. See [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
+the other ten guarded live gates. See [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
 
 Run it only when the user explicitly wants to attach to or launch CorelDRAW X7:
 

@@ -27,7 +27,8 @@ Renaming or saving the same live document under a new path keeps its identity.
 An unreadable open-document collection or exceeded enumeration limit returns a
 sanitized `COREL_COM_ERROR` before using the target. It preserves the existing
 binding for possible reconciliation, without claiming the document is closed.
-Busy/timeout recovery state remains SAFE-002.
+Busy/timeout recovery and exact-ID reconciliation are implemented by
+[SAFE-002](WORKER_RECOVERY.md).
 
 `corel_status` and `list_open_documents` clear proven stale bindings. Status can
 still describe the explicitly reported active document after the target is

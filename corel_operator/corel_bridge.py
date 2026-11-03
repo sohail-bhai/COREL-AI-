@@ -13,6 +13,7 @@ import secrets
 import struct
 from contextlib import contextmanager
 from importlib import metadata
+from functools import wraps
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -41,6 +42,21 @@ from .contour_nesting import (
 )
 
 
+def tracked_mutation(function):
+    """Distinguish preflight refusals from failures after entering a native edit stage."""
+    @wraps(function)
+    def wrapper(self, *args, **kwargs):
+        outermost = self._mutation_depth == 0
+        if outermost:
+            self._operation_mutation_started = False
+        self._mutation_depth += 1
+        try:
+            return function(self, *args, **kwargs)
+        finally:
+            self._mutation_depth -= 1
+    return wrapper
+
+
 class CorelBridge:
     CDR_INCH = CorelX7Adapter.CDR_INCH
     CDR_BOTTOM_LEFT = CorelX7Adapter.CDR_BOTTOM_LEFT
@@ -64,6 +80,12 @@ class CorelBridge:
         self._target_document_key: str | None = None
         self._bridge_session_id = secrets.token_hex(16)
         self._reference_secret = secrets.token_bytes(32)
+        self._mutation_depth = 0
+        self._operation_mutation_started: bool | None = None
+
+    def _note_mutation(self) -> None:
+        if self._mutation_depth:
+            self._operation_mutation_started = True
 
     def connect(self) -> dict[str, Any]:
         if os.name != "nt":
@@ -157,6 +179,57 @@ class CorelBridge:
         self._target_document_key = document_key
         return self.target_doc
 
+    def reconcile_document_state(self) -> dict[str, Any]:
+        """Read finite current target state without reconnecting or choosing another document."""
+        result = {
+            "connected": self.app is not None, "target_bound": False,
+            "document_session_id": None, "open_document_count": 0,
+            "page_index": None, "page_object_count": None,
+            "unit_code": None, "reference_point_code": None, "dirty": None,
+        }
+        if self.app is None:
+            if self.target_doc is not None:
+                self._invalidate_target_document()
+            return result
+        try:
+            result["open_document_count"] = len(self._open_document_proxies(self.app))
+            if self.target_doc is None:
+                return result
+            try:
+                document = self._target_document()
+            except CorelBridgeError as exc:
+                if exc.code == ErrorCode.NO_TARGET_DOCUMENT:
+                    return result
+                raise
+            page = document.ActivePage
+            page_count = document.Pages.Count
+            if type(page_count) is not int or not 1 <= page_count <= 2147483647:
+                raise ValueError("Unavailable page count")
+            for field, value, minimum in (
+                ("page_index", page.Index, 1), ("page_object_count", page.Shapes.Count, 0),
+                ("unit_code", document.Unit, 0), ("reference_point_code", document.ReferencePoint, 0),
+            ):
+                if type(value) is not int or not minimum <= value <= 2147483647:
+                    raise ValueError("Unavailable target metadata")
+                result[field] = value
+            actual_page = self._page_at(document, result["page_index"])
+            if not self._same_com_object(page, actual_page, strict=True):
+                raise ValueError("Unverifiable active page")
+            dirty = document.Dirty
+            if type(dirty) is bool:
+                result["dirty"] = dirty
+            elif type(dirty) is int and dirty in (-1, 0):
+                result["dirty"] = bool(dirty)
+            else:
+                raise ValueError("Unavailable dirty state")
+            result["target_bound"] = True
+            result["document_session_id"] = self._document_session_id(document)
+            return result
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("Could not reconcile finite bound-document state.", ErrorCode.COREL_COM_ERROR) from exc
+
     def _invalidate_target_document(self) -> None:
         if self.target_doc is not None:
             key = self._target_document_key or self._com_identity(self.target_doc)
@@ -194,6 +267,7 @@ class CorelBridge:
                 ErrorCode.COREL_COM_ERROR,
             ) from exc
 
+    @tracked_mutation
     def use_active_document(self, confirm_existing_document: bool) -> dict[str, Any]:
         if confirm_existing_document is not True:
             raise CorelBridgeError(
@@ -215,6 +289,7 @@ class CorelBridge:
 
     @contextmanager
     def _in_inches(self, doc: Any, strict_restore: bool = False) -> Iterator[None]:
+        self._note_mutation()
         previous = None
         changed = False
         try:
@@ -228,16 +303,16 @@ class CorelBridge:
                 try:
                     doc.Unit = previous
                 except Exception as exc:
-                    if strict_restore:
-                        raise CorelBridgeError(
-                            "Could not restore the document unit after inspection.",
-                            ErrorCode.COREL_COM_ERROR,
-                        ) from exc
+                    raise CorelBridgeError(
+                        "Could not restore the document unit after the operation.",
+                        ErrorCode.COREL_COM_ERROR,
+                    ) from exc
 
     @contextmanager
     def _reference_point(
         self, doc: Any, point: int = CDR_BOTTOM_LEFT, strict_restore: bool = False,
     ) -> Iterator[None]:
+        self._note_mutation()
         previous = None
         changed = False
         try:
@@ -251,11 +326,10 @@ class CorelBridge:
                 try:
                     doc.ReferencePoint = previous
                 except Exception as exc:
-                    if strict_restore:
-                        raise CorelBridgeError(
-                            "Could not restore the document reference point after inspection.",
-                            ErrorCode.COREL_COM_ERROR,
-                        ) from exc
+                    raise CorelBridgeError(
+                        "Could not restore the document reference point after the operation.",
+                        ErrorCode.COREL_COM_ERROR,
+                    ) from exc
 
     @staticmethod
     def _page_dimensions(page: Any) -> dict[str, Any]:
@@ -1160,6 +1234,7 @@ class CorelBridge:
             "scanned_entries": scanned_entries,
         }
 
+    @tracked_mutation
     def create_document(self, width_in: float = 8.27, height_in: float = 11.69) -> dict[str, Any]:
         if not (0 < width_in <= 200 and 0 < height_in <= 200):
             raise CorelBridgeError(
@@ -1168,6 +1243,7 @@ class CorelBridge:
             )
         app = self._require_app()
         try:
+            self._note_mutation()
             doc = app.CreateDocument()
             doc.Unit = self.CDR_INCH
             doc.ActivePage.SetSize(float(width_in), float(height_in))
@@ -1442,6 +1518,7 @@ class CorelBridge:
             raise CorelBridgeError("Object was created but could not be named for later edits: " + str(exc)) from exc
         return name
 
+    @tracked_mutation
     def add_text(self, text: str, x_in: float, y_in: float, size_pt: float = 24,
                  font: str = "Arial", bold: bool = False,
                  object_name: str = "") -> dict[str, Any]:
@@ -1475,6 +1552,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("CorelDRAW X7 rejected CreateArtisticText or naming. Full COM error: " + str(exc)) from exc
 
+    @tracked_mutation
     def draw_rectangle(self, x_in: float, y_in: float, width_in: float, height_in: float,
                        object_name: str = "") -> dict[str, Any]:
         if width_in <= 0 or height_in <= 0:
@@ -1498,6 +1576,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("CorelDRAW X7 rejected CreateRectangle2 or naming. Full COM error: " + str(exc)) from exc
 
+    @tracked_mutation
     def draw_ellipse(self, x_in: float, y_in: float, width_in: float, height_in: float,
                      object_name: str = "") -> dict[str, Any]:
         if width_in <= 0 or height_in <= 0:
@@ -1574,6 +1653,7 @@ class CorelBridge:
                 ErrorCode.INVALID_ARGUMENT,
             )
 
+    @tracked_mutation
     def set_fill_color(self, red: int, green: int, blue: int,
                        object_name: str = "", shape_index: int = 0,
                        object_reference: dict | None = None) -> dict[str, Any]:
@@ -1582,6 +1662,7 @@ class CorelBridge:
         shape = self._find_shape(doc, object_name, shape_index, object_reference)
         try:
             color = self._require_app().CreateRGBColor(red, green, blue)
+            self._note_mutation()
             shape.Fill.ApplyUniformFill(color)
             name = str(_safe_attr(shape, "Name") or "")
             return {"updated": True, "object_name": name, "shape_index": self._index_for_shape(doc, shape),
@@ -1590,6 +1671,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("Could not set fill color in CorelDRAW X7. Full COM error: " + str(exc)) from exc
 
+    @tracked_mutation
     def set_outline(self, red: int, green: int, blue: int, width_points: float = 1.0,
                     object_name: str = "", shape_index: int = 0,
                     object_reference: dict | None = None) -> dict[str, Any]:
@@ -1603,11 +1685,13 @@ class CorelBridge:
         shape = self._find_shape(doc, object_name, shape_index, object_reference)
         try:
             if width_points == 0:
+                self._note_mutation()
                 shape.Outline.SetNoOutline()
                 return {"updated": True, "object_name": str(_safe_attr(shape, "Name") or ""),
                         "outline_removed": True,
                         "actual_outline": self._outline_readback(shape)}
             color = self._require_app().CreateRGBColor(red, green, blue)
+            self._note_mutation()
             shape.Outline.Color = color
             with self._in_inches(doc):
                 shape.Outline.Width = float(width_points) / 72.0
@@ -1617,6 +1701,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("Could not set outline in CorelDRAW X7. Full COM error: " + str(exc)) from exc
 
+    @tracked_mutation
     def move_object(self, x_inches: float, y_inches: float,
                     object_name: str = "", shape_index: int = 0,
                     object_reference: dict | None = None) -> dict[str, Any]:
@@ -1633,6 +1718,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("Could not move object in CorelDRAW X7. Full COM error: " + str(exc)) from exc
 
+    @tracked_mutation
     def resize_object(self, width_inches: float = 0, height_inches: float = 0,
                       keep_aspect_ratio: bool = False,
                       object_name: str = "", shape_index: int = 0,
@@ -1674,6 +1760,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("Could not resize object in CorelDRAW X7. Full COM error: " + str(exc)) from exc
 
+    @tracked_mutation
     def set_text_content(self, new_text: str, object_name: str = "", shape_index: int = 0,
                          object_reference: dict | None = None) -> dict[str, Any]:
         if not new_text.strip():
@@ -1683,12 +1770,14 @@ class CorelBridge:
         try:
             story = shape.Text.Story
             old_text = str(story.Text)
+            self._note_mutation()
             story.Text = str(new_text)
             return {"updated": True, "object_name": str(_safe_attr(shape, "Name") or ""),
                     "old_text": old_text[:200], "new_text": new_text}
         except Exception as exc:
             raise CorelBridgeError("Could not edit text; target may not be a text object. Full COM error: " + str(exc)) from exc
 
+    @tracked_mutation
     def rename_object(self, new_name: str, object_name: str = "", shape_index: int = 0,
                       object_reference: dict | None = None) -> dict[str, Any]:
         if not new_name.strip():
@@ -1701,6 +1790,7 @@ class CorelBridge:
             unique = new_name
         try:
             old = str(_safe_attr(shape, "Name") or "")
+            self._note_mutation()
             shape.Name = unique
             identity = self._shape_identity(shape)
             identity["object_reference"] = self._reference_for_shape(doc, shape)
@@ -1709,6 +1799,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("Could not rename the object. Full COM error: " + str(exc)) from exc
 
+    @tracked_mutation
     def duplicate_object(self, offset_x_inches: float = 0.25, offset_y_inches: float = -0.25,
                          object_name: str = "", shape_index: int = 0,
                          new_name: str = "", object_reference: dict | None = None) -> dict[str, Any]:
@@ -1727,6 +1818,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("Could not duplicate object. Full COM error: " + str(exc)) from exc
 
+    @tracked_mutation
     def align_objects(
         self,
         object_names: list[str],
@@ -1833,6 +1925,7 @@ class CorelBridge:
             "objects": results,
         }
 
+    @tracked_mutation
     def align_to_page(
         self,
         object_names: list[str],
@@ -1967,6 +2060,7 @@ class CorelBridge:
             "objects": results,
         }
 
+    @tracked_mutation
     def group_shapes(self, object_names: list[str], group_name: str = "") -> dict[str, Any]:
         """Group multiple shapes on the active page into a single named group shape."""
         if not isinstance(object_names, list) or len(object_names) < 2:
@@ -2016,6 +2110,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError(f"Could not group shapes in CorelDRAW X7: {exc}") from exc
 
+    @tracked_mutation
     def ungroup_shapes(
         self,
         object_name: str = "",
@@ -2075,6 +2170,7 @@ class CorelBridge:
             )
         return path
 
+    @tracked_mutation
     def import_artwork(self, file_path: str, object_name: str = "AI_Artwork") -> dict[str, Any]:
         path = self._validate_artwork_path(file_path)
         doc = self._target_document()
@@ -2082,6 +2178,7 @@ class CorelBridge:
         before = int(self._shapes(doc).Count)
         try:
             try:
+                self._note_mutation()
                 doc.ClearSelection()
             except Exception:
                 pass
@@ -2187,6 +2284,7 @@ class CorelBridge:
             "created_objects_remaining": remaining,
         }
 
+    @tracked_mutation
     def create_chest_number_batch(
         self,
         start: int,
@@ -2357,6 +2455,7 @@ class CorelBridge:
             "items": created_items,
         }
 
+    @tracked_mutation
     def execute_design_plan(
         self,
         plan: dict[str, Any],
@@ -2399,6 +2498,7 @@ class CorelBridge:
 
         has_command_group = False
         try:
+            self._note_mutation()
             doc.BeginCommandGroup(f"AI Plan: {plan.get('name', 'Design Plan')}")
             has_command_group = True
         except Exception as exc:
@@ -2710,6 +2810,7 @@ class CorelBridge:
         created: list[dict[str, Any]] = []
         actual_contours: list[list[list[float]]] = []
         try:
+            self._note_mutation()
             doc.BeginCommandGroup("AI Prepare Imposition Job")
             command_group_open = True
             with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
@@ -2906,6 +3007,7 @@ class CorelBridge:
             "post_execution_verification": True,
         }
 
+    @tracked_mutation
     def prepare_contour_nesting(
         self,
         source_group_name: str,
@@ -2973,6 +3075,7 @@ class CorelBridge:
         result["plan"] = plan
         return result
 
+    @tracked_mutation
     def prepare_imposition_job(
         self,
         source_group_name: str,
@@ -3189,6 +3292,7 @@ class CorelBridge:
             "source_preserved": execution["source_preserved"],
         }
 
+    @tracked_mutation
     def prepare_print_job(
         self,
         file_path: str,
@@ -3261,6 +3365,7 @@ class CorelBridge:
         command_group_open = False
         created_objects: list[dict[str, Any]] = []
         try:
+            self._note_mutation()
             doc.BeginCommandGroup("AI Prepare Print Job")
             command_group_open = True
             first_name = f"{object_name_prefix.strip()}_001"
@@ -3365,6 +3470,7 @@ class CorelBridge:
             ],
         }
 
+    @tracked_mutation
     def save_document(self, path: str) -> dict[str, Any]:
         doc = self._target_document()
         path = os.path.abspath(os.path.expanduser(path))
@@ -3386,6 +3492,7 @@ class CorelBridge:
             options.EmbedVBAProject = False
             options.IncludeCMXData = False
             options.Overwrite = False
+            self._note_mutation()
             doc.SaveAs(path, options)
             if not os.path.isfile(path):
                 raise CorelBridgeError("CorelDRAW returned from SaveAs, but the file was not created: " + path)
@@ -3396,6 +3503,7 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("CorelDRAW X7 could not save the target document. Full COM error: " + str(exc)) from exc
 
+    @tracked_mutation
     def export_pdf(self, path: str) -> dict[str, Any]:
         doc = self._target_document()
         path = os.path.abspath(os.path.expanduser(path))
@@ -3408,6 +3516,7 @@ class CorelBridge:
                 ErrorCode.OUTPUT_EXISTS,
             )
         try:
+            self._note_mutation()
             doc.PublishToPDF(path)
             if not os.path.isfile(path):
                 raise CorelBridgeError(

@@ -8,6 +8,15 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Worker recovery (SAFE-002): immediate operator/outcome metadata tools and
+  exact-ID native reconciliation, one admitted COM call, pending-timeout
+  cancellation, no automatic replay of running work, bounded pinned history,
+  and mutation quarantine after late completion or uncertain partial failure.
+  Native edit stages distinguish true preflight refusals from validation
+  errors after changes; nested calls preserve that distinction. Restore failures
+  now fail edits. Forty-one focused tests and a deferred synthetic native gate
+  cover deadline races, cancellation, busy HRESULTs, partial acknowledgement,
+  strict probes, and shutdown. The surface now has 47 registered tools.
 - Opt-in redacted operation records (SAFE-001) covering all 44 MCP tools,
   with exclusive bounded JSONL files outside the repository, input type counts,
   target/created IDs when available, durations, result codes, rollback flags,

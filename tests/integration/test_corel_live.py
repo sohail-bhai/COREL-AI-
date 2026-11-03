@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import tempfile
+import threading
 import time
 import unittest
 from datetime import datetime, timezone
@@ -944,6 +945,120 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed()
             self._write_report(passed, failure)
+
+    def test_worker_recovery_live(self) -> None:
+        """Native synthetic edits with a controlled caller timeout; real modal behavior is separate."""
+        from corel_operator import server
+        from corel_operator.operation_records import OperationJournal
+
+        released = threading.Event()
+        journal = OperationJournal(self.output_dir / "operation-records")
+        dispatcher = None
+        passed = False
+        failure: str | None = None
+
+        class RecoveryFixtureBridge(CorelBridge):
+            def create_document(inner, *args, **kwargs):
+                result = super(RecoveryFixtureBridge, inner).create_document(*args, **kwargs)
+                inner._owned_session = inner._document_session_id(inner.target_doc)
+                return result
+
+            def add_text(inner, *args, **kwargs):
+                result = super(RecoveryFixtureBridge, inner).add_text(*args, **kwargs)
+                if not released.wait(timeout=3):
+                    raise CorelBridgeError("Synthetic post-edit barrier was not released.", ErrorCode.COREL_COM_ERROR)
+                return result
+
+            def set_text_content(inner, new_text, *args, **kwargs):
+                result = super(RecoveryFixtureBridge, inner).set_text_content(new_text, *args, **kwargs)
+                if new_text == "Injected partial update":
+                    raise CorelBridgeError("Synthetic failure after a native text edit.", ErrorCode.COREL_COM_ERROR)
+                return result
+
+            def close_owned_fixture(inner, checkpoint):
+                if inner.target_doc is None:
+                    return {"closed": True}
+                document = inner._target_document()
+                if inner._document_session_id(document) != inner._owned_session:
+                    raise AssertionError("Refusing to close an unowned target")
+                if document.Dirty:
+                    inner.save_document(checkpoint)
+                document.Close()
+                inner._invalidate_target_document()
+                return {"closed": True}
+
+        try:
+            with patch.object(server, "CorelBridge", RecoveryFixtureBridge):
+                dispatcher = server.CorelDispatcher()
+            with patch.object(server, "dispatcher", dispatcher), patch.object(server, "operation_journal", journal):
+                self.status = self._step("connect recovery fixture", server.corel_status)["data"]
+                self.assertTrue(self.status["connected"])
+                created = self._step("create owned recovery document", lambda: server.create_document(8.5, 11))
+                self.assertTrue(created["ok"])
+                dispatcher.call_timeout_seconds = 0.05
+                timed_out = server.add_text("Recovery secret text", 1, 2, object_name="RecoveryTitle")
+                self.assertEqual(timed_out["error"]["code"], "OPERATION_TIMEOUT")
+                operation_id = timed_out["operation_id"]
+                state = server.get_operator_state()["data"]
+                self.assertEqual(state["state"], "timed_out_but_running")
+                self.assertTrue(state["recovery_required"])
+                self.assertEqual(server.draw_rectangle(1, 3, 1, 1)["error"]["code"], "WORKER_BUSY")
+                released.set()
+                deadline = time.monotonic() + 10
+                while dispatcher.snapshot()["active_operation"] is not None:
+                    if time.monotonic() >= deadline:
+                        raise AssertionError("Synthetic native worker did not complete")
+                    time.sleep(0.01)
+                dispatcher.call_timeout_seconds = 120
+                status = server.get_operation_status(operation_id)["data"]
+                self.assertEqual(status["status"], "completed")
+                self.assertEqual(server.draw_rectangle(1, 3, 1, 1)["error"]["code"], "RECOVERY_REQUIRED")
+                self.assertEqual(server.get_text_properties(object_name="RecoveryTitle")["data"]["text"]["content"], "Recovery secret text")
+                recovered = server.reconcile_operator_state(operation_id)
+                self.assertTrue(recovered["ok"])
+                self.assertEqual(recovered["data"]["document_state"]["page_object_count"], 1)
+                partial = server.set_text_content("Injected partial update", object_name="RecoveryTitle")
+                self.assertEqual(partial["error"]["code"], "COREL_COM_ERROR")
+                partial_id = server.get_operator_state()["data"]["recovery"]["operation_id"]
+                self.assertEqual(server.reconcile_operator_state(partial_id)["error"]["code"], "CONFIRMATION_REQUIRED")
+                self.assertEqual(server.get_text_properties(object_name="RecoveryTitle")["data"]["text"]["content"], "Injected partial update")
+                self.assertTrue(server.reconcile_operator_state(partial_id, acknowledge_partial_changes=True)["ok"])
+                self.assertTrue(server.get_operator_state()["data"]["accepting_mutations"])
+                saved = self._step("save recovered native fixture", lambda: server.save_document(str(self.cdr_path)))
+                self.assertTrue(saved["ok"])
+                readback = {"late_operation": status, "reconciliation": recovered["data"], "partial_operation_id": partial_id}
+                (self.output_dir / "worker-recovery-readback.json").write_text(json.dumps(readback, indent=2), encoding="utf-8")
+                for path in (self.output_dir / "operation-records").glob("*.jsonl"):
+                    contents = path.read_text(encoding="utf-8")
+                    self.assertNotIn("Recovery secret text", contents)
+                    self.assertNotIn("Injected partial update", contents)
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            released.set()
+            original_failure = failure is not None
+            cleanup_failed = False
+            if dispatcher is not None:
+                dispatcher.call_timeout_seconds = 120
+                try:
+                    dispatcher.call("close_owned_fixture", str(self.output_dir / "recovery-cleanup.cdr"))
+                except Exception as exc:
+                    cleanup_failed = True
+                    self.cleanup_notes.append(f"Recovery fixture cleanup: {type(exc).__name__}")
+                try:
+                    dispatcher.close()
+                except RuntimeError:
+                    cleanup_failed = True
+                    self.cleanup_notes.append("Recovery worker shutdown remains incomplete")
+            journal.close()
+            if cleanup_failed:
+                passed = False
+                failure = failure or "Recovery fixture cleanup did not complete."
+            self._write_report(passed, failure)
+            if cleanup_failed and not original_failure:
+                raise AssertionError("Recovery fixture cleanup did not complete.")
 
     def test_align_and_group_live(self) -> None:
         passed = False

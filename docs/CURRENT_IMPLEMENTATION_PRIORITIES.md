@@ -58,20 +58,27 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 44
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 47
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
   [OPERATION_RECORDS.md](OPERATION_RECORDS.md).
-- Next: SAFE-002 busy/timeout recovery and mutation gating.
+- SAFE-002 is implemented: one admitted native call, pending cancellation,
+  explicit worker state, bounded outcome history, native edit-stage tracking,
+  partial-failure quarantine and exact-ID reconciliation. Forty-one focused tests
+  pass; the synthetic native gate and real modal/busy checks remain deferred.
+  See [WORKER_RECOVERY.md](WORKER_RECOVERY.md).
+- Next: editable typography and common layout vocabulary, then reusable templates
+  and batch production; existing-document checkpoints remain a recovery gap.
 
 **Gate:** The intended object can be found and inspected without mutation;
 common edits report actual state on an explicitly authorized disposable target.
 
 ### 2. Recovery and operation records
 
-- Redacted operation records are implemented; complete busy/timeout recovery
-  behavior and block unsafe follow-up mutations until reconciliation.
+- Redacted operation records and busy/timeout reconciliation are implemented.
+  Continue tested existing-document checkpoint and specialized rollback policies
+  alongside the relevant workflow slices; native verification remains deferred.
 - Preserve preflight, explicit document binding, overwrite protection,
   discrepancy reporting, and verified rollback for each common workflow.
 

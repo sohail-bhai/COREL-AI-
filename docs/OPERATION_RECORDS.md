@@ -2,7 +2,7 @@
 
 **Implemented:** 2026-11-03. Recording is disabled by default.
 
-All 44 MCP tools have optional operation events, including pure planning tools.
+All 47 MCP tools have optional operation events, including pure planning tools.
 Enable recording by setting `COREL_OPERATION_LOG_DIR` to an absolute directory
 outside this repository before starting the MCP server. Environment files are
 not loaded automatically. No files or logging output are created when disabled.
@@ -45,7 +45,7 @@ If the caller times out while native work continues, `returned` carries
 `OPERATION_TIMEOUT`. A later worker event records actual completion/failure.
 A caller return is not proof that COM stopped. Worker completion alone does
 not prove successful rollback or visual correctness. Busy/recovery mutation
-gating is the separate SAFE-002 ticket.
+gating is now implemented by [SAFE-002](WORKER_RECOVERY.md).
 
 ## Redaction and failure limits
 

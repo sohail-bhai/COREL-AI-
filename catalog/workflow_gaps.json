@@ -82,7 +82,7 @@
     {
       "id": "targeting",
       "priority": "P0",
-      "coverage": "partial",
+      "coverage": "implemented_pending_live",
       "registered_tools": [
         "use_active_document",
         "list_objects",
@@ -92,20 +92,18 @@
         "get_text_properties",
         "get_fill"
       ],
-      "missing_behavior": [
-        "Session-scoped object references",
-        "Reference-aware edits and stale-object refusal"
-      ],
+      "missing_behavior": [],
       "source_ids": [
         "lookup_api"
       ],
       "depends_on": [
         "ID-001"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "implemented_unverified",
       "live_status": "deferred",
       "implemented_behavior": [
-        "Bound-document/application liveness and stale-binding invalidation"
+        "Bound-document/application liveness and stale-binding invalidation",
+        "Signed session object references and reference-aware common edits with complete bounded scope uniqueness"
       ]
     },
     {
@@ -114,12 +112,14 @@
       "coverage": "partial",
       "registered_tools": [
         "execute_design_plan",
-        "prepare_imposition_job"
+        "prepare_imposition_job",
+        "get_operator_state",
+        "get_operation_status",
+        "reconcile_operator_state"
       ],
       "missing_behavior": [
-        "Redacted operation records",
-        "Explicit timeout/busy/unknown state",
-        "Guarded reconciliation and verified rollback"
+        "Consolidated native busy/modal and recovery verification",
+        "Existing-document checkpoint and specialized workflow rollback policies"
       ],
       "source_ids": [
         "x7_guide"
@@ -128,8 +128,13 @@
         "SAFE-001",
         "SAFE-002"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "partial",
+      "live_status": "deferred",
+      "implemented_behavior": [
+        "Opt-in bounded redacted operation records across all MCP tools",
+        "Explicit worker state and pending-timeout cancellation",
+        "Mutation quarantine and exact-ID native reconciliation with partial-change acknowledgement"
+      ]
     },
     {
       "id": "documents",

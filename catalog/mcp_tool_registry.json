@@ -25,7 +25,8 @@
     "All current tools remain implemented_unverified until a reproducible X7 live-test report is recorded.",
     "Since bridge 0.6.0 every tool returns tool-schema v1: a stable envelope whose data field contains the operation-specific result.",
     "ID-001: eleven registered selector tools accept signed session object_reference values. StaticID-derived object_id strings remain inspection-only; no persistent cross-session identity is promised.",
-    "SAFE-001: opt-in external JSONL operation records cover all registered MCP tools and separate worker completion from caller return; operation_id is an optional envelope field. No client content or paths are logged."
+    "SAFE-001: opt-in external JSONL operation records cover all registered MCP tools and separate worker completion from caller return; operation_id is an optional envelope field. No client content or paths are logged.",
+    "SAFE-002: the dispatcher refuses concurrent/native busy follow-ups, cancels only pending timeouts, and quarantines late mutations or uncertain failure until exact-ID native reconciliation. Three metadata/recovery tools remain unverified against X7."
   ],
   "schema_definitions": {
     "object_selector": {
@@ -198,6 +199,8 @@
             "COREL_COM_ERROR",
             "OPERATION_TIMEOUT",
             "WORKER_UNAVAILABLE",
+            "WORKER_BUSY",
+            "RECOVERY_REQUIRED",
             "INTERNAL_ERROR"
           ]
         },
@@ -1227,6 +1230,356 @@
           ]
         }
       ]
+    },
+    "operator_result_summary": {
+      "type": "object",
+      "properties": {
+        "result_code": {
+          "type": "string",
+          "enum": [
+            "OK",
+            "NO_TARGET_DOCUMENT",
+            "CONFIRMATION_REQUIRED",
+            "INVALID_ARGUMENT",
+            "OBJECT_NOT_FOUND",
+            "AMBIGUOUS_SELECTOR",
+            "UNSUPPORTED_IN_PROFILE",
+            "UNSAFE_PATH",
+            "OUTPUT_EXISTS",
+            "COREL_COM_ERROR",
+            "OPERATION_TIMEOUT",
+            "WORKER_UNAVAILABLE",
+            "WORKER_BUSY",
+            "RECOVERY_REQUIRED",
+            "INTERNAL_ERROR"
+          ]
+        },
+        "rollback": {
+          "type": "object",
+          "properties": {
+            "rollback_attempted": {
+              "type": "boolean"
+            },
+            "rollback_verified": {
+              "type": "boolean"
+            },
+            "rollback_succeeded": {
+              "type": "boolean"
+            },
+            "recovery_incomplete": {
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "created_object_ids": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "static_id": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2147483647
+                  }
+                },
+                "required": [
+                  "static_id"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "object_id": {
+                    "type": "string",
+                    "pattern": "^doc-[0-9]{4,16}:shape:[0-9]{1,10}$"
+                  }
+                },
+                "required": [
+                  "object_id"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "created_ids_available": {
+          "type": "boolean"
+        },
+        "created_ids_scan_limited": {
+          "type": "boolean"
+        },
+        "native_busy": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result_code"
+      ],
+      "additionalProperties": false
+    },
+    "operator_operation": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$",
+          "minLength": 32,
+          "maxLength": 32
+        },
+        "method": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "running",
+            "timed_out_but_running",
+            "completed",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "mutation": {
+          "type": "boolean"
+        },
+        "timed_out": {
+          "type": "boolean"
+        },
+        "submitted_at_utc": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "duration_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "reconciliation": {
+          "type": "boolean"
+        },
+        "recovery_operation_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{32}$",
+              "minLength": 32,
+              "maxLength": 32
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/operator_result_summary"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "operation_id",
+        "method",
+        "status",
+        "mutation",
+        "timed_out",
+        "submitted_at_utc",
+        "duration_ms",
+        "reconciliation",
+        "recovery_operation_id",
+        "summary"
+      ],
+      "additionalProperties": false
+    },
+    "operator_recovery": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$",
+          "minLength": 32,
+          "maxLength": 32
+        },
+        "reason": {
+          "enum": [
+            "mutation_timed_out",
+            "mutation_failed",
+            "read_failed",
+            "rollback_unverified",
+            "application_busy"
+          ]
+        },
+        "requires_partial_ack": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "operation_id",
+        "reason",
+        "requires_partial_ack"
+      ],
+      "additionalProperties": false
+    },
+    "operator_state": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "enum": [
+            "idle",
+            "running",
+            "timed_out_but_running",
+            "unavailable"
+          ]
+        },
+        "worker_alive": {
+          "type": "boolean"
+        },
+        "closing": {
+          "type": "boolean"
+        },
+        "accepting_mutations": {
+          "type": "boolean"
+        },
+        "recovery_required": {
+          "type": "boolean"
+        },
+        "recovery": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/operator_recovery"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "active_operation": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/operator_operation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_operation": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/operator_operation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retained_operations": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "call_timeout_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 120
+        }
+      },
+      "required": [
+        "state",
+        "worker_alive",
+        "closing",
+        "accepting_mutations",
+        "recovery_required",
+        "recovery",
+        "active_operation",
+        "last_operation",
+        "retained_operations",
+        "call_timeout_seconds"
+      ],
+      "additionalProperties": false
+    },
+    "reconciled_document_state": {
+      "type": "object",
+      "properties": {
+        "connected": {
+          "type": "boolean"
+        },
+        "target_bound": {
+          "type": "boolean"
+        },
+        "document_session_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^doc-[0-9]{4,16}$"
+        },
+        "open_document_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "page_index": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "page_object_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "unit_code": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "reference_point_code": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "dirty": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "connected",
+        "target_bound",
+        "document_session_id",
+        "open_document_count",
+        "page_index",
+        "page_object_count",
+        "unit_code",
+        "reference_point_code",
+        "dirty"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -3662,6 +4015,173 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
+    "get_operator_state": {
+      "request": {},
+      "success": {
+        "ok": true,
+        "tool": "get_operator_state",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "state": "idle",
+          "worker_alive": true,
+          "closing": false,
+          "accepting_mutations": true,
+          "recovery_required": false,
+          "recovery": null,
+          "active_operation": null,
+          "last_operation": null,
+          "retained_operations": 0,
+          "call_timeout_seconds": 120.0
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_operator_state",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "WORKER_BUSY",
+          "message": "Worker is busy; inspect operator state.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
+    "get_operation_status": {
+      "request": {
+        "operation_id": "11111111111111111111111111111111"
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_operation_status",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "operation_id": "11111111111111111111111111111111",
+          "method": "add_text",
+          "status": "completed",
+          "mutation": true,
+          "timed_out": true,
+          "submitted_at_utc": "2026-11-03T10:00:00+00:00",
+          "duration_ms": 120100.0,
+          "reconciliation": false,
+          "recovery_operation_id": null,
+          "summary": {
+            "result_code": "OK",
+            "rollback": {},
+            "created_object_ids": [
+              {
+                "static_id": 101
+              }
+            ],
+            "created_ids_available": true,
+            "created_ids_scan_limited": false,
+            "native_busy": false
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_operation_status",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "WORKER_BUSY",
+          "message": "Worker is busy; inspect operator state.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
+    "reconcile_operator_state": {
+      "request": {
+        "operation_id": "11111111111111111111111111111111"
+      },
+      "success": {
+        "ok": true,
+        "tool": "reconcile_operator_state",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "reconciled": true,
+          "recovery_operation_id": "11111111111111111111111111111111",
+          "document_state": {
+            "connected": true,
+            "target_bound": true,
+            "document_session_id": "doc-0001",
+            "open_document_count": 1,
+            "page_index": 1,
+            "page_object_count": 1,
+            "unit_code": 1,
+            "reference_point_code": 5,
+            "dirty": true
+          },
+          "previous_operation": {
+            "operation_id": "11111111111111111111111111111111",
+            "method": "add_text",
+            "status": "completed",
+            "mutation": true,
+            "timed_out": true,
+            "submitted_at_utc": "2026-11-03T10:00:00+00:00",
+            "duration_ms": 120100.0,
+            "reconciliation": false,
+            "recovery_operation_id": null,
+            "summary": {
+              "result_code": "OK",
+              "rollback": {},
+              "created_object_ids": [
+                {
+                  "static_id": 101
+                }
+              ],
+              "created_ids_available": true,
+              "created_ids_scan_limited": false,
+              "native_busy": false
+            }
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "reconcile_operator_state",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "WORKER_BUSY",
+          "message": "Worker is busy; inspect operator state.",
           "details": {}
         },
         "duration_ms": 0.1
@@ -10251,6 +10771,253 @@
         "Executes only quantities that fit one output page, keeps rectangular vector jobs upright, replaces current system clipboard contents during X7 cross-page transfer, and does not yet add production marks or controlled export settings."
       ],
       "planned_phase": 6,
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "get_operator_state",
+      "category": "worker_recovery",
+      "description": "Read bounded worker state immediately without native calls.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "dispatcher_method": "snapshot"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "$ref": "#/schema_definitions/operator_state"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P0",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_worker_recovery.py"
+        ]
+      },
+      "known_limitations": [
+        "One native call at a time; busy calls are refused before enqueue. Pending wait timeouts cancel safely; running COM cannot be stopped or replayed automatically.",
+        "Outcome history retains 64 metadata-only entries and pins an unresolved recovery operation. Process restart begins unbound and does not reconnect or infer prior completion.",
+        "Reconciliation verifies liveness and finite native metadata; partial-change acknowledgement is not Undo or visual verification. X7 busy/modal behavior remains deferred."
+      ],
+      "introduced": "0.7.0-dev",
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "get_operation_status",
+      "category": "worker_recovery",
+      "description": "Inspect a current or retained operation without repeating it.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "dispatcher_method": "operation_status"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{32}$",
+            "minLength": 32,
+            "maxLength": 32
+          }
+        },
+        "required": [
+          "operation_id"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "$ref": "#/schema_definitions/operator_operation"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P0",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_worker_recovery.py"
+        ]
+      },
+      "known_limitations": [
+        "One native call at a time; busy calls are refused before enqueue. Pending wait timeouts cancel safely; running COM cannot be stopped or replayed automatically.",
+        "Outcome history retains 64 metadata-only entries and pins an unresolved recovery operation. Process restart begins unbound and does not reconnect or infer prior completion.",
+        "Reconciliation verifies liveness and finite native metadata; partial-change acknowledgement is not Undo or visual verification. X7 busy/modal behavior remains deferred."
+      ],
+      "introduced": "0.7.0-dev",
+      "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "reconcile_operator_state",
+      "category": "worker_recovery",
+      "description": "Revalidate finite bound-document state after native completion; require acknowledgement of uncertain partial mutation.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "dispatcher_method": "reconcile"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{32}$",
+            "minLength": 32,
+            "maxLength": 32
+          },
+          "acknowledge_partial_changes": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "operation_id"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "reconciled": {
+                      "const": true
+                    },
+                    "recovery_operation_id": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{32}$",
+                      "minLength": 32,
+                      "maxLength": 32
+                    },
+                    "document_state": {
+                      "$ref": "#/schema_definitions/reconciled_document_state"
+                    },
+                    "previous_operation": {
+                      "$ref": "#/schema_definitions/operator_operation"
+                    }
+                  },
+                  "required": [
+                    "reconciled",
+                    "recovery_operation_id",
+                    "document_state",
+                    "previous_operation"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "medium",
+      "confirmation": "requires_ack_for_uncertain_partial_mutation",
+      "priority": "P0",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.Pages",
+        "Document.ActivePage",
+        "Page.Shapes",
+        "Document.Unit",
+        "Document.ReferencePoint",
+        "Document.Dirty",
+        "Page.Index"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_worker_recovery.py"
+        ]
+      },
+      "known_limitations": [
+        "One native call at a time; busy calls are refused before enqueue. Pending wait timeouts cancel safely; running COM cannot be stopped or replayed automatically.",
+        "Outcome history retains 64 metadata-only entries and pins an unresolved recovery operation. Process restart begins unbound and does not reconnect or infer prior completion.",
+        "Reconciliation verifies liveness and finite native metadata; partial-change acknowledgement is not Undo or visual verification. X7 busy/modal behavior remains deferred."
+      ],
+      "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v1-envelope"
     }
   ]

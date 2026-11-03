@@ -51,6 +51,9 @@ external operation recording is enabled. It correlates caller/worker JSONL
 events and is absent by default. ID-001 adds optional `object_reference`
 selectors to eleven common tools without changing legacy selector semantics.
 Both remain additive tool-schema v1 changes for the next bridge minor release.
+SAFE-002 adds three worker state/outcome/reconciliation tools and the stable
+`WORKER_BUSY` and `RECOVERY_REQUIRED` codes. Timeout/error envelopes can now
+include an operation ID even when disk recording is disabled.
 
 The v0.5 success dictionary is preserved under `data`. The former unstructured `{error: string}` result is replaced by the stable error object in v0.6.
 
