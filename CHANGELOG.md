@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Two gradient tools for native inspection and guarded opaque direct RGB/CMYK
+  multicolor fills. Thirty checks cover stop/component/parameter reconciliation,
+  editable text/vector preservation, stale fingerprints, incomplete metadata and
+  partial-write quarantine. Installed X7 descriptors/enums and readable X7 help
+  support the requirement; native interpolation/coordinates and artifact review
+  remain deferred. The surface has 76 registered tools; 613 automated checks pass
+  and 24 live gates are skipped.
 - Source-preserving PowerClip inspection, copied frame/content fitting and
   extraction into editable component roots for revisions/rebuilds. Thirty-four
   focused checks cover mixed content, nested locks, complete source geometry,

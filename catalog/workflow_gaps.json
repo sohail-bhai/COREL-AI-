@@ -47,6 +47,12 @@
       "kind": "official_primary_source",
       "x7_specific": true
     },
+    "gradient_help": {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Applying-fountain-fills.html",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
     "shapes_guide": {
       "url": "https://community.coreldraw.com/sdk/w/guide/214/8-6---working-with-shapes",
       "accessed": "2026-11-03",
@@ -334,16 +340,20 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "missing_behavior": [
         "Proven outline width units",
         "Native spot creation/conversion and ICC/separation workflows",
-        "Gradients and broader blend/group opacity",
+        "Transparent/nonlinear/mixed-model gradients, reflect/repeat spread and native/manual interpolation verification",
+        "Broader blend/group opacity",
         "In-place clip editing and native/manual clipping verification"
       ],
       "source_ids": [
         "powerclip_api",
+        "gradient_help",
         "x7_guide"
       ],
       "depends_on": [
@@ -364,7 +374,12 @@
         "docs/x7_powerclip_api_evidence.json",
         "docs/powerclip_online_evidence.json",
         "tests/test_powerclip.py",
-        "docs/test-reports/2026-11-03-powerclip-non-live.md"
+        "docs/test-reports/2026-11-03-powerclip-non-live.md",
+        "docs/GRADIENTS.md",
+        "docs/x7_gradient_api_evidence.json",
+        "docs/gradient_online_evidence.json",
+        "tests/test_gradients.py",
+        "docs/test-reports/2026-11-03-gradients-non-live.md"
       ]
     },
     {

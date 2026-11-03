@@ -8,10 +8,10 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 74 tools, all `implemented_unverified`. It has useful
+The current server exposes 76 tools, all `implemented_unverified`. It has useful
 inspection, simple drawing/editing, design-plan, numbering, and imposition
 foundations. Tool count does not establish complete workflow coverage: there is
-no general contour offsets or gradients,
+no general contour offsets,
 complete prepress production, or AI component
 generation/revision interface yet. Specialist scripts are research artifacts,
 not general MCP capabilities.
@@ -40,7 +40,7 @@ is a requirements reference, not X7 automation evidence.
 | Everyday typography | Artistic/paragraph creation, whole-story style edits, font catalog and aggregate/native chain overflow inspection | Spacing writes, per-run/linked/fitted editing, glyph checks and safe auto-fit |
 | Layout/transforms | Move/proportional resize, pivot rotation, mirroring, native matrix inspection, sibling order, measured distribution and grouping | Layer/page organization, guides, outline-aware bounds and safe-area reflow |
 | Vector construction | Line/cubic paths, fingerprinted geometry/handles; source-preserving node insertion/explicit deletion, combine/break apart and weld/trim/intersect | Contour offsets, adjacent deletion/fitting, open endpoint cropping, nested shaping and native winding/appearance gates |
-| Appearance and clipping | Native RGB/CMYK process colors; uniform transparency effects; source-preserving PowerClip inspection, fitting, extraction and editable component rebuilds | Proven outline units, spot/ICC, gradients, broader blending/group opacity, in-place clip editing and native/visual verification |
+| Appearance and clipping | Native RGB/CMYK process colors; uniform transparency; PowerClip fitting/extraction/rebuilds; opaque direct multicolor gradients with guarded revisions | Proven outline units, spot/ICC, wider gradient/blend/group effects, in-place clip editing and native/visual verification |
 | Images and references | Validated imports; local cover/contain planning; retained tracing research | General crop/background/cleanup, effective-resolution checks, bounded tracing and fidelity reports |
 | Templates and data | Numbering/chest-bib sequence; named text templates, literal CSV, duplicates/count/overflow reconciliation and independent full/partial sheets | Image fields, mixed/linked text, auto-fit and numbering variants |
 | Publications and sheet production | Grid/contour planning; single-sheet execution | Multiple sheets, partial final sheets, page order, bleed/marks, source-preserving production outputs |
@@ -80,6 +80,14 @@ with installed X7 evidence and owned-output recovery checks. Online API requests
 returned no readable content; in-place editing and outline-width units remain
 unresolved work. Native blending/clipping remains deferred.
 
+Two gradient tools now pass 30 focused checks in [GRADIENTS.md](GRADIENTS.md).
+Installed X7 evidence retains 103 descriptors and three enum groups. X7's
+[fountain-fill help](https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Applying-fountain-fills.html)
+returned readable descriptions of multicolor/type workflows, while three SDK
+requests returned no readable API content. Opaque direct RGB/CMYK stops, guarded
+revisions and measured text/vector preservation are implemented; native stop
+collection/coordinates/interpolation and rendered appearance remain deferred.
+
 Data and print requirements are supported by Corel's
 [print merge documentation](https://product.corel.com/help/CorelDRAW/Documentation-Windows/CorelDRAW-en/CorelDRAW-Print-merge.html),
 [page layout guide](https://help.coreldraw.com/CorelDRAW/540111192/Documentation-Windows/CorelDRAW-en/CorelDRAW-Page-layout.html),
@@ -105,7 +113,7 @@ as an explicit dependency until the conversion is established. Parsed PDF
 page boxes and font resource checks are required; these do not prove PDF/X,
 ICC accuracy, visual fidelity or printer readiness. Two PDF tools now pass 22
 focused checks; see [PDF_PRODUCTION.md](PDF_PRODUCTION.md). The complete deferred
-inventory accounts for all 74 registered tools and prepared native gate candidates.
+inventory accounts for all 76 registered tools and prepared native gate candidates.
 
 1. **Reliability foundation:** ID-001 stale targets; SAFE-001 redacted records;
    SAFE-002 busy/timeout state and guarded recovery. Keep inspection bounded and

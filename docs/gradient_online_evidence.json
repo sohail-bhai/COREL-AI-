@@ -1,0 +1,43 @@
+{
+  "browser_used": false,
+  "sources": [
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/fill.applyfountainfill",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/m/fill.applyfountainfill",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/fountaincolors.add",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/m/fountaincolors.add",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.colors",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.colors",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Applying-fountain-fills.html",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Applying-fountain-fills.html",
+      "excerpts": [
+        " CorelDRAW Help | Applying fountain fills CorelDRAW Help : Color, fills, and transparencies : Filling objects : Applying fountain fills Quick links to procedures on this page: \u2022 To apply a fountain fill \u2022 To create a fountain fill \u2022 To change the fountain fill print and display quality \u2022 To set the display quality for fountain fills Applying fountain fills A fountain fill is a smooth progression of two or more colors that adds depth to an object. Fountain fills are also known as gradient fills. There are four types of fountain fills: linear, elliptical, conical, and rectangular. A linear fountain fill flows in a straight line across the object, a conical fountain fill creates the illusion of light hitting a cone, an elliptical fountain fill is dispersed in concentric ellipses from the center of the object, and a rectangular fountain fill is dispersed in concentric ",
+        "lying fountain fills CorelDRAW Help : Color, fills, and transparencies : Filling objects : Applying fountain fills Quick links to procedures on this page: \u2022 To apply a fountain fill \u2022 To create a fountain fill \u2022 To change the fountain fill print and display quality \u2022 To set the display quality for fountain fills Applying fountain fills A fountain fill is a smooth progression of two or more colors that adds depth to an object. Fountain fills are also known as gradient fills. There are four types of fountain fills: linear, elliptical, conical, and rectangular. A linear fountain fill flows in a straight line across the object, a conical fountain fill creates the illusion of light hitting a cone, an elliptical fountain fill is dispersed in concentric ellipses from the center of the object, and a rectangular fountain fill is dispersed in concentric rectangles from the center of the object. There are four types of fountain fills (left to righ",
+        "es : Filling objects : Applying fountain fills Quick links to procedures on this page: \u2022 To apply a fountain fill \u2022 To create a fountain fill \u2022 To change the fountain fill print and display quality \u2022 To set the display quality for fountain fills Applying fountain fills A fountain fill is a smooth progression of two or more colors that adds depth to an object. Fountain fills are also known as gradient fills. There are four types of fountain fills: linear, elliptical, conical, and rectangular. A linear fountain fill flows in a straight line across the object, a conical fountain fill creates the illusion of light hitting a cone, an elliptical fountain fill is dispersed in concentric ellipses from the center of the object, and a rectangular fountain fill is dispersed in concentric rectangles from the center of the object. There are four types of fountain fills (left to right): linear, elliptical, conical, and rectangular. You can choose fou",
+        "ing fountain fills Quick links to procedures on this page: \u2022 To apply a fountain fill \u2022 To create a fountain fill \u2022 To change the fountain fill print and display quality \u2022 To set the display quality for fountain fills Applying fountain fills A fountain fill is a smooth progression of two or more colors that adds depth to an object. Fountain fills are also known as gradient fills. There are four types of fountain fills: linear, elliptical, conical, and rectangular. A linear fountain fill flows in a straight line across the object, a conical fountain fill creates the illusion of light hitting a cone, an elliptical fountain fill is dispersed in concentric ellipses from the center of the object, and a rectangular fountain fill is dispersed in concentric rectangles from the center of the object. There are four types of fountain fills (left to right): linear, elliptical, conical, and rectangular. You can choose fountain fills from a personal ",
+        " to procedures on this page: \u2022 To apply a fountain fill \u2022 To create a fountain fill \u2022 To change the fountain fill print and display quality \u2022 To set the display quality for fountain fills Applying fountain fills A fountain fill is a smooth progression of two or more colors that adds depth to an object. Fountain fills are also known as gradient fills. There are four types of fountain fills: linear, elliptical, conical, and rectangular. A linear fountain fill flows in a straight line across the object, a conical fountain fill creates the illusion of light hitting a cone, an elliptical fountain fill is dispersed in concentric ellipses from the center of the object, and a rectangular fountain fill is dispersed in concentric rectangles from the center of the object. There are four types of fountain fills (left to right): linear, elliptical, conical, and rectangular. You can choose fountain fills from a personal library or from the Content Ex"
+      ],
+      "relevant_text_found": true
+    }
+  ]
+}

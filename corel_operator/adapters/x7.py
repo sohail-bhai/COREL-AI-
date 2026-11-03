@@ -85,6 +85,11 @@ class CorelX7Adapter:
     CDR_ALIGN_BOTTOM = 8
     CDR_ALIGN_V_CENTER = 12
 
+    GRADIENT_TYPE_CODES = {"linear": 1, "radial": 2, "conical": 3, "square": 4}
+    CDR_DIRECT_FOUNTAIN_BLEND = 0
+    CDR_CUSTOM_FOUNTAIN_BLEND = 3
+    CDR_FOUNTAIN_SPREAD_PAD = 0
+
     FILL_TYPE_NAMES = {
         0: "none",
         1: "uniform",
@@ -139,6 +144,10 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "appearance.gradient_inspection": CapabilitySupport(True, "implemented_unverified", "Bounded native stop/parameter/coordinate metadata and current-session fingerprints; missing getters remain explicit.",
+            ("Fill.Fountain", "FountainFill.Colors", "FountainColors.Item", "FountainColor.Position", "FountainColor.Color")),
+        "appearance.gradient_fill": CapabilitySupport(True, "implemented_unverified", "Opaque direct 2-32-stop RGB/CMYK gradients reconcile parameters, colors and measured geometry/other channels; revisions require a fingerprint and partial writes quarantine.",
+            ("Fill.ApplyFountainFill", "FountainColors.Add", "FountainColor.MidPoint", "FountainColor.BlendType", "FountainFill.MakeOpaque")),
         "appearance.powerclip_inspection": CapabilitySupport(True,"implemented_unverified","Bounded native group/clip trees, measured geometry/body metadata and source-bound fingerprints; clipped children require extraction for ordinary editing references.",
             ("Shape.PowerClip","PowerClip.Parent","PowerClip.Shapes","PowerClip.ContentsLocked")),
         "appearance.powerclip_create": CapabilitySupport(True,"implemented_unverified","Independent frame/content copies, grouped payloads and contain/cover fitting reconcile complete measured trees and preserve sources; native/visual gate pending.",

@@ -45,6 +45,12 @@ component and rebuilds a copied clip. Source identities/geometry, ownership and
 native extracted roots are reconciled. Getter absence, coordinate/lock semantics
 and rendered clipping require the native run and manual CDR/PDF review.
 
+The gradient gate creates four native type fixtures with CMYK interior stops,
+RGB artistic/paragraph text, fingerprint-guarded revisions and CDR/PDF/readback
+artifacts. Native stop collection/endpoints, controls/coordinates, editable text
+and rendered interpolation require that run and manual review. Transparent,
+mixed-model and nonlinear fills remain broader appearance work.
+
 Use `tests/integration/test_corel_live.py` with explicit live and disposable
 mutation flags only when the user resumes native verification. All generated
 fixtures and outputs belong to that run's unique temporary directory. Existing

@@ -3222,6 +3222,382 @@
         "warnings"
       ],
       "additionalProperties": false
+    },
+    "gradient_stop_input": {
+      "type": "object",
+      "properties": {
+        "position_percent": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "color": {
+          "$ref": "#/schema_definitions/process_color"
+        }
+      },
+      "required": [
+        "position_percent",
+        "color"
+      ],
+      "additionalProperties": false
+    },
+    "gradient_stop_readback": {
+      "type": "object",
+      "properties": {
+        "position_percent": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "color": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/native_color_readback"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "midpoint_percent": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "blend_type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "opacity_raw": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "position_percent",
+        "color",
+        "midpoint_percent",
+        "blend_type_code",
+        "opacity_raw"
+      ],
+      "additionalProperties": false
+    },
+    "gradient_readback": {
+      "type": "object",
+      "properties": {
+        "type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "type": {
+          "enum": [
+            "linear",
+            "radial",
+            "conical",
+            "square",
+            "unknown"
+          ]
+        },
+        "angle_degrees": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "steps": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 256
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "edge_padding_percent": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "midpoint_percent": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "blend_type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "center_offset_x_percent": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "center_offset_y_percent": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "smooth_blend": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "spread_method_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "anisotropic": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "is_transparent": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "merge_mode_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "blend_acceleration": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "has_hsb_blends": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "has_non_linear_blends": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "transform": {
+          "type": "object",
+          "properties": {
+            "ScaleX": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "ScaleY": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "Skew": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "ScaleX",
+            "ScaleY",
+            "Skew"
+          ],
+          "additionalProperties": false
+        },
+        "coordinates_inches": {
+          "type": "object",
+          "properties": {
+            "StartX": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "StartY": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "EndX": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "EndY": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "End2X": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "End2Y": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "StartX",
+            "StartY",
+            "EndX",
+            "EndY",
+            "End2X",
+            "End2Y"
+          ],
+          "additionalProperties": false
+        },
+        "stops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/gradient_stop_readback"
+          },
+          "minItems": 0,
+          "maxItems": 32
+        },
+        "native_stop_count": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "type_code",
+        "type",
+        "angle_degrees",
+        "steps",
+        "edge_padding_percent",
+        "midpoint_percent",
+        "blend_type_code",
+        "center_offset_x_percent",
+        "center_offset_y_percent",
+        "smooth_blend",
+        "spread_method_code",
+        "anisotropic",
+        "is_transparent",
+        "merge_mode_code",
+        "blend_acceleration",
+        "has_hsb_blends",
+        "has_non_linear_blends",
+        "transform",
+        "coordinates_inches",
+        "stops",
+        "native_stop_count"
+      ],
+      "additionalProperties": false
+    },
+    "gradient_state": {
+      "type": "object",
+      "properties": {
+        "fill_available": {
+          "type": "boolean"
+        },
+        "fill_type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "fill_type": {
+          "type": "string"
+        },
+        "gradient": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/gradient_readback"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "unavailable_properties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "minItems": 0,
+          "maxItems": 50
+        }
+      },
+      "required": [
+        "fill_available",
+        "fill_type_code",
+        "fill_type",
+        "gradient",
+        "complete",
+        "unavailable_properties"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -10951,6 +11327,318 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "PowerClip request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "get_gradient_fill": {
+      "request": {
+        "object_reference": {
+          "version": 1,
+          "bridge_session_id": "2e0894c782dd8d4e370753ac8f65dcea",
+          "document_session_id": "doc-0001",
+          "page_identity": "9be03379780ff4ff8db9706977ef5929e27acda0b8ebc06ac9ce95c3e549f3ec",
+          "layer_identity": "eb30de43cdc08046ba66f77ead0e08d675c3c3b51597cb5d2de1521ffb4b7f17",
+          "ancestor_identities": [],
+          "shape_identity": "0f227752bc8551eba896b40a3435dca2b8c43e45d6585f1045f2c3614ca88d73",
+          "static_id": 100,
+          "object_name": "ProcessSource",
+          "shape_type_code": 3,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            1
+          ],
+          "signature": "a90f9f706e526f7baf58b3c1a7a9298ff06ce9e3f8ccb47c12b70c96fe8397e5"
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_gradient_fill",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "object": {
+            "object_name": "ProcessSource",
+            "static_id": 100,
+            "shape_type_code": 3,
+            "layer_name": "Vectors",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:100",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "2e0894c782dd8d4e370753ac8f65dcea",
+              "document_session_id": "doc-0001",
+              "page_identity": "9be03379780ff4ff8db9706977ef5929e27acda0b8ebc06ac9ce95c3e549f3ec",
+              "layer_identity": "eb30de43cdc08046ba66f77ead0e08d675c3c3b51597cb5d2de1521ffb4b7f17",
+              "ancestor_identities": [],
+              "shape_identity": "0f227752bc8551eba896b40a3435dca2b8c43e45d6585f1045f2c3614ca88d73",
+              "static_id": 100,
+              "object_name": "ProcessSource",
+              "shape_type_code": 3,
+              "page_index": 1,
+              "layer_index": 2,
+              "shape_path": [
+                1
+              ],
+              "signature": "a90f9f706e526f7baf58b3c1a7a9298ff06ce9e3f8ccb47c12b70c96fe8397e5"
+            }
+          },
+          "fill": {
+            "fill_available": true,
+            "fill_type_code": 0,
+            "fill_type": "none",
+            "gradient": null,
+            "complete": true,
+            "unavailable_properties": []
+          },
+          "fingerprint": "cb519ffcc974848c62f420f42179264b80579640b9c662d9b31bac80c68d2762",
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Stop opacity is raw native metadata; rendered interpolation, ICC conversion and printed appearance require consolidated/manual verification."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_gradient_fill",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Gradient request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "set_gradient_fill": {
+      "request": {
+        "stops": [
+          {
+            "position_percent": 0,
+            "color": {
+              "model": "cmyk",
+              "cyan": 0,
+              "magenta": 20,
+              "yellow": 40,
+              "black": 0
+            }
+          },
+          {
+            "position_percent": 40,
+            "color": {
+              "model": "cmyk",
+              "cyan": 10,
+              "magenta": 30,
+              "yellow": 50,
+              "black": 0
+            }
+          },
+          {
+            "position_percent": 100,
+            "color": {
+              "model": "cmyk",
+              "cyan": 40,
+              "magenta": 60,
+              "yellow": 80,
+              "black": 10
+            }
+          }
+        ],
+        "angle_degrees": 30.0,
+        "object_reference": {
+          "version": 1,
+          "bridge_session_id": "2e0894c782dd8d4e370753ac8f65dcea",
+          "document_session_id": "doc-0001",
+          "page_identity": "9be03379780ff4ff8db9706977ef5929e27acda0b8ebc06ac9ce95c3e549f3ec",
+          "layer_identity": "eb30de43cdc08046ba66f77ead0e08d675c3c3b51597cb5d2de1521ffb4b7f17",
+          "ancestor_identities": [],
+          "shape_identity": "0f227752bc8551eba896b40a3435dca2b8c43e45d6585f1045f2c3614ca88d73",
+          "static_id": 100,
+          "object_name": "ProcessSource",
+          "shape_type_code": 3,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            1
+          ],
+          "signature": "a90f9f706e526f7baf58b3c1a7a9298ff06ce9e3f8ccb47c12b70c96fe8397e5"
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "set_gradient_fill",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "object": {
+            "object_name": "ProcessSource",
+            "static_id": 100,
+            "shape_type_code": 3,
+            "layer_name": "Vectors",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:100",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "2e0894c782dd8d4e370753ac8f65dcea",
+              "document_session_id": "doc-0001",
+              "page_identity": "9be03379780ff4ff8db9706977ef5929e27acda0b8ebc06ac9ce95c3e549f3ec",
+              "layer_identity": "eb30de43cdc08046ba66f77ead0e08d675c3c3b51597cb5d2de1521ffb4b7f17",
+              "ancestor_identities": [],
+              "shape_identity": "0f227752bc8551eba896b40a3435dca2b8c43e45d6585f1045f2c3614ca88d73",
+              "static_id": 100,
+              "object_name": "ProcessSource",
+              "shape_type_code": 3,
+              "page_index": 1,
+              "layer_index": 2,
+              "shape_path": [
+                1
+              ],
+              "signature": "a90f9f706e526f7baf58b3c1a7a9298ff06ce9e3f8ccb47c12b70c96fe8397e5"
+            }
+          },
+          "before_fingerprint": "cb519ffcc974848c62f420f42179264b80579640b9c662d9b31bac80c68d2762",
+          "fill": {
+            "fill_available": true,
+            "fill_type_code": 2,
+            "fill_type": "fountain",
+            "gradient": {
+              "type_code": 1,
+              "type": "linear",
+              "angle_degrees": 30.0,
+              "steps": 0,
+              "edge_padding_percent": 0,
+              "midpoint_percent": 50,
+              "blend_type_code": 3,
+              "center_offset_x_percent": 0.0,
+              "center_offset_y_percent": 0.0,
+              "smooth_blend": true,
+              "spread_method_code": 0,
+              "anisotropic": false,
+              "is_transparent": false,
+              "merge_mode_code": 0,
+              "blend_acceleration": 0.0,
+              "has_hsb_blends": false,
+              "has_non_linear_blends": false,
+              "transform": {
+                "ScaleX": 1.0,
+                "ScaleY": 1.0,
+                "Skew": 0.0
+              },
+              "coordinates_inches": {
+                "StartX": 0.0,
+                "StartY": 0.0,
+                "EndX": 1.0,
+                "EndY": 0.0,
+                "End2X": 0.0,
+                "End2Y": 1.0
+              },
+              "stops": [
+                {
+                  "position_percent": 0,
+                  "color": {
+                    "type_code": 2,
+                    "model": "cmyk",
+                    "hex_value": null,
+                    "name": null,
+                    "value": {
+                      "cyan": 0,
+                      "magenta": 20,
+                      "yellow": 40,
+                      "black": 0
+                    }
+                  },
+                  "midpoint_percent": 50,
+                  "blend_type_code": 0,
+                  "opacity_raw": 255
+                },
+                {
+                  "position_percent": 40,
+                  "color": {
+                    "type_code": 2,
+                    "model": "cmyk",
+                    "hex_value": null,
+                    "name": null,
+                    "value": {
+                      "cyan": 10,
+                      "magenta": 30,
+                      "yellow": 50,
+                      "black": 0
+                    }
+                  },
+                  "midpoint_percent": 50,
+                  "blend_type_code": 0,
+                  "opacity_raw": 255
+                },
+                {
+                  "position_percent": 100,
+                  "color": {
+                    "type_code": 2,
+                    "model": "cmyk",
+                    "hex_value": null,
+                    "name": null,
+                    "value": {
+                      "cyan": 40,
+                      "magenta": 60,
+                      "yellow": 80,
+                      "black": 10
+                    }
+                  },
+                  "midpoint_percent": 50,
+                  "blend_type_code": 0,
+                  "opacity_raw": 255
+                }
+              ],
+              "native_stop_count": 3
+            },
+            "complete": true,
+            "unavailable_properties": []
+          },
+          "fingerprint": "45a3f16028401c1fc738ef40a2efaf1ec4f2c4b086e234443d541e64d200236b",
+          "preservation_verified": true,
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Opaque direct process-color gradients only; rendered interpolation, ICC/print behavior and native coordinate semantics require consolidated/manual verification."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "set_gradient_fill",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Gradient request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -23928,6 +24616,624 @@
         "Contain/cover fits measured frame bounds; irregular frame visibility and mixed text/font/render fidelity require manual review. Source/bitmap metadata checks do not prove pixel identity.",
         "Clipped descendants use native identity metadata; extract copied roots for signed general editing references. No in-place edit-mode or automatic undo; cleanup deletes only proven owned trees.",
         "Complete measured source-tree/basic-appearance checks are not a full native-file/effect diff. Source-session fingerprints are not persistent after reopening."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "get_gradient_fill",
+      "category": "appearance",
+      "description": "Inspect bounded native gradient stops/parameters and current-session fingerprints.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.get_gradient_fill"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_name": {
+            "type": "string",
+            "default": ""
+          },
+          "shape_index": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "object_reference": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/object_reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "object_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "object_name"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "shape_index"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "$ref": "#/schema_definitions/object_reference"
+              }
+            },
+            "required": [
+              "object_reference"
+            ]
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "fill": {
+                      "$ref": "#/schema_definitions/gradient_state"
+                    },
+                    "fingerprint": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "fill",
+                    "fingerprint",
+                    "verification_status",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Color.CMYKBlack",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.RGBBlue",
+        "Color.RGBGreen",
+        "Color.RGBRed",
+        "Color.SpotColorName",
+        "Color.Tint",
+        "Color.Type",
+        "Document.Pages",
+        "Fill.Fountain",
+        "Fill.Type",
+        "Fill.UniformColor",
+        "FountainColor.BlendType",
+        "FountainColor.Color",
+        "FountainColor.MidPoint",
+        "FountainColor.Opacity",
+        "FountainColor.Position",
+        "FountainColors.Count",
+        "FountainColors.First",
+        "FountainColors.Item",
+        "FountainColors.Last",
+        "FountainFill.Angle",
+        "FountainFill.Anisotropic",
+        "FountainFill.BlendAcceleration",
+        "FountainFill.BlendType",
+        "FountainFill.CenterOffsetX",
+        "FountainFill.CenterOffsetY",
+        "FountainFill.Colors",
+        "FountainFill.EdgePad",
+        "FountainFill.End2X",
+        "FountainFill.End2Y",
+        "FountainFill.EndColor",
+        "FountainFill.EndX",
+        "FountainFill.EndY",
+        "FountainFill.HasHSBBlends",
+        "FountainFill.HasNonLinearBlends",
+        "FountainFill.IsTransparent",
+        "FountainFill.MergeMode",
+        "FountainFill.MidPoint",
+        "FountainFill.ScaleX",
+        "FountainFill.ScaleY",
+        "FountainFill.Skew",
+        "FountainFill.SmoothBlend",
+        "FountainFill.SpreadMethod",
+        "FountainFill.StartColor",
+        "FountainFill.StartX",
+        "FountainFill.StartY",
+        "FountainFill.Steps",
+        "FountainFill.Type",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.Fill",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.Shapes",
+        "Shape.StaticID",
+        "Shape.Type"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_gradients.py",
+          "docs/GRADIENTS.md",
+          "docs/x7_gradient_api_evidence.json",
+          "docs/gradient_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native stop collection/endpoints, angle/center/padding/step semantics and rendered gradient behavior await consolidated native/manual verification.",
+        "2-32 stops at strictly ordered integer percentages 0-100, one RGB or CMYK model; opaque direct interpolation, pad spread and symmetric native fills only.",
+        "Individual vectors and artistic/unlinked paragraph text; existing ordinary process-color outlines and no/fully-readable uniform transparency. Mixed/linked stories and other effects require separate workflows.",
+        "Existing gradients require a current-session fingerprint; unreadable gradients are refused. Other non-uniform fill replacement must be explicit.",
+        "Partial assignments require inspection/reconciliation without automatic undo. Native metadata does not prove visual fidelity, ICC conversion or production readiness."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "set_gradient_fill",
+      "category": "appearance",
+      "description": "Apply fingerprint-guarded opaque direct RGB/CMYK gradients with exact stop/parameter readback and measured preservation.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.set_gradient_fill"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_name": {
+            "type": "string",
+            "default": ""
+          },
+          "shape_index": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "object_reference": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/object_reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "stops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/schema_definitions/gradient_stop_input"
+            },
+            "minItems": 2,
+            "maxItems": 32
+          },
+          "gradient_type": {
+            "enum": [
+              "linear",
+              "radial",
+              "conical",
+              "square"
+            ],
+            "default": "linear"
+          },
+          "angle_degrees": {
+            "type": "number",
+            "minimum": -360,
+            "maximum": 360,
+            "default": 0
+          },
+          "steps": {
+            "anyOf": [
+              {
+                "const": 0
+              },
+              {
+                "type": "integer",
+                "minimum": 2,
+                "maximum": 256
+              }
+            ],
+            "default": 0
+          },
+          "edge_padding_percent": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 49,
+            "default": 0
+          },
+          "center_offset_x_percent": {
+            "type": "number",
+            "minimum": -50,
+            "maximum": 50,
+            "default": 0
+          },
+          "center_offset_y_percent": {
+            "type": "number",
+            "minimum": -50,
+            "maximum": 50,
+            "default": 0
+          },
+          "replace_existing": {
+            "type": "boolean",
+            "default": false
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^([0-9a-f]{64})?$",
+            "default": ""
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "object_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "object_name"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "shape_index"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "$ref": "#/schema_definitions/object_reference"
+              }
+            },
+            "required": [
+              "object_reference"
+            ]
+          }
+        ],
+        "required": [
+          "stops"
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "fill": {
+                      "$ref": "#/schema_definitions/gradient_state"
+                    },
+                    "fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    },
+                    "updated": {
+                      "const": true
+                    },
+                    "before_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "preservation_verified": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "fill",
+                    "fingerprint",
+                    "verification_status",
+                    "warnings",
+                    "updated",
+                    "before_fingerprint",
+                    "preservation_verified"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateCMYKColor",
+        "Application.CreateRGBColor",
+        "Application.Documents",
+        "Color.CMYKBlack",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.RGBBlue",
+        "Color.RGBGreen",
+        "Color.RGBRed",
+        "Color.SpotColorName",
+        "Color.Tint",
+        "Color.Type",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Fill.ApplyFountainFill",
+        "Fill.ApplyUniformFill",
+        "Fill.Fountain",
+        "Fill.Type",
+        "Fill.UniformColor",
+        "FountainColor.BlendType",
+        "FountainColor.Color",
+        "FountainColor.MidPoint",
+        "FountainColor.Opacity",
+        "FountainColor.Position",
+        "FountainColors.Add",
+        "FountainColors.Count",
+        "FountainColors.First",
+        "FountainColors.Item",
+        "FountainColors.Last",
+        "FountainFill.Angle",
+        "FountainFill.Anisotropic",
+        "FountainFill.BlendAcceleration",
+        "FountainFill.BlendType",
+        "FountainFill.CenterOffsetX",
+        "FountainFill.CenterOffsetY",
+        "FountainFill.Colors",
+        "FountainFill.EdgePad",
+        "FountainFill.End2X",
+        "FountainFill.End2Y",
+        "FountainFill.EndColor",
+        "FountainFill.EndX",
+        "FountainFill.EndY",
+        "FountainFill.HasHSBBlends",
+        "FountainFill.HasNonLinearBlends",
+        "FountainFill.IsTransparent",
+        "FountainFill.MakeOpaque",
+        "FountainFill.MergeMode",
+        "FountainFill.MidPoint",
+        "FountainFill.ScaleX",
+        "FountainFill.ScaleY",
+        "FountainFill.Skew",
+        "FountainFill.SmoothBlend",
+        "FountainFill.SpreadMethod",
+        "FountainFill.StartColor",
+        "FountainFill.StartX",
+        "FountainFill.StartY",
+        "FountainFill.Steps",
+        "FountainFill.Type",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Outline.Color",
+        "Outline.Width",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.Curve",
+        "Shape.DisplayCurve",
+        "Shape.Fill",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Outline",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Transparency",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments",
+        "Text.Frames",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Bold",
+        "TextRange.Font",
+        "TextRange.Size",
+        "TextRange.Text",
+        "Transparency.AppliedTo",
+        "Transparency.MergeMode",
+        "Transparency.Type",
+        "Transparency.Uniform"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_gradients.py",
+          "docs/GRADIENTS.md",
+          "docs/x7_gradient_api_evidence.json",
+          "docs/gradient_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native stop collection/endpoints, angle/center/padding/step semantics and rendered gradient behavior await consolidated native/manual verification.",
+        "2-32 stops at strictly ordered integer percentages 0-100, one RGB or CMYK model; opaque direct interpolation, pad spread and symmetric native fills only.",
+        "Individual vectors and artistic/unlinked paragraph text; existing ordinary process-color outlines and no/fully-readable uniform transparency. Mixed/linked stories and other effects require separate workflows.",
+        "Existing gradients require a current-session fingerprint; unreadable gradients are refused. Other non-uniform fill replacement must be explicit.",
+        "Partial assignments require inspection/reconciliation without automatic undo. Native metadata does not prove visual fidelity, ICC conversion or production readiness."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

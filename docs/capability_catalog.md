@@ -44,7 +44,7 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 74 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 76 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
@@ -88,6 +88,12 @@ component revisions/rebuilds. Thirty-four focused checks cover complete geometry
 ownership, nested fitting and recovery. Native copy/clip/extraction behavior,
 rendered clipping and in-place edit mode remain pending.
 
+Two [gradient tools](GRADIENTS.md) inspect bounded native stops/parameters and
+apply opaque direct RGB/CMYK multicolor fills with fingerprint-guarded revisions.
+Thirty focused checks cover component/parameter reconciliation, vector/text
+preservation, unavailable metadata and recovery. Native interpolation/coordinates,
+broader gradient effects and manual CDR/PDF review remain pending.
+
 ## Evidence hierarchy
 
 Evidence is evaluated in this order:
@@ -123,7 +129,7 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic and workflow tools — `implemented_unverified` | 74 |
+| Registered atomic and workflow tools — `implemented_unverified` | 76 |
 | Planned atomic/workflow tools — `planned` | 1 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |

@@ -161,6 +161,13 @@
       "path": "docs/x7_powerclip_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "Installed clipping/grouping/transform/bitmap descriptors without application access."
+    },
+    {
+      "id": "x7_gradient_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_gradient_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "Installed gradient descriptors without application access."
     }
   ],
   "members": [
@@ -284,7 +291,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_application",
@@ -450,7 +459,8 @@
         "set_fill_color",
         "set_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_application",
@@ -613,7 +623,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_document",
@@ -655,7 +667,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_document",
@@ -699,7 +712,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_document",
@@ -1021,7 +1035,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_page",
@@ -1064,7 +1080,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_page",
@@ -1358,7 +1376,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1541,7 +1561,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1588,7 +1610,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1632,7 +1656,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1679,7 +1705,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1724,7 +1752,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1767,7 +1797,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1807,7 +1839,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1847,7 +1880,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1887,7 +1921,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1927,7 +1962,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1957,7 +1993,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1985,7 +2022,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2011,7 +2050,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2182,7 +2222,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2228,7 +2269,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2256,7 +2298,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2282,7 +2325,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2307,7 +2351,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2332,7 +2377,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2410,7 +2456,8 @@
       "used_by": [
         "set_fill_color",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_fill",
@@ -2428,7 +2475,9 @@
       "signature": "Type -> cdrFillType",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "get_fill"
+        "get_fill",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_fill",
@@ -2445,7 +2494,9 @@
       "signature": "UniformColor -> Color",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "get_fill"
+        "get_fill",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_fill",
@@ -2471,7 +2522,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2497,7 +2550,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2522,7 +2577,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2547,7 +2604,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2570,7 +2629,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2592,7 +2653,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2614,7 +2677,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2636,7 +2701,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2658,7 +2725,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2683,7 +2752,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2706,7 +2777,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2728,7 +2801,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2750,7 +2825,9 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "get_gradient_fill",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_color",
@@ -2771,7 +2848,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_outline",
@@ -2812,7 +2890,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "official_x7_outline",
@@ -3126,7 +3205,8 @@
         "execute_template_batch",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3171,7 +3251,8 @@
         "execute_template_batch",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3195,7 +3276,8 @@
         "execute_template_batch",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3385,7 +3467,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3417,7 +3500,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3450,7 +3534,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -4118,7 +4203,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4145,7 +4231,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4172,7 +4259,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4199,7 +4287,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4226,7 +4315,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4253,7 +4343,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4280,7 +4371,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4307,7 +4399,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4334,7 +4427,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4361,7 +4455,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4388,7 +4483,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4415,7 +4511,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4442,7 +4539,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4469,7 +4567,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4496,7 +4595,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4544,7 +4644,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4594,7 +4695,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4638,7 +4740,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4665,7 +4768,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4875,7 +4979,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -4895,7 +5000,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -4915,7 +5021,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -4935,7 +5042,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -4955,7 +5063,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -4975,7 +5084,8 @@
         "set_uniform_transparency",
         "get_powerclip",
         "create_powerclip",
-        "extract_powerclip_contents"
+        "extract_powerclip_contents",
+        "set_gradient_fill"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5224,6 +5334,700 @@
         "x7_powerclip_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.setsize",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Fill.Fountain",
+      "owner": "Fill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Fountain",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fill.fountain",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainColor.BlendType",
+      "owner": "FountainColor",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "BlendType",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountaincolor.blendtype",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainColor.Color",
+      "owner": "FountainColor",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Color",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountaincolor.color",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainColor.MidPoint",
+      "owner": "FountainColor",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "MidPoint",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountaincolor.midpoint",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainColor.Opacity",
+      "owner": "FountainColor",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Opacity",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountaincolor.opacity",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainColor.Position",
+      "owner": "FountainColor",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Position",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountaincolor.position",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainColors.Count",
+      "owner": "FountainColors",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Count",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountaincolors.count",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainColors.First",
+      "owner": "FountainColors",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "First",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountaincolors.first",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainColors.Item",
+      "owner": "FountainColors",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Item, Index",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountaincolors.item",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainColors.Last",
+      "owner": "FountainColors",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Last",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountaincolors.last",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.Angle",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Angle",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.angle",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.Anisotropic",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Anisotropic",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.anisotropic",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.BlendAcceleration",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "BlendAcceleration",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.blendacceleration",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.BlendType",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "BlendType",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.blendtype",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.CenterOffsetX",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "CenterOffsetX",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.centeroffsetx",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.CenterOffsetY",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "CenterOffsetY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.centeroffsety",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.Colors",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Colors",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.colors",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.EdgePad",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "EdgePad",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.edgepad",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.End2X",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "End2X",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.end2x",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.End2Y",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "End2Y",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.end2y",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.EndColor",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "EndColor",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.endcolor",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.EndX",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "EndX",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.endx",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.EndY",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "EndY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.endy",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.HasHSBBlends",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "HasHSBBlends",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.hashsbblends",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.HasNonLinearBlends",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "HasNonLinearBlends",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.hasnonlinearblends",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.IsTransparent",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "IsTransparent",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.istransparent",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.MergeMode",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "MergeMode",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.mergemode",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.MidPoint",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "MidPoint",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.midpoint",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.ScaleX",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "ScaleX",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.scalex",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.ScaleY",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "ScaleY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.scaley",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.Skew",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Skew",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.skew",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.SmoothBlend",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "SmoothBlend",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.smoothblend",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.SpreadMethod",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "SpreadMethod",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.spreadmethod",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.StartColor",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "StartColor",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.startcolor",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.StartX",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "StartX",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.startx",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.StartY",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "StartY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.starty",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.Steps",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Steps",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.steps",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.Type",
+      "owner": "FountainFill",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Type",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_gradient_fill",
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fountainfill.type",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Fill.ApplyFountainFill",
+      "owner": "Fill",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "ApplyFountainFill, StartColor, EndColor, Type, Angle, Steps, EdgePad, MidPoint, BlendType, CenterOffsetX, CenterOffsetY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/fill.applyfountainfill",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainColors.Add",
+      "owner": "FountainColors",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Add, Color, Position",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/fountaincolors.add",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "FountainFill.MakeOpaque",
+      "owner": "FountainFill",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "MakeOpaque",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_gradient_fill"
+      ],
+      "evidence": [
+        "x7_gradient_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/fountainfill.makeopaque",
       "live_test_status": "not_run_deferred"
     }
   ]

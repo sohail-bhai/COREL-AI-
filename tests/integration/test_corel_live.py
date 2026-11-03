@@ -402,6 +402,55 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed,failure)
 
+    def test_gradient_fills_live(self) -> None:
+        """Deferred multi-stop/types/editable-text gate with CDR/PDF artifacts."""
+        from corel_operator.errors import CorelBridgeError, ErrorCode
+        passed = False; failure = None
+        try:
+            self.status = self._step("connect", self.bridge.connect)
+            self._step("create gradient fixture", lambda: self.bridge.create_document(8.5, 11))
+            stops = [{'position_percent': position, 'color': {'model': 'cmyk', 'cyan': c, 'magenta': m, 'yellow': y, 'black': k}}
+                     for position, (c, m, y, k) in ((0, (0, 20, 40, 0)), (40, (10, 30, 50, 0)), (100, (40, 60, 80, 10)))]
+            records = []
+            for index, kind in enumerate(('linear', 'radial', 'conical', 'square')):
+                box = self._step("gradient " + kind + " fixture", lambda: self.bridge.draw_rectangle(
+                    1 + (index % 2) * 3.5, 1 + (index // 2) * 3, 3, 2, "Gradient_" + kind))
+                reference = self.bridge.get_object_info(object_name=box['object_name'])['object']['object_reference']
+                geometry = self.bridge.get_curve_geometry(object_reference=reference)['curve']
+                result = self._step("set_gradient_fill " + kind, lambda: self.bridge.set_gradient_fill(
+                    stops, kind, angle_degrees=30., steps=128, edge_padding_percent=5,
+                    center_offset_x_percent=10., center_offset_y_percent=-10., object_reference=reference))
+                self.assertEqual([s['position_percent'] for s in result['fill']['gradient']['stops']], [0, 40, 100])
+                self.assertEqual(result['fill']['gradient']['type'], kind)
+                self.assertFalse(result['fill']['gradient']['is_transparent'])
+                self.assertEqual(self.bridge.get_curve_geometry(object_reference=reference)['curve'], geometry)
+                inspected = self._step("get_gradient_fill " + kind, lambda: self.bridge.get_gradient_fill(object_reference=reference))
+                self.assertTrue(inspected['fill']['complete']); self.assertEqual(inspected['fingerprint'], result['fingerprint'])
+                with self.assertRaises(CorelBridgeError) as refused:
+                    self.bridge.set_gradient_fill(stops, object_reference=reference)
+                self.assertEqual(refused.exception.code, ErrorCode.INVALID_ARGUMENT)
+                revised = self._step("revise gradient " + kind, lambda: self.bridge.set_gradient_fill(
+                    stops, kind, angle_degrees=45., expected_fingerprint=inspected['fingerprint'], object_reference=reference))
+                self.assertEqual(revised['before_fingerprint'], inspected['fingerprint']); records.append(revised)
+            rgb_stops = [{'position_percent': position, 'color': {'model': 'rgb', 'red': r, 'green': g, 'blue': b}}
+                         for position, (r, g, b) in ((0, (30, 90, 150)), (100, (200, 220, 255)))]
+            title = self._step("gradient artistic title", lambda: self.bridge.add_text("Editable gradient title", 1, 8, 24, "Arial", True, "GradientTitle"))
+            title_ref = self.bridge.get_object_info(object_name=title['object_name'])['object']['object_reference']
+            paragraph = self._step("gradient paragraph", lambda: self.bridge.add_paragraph_text(
+                "Editable paragraph gradient", 1, 9, 6, 1, size_points=16, object_name="GradientParagraph"))
+            for reference in (title_ref, paragraph['object']['object_reference']):
+                text = self.bridge.get_text_properties(object_reference=reference)['text']
+                records.append(self._step("editable text gradient", lambda: self.bridge.set_gradient_fill(rgb_stops, object_reference=reference)))
+                self.assertEqual(self.bridge.get_text_properties(object_reference=reference)['text'], text)
+            (self.output_dir / "gradient-readback.json").write_text(json.dumps(records, indent=2), encoding='utf-8')
+            self._step("save gradient fixture", lambda: self.bridge.save_document(str(self.output_dir / "gradients.cdr")))
+            self._step("export gradient fixture", lambda: self.bridge.export_pdf_controlled(str(self.output_dir / "gradients.pdf")))
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed, failure)
+
     def test_powerclip_workflows_live(self) -> None:
         """Deferred editable mixed-payload clipping/extraction/rebuild gate."""
         from PIL import Image

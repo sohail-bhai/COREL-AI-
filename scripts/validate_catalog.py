@@ -278,6 +278,13 @@ def validate() -> dict[str, int]:
         ("cdrTransparencyAppliedTo", "values", "cdrApplyToOutline"): CorelX7Adapter.TRANSPARENCY_APPLIED_TO['outline'],
         ("cdrTransparencyAppliedTo", "values", "cdrApplyToFillAndOutline"): CorelX7Adapter.TRANSPARENCY_APPLIED_TO['both'],
         ("cdrMergeMode", "values", "cdrMergeNormal"): CorelX7Adapter.CDR_MERGE_NORMAL,
+        ("cdrFountainFillType", "values", "cdrLinearFountainFill"): CorelX7Adapter.GRADIENT_TYPE_CODES['linear'],
+        ("cdrFountainFillType", "values", "cdrRadialFountainFill"): CorelX7Adapter.GRADIENT_TYPE_CODES['radial'],
+        ("cdrFountainFillType", "values", "cdrConicalFountainFill"): CorelX7Adapter.GRADIENT_TYPE_CODES['conical'],
+        ("cdrFountainFillType", "values", "cdrSquareFountainFill"): CorelX7Adapter.GRADIENT_TYPE_CODES['square'],
+        ("cdrFountainFillBlendType", "values", "cdrDirectFountainFillBlend"): CorelX7Adapter.CDR_DIRECT_FOUNTAIN_BLEND,
+        ("cdrFountainFillBlendType", "values", "cdrCustomFountainFillBlend"): CorelX7Adapter.CDR_CUSTOM_FOUNTAIN_BLEND,
+        ("cdrFountainFillSpreadMethod", "values", "cdrFountainFillSpreadMethodPad"): CorelX7Adapter.CDR_FOUNTAIN_SPREAD_PAD,
     }
     for (enum_name, values_key, value_name), expected in expected_constants.items():
         actual = enums.get(enum_name, {}).get(values_key, {}).get(value_name)

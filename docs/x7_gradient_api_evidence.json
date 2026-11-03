@@ -1,0 +1,1040 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, ((29, 50331776), 0, None), 0)",
+      "documentation": "Gets fill type"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Fountain"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50367232)), 0, None), 0)",
+      "documentation": "Gets or sets Fountain properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "Fountain"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743811, (), (((26, (29, 50367232)), 1, None),), 4, 4, 4, 0, 88, (24, 0, None), 0)",
+      "documentation": "Gets or sets Fountain properties"
+    },
+    {
+      "interface": "IVGFill",
+      "names": [
+        "ApplyFountainFill",
+        "StartColor",
+        "EndColor",
+        "Type",
+        "Angle",
+        "Steps",
+        "EdgePad",
+        "MidPoint",
+        "BlendType",
+        "CenterOffsetX",
+        "CenterOffsetY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743821, (), (((26, (29, 50365696)), 49, 0), ((26, (29, 50365696)), 49, 0), ((29, 50331904), 49, 1), (5, 49, 0.0), (3, 49, 0), (3, 49, 0), (3, 49, 50), ((29, 50332032), 49, 0), (5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 160, ((26, (29, 50367232)), 0, None), 0)",
+      "documentation": "Apply a Fountain Fill to the shape"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "Position"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, (3, 0, None), 0)",
+      "documentation": "Gets the Position"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "Color"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Gets or sets the Color"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "Color"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743809, (), (((26, (29, 50365696)), 1, None),), 4, 4, 4, 0, 72, (24, 0, None), 0)",
+      "documentation": "Gets or sets the Color"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "Move",
+        "NewPosition"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743811, (), ((3, 1, None),), 4, 1, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Sets the Position"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "Delete"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743812, (), (), 4, 1, 4, 0, 88, (24, 0, None), 0)",
+      "documentation": "Removes the object from the FountainColors collection"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "MidPoint"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, (3, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's color midpoint position"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "MidPoint"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743813, (), ((3, 1, None),), 4, 4, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's color midpoint position"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "BlendType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743815, (), (), 4, 2, 4, 0, 112, ((29, 50332032), 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's color blend type"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "BlendType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743815, (), (((29, 50332032), 1, None),), 4, 4, 4, 0, 120, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's color blend type"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "Opacity"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, (17, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's color opacity"
+    },
+    {
+      "interface": "IVGFountainColor",
+      "names": [
+        "Opacity"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743817, (), ((17, 1, None),), 4, 4, 4, 0, 136, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's color opacity"
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "Item",
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None),), 4, 2, 4, 0, 56, ((26, (29, 50367488)), 0, None), 0)",
+      "documentation": "Gets or sets a reference to the specified FountainColor, in base 1"
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "Item",
+        "Index"
+      ],
+      "invkind": 4,
+      "descriptor": "(0, (), ((3, 1, None), ((26, (29, 50367488)), 1, None)), 4, 4, 4, 0, 64, (24, 0, None), 0)",
+      "documentation": "Gets or sets a reference to the specified FountainColor, in base 1"
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "_NewEnum"
+      ],
+      "invkind": 2,
+      "descriptor": "(-4, (), (), 4, 2, 4, 0, 72, (13, 0, None), 0)",
+      "documentation": "_NewEnum"
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, (3, 0, None), 0)",
+      "documentation": "Gets the number of FountainColor in the FountainColors collection"
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "Add",
+        "Color",
+        "Position"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743812, (), (((26, (29, 50365696)), 1, None), (3, 1, None)), 4, 1, 4, 0, 88, (24, 0, None), 0)",
+      "documentation": "Adds a FountainColor to the FountainColors collection"
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "GrayLevel",
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), ((3, 1, None),), 4, 2, 4, 0, 96, (3, 0, None), 0)",
+      "documentation": "Gets or sets the Gray Level for a specified FountainColor, in base 1"
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "GrayLevel",
+        "Index"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743813, (), ((3, 1, None), (3, 1, None)), 4, 4, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": "Gets or sets the Gray Level for a specified FountainColor, in base 1"
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "AddGrayLevel",
+        "GrayLevel",
+        "Position"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743815, (), ((3, 1, None), (3, 1, None)), 4, 1, 4, 0, 112, (24, 0, None), 0)",
+      "documentation": "Adds a FountainColor with the Gray Level value to the FountainColors collection "
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "First"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, ((26, (29, 50367488)), 0, None), 0)",
+      "documentation": "Returns the starting color of the fountain fill"
+    },
+    {
+      "interface": "IVGFountainColors",
+      "names": [
+        "Last"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, ((26, (29, 50367488)), 0, None), 0)",
+      "documentation": "Returns the ending color of the fountain fill"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, ((29, 50331904), 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's type"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Type"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743808, (), (((29, 50331904), 1, None),), 4, 4, 4, 0, 64, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's type"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "StartX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (5, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's horizontal Start (X)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "StartX"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743810, (), ((5, 1, None),), 4, 4, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's horizontal Start (X)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "StartY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (5, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's vertical Start (Y)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "StartY"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743812, (), ((5, 1, None),), 4, 4, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's vertical Start (Y)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "EndX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, (5, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's horizontal End (X)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "EndX"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743814, (), ((5, 1, None),), 4, 4, 4, 0, 112, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's horizontal End (X)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "EndY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (5, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's vertical End (Y)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "EndY"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((5, 1, None),), 4, 4, 4, 0, 128, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's vertical End (Y)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Angle"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 136, (5, 0, None), 0)",
+      "documentation": "Gets a fountain fill's angle"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "SetAngle",
+        "Angle"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743819, (), ((5, 1, None),), 4, 1, 4, 0, 144, (24, 0, None), 0)",
+      "documentation": "Sets a fountain fill's angle"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Translate",
+        "x",
+        "y"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743820, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 152, (24, 0, None), 0)",
+      "documentation": "Moves Start and End points"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "EdgePad"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743821, (), (), 4, 2, 4, 0, 160, (3, 0, None), 64)",
+      "documentation": "Gets or sets a fountain fill's edge pad"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Steps"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743822, (), (), 4, 2, 4, 0, 168, (3, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's steps"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Steps"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743822, (), ((3, 1, None),), 4, 4, 4, 0, 176, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's steps"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "BlendType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743824, (), (), 4, 2, 4, 0, 184, ((29, 50332032), 0, None), 64)",
+      "documentation": "Gets or sets a fountain fill's blend type"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "BlendType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743824, (), (((29, 50332032), 1, None),), 4, 4, 4, 0, 192, (24, 0, None), 64)",
+      "documentation": "Gets or sets a fountain fill's blend type"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "MidPoint"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743826, (), (), 4, 2, 4, 0, 200, (3, 0, None), 64)",
+      "documentation": "Gets or sets a fountain fill's midpoint position"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "MidPoint"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743826, (), ((3, 1, None),), 4, 4, 4, 0, 208, (24, 0, None), 64)",
+      "documentation": "Gets or sets a fountain fill's midpoint position"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Colors"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743828, (), (), 4, 2, 4, 0, 216, ((26, (29, 50367360)), 0, None), 0)",
+      "documentation": "Gets or sets the collection of Fountain Colors"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "StartColor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743829, (), (), 4, 2, 4, 0, 224, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's Start Color"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "StartColor"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743829, (), (((26, (29, 50365696)), 1, None),), 4, 4, 4, 0, 232, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's Start Color"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "EndColor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743831, (), (), 4, 2, 4, 0, 240, ((26, (29, 50365696)), 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's End Color"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "EndColor"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743831, (), (((26, (29, 50365696)), 1, None),), 4, 4, 4, 0, 248, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's End Color"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Colors"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743828, (), (((26, (29, 50367360)), 1, None),), 4, 4, 4, 0, 256, (24, 0, None), 0)",
+      "documentation": "Gets or sets the collection of Fountain Colors"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "SetEdgePad",
+        "EdgePad"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743834, (), ((3, 1, None),), 4, 1, 4, 0, 264, (24, 0, None), 64)",
+      "documentation": "Sets the edge pad"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "CenterOffsetX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743835, (), (), 4, 2, 4, 0, 272, (5, 0, None), 0)",
+      "documentation": "Gets or sets the horizontal fill center offset relative to the center of object in percent of object width"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "CenterOffsetX"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743835, (), ((5, 1, None),), 4, 4, 4, 0, 280, (24, 0, None), 0)",
+      "documentation": "Gets or sets the horizontal fill center offset relative to the center of object in percent of object width"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "CenterOffsetY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743837, (), (), 4, 2, 4, 0, 288, (5, 0, None), 0)",
+      "documentation": "Gets or sets the vertical fill center offset relative to the center of object in percent of object height"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "CenterOffsetY"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743837, (), ((5, 1, None),), 4, 4, 4, 0, 296, (24, 0, None), 0)",
+      "documentation": "Gets or sets the vertical fill center offset relative to the center of object in percent of object height"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "SmoothBlend"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743839, (), (), 4, 2, 4, 0, 304, (11, 0, None), 0)",
+      "documentation": "Gets or sets fill's smooth blending"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "SmoothBlend"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743839, (), ((11, 1, None),), 4, 4, 4, 0, 312, (24, 0, None), 0)",
+      "documentation": "Gets or sets fill's smooth blending"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "SpreadMethod"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743841, (), (), 4, 2, 4, 0, 320, ((29, 50350976), 0, None), 0)",
+      "documentation": "Gets or sets fill's spread method"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "SpreadMethod"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743841, (), (((29, 50350976), 1, None),), 4, 4, 4, 0, 328, (24, 0, None), 0)",
+      "documentation": "Gets or sets fill's spread method"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Anisotropic"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743843, (), (), 4, 2, 4, 0, 336, (11, 0, None), 0)",
+      "documentation": "Gets or sets anisotropic fill"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Anisotropic"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743843, (), ((11, 1, None),), 4, 4, 4, 0, 344, (24, 0, None), 0)",
+      "documentation": "Gets or sets anisotropic fill"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "IsTransparent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743845, (), (), 4, 2, 4, 0, 352, (11, 0, None), 0)",
+      "documentation": "Checks if fill has color transparency"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "MergeMode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743846, (), (), 4, 2, 4, 0, 360, ((29, 50336256), 0, None), 64)",
+      "documentation": "Gets or sets fill's transparency operation"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "MergeMode"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743846, (), (((29, 50336256), 1, None),), 4, 4, 4, 0, 368, (24, 0, None), 64)",
+      "documentation": "Gets or sets fill's transparency operation"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "ScaleX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743848, (), (), 4, 2, 4, 0, 376, (5, 0, None), 0)",
+      "documentation": "Gets or sets fill's X scale"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "ScaleX"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743848, (), ((5, 1, None),), 4, 4, 4, 0, 384, (24, 0, None), 0)",
+      "documentation": "Gets or sets fill's X scale"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "ScaleY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743850, (), (), 4, 2, 4, 0, 392, (5, 0, None), 0)",
+      "documentation": "Gets or sets fill's Y scale"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "ScaleY"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743850, (), ((5, 1, None),), 4, 4, 4, 0, 400, (24, 0, None), 0)",
+      "documentation": "Gets or sets fill's Y scale"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Skew"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743852, (), (), 4, 2, 4, 0, 408, (5, 0, None), 0)",
+      "documentation": "Gets or sets fill's skew"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "Skew"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743852, (), ((5, 1, None),), 4, 4, 4, 0, 416, (24, 0, None), 0)",
+      "documentation": "Gets or sets fill's skew"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "BlendAcceleration"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743854, (), (), 4, 2, 4, 0, 424, (5, 0, None), 0)",
+      "documentation": "Gets or sets fill's blend acceleration"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "BlendAcceleration"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743854, (), ((5, 1, None),), 4, 4, 4, 0, 432, (24, 0, None), 0)",
+      "documentation": "Gets or sets fill's blend acceleration"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "MakeOpaque"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743856, (), (), 4, 1, 4, 0, 440, (24, 0, None), 0)",
+      "documentation": "Removes any transparency from the fill"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "GetTransformations",
+        "d11",
+        "d12",
+        "d21",
+        "d22"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743857, (), (((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 448, (24, 0, None), 0)",
+      "documentation": "Gets fill's transformations"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "SetTransformations",
+        "d11",
+        "d12",
+        "d21",
+        "d22"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743858, (), ((5, 1, None), (5, 1, None), (5, 1, None), (5, 1, None)), 4, 1, 4, 0, 456, (24, 0, None), 0)",
+      "documentation": "Sets fill's transformations"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "HasHSBBlends"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743859, (), (), 4, 2, 4, 0, 464, (11, 0, None), 0)",
+      "documentation": "Checks if fill's colors has HSB blends"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "HasNonLinearBlends"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743860, (), (), 4, 2, 4, 0, 472, (11, 0, None), 0)",
+      "documentation": "Checks if fill's colors has nonlinear blends"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "End2X"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743861, (), (), 4, 2, 4, 0, 480, (5, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's horizontal second End (X)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "End2X"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743861, (), ((5, 1, None),), 4, 4, 4, 0, 488, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's horizontal second End (X)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "End2Y"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743863, (), (), 4, 2, 4, 0, 496, (5, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's vertical second End (Y)"
+    },
+    {
+      "interface": "IVGFountainFill",
+      "names": [
+        "End2Y"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743863, (), ((5, 1, None),), 4, 4, 4, 0, 504, (24, 0, None), 0)",
+      "documentation": "Gets or sets a fountain fill's vertical second End (Y)"
+    }
+  ],
+  "enums": {
+    "cdrFountainFillType": {
+      "cdrLinearFountainFill": 1,
+      "cdrRadialFountainFill": 2,
+      "cdrConicalFountainFill": 3,
+      "cdrSquareFountainFill": 4
+    },
+    "cdrFountainFillBlendType": {
+      "cdrDirectFountainFillBlend": 0,
+      "cdrRainbowCWFountainFillBlend": 1,
+      "cdrRainbowCCWFountainFillBlend": 2,
+      "cdrCustomFountainFillBlend": 3
+    },
+    "cdrFountainFillSpreadMethod": {
+      "cdrFountainFillSpreadMethodPad": 0,
+      "cdrFountainFillSpreadMethodReflect": 1,
+      "cdrFountainFillSpreadMethodRepeat": 2
+    }
+  }
+}

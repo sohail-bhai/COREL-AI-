@@ -1,12 +1,18 @@
 # Unsupported and Research-Required Capabilities
 
-**Revision:** 2026-11-01
+**Revision:** 2026-11-03
 
 **Target profile:** `coreldraw-x7-17`
 
 This document prevents uncertain behavior from being presented as supported. An item remains here until evidence, implementation, and the required tests justify a catalog status change.
 
-## Research required in the current v0.5 surface
+## Outstanding native verification dependencies
+
+The table retains historical uncertainties. New inspection, identity/recovery,
+typography, transforms, vector, appearance, templates and PDF wrappers now have
+offline gates; their native/manual verification remains deferred. Current
+implementation coverage and remaining work are tracked in
+[CURRENT_IMPLEMENTATION_PRIORITIES.md](CURRENT_IMPLEMENTATION_PRIORITIES.md).
 
 | Area | Current uncertainty | Required evidence before verification |
 |---|---|---|
@@ -31,15 +37,19 @@ This document prevents uncertain behavior from being presented as supported. An 
 
 ## Planned capabilities requiring API expansion
 
-The following are approved directions but need additional X7 inventory before implementation:
+The following remaining directions need further API/output research and bounded
+implementation. Existing wrappers stay `implemented_unverified` until their
+applicable consolidated checks pass:
 
 - page orientation and multi-page activation;
 - master/page layer traversal and layer state;
-- full text formatting, mixed ranges, paragraph text, and spacing;
-- actual RGB/CMYK/spot color readback;
-- gradients, patterns, transparency, and complex fills;
-- alignment, distribution, rotation, z-order, grouping, and ungrouping;
-- safe delete, curve conversion, weld, trim, and other destructive vector operations;
+- mixed/linked text, spacing writes, glyph coverage and safe automatic fitting;
+- native spot/ICC/separation workflows and proven outline-width units;
+- patterns, transparent/nonlinear gradients, broader blending/group effects and
+  in-place PowerClip edit mode. Opaque direct process gradients, uniform
+  transparency and source-preserving clip/extract/rebuild workflows are implemented;
+- layer/page organization, guides and outline-aware safe-area reflow;
+- contour offsets, adjacent-node fitting/cropping and broader nested shaping;
 - bitmap effective DPI, links, crop, and replacement;
 - preview export with deterministic resolution and color settings;
 - bleed, safe-margin, overlap, font, color, and asset preflight.

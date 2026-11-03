@@ -522,6 +522,35 @@ def inspect_text_template(object_name: str="",shape_index: int=0,object_referenc
 
 @mcp.tool()
 @recorded_operation
+def get_gradient_fill(object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Inspect up to 32 native gradient stops, parameters and coordinates.
+
+    Report missing metadata explicitly. Complete inspection returns a current-session
+    fingerprint for revisions. Native opacity values are raw; rendering is unverified.
+    """
+    return _tool("get_gradient_fill", "get_gradient_fill", object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def set_gradient_fill(stops: list[dict], gradient_type: str = "linear", angle_degrees: float = 0., steps: int = 0,
+                      edge_padding_percent: int = 0, center_offset_x_percent: float = 0., center_offset_y_percent: float = 0.,
+                      replace_existing: bool = False, expected_fingerprint: str = "",
+                      object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Apply opaque direct gradients to individual vector/text objects.
+
+    Supply 2-32 strictly ordered integer-percent RGB or CMYK stops including 0/100.
+    Choose linear/radial/conical/square, angle, steps, padding and center offsets.
+    Existing gradient revisions require the current fingerprint. Replacing other
+    non-uniform fills is explicit. Verify native state/geometry and quarantine failures.
+    """
+    return _tool("set_gradient_fill", "set_gradient_fill", stops, gradient_type, angle_degrees, steps,
+                 edge_padding_percent, center_offset_x_percent, center_offset_y_percent, replace_existing,
+                 expected_fingerprint, object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
 def get_powerclip(object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
     """Inspect bounded native PowerClip/group trees and a source-bound fingerprint.
 

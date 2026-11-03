@@ -351,6 +351,50 @@
         "Bounded transparency inspection and controlled normal-mode uniform effect"
       ],
       "type_library_evidence": "docs/x7_appearance_api_evidence.json"
+    },
+    "cdrFountainFillType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrFountainFillType",
+      "values": {
+        "cdrLinearFountainFill": 1,
+        "cdrRadialFountainFill": 2,
+        "cdrConicalFountainFill": 3,
+        "cdrSquareFountainFill": 4
+      },
+      "bridge_usage": [
+        "GradientBridgeMixin"
+      ],
+      "notes": [
+        "Installed 2026-11-03; native/rendered checks deferred."
+      ]
+    },
+    "cdrFountainFillBlendType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrFountainFillBlendType",
+      "values": {
+        "cdrDirectFountainFillBlend": 0,
+        "cdrRainbowCWFountainFillBlend": 1,
+        "cdrRainbowCCWFountainFillBlend": 2,
+        "cdrCustomFountainFillBlend": 3
+      },
+      "bridge_usage": [
+        "GradientBridgeMixin"
+      ],
+      "notes": [
+        "Installed 2026-11-03; native/rendered checks deferred."
+      ]
+    },
+    "cdrFountainFillSpreadMethod": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrFountainFillSpreadMethod",
+      "values": {
+        "cdrFountainFillSpreadMethodPad": 0,
+        "cdrFountainFillSpreadMethodReflect": 1,
+        "cdrFountainFillSpreadMethodRepeat": 2
+      },
+      "bridge_usage": [
+        "GradientBridgeMixin"
+      ],
+      "notes": [
+        "Installed 2026-11-03; native/rendered checks deferred."
+      ]
     }
   }
 }

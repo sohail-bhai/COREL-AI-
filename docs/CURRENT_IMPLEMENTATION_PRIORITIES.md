@@ -59,7 +59,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 74
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 76
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -81,7 +81,7 @@ capability status, and keep live verification deferred.
   Owned-output cleanup, final row readback and measured source preservation are
   covered. See [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md).
 - Controlled zero-bleed PDF export and local page/font inspection are implemented
-  with 22 focused checks and a deferred native gate. All 74 tools are included in
+  with 22 focused checks and a deferred native gate. All 76 tools are included in
   the consolidated coverage inventory. See [PDF_PRODUCTION.md](PDF_PRODUCTION.md)
   and [CONSOLIDATED_LIVE_VERIFICATION.md](CONSOLIDATED_LIVE_VERIFICATION.md).
 - General vectors are implemented: line/cubic creation, full geometry inspection,
@@ -107,7 +107,12 @@ capability status, and keep live verification deferred.
   contain/cover fitting, nested clip locks and owned-output recovery are covered.
   Native clipping/extraction and manual artifact review remain deferred; in-place
   clip editing is future work. See [POWERCLIP.md](POWERCLIP.md).
-- Next: gradients, contour offsets and broader prepress;
+- Gradient inspection and fingerprint-guarded opaque direct RGB/CMYK multicolor
+  gradients are implemented with 30 focused checks. Stop/parameter readback,
+  editable unlinked text, measured other-channel preservation and partial-write
+  quarantine are covered. Native interpolation/coordinates and CDR/PDF review
+  remain deferred. See [GRADIENTS.md](GRADIENTS.md).
+- Next: contour offsets and broader prepress;
   spacing/fitting, layer organization and existing-document checkpoints remain gaps.
 
 **Gate:** The intended object can be found and inspected without mutation;
