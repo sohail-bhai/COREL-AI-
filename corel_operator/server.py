@@ -522,6 +522,67 @@ def inspect_text_template(object_name: str="",shape_index: int=0,object_referenc
 
 @mcp.tool()
 @recorded_operation
+def get_document_structure() -> dict:
+    """Inspect bounded page/local/master-layer structure and root membership.
+
+    Return session identities, inches, native flags, active context and a current
+    fingerprint. Use that fingerprint for every page/layer organization change.
+    """
+    return _tool("get_document_structure", "get_document_structure")
+
+
+@mcp.tool()
+@recorded_operation
+def activate_page(page_identity: str, expected_fingerprint: str) -> dict:
+    """Activate an exact inspected page and verify all other recorded structure."""
+    return _tool("activate_page", "activate_page", page_identity, expected_fingerprint)
+
+
+@mcp.tool()
+@recorded_operation
+def activate_layer(page_identity: str, layer_identity: str, expected_fingerprint: str) -> dict:
+    """Activate an exact visible/editable ordinary local layer for later creation."""
+    return _tool("activate_layer", "activate_layer", page_identity, layer_identity, expected_fingerprint)
+
+
+@mcp.tool()
+@recorded_operation
+def rename_page(page_identity: str, name: str, expected_fingerprint: str) -> dict:
+    """Rename an inspected page with a current structure fingerprint."""
+    return _tool("rename_page", "rename_page", page_identity, name, expected_fingerprint)
+
+
+@mcp.tool()
+@recorded_operation
+def create_page(name: str, width_inches: float, height_inches: float, expected_fingerprint: str) -> dict:
+    """Append one named page with explicit size and restore the active context.
+
+    Verify existing structure and root membership. Failed creation discards only
+    an owned empty new page; unknown or populated receipts require recovery.
+    """
+    return _tool("create_page", "create_page", name, width_inches, height_inches, expected_fingerprint)
+
+
+@mcp.tool()
+@recorded_operation
+def create_layer(page_identity: str, name: str, expected_fingerprint: str) -> dict:
+    """Create one ordinary local layer and restore the prior page/layer context."""
+    return _tool("create_layer", "create_layer", page_identity, name, expected_fingerprint)
+
+
+@mcp.tool()
+@recorded_operation
+def set_layer_properties(page_identity: str, layer_identity: str, properties: dict, expected_fingerprint: str) -> dict:
+    """Change an ordinary local layer's name/visible/editable/printable fields.
+
+    Use exact inspected identities and a current fingerprint. Master/special
+    layers are deferred; failed or partial writes require explicit recovery.
+    """
+    return _tool("set_layer_properties", "set_layer_properties", page_identity, layer_identity, properties, expected_fingerprint)
+
+
+@mcp.tool()
+@recorded_operation
 def create_contour_offsets(object_reference: dict, offset_inches: float, direction: str = "outside", steps: int = 1,
                            color: dict | None = None, corner_type: str = "round", miter_limit: float = 0.,
                            result_name_prefix: str = "AI_Contour") -> dict:

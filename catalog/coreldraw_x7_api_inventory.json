@@ -175,6 +175,13 @@
       "path": "docs/x7_contour_offset_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "Installed contour/effect lifecycle descriptors without application access."
+    },
+    {
+      "id": "x7_organization_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_organization_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "Installed page/layer control descriptors without application access."
     }
   ],
   "members": [
@@ -301,7 +308,14 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_application",
@@ -568,7 +582,14 @@
       "used_by": [
         "corel_status",
         "create_document",
-        "all_object_tools"
+        "all_object_tools",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_document",
@@ -636,7 +657,14 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_document",
@@ -680,7 +708,14 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_document",
@@ -882,7 +917,11 @@
       "used_by": [
         "prepare_contour_nesting",
         "prepare_imposition_job",
-        "execute_template_batch"
+        "execute_template_batch",
+        "activate_page",
+        "create_page",
+        "create_layer",
+        "activate_layer"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -900,7 +939,8 @@
       "used_by": [
         "prepare_contour_nesting",
         "prepare_imposition_job",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_layer"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -917,7 +957,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "prepare_contour_nesting",
-        "prepare_imposition_job"
+        "prepare_imposition_job",
+        "create_page"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -940,7 +981,14 @@
         "draw_rectangle",
         "draw_ellipse",
         "import_artwork",
-        "execute_template_batch"
+        "execute_template_batch",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_page",
@@ -958,7 +1006,14 @@
       "signature": "Index -> Long",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "list_pages"
+        "list_pages",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_page",
@@ -975,7 +1030,14 @@
       "signature": "Name -> String",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "list_pages"
+        "list_pages",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_page",
@@ -1009,7 +1071,14 @@
       "signature": "Layers -> page Layers collection",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "list_layers"
+        "list_layers",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_page",
@@ -1051,7 +1120,14 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_page",
@@ -1118,7 +1194,14 @@
       "signature": "SizeWidth -> Double in document units",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "corel_status"
+        "corel_status",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_page",
@@ -1136,7 +1219,14 @@
       "signature": "SizeHeight -> Double in document units",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "corel_status"
+        "corel_status",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_page",
@@ -1193,7 +1283,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "create_document",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_page"
       ],
       "evidence": [
         "official_x7_page",
@@ -1233,7 +1324,14 @@
       "signature": "Name -> String",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "list_layers"
+        "list_layers",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1284,7 +1382,14 @@
       "signature": "Visible -> Boolean",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "list_layers"
+        "list_layers",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1301,7 +1406,14 @@
       "signature": "Editable -> Boolean",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "list_layers"
+        "list_layers",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1318,7 +1430,14 @@
       "signature": "Printable -> Boolean",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "list_layers"
+        "list_layers",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1335,7 +1454,14 @@
       "signature": "Master -> Boolean",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "list_layers"
+        "list_layers",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1352,7 +1478,14 @@
       "signature": "IsSpecialLayer -> Boolean",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "list_layers"
+        "list_layers",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1394,7 +1527,14 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1513,7 +1653,14 @@
       "used_by": [
         "list_objects",
         "all_object_selector_tools",
-        "import_artwork"
+        "import_artwork",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1532,7 +1679,14 @@
       "used_by": [
         "list_objects",
         "all_object_selector_tools",
-        "import_artwork"
+        "import_artwork",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1728,7 +1882,14 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1776,7 +1937,14 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
       ],
       "evidence": [
         "official_x7_shape",
@@ -3778,7 +3946,9 @@
         "revise_curve_topology",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "create_page",
+        "create_layer"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3803,7 +3973,9 @@
         "revise_curve_topology",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "create_page",
+        "create_layer"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3828,7 +4000,9 @@
         "revise_curve_topology",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "create_layer",
+        "activate_layer"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -6508,6 +6682,170 @@
         "x7_contour_offset_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.effects",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Document.MasterPage",
+      "owner": "Document",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "MasterPage",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
+      ],
+      "evidence": [
+        "x7_organization_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/document.masterpage",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Layer.Page",
+      "owner": "Layer",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Page",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
+      ],
+      "evidence": [
+        "x7_organization_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/layer.page",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Layers.Count",
+      "owner": "Layers",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Count",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
+      ],
+      "evidence": [
+        "x7_organization_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/layers.count",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Layers.Item",
+      "owner": "Layers",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Item, IndexOrName",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
+      ],
+      "evidence": [
+        "x7_organization_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/layers.item",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Pages.Count",
+      "owner": "Pages",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Count",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
+      ],
+      "evidence": [
+        "x7_organization_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pages.count",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Pages.Item",
+      "owner": "Pages",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Item, Index",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_document_structure",
+        "activate_page",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties",
+        "activate_layer"
+      ],
+      "evidence": [
+        "x7_organization_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pages.item",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Document.AddPages",
+      "owner": "Document",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "AddPages, NumberOfPages",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_page"
+      ],
+      "evidence": [
+        "x7_organization_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/document.addpages",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Layer.Delete",
+      "owner": "Layer",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Delete",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_layer"
+      ],
+      "evidence": [
+        "x7_organization_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/layer.delete",
       "live_test_status": "not_run_deferred"
     }
   ]

@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Seven guarded page/layer tools for structure fingerprints, exact activation,
+  naming, explicit-size page append, ordinary local layer creation and native
+  visibility/editability/printing flags. Thirty-eight focused checks cover stale
+  state, ownership, unit restoration, verified empty-container cleanup and worker
+  quarantine. X7 type-library and readable primary help evidence are retained;
+  native lifecycle and CDR/PDF review remain deferred. The surface has 84 tools;
+  688 automated checks pass and 26 guarded live gates are skipped.
 - Source-preserving editable contour derivatives for closed vectors, with native
   inside/outside distance, step and corner controls. Thirty-seven focused checks
   cover controller/leaf geometry, compound/nested ownership, verified cleanup of

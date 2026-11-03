@@ -8,9 +8,10 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 77 tools, all `implemented_unverified`. It covers
+The current server exposes 84 tools, all `implemented_unverified`. It covers
 inspection, editable typography/layout, reusable text batches, vectors, process
-colors/gradients/transparency, clipping and copied contour derivatives. Complete
+colors/gradients/transparency, clipping, copied contour derivatives and guarded
+page/local-layer creation, activation, naming and flags. Complete
 prepress production, image preparation and AI component generation/revisions
 remain incomplete. Specialist scripts are retained research artifacts.
 
@@ -34,9 +35,9 @@ is a requirements reference, not X7 automation evidence.
 |---|---|---|
 | Reliable targeting | Bound-document liveness, bounded search and signed page/layer/group/object references | Persistent/reopened document strategies and broader reference-aware tools |
 | Recovery and records | Bounded redacted records, explicit busy/timeout state, late/partial quarantine and guarded reconciliation | Existing-document checkpoints and specialized rollback policies |
-| Document/page/layer work | New document, inspect pages/layers, CDR save | Controlled open/close, page management, editable/visible layers, source checkpoints |
+| Document/page/layer work | New document, bounded structure/fingerprints, appended explicit-size pages, local layer creation, activation/names/flags, CDR save | Controlled open/close/checkpoints, existing-page resize/reorder/deletion, master/special editing and cross-layer/page object moves |
 | Everyday typography | Artistic/paragraph creation, whole-story style edits, font catalog and aggregate/native chain overflow inspection | Spacing writes, per-run/linked/fitted editing, glyph checks and safe auto-fit |
-| Layout/transforms | Move/proportional resize, pivot rotation, mirroring, native matrix inspection, sibling order, measured distribution and grouping | Layer/page organization, guides, outline-aware bounds and safe-area reflow |
+| Layout/transforms | Move/proportional resize, pivot rotation, mirroring, native matrix inspection, sibling order, measured distribution/grouping and guarded page/local-layer controls | Cross-layer/page object moves, guides, outline-aware bounds and safe-area reflow |
 | Vector construction | Line/cubic paths and guarded nodes/handles; copied topology/shaping/compound revisions; native inside/outside contour derivatives | Adjacent deletion/fitting, open endpoint cropping, nested shaping, text/effect/open contours and exact native winding/offset/cutting gates |
 | Appearance and clipping | Native RGB/CMYK process colors; uniform transparency; PowerClip fitting/extraction/rebuilds; opaque direct multicolor gradients with guarded revisions | Proven outline units, spot/ICC, wider gradient/blend/group effects, in-place clip editing and native/visual verification |
 | Images and references | Validated imports; local cover/contain planning; retained tracing research | General crop/background/cleanup, effective-resolution checks, bounded tracing and fidelity reports |
@@ -96,6 +97,15 @@ derivatives and owned-tree recovery are implemented. Exact arbitrary-curve
 distance, winding, miter semantics and cutting/native artifact review remain
 deferred; no production readiness is inferred from these offline checks.
 
+Seven page/local-layer tools now pass 38 focused checks in
+[DOCUMENT_ORGANIZATION.md](DOCUMENT_ORGANIZATION.md). Readable X7 page/layer help
+supports multi-page documents and visible/editable/printable layers; 47 installed
+descriptors establish the automation signatures without application access.
+Two SDK requests returned no readable API text. Structural fingerprints,
+activation, named explicit-size append and local-layer flags are implemented;
+existing-page size/order/deletion, cross-layer moves, master/special edits,
+checkpoints and native/artifact verification remain broader work.
+
 Data and print requirements are supported by Corel's
 [print merge documentation](https://product.corel.com/help/CorelDRAW/Documentation-Windows/CorelDRAW-en/CorelDRAW-Print-merge.html),
 [page layout guide](https://help.coreldraw.com/CorelDRAW/540111192/Documentation-Windows/CorelDRAW-en/CorelDRAW-Page-layout.html),
@@ -121,7 +131,7 @@ as an explicit dependency until the conversion is established. Parsed PDF
 page boxes and font resource checks are required; these do not prove PDF/X,
 ICC accuracy, visual fidelity or printer readiness. Two PDF tools now pass 22
 focused checks; see [PDF_PRODUCTION.md](PDF_PRODUCTION.md). The complete deferred
-inventory accounts for all 77 registered tools and prepared native gate candidates.
+inventory accounts for all 84 registered tools and prepared native gate candidates.
 
 1. **Reliability foundation:** ID-001 stale targets; SAFE-001 redacted records;
    SAFE-002 busy/timeout state and guarded recovery. Keep inspection bounded and

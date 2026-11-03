@@ -25,6 +25,7 @@
         "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_document_organization_live",
         "CorelDisposableDocumentLiveTests.test_contour_offsets_live",
         "CorelDisposableDocumentLiveTests.test_gradient_fills_live",
         "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
@@ -95,6 +96,7 @@
         "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_document_organization_live",
         "CorelDisposableDocumentLiveTests.test_contour_offsets_live",
         "CorelDisposableDocumentLiveTests.test_gradient_fills_live",
         "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
@@ -278,6 +280,7 @@
         "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_document_organization_live",
         "CorelDisposableDocumentLiveTests.test_contour_offsets_live",
         "CorelDisposableDocumentLiveTests.test_gradient_fills_live",
         "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
@@ -399,6 +402,7 @@
         "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_document_organization_live",
         "CorelDisposableDocumentLiveTests.test_contour_offsets_live",
         "CorelDisposableDocumentLiveTests.test_gradient_fills_live",
         "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
@@ -418,6 +422,7 @@
       ],
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_document_organization_live",
         "CorelDisposableDocumentLiveTests.test_focused_object_inspection_live"
       ],
       "native_result": "not_run",
@@ -930,6 +935,7 @@
         "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_document_organization_live",
         "CorelDisposableDocumentLiveTests.test_contour_offsets_live",
         "CorelDisposableDocumentLiveTests.test_gradient_fills_live",
         "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
@@ -1169,6 +1175,104 @@
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
         "CorelDisposableDocumentLiveTests.test_contour_offsets_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "get_document_structure",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_organization.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_document_organization_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "activate_page",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_organization.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_document_organization_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "activate_layer",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_organization.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_document_organization_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "rename_page",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_organization.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_document_organization_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "create_page",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_organization.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_document_organization_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "create_layer",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_organization.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_document_organization_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "set_layer_properties",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_organization.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_document_organization_live"
       ],
       "native_result": "not_run",
       "mcp_envelope_result": "pending_consolidated_client_run",

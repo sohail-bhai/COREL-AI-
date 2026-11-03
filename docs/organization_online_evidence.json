@@ -1,0 +1,49 @@
+{
+  "browser_used": false,
+  "sources": [
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/document.addpages",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/m/document.addpages",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/page.createlayer",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/m/page.createlayer",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Adding-duplicating-renaming-and-deleting-pages.html",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Adding-duplicating-renaming-and-deleting-pages.html",
+      "excerpts": [
+        " CorelDRAW Help | Adding, duplicating, renaming, and deleting pages CorelDRAW Help : Pages and layout : Working with pages and layout tools : Adding, duplicating, renaming, and deleting pages Quick links to procedures on this page: \u2022 To add a page \u2022 To duplicate a page \u2022 To rename a page \u2022 To delete a page \u2022 To change the order of pages \u2022 To move an object to another page \u2022 To manage pages while viewing their contents Adding, duplicating, renaming, and deleting pages CorelDRAW lets you add pages to a drawing or duplicate existing pages. You can also rename pages and delete a single page or an entire range of pages. You can move objects from one page to another. When you duplicate a page, you can choose to copy only the layer structure of the page or to copy the layers and all the objects they contain. For more information about layers, see Working with layers. You can use the Page Sorter view to man",
+        " CorelDRAW Help | Adding, duplicating, renaming, and deleting pages CorelDRAW Help : Pages and layout : Working with pages and layout tools : Adding, duplicating, renaming, and deleting pages Quick links to procedures on this page: \u2022 To add a page \u2022 To duplicate a page \u2022 To rename a page \u2022 To delete a page \u2022 To change the order of pages \u2022 To move an object to another page \u2022 To manage pages while viewing their contents Adding, duplicating, renaming, and deleting pages CorelDRAW lets you add pages to a drawing or duplicate existing pages. You can also rename pages and delete a single page or an entire range of pages. You can move objects from one page to another. When you duplicate a page, you can choose to copy only the layer structure of the page or to copy the layers and all the objects they contain. For more information about layers, see Working with layers. You can use the Page Sorter view to manage pages while viewing",
+        " Adding, duplicating, renaming, and deleting pages CorelDRAW Help : Pages and layout : Working with pages and layout tools : Adding, duplicating, renaming, and deleting pages Quick links to procedures on this page: \u2022 To add a page \u2022 To duplicate a page \u2022 To rename a page \u2022 To delete a page \u2022 To change the order of pages \u2022 To move an object to another page \u2022 To manage pages while viewing their contents Adding, duplicating, renaming, and deleting pages CorelDRAW lets you add pages to a drawing or duplicate existing pages. You can also rename pages and delete a single page or an entire range of pages. You can move objects from one page to another. When you duplicate a page, you can choose to copy only the layer structure of the page or to copy the layers and all the objects they contain. For more information about layers, see Working with layers. You can use the Page Sorter view to manage pages while viewing the page contents. The Page Sor",
+        "ages and layout : Working with pages and layout tools : Adding, duplicating, renaming, and deleting pages Quick links to procedures on this page: \u2022 To add a page \u2022 To duplicate a page \u2022 To rename a page \u2022 To delete a page \u2022 To change the order of pages \u2022 To move an object to another page \u2022 To manage pages while viewing their contents Adding, duplicating, renaming, and deleting pages CorelDRAW lets you add pages to a drawing or duplicate existing pages. You can also rename pages and delete a single page or an entire range of pages. You can move objects from one page to another. When you duplicate a page, you can choose to copy only the layer structure of the page or to copy the layers and all the objects they contain. For more information about layers, see Working with layers. You can use the Page Sorter view to manage pages while viewing the page contents. The Page Sorter view lets you change the order of pages as well as copy, add, ren",
+        " layout tools : Adding, duplicating, renaming, and deleting pages Quick links to procedures on this page: \u2022 To add a page \u2022 To duplicate a page \u2022 To rename a page \u2022 To delete a page \u2022 To change the order of pages \u2022 To move an object to another page \u2022 To manage pages while viewing their contents Adding, duplicating, renaming, and deleting pages CorelDRAW lets you add pages to a drawing or duplicate existing pages. You can also rename pages and delete a single page or an entire range of pages. You can move objects from one page to another. When you duplicate a page, you can choose to copy only the layer structure of the page or to copy the layers and all the objects they contain. For more information about layers, see Working with layers. You can use the Page Sorter view to manage pages while viewing the page contents. The Page Sorter view lets you change the order of pages as well as copy, add, rename, and delete pages. Page sorter view "
+      ],
+      "relevant_text_found": true
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Working-with-layers.html",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Working-with-layers.html",
+      "excerpts": [
+        " CorelDRAW Help | Working with layers CorelDRAW Help : Objects, symbols, and layers : Working with layers Working with layers You can work with layers to help you organize and arrange objects in complex illustrations. This section contains the following topics: \u2022 Creating layers \u2022 Changing layer properties \u2022 Moving and copying layers and objects Was this page helpful? Send feedback. (Internet connection required.) Copyright 2015 Corel Corporation. All rights reserved. ",
+        " CorelDRAW Help | Working with layers CorelDRAW Help : Objects, symbols, and layers : Working with layers Working with layers You can work with layers to help you organize and arrange objects in complex illustrations. This section contains the following topics: \u2022 Creating layers \u2022 Changing layer properties \u2022 Moving and copying layers and objects Was this page helpful? Send feedback. (Internet connection required.) Copyright 2015 Corel Corporation. All rights reserved. ",
+        " CorelDRAW Help | Working with layers CorelDRAW Help : Objects, symbols, and layers : Working with layers Working with layers You can work with layers to help you organize and arrange objects in complex illustrations. This section contains the following topics: \u2022 Creating layers \u2022 Changing layer properties \u2022 Moving and copying layers and objects Was this page helpful? Send feedback. (Internet connection required.) Copyright 2015 Corel Corporation. All rights reserved. ",
+        "orking with layers CorelDRAW Help : Objects, symbols, and layers : Working with layers Working with layers You can work with layers to help you organize and arrange objects in complex illustrations. This section contains the following topics: \u2022 Creating layers \u2022 Changing layer properties \u2022 Moving and copying layers and objects Was this page helpful? Send feedback. (Internet connection required.) Copyright 2015 Corel Corporation. All rights reserved. ",
+        "RAW Help : Objects, symbols, and layers : Working with layers Working with layers You can work with layers to help you organize and arrange objects in complex illustrations. This section contains the following topics: \u2022 Creating layers \u2022 Changing layer properties \u2022 Moving and copying layers and objects Was this page helpful? Send feedback. (Internet connection required.) Copyright 2015 Corel Corporation. All rights reserved. "
+      ],
+      "relevant_text_found": true
+    }
+  ]
+}

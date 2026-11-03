@@ -1,0 +1,441 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "Pages"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50362624)), 0, None), 0)",
+      "documentation": "Returns a collection of pages for the document"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "ActivePage"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 136, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Gets the reference to the active page in the currently active document"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "AddPages",
+        "NumberOfPages"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743833, (), ((3, 1, None),), 4, 1, 4, 0, 256, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Appends pages to the document; returns the first page added"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "InsertPages",
+        "NumberOfPages",
+        "BeforePage",
+        "Page"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743834, (), ((3, 1, None), (11, 1, None), (3, 1, None)), 4, 1, 4, 0, 264, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Adds a page or pages between two others; returns the first page added"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "BeginCommandGroup",
+        "CommandName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743843, (), ((8, 17, None),), 4, 1, 4, 0, 336, (24, 0, None), 0)",
+      "documentation": "BeginCommandGroup"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "EndCommandGroup"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743844, (), (), 4, 1, 4, 0, 344, (24, 0, None), 0)",
+      "documentation": "EndCommandGroup"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "MasterPage"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743908, (), (), 4, 2, 4, 0, 856, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Returns the document master page"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Name"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (8, 0, None), 0)",
+      "documentation": "Gets or sets the layer name"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Name"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743810, (), ((8, 1, None),), 4, 4, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer name"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Shapes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50363008)), 0, None), 0)",
+      "documentation": "Gets a collection of shapes on the layer"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Activate"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743813, (), (), 4, 1, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Activates the layer"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Visible"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, (11, 0, None), 0)",
+      "documentation": "Gets or sets the layer's visibility state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Visible"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743814, (), ((11, 1, None),), 4, 4, 4, 0, 112, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer's visibility state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Printable"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (11, 0, None), 0)",
+      "documentation": "Gets or sets the layer's printability state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Printable"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((11, 1, None),), 4, 4, 4, 0, 128, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer's printability state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Editable"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 136, (11, 0, None), 0)",
+      "documentation": "Gets or sets the layer's editability state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Editable"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743818, (), ((11, 1, None),), 4, 4, 4, 0, 144, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer's editability state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Master"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (), 4, 2, 4, 0, 152, (11, 0, None), 0)",
+      "documentation": "Gets or sets the layer's Master state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Master"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743820, (), ((11, 1, None),), 4, 4, 4, 0, 160, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer's Master state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Delete"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743826, (), (), 4, 1, 4, 0, 200, (24, 0, None), 0)",
+      "documentation": "Deletes the layer"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743851, (), (), 4, 2, 4, 0, 400, (3, 0, None), 0)",
+      "documentation": "Gets the index within the Layers collection"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "IsSpecialLayer"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743870, (), (), 4, 2, 4, 0, 552, (11, 0, None), 0)",
+      "documentation": "Returns True if the given layer is a special layer (guideline, desktop, or grid)"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "AbsoluteIndex"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743872, (), (), 4, 2, 4, 0, 568, (3, 0, None), 0)",
+      "documentation": "Returns the index of the layer on the page, taking the master layers into account"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Page"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743873, (), (), 4, 2, 4, 0, 576, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Returns the page this layer is on"
+    },
+    {
+      "interface": "IVGLayers",
+      "names": [
+        "Item",
+        "IndexOrName"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((12, 1, None),), 4, 2, 4, 0, 72, ((26, (29, 50362880)), 0, None), 0)",
+      "documentation": "Gets a reference to the layer specified, in base 1"
+    },
+    {
+      "interface": "IVGLayers",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (3, 0, None), 0)",
+      "documentation": "Gets the number of layers in the collection"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "Name"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, (8, 0, None), 0)",
+      "documentation": "Gets or sets the page's name"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "Name"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743808, (), ((8, 1, None),), 4, 4, 4, 0, 64, (24, 0, None), 0)",
+      "documentation": "Gets or sets the page's name"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "Layers"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50362752)), 0, None), 0)",
+      "documentation": "Gets the collection of layers on the page"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "ActiveLayer"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, ((26, (29, 50362880)), 0, None), 0)",
+      "documentation": "Gets the active layer on the page object"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "SizeWidth"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (5, 0, None), 0)",
+      "documentation": "Gets or sets the page width size"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "SizeWidth"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((5, 1, None),), 4, 4, 4, 0, 128, (24, 0, None), 0)",
+      "documentation": "Gets or sets the page width size"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "SizeHeight"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 136, (5, 0, None), 0)",
+      "documentation": "Gets or sets the page height size"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "SizeHeight"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743818, (), ((5, 1, None),), 4, 4, 4, 0, 144, (24, 0, None), 0)",
+      "documentation": "Gets or sets the page height size"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743826, (), (), 4, 2, 4, 0, 200, (3, 0, None), 0)",
+      "documentation": "Gets the page number"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "Activate"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743827, (), (), 4, 1, 4, 0, 208, (24, 0, None), 0)",
+      "documentation": "Activates the page"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "Delete"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743828, (), (), 4, 1, 4, 0, 216, (24, 0, None), 0)",
+      "documentation": "Deletes the page"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "CreateLayer",
+        "LayerName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743829, (), ((8, 1, None),), 4, 1, 4, 0, 224, ((26, (29, 50362880)), 0, None), 0)",
+      "documentation": "Creates a layer"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "MoveTo",
+        "Index"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743843, (), ((3, 1, None),), 4, 1, 4, 0, 336, (24, 0, None), 0)",
+      "documentation": "Move the Page to a new position"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "SetSize",
+        "Width",
+        "Height"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743847, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 368, (24, 0, None), 0)",
+      "documentation": "Sets the size of the page"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "AllLayers"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743865, (), (), 4, 2, 4, 0, 512, ((26, (29, 50362752)), 0, None), 0)",
+      "documentation": "Returns a collection of all layers on the page, including the master layers"
+    },
+    {
+      "interface": "IVGPages",
+      "names": [
+        "Item",
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None),), 4, 2, 4, 0, 72, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Gets a reference to the specified page, in base 1; however, using 0 brings you the Master Page"
+    },
+    {
+      "interface": "IVGPages",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (3, 0, None), 0)",
+      "documentation": "Gets the number of items in the collection of pages"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Layer"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743857, (), (), 4, 2, 4, 0, 448, ((26, (29, 50362880)), 0, None), 0)",
+      "documentation": "Gets or sets the layer the shape resides upon"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Layer"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743857, (), (((26, (29, 50362880)), 1, None),), 4, 4, 4, 0, 456, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer the shape resides upon"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "MoveToLayer",
+        "Layer"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743958, (), (((26, (29, 50362880)), 1, None),), 4, 1, 4, 0, 1256, (24, 0, None), 0)",
+      "documentation": "Moves the shape to the specified layer"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Page"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610744013, (), (), 4, 2, 4, 0, 1696, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Returns the page the shape belongs to"
+    }
+  ]
+}

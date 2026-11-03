@@ -112,6 +112,18 @@
       "accessed": "2026-11-03",
       "kind": "official_primary_source",
       "x7_specific": true
+    },
+    "pages_help": {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Adding-duplicating-renaming-and-deleting-pages.html",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
+    "layers_help": {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Working-with-layers.html",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
     }
   },
   "gaps": [
@@ -184,22 +196,31 @@
         "list_pages",
         "get_page_bounds",
         "list_layers",
-        "save_document"
+        "save_document",
+        "get_document_structure",
+        "activate_page",
+        "activate_layer",
+        "rename_page",
+        "create_page",
+        "create_layer",
+        "set_layer_properties"
       ],
       "missing_behavior": [
         "Controlled open/close and checkpoints",
-        "Page management",
-        "Layer visibility/editability and organization"
+        "Existing-page resizing, reordering and deletion",
+        "Master/special layer editing and cross-layer/page object movement"
       ],
       "source_ids": [
         "x7_help",
-        "x7_guide"
+        "x7_guide",
+        "pages_help",
+        "layers_help"
       ],
       "depends_on": [
         "ID-001",
         "SAFE-002"
       ],
-      "implementation_status": "queued",
+      "implementation_status": "partial_implemented_unverified",
       "live_status": "deferred"
     },
     {
@@ -262,10 +283,14 @@
         "rotate_object",
         "flip_object",
         "order_object",
-        "distribute_objects"
+        "distribute_objects",
+        "get_document_structure",
+        "activate_page",
+        "activate_layer",
+        "set_layer_properties"
       ],
       "missing_behavior": [
-        "Layer/page organization and guide-aware layout",
+        "Cross-layer/page object moves and guide-aware layout",
         "Outline-aware bounds and safe-area reflow",
         "Shape/skew/path-specific transforms"
       ],

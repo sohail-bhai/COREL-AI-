@@ -9,7 +9,8 @@ This document prevents uncertain behavior from being presented as supported. An 
 ## Outstanding native verification dependencies
 
 The table retains historical uncertainties. New inspection, identity/recovery,
-typography, transforms, vector, appearance, templates and PDF wrappers now have
+typography, transforms, vector, appearance, templates, PDF and page/local-layer
+organization wrappers now have
 offline gates; their native/manual verification remains deferred. Current
 implementation coverage and remaining work are tracked in
 [CURRENT_IMPLEMENTATION_PRIORITIES.md](CURRENT_IMPLEMENTATION_PRIORITIES.md).

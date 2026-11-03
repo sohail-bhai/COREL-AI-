@@ -44,7 +44,7 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 77 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 84 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
@@ -101,6 +101,13 @@ cover source appearance, nested/compound shapes, partial failure cleanup and
 foreign-scope recovery. Exact native offsets/winding, miter/cutting behavior and
 CDR/PDF review remain deferred.
 
+Seven [organization tools](DOCUMENT_ORGANIZATION.md) inspect bounded structure,
+activate exact pages/local layers, append named explicitly sized pages, create
+empty ordinary layers and change names/visibility/editability/printing flags.
+Thirty-eight focused checks cover fingerprints, root/order preservation, unit
+restoration and owned cleanup/recovery. Native lifecycle and artifacts are
+deferred; existing-page resizing/reordering/deletion and cross-layer moves remain gaps.
+
 ## Evidence hierarchy
 
 Evidence is evaluated in this order:
@@ -136,7 +143,7 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic and workflow tools — `implemented_unverified` | 77 |
+| Registered atomic and workflow tools — `implemented_unverified` | 84 |
 | Planned atomic/workflow tools — `planned` | 1 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |
@@ -169,6 +176,13 @@ The zero verified count is intentional. Dated disposable X7 reports now exist, b
 | `list_pages` | read-only | P1 | implemented_unverified | Multi-page enumeration/dimensions have fake-COM tests | Test native orientation codes and dimensions in X7 |
 | `get_page_bounds` | read-only | P1 | implemented_unverified | Explicit page-local bounds calculation has fake-COM tests | Test drawing-origin and facing-page behavior in X7 |
 | `list_layers` | read-only | P1 | implemented_unverified | Layer state/count enumeration has fake-COM tests | Test page, master, and special layers in X7 |
+| `get_document_structure` | read-only | P1 | implemented_unverified | Bounded page/local/master state, root identities and fingerprint; fake-COM/unit restoration checks | Native membership and unit behavior |
+| `activate_page` | mutating | P1 | implemented_unverified | Exact identity/fingerprint targeting unlocks signed cross-page edits | Native focus/context behavior |
+| `activate_layer` | mutating | P1 | implemented_unverified | Exact ordinary visible/editable layer activation routes later creation | Native page/layer context behavior |
+| `rename_page` | mutating | P1 | implemented_unverified | Guarded name and full recorded structure reconciliation | Native page-name behavior |
+| `create_page` | mutating | P1 | implemented_unverified | Explicit-size append, source structure preservation and owned empty-page cleanup | Native lifecycle and CDR/PDF review |
+| `create_layer` | mutating | P1 | implemented_unverified | Empty local-layer creation, context restoration and guarded cleanup | Native creation/default flags and artifacts |
+| `set_layer_properties` | mutating | P1 | implemented_unverified | Local name/visible/editable/printable readback and partial-write quarantine | Native visible/editable/print behavior |
 | `get_object_info` | read-only | P1 | implemented_unverified | Identity, bounds, text, fill, and outline composition has fake-COM tests | Test StaticID persistence and nested-object limitations in X7 |
 | `get_object_bounds` | read-only | P1 | implemented_unverified | Finite bounds, strict active-page targeting, and context restoration have fake-COM tests | Run the disposable focused-inspection gate; verify ruler origin and unchanged state |
 | `get_text_properties` | read-only | P1 | implemented_unverified | Bounded content and aggregate formatting expose unavailable/indeterminate values with strict schemas | Verify font/style codes and text/selection preservation in X7 |

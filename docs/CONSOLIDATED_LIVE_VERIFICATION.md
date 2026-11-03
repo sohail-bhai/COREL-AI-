@@ -29,6 +29,12 @@ subdivision, explicit reconnection, primitive/rotated CopyAssign coordinates and
 copied basic appearance. Recovery gates cover synthetic partial/late failures; real modal
 and busy behavior still needs controlled observation during the later session.
 
+The organization gate covers bounded structure inspection, named explicit-size
+page append, local layer creation, page/layer activation, page rename and
+visible/editable/printable property readback. It retains original artwork bounds
+and CDR/PDF/native-state artifacts. Native special/master layer exposures,
+active-context behavior and rendered/printed visibility remain deferred review.
+
 The process-color gate covers exact native RGB/CMYK components on vectors/text,
 ordinary-outline recoloring and measured geometry/other-channel preservation.
 Its PDF/CDR artifacts require separate visual/color/prepress review; exact native

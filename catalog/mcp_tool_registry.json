@@ -3661,6 +3661,164 @@
         "FillColorTo"
       ],
       "additionalProperties": false
+    },
+    "organization_layer": {
+      "type": "object",
+      "properties": {
+        "layer_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "editable": {
+          "type": "boolean"
+        },
+        "printable": {
+          "type": "boolean"
+        },
+        "master": {
+          "type": "boolean"
+        },
+        "is_special": {
+          "type": "boolean"
+        },
+        "root_shape_identities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "minItems": 0,
+          "maxItems": 4096
+        }
+      },
+      "required": [
+        "layer_identity",
+        "name",
+        "visible",
+        "editable",
+        "printable",
+        "master",
+        "is_special",
+        "root_shape_identities"
+      ],
+      "additionalProperties": false
+    },
+    "organization_page": {
+      "type": "object",
+      "properties": {
+        "page_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "page_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "width_inches": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "height_inches": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "active_layer_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/organization_layer"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "all_layer_identities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        }
+      },
+      "required": [
+        "page_identity",
+        "page_index",
+        "name",
+        "width_inches",
+        "height_inches",
+        "active_layer_identity",
+        "layers",
+        "all_layer_identities"
+      ],
+      "additionalProperties": false
+    },
+    "document_structure": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "document-structure-v1"
+        },
+        "document_session_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "bridge_session_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "active_page_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/organization_page"
+          },
+          "minItems": 1,
+          "maxItems": 256
+        },
+        "master_layers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/organization_layer"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema",
+        "document_session_id",
+        "bridge_session_id",
+        "active_page_identity",
+        "pages",
+        "master_layers",
+        "fingerprint"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -12034,6 +12192,832 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Contour request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "get_document_structure": {
+      "request": {},
+      "success": {
+        "ok": true,
+        "tool": "get_document_structure",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "structure": {
+            "schema": "document-structure-v1",
+            "document_session_id": "doc-0001",
+            "bridge_session_id": "7e4498cec29a5abb13510d162eb59cbd",
+            "active_page_identity": "10fbf8103c6162a47a402c41fe27b0949374a7e535774c52ff1a0371dd472062",
+            "pages": [
+              {
+                "page_identity": "10fbf8103c6162a47a402c41fe27b0949374a7e535774c52ff1a0371dd472062",
+                "page_index": 1,
+                "name": "Front",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "5e8051654c9e3721316f71e6721c3219fa7e75fb337078426402069cbf06326f",
+                "layers": [
+                  {
+                    "layer_identity": "5e8051654c9e3721316f71e6721c3219fa7e75fb337078426402069cbf06326f",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "4f78b8a3e0ecbb0a94dc3965105a8c83b3a26b5361c13e203fe0488aded5d410",
+                      "c505676e231a569c950824d2baa0c2cb151588b29c0e172a826b5d472e8b4328"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "5e8051654c9e3721316f71e6721c3219fa7e75fb337078426402069cbf06326f",
+                  "cdb71dde879d4f54464d8926b298f38c463ba74a944d2318d1d0bb729ad72c3f"
+                ]
+              },
+              {
+                "page_identity": "d54dd0185953fcdda5cf2ed81bfcc04e3c36d315ae492979a3a9378042a7632a",
+                "page_index": 2,
+                "name": "Back",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "699bc7cdc2dfda7a815a8db2bc5ee53730f29065d6d3253bb342e4fa2051c44a",
+                "layers": [
+                  {
+                    "layer_identity": "699bc7cdc2dfda7a815a8db2bc5ee53730f29065d6d3253bb342e4fa2051c44a",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "f33279db9f161060396e963d0b11a67374cacd8fe753b1f0b900c00b03568d81"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "699bc7cdc2dfda7a815a8db2bc5ee53730f29065d6d3253bb342e4fa2051c44a",
+                  "cdb71dde879d4f54464d8926b298f38c463ba74a944d2318d1d0bb729ad72c3f"
+                ]
+              }
+            ],
+            "master_layers": [
+              {
+                "layer_identity": "cdb71dde879d4f54464d8926b298f38c463ba74a944d2318d1d0bb729ad72c3f",
+                "name": "Master",
+                "visible": true,
+                "editable": true,
+                "printable": true,
+                "master": true,
+                "is_special": false,
+                "root_shape_identities": []
+              }
+            ],
+            "fingerprint": "63a8b48aa3f03415b9f512d007509222cf323db80e744c5d9a161aa45c67f0d2"
+          },
+          "verification_status": "implemented_unverified"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_document_structure",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Organization request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "activate_page": {
+      "request": {
+        "expected_fingerprint": "61f5eca7799f972bf4a558e892a7d6893b68defec7393bb35f055abf429a3909",
+        "page_identity": "43da76f957b22662af30ba59692134ba8473838755d9ff9520f8b67e86f32f87"
+      },
+      "success": {
+        "ok": true,
+        "tool": "activate_page",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "before_fingerprint": "61f5eca7799f972bf4a558e892a7d6893b68defec7393bb35f055abf429a3909",
+          "structure": {
+            "schema": "document-structure-v1",
+            "document_session_id": "doc-0001",
+            "bridge_session_id": "846bbe8ec4e69005afb84839a5f4f8ac",
+            "active_page_identity": "43da76f957b22662af30ba59692134ba8473838755d9ff9520f8b67e86f32f87",
+            "pages": [
+              {
+                "page_identity": "be88e2ee6d428590d9bba21fd4a0f61b26ca5382e44af8390fe1a60d5f1a1507",
+                "page_index": 1,
+                "name": "Front",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "e5595d515544c70a66a860552efc74a29abfec3cefce90aade8c16c266f12458",
+                "layers": [
+                  {
+                    "layer_identity": "e5595d515544c70a66a860552efc74a29abfec3cefce90aade8c16c266f12458",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "355bbdc95f9ceeada5342fbb6de2b83d2ab935d2b92f47344225d4e2927422c4",
+                      "2c9698c81ef4f8401b65a2629226245763dfcd50f22bb8b5869876da0f5a4646"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "e5595d515544c70a66a860552efc74a29abfec3cefce90aade8c16c266f12458",
+                  "795124fb3b9c635713dd7973d53ee69377b75b72c0941882039ac30a1186340c"
+                ]
+              },
+              {
+                "page_identity": "43da76f957b22662af30ba59692134ba8473838755d9ff9520f8b67e86f32f87",
+                "page_index": 2,
+                "name": "Back",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "aa8c96b8c05cd24627f4b7124489478f990cee7a5213cfcb1cea43626607cc02",
+                "layers": [
+                  {
+                    "layer_identity": "aa8c96b8c05cd24627f4b7124489478f990cee7a5213cfcb1cea43626607cc02",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "9d63d9f34183fa9457951d638fb57f5557c105ff837f8fbbdbc7b0324a62c327"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "aa8c96b8c05cd24627f4b7124489478f990cee7a5213cfcb1cea43626607cc02",
+                  "795124fb3b9c635713dd7973d53ee69377b75b72c0941882039ac30a1186340c"
+                ]
+              }
+            ],
+            "master_layers": [
+              {
+                "layer_identity": "795124fb3b9c635713dd7973d53ee69377b75b72c0941882039ac30a1186340c",
+                "name": "Master",
+                "visible": true,
+                "editable": true,
+                "printable": true,
+                "master": true,
+                "is_special": false,
+                "root_shape_identities": []
+              }
+            ],
+            "fingerprint": "08aba30f35e3a33ab69510f00375fd315cc702a4e7994a914cfbf202b2d8a896"
+          },
+          "verification_status": "implemented_unverified"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "activate_page",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Organization request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "rename_page": {
+      "request": {
+        "expected_fingerprint": "a946988b18669e9ece6bdfd5d103aa40b066aefeff9cafbd25b78c11122ac311",
+        "page_identity": "4a0f6a83a4d1ef5e0ffcb1c73b5f6bfeb75d254e86775b1cbf63bf236d8c41aa",
+        "name": "Cover"
+      },
+      "success": {
+        "ok": true,
+        "tool": "rename_page",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "before_fingerprint": "a946988b18669e9ece6bdfd5d103aa40b066aefeff9cafbd25b78c11122ac311",
+          "structure": {
+            "schema": "document-structure-v1",
+            "document_session_id": "doc-0001",
+            "bridge_session_id": "15f5552731f5baeb8c7a72e56ba4aa91",
+            "active_page_identity": "4a0f6a83a4d1ef5e0ffcb1c73b5f6bfeb75d254e86775b1cbf63bf236d8c41aa",
+            "pages": [
+              {
+                "page_identity": "4a0f6a83a4d1ef5e0ffcb1c73b5f6bfeb75d254e86775b1cbf63bf236d8c41aa",
+                "page_index": 1,
+                "name": "Cover",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "d644a0c5304b107ca7b29d4716d8bd2bb9fb49439b7b39a3aa29d7f987e01668",
+                "layers": [
+                  {
+                    "layer_identity": "d644a0c5304b107ca7b29d4716d8bd2bb9fb49439b7b39a3aa29d7f987e01668",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "6331ce5a312dd9f3982776eeddb52e8972d8629bc62e567bba6e3ebebbdb1a4e",
+                      "df0f0449345fe706abbab9585658554d6258edc3c49f7cfeeb3b9f8e242ea7a3"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "d644a0c5304b107ca7b29d4716d8bd2bb9fb49439b7b39a3aa29d7f987e01668",
+                  "045f0ef793eb62a02e34ee8e372820800ff22160e3d4d8a6ab966f25e54f4d67"
+                ]
+              },
+              {
+                "page_identity": "fcdee02b9b6b47f04e4670c5ff00fe607b1ea5b1bad8d2a2f56fdc1fc3039be0",
+                "page_index": 2,
+                "name": "Back",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "80b7ddb1b033a87a87058135a00b9136d30324308adac125ce900c9603501aa7",
+                "layers": [
+                  {
+                    "layer_identity": "80b7ddb1b033a87a87058135a00b9136d30324308adac125ce900c9603501aa7",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "7542f12b2c30f4292d6739de773ffd563324f54c0b57dae8c8d543ff8ab77d54"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "80b7ddb1b033a87a87058135a00b9136d30324308adac125ce900c9603501aa7",
+                  "045f0ef793eb62a02e34ee8e372820800ff22160e3d4d8a6ab966f25e54f4d67"
+                ]
+              }
+            ],
+            "master_layers": [
+              {
+                "layer_identity": "045f0ef793eb62a02e34ee8e372820800ff22160e3d4d8a6ab966f25e54f4d67",
+                "name": "Master",
+                "visible": true,
+                "editable": true,
+                "printable": true,
+                "master": true,
+                "is_special": false,
+                "root_shape_identities": []
+              }
+            ],
+            "fingerprint": "f5d0e8267176882e8c824318748020dd7c379c58b7423c07523b91cdcdf37ecf"
+          },
+          "verification_status": "implemented_unverified"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "rename_page",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Organization request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "create_page": {
+      "request": {
+        "expected_fingerprint": "4d758ca3e8ab26649947ffc976bc2d65939ae3f07d0db8023371004b623469e3",
+        "name": "Sheet 3",
+        "width_inches": 12.0,
+        "height_inches": 18.0
+      },
+      "success": {
+        "ok": true,
+        "tool": "create_page",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "before_fingerprint": "4d758ca3e8ab26649947ffc976bc2d65939ae3f07d0db8023371004b623469e3",
+          "structure": {
+            "schema": "document-structure-v1",
+            "document_session_id": "doc-0001",
+            "bridge_session_id": "27676267c7e77864e31262a5d0848a88",
+            "active_page_identity": "0d8f2c0337f8b7edf14954d49db51ad5f61d8c56eb4a5e664ad523102d0628bc",
+            "pages": [
+              {
+                "page_identity": "0d8f2c0337f8b7edf14954d49db51ad5f61d8c56eb4a5e664ad523102d0628bc",
+                "page_index": 1,
+                "name": "Front",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "f4c0c73970203d09388e8fed86f61cf419ff7db6ef574cdfa84bebf47092cd46",
+                "layers": [
+                  {
+                    "layer_identity": "f4c0c73970203d09388e8fed86f61cf419ff7db6ef574cdfa84bebf47092cd46",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "15129794a552889929c87a3d0d95a07f17f37fe427fd3f5b5cedbf6d0ffb0f58",
+                      "937c8597ad07966ad6a00628a1480b69f7db7d2d128bfc9374feff86b0592cec"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "f4c0c73970203d09388e8fed86f61cf419ff7db6ef574cdfa84bebf47092cd46",
+                  "a6959cf6c371a43bd12e99fc70ae6ffadbf168b078d4084b579299cf245d9863"
+                ]
+              },
+              {
+                "page_identity": "dc9e2c59d6b8ec6baefe41aab4596a9dc1d3f50fe3162e24095493bd31510942",
+                "page_index": 2,
+                "name": "Back",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "a23d1053acaaefdf8862e532d07413893437c4f06e407204bbfb60ab4d70cc15",
+                "layers": [
+                  {
+                    "layer_identity": "a23d1053acaaefdf8862e532d07413893437c4f06e407204bbfb60ab4d70cc15",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "4dc4b88a1adfeedc4cf369bf781d76a1f0d24ea98d69091f92c279b854ae91d5"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "a23d1053acaaefdf8862e532d07413893437c4f06e407204bbfb60ab4d70cc15",
+                  "a6959cf6c371a43bd12e99fc70ae6ffadbf168b078d4084b579299cf245d9863"
+                ]
+              },
+              {
+                "page_identity": "be3d5e21e3a4e2f552917bbd172409c7a6286cce8df8ae4962419031b918b0b2",
+                "page_index": 3,
+                "name": "Sheet 3",
+                "width_inches": 12.0,
+                "height_inches": 18.0,
+                "active_layer_identity": "c6fe4a6f87b007d3ba01b4b29aa28697c2565de9f855015ad18edd94bfbd5458",
+                "layers": [
+                  {
+                    "layer_identity": "c6fe4a6f87b007d3ba01b4b29aa28697c2565de9f855015ad18edd94bfbd5458",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": []
+                  }
+                ],
+                "all_layer_identities": [
+                  "c6fe4a6f87b007d3ba01b4b29aa28697c2565de9f855015ad18edd94bfbd5458",
+                  "a6959cf6c371a43bd12e99fc70ae6ffadbf168b078d4084b579299cf245d9863"
+                ]
+              }
+            ],
+            "master_layers": [
+              {
+                "layer_identity": "a6959cf6c371a43bd12e99fc70ae6ffadbf168b078d4084b579299cf245d9863",
+                "name": "Master",
+                "visible": true,
+                "editable": true,
+                "printable": true,
+                "master": true,
+                "is_special": false,
+                "root_shape_identities": []
+              }
+            ],
+            "fingerprint": "7c0fdb5af5b955589ed6f2e1a21c405b3295222f3773b90ecf876326f16e8646"
+          },
+          "verification_status": "implemented_unverified",
+          "created_page_identity": "be3d5e21e3a4e2f552917bbd172409c7a6286cce8df8ae4962419031b918b0b2"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "create_page",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Organization request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "create_layer": {
+      "request": {
+        "expected_fingerprint": "c6b785c2938c5e54350030d6047df19cd90674b43db99ce0977c2cc20eecc10c",
+        "page_identity": "d2ef9be0b7d1d817665c558a73a71696661a8657e2af1f26d34c79c2d806c571",
+        "name": "Print"
+      },
+      "success": {
+        "ok": true,
+        "tool": "create_layer",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "before_fingerprint": "c6b785c2938c5e54350030d6047df19cd90674b43db99ce0977c2cc20eecc10c",
+          "structure": {
+            "schema": "document-structure-v1",
+            "document_session_id": "doc-0001",
+            "bridge_session_id": "47d028d43a691ca4dd86d6801e58474f",
+            "active_page_identity": "d2ef9be0b7d1d817665c558a73a71696661a8657e2af1f26d34c79c2d806c571",
+            "pages": [
+              {
+                "page_identity": "d2ef9be0b7d1d817665c558a73a71696661a8657e2af1f26d34c79c2d806c571",
+                "page_index": 1,
+                "name": "Front",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "9f65aefb75b25ac386199e812e684a160868520d542fb042eaac77496953989d",
+                "layers": [
+                  {
+                    "layer_identity": "9f65aefb75b25ac386199e812e684a160868520d542fb042eaac77496953989d",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "f5d3fc32c3d9845106292a0881a8d30d4e37062c5361c06933b6f385417ceee4",
+                      "299560c69b8f7237d25c3824bc2b465849b4020bfc1d1e43cd11bfcb4dee0226"
+                    ]
+                  },
+                  {
+                    "layer_identity": "0dd864a05d0679619c5c81dbfdd744338d1987668867fb54be3cd547e7092f01",
+                    "name": "Print",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": []
+                  }
+                ],
+                "all_layer_identities": [
+                  "9f65aefb75b25ac386199e812e684a160868520d542fb042eaac77496953989d",
+                  "0dd864a05d0679619c5c81dbfdd744338d1987668867fb54be3cd547e7092f01",
+                  "017204f75e4f6a38fa98923c8187a224fb5bd28169ef1bb619019997e33e9c4f"
+                ]
+              },
+              {
+                "page_identity": "3e83d2dbf114009a96891ef6ac83a3aae47323e8ac97f4208cc8aea6da0d7c14",
+                "page_index": 2,
+                "name": "Back",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "c73f5f4a00650ed7c8e962c688f7b9d0041aa1285f85507cff218ea0811044a5",
+                "layers": [
+                  {
+                    "layer_identity": "c73f5f4a00650ed7c8e962c688f7b9d0041aa1285f85507cff218ea0811044a5",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "2ec7fd101a21ba552fe2b7562c6295b46337a44cd0e52baa06ee1e76e986f667"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "c73f5f4a00650ed7c8e962c688f7b9d0041aa1285f85507cff218ea0811044a5",
+                  "017204f75e4f6a38fa98923c8187a224fb5bd28169ef1bb619019997e33e9c4f"
+                ]
+              }
+            ],
+            "master_layers": [
+              {
+                "layer_identity": "017204f75e4f6a38fa98923c8187a224fb5bd28169ef1bb619019997e33e9c4f",
+                "name": "Master",
+                "visible": true,
+                "editable": true,
+                "printable": true,
+                "master": true,
+                "is_special": false,
+                "root_shape_identities": []
+              }
+            ],
+            "fingerprint": "82b6bc4d5bb0af1aead38bb6c627cdcd2ed02d02a9e109a18ff3e5387cfa714b"
+          },
+          "verification_status": "implemented_unverified",
+          "created_layer_identity": "0dd864a05d0679619c5c81dbfdd744338d1987668867fb54be3cd547e7092f01"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "create_layer",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Organization request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "set_layer_properties": {
+      "request": {
+        "expected_fingerprint": "33e22269249a6e83c7866447236f5ce3507e1c417310ad2598eadc4c9451657c",
+        "page_identity": "1a5f68f0180d769b5a25f581142f716ff7e8b815326b7624e7e9c9efe964a766",
+        "layer_identity": "4c3c6662c10f25c287062e85f77a34af88ea8a13341f41a52a7ac85ef9098384",
+        "properties": {
+          "visible": false,
+          "printable": false
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "set_layer_properties",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "before_fingerprint": "33e22269249a6e83c7866447236f5ce3507e1c417310ad2598eadc4c9451657c",
+          "structure": {
+            "schema": "document-structure-v1",
+            "document_session_id": "doc-0001",
+            "bridge_session_id": "c3c0338385c5f00fe4d706bb8a0b4650",
+            "active_page_identity": "1a5f68f0180d769b5a25f581142f716ff7e8b815326b7624e7e9c9efe964a766",
+            "pages": [
+              {
+                "page_identity": "1a5f68f0180d769b5a25f581142f716ff7e8b815326b7624e7e9c9efe964a766",
+                "page_index": 1,
+                "name": "Front",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "4c3c6662c10f25c287062e85f77a34af88ea8a13341f41a52a7ac85ef9098384",
+                "layers": [
+                  {
+                    "layer_identity": "4c3c6662c10f25c287062e85f77a34af88ea8a13341f41a52a7ac85ef9098384",
+                    "name": "Artwork",
+                    "visible": false,
+                    "editable": true,
+                    "printable": false,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "f323cc5946956226e8635a59f4cf0bc599a25d3fb53dab27475ea09fc239dd65",
+                      "7bc2a62d756b415e9af56d938c77f9e0ab52f09a0cc806d0c157c184d0a6851c"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "4c3c6662c10f25c287062e85f77a34af88ea8a13341f41a52a7ac85ef9098384",
+                  "f09ed6fa72d2ed0c843138478cb4d380b10f61c111004320c9352ca0d054e871"
+                ]
+              },
+              {
+                "page_identity": "f14ce0f76ad156fe45d08fb958ecc95e300ab7ca13013fd14a010bb34d44a10d",
+                "page_index": 2,
+                "name": "Back",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "0a50dbe6ecd777df92179c239f4a8d92ed9e01f59e1279bbd8026869fe0997a9",
+                "layers": [
+                  {
+                    "layer_identity": "0a50dbe6ecd777df92179c239f4a8d92ed9e01f59e1279bbd8026869fe0997a9",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "d24753ca4674408e390df54188b390c78f8aa30b90286d291f1d727245d726a9"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "0a50dbe6ecd777df92179c239f4a8d92ed9e01f59e1279bbd8026869fe0997a9",
+                  "f09ed6fa72d2ed0c843138478cb4d380b10f61c111004320c9352ca0d054e871"
+                ]
+              }
+            ],
+            "master_layers": [
+              {
+                "layer_identity": "f09ed6fa72d2ed0c843138478cb4d380b10f61c111004320c9352ca0d054e871",
+                "name": "Master",
+                "visible": true,
+                "editable": true,
+                "printable": true,
+                "master": true,
+                "is_special": false,
+                "root_shape_identities": []
+              }
+            ],
+            "fingerprint": "77d142bd9cb4b413601c01c8e46fca695aa2f95e83fdd6c4a5fe6772d392da2d"
+          },
+          "verification_status": "implemented_unverified"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "set_layer_properties",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Organization request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "activate_layer": {
+      "request": {
+        "expected_fingerprint": "ea948b66f22a6595a062a7f70431fd64581573c60df9810c9ad15eecf26c7441",
+        "page_identity": "8ce206ce10313ba174fb1242e986863c4d06e3bac14eda31ea4afb89c0906449",
+        "layer_identity": "6104696d76320b8dc58fce5c3618307f4cc4f03b8c5bb473713c95b6e3458f2f"
+      },
+      "success": {
+        "ok": true,
+        "tool": "activate_layer",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "before_fingerprint": "ea948b66f22a6595a062a7f70431fd64581573c60df9810c9ad15eecf26c7441",
+          "structure": {
+            "schema": "document-structure-v1",
+            "document_session_id": "doc-0001",
+            "bridge_session_id": "bb8756bdd8f21319ca08d5a10930af01",
+            "active_page_identity": "8ce206ce10313ba174fb1242e986863c4d06e3bac14eda31ea4afb89c0906449",
+            "pages": [
+              {
+                "page_identity": "7f3243b4b16a4f2d3b615458f1362861d4672311a6012f8ef9436d6d547ab2b2",
+                "page_index": 1,
+                "name": "Front",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "d23d737b5f65bc2cb5c1e8b2d5dfdbbc76e39dc5d56c8b377c0f32eb6b2eea30",
+                "layers": [
+                  {
+                    "layer_identity": "d23d737b5f65bc2cb5c1e8b2d5dfdbbc76e39dc5d56c8b377c0f32eb6b2eea30",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "45dbf9aa77e3c990aafcfe7a73bf052a7a280e587eeee63a78a1fbd371262d36",
+                      "7d5e1683373e8a017bdfdb50a238fb1ee30e95451e8b01b46090b634c63ec8a9"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "d23d737b5f65bc2cb5c1e8b2d5dfdbbc76e39dc5d56c8b377c0f32eb6b2eea30",
+                  "60d6d4ea99505fc98725c299243b255358b2b31099890f437318b1550024b00e"
+                ]
+              },
+              {
+                "page_identity": "8ce206ce10313ba174fb1242e986863c4d06e3bac14eda31ea4afb89c0906449",
+                "page_index": 2,
+                "name": "Back",
+                "width_inches": 8.0,
+                "height_inches": 10.0,
+                "active_layer_identity": "6104696d76320b8dc58fce5c3618307f4cc4f03b8c5bb473713c95b6e3458f2f",
+                "layers": [
+                  {
+                    "layer_identity": "6104696d76320b8dc58fce5c3618307f4cc4f03b8c5bb473713c95b6e3458f2f",
+                    "name": "Artwork",
+                    "visible": true,
+                    "editable": true,
+                    "printable": true,
+                    "master": false,
+                    "is_special": false,
+                    "root_shape_identities": [
+                      "0365de3986d6cb9003713d64dc3513b657eaefd3c65bf0afebe6515ec839e4e0"
+                    ]
+                  }
+                ],
+                "all_layer_identities": [
+                  "6104696d76320b8dc58fce5c3618307f4cc4f03b8c5bb473713c95b6e3458f2f",
+                  "60d6d4ea99505fc98725c299243b255358b2b31099890f437318b1550024b00e"
+                ]
+              }
+            ],
+            "master_layers": [
+              {
+                "layer_identity": "60d6d4ea99505fc98725c299243b255358b2b31099890f437318b1550024b00e",
+                "name": "Master",
+                "visible": true,
+                "editable": true,
+                "printable": true,
+                "master": true,
+                "is_special": false,
+                "root_shape_identities": []
+              }
+            ],
+            "fingerprint": "5970176332bb48ca0c99e8c55869e7f3048cb1773e78323054e8b9c27af35fa5"
+          },
+          "verification_status": "implemented_unverified"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "activate_layer",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Organization request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -26050,6 +27034,1011 @@
         "Generated curves have an explicit opaque RGB/CMYK fill and no outline/effect. Open path caps, text conversion, preserved interactive contours and effect-source revisions remain broader work.",
         "Round outside bounds and inside margin envelopes are reconciled; other corners require direction bounds/native controls. Miter-limit native semantics and arbitrary pointwise offset distance are not independently established.",
         "Cleanup deletes only proven owned trees/effect affiliates. Foreign aliases, unknown receipts, changed sources and failed cleanup require exact-state reconciliation without automatic undo."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "get_document_structure",
+      "category": "document",
+      "description": "Read bounded page/local/master layer state, active context, root identities and a session fingerprint.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.get_document_structure"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "structure": {
+                      "$ref": "#/schema_definitions/document_structure"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    }
+                  },
+                  "required": [
+                    "structure",
+                    "verification_status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.ActivePage",
+        "Document.MasterPage",
+        "Document.Pages",
+        "Document.Unit",
+        "Layer.Editable",
+        "Layer.IsSpecialLayer",
+        "Layer.Master",
+        "Layer.Name",
+        "Layer.Page",
+        "Layer.Printable",
+        "Layer.Shapes",
+        "Layer.Visible",
+        "Layers.Count",
+        "Layers.Item",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.Index",
+        "Page.Layers",
+        "Page.Name",
+        "Page.SizeHeight",
+        "Page.SizeWidth",
+        "Pages.Count",
+        "Pages.Item",
+        "Shape.Layer",
+        "Shape.Page",
+        "Shapes.Count",
+        "Shapes.Item"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_organization.py",
+          "docs/DOCUMENT_ORGANIZATION.md",
+          "docs/x7_organization_api_evidence.json",
+          "docs/organization_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live page/layer lifecycle, active-context, units, rendering and print behavior remain deferred to the consolidated campaign.",
+        "Current-session structure fingerprints are mandatory for mutations. Bounded 256 pages, 128 local/master layers and 4096 total scanned entries; unknown ownership or unavailable metadata is refused.",
+        "Source checks cover recorded names, dimensions, flags, root identities/order, page/layer membership and active context. Descendant geometry/appearance and external concurrent artwork edits are outside this structure contract.",
+        "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
+        "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "activate_page",
+      "category": "document",
+      "description": "Activate the exact inspected page and reconcile all recorded structure.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.activate_page"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "page_identity": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "page_identity",
+          "expected_fingerprint"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "structure": {
+                      "$ref": "#/schema_definitions/document_structure"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "updated": {
+                      "type": "boolean"
+                    },
+                    "before_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "required": [
+                    "structure",
+                    "verification_status",
+                    "updated",
+                    "before_fingerprint"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.ActivePage",
+        "Document.MasterPage",
+        "Document.Pages",
+        "Document.Unit",
+        "Layer.Editable",
+        "Layer.IsSpecialLayer",
+        "Layer.Master",
+        "Layer.Name",
+        "Layer.Page",
+        "Layer.Printable",
+        "Layer.Shapes",
+        "Layer.Visible",
+        "Layers.Count",
+        "Layers.Item",
+        "Page.Activate",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.Index",
+        "Page.Layers",
+        "Page.Name",
+        "Page.SizeHeight",
+        "Page.SizeWidth",
+        "Pages.Count",
+        "Pages.Item",
+        "Shape.Layer",
+        "Shape.Page",
+        "Shapes.Count",
+        "Shapes.Item"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_organization.py",
+          "docs/DOCUMENT_ORGANIZATION.md",
+          "docs/x7_organization_api_evidence.json",
+          "docs/organization_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live page/layer lifecycle, active-context, units, rendering and print behavior remain deferred to the consolidated campaign.",
+        "Current-session structure fingerprints are mandatory for mutations. Bounded 256 pages, 128 local/master layers and 4096 total scanned entries; unknown ownership or unavailable metadata is refused.",
+        "Source checks cover recorded names, dimensions, flags, root identities/order, page/layer membership and active context. Descendant geometry/appearance and external concurrent artwork edits are outside this structure contract.",
+        "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
+        "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "activate_layer",
+      "category": "document",
+      "description": "Activate an inspected visible/editable ordinary local layer for subsequent creation.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.activate_layer"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "page_identity": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "layer_identity": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "page_identity",
+          "layer_identity",
+          "expected_fingerprint"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "structure": {
+                      "$ref": "#/schema_definitions/document_structure"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "updated": {
+                      "type": "boolean"
+                    },
+                    "before_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "required": [
+                    "structure",
+                    "verification_status",
+                    "updated",
+                    "before_fingerprint"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.ActivePage",
+        "Document.MasterPage",
+        "Document.Pages",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.Editable",
+        "Layer.IsSpecialLayer",
+        "Layer.Master",
+        "Layer.Name",
+        "Layer.Page",
+        "Layer.Printable",
+        "Layer.Shapes",
+        "Layer.Visible",
+        "Layers.Count",
+        "Layers.Item",
+        "Page.Activate",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.Index",
+        "Page.Layers",
+        "Page.Name",
+        "Page.SizeHeight",
+        "Page.SizeWidth",
+        "Pages.Count",
+        "Pages.Item",
+        "Shape.Layer",
+        "Shape.Page",
+        "Shapes.Count",
+        "Shapes.Item"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_organization.py",
+          "docs/DOCUMENT_ORGANIZATION.md",
+          "docs/x7_organization_api_evidence.json",
+          "docs/organization_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live page/layer lifecycle, active-context, units, rendering and print behavior remain deferred to the consolidated campaign.",
+        "Current-session structure fingerprints are mandatory for mutations. Bounded 256 pages, 128 local/master layers and 4096 total scanned entries; unknown ownership or unavailable metadata is refused.",
+        "Source checks cover recorded names, dimensions, flags, root identities/order, page/layer membership and active context. Descendant geometry/appearance and external concurrent artwork edits are outside this structure contract.",
+        "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
+        "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "rename_page",
+      "category": "document",
+      "description": "Rename an inspected page with complete recorded structure reconciliation.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.rename_page"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "page_identity": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000-\\u001f]+$"
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "page_identity",
+          "name",
+          "expected_fingerprint"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "structure": {
+                      "$ref": "#/schema_definitions/document_structure"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "updated": {
+                      "type": "boolean"
+                    },
+                    "before_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "required": [
+                    "structure",
+                    "verification_status",
+                    "updated",
+                    "before_fingerprint"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.ActivePage",
+        "Document.MasterPage",
+        "Document.Pages",
+        "Document.Unit",
+        "Layer.Editable",
+        "Layer.IsSpecialLayer",
+        "Layer.Master",
+        "Layer.Name",
+        "Layer.Page",
+        "Layer.Printable",
+        "Layer.Shapes",
+        "Layer.Visible",
+        "Layers.Count",
+        "Layers.Item",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.Index",
+        "Page.Layers",
+        "Page.Name",
+        "Page.SizeHeight",
+        "Page.SizeWidth",
+        "Pages.Count",
+        "Pages.Item",
+        "Shape.Layer",
+        "Shape.Page",
+        "Shapes.Count",
+        "Shapes.Item"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_organization.py",
+          "docs/DOCUMENT_ORGANIZATION.md",
+          "docs/x7_organization_api_evidence.json",
+          "docs/organization_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live page/layer lifecycle, active-context, units, rendering and print behavior remain deferred to the consolidated campaign.",
+        "Current-session structure fingerprints are mandatory for mutations. Bounded 256 pages, 128 local/master layers and 4096 total scanned entries; unknown ownership or unavailable metadata is refused.",
+        "Source checks cover recorded names, dimensions, flags, root identities/order, page/layer membership and active context. Descendant geometry/appearance and external concurrent artwork edits are outside this structure contract.",
+        "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
+        "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "create_page",
+      "category": "document",
+      "description": "Append one named explicitly sized empty page while preserving recorded source structure and active context.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.create_page"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000-\\u001f]+$"
+          },
+          "width_inches": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 2000
+          },
+          "height_inches": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 2000
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "name",
+          "width_inches",
+          "height_inches",
+          "expected_fingerprint"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "structure": {
+                      "$ref": "#/schema_definitions/document_structure"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "updated": {
+                      "type": "boolean"
+                    },
+                    "before_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "created_page_identity": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "required": [
+                    "structure",
+                    "verification_status",
+                    "updated",
+                    "before_fingerprint",
+                    "created_page_identity"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.ActivePage",
+        "Document.AddPages",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.MasterPage",
+        "Document.Pages",
+        "Document.Unit",
+        "Layer.Editable",
+        "Layer.IsSpecialLayer",
+        "Layer.Master",
+        "Layer.Name",
+        "Layer.Page",
+        "Layer.Printable",
+        "Layer.Shapes",
+        "Layer.Visible",
+        "Layers.Count",
+        "Layers.Item",
+        "Page.Activate",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.Delete",
+        "Page.Index",
+        "Page.Layers",
+        "Page.Name",
+        "Page.SetSize",
+        "Page.SizeHeight",
+        "Page.SizeWidth",
+        "Pages.Count",
+        "Pages.Item",
+        "Shape.Layer",
+        "Shape.Page",
+        "Shapes.Count",
+        "Shapes.Item"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_organization.py",
+          "docs/DOCUMENT_ORGANIZATION.md",
+          "docs/x7_organization_api_evidence.json",
+          "docs/organization_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live page/layer lifecycle, active-context, units, rendering and print behavior remain deferred to the consolidated campaign.",
+        "Current-session structure fingerprints are mandatory for mutations. Bounded 256 pages, 128 local/master layers and 4096 total scanned entries; unknown ownership or unavailable metadata is refused.",
+        "Source checks cover recorded names, dimensions, flags, root identities/order, page/layer membership and active context. Descendant geometry/appearance and external concurrent artwork edits are outside this structure contract.",
+        "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
+        "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "create_layer",
+      "category": "document",
+      "description": "Create one ordinary empty local layer and restore prior active page/layer context.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.create_layer"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "page_identity": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000-\\u001f]+$"
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "page_identity",
+          "name",
+          "expected_fingerprint"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "structure": {
+                      "$ref": "#/schema_definitions/document_structure"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "updated": {
+                      "type": "boolean"
+                    },
+                    "before_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "created_layer_identity": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "required": [
+                    "structure",
+                    "verification_status",
+                    "updated",
+                    "before_fingerprint",
+                    "created_layer_identity"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.ActivePage",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.MasterPage",
+        "Document.Pages",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.Delete",
+        "Layer.Editable",
+        "Layer.IsSpecialLayer",
+        "Layer.Master",
+        "Layer.Name",
+        "Layer.Page",
+        "Layer.Printable",
+        "Layer.Shapes",
+        "Layer.Visible",
+        "Layers.Count",
+        "Layers.Item",
+        "Page.Activate",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.CreateLayer",
+        "Page.Index",
+        "Page.Layers",
+        "Page.Name",
+        "Page.SizeHeight",
+        "Page.SizeWidth",
+        "Pages.Count",
+        "Pages.Item",
+        "Shape.Layer",
+        "Shape.Page",
+        "Shapes.Count",
+        "Shapes.Item"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_organization.py",
+          "docs/DOCUMENT_ORGANIZATION.md",
+          "docs/x7_organization_api_evidence.json",
+          "docs/organization_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live page/layer lifecycle, active-context, units, rendering and print behavior remain deferred to the consolidated campaign.",
+        "Current-session structure fingerprints are mandatory for mutations. Bounded 256 pages, 128 local/master layers and 4096 total scanned entries; unknown ownership or unavailable metadata is refused.",
+        "Source checks cover recorded names, dimensions, flags, root identities/order, page/layer membership and active context. Descendant geometry/appearance and external concurrent artwork edits are outside this structure contract.",
+        "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
+        "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "set_layer_properties",
+      "category": "document",
+      "description": "Change an ordinary local layer name and visible/editable/printable flags with exact structural readback.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.set_layer_properties"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "page_identity": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "layer_identity": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^(?=[\\s\\S]*\\S)[^\\u0000-\\u001f]+$"
+              },
+              "visible": {
+                "type": "boolean"
+              },
+              "editable": {
+                "type": "boolean"
+              },
+              "printable": {
+                "type": "boolean"
+              }
+            },
+            "required": [],
+            "additionalProperties": false,
+            "minProperties": 1,
+            "maxProperties": 4
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "page_identity",
+          "layer_identity",
+          "properties",
+          "expected_fingerprint"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "structure": {
+                      "$ref": "#/schema_definitions/document_structure"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "updated": {
+                      "type": "boolean"
+                    },
+                    "before_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "required": [
+                    "structure",
+                    "verification_status",
+                    "updated",
+                    "before_fingerprint"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.ActivePage",
+        "Document.MasterPage",
+        "Document.Pages",
+        "Document.Unit",
+        "Layer.Editable",
+        "Layer.IsSpecialLayer",
+        "Layer.Master",
+        "Layer.Name",
+        "Layer.Page",
+        "Layer.Printable",
+        "Layer.Shapes",
+        "Layer.Visible",
+        "Layers.Count",
+        "Layers.Item",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.Index",
+        "Page.Layers",
+        "Page.Name",
+        "Page.SizeHeight",
+        "Page.SizeWidth",
+        "Pages.Count",
+        "Pages.Item",
+        "Shape.Layer",
+        "Shape.Page",
+        "Shapes.Count",
+        "Shapes.Item"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_organization.py",
+          "docs/DOCUMENT_ORGANIZATION.md",
+          "docs/x7_organization_api_evidence.json",
+          "docs/organization_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live page/layer lifecycle, active-context, units, rendering and print behavior remain deferred to the consolidated campaign.",
+        "Current-session structure fingerprints are mandatory for mutations. Bounded 256 pages, 128 local/master layers and 4096 total scanned entries; unknown ownership or unavailable metadata is refused.",
+        "Source checks cover recorded names, dimensions, flags, root identities/order, page/layer membership and active context. Descendant geometry/appearance and external concurrent artwork edits are outside this structure contract.",
+        "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
+        "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

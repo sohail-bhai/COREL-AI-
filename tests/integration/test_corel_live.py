@@ -402,6 +402,51 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed,failure)
 
+    def test_document_organization_live(self) -> None:
+        """Deferred page/layer lifecycle, targeting and native flag readback."""
+        passed = False; failure = None
+        try:
+            self.status = self._step('connect', self.bridge.connect)
+            self._step('new organization fixture', lambda: self.bridge.create_document(8.5, 11))
+            rectangle = self._step('original page artwork', lambda: self.bridge.draw_rectangle(1, 1, 2, 1, 'FrontArtwork'))
+            reference = self.bridge.get_object_info(object_name=rectangle['object_name'])['object']['object_reference']
+            source = self.bridge.get_object_bounds(object_reference=reference)
+            initial = self._step('get_document_structure', self.bridge.get_document_structure)['structure']
+            original_page = initial['active_page_identity']
+            renamed = self._step('rename_page', lambda: self.bridge.rename_page(original_page, 'Front', initial['fingerprint']))
+            created = self._step('create_page', lambda: self.bridge.create_page('Back', 6., 9., renamed['structure']['fingerprint']))
+            second_page = created['created_page_identity']
+            self.assertEqual(created['structure']['active_page_identity'], original_page)
+            self.assertEqual(created['structure']['pages'][-1]['width_inches'], 6.)
+            layer = self._step('create_layer', lambda: self.bridge.create_layer(second_page, 'Print Artwork', created['structure']['fingerprint']))
+            layer_id = layer['created_layer_identity']
+            self.assertEqual(layer['structure']['active_page_identity'], original_page)
+            activated = self._step('activate_layer', lambda: self.bridge.activate_layer(second_page, layer_id, layer['structure']['fingerprint']))
+            self.assertEqual(activated['structure']['active_page_identity'], second_page)
+            self.assertEqual(activated['structure']['pages'][-1]['active_layer_identity'], layer_id)
+            self._step('new layer artwork', lambda: self.bridge.draw_rectangle(1, 1, 2, 1, 'BackArtwork'))
+            structure = self.bridge.get_document_structure()['structure']
+            flags = self._step('set_layer_properties', lambda: self.bridge.set_layer_properties(second_page, layer_id,
+                {'name': 'Final Print', 'visible': False, 'printable': False, 'editable': False}, structure['fingerprint']))
+            row = next(row for row in flags['structure']['pages'][-1]['layers'] if row['layer_identity'] == layer_id)
+            self.assertEqual((row['name'], row['visible'], row['printable'], row['editable']), ('Final Print', False, False, False))
+            restored = self._step('restore layer flags', lambda: self.bridge.set_layer_properties(second_page, layer_id,
+                {'visible': True, 'printable': True, 'editable': True}, flags['structure']['fingerprint']))
+            active = self._step('activate_page', lambda: self.bridge.activate_page(original_page, restored['structure']['fingerprint']))
+            self.assertEqual(active['structure']['active_page_identity'], original_page)
+            self.assertEqual(self.bridge.get_object_bounds(object_reference=reference), source)
+            with self.assertRaises(CorelBridgeError):
+                self.bridge.activate_page(second_page, initial['fingerprint'])
+            self._step('save organization fixture', lambda: self.bridge.save_document(str(self.output_dir / 'document-organization.cdr')))
+            exported = self._step('export organization fixture', lambda: self.bridge.export_pdf_controlled(str(self.output_dir / 'document-organization.pdf')))
+            (self.output_dir / 'document-organization-readback.json').write_text(json.dumps(
+                {'initial': initial, 'final': active, 'flags': flags, 'pdf': exported}, indent=2), encoding='utf-8')
+            passed = True
+        except BaseException as exc:
+            failure = f'{type(exc).__name__}: {exc}'; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed, failure)
+
     def test_contour_offsets_live(self) -> None:
         """Deferred copied closed-vector contours, native controls and separation."""
         passed = False; failure = None

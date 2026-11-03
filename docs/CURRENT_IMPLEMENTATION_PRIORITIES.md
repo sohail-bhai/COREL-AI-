@@ -27,6 +27,12 @@ required. Features stay `implemented_unverified` until their applicable live
 checks and required manual artifact review pass. The timing decision does not
 authorize running live tests now or using existing client artwork as fixtures.
 
+**Pause decision — 2026-11-03:** The user requested stopping after the current
+page/local-layer iteration and continuing later. Finish its offline checks and
+commit/push, then pause autonomous work. Remaining priorities include image
+preparation/effective raster resolution, broader multisheet production, prepress
+and component AI workflows. Live verification remains deferred.
+
 ## Active delivery order
 
 **Autonomous delivery update — 2026-11-03:** The user authorized continued
@@ -59,7 +65,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 77
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 84
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -81,7 +87,7 @@ capability status, and keep live verification deferred.
   Owned-output cleanup, final row readback and measured source preservation are
   covered. See [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md).
 - Controlled zero-bleed PDF export and local page/font inspection are implemented
-  with 22 focused checks and a deferred native gate. All 77 tools are included in
+  with 22 focused checks and a deferred native gate. All 84 tools are included in
   the consolidated coverage inventory. See [PDF_PRODUCTION.md](PDF_PRODUCTION.md)
   and [CONSOLIDATED_LIVE_VERIFICATION.md](CONSOLIDATED_LIVE_VERIFICATION.md).
 - General vectors are implemented: line/cubic creation, full geometry inspection,
@@ -140,8 +146,12 @@ This safety foundation remains required before broader editing and batch work.
   chain-overflow/native-spacing inspection are implemented. Continue spacing
   writes, glyph coverage, safe fitting and the deferred native typography gate.
 - Proportional resizing, rotation, mirroring, distribution and native sibling
-  order are implemented. Continue editable/visible layers, page organization,
-  guides and outline-aware/safe-area reflow using confirmed X7 APIs.
+  order are implemented. Seven page/layer tools now add bounded structural
+  inspection/fingerprints, exact activation, naming, empty local layers and
+  explicit-size page append, and visible/editable/printable flags. Thirty-eight
+  focused checks and a deferred native gate are in [DOCUMENT_ORGANIZATION.md](DOCUMENT_ORGANIZATION.md).
+  Continue existing-page resize/reorder/deletion, master/special editing,
+  cross-layer/page object moves, guides and outline-aware/safe-area reflow.
 
 **Gate:** Create and revise a simple card, label, or flyer while preserving
 editable text, exact dimensions, object identity, and recovery behavior.

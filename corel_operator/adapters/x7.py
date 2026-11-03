@@ -150,6 +150,12 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "document.organization_inspection": CapabilitySupport(True, "implemented_unverified", "Bounded page/local/master layer structure, active context, root identities and current-session fingerprints; native verification remains deferred.",
+            ("Document.Pages", "Document.MasterPage", "Page.Layers", "Page.AllLayers")),
+        "document.page_organization": CapabilitySupport(True, "implemented_unverified", "Fingerprint-guarded page activation/rename and source-preserving appended empty pages; existing-page resize/reorder/deletion remain deferred.",
+            ("Document.AddPages", "Page.Activate", "Page.Name", "Page.SetSize")),
+        "document.layer_organization": CapabilitySupport(True, "implemented_unverified", "Fingerprint-guarded ordinary local layer creation/name/visible/editable/printable changes; master/special edits and cross-layer moves remain deferred.",
+            ("Page.CreateLayer", "Layer.Name", "Layer.Visible", "Layer.Editable", "Layer.Printable")),
         "vectors.contour_offsets": CapabilitySupport(True, "implemented_unverified", "Copied closed vectors produce separated editable contour derivatives with native distance/corner controls, complete owned-tree cleanup and measured source preservation; exact arbitrary-curve/cutting behavior remains deferred.",
             ("Shape.CreateContour", "Shape.Effects", "Effect.Contour", "Effect.Separate", "EffectContour.ContourGroup")),
         "appearance.gradient_inspection": CapabilitySupport(True, "implemented_unverified", "Bounded native stop/parameter/coordinate metadata and current-session fingerprints; missing getters remain explicit.",
