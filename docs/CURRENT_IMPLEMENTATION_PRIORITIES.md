@@ -28,6 +28,15 @@ authorize running live tests now or using existing client artwork as fixtures.
 
 ## Active delivery order
 
+**Autonomous delivery update — 2026-11-03:** The user authorized continued
+implementation and online capability research. Follow the immediate safety
+tickets below, then the evidence-backed workflow gaps in
+[CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md). Broader coverage includes
+typography/layout, reusable data-driven jobs, vectors/clipping/effects, production
+output, and component AI design/revisions. Continue independent work when an
+API/provider/output dependency is unresolved, retain bounded tests and honest
+capability status, and keep live verification deferred.
+
 ### 1. Reliable inspection and common-operation verification
 
 - INS-001 is implemented: bounded `find_objects` has explicit bound-document,

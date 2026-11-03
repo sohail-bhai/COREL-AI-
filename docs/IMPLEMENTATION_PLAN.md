@@ -373,6 +373,12 @@ macro escape hatch.
 
 ## 6. Immediate execution queue
 
+**Autonomous delivery update — 2026-11-03:** Continue these safety tickets and
+then the expanded workflow backlog in [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
+That research maps all 44 registered tools into 15 workflow families against
+12 official sources; it does not imply complete X7 support for modern features.
+Keep research dependencies explicit and implement evidenced batches autonomously.
+
 These are the next reviewable tickets:
 
 | Order | Ticket | Work | Acceptance |

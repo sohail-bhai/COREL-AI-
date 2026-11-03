@@ -1,0 +1,468 @@
+{
+  "schema_version": 1,
+  "research_date": "2026-11-03",
+  "profile_id": "coreldraw-x7-17",
+  "verification_policy": "deferred_consolidated_live_campaign",
+  "scope": "Workflow gaps guide implementation; this file does not register MCP tools.",
+  "sources": {
+    "x7_help": {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Welcome-to-CorelDRAW-Help.html",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
+    "x7_guide": {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/User-Guide/CorelDRAW-X7.pdf",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
+    "versions": {
+      "url": "https://www.coreldraw.com/en/product/coreldraw/compare/",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": false
+    },
+    "industries": {
+      "url": "https://www.coreldraw.com/en/licensing/industries/",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": false
+    },
+    "paragraph_api": {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/layer.createparagraphtext",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
+    "lookup_api": {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/shapes.findshape",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
+    "powerclip_api": {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/powerclip.shapes",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
+    "shapes_guide": {
+      "url": "https://community.coreldraw.com/sdk/w/guide/214/8-6---working-with-shapes",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": false
+    },
+    "merge": {
+      "url": "https://product.corel.com/help/CorelDRAW/Documentation-Windows/CorelDRAW-en/CorelDRAW-Print-merge.html",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": false
+    },
+    "layout": {
+      "url": "https://help.coreldraw.com/CorelDRAW/540111192/Documentation-Windows/CorelDRAW-en/CorelDRAW-Page-layout.html",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": false
+    },
+    "preflight": {
+      "url": "https://help.coreldraw.com/CorelDRAW/540111192/Documentation-Windows/CorelDRAW-en/CorelDRAW-PDF-preflight-summaries.html",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": false
+    },
+    "trace": {
+      "url": "https://product.corel.com/help/CorelDRAW/Documentation-Windows/CorelDRAW-en/CorelDRAW-Trace-bitmaps.html",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": false
+    }
+  },
+  "gaps": [
+    {
+      "id": "targeting",
+      "priority": "P0",
+      "coverage": "partial",
+      "registered_tools": [
+        "use_active_document",
+        "list_objects",
+        "find_objects",
+        "get_object_info",
+        "get_object_bounds",
+        "get_text_properties",
+        "get_fill"
+      ],
+      "missing_behavior": [
+        "Closed/replaced document detection",
+        "Session-scoped object references",
+        "Stale-object refusal"
+      ],
+      "source_ids": [
+        "lookup_api"
+      ],
+      "depends_on": [
+        "ID-001"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "recovery",
+      "priority": "P0",
+      "coverage": "partial",
+      "registered_tools": [
+        "execute_design_plan",
+        "prepare_imposition_job"
+      ],
+      "missing_behavior": [
+        "Redacted operation records",
+        "Explicit timeout/busy/unknown state",
+        "Guarded reconciliation and verified rollback"
+      ],
+      "source_ids": [
+        "x7_guide"
+      ],
+      "depends_on": [
+        "SAFE-001",
+        "SAFE-002"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "documents",
+      "priority": "P1",
+      "coverage": "partial",
+      "registered_tools": [
+        "corel_status",
+        "list_open_documents",
+        "create_document",
+        "get_document_info",
+        "list_pages",
+        "get_page_bounds",
+        "list_layers",
+        "save_document"
+      ],
+      "missing_behavior": [
+        "Controlled open/close and checkpoints",
+        "Page management",
+        "Layer visibility/editability and organization"
+      ],
+      "source_ids": [
+        "x7_help",
+        "x7_guide"
+      ],
+      "depends_on": [
+        "ID-001",
+        "SAFE-002"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "typography",
+      "priority": "P1",
+      "coverage": "partial",
+      "registered_tools": [
+        "add_text",
+        "set_text_content",
+        "get_text_properties"
+      ],
+      "missing_behavior": [
+        "Paragraph text",
+        "Font/size/style/alignment revisions",
+        "Spacing/font availability/overflow checks"
+      ],
+      "source_ids": [
+        "paragraph_api",
+        "x7_guide"
+      ],
+      "depends_on": [
+        "ID-001",
+        "SAFE-002"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "layout",
+      "priority": "P1",
+      "coverage": "partial",
+      "registered_tools": [
+        "move_object",
+        "resize_object",
+        "duplicate_object",
+        "rename_object",
+        "align_objects",
+        "align_to_page",
+        "group_shapes",
+        "ungroup_shapes"
+      ],
+      "missing_behavior": [
+        "Proportional scaling",
+        "Distribution/rotation/mirroring",
+        "Z-order and guide-aware layout"
+      ],
+      "source_ids": [
+        "x7_guide",
+        "layout"
+      ],
+      "depends_on": [
+        "ID-001",
+        "SAFE-002"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "vectors",
+      "priority": "P2",
+      "coverage": "partial",
+      "registered_tools": [
+        "draw_rectangle",
+        "draw_ellipse"
+      ],
+      "missing_behavior": [
+        "Bounded paths and node editing",
+        "Combine/break apart",
+        "Weld/trim/intersect and contour offsets"
+      ],
+      "source_ids": [
+        "shapes_guide",
+        "x7_guide"
+      ],
+      "depends_on": [
+        "ID-001",
+        "SAFE-002"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "appearance",
+      "priority": "P2",
+      "coverage": "partial",
+      "registered_tools": [
+        "set_fill_color",
+        "set_outline",
+        "get_fill"
+      ],
+      "missing_behavior": [
+        "Proven outline width units",
+        "Native CMYK/spot writes",
+        "Transparency/gradients and PowerClip"
+      ],
+      "source_ids": [
+        "powerclip_api",
+        "x7_guide"
+      ],
+      "depends_on": [
+        "ID-001",
+        "SAFE-002"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "images",
+      "priority": "P2",
+      "coverage": "partial",
+      "registered_tools": [
+        "import_artwork",
+        "plan_print_job",
+        "prepare_print_job"
+      ],
+      "missing_behavior": [
+        "General crop/background/cleanup",
+        "Resolution and derivative provenance",
+        "Bounded tracing and fidelity reporting"
+      ],
+      "source_ids": [
+        "trace",
+        "x7_guide"
+      ],
+      "depends_on": [
+        "SAFE-002"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "templates",
+      "priority": "P1",
+      "coverage": "partial",
+      "registered_tools": [
+        "plan_chest_number_batch",
+        "create_chest_number_batch"
+      ],
+      "missing_behavior": [
+        "Named-field template plans",
+        "CSV personalization",
+        "Missing/duplicate/overflow/count reconciliation"
+      ],
+      "source_ids": [
+        "merge",
+        "x7_guide"
+      ],
+      "depends_on": [
+        "ID-001",
+        "SAFE-002",
+        "typography"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "print_production",
+      "priority": "P1",
+      "coverage": "partial",
+      "registered_tools": [
+        "calculate_sheet_layout",
+        "classify_imposition_job",
+        "plan_contour_nesting",
+        "inspect_repeat_unit",
+        "prepare_contour_nesting",
+        "prepare_imposition_job",
+        "plan_print_job",
+        "prepare_print_job"
+      ],
+      "missing_behavior": [
+        "Actual multisheet and partial-sheet outputs",
+        "Bleed/margins/marks/page order",
+        "Unchanged source and copy/page-count checks"
+      ],
+      "source_ids": [
+        "layout",
+        "preflight",
+        "x7_guide"
+      ],
+      "depends_on": [
+        "SAFE-002",
+        "layout"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "export_prepress",
+      "priority": "P1",
+      "coverage": "partial",
+      "registered_tools": [
+        "save_document",
+        "export_pdf"
+      ],
+      "missing_behavior": [
+        "Controlled PDF settings",
+        "Parsed page/dimension/font checks",
+        "Color/spot/overprint and applicable production gates"
+      ],
+      "source_ids": [
+        "preflight",
+        "versions"
+      ],
+      "depends_on": [
+        "SAFE-002",
+        "print_production"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "specialty",
+      "priority": "P3",
+      "coverage": "missing",
+      "registered_tools": [],
+      "missing_behavior": [
+        "QR/barcode integrity",
+        "Cut/engrave/sign output requirements",
+        "Apparel separation/artwork preparation"
+      ],
+      "source_ids": [
+        "industries",
+        "versions"
+      ],
+      "depends_on": [
+        "vectors",
+        "appearance",
+        "export_prepress"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "ai_components",
+      "priority": "P2",
+      "coverage": "partial",
+      "registered_tools": [
+        "validate_design_plan",
+        "preview_design_plan",
+        "execute_design_plan"
+      ],
+      "missing_behavior": [
+        "Explicit image-provider boundary",
+        "Independent raster/vector/editable-text components",
+        "Targeted regeneration with source preservation"
+      ],
+      "source_ids": [
+        "versions",
+        "industries"
+      ],
+      "depends_on": [
+        "ID-001",
+        "SAFE-002",
+        "typography",
+        "images"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "redesign_history",
+      "priority": "P2",
+      "coverage": "missing",
+      "registered_tools": [],
+      "missing_behavior": [
+        "Size-aware reflow",
+        "Selective sufficient-resolution regeneration",
+        "Local revisions/diff/verified restoration"
+      ],
+      "source_ids": [
+        "layout",
+        "versions"
+      ],
+      "depends_on": [
+        "ai_components",
+        "layout",
+        "recovery"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    },
+    {
+      "id": "quality_routing",
+      "priority": "P2",
+      "coverage": "partial",
+      "registered_tools": [
+        "validate_design_plan",
+        "preview_design_plan",
+        "plan_print_job"
+      ],
+      "missing_behavior": [
+        "Job-intent/capability routing",
+        "Bounded correction loops and revision previews",
+        "Measured checks plus clearly identified visual evidence"
+      ],
+      "source_ids": [
+        "preflight",
+        "versions"
+      ],
+      "depends_on": [
+        "typography",
+        "export_prepress",
+        "redesign_history"
+      ],
+      "implementation_status": "queued",
+      "live_status": "deferred"
+    }
+  ]
+}

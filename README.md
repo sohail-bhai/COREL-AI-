@@ -7,6 +7,10 @@ A local MCP bridge that lets compatible AI clients operate CorelDRAW X7 through 
 - `PLAN.md` is the strategic staged roadmap.
 - `docs/IMPLEMENTATION_PLAN.md` is the prioritized future implementation plan with concrete
   implementation steps, milestone gates, and the immediate execution queue.
+- `docs/CAPABILITY_GAP_RESEARCH.md` compares online workflow research with the
+  current bridge and defines the broader autonomous delivery sequence.
+- `catalog/workflow_gaps.json` maps all registered tools into a source-backed
+  workflow gap backlog; it does not expose additional MCP tools.
 - `docs/capability_catalog.md` is the readable capability/status reference.
 - `catalog/mcp_tool_registry.json` is the machine-readable model-facing tool registry.
 - `catalog/coreldraw_x7_api_inventory.json` contains the current evidence-backed X7 API subset.
@@ -26,13 +30,17 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 221 default tests (seven guarded live gates skipped), disposable-document regressions, and a catalog consistency validator.
+- 256 default tests (eight guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Six implemented-unverified read-only inspection tools for open documents, target-document details, pages, page bounds, layers, and single objects.
 - Bounded `find_objects` inspection across pages, layers, and nested groups, with
   literal filters, duplicate-name retention, and explicit completeness limits;
   see [`docs/OBJECT_SEARCH.md`](docs/OBJECT_SEARCH.md).
+- Focused `get_object_bounds`, `get_text_properties`, and `get_fill` inspection
+  with strict selectors, bounded output, native color-model preservation, and
+  explicit unavailable/indeterminate properties; see
+  [`docs/OBJECT_INSPECTION.md`](docs/OBJECT_INSPECTION.md).
 - `calculate_sheet_layout`, a read-only N-up optimizer for upright, rotated, mixed-row, mixed-column, and sheet-orientation candidates, including per-edge/gripper allowances, waste, alternatives, and production-quantity math.
 - `plan_chest_number_batch`, a read-only preflight that validates ranges, preserves zero-padding, and optionally returns a complete sheet-fit and placement plan.
 - `plan_print_job`, a no-Corel preflight for one raster artwork: exact finished/sheet sizes, bleed and safe boxes, contain/cover/stretch geometry, effective DPI, best-fit imposition, sheet counts, waste, and per-copy rotation coordinates.
