@@ -293,12 +293,13 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "missing_behavior": [
-        "Node insertion/deletion and contour offsets",
+        "Contour offsets, adjacent deletion/fitting and open endpoint cropping",
         "General curve conversion and nested shaping inputs",
-        "Native closure, shaping appearance and compound fill-winding verification"
+        "Native closure/CopyAssign coordinates, shaping appearance and compound fill-winding verification"
       ],
       "source_ids": [
         "shapes_guide",
@@ -314,7 +315,10 @@
         "docs/VECTOR_EDITING.md",
         "docs/x7_vector_api_evidence.json",
         "tests/test_vector_geometry.py",
-        "docs/test-reports/2026-11-03-vector-editing-non-live.md"
+        "docs/test-reports/2026-11-03-vector-editing-non-live.md",
+        "docs/VECTOR_TOPOLOGY.md",
+        "tests/test_vector_topology.py",
+        "docs/test-reports/2026-11-03-vector-topology-non-live.md"
       ]
     },
     {

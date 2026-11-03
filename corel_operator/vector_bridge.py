@@ -5,6 +5,7 @@ from .errors import CorelBridgeError,ErrorCode
 from .native_tracking import tracked_mutation
 from .vector_geometry import (MAX_PATHS,MAX_SEGMENTS,MAX_NODES,normalize_paths,point,seal,
                               paths_match,paths_equivalent,path_equivalent,points_match,plan_curve_edits)
+from .vector_topology import plan_curve_topology
 
 
 class VectorBridgeMixin:
@@ -174,6 +175,18 @@ class VectorBridgeMixin:
             if shape.Type!=self.adapter.CDR_CURVE_SHAPE: self._layout_method(shape,'ConvertToCurves')
         return document,shapes
 
+    def _vector_free_curve(self,document,paths):
+        curve=self.app.CreateCurve(document)
+        for path in paths:
+            subpath=curve.CreateSubPath(path['start']['x'],path['start']['y'])
+            segments=path['segments'][:-1] if path['closed'] and path['segments'][-1]['type']=='line' else path['segments']
+            for segment in segments:
+                end=segment['end']
+                if segment['type']=='line': subpath.AppendLineSegment(end['x'],end['y'])
+                else: subpath.AppendCurveSegment2(end['x'],end['y'],segment['control1']['x'],segment['control1']['y'],segment['control2']['x'],segment['control2']['y'])
+            if path['closed']: subpath.Closed=True
+        return curve
+
     @tracked_mutation
     def create_vector_path(self,paths,object_name=''):
         normalized=normalize_paths(paths)
@@ -182,15 +195,7 @@ class VectorBridgeMixin:
         document=self._target_document()
         self._layout_method(self.app,'CreateCurve'); self._layout_method(document.ActivePage.ActiveLayer,'CreateCurve')
         def build(page,layer,state):
-            curve=self.app.CreateCurve(document)
-            for path in normalized:
-                subpath=curve.CreateSubPath(path['start']['x'],path['start']['y'])
-                segments=path['segments'][:-1] if path['closed'] and path['segments'][-1]['type']=='line' else path['segments']
-                for segment in segments:
-                    end=segment['end']
-                    if segment['type']=='line': subpath.AppendLineSegment(end['x'],end['y'])
-                    else: subpath.AppendCurveSegment2(end['x'],end['y'],segment['control1']['x'],segment['control1']['y'],segment['control2']['x'],segment['control2']['y'])
-                if path['closed']: subpath.Closed=True
+            curve=self._vector_free_curve(document,normalized)
             self._note_mutation(); shape=layer.CreateCurve(curve)
             self._vector_capture(document,page,layer,shape,state)
             self._name_shape(document,shape,object_name,'AI_Path')
@@ -198,6 +203,38 @@ class VectorBridgeMixin:
             if not paths_match(normalized,snapshot['paths']): raise CorelBridgeError('Native path geometry differs from the complete request.',ErrorCode.COREL_COM_ERROR)
             return [shape]
         return self._vector_owned_job(document,[],build)
+
+    @tracked_mutation
+    def revise_curve_topology(self,object_reference,expected_fingerprint,insertions=None,deletions=None,result_name=''):
+        if type(result_name) is not str or len(result_name)>120 or any(ord(c)<32 for c in result_name):
+            raise CorelBridgeError('result_name must be at most 120 characters without controls.',ErrorCode.INVALID_ARGUMENT)
+        document,sources=self._vector_inputs([object_reference],1,1); source=sources[0]
+        before,_=self._vector_snapshot(document,source,display=True)
+        if type(expected_fingerprint) is not str or expected_fingerprint!=before['fingerprint']:
+            raise CorelBridgeError('Source geometry changed; inspect before revising topology.',ErrorCode.INVALID_ARGUMENT)
+        planned=plan_curve_topology(before,insertions,deletions)
+        self._layout_method(self.app,'CreateCurve')
+        if source.Type==self.adapter.CDR_CURVE_SHAPE: self._layout_method(source.Curve,'CopyAssign')
+        appearance=(self._fill_readback(source),self._outline_readback(source))
+        def build(page,layer,state):
+            output=self._vector_clone(document,page,layer,source,state)
+            curve=self._vector_free_curve(document,planned['paths'])
+            self._note_mutation(); self._layout_method(output.Curve,'CopyAssign')(curve)
+            count=self._reference_count(output.Curve.Nodes)
+            if count!=planned['node_count']:
+                raise CorelBridgeError('Native revised node count differs from the complete topology plan.',ErrorCode.COREL_COM_ERROR)
+            for i in range(1,count+1):
+                self._note_mutation(); self._collection_item(output.Curve.Nodes,i).Type=self.adapter.NODE_TYPE_CODES['cusp']
+            self._name_shape(document,output,result_name,'AI_CurveRevision')
+            after,_=self._vector_snapshot(document,output)
+            if not paths_match(planned['paths'],after['paths']) or after['segment_count']!=planned['segment_count'] or any(code!=0 for types in after['node_types'] for code in types) or appearance!=(self._fill_readback(output),self._outline_readback(output)):
+                raise CorelBridgeError('Native revised geometry, node types or basic appearance differ from the complete plan.',ErrorCode.COREL_COM_ERROR)
+            return [output]
+        result=self._vector_owned_job(document,sources,build)
+        result['source_fingerprint']=before['fingerprint']
+        result['topology']={key:value for key,value in planned.items() if key!='paths'}
+        result['warnings'].append('Insertion uses curve parameter t; deletion follows explicit replacement geometry. Revised nodes are cusp; complex effects and visual fidelity need manual review.')
+        return result
 
     @tracked_mutation
     def edit_curve_geometry(self,expected_fingerprint,node_edits=None,handle_edits=None,convert_edited_nodes_to_cusp=False,

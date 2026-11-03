@@ -280,6 +280,52 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed,failure)
 
+    def test_vector_topology_revision_live(self) -> None:
+        """Deferred CopyAssign/subdivision/reconnection gate on its own fixtures."""
+        passed=False; failure=None
+        try:
+            self.status=self._step("connect",self.bridge.connect)
+            self._step("create topology fixture",lambda:self.bridge.create_document(8.5,11))
+            paths=[{'start':{'x':1,'y':1},'closed':True,'segments':[
+                {'type':'line','end':{'x':3,'y':1}},{'type':'line','end':{'x':3,'y':3}},
+                {'type':'line','end':{'x':1,'y':3}}]},
+                {'start':{'x':1,'y':4},'closed':False,'segments':[
+                    {'type':'cubic','control1':{'x':1,'y':6},'control2':{'x':5,'y':6},'end':{'x':5,'y':4}}]}]
+            created=self._step("topology source",lambda:self.bridge.create_vector_path(paths,"TopologySource"))
+            reference=created["objects"][0]["object"]["object_reference"]
+            self._step("source appearance",lambda:self.bridge.set_fill_color(50,140,80,object_reference=reference))
+            document=self.bridge.target_doc; source=self.bridge._find_shape(document,object_name="TopologySource")
+            signature=self.bridge._vector_source_signature(document,source)
+            before=self.bridge.get_curve_geometry(object_reference=reference)["curve"]
+            inserted=self._step("revise_curve_topology insertion",lambda:self.bridge.revise_curve_topology(reference,before["fingerprint"],
+                insertions=[{"subpath_index":2,"segment_index":1,"t":t} for t in (.25,.5,.75)],result_name="SubdividedCurve"))
+            self.assertEqual(inserted["topology"]["node_count"],9)
+            self.assertEqual(inserted["objects"][0]["curve"]["paths"][1]["segments"][1]["end"],{"x":3.,"y":5.5})
+            self.assertEqual(self.bridge._fill_readback(self.bridge._find_shape(document,object_name="SubdividedCurve")),signature["fill"])
+            deleted=self._step("revise_curve_topology deletion",lambda:self.bridge.revise_curve_topology(reference,before["fingerprint"],
+                deletions=[{"subpath_index":1,"node_index":1,"replacement":{"type":"cubic","control1":{"x":1,"y":2},"control2":{"x":2,"y":1}}}],
+                result_name="ReconnectedCurve"))
+            self.assertEqual(deleted["topology"]["deleted_count"],1); self.assertEqual(deleted["topology"]["node_count"],5)
+            self.assertEqual(self.bridge._vector_source_signature(document,source),signature)
+            self._step("rotate topology source",lambda:self.bridge.rotate_object(25,object_reference=reference))
+            rotated=self.bridge.get_curve_geometry(object_reference=reference)["curve"]
+            self._step("rotated CopyAssign coordinates",lambda:self.bridge.revise_curve_topology(reference,rotated["fingerprint"],
+                insertions=[{"subpath_index":2,"segment_index":1,"t":.5}],result_name="RotatedSubdivision"))
+            box=self._step("primitive source",lambda:self.bridge.draw_rectangle(5,7,1,1,"PrimitiveTopology"))
+            box_ref=self.bridge.get_object_info(object_name=box["object_name"])["object"]["object_reference"]
+            geometry=self.bridge.get_curve_geometry(object_reference=box_ref)["curve"]
+            primitive=self._step("primitive CopyAssign",lambda:self.bridge.revise_curve_topology(box_ref,geometry["fingerprint"],
+                insertions=[{"subpath_index":1,"segment_index":1,"t":.5}],result_name="PrimitiveSubdivision"))
+            self.assertEqual(primitive["objects"][0]["curve"]["node_count"],5)
+            self.assertFalse(self.bridge.get_curve_geometry(object_reference=box_ref)["editable"])
+            self._step("save topology fixture",lambda:self.bridge.save_document(str(self.output_dir/"vector-topology.cdr")))
+            self._step("export topology fixture",lambda:self.bridge.export_pdf_controlled(str(self.output_dir/"vector-topology.pdf")))
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed,failure)
+
     def test_document_inspection_live(self) -> None:
         """Consolidated inspection checks on a synthetic document with two pages."""
         passed=False; failure=None

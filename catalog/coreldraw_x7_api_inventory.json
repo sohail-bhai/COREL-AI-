@@ -263,7 +263,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_application",
@@ -407,7 +408,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "guarded_imposition_live_fixture",
-        "create_vector_path"
+        "create_vector_path",
+        "revise_curve_topology"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -582,7 +584,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_document",
@@ -618,7 +621,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_document",
@@ -656,7 +660,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_document",
@@ -971,7 +976,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_page",
@@ -1007,7 +1013,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_page",
@@ -1294,7 +1301,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1370,7 +1378,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "guarded_imposition_live_fixture",
-        "create_vector_path"
+        "create_vector_path",
+        "revise_curve_topology"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -1469,7 +1478,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1509,7 +1519,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1546,7 +1557,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1587,7 +1599,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1626,7 +1639,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1662,7 +1676,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1695,7 +1710,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1728,7 +1744,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1761,7 +1778,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1794,7 +1812,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1908,7 +1927,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1981,7 +2001,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "guarded_imposition_live_fixture",
-        "create_vector_path"
+        "create_vector_path",
+        "revise_curve_topology"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -1997,7 +2018,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "guarded_imposition_live_fixture",
-        "create_vector_path"
+        "create_vector_path",
+        "revise_curve_topology"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2019,7 +2041,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3103,7 +3126,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3129,7 +3153,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3156,7 +3181,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3330,7 +3356,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3351,7 +3378,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3372,7 +3400,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3809,7 +3838,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3830,7 +3860,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3851,7 +3882,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3872,7 +3904,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3893,7 +3926,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3914,7 +3948,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3935,7 +3970,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3956,7 +3992,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3977,7 +4014,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3998,7 +4036,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4019,7 +4058,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4040,7 +4080,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4061,7 +4102,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4082,7 +4124,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4103,7 +4146,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4123,7 +4167,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4144,7 +4189,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4164,7 +4210,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4185,7 +4232,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4201,7 +4249,8 @@
       "signature": "AppendCurveSegment2, x, y, StartingControlPointX, StartingControlPointY, EndingControlPointX, EndingControlPointY, AppendAtBeginning",
       "status": "typelib_confirmed",
       "used_by": [
-        "create_vector_path"
+        "create_vector_path",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4222,7 +4271,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4243,7 +4293,8 @@
         "edit_curve_geometry",
         "boolean_shapes",
         "combine_vector_shapes",
-        "break_apart_curve"
+        "break_apart_curve",
+        "revise_curve_topology"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4425,6 +4476,22 @@
         "x7_vector_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shaperange.item",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Curve.CopyAssign",
+      "owner": "Curve",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "CopyAssign, Source",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "revise_curve_topology"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/curve.copyassign",
       "live_test_status": "not_run_deferred"
     }
   ]

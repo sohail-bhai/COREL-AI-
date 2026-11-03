@@ -9043,6 +9043,277 @@
         },
         "duration_ms": 1.0
       }
+    },
+    "revise_curve_topology": {
+      "request": {
+        "object_reference": {
+          "version": 1,
+          "bridge_session_id": "ed5fb805130c062ef736b7ecb1b51e82",
+          "document_session_id": "doc-0001",
+          "page_identity": "0dd0f82c5e858dde46cc84945892c7cb3971d52a723d74e589e684cb923ff322",
+          "layer_identity": "e554afe8cadbb7b90fec2e7efe5f798498d467cccd23662b83b8bf009f50756e",
+          "ancestor_identities": [],
+          "shape_identity": "2ff3d14192bdef2777829b40b78f482b0e32efa673d0615cb65fad8a1eaf8f8c",
+          "static_id": 100,
+          "object_name": "TopologySource",
+          "shape_type_code": 3,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            1
+          ],
+          "signature": "ee63ebe1c49ca736218dcb23a103b5a1445322161c51c734b71544a12a7bc39b"
+        },
+        "expected_fingerprint": "10084151ab124a0c677d027037484e1d35ebdbef1ee5e875d66b5d60d72b2462",
+        "insertions": [
+          {
+            "subpath_index": 2,
+            "segment_index": 1,
+            "t": 0.5
+          }
+        ]
+      },
+      "success": {
+        "ok": true,
+        "tool": "revise_curve_topology",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "empty_result": false,
+          "created_count": 1,
+          "objects": [
+            {
+              "object": {
+                "object_name": "AI_CurveRevision_001",
+                "static_id": 101,
+                "shape_type_code": 3,
+                "layer_name": "Vectors",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:101",
+                "shape_index": 2,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "ed5fb805130c062ef736b7ecb1b51e82",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "0dd0f82c5e858dde46cc84945892c7cb3971d52a723d74e589e684cb923ff322",
+                  "layer_identity": "e554afe8cadbb7b90fec2e7efe5f798498d467cccd23662b83b8bf009f50756e",
+                  "ancestor_identities": [],
+                  "shape_identity": "ee2f16bf7e5d9156b608dc0b88d45aacd0328c61b12ec58bc5e101a1aebe4c96",
+                  "static_id": 101,
+                  "object_name": "AI_CurveRevision_001",
+                  "shape_type_code": 3,
+                  "page_index": 1,
+                  "layer_index": 2,
+                  "shape_path": [
+                    2
+                  ],
+                  "signature": "777d9a5712ace262b574b6be06173131afbd28f157ae2501a809fc94476dc9d1"
+                }
+              },
+              "curve": {
+                "schema": "curve-geometry-v1",
+                "shape_identity": "ee2f16bf7e5d9156b608dc0b88d45aacd0328c61b12ec58bc5e101a1aebe4c96",
+                "document_session_id": "doc-0001",
+                "paths": [
+                  {
+                    "start": {
+                      "x": 0.0,
+                      "y": 0.0
+                    },
+                    "segments": [
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 2.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 2.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 0.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      }
+                    ],
+                    "closed": true
+                  },
+                  {
+                    "start": {
+                      "x": 0.0,
+                      "y": 0.0
+                    },
+                    "segments": [
+                      {
+                        "type": "cubic",
+                        "end": {
+                          "x": 2.0,
+                          "y": 3.0
+                        },
+                        "control1": {
+                          "x": 0.0,
+                          "y": 2.0
+                        },
+                        "control2": {
+                          "x": 1.0,
+                          "y": 3.0
+                        }
+                      },
+                      {
+                        "type": "cubic",
+                        "end": {
+                          "x": 4.0,
+                          "y": 0.0
+                        },
+                        "control1": {
+                          "x": 3.0,
+                          "y": 3.0
+                        },
+                        "control2": {
+                          "x": 4.0,
+                          "y": 2.0
+                        }
+                      }
+                    ],
+                    "closed": false
+                  }
+                ],
+                "node_types": [
+                  [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "node_count": 7,
+                "segment_count": 6,
+                "bounds_inches": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 4.0,
+                  "height": 3.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "fingerprint": "5d82c034adc31b40dd6f7f792ba534c39424d9526d812242e9c473653d3bb741"
+              },
+              "editable": true,
+              "representation": "native_curve",
+              "verification_status": "implemented_unverified"
+            }
+          ],
+          "source_preservation": {
+            "verified": true,
+            "scope": "root_membership_relative_order_measured_input_geometry_basic_appearance"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Native geometry is read back; visual appearance and production readiness remain unverified.",
+            "Insertion uses curve parameter t; deletion follows explicit replacement geometry. Revised nodes are cusp; complex effects and visual fidelity need manual review."
+          ],
+          "source_fingerprint": "10084151ab124a0c677d027037484e1d35ebdbef1ee5e875d66b5d60d72b2462",
+          "topology": {
+            "node_count": 7,
+            "segment_count": 6,
+            "inserted_count": 1,
+            "deleted_count": 0,
+            "inserted_nodes": [
+              {
+                "subpath_index": 2,
+                "segment_index": 1,
+                "t": 0.5,
+                "result_node_index": 2
+              }
+            ],
+            "deleted_nodes": [],
+            "retained_node_map": [
+              {
+                "subpath_index": 1,
+                "node_index": 1,
+                "result_node_index": 1
+              },
+              {
+                "subpath_index": 1,
+                "node_index": 2,
+                "result_node_index": 2
+              },
+              {
+                "subpath_index": 1,
+                "node_index": 3,
+                "result_node_index": 3
+              },
+              {
+                "subpath_index": 1,
+                "node_index": 4,
+                "result_node_index": 4
+              },
+              {
+                "subpath_index": 2,
+                "node_index": 1,
+                "result_node_index": 1
+              },
+              {
+                "subpath_index": 2,
+                "node_index": 2,
+                "result_node_index": 3
+              }
+            ],
+            "geometry_changed": false,
+            "output_node_type": "cusp"
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "revise_curve_topology",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Topology revision was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
     }
   },
   "tools": [
@@ -20015,6 +20286,476 @@
         "64 subpaths/1000 segments/2000 nodes; source-preserving shaping requires exact root inputs on one page/layer.",
         "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
         "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "revise_curve_topology",
+      "category": "vectors",
+      "description": "Insert source-indexed line/cubic nodes or reconnect deleted nodes in an independent editable curve revision.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.revise_curve_topology"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_reference": {
+            "$ref": "#/schema_definitions/object_reference"
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "insertions": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "subpath_index": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "segment_index": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1000
+                    },
+                    "t": {
+                      "type": "number",
+                      "minimum": 1e-06,
+                      "maximum": 0.999999
+                    }
+                  },
+                  "required": [
+                    "subpath_index",
+                    "segment_index",
+                    "t"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "deletions": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "subpath_index": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "node_index": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 2000
+                    },
+                    "replacement": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "line"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "cubic"
+                            },
+                            "control1": {
+                              "$ref": "#/schema_definitions/vector_point_inches"
+                            },
+                            "control2": {
+                              "$ref": "#/schema_definitions/vector_point_inches"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "control1",
+                            "control2"
+                          ],
+                          "additionalProperties": false
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "subpath_index",
+                    "node_index",
+                    "replacement"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "result_name": {
+            "type": "string",
+            "maxLength": 120,
+            "default": ""
+          }
+        },
+        "required": [
+          "object_reference",
+          "expected_fingerprint"
+        ],
+        "additionalProperties": false,
+        "anyOf": [
+          {
+            "required": [
+              "insertions"
+            ],
+            "properties": {
+              "insertions": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          },
+          {
+            "required": [
+              "deletions"
+            ],
+            "properties": {
+              "deletions": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "empty_result": {
+                      "const": false
+                    },
+                    "created_count": {
+                      "const": 1
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/schema_definitions/curve_inspection"
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    },
+                    "source_preservation": {
+                      "type": "object",
+                      "properties": {
+                        "verified": {
+                          "const": true
+                        },
+                        "scope": {
+                          "const": "root_membership_relative_order_measured_input_geometry_basic_appearance"
+                        }
+                      },
+                      "required": [
+                        "verified",
+                        "scope"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    },
+                    "source_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "topology": {
+                      "type": "object",
+                      "properties": {
+                        "node_count": {
+                          "type": "integer",
+                          "minimum": 2,
+                          "maximum": 2000
+                        },
+                        "segment_count": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 1000
+                        },
+                        "inserted_count": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 200
+                        },
+                        "deleted_count": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 200
+                        },
+                        "inserted_nodes": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "subpath_index": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 64
+                              },
+                              "segment_index": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 1000
+                              },
+                              "t": {
+                                "type": "number",
+                                "minimum": 1e-06,
+                                "maximum": 0.999999
+                              },
+                              "result_node_index": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 2000
+                              }
+                            },
+                            "required": [
+                              "subpath_index",
+                              "segment_index",
+                              "t",
+                              "result_node_index"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 0,
+                          "maxItems": 200
+                        },
+                        "deleted_nodes": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "subpath_index": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 64
+                              },
+                              "node_index": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 2000
+                              }
+                            },
+                            "required": [
+                              "subpath_index",
+                              "node_index"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 0,
+                          "maxItems": 200
+                        },
+                        "retained_node_map": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "subpath_index": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 64
+                              },
+                              "node_index": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 2000
+                              },
+                              "result_node_index": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 2000
+                              }
+                            },
+                            "required": [
+                              "subpath_index",
+                              "node_index",
+                              "result_node_index"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 0,
+                          "maxItems": 2000
+                        },
+                        "geometry_changed": {
+                          "type": "boolean"
+                        },
+                        "output_node_type": {
+                          "const": "cusp"
+                        }
+                      },
+                      "required": [
+                        "node_count",
+                        "segment_count",
+                        "inserted_count",
+                        "deleted_count",
+                        "inserted_nodes",
+                        "deleted_nodes",
+                        "retained_node_map",
+                        "geometry_changed",
+                        "output_node_type"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "empty_result",
+                    "created_count",
+                    "objects",
+                    "source_preservation",
+                    "verification_status",
+                    "warnings",
+                    "source_fingerprint",
+                    "topology"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateCurve",
+        "Application.Documents",
+        "Curve.CopyAssign",
+        "Curve.CreateSubPath",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.CreateCurve",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.ConvertToCurves",
+        "Shape.Curve",
+        "Shape.Delete",
+        "Shape.DisplayCurve",
+        "Shape.Duplicate",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "SubPath.AppendCurveSegment2",
+        "SubPath.AppendLineSegment",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_vector_topology.py",
+          "docs/VECTOR_TOPOLOGY.md",
+          "docs/x7_vector_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native Curve.CopyAssign coordinate/transform/closure semantics await the consolidated live gate.",
+        "200 edits, 1000 output segments; indices refer to the current fingerprinted source. Outputs have cusp nodes and copied basic appearance.",
+        "Insertion t is a Bezier parameter, not arc length. Deletion requires explicit line/cubic controls; adjacent removals and open endpoint cropping are separate work.",
+        "Root inputs only on one page/layer; original geometry/basic appearance is preserved. Complex effects and visual fidelity require manual review."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

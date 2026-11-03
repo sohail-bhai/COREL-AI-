@@ -136,6 +136,8 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "vector.revise_topology": CapabilitySupport(True,"implemented_unverified","Source-preserving parameter subdivision and explicit nonadjacent node reconnection with complete native geometry/appearance readback.",
+            ("Curve.CopyAssign","Shape.Duplicate","Node.Type")),
         "vector.create_path": CapabilitySupport(True,"implemented_unverified","Bounded editable line/cubic subpaths with complete native geometry readback; live gate pending.",
             ("Application.CreateCurve","Curve.CreateSubPath","SubPath.AppendLineSegment","SubPath.AppendCurveSegment2","Layer.CreateCurve")),
         "vector.inspect_geometry": CapabilitySupport(True,"implemented_unverified","Native node/handle topology and read-only primitive display curves are fingerprinted for exact targeting.",

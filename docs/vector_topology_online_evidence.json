@@ -1,0 +1,26 @@
+{
+  "browser_used": false,
+  "sources": [
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/curve.copyassign?lang=cli",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "excerpts": [],
+      "api_content_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/segment.addnodeat?lang=cli",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "excerpts": [],
+      "api_content_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/node.delete?lang=cli",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "excerpts": [],
+      "api_content_found": false
+    }
+  ]
+}

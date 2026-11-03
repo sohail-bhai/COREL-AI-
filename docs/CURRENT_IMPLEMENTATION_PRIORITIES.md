@@ -59,7 +59,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 67
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 68
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -81,7 +81,7 @@ capability status, and keep live verification deferred.
   Owned-output cleanup, final row readback and measured source preservation are
   covered. See [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md).
 - Controlled zero-bleed PDF export and local page/font inspection are implemented
-  with 22 focused checks and a deferred native gate. All 67 tools are included in
+  with 22 focused checks and a deferred native gate. All 68 tools are included in
   the consolidated coverage inventory. See [PDF_PRODUCTION.md](PDF_PRODUCTION.md)
   and [CONSOLIDATED_LIVE_VERIFICATION.md](CONSOLIDATED_LIVE_VERIFICATION.md).
 - General vectors are implemented: line/cubic creation, full geometry inspection,
@@ -89,7 +89,11 @@ capability status, and keep live verification deferred.
   pass 33 focused checks. Source geometry/appearance and owned-output cleanup are
   verified in non-live tests. Native closure, shaping and winding remain deferred.
   See [VECTOR_EDITING.md](VECTOR_EDITING.md).
-- Next: node topology, contour offsets, appearance/clipping and broader prepress;
+- Source-preserving node insertion/deletion revisions are implemented with
+  exact line/cubic subdivision, explicit reconnection and full node mapping.
+  Twenty-two focused checks and the full non-live suite pass. CopyAssign native
+  coordinates/closure and visual review remain deferred. See [VECTOR_TOPOLOGY.md](VECTOR_TOPOLOGY.md).
+- Next: contour offsets, appearance/clipping and broader prepress;
   spacing/fitting, layer organization and existing-document checkpoints remain gaps.
 
 **Gate:** The intended object can be found and inspected without mutation;

@@ -71,8 +71,10 @@ The disposable gate is
 `CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live`. It creates
 its own CDR/PDF fixtures and is not run during implementation.
 
-Node insertion/deletion, generic curve conversion/editing of nested shaping
-inputs, contour offsets and broader appearance/clipping remain in the backlog.
+Source-preserving node insertion/explicit deletion is implemented separately in
+[VECTOR_TOPOLOGY.md](VECTOR_TOPOLOGY.md). Adjacent deletion/fitting, open endpoint
+cropping, generic conversion/nested shaping, offsets and broader appearance/clipping
+remain in the backlog.
 
 Primary references:
 

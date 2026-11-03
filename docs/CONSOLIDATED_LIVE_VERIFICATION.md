@@ -24,7 +24,9 @@ raster print placement, contour/imposition, text templates/CSV and controlled
 PDF output, editable line/cubic paths, node/handle edits and source-preserving
 shaping/compound curves. The vector gate explicitly covers native closure,
 primitive display curves, cleanup and source preservation; manual fill-winding
-and visual review remain required. Recovery gates cover synthetic partial/late failures; real modal
+and visual review remain required. The separate topology gate covers line/cubic
+subdivision, explicit reconnection, primitive/rotated CopyAssign coordinates and
+copied basic appearance. Recovery gates cover synthetic partial/late failures; real modal
 and busy behavior still needs controlled observation during the later session.
 
 Use `tests/integration/test_corel_live.py` with explicit live and disposable

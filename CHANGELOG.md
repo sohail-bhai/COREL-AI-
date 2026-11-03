@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Source-preserving node topology revisions: exact line/cubic subdivision,
+  explicit nonadjacent-node reconnection and source-to-output node mapping.
+  Owned CopyAssign outputs retain basic fill/outline with verified cusp types;
+  assignment/copy/cleanup failures and source corruption have recovery coverage.
+  Twenty-two focused checks pass, including independent curve-polynomial samples.
+  The surface has 68 registered tools; 513 checks pass and 20 live gates are
+  deferred. Native CopyAssign coordinates/closure and visual review remain pending.
 - Six general vector tools: editable line/cubic paths, complete geometry and
   fingerprint-guarded nodes/handles, source-preserving weld/trim/intersect,
   combine and break-apart. Thirty-three focused checks cover topology, handle

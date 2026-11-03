@@ -77,6 +77,13 @@ class Curve:
     def Segments(self): return Collection(*[segment for path in self.paths for segment in path.segments])
     def CreateSubPath(self,x,y):
         path=SubPath(self.app,x,y); self.paths.append(path); return path
+    def CopyAssign(self,source):
+        if self.app.copy_assign_failure: raise RuntimeError('Private C:/secret/source.cdr')
+        if self.app.ignore_copy_assign: return
+        replacement=Curve.from_paths(self.app,[path.data() for path in source.paths])
+        self.paths=replacement.paths
+        if self.app.corrupt_copy_assign: self.paths[0].nodes[0].PositionX+=.1
+        if self.app.mutate_original: self.app.original.curve.paths[0].nodes[0].PositionX+=.1
     @classmethod
     def from_paths(cls,app,paths):
         curve=cls(app)
@@ -181,6 +188,7 @@ class App(BaseApp):
         super().__init__(); self.ignore_move=False; self.reuse_duplicate=False; self.share_curve=False; self.fail_delete=False
         self.boolean_failure=False; self.mutate_original=False; self.extra_output=False; self.corrupt_combined=False
         self.return_existing_shape=False; self.calls=[]; self.duplicates=[]
+        self.copy_assign_failure=False; self.ignore_copy_assign=False; self.corrupt_copy_assign=False
     def CreateCurve(self,document): return Curve(self)
     def CreateShapeRange(self): return Range()
 

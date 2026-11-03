@@ -534,6 +534,21 @@ def create_vector_path(paths: list[dict],object_name: str="") -> dict:
 
 @mcp.tool()
 @recorded_operation
+def revise_curve_topology(object_reference: dict,expected_fingerprint: str,insertions: list[dict] | None=None,
+    deletions: list[dict] | None=None,result_name: str="") -> dict:
+    """Insert/delete nodes on an independent source-preserving curve revision.
+
+    Insertions use inspected subpath_index/segment_index and curve parameter t.
+    Deletions use nonadjacent interior node_index and explicit line/cubic replacement
+    controls. Indices refer to the fingerprinted source; revised nodes are cusp.
+    Returns the full actual curve and retained/inserted node mapping. Limits: 200 edits.
+    """
+    return _tool("revise_curve_topology","revise_curve_topology",object_reference,expected_fingerprint,
+        insertions,deletions,result_name)
+
+
+@mcp.tool()
+@recorded_operation
 def get_curve_geometry(object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
     """Inspect exact bounded nodes and line/cubic handles with a curve fingerprint.
 

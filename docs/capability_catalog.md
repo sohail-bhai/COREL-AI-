@@ -44,7 +44,7 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 67 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 68 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
@@ -64,8 +64,11 @@ pending.
 Six [vector tools](VECTOR_EDITING.md) now create line/cubic paths, inspect full
 geometry, edit fingerprint-guarded nodes/handles and make source-preserving
 shaping/compound derivatives. Thirty-three focused checks pass. Native closure,
-shaping appearance and fill winding await the consolidated gate. Node topology,
-contour offsets and clipping remain broader work.
+shaping appearance and fill winding await the consolidated gate. The additional
+[topology revision tool](VECTOR_TOPOLOGY.md) inserts nodes through exact line/cubic
+subdivision and deletes nonadjacent nodes through explicit reconnection geometry,
+preserving the source. Twenty-two focused checks pass. Adjacent deletion/fitting,
+endpoint cropping, contour offsets and clipping remain broader work.
 
 ## Evidence hierarchy
 
