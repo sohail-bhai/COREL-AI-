@@ -232,6 +232,54 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return report_path
 
+    def test_vector_editing_and_shaping_live(self) -> None:
+        """Deferred native curve, node/handle and source-preserving shaping gate."""
+        passed=False; failure=None
+        try:
+            self.status=self._step("connect",self.bridge.connect)
+            self._step("create vector fixture",lambda:self.bridge.create_document(8.5,11))
+            paths=[{'start':{'x':1,'y':1},'closed':True,'segments':[
+                {'type':'line','end':{'x':3,'y':1}},{'type':'line','end':{'x':3,'y':3}},
+                {'type':'line','end':{'x':1,'y':3}}]},
+                {'start':{'x':4,'y':1},'closed':False,'segments':[
+                    {'type':'cubic','control1':{'x':4,'y':3},'control2':{'x':6,'y':3},'end':{'x':6,'y':1}}]}]
+            created=self._step("create_vector_path",lambda:self.bridge.create_vector_path(paths,"VectorSource"))
+            reference=created["objects"][0]["object"]["object_reference"]
+            inspected=self._step("get_curve_geometry",lambda:self.bridge.get_curve_geometry(object_reference=reference))
+            self.assertEqual(inspected["curve"]["segment_count"],5); self.assertEqual(inspected["curve"]["node_count"],6)
+            edited=self._step("edit_curve_geometry",lambda:self.bridge.edit_curve_geometry(inspected["curve"]["fingerprint"],
+                node_edits=[{"subpath_index":2,"node_index":1,"position":{"x":4.25,"y":1.25}}],
+                handle_edits=[{"subpath_index":2,"segment_index":1,"control2":{"x":5.75,"y":3.25}}],
+                convert_edited_nodes_to_cusp=True,object_reference=reference))
+            self.assertEqual(edited["curve"]["paths"][1]["start"],{"x":4.25,"y":1.25})
+            self._step("vector source color",lambda:self.bridge.set_fill_color(30,80,180,object_reference=reference))
+            a=self._step("boolean source rectangle",lambda:self.bridge.draw_rectangle(1,5,2,2,"BooleanSource"))
+            b=self._step("boolean target rectangle",lambda:self.bridge.draw_rectangle(2,5,2,2,"BooleanTarget"))
+            a_ref=self.bridge.get_object_info(object_name=a["object_name"])["object"]["object_reference"]
+            b_ref=self.bridge.get_object_info(object_name=b["object_name"])["object"]["object_reference"]
+            a_before=self.bridge._vector_source_signature(self.bridge.target_doc,self.bridge._find_shape(self.bridge.target_doc,object_name=a["object_name"]))
+            for operation,width in (("weld",3),("trim",1),("intersect",1)):
+                result=self._step("boolean_shapes "+operation,lambda:self.bridge.boolean_shapes(operation,a_ref,b_ref,"Boolean_"+operation))
+                self.assertEqual(result["created_count"],1); self.assertTrue(result["source_preservation"]["verified"])
+                self.assertAlmostEqual(result["objects"][0]["curve"]["bounds_inches"]["width"],width,delta=.001)
+            self.assertEqual(a_before,self.bridge._vector_source_signature(self.bridge.target_doc,self.bridge._find_shape(self.bridge.target_doc,object_name=a["object_name"])))
+            combined=self._step("combine_vector_shapes",lambda:self.bridge.combine_vector_shapes([reference,b_ref],"CompoundVector"))
+            self.assertEqual(len(combined["objects"][0]["curve"]["paths"]),3)
+            split=self._step("break_apart_curve",lambda:self.bridge.break_apart_curve(combined["objects"][0]["object"]["object_reference"],"VectorPart"))
+            self.assertEqual(split["created_count"],3); self.assertTrue(split["source_preservation"]["verified"])
+            closed_cubic=[{'start':{'x':1,'y':8},'closed':True,'segments':[
+                {'type':'cubic','control1':{'x':1,'y':9},'control2':{'x':3,'y':9},'end':{'x':3,'y':8}},
+                {'type':'cubic','control1':{'x':3,'y':7},'control2':{'x':1,'y':7},'end':{'x':1,'y':8}}]}]
+            loop=self._step("closed cubic closure",lambda:self.bridge.create_vector_path(closed_cubic,"ClosedCubic"))
+            self.assertEqual(loop["objects"][0]["curve"]["node_count"],2)
+            self._step("save vector fixture",lambda:self.bridge.save_document(str(self.output_dir/"vector-coverage.cdr")))
+            self._step("export vector fixture",lambda:self.bridge.export_pdf_controlled(str(self.output_dir/"vector-coverage.pdf")))
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed,failure)
+
     def test_document_inspection_live(self) -> None:
         """Consolidated inspection checks on a synthetic document with two pages."""
         passed=False; failure=None

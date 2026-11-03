@@ -268,6 +268,12 @@ def validate() -> dict[str, int]:
         ("cdrFlipAxes", "values", "cdrFlipHorizontal"): CorelX7Adapter.FLIP_AXES["horizontal"],
         ("cdrFlipAxes", "values", "cdrFlipVertical"): CorelX7Adapter.FLIP_AXES["vertical"],
         ("cdrFlipAxes", "values", "cdrFlipBoth"): CorelX7Adapter.FLIP_AXES["both"],
+        ("cdrShapeType", "values", "cdrCurveShape"): CorelX7Adapter.CDR_CURVE_SHAPE,
+        ("cdrNodeType", "values", "cdrCuspNode"): CorelX7Adapter.NODE_TYPE_CODES['cusp'],
+        ("cdrNodeType", "values", "cdrSmoothNode"): CorelX7Adapter.NODE_TYPE_CODES['smooth'],
+        ("cdrNodeType", "values", "cdrSymmetricalNode"): CorelX7Adapter.NODE_TYPE_CODES['symmetrical'],
+        ("cdrSegmentType", "values", "cdrLineSegment"): CorelX7Adapter.SEGMENT_TYPE_CODES['line'],
+        ("cdrSegmentType", "values", "cdrCurveSegment"): CorelX7Adapter.SEGMENT_TYPE_CODES['cubic'],
     }
     for (enum_name, values_key, value_name), expected in expected_constants.items():
         actual = enums.get(enum_name, {}).get(values_key, {}).get(value_name)

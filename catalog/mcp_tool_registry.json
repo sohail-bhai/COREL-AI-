@@ -2572,6 +2572,205 @@
         "warnings"
       ],
       "additionalProperties": false
+    },
+    "vector_point_inches": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "y": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "additionalProperties": false
+    },
+    "vector_segment": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "line"
+            },
+            "end": {
+              "$ref": "#/schema_definitions/vector_point_inches"
+            }
+          },
+          "required": [
+            "type",
+            "end"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "cubic"
+            },
+            "end": {
+              "$ref": "#/schema_definitions/vector_point_inches"
+            },
+            "control1": {
+              "$ref": "#/schema_definitions/vector_point_inches"
+            },
+            "control2": {
+              "$ref": "#/schema_definitions/vector_point_inches"
+            }
+          },
+          "required": [
+            "type",
+            "end",
+            "control1",
+            "control2"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "vector_path": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "#/schema_definitions/vector_point_inches"
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/vector_segment"
+          },
+          "minItems": 1,
+          "maxItems": 1000
+        },
+        "closed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "start",
+        "segments",
+        "closed"
+      ],
+      "additionalProperties": false
+    },
+    "curve_geometry": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "curve-geometry-v1"
+        },
+        "shape_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "document_session_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/vector_path"
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        "node_types": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "enum": [
+                0,
+                1,
+                2
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 2000
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        "node_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "segment_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "bounds_inches": {
+          "$ref": "#/schema_definitions/layout_bounds_inches"
+        },
+        "matrix": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 6,
+          "maxItems": 6
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema",
+        "shape_identity",
+        "document_session_id",
+        "paths",
+        "node_types",
+        "node_count",
+        "segment_count",
+        "bounds_inches",
+        "matrix",
+        "fingerprint"
+      ],
+      "additionalProperties": false
+    },
+    "curve_inspection": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "$ref": "#/schema_definitions/inspection_identity"
+        },
+        "curve": {
+          "$ref": "#/schema_definitions/curve_geometry"
+        },
+        "editable": {
+          "type": "boolean"
+        },
+        "representation": {
+          "enum": [
+            "native_curve",
+            "display_curve"
+          ]
+        },
+        "verification_status": {
+          "const": "implemented_unverified"
+        }
+      },
+      "required": [
+        "object",
+        "curve",
+        "editable",
+        "representation",
+        "verification_status"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -7702,6 +7901,1144 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "PDF request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "create_vector_path": {
+      "request": {
+        "paths": [
+          {
+            "start": {
+              "x": 0,
+              "y": 0
+            },
+            "closed": false,
+            "segments": [
+              {
+                "type": "cubic",
+                "end": {
+                  "x": 2,
+                  "y": 0
+                },
+                "control1": {
+                  "x": 0,
+                  "y": 2
+                },
+                "control2": {
+                  "x": 2,
+                  "y": 2
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "success": {
+        "ok": true,
+        "tool": "create_vector_path",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "empty_result": false,
+          "created_count": 1,
+          "objects": [
+            {
+              "object": {
+                "object_name": "New",
+                "static_id": 102,
+                "shape_type_code": 3,
+                "layer_name": "Vectors",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:102",
+                "shape_index": 3,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+                  "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+                  "ancestor_identities": [],
+                  "shape_identity": "d769b106a0612eb15569cc8399b9e79080e4846c11ab1ad8b73be7849da05987",
+                  "static_id": 102,
+                  "object_name": "New",
+                  "shape_type_code": 3,
+                  "page_index": 1,
+                  "layer_index": 2,
+                  "shape_path": [
+                    3
+                  ],
+                  "signature": "9a9471d8f2c8ae8fd48cdd1a1056b82581135acc339abb310f02944ae87a6014"
+                }
+              },
+              "curve": {
+                "schema": "curve-geometry-v1",
+                "shape_identity": "d769b106a0612eb15569cc8399b9e79080e4846c11ab1ad8b73be7849da05987",
+                "document_session_id": "doc-0001",
+                "paths": [
+                  {
+                    "start": {
+                      "x": 0.0,
+                      "y": 0.0
+                    },
+                    "segments": [
+                      {
+                        "type": "cubic",
+                        "end": {
+                          "x": 2.0,
+                          "y": 0.0
+                        },
+                        "control1": {
+                          "x": 0.0,
+                          "y": 2.0
+                        },
+                        "control2": {
+                          "x": 2.0,
+                          "y": 2.0
+                        }
+                      }
+                    ],
+                    "closed": false
+                  }
+                ],
+                "node_types": [
+                  [
+                    0,
+                    0
+                  ]
+                ],
+                "node_count": 2,
+                "segment_count": 1,
+                "bounds_inches": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 2.0,
+                  "height": 1.5
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "fingerprint": "f17892dc070767fd05da56f0617229b7757a0ccfb788d234eaa31db7eb42f05a"
+              },
+              "editable": true,
+              "representation": "native_curve",
+              "verification_status": "implemented_unverified"
+            }
+          ],
+          "source_preservation": {
+            "verified": true,
+            "scope": "root_membership_relative_order_measured_input_geometry_basic_appearance"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Native geometry is read back; visual appearance and production readiness remain unverified."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "create_vector_path",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Vector request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "get_curve_geometry": {
+      "request": {
+        "object_name": "Source"
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_curve_geometry",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "object": {
+            "object_name": "Source",
+            "static_id": 100,
+            "shape_type_code": 3,
+            "layer_name": "Vectors",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:100",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+              "document_session_id": "doc-0001",
+              "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+              "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+              "ancestor_identities": [],
+              "shape_identity": "0186e1182778bf4f3355f0b65a27a8c256e51b8dc9fe59c64cd38293ebffc9e9",
+              "static_id": 100,
+              "object_name": "Source",
+              "shape_type_code": 3,
+              "page_index": 1,
+              "layer_index": 2,
+              "shape_path": [
+                1
+              ],
+              "signature": "6c1ecf39945078083be8d34cdef8876aae2c0e3b1e9fb89385c8515545b40945"
+            }
+          },
+          "curve": {
+            "schema": "curve-geometry-v1",
+            "shape_identity": "0186e1182778bf4f3355f0b65a27a8c256e51b8dc9fe59c64cd38293ebffc9e9",
+            "document_session_id": "doc-0001",
+            "paths": [
+              {
+                "start": {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                "segments": [
+                  {
+                    "type": "line",
+                    "end": {
+                      "x": 2.0,
+                      "y": 0.0
+                    }
+                  },
+                  {
+                    "type": "line",
+                    "end": {
+                      "x": 2.0,
+                      "y": 2.0
+                    }
+                  },
+                  {
+                    "type": "line",
+                    "end": {
+                      "x": 0.0,
+                      "y": 2.0
+                    }
+                  },
+                  {
+                    "type": "line",
+                    "end": {
+                      "x": 0.0,
+                      "y": 0.0
+                    }
+                  }
+                ],
+                "closed": true
+              }
+            ],
+            "node_types": [
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "node_count": 4,
+            "segment_count": 4,
+            "bounds_inches": {
+              "x": 0.0,
+              "y": 0.0,
+              "width": 2.0,
+              "height": 2.0
+            },
+            "matrix": [
+              1.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "fingerprint": "432fc6310de87df1c8ac1ac47ee712796ba2f334d8575d5e7c7595e8c8cb8644"
+          },
+          "editable": true,
+          "representation": "native_curve",
+          "verification_status": "implemented_unverified"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_curve_geometry",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Vector request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "edit_curve_geometry": {
+      "request": {
+        "expected_fingerprint": "432fc6310de87df1c8ac1ac47ee712796ba2f334d8575d5e7c7595e8c8cb8644",
+        "node_edits": [
+          {
+            "subpath_index": 1,
+            "node_index": 1,
+            "position": {
+              "x": 0.1,
+              "y": 0.1
+            }
+          }
+        ],
+        "object_name": "Source"
+      },
+      "success": {
+        "ok": true,
+        "tool": "edit_curve_geometry",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "edited": true,
+          "before_fingerprint": "432fc6310de87df1c8ac1ac47ee712796ba2f334d8575d5e7c7595e8c8cb8644",
+          "object": {
+            "object_name": "Source",
+            "static_id": 100,
+            "shape_type_code": 3,
+            "layer_name": "Vectors",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:100",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+              "document_session_id": "doc-0001",
+              "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+              "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+              "ancestor_identities": [],
+              "shape_identity": "0186e1182778bf4f3355f0b65a27a8c256e51b8dc9fe59c64cd38293ebffc9e9",
+              "static_id": 100,
+              "object_name": "Source",
+              "shape_type_code": 3,
+              "page_index": 1,
+              "layer_index": 2,
+              "shape_path": [
+                1
+              ],
+              "signature": "6c1ecf39945078083be8d34cdef8876aae2c0e3b1e9fb89385c8515545b40945"
+            }
+          },
+          "curve": {
+            "schema": "curve-geometry-v1",
+            "shape_identity": "0186e1182778bf4f3355f0b65a27a8c256e51b8dc9fe59c64cd38293ebffc9e9",
+            "document_session_id": "doc-0001",
+            "paths": [
+              {
+                "start": {
+                  "x": 0.1,
+                  "y": 0.1
+                },
+                "segments": [
+                  {
+                    "type": "line",
+                    "end": {
+                      "x": 2.0,
+                      "y": 0.0
+                    }
+                  },
+                  {
+                    "type": "line",
+                    "end": {
+                      "x": 2.0,
+                      "y": 2.0
+                    }
+                  },
+                  {
+                    "type": "line",
+                    "end": {
+                      "x": 0.0,
+                      "y": 2.0
+                    }
+                  },
+                  {
+                    "type": "line",
+                    "end": {
+                      "x": 0.1,
+                      "y": 0.1
+                    }
+                  }
+                ],
+                "closed": true
+              }
+            ],
+            "node_types": [
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "node_count": 4,
+            "segment_count": 4,
+            "bounds_inches": {
+              "x": 0.0,
+              "y": 0.0,
+              "width": 2.0,
+              "height": 2.0
+            },
+            "matrix": [
+              1.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "fingerprint": "9a0d6734ffda2795c9bf8ec34d40f8c2f608eff17fbd59fcaffd520e029d1c3e"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Native curve edits have no automatic undo; uncertain partial failures require worker reconciliation."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "edit_curve_geometry",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Vector request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "boolean_shapes": {
+      "request": {
+        "operation": "intersect",
+        "source_reference": {
+          "version": 1,
+          "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+          "document_session_id": "doc-0001",
+          "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+          "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+          "ancestor_identities": [],
+          "shape_identity": "0186e1182778bf4f3355f0b65a27a8c256e51b8dc9fe59c64cd38293ebffc9e9",
+          "static_id": 100,
+          "object_name": "Source",
+          "shape_type_code": 3,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            1
+          ],
+          "signature": "6c1ecf39945078083be8d34cdef8876aae2c0e3b1e9fb89385c8515545b40945"
+        },
+        "target_reference": {
+          "version": 1,
+          "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+          "document_session_id": "doc-0001",
+          "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+          "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+          "ancestor_identities": [],
+          "shape_identity": "5944faf8f49fed550a36391233990eaa40e111545966bb7f9ae49974b071ecc1",
+          "static_id": 101,
+          "object_name": "Target",
+          "shape_type_code": 3,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            2
+          ],
+          "signature": "1c598f764c342a45003aac2485294603aa7d08e7a6c9918947909076c10a8a5f"
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "boolean_shapes",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "empty_result": false,
+          "created_count": 1,
+          "objects": [
+            {
+              "object": {
+                "object_name": "AI_Intersect_001",
+                "static_id": 108,
+                "shape_type_code": 3,
+                "layer_name": "Vectors",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:108",
+                "shape_index": 5,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+                  "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+                  "ancestor_identities": [],
+                  "shape_identity": "0fe44c7443df5b3f762e7af13c4fec197db44ff2d98f8a6c9bedfdbeb91cf468",
+                  "static_id": 108,
+                  "object_name": "AI_Intersect_001",
+                  "shape_type_code": 3,
+                  "page_index": 1,
+                  "layer_index": 2,
+                  "shape_path": [
+                    5
+                  ],
+                  "signature": "4e183fd24f3746113cfef0fb9ba2ed0f6b6fe08ed66762fa94dd4211574af165"
+                }
+              },
+              "curve": {
+                "schema": "curve-geometry-v1",
+                "shape_identity": "0fe44c7443df5b3f762e7af13c4fec197db44ff2d98f8a6c9bedfdbeb91cf468",
+                "document_session_id": "doc-0001",
+                "paths": [
+                  {
+                    "start": {
+                      "x": 1.0,
+                      "y": 0.0
+                    },
+                    "segments": [
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 2.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 2.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 1.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 1.0,
+                          "y": 0.0
+                        }
+                      }
+                    ],
+                    "closed": true
+                  }
+                ],
+                "node_types": [
+                  [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "node_count": 4,
+                "segment_count": 4,
+                "bounds_inches": {
+                  "x": 1.0,
+                  "y": 0.0,
+                  "width": 1.0,
+                  "height": 2.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "fingerprint": "9fa5983f98767ba8880f010093e17677bd30956a69ecbc29bf692808e0f55652"
+              },
+              "editable": true,
+              "representation": "native_curve",
+              "verification_status": "implemented_unverified"
+            }
+          ],
+          "source_preservation": {
+            "verified": true,
+            "scope": "root_membership_relative_order_measured_input_geometry_basic_appearance"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Native geometry is read back; visual appearance and production readiness remain unverified."
+          ],
+          "operation": "intersect"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "boolean_shapes",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Vector request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "combine_vector_shapes": {
+      "request": {
+        "object_references": [
+          {
+            "version": 1,
+            "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+            "document_session_id": "doc-0001",
+            "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+            "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+            "ancestor_identities": [],
+            "shape_identity": "0186e1182778bf4f3355f0b65a27a8c256e51b8dc9fe59c64cd38293ebffc9e9",
+            "static_id": 100,
+            "object_name": "Source",
+            "shape_type_code": 3,
+            "page_index": 1,
+            "layer_index": 2,
+            "shape_path": [
+              1
+            ],
+            "signature": "6c1ecf39945078083be8d34cdef8876aae2c0e3b1e9fb89385c8515545b40945"
+          },
+          {
+            "version": 1,
+            "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+            "document_session_id": "doc-0001",
+            "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+            "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+            "ancestor_identities": [],
+            "shape_identity": "5944faf8f49fed550a36391233990eaa40e111545966bb7f9ae49974b071ecc1",
+            "static_id": 101,
+            "object_name": "Target",
+            "shape_type_code": 3,
+            "page_index": 1,
+            "layer_index": 2,
+            "shape_path": [
+              2
+            ],
+            "signature": "1c598f764c342a45003aac2485294603aa7d08e7a6c9918947909076c10a8a5f"
+          }
+        ]
+      },
+      "success": {
+        "ok": true,
+        "tool": "combine_vector_shapes",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "empty_result": false,
+          "created_count": 1,
+          "objects": [
+            {
+              "object": {
+                "object_name": "Compound",
+                "static_id": 105,
+                "shape_type_code": 3,
+                "layer_name": "Vectors",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:105",
+                "shape_index": 4,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+                  "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+                  "ancestor_identities": [],
+                  "shape_identity": "6bb27a6d3056090cd0a37daaa8d317ee235ecfe925f8c9b2f86a5cd9d7c21459",
+                  "static_id": 105,
+                  "object_name": "Compound",
+                  "shape_type_code": 3,
+                  "page_index": 1,
+                  "layer_index": 2,
+                  "shape_path": [
+                    4
+                  ],
+                  "signature": "9dadc0a298fba1da8bcad8c1a090ca8814d9381793ce912861b0ef87bb184d69"
+                }
+              },
+              "curve": {
+                "schema": "curve-geometry-v1",
+                "shape_identity": "6bb27a6d3056090cd0a37daaa8d317ee235ecfe925f8c9b2f86a5cd9d7c21459",
+                "document_session_id": "doc-0001",
+                "paths": [
+                  {
+                    "start": {
+                      "x": 1.0,
+                      "y": 0.0
+                    },
+                    "segments": [
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 3.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 3.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 1.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 1.0,
+                          "y": 0.0
+                        }
+                      }
+                    ],
+                    "closed": true
+                  },
+                  {
+                    "start": {
+                      "x": 0.0,
+                      "y": 0.0
+                    },
+                    "segments": [
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 2.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 2.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 0.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      }
+                    ],
+                    "closed": true
+                  }
+                ],
+                "node_types": [
+                  [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "node_count": 8,
+                "segment_count": 8,
+                "bounds_inches": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 3.0,
+                  "height": 2.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "fingerprint": "26f20c5ba0f9381c616063d3854ef4e8faf3932fff4eb57b26425f71984b9e1b"
+              },
+              "editable": true,
+              "representation": "native_curve",
+              "verification_status": "implemented_unverified"
+            }
+          ],
+          "source_preservation": {
+            "verified": true,
+            "scope": "root_membership_relative_order_measured_input_geometry_basic_appearance"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Native geometry is read back; visual appearance and production readiness remain unverified."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "combine_vector_shapes",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Vector request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "break_apart_curve": {
+      "request": {
+        "object_reference": {
+          "version": 1,
+          "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+          "document_session_id": "doc-0001",
+          "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+          "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+          "ancestor_identities": [],
+          "shape_identity": "6bb27a6d3056090cd0a37daaa8d317ee235ecfe925f8c9b2f86a5cd9d7c21459",
+          "static_id": 105,
+          "object_name": "Compound",
+          "shape_type_code": 3,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            4
+          ],
+          "signature": "9dadc0a298fba1da8bcad8c1a090ca8814d9381793ce912861b0ef87bb184d69"
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "break_apart_curve",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "empty_result": false,
+          "created_count": 2,
+          "objects": [
+            {
+              "object": {
+                "object_name": "AI_Subpath_001",
+                "static_id": 111,
+                "shape_type_code": 3,
+                "layer_name": "Vectors",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:111",
+                "shape_index": 7,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+                  "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+                  "ancestor_identities": [],
+                  "shape_identity": "d9698fc84b4512bbed265834e36949a600567640fa587c661946a1e89be5a142",
+                  "static_id": 111,
+                  "object_name": "AI_Subpath_001",
+                  "shape_type_code": 3,
+                  "page_index": 1,
+                  "layer_index": 2,
+                  "shape_path": [
+                    7
+                  ],
+                  "signature": "ea91fa66a37166989f4b5a66bae707f55bd40254b9ab50e16a6b54bfc3234c89"
+                }
+              },
+              "curve": {
+                "schema": "curve-geometry-v1",
+                "shape_identity": "d9698fc84b4512bbed265834e36949a600567640fa587c661946a1e89be5a142",
+                "document_session_id": "doc-0001",
+                "paths": [
+                  {
+                    "start": {
+                      "x": 1.0,
+                      "y": 0.0
+                    },
+                    "segments": [
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 3.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 3.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 1.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 1.0,
+                          "y": 0.0
+                        }
+                      }
+                    ],
+                    "closed": true
+                  }
+                ],
+                "node_types": [
+                  [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "node_count": 4,
+                "segment_count": 4,
+                "bounds_inches": {
+                  "x": 1.0,
+                  "y": 0.0,
+                  "width": 2.0,
+                  "height": 2.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "fingerprint": "f0b0334b1e51fa7f3da819d1e80bf6b6fa9cf5b2ead738ffbdd93169b9bc1a7b"
+              },
+              "editable": true,
+              "representation": "native_curve",
+              "verification_status": "implemented_unverified"
+            },
+            {
+              "object": {
+                "object_name": "AI_Subpath_002",
+                "static_id": 110,
+                "shape_type_code": 3,
+                "layer_name": "Vectors",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:110",
+                "shape_index": 6,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "bbaeec9bdccb5ed1771c62a59a428365",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "1085de3f1c76edd497409af8305832c82c846789487216a7615e45fc9caf9911",
+                  "layer_identity": "17173a2c1eceb385dfa0834b67602e3bd8e03528a419bf85bd07941fe8d6c575",
+                  "ancestor_identities": [],
+                  "shape_identity": "267f835a5b04dfa8f972193ff0dd9c73b93d4683a5ec7ccfa980f165eb2b5abc",
+                  "static_id": 110,
+                  "object_name": "AI_Subpath_002",
+                  "shape_type_code": 3,
+                  "page_index": 1,
+                  "layer_index": 2,
+                  "shape_path": [
+                    6
+                  ],
+                  "signature": "0b1d5c92f8d8e774fb64e5a012b12da02012dfa94d3733495cb0b2c7d530ea6b"
+                }
+              },
+              "curve": {
+                "schema": "curve-geometry-v1",
+                "shape_identity": "267f835a5b04dfa8f972193ff0dd9c73b93d4683a5ec7ccfa980f165eb2b5abc",
+                "document_session_id": "doc-0001",
+                "paths": [
+                  {
+                    "start": {
+                      "x": 0.0,
+                      "y": 0.0
+                    },
+                    "segments": [
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 2.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 2.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 0.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      }
+                    ],
+                    "closed": true
+                  }
+                ],
+                "node_types": [
+                  [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "node_count": 4,
+                "segment_count": 4,
+                "bounds_inches": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 2.0,
+                  "height": 2.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "fingerprint": "d4ded9f623e442817c2d169142f3640fa27c6e6b471f6660f5b4f08f5a56b231"
+              },
+              "editable": true,
+              "representation": "native_curve",
+              "verification_status": "implemented_unverified"
+            }
+          ],
+          "source_preservation": {
+            "verified": true,
+            "scope": "root_membership_relative_order_measured_input_geometry_basic_appearance"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Native geometry is read back; visual appearance and production readiness remain unverified."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "break_apart_curve",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Vector request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -17355,6 +18692,1329 @@
         "Native/manual verification remains deferred.",
         "Zero bleed; no ICC/PDF-X/prepress or font-program validity guarantee.",
         "50 MiB/500 pages/10000 resource budget; summaries cap at 100 pages/fonts; no rendering or effective raster DPI check."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "create_vector_path",
+      "category": "vectors",
+      "description": "Create editable bounded line/cubic subpaths and verify complete native geometry.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.create_vector_path"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "paths": {
+            "type": "array",
+            "items": {
+              "$ref": "#/schema_definitions/vector_path"
+            },
+            "minItems": 1,
+            "maxItems": 64
+          },
+          "object_name": {
+            "type": "string",
+            "maxLength": 120,
+            "default": ""
+          }
+        },
+        "required": [
+          "paths"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "empty_result": {
+                      "const": false
+                    },
+                    "created_count": {
+                      "const": 1
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/schema_definitions/curve_inspection"
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    },
+                    "source_preservation": {
+                      "type": "object",
+                      "properties": {
+                        "verified": {
+                          "const": true
+                        },
+                        "scope": {
+                          "const": "root_membership_relative_order_measured_input_geometry_basic_appearance"
+                        }
+                      },
+                      "required": [
+                        "verified",
+                        "scope"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "empty_result",
+                    "created_count",
+                    "objects",
+                    "source_preservation",
+                    "verification_status",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateCurve",
+        "Application.Documents",
+        "Curve.CreateSubPath",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.CreateCurve",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.ConvertToCurves",
+        "Shape.Curve",
+        "Shape.Delete",
+        "Shape.DisplayCurve",
+        "Shape.Duplicate",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "SubPath.AppendCurveSegment2",
+        "SubPath.AppendLineSegment",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_vector_geometry.py",
+          "docs/VECTOR_EDITING.md",
+          "docs/x7_vector_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native geometry/appearance and shaping semantics await the consolidated live/manual gate.",
+        "64 subpaths/1000 segments/2000 nodes; source-preserving shaping requires exact root inputs on one page/layer.",
+        "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
+        "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "get_curve_geometry",
+      "category": "vectors",
+      "description": "Inspect native/display subpaths, node types and control points with an exact geometry fingerprint.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.get_curve_geometry"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_name": {
+            "type": "string",
+            "default": ""
+          },
+          "shape_index": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "object_reference": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/object_reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "object_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "object_name"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "shape_index"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "$ref": "#/schema_definitions/object_reference"
+              }
+            },
+            "required": [
+              "object_reference"
+            ]
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "$ref": "#/schema_definitions/curve_inspection"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.Curve",
+        "Shape.DisplayCurve",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_vector_geometry.py",
+          "docs/VECTOR_EDITING.md",
+          "docs/x7_vector_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native geometry/appearance and shaping semantics await the consolidated live/manual gate.",
+        "64 subpaths/1000 segments/2000 nodes; source-preserving shaping requires exact root inputs on one page/layer.",
+        "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
+        "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "edit_curve_geometry",
+      "category": "vectors",
+      "description": "Preflight complete node/handle edits, check smooth constraints and verify the entire native curve.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.edit_curve_geometry"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_name": {
+            "type": "string",
+            "default": ""
+          },
+          "shape_index": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "object_reference": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/object_reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "node_edits": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "subpath_index": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "node_index": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 2000
+                    },
+                    "position": {
+                      "$ref": "#/schema_definitions/vector_point_inches"
+                    },
+                    "translate_handles": {
+                      "type": "boolean",
+                      "default": true
+                    }
+                  },
+                  "required": [
+                    "subpath_index",
+                    "node_index",
+                    "position"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "handle_edits": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "subpath_index": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "segment_index": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1000
+                    },
+                    "control1": {
+                      "$ref": "#/schema_definitions/vector_point_inches"
+                    },
+                    "control2": {
+                      "$ref": "#/schema_definitions/vector_point_inches"
+                    }
+                  },
+                  "required": [
+                    "subpath_index",
+                    "segment_index"
+                  ],
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "control1"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "control2"
+                      ]
+                    }
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "convert_edited_nodes_to_cusp": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "object_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "object_name"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "shape_index"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "$ref": "#/schema_definitions/object_reference"
+              }
+            },
+            "required": [
+              "object_reference"
+            ]
+          }
+        ],
+        "required": [
+          "expected_fingerprint"
+        ],
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "node_edits"
+                ],
+                "properties": {
+                  "node_edits": {
+                    "type": "array",
+                    "minItems": 1
+                  }
+                }
+              },
+              {
+                "required": [
+                  "handle_edits"
+                ],
+                "properties": {
+                  "handle_edits": {
+                    "type": "array",
+                    "minItems": 1
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "edited": {
+                      "const": true
+                    },
+                    "before_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "curve": {
+                      "$ref": "#/schema_definitions/curve_geometry"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "edited",
+                    "before_fingerprint",
+                    "object",
+                    "curve",
+                    "verification_status",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SetPosition",
+        "Node.SubPath",
+        "Node.Type",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.SetEndingControlPointPosition",
+        "Segment.SetStartingControlPointPosition",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.ConvertToCurves",
+        "Shape.Curve",
+        "Shape.Delete",
+        "Shape.DisplayCurve",
+        "Shape.Duplicate",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_vector_geometry.py",
+          "docs/VECTOR_EDITING.md",
+          "docs/x7_vector_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native geometry/appearance and shaping semantics await the consolidated live/manual gate.",
+        "64 subpaths/1000 segments/2000 nodes; source-preserving shaping requires exact root inputs on one page/layer.",
+        "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
+        "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "boolean_shapes",
+      "category": "vectors",
+      "description": "Produce source-preserving weld/trim/intersection derivatives through independently owned copies.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.boolean_shapes"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "enum": [
+              "weld",
+              "trim",
+              "intersect"
+            ]
+          },
+          "source_reference": {
+            "$ref": "#/schema_definitions/object_reference"
+          },
+          "target_reference": {
+            "$ref": "#/schema_definitions/object_reference"
+          },
+          "result_name": {
+            "type": "string",
+            "maxLength": 120,
+            "default": ""
+          }
+        },
+        "required": [
+          "operation",
+          "source_reference",
+          "target_reference"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "type": "boolean"
+                    },
+                    "empty_result": {
+                      "type": "boolean"
+                    },
+                    "created_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/schema_definitions/curve_inspection"
+                      },
+                      "minItems": 0,
+                      "maxItems": 1
+                    },
+                    "source_preservation": {
+                      "type": "object",
+                      "properties": {
+                        "verified": {
+                          "const": true
+                        },
+                        "scope": {
+                          "const": "root_membership_relative_order_measured_input_geometry_basic_appearance"
+                        }
+                      },
+                      "required": [
+                        "verified",
+                        "scope"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    },
+                    "operation": {
+                      "enum": [
+                        "weld",
+                        "trim",
+                        "intersect"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "empty_result",
+                    "created_count",
+                    "objects",
+                    "source_preservation",
+                    "verification_status",
+                    "warnings",
+                    "operation"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.ConvertToCurves",
+        "Shape.Curve",
+        "Shape.Delete",
+        "Shape.DisplayCurve",
+        "Shape.Duplicate",
+        "Shape.GetMatrix",
+        "Shape.Intersect",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Trim",
+        "Shape.Type",
+        "Shape.Weld",
+        "Shape.ZOrder",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_vector_geometry.py",
+          "docs/VECTOR_EDITING.md",
+          "docs/x7_vector_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native geometry/appearance and shaping semantics await the consolidated live/manual gate.",
+        "64 subpaths/1000 segments/2000 nodes; source-preserving shaping requires exact root inputs on one page/layer.",
+        "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
+        "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "combine_vector_shapes",
+      "category": "vectors",
+      "description": "Combine independent copied vector subpaths, reconcile geometry and preserve original objects.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.combine_vector_shapes"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_references": {
+            "type": "array",
+            "items": {
+              "$ref": "#/schema_definitions/object_reference"
+            },
+            "minItems": 2,
+            "maxItems": 64
+          },
+          "result_name": {
+            "type": "string",
+            "maxLength": 120,
+            "default": ""
+          }
+        },
+        "required": [
+          "object_references"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "empty_result": {
+                      "const": false
+                    },
+                    "created_count": {
+                      "const": 1
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/schema_definitions/curve_inspection"
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    },
+                    "source_preservation": {
+                      "type": "object",
+                      "properties": {
+                        "verified": {
+                          "const": true
+                        },
+                        "scope": {
+                          "const": "root_membership_relative_order_measured_input_geometry_basic_appearance"
+                        }
+                      },
+                      "required": [
+                        "verified",
+                        "scope"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "empty_result",
+                    "created_count",
+                    "objects",
+                    "source_preservation",
+                    "verification_status",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateShapeRange",
+        "Application.Documents",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.ConvertToCurves",
+        "Shape.Curve",
+        "Shape.Delete",
+        "Shape.DisplayCurve",
+        "Shape.Duplicate",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "ShapeRange.Add",
+        "ShapeRange.Combine",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_vector_geometry.py",
+          "docs/VECTOR_EDITING.md",
+          "docs/x7_vector_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native geometry/appearance and shaping semantics await the consolidated live/manual gate.",
+        "64 subpaths/1000 segments/2000 nodes; source-preserving shaping requires exact root inputs on one page/layer.",
+        "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
+        "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "break_apart_curve",
+      "category": "vectors",
+      "description": "Split an independent copied compound curve and match/count every output against source geometry.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.break_apart_curve"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_reference": {
+            "$ref": "#/schema_definitions/object_reference"
+          },
+          "result_name_prefix": {
+            "type": "string",
+            "maxLength": 110,
+            "minLength": 1,
+            "default": "AI_Subpath"
+          }
+        },
+        "required": [
+          "object_reference"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "empty_result": {
+                      "const": false
+                    },
+                    "created_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/schema_definitions/curve_inspection"
+                      },
+                      "minItems": 1,
+                      "maxItems": 64
+                    },
+                    "source_preservation": {
+                      "type": "object",
+                      "properties": {
+                        "verified": {
+                          "const": true
+                        },
+                        "scope": {
+                          "const": "root_membership_relative_order_measured_input_geometry_basic_appearance"
+                        }
+                      },
+                      "required": [
+                        "verified",
+                        "scope"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "empty_result",
+                    "created_count",
+                    "objects",
+                    "source_preservation",
+                    "verification_status",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.BreakApartEx",
+        "Shape.ConvertToCurves",
+        "Shape.Curve",
+        "Shape.Delete",
+        "Shape.DisplayCurve",
+        "Shape.Duplicate",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "ShapeRange.Count",
+        "ShapeRange.Item",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_vector_geometry.py",
+          "docs/VECTOR_EDITING.md",
+          "docs/x7_vector_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native geometry/appearance and shaping semantics await the consolidated live/manual gate.",
+        "64 subpaths/1000 segments/2000 nodes; source-preserving shaping requires exact root inputs on one page/layer.",
+        "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
+        "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

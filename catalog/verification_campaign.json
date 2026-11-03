@@ -21,6 +21,7 @@
       "local_test_sources": [],
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live",
         "CorelDisposableDocumentLiveTests.test_document_inspection_live",
         "CorelDisposableDocumentLiveTests.test_standalone_contour_nesting_live",
         "CorelDisposableDocumentLiveTests.test_controlled_pdf_live",
@@ -80,6 +81,7 @@
       "local_test_sources": [],
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live",
         "CorelDisposableDocumentLiveTests.test_template_batch_live",
         "CorelDisposableDocumentLiveTests.test_existing_tools_on_new_disposable_document",
         "CorelDisposableDocumentLiveTests.test_find_objects_live",
@@ -128,6 +130,7 @@
       ],
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live",
         "CorelDisposableDocumentLiveTests.test_existing_tools_on_new_disposable_document",
         "CorelDisposableDocumentLiveTests.test_focused_object_inspection_live",
         "CorelDisposableDocumentLiveTests.test_typography_live"
@@ -246,6 +249,7 @@
       "local_test_sources": [],
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live",
         "CorelDisposableDocumentLiveTests.test_document_inspection_live",
         "CorelDisposableDocumentLiveTests.test_raster_print_workflow_live",
         "CorelDisposableDocumentLiveTests.test_standalone_contour_nesting_live",
@@ -360,6 +364,7 @@
       ],
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live",
         "CorelDisposableDocumentLiveTests.test_document_inspection_live"
       ],
       "native_result": "not_run",
@@ -878,8 +883,93 @@
       ],
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live",
         "CorelDisposableDocumentLiveTests.test_raster_print_workflow_live",
         "CorelDisposableDocumentLiveTests.test_controlled_pdf_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "create_vector_path",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_vector_geometry.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "get_curve_geometry",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_vector_geometry.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "edit_curve_geometry",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_vector_geometry.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "boolean_shapes",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_vector_geometry.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "combine_vector_shapes",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_vector_geometry.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "break_apart_curve",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_vector_geometry.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live"
       ],
       "native_result": "not_run",
       "mcp_envelope_result": "pending_consolidated_client_run",

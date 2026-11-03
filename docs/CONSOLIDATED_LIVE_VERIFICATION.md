@@ -21,7 +21,10 @@ The prepared campaign includes synthetic document/page/layer inspection,
 object search/identity/liveness, common edits/grouping/import/save, fonts and
 paragraph styles, transforms/distribution/order, numbering/design plans,
 raster print placement, contour/imposition, text templates/CSV and controlled
-PDF output. Recovery gates cover synthetic partial/late failures; real modal
+PDF output, editable line/cubic paths, node/handle edits and source-preserving
+shaping/compound curves. The vector gate explicitly covers native closure,
+primitive display curves, cleanup and source preservation; manual fill-winding
+and visual review remain required. Recovery gates cover synthetic partial/late failures; real modal
 and busy behavior still needs controlled observation during the later session.
 
 Use `tests/integration/test_corel_live.py` with explicit live and disposable

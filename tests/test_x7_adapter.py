@@ -85,7 +85,7 @@ class X7AdapterTests(unittest.TestCase):
         self.assertEqual(summary["profile_id"], "coreldraw-x7-17")
         self.assertEqual(summary["product_major"], 17)
         self.assertEqual(summary["preferred_prog_id"], "CorelDRAW.Application.17")
-        self.assertEqual(summary["capability_count"], 46)
+        self.assertEqual(summary["capability_count"], 52)
         self.assertEqual(summary["verified_capability_count"], 0)
 
 

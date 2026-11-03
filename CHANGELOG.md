@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Six general vector tools: editable line/cubic paths, complete geometry and
+  fingerprint-guarded nodes/handles, source-preserving weld/trim/intersect,
+  combine and break-apart. Thirty-three focused checks cover topology, handle
+  constraints, identities, source corruption and owned-output cleanup. Installed
+  X7 signatures are retained without connecting to the app. Native closure,
+  shaping appearance and winding remain deferred. The surface has 67 registered
+  tools; 491 automated checks pass and 19 live gates remain skipped.
 - Controlled zero-bleed PDF export with explicit font/range/color/version and
   bitmap controls, verified native setting restoration, full page/font structure
   checks and exclusive output publication. Twenty-two focused tests cover native

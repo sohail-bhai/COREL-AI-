@@ -140,6 +140,13 @@
       "path": "docs/x7_pdf_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "126 retained PDF descriptors and 14 enums; no native application connection."
+    },
+    {
+      "id": "x7_vector_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_vector_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "Installed X7 curve/node/shaping signatures and enums, read without application access."
     }
   ],
   "members": [
@@ -250,7 +257,13 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_application",
@@ -393,7 +406,8 @@
       "signature": "CreateCurve(Document) -> Curve",
       "status": "typelib_confirmed",
       "used_by": [
-        "guarded_imposition_live_fixture"
+        "guarded_imposition_live_fixture",
+        "create_vector_path"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -562,7 +576,13 @@
         "distribute_objects",
         "inspect_text_template",
         "execute_template_batch",
-        "export_pdf_controlled"
+        "export_pdf_controlled",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_document",
@@ -592,7 +612,13 @@
         "order_object",
         "distribute_objects",
         "execute_template_batch",
-        "export_pdf_controlled"
+        "export_pdf_controlled",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_document",
@@ -624,7 +650,13 @@
         "flip_object",
         "order_object",
         "distribute_objects",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_document",
@@ -933,7 +965,13 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_page",
@@ -963,7 +1001,13 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_page",
@@ -1244,7 +1288,13 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1319,7 +1369,8 @@
       "signature": "CreateCurve(Source) -> Shape",
       "status": "typelib_confirmed",
       "used_by": [
-        "guarded_imposition_live_fixture"
+        "guarded_imposition_live_fixture",
+        "create_vector_path"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -1412,7 +1463,13 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1446,7 +1503,13 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1477,7 +1540,13 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1512,7 +1581,13 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1545,7 +1620,13 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1575,7 +1656,13 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1602,7 +1689,13 @@
         "rotate_object",
         "flip_object",
         "order_object",
-        "distribute_objects"
+        "distribute_objects",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1629,7 +1722,13 @@
         "rotate_object",
         "flip_object",
         "order_object",
-        "distribute_objects"
+        "distribute_objects",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1656,7 +1755,13 @@
         "rotate_object",
         "flip_object",
         "order_object",
-        "distribute_objects"
+        "distribute_objects",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1683,7 +1788,13 @@
         "rotate_object",
         "flip_object",
         "order_object",
-        "distribute_objects"
+        "distribute_objects",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1792,7 +1903,12 @@
         "duplicate_object",
         "prepare_contour_nesting",
         "prepare_imposition_job",
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1864,7 +1980,8 @@
       "signature": "CreateSubPath(x, y) -> SubPath",
       "status": "typelib_confirmed",
       "used_by": [
-        "guarded_imposition_live_fixture"
+        "guarded_imposition_live_fixture",
+        "create_vector_path"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -1879,7 +1996,8 @@
       "signature": "AppendLineSegment(x, y, AppendAtBeginning=false)",
       "status": "typelib_confirmed",
       "used_by": [
-        "guarded_imposition_live_fixture"
+        "guarded_imposition_live_fixture",
+        "create_vector_path"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -1895,7 +2013,13 @@
       "status": "typelib_confirmed",
       "used_by": [
         "guarded_imposition_live_fixture",
-        "inspect_repeat_unit"
+        "inspect_repeat_unit",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2607,7 +2731,8 @@
       "used_by": [
         "align_objects",
         "align_to_page",
-        "group_shapes"
+        "group_shapes",
+        "combine_vector_shapes"
       ],
       "evidence": [
         "official_x7_application",
@@ -2972,7 +3097,13 @@
         "get_object_transform",
         "rotate_object",
         "flip_object",
-        "distribute_objects"
+        "distribute_objects",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2992,7 +3123,13 @@
         "get_object_transform",
         "rotate_object",
         "flip_object",
-        "distribute_objects"
+        "distribute_objects",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3013,7 +3150,13 @@
         "rotate_object",
         "flip_object",
         "order_object",
-        "distribute_objects"
+        "distribute_objects",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3182,7 +3325,12 @@
       "signature": "Document.BeginCommandGroup (see retained installed type-library descriptor)",
       "status": "typelib_confirmed",
       "used_by": [
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3198,7 +3346,12 @@
       "signature": "Document.EndCommandGroup (see retained installed type-library descriptor)",
       "status": "typelib_confirmed",
       "used_by": [
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3214,7 +3367,12 @@
       "signature": "Layer.Activate (see retained installed type-library descriptor)",
       "status": "typelib_confirmed",
       "used_by": [
-        "execute_template_batch"
+        "execute_template_batch",
+        "create_vector_path",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3636,6 +3794,637 @@
         "x7_pdf_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.truetypetotype1",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Curve.Nodes",
+      "owner": "Curve",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Nodes",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/curve.nodes",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Curve.Segments",
+      "owner": "Curve",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Segments",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/curve.segments",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Curve.SubPaths",
+      "owner": "Curve",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "SubPaths",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/curve.subpaths",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Node.PositionX",
+      "owner": "Node",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "PositionX",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/node.positionx",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Node.PositionY",
+      "owner": "Node",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "PositionY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/node.positiony",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Node.SubPath",
+      "owner": "Node",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "SubPath",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/node.subpath",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Node.Type",
+      "owner": "Node",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Type",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/node.type",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Segment.EndNode",
+      "owner": "Segment",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "EndNode",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/segment.endnode",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Segment.EndingControlPointX",
+      "owner": "Segment",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "EndingControlPointX",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/segment.endingcontrolpointx",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Segment.EndingControlPointY",
+      "owner": "Segment",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "EndingControlPointY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/segment.endingcontrolpointy",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Segment.StartNode",
+      "owner": "Segment",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "StartNode",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/segment.startnode",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Segment.StartingControlPointX",
+      "owner": "Segment",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "StartingControlPointX",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/segment.startingcontrolpointx",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Segment.StartingControlPointY",
+      "owner": "Segment",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "StartingControlPointY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/segment.startingcontrolpointy",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Segment.SubPath",
+      "owner": "Segment",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "SubPath",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/segment.subpath",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Segment.Type",
+      "owner": "Segment",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Type",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/segment.type",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.ConvertToCurves",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "ConvertToCurves",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.converttocurves",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.Curve",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Curve",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.curve",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.Delete",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Delete",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.delete",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.DisplayCurve",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "DisplayCurve",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.displaycurve",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "SubPath.AppendCurveSegment2",
+      "owner": "SubPath",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "AppendCurveSegment2, x, y, StartingControlPointX, StartingControlPointY, EndingControlPointX, EndingControlPointY, AppendAtBeginning",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/subpath.appendcurvesegment2",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "SubPath.Nodes",
+      "owner": "SubPath",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Nodes",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/subpath.nodes",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "SubPath.Segments",
+      "owner": "SubPath",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Segments",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/subpath.segments",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Node.SetPosition",
+      "owner": "Node",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "SetPosition, PositionX, PositionY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "edit_curve_geometry"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/node.setposition",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Segment.SetEndingControlPointPosition",
+      "owner": "Segment",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "SetEndingControlPointPosition, PositionX, PositionY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "edit_curve_geometry"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/segment.setendingcontrolpointposition",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Segment.SetStartingControlPointPosition",
+      "owner": "Segment",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "SetStartingControlPointPosition, PositionX, PositionY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "edit_curve_geometry"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/segment.setstartingcontrolpointposition",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.Intersect",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Intersect, TargetShape, LeaveSource, LeaveTarget",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "boolean_shapes"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.intersect",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.Trim",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Trim, TargetShape, LeaveSource, LeaveTarget",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "boolean_shapes"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.trim",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.Weld",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Weld, TargetShape, LeaveSource, LeaveTarget",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "boolean_shapes"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.weld",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "ShapeRange.Add",
+      "owner": "ShapeRange",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Add, Shape",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "combine_vector_shapes"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shaperange.add",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "ShapeRange.Combine",
+      "owner": "ShapeRange",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Combine",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "combine_vector_shapes"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shaperange.combine",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.BreakApartEx",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "BreakApartEx",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.breakapartex",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "ShapeRange.Count",
+      "owner": "ShapeRange",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Count",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shaperange.count",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "ShapeRange.Item",
+      "owner": "ShapeRange",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Item, IndexOrName",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "break_apart_curve"
+      ],
+      "evidence": [
+        "x7_vector_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shaperange.item",
       "live_test_status": "not_run_deferred"
     }
   ]

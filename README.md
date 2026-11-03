@@ -30,11 +30,11 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 476 tests (458 automated checks pass; eighteen guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
+- 510 tests (491 automated checks pass; nineteen guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Signed session references for precise nested edits, opt-in redacted operation
-  records, and explicit worker/recovery state across 61 MCP tools. Three local
+  records, and explicit worker/recovery state across 67 MCP tools. Three local
   state/outcome/reconciliation tools block unsafe follow-up mutations after
   timeout or partial failure; see [`docs/WORKER_RECOVERY.md`](docs/WORKER_RECOVERY.md).
 - Editable paragraph frames, whole-story font/size/style/alignment revisions,
@@ -48,6 +48,8 @@ Validate the catalog without starting CorelDRAW:
   [`docs/TEMPLATE_BATCHES.md`](docs/TEMPLATE_BATCHES.md).
 - Controlled zero-bleed PDF export with restored settings, parsed all-page/font
   checks and exclusive output publication; see [`docs/PDF_PRODUCTION.md`](docs/PDF_PRODUCTION.md).
+- Editable line/cubic paths, fingerprint-guarded node/handle edits and source-preserving
+  weld/trim/intersect, combine and break-apart; see [`docs/VECTOR_EDITING.md`](docs/VECTOR_EDITING.md).
 - A complete deferred verification inventory for every registered tool; see
   [`docs/CONSOLIDATED_LIVE_VERIFICATION.md`](docs/CONSOLIDATED_LIVE_VERIFICATION.md).
 - Bound-document liveness checks that clear closed/replaced targets and prevent

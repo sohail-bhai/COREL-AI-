@@ -522,6 +522,76 @@ def inspect_text_template(object_name: str="",shape_index: int=0,object_referenc
 
 @mcp.tool()
 @recorded_operation
+def create_vector_path(paths: list[dict],object_name: str="") -> dict:
+    """Create editable inch-based line/cubic subpaths with complete native readback.
+
+    Each path needs start{x,y}, segments, closed. Cubics include control1/control2;
+    a missing closing line is explicit in normalized readback. Limits: 64 paths,
+    1000 segments. Native appearance inherits defaults and remains unverified.
+    """
+    return _tool("create_vector_path","create_vector_path",paths,object_name)
+
+
+@mcp.tool()
+@recorded_operation
+def get_curve_geometry(object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
+    """Inspect exact bounded nodes and line/cubic handles with a curve fingerprint.
+
+    Native curves are editable; rectangles/ellipses/polygons use read-only display
+    geometry. Returns all supported subpaths, native node types and inch coordinates.
+    """
+    return _tool("get_curve_geometry","get_curve_geometry",object_name,shape_index,object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def edit_curve_geometry(expected_fingerprint: str,node_edits: list[dict] | None=None,handle_edits: list[dict] | None=None,
+    convert_edited_nodes_to_cusp: bool=False,object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
+    """Move nodes and change cubic handles after complete fingerprinted preflight.
+
+    Node edits use subpath_index/node_index/position and optional translate_handles.
+    Handle edits use subpath_index/segment_index/control1/control2. Smooth constraints
+    require compatible geometry or explicit cusp conversion. Partial failures quarantine.
+    """
+    return _tool("edit_curve_geometry","edit_curve_geometry",expected_fingerprint,node_edits,handle_edits,
+        convert_edited_nodes_to_cusp,object_name,shape_index,object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def boolean_shapes(operation: str,source_reference: dict,target_reference: dict,result_name: str="") -> dict:
+    """Create source-preserving weld/trim/intersect derivatives from exact vector targets.
+
+    Inputs must be closed supported geometry on the same page/layer. Trim subtracts
+    source from target. Empty trim/intersection is explicit; owned copies are cleaned.
+    """
+    return _tool("boolean_shapes","boolean_shapes",operation,source_reference,target_reference,result_name)
+
+
+@mcp.tool()
+@recorded_operation
+def combine_vector_shapes(object_references: list[dict],result_name: str="") -> dict:
+    """Combine 2-64 exact vector inputs into one independent editable compound curve.
+
+    Preserve sources, verify copied/combined subpath geometry and original order,
+    clean owned temporary inputs and return actual signed output references.
+    """
+    return _tool("combine_vector_shapes","combine_vector_shapes",object_references,result_name)
+
+
+@mcp.tool()
+@recorded_operation
+def break_apart_curve(object_reference: dict,result_name_prefix: str="AI_Subpath") -> dict:
+    """Split a copied native compound curve into independent source-preserving outputs.
+
+    Match actual native outputs to the original subpath geometry, reconcile counts,
+    use deterministic names and discard only established owned copies on failure.
+    """
+    return _tool("break_apart_curve","break_apart_curve",object_reference,result_name_prefix)
+
+
+@mcp.tool()
+@recorded_operation
 def inspect_pdf(path: str,expected_page_count: int | None=None,expected_page_sizes: list[dict] | None=None,
                 require_embedded_fonts: bool=False,tolerance_inches: float=.01) -> dict:
     """Parse a local PDF and check all page sizes/counts and font program presence.

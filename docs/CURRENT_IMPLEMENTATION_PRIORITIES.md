@@ -59,7 +59,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 61
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 67
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -81,10 +81,15 @@ capability status, and keep live verification deferred.
   Owned-output cleanup, final row readback and measured source preservation are
   covered. See [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md).
 - Controlled zero-bleed PDF export and local page/font inspection are implemented
-  with 22 focused checks and a deferred native gate. All 61 tools are included in
+  with 22 focused checks and a deferred native gate. All 67 tools are included in
   the consolidated coverage inventory. See [PDF_PRODUCTION.md](PDF_PRODUCTION.md)
   and [CONSOLIDATED_LIVE_VERIFICATION.md](CONSOLIDATED_LIVE_VERIFICATION.md).
-- Next: general graphics and broader prepress;
+- General vectors are implemented: line/cubic creation, full geometry inspection,
+  fingerprint-guarded node/handle edits, weld/trim/intersect, combine and break-apart
+  pass 33 focused checks. Source geometry/appearance and owned-output cleanup are
+  verified in non-live tests. Native closure, shaping and winding remain deferred.
+  See [VECTOR_EDITING.md](VECTOR_EDITING.md).
+- Next: node topology, contour offsets, appearance/clipping and broader prepress;
   spacing/fitting, layer organization and existing-document checkpoints remain gaps.
 
 **Gate:** The intended object can be found and inspected without mutation;

@@ -287,12 +287,18 @@
       "coverage": "partial",
       "registered_tools": [
         "draw_rectangle",
-        "draw_ellipse"
+        "draw_ellipse",
+        "create_vector_path",
+        "get_curve_geometry",
+        "edit_curve_geometry",
+        "boolean_shapes",
+        "combine_vector_shapes",
+        "break_apart_curve"
       ],
       "missing_behavior": [
-        "Bounded paths and node editing",
-        "Combine/break apart",
-        "Weld/trim/intersect and contour offsets"
+        "Node insertion/deletion and contour offsets",
+        "General curve conversion and nested shaping inputs",
+        "Native closure, shaping appearance and compound fill-winding verification"
       ],
       "source_ids": [
         "shapes_guide",
@@ -302,8 +308,14 @@
         "ID-001",
         "SAFE-002"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "partial_implemented_unverified",
+      "live_status": "deferred",
+      "evidence": [
+        "docs/VECTOR_EDITING.md",
+        "docs/x7_vector_api_evidence.json",
+        "tests/test_vector_geometry.py",
+        "docs/test-reports/2026-11-03-vector-editing-non-live.md"
+      ]
     },
     {
       "id": "appearance",

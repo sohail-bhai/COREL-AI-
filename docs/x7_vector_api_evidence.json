@@ -1,0 +1,2367 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IVGApplication",
+      "names": [
+        "CreateShapeRange"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743885, (), (), 4, 1, 4, 0, 672, ((26, (29, 50366720)), 0, None), 0)",
+      "documentation": "Creates an instance of ShapeRange object"
+    },
+    {
+      "interface": "IVGApplication",
+      "names": [
+        "CreateCurve",
+        "Document"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743887, (), (((26, (29, 50362112)), 49, 0),), 4, 1, 4, 0, 688, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Creates an instance of Curve object and optionally binds it to a document"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Length"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, (5, 0, None), 0)",
+      "documentation": "Gets the length of the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "SubPaths"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50363776)), 0, None), 0)",
+      "documentation": "Gets the collection of subpaths within the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Nodes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((26, (29, 50364032)), 0, None), 0)",
+      "documentation": "Gets the collection of nodes within the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Segments"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50365056)), 0, None), 0)",
+      "documentation": "Gets the collection of segments within the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Closed"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (11, 0, None), 0)",
+      "documentation": "Gets or sets whether the curve is closed"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Closed"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743812, (), ((11, 1, None),), 4, 4, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Gets or sets whether the curve is closed"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Selection"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743814, (), (), 4, 1, 4, 0, 104, ((26, (29, 50364800)), 0, None), 0)",
+      "documentation": "Creates a range containing all the selected nodes on this curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "CreateSubPath",
+        "x",
+        "y"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743815, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 112, ((26, (29, 50363904)), 0, None), 0)",
+      "documentation": "Adds (or replaces) an empty subpath at the end of the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "ReverseDirection"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743816, (), (), 4, 1, 4, 0, 120, (24, 0, None), 0)",
+      "documentation": "Reverses the node order within the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "IsOnCurve",
+        "x",
+        "y",
+        "HotArea"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743817, (), ((5, 1, None), (5, 1, None), (5, 49, -1.0)), 4, 1, 4, 0, 128, ((29, 50338944), 0, None), 0)",
+      "documentation": "Checks if a point is on curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "BindToDocument",
+        "Document"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743818, (), (((26, (29, 50362112)), 1, None),), 4, 1, 4, 0, 136, (24, 0, None), 0)",
+      "documentation": "Binds a free curve to a document"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "GetCopy"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743819, (), (), 4, 1, 4, 0, 144, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns a copy of curve information as a free curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "CopyAssign",
+        "Source"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743820, (), (((26, (29, 50363648)), 1, None),), 4, 1, 4, 0, 152, (24, 0, None), 0)",
+      "documentation": "Copies curve information to change the current curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "CreateSubPathFromArray",
+        "Source",
+        "Closed",
+        "NumElements"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743821, (), (((26, (27, (29, 50355968))), 1, None), (11, 49, False), (3, 49, -1)), 4, 1, 4, 0, 160, ((26, (29, 50363904)), 0, None), 0)",
+      "documentation": "Adds a new subpath based on the node information specified"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "AppendCurve",
+        "Source"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743822, (), (((26, (29, 50363648)), 1, None),), 4, 1, 4, 0, 168, (24, 0, None), 0)",
+      "documentation": "Appends subpaths from a source curve to the current one"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "GetCurveInfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743823, (), (), 4, 1, 4, 0, 176, ((27, (29, 50355968)), 0, None), 0)",
+      "documentation": "Retrieves low-level curve information"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "PutCurveInfo",
+        "Source",
+        "NumElements"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743824, (), (((26, (27, (29, 50355968))), 1, None), (3, 49, -1)), 4, 1, 4, 0, 184, (3, 0, None), 0)",
+      "documentation": "Replaces the current curve with node information provided"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "ClearSelection"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743825, (), (), 4, 1, 4, 0, 192, (24, 0, None), 0)",
+      "documentation": "Clears node selection in the given curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "GetPolyline",
+        "CurvePrecision"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743826, (), ((3, 49, 0),), 4, 1, 4, 0, 200, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns curve consisting of line segments approximating the current subpath"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "RemoveOverlaps"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743827, (), (), 4, 1, 4, 0, 208, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns a copy of the curve with overlapping paths divided into separate subpaths"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Contour",
+        "Offset",
+        "Direction",
+        "EndCapType",
+        "CornerType",
+        "MiterLimit"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743828, (), ((5, 1, None), ((29, 50340992), 49, 1), ((29, 50348544), 49, 2), ((29, 50348672), 49, 4), (5, 49, 0.0)), 4, 1, 4, 0, 216, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns a curve which is contour curve to the current one"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "IsPointInside",
+        "x",
+        "y"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743829, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 224, (11, 0, None), 0)",
+      "documentation": "Determines if the specified point lies inside a closed path"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "IsRectOnEdge",
+        "x1",
+        "y1",
+        "x2",
+        "y2"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743830, (), ((5, 1, None), (5, 1, None), (5, 1, None), (5, 1, None)), 4, 1, 4, 0, 232, (11, 0, None), 0)",
+      "documentation": "Determines if the specified rectangle intersects the path"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "FindClosestSegment",
+        "x",
+        "y",
+        "ParamOffset"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743831, (), ((5, 1, None), (5, 1, None), ((26, 5), 2, None)), 4, 1, 4, 0, 240, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Finds a segment closest to the specified point"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "FindNodeAtPoint",
+        "x",
+        "y",
+        "HotArea"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743832, (), ((5, 1, None), (5, 1, None), (5, 49, -1.0)), 4, 1, 4, 0, 248, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Finds a node along the path at the specified point"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "FindSegmentAtPoint",
+        "x",
+        "y",
+        "ParamOffset",
+        "HotArea"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743833, (), ((5, 1, None), (5, 1, None), ((26, 5), 2, None), (5, 49, -1.0)), 4, 1, 4, 0, 256, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Finds a segment along the path at the specified point"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "WeldWith",
+        "Curve"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743834, (), (((26, (29, 50363648)), 1, None),), 4, 1, 4, 0, 264, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Welds two curves together and returns the resulting curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "IsClockwise"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743835, (), (), 4, 2, 4, 0, 272, (11, 0, None), 0)",
+      "documentation": "Returns True if the curve direction is predominantly clockwise"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Area"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743836, (), (), 4, 2, 4, 0, 280, (5, 0, None), 0)",
+      "documentation": "Returns the area of a closed curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "GetBoundingBox",
+        "x",
+        "y",
+        "Width",
+        "Height"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743837, (), (((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 288, (11, 0, None), 0)",
+      "documentation": "Gets the bounding rectangle around the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "BoundingBox"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743838, (), (), 4, 2, 4, 0, 296, ((26, (29, 50364672)), 0, None), 0)",
+      "documentation": "Returns the bounding rectangle around the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "IntersectsWith",
+        "Curve"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743839, (), (((26, (29, 50363648)), 1, None),), 4, 1, 4, 0, 304, (11, 0, None), 0)",
+      "documentation": "Returns True if the two curves intersect"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "CreateLineSegment",
+        "StartX",
+        "StartY",
+        "EndX",
+        "EndY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743838, (), ((5, 1, None), (5, 1, None), (5, 1, None), (5, 1, None)), 4, 1, 4, 0, 296, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Creates a line segment (curve object) on a layer"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "CreateCurve",
+        "Source"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743840, (), (((26, (29, 50363648)), 1, None),), 4, 1, 4, 0, 312, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Creates a curve shape from specified Curve object"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Application"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, ((26, (29, 50362240)), 0, None), 0)",
+      "documentation": "Gets the application to which the node belongs"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Parent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Gets the node collection parent"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "PositionX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (5, 0, None), 0)",
+      "documentation": "Gets or sets the horizontal position (X) of the node on the page, according to the document's reference point"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "PositionX"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743810, (), ((5, 1, None),), 4, 4, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Gets or sets the horizontal position (X) of the node on the page, according to the document's reference point"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "PositionY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (5, 0, None), 0)",
+      "documentation": "Gets or sets the vertical position (Y) of the node on the page, according to the document's reference point"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "PositionY"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743812, (), ((5, 1, None),), 4, 4, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Gets or sets the vertical position (Y) of the node on the page, according to the document's reference point"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, ((29, 50338432), 0, None), 0)",
+      "documentation": "Gets or sets the node type"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Type"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743814, (), (((29, 50338432), 1, None),), 4, 4, 4, 0, 112, (24, 0, None), 0)",
+      "documentation": "Gets or sets the node type"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "SubPath"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, ((26, (29, 50363904)), 0, None), 0)",
+      "documentation": "Gets the subpath which holds this node"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, (3, 0, None), 0)",
+      "documentation": "Gets the index of the node within its subpath"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "SubPathIndex"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 136, (3, 0, None), 0)",
+      "documentation": "Gets the index of the node's subpath within the curve"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "AbsoluteIndex"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743819, (), (), 4, 2, 4, 0, 144, (3, 0, None), 0)",
+      "documentation": "Gets the index of the node within the curve"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "IsEnding"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (), 4, 2, 4, 0, 152, (11, 0, None), 0)",
+      "documentation": "Gets whether the node is the first or last of its subpath"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "JoinWith",
+        "Target"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743821, (), (((26, (29, 50364160)), 1, None),), 4, 1, 4, 0, 160, (24, 0, None), 0)",
+      "documentation": "Joins this node with another one"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "ConnectWith",
+        "Target"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743822, (), (((26, (29, 50364160)), 1, None),), 4, 1, 4, 0, 168, (24, 0, None), 0)",
+      "documentation": "Connects this node with another one (if possible)"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "BreakApart"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743823, (), (), 4, 1, 4, 0, 176, (24, 0, None), 0)",
+      "documentation": "Breaks this node into two unconnected nodes"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Delete"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743824, (), (), 4, 1, 4, 0, 184, (24, 0, None), 0)",
+      "documentation": "Removes this node from the curve"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "GetPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743825, (), (((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 192, (24, 0, None), 0)",
+      "documentation": "Gets the horizontal and vertical position of the node on the page"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "SetPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743826, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 200, (24, 0, None), 0)",
+      "documentation": "Sets the horizontal and vertical position of the node on the page"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Move",
+        "DeltaX",
+        "DeltaY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743827, (), ((5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 208, (24, 0, None), 0)",
+      "documentation": "Moves the node by a given delta"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Next"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743828, (), (), 4, 1, 4, 0, 216, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Gets the node following this one"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Previous"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743829, (), (), 4, 1, 4, 0, 224, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Gets the node preceding this one"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "GetDistanceFrom",
+        "Node"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743830, (), (((26, (29, 50364160)), 1, None),), 4, 1, 4, 0, 232, (5, 0, None), 0)",
+      "documentation": "Gets the distance from the given node to the current node"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Segment"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743831, (), (), 4, 2, 4, 0, 240, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Returns the segment which the given node ends"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "PrevSegment"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743832, (), (), 4, 2, 4, 0, 248, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Returns the previous segment adjacent to the node"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "NextSegment"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743833, (), (), 4, 2, 4, 0, 256, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Returns the next segment adjacent to the node"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Fillet",
+        "Radius",
+        "CombineSmoothSegments"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743834, (), ((5, 1, None), (11, 49, True)), 4, 1, 4, 0, 264, (11, 0, None), 0)",
+      "documentation": "Creates a fillet on the cusp node"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Chamfer",
+        "DistanceA",
+        "DistanceB",
+        "CombineSmoothSegments"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743835, (), ((5, 1, None), (5, 1, None), (11, 49, True)), 4, 1, 4, 0, 272, (11, 0, None), 0)",
+      "documentation": "Creates a chamfer on the node"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Scallop",
+        "Radius",
+        "CombineSmoothSegments"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743836, (), ((5, 1, None), (11, 49, True)), 4, 1, 4, 0, 280, (11, 0, None), 0)",
+      "documentation": "Creates a scallop on the node"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Selected"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743837, (), (), 4, 2, 4, 0, 288, (11, 0, None), 0)",
+      "documentation": "Returns True if the node is currently selected, or selects/deselects the node"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "Selected"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743837, (), ((11, 1, None),), 4, 4, 4, 0, 296, (24, 0, None), 0)",
+      "documentation": "Returns True if the node is currently selected, or selects/deselects the node"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "CreateSelection"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743839, (), (), 4, 1, 4, 0, 304, (24, 0, None), 0)",
+      "documentation": "Deselects all the nodes in the curve and selects the given node"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "ExtendSubPaths",
+        "Node2",
+        "JoinPaths"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743840, (), (((26, (29, 50364160)), 1, None), (11, 48, False)), 4, 1, 4, 0, 312, (11, 0, None), 0)",
+      "documentation": "Extends two open subpaths until they meet"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "AveragePositionWith",
+        "Node2",
+        "JoinPaths"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743841, (), (((26, (29, 50364160)), 1, None), (11, 48, False)), 4, 1, 4, 0, 320, (24, 0, None), 0)",
+      "documentation": "Moves the two nodes to the midpoint of their original positions"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Application"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, ((26, (29, 50362240)), 0, None), 0)",
+      "documentation": "Gets the application to which the segment belongs"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Parent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Gets the segment collection parent"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((29, 50338560), 0, None), 0)",
+      "documentation": "Gets or sets the segment type"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Type"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743810, (), (((29, 50338560), 1, None),), 4, 4, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Gets or sets the segment type"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "SubPath"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50363904)), 0, None), 0)",
+      "documentation": "Gets the subpath to which the segment belongs"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Length"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, (5, 0, None), 0)",
+      "documentation": "Gets the length of the segment (in the document's units)"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, (3, 0, None), 0)",
+      "documentation": "Gets the index of the segment within its subpath"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "SubPathIndex"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743815, (), (), 4, 2, 4, 0, 112, (3, 0, None), 0)",
+      "documentation": "Gets the index of the segment's subpath within the curve"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "AbsoluteIndex"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (3, 0, None), 0)",
+      "documentation": "Gets the index of the segment within the curve"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "StartingControlPointLength"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, (5, 0, None), 0)",
+      "documentation": "Gets or sets the length of the control point of the starting node (in the document's units)"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "StartingControlPointLength"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743817, (), ((5, 1, None),), 4, 4, 4, 0, 136, (24, 0, None), 0)",
+      "documentation": "Gets or sets the length of the control point of the starting node (in the document's units)"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "StartingControlPointAngle"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743819, (), (), 4, 2, 4, 0, 144, (5, 0, None), 0)",
+      "documentation": "Gets or sets the angle of the control point of the starting node (in the document's units)"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "StartingControlPointAngle"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743819, (), ((5, 1, None),), 4, 4, 4, 0, 152, (24, 0, None), 0)",
+      "documentation": "Gets or sets the angle of the control point of the starting node (in the document's units)"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "EndingControlPointLength"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743821, (), (), 4, 2, 4, 0, 160, (5, 0, None), 0)",
+      "documentation": "Gets or sets the length of the control point of the ending node (in the document's units)"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "EndingControlPointLength"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743821, (), ((5, 1, None),), 4, 4, 4, 0, 168, (24, 0, None), 0)",
+      "documentation": "Gets or sets the length of the control point of the ending node (in the document's units)"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "EndingControlPointAngle"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743823, (), (), 4, 2, 4, 0, 176, (5, 0, None), 0)",
+      "documentation": "Gets or sets the angle of the control point of the ending node (in the document's units)"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "EndingControlPointAngle"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743823, (), ((5, 1, None),), 4, 4, 4, 0, 184, (24, 0, None), 0)",
+      "documentation": "Gets or sets the angle of the control point of the ending node (in the document's units)"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetPointPositionAt",
+        "x",
+        "y",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743825, (), (((26, 5), 2, None), ((26, 5), 2, None), (5, 49, 0.5), ((29, 50338688), 49, 2)), 4, 1, 4, 0, 192, (24, 0, None), 0)",
+      "documentation": "Gets the coordinates of a point located on the curve"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "BreakApartAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743826, (), ((5, 49, 0.5), ((29, 50338688), 49, 2)), 4, 1, 4, 0, 200, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Breaks this segment into two unconnected segments"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "AddNodeAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743827, (), ((5, 49, 0.5), ((29, 50338688), 49, 2)), 4, 1, 4, 0, 208, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Inserts a node on the segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetPerpendicularAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743828, (), ((5, 49, 0.5), ((29, 50338688), 49, 2)), 4, 1, 4, 0, 216, (5, 0, None), 0)",
+      "documentation": "Finds the perpendicular line to a point on the segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetTangentAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743829, (), ((5, 49, 0.5), ((29, 50338688), 49, 2)), 4, 1, 4, 0, 224, (5, 0, None), 0)",
+      "documentation": "Finds the tangent line to a point on the segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetIntersections",
+        "Target",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743830, (), (((26, (29, 50364288)), 1, None), ((29, 50338688), 49, 2)), 4, 1, 4, 0, 232, ((26, (29, 50364416)), 0, None), 0)",
+      "documentation": "Finds the intersection point(s) with another segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Next"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743831, (), (), 4, 1, 4, 0, 240, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Gets the segment following this one"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Previous"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743832, (), (), 4, 1, 4, 0, 248, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Gets the segment preceding this one"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "StartNode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743833, (), (), 4, 2, 4, 0, 256, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Gets the start node"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "EndNode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743834, (), (), 4, 2, 4, 0, 264, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Gets the end node"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "StartingControlPointX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743835, (), (), 4, 2, 4, 0, 272, (5, 0, None), 0)",
+      "documentation": "Gets or sets the starting control point X"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "StartingControlPointX"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743835, (), ((5, 1, None),), 4, 4, 4, 0, 280, (24, 0, None), 0)",
+      "documentation": "Gets or sets the starting control point X"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "StartingControlPointY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743837, (), (), 4, 2, 4, 0, 288, (5, 0, None), 0)",
+      "documentation": "Gets or sets the starting control point Y"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "StartingControlPointY"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743837, (), ((5, 1, None),), 4, 4, 4, 0, 296, (24, 0, None), 0)",
+      "documentation": "Gets or sets the starting control point Y"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "EndingControlPointX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743839, (), (), 4, 2, 4, 0, 304, (5, 0, None), 0)",
+      "documentation": "Gets or sets the ending control point X"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "EndingControlPointX"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743839, (), ((5, 1, None),), 4, 4, 4, 0, 312, (24, 0, None), 0)",
+      "documentation": "Gets or sets the ending control point X"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "EndingControlPointY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743841, (), (), 4, 2, 4, 0, 320, (5, 0, None), 0)",
+      "documentation": "Gets or sets the ending control point Y"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "EndingControlPointY"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743841, (), ((5, 1, None),), 4, 4, 4, 0, 328, (24, 0, None), 0)",
+      "documentation": "Gets or sets the ending control point Y"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetPeaks",
+        "Angle",
+        "Offset1",
+        "Offset2",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743843, (), ((5, 1, None), ((26, 5), 2, None), ((26, 5), 2, None), ((29, 50338688), 49, 2)), 4, 1, 4, 0, 336, (3, 0, None), 0)",
+      "documentation": "Gets Peaks"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetBendPoints",
+        "Offset1",
+        "Offset2",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743844, (), (((26, 5), 2, None), ((26, 5), 2, None), ((29, 50338688), 49, 2)), 4, 1, 4, 0, 344, (3, 0, None), 0)",
+      "documentation": "Gets bend points"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetCurvatureAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743845, (), ((5, 49, 0.5), ((29, 50338688), 49, 2)), 4, 1, 4, 0, 352, (5, 0, None), 0)",
+      "documentation": "Gets the Curve's Curvature at the current segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetCurveSpeedAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743846, (), ((5, 49, 0.5), ((29, 50338688), 49, 2)), 4, 1, 4, 0, 360, (5, 0, None), 0)",
+      "documentation": "Gets the Curve's Speed at the current segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "FindParamOffset",
+        "AbsoluteOffset",
+        "ParamOffset",
+        "Remainder"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743847, (), ((5, 1, None), ((26, 5), 2, None), ((26, 5), 50, 0.0)), 4, 1, 4, 0, 368, (11, 0, None), 0)",
+      "documentation": "Finds Parametric Offset"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetAbsoluteOffset",
+        "ParamOffset"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743848, (), ((5, 1, None),), 4, 1, 4, 0, 376, (5, 0, None), 0)",
+      "documentation": "Gets Absolute Offset"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetStartingControlPointPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743849, (), (((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 384, (24, 0, None), 0)",
+      "documentation": "Returns the starting control point position"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "SetStartingControlPointPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743850, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 392, (24, 0, None), 0)",
+      "documentation": "Sets the starting control point position"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetEndingControlPointPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743851, (), (((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 400, (24, 0, None), 0)",
+      "documentation": "Returns the ending control point position"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "SetEndingControlPointPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743852, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 408, (24, 0, None), 0)",
+      "documentation": "Sets the ending control point position"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetCopy"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743853, (), (), 4, 1, 4, 0, 416, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns a copy of the current segment as a separate curve"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Selected"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743854, (), (), 4, 2, 4, 0, 424, (11, 0, None), 0)",
+      "documentation": "Gets or sets the selection property of the node controlling the properties of the given segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Selected"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743854, (), ((11, 1, None),), 4, 4, 4, 0, 432, (24, 0, None), 0)",
+      "documentation": "Gets or sets the selection property of the node controlling the properties of the given segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "CreateSelection"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743856, (), (), 4, 1, 4, 0, 440, (24, 0, None), 0)",
+      "documentation": "Selects the curve node which controls the properties of the given segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetPolyline",
+        "CurvePrecision"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743857, (), ((3, 49, 0),), 4, 1, 4, 0, 448, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns curve consisting of line segments approximating the current segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "IsRectOnEdge",
+        "x1",
+        "y1",
+        "x2",
+        "y2"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743858, (), ((5, 1, None), (5, 1, None), (5, 1, None), (5, 1, None)), 4, 1, 4, 0, 456, (11, 0, None), 0)",
+      "documentation": "Returns True if the specifies rectangle intersects the segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "FindClosestPoint",
+        "x",
+        "y",
+        "ParamOffset"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743859, (), ((5, 1, None), (5, 1, None), ((26, 5), 2, None)), 4, 1, 4, 0, 464, (11, 0, None), 0)",
+      "documentation": "Finds the point along the segment closest to the specified point"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "FindParamOffsetAtPoint",
+        "x",
+        "y",
+        "ParamOffset",
+        "HotArea"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743860, (), ((5, 1, None), (5, 1, None), ((26, 5), 2, None), (5, 49, -1.0)), 4, 1, 4, 0, 472, (11, 0, None), 0)",
+      "documentation": "Finds the Bezier parameter along the segment which corresponds to the specified point"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "GetBoundingBox",
+        "x",
+        "y",
+        "Width",
+        "Height"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743861, (), (((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 480, (11, 0, None), 0)",
+      "documentation": "Gets the bounding rectangle around the segment"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "BoundingBox"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743862, (), (), 4, 2, 4, 0, 488, ((26, (29, 50364672)), 0, None), 0)",
+      "documentation": "Returns the bounding rectangle around the segment"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "ConvertToCurves"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743811, (), (), 4, 1, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Converts a shape to curves"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Curve"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743826, (), (), 4, 2, 4, 0, 200, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Allows users to access the curve properties"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Delete"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743832, (), (), 4, 1, 4, 0, 248, (24, 0, None), 0)",
+      "documentation": "Deletes the shape"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Duplicate",
+        "OffsetX",
+        "OffsetY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743833, (), ((5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 256, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Duplicates the shape"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Layer"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743857, (), (), 4, 2, 4, 0, 448, ((26, (29, 50362880)), 0, None), 0)",
+      "documentation": "Gets or sets the layer the shape resides upon"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Layer"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743857, (), (((26, (29, 50362880)), 1, None),), 4, 4, 4, 0, 456, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer the shape resides upon"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Combine"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743873, (), (), 4, 1, 4, 0, 576, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Combines"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Weld",
+        "TargetShape",
+        "LeaveSource",
+        "LeaveTarget"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743876, (), (((26, (29, 50363136)), 1, None), (11, 49, False), (11, 49, False)), 4, 1, 4, 0, 600, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Welds to another object"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Trim",
+        "TargetShape",
+        "LeaveSource",
+        "LeaveTarget"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743877, (), (((26, (29, 50363136)), 1, None), (11, 49, True), (11, 49, False)), 4, 1, 4, 0, 608, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Trims to another object"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Intersect",
+        "TargetShape",
+        "LeaveSource",
+        "LeaveTarget"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743878, (), (((26, (29, 50363136)), 1, None), (11, 49, True), (11, 49, True)), 4, 1, 4, 0, 616, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Intersects to another object"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "BreakApartEx"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743934, (), (), 4, 1, 4, 0, 1064, ((26, (29, 50366720)), 0, None), 0)",
+      "documentation": "Breaks apart the curve and returns the objects as a shape range"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "DisplayCurve"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743941, (), (), 4, 2, 4, 0, 1120, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns a read-only curve object representing the current shape"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Page"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610744013, (), (), 4, 2, 4, 0, 1696, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Returns the page the shape belongs to"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "Item",
+        "IndexOrName"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((12, 1, None),), 4, 2, 4, 0, 72, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Gets a reference to the shape specified, in base 1"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (3, 0, None), 0)",
+      "documentation": "Gets the number of shapes in the range"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "Add",
+        "Shape"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743813, (), (((26, (29, 50363136)), 1, None),), 4, 1, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Adds a shape in a range"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "Delete"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743821, (), (), 4, 1, 4, 0, 160, (24, 0, None), 0)",
+      "documentation": "Deletes a shape in a range"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "Combine"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743860, (), (), 4, 1, 4, 0, 472, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Combines"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "BreakApartEx"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743897, (), (), 4, 1, 4, 0, 768, ((26, (29, 50366720)), 0, None), 0)",
+      "documentation": "Breaks all objects in the range apart and returns the broken shapes as a shape range"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Application"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, ((26, (29, 50362240)), 0, None), 0)",
+      "documentation": "Gets the application to which the segment collection belongs"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Parent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Gets the subpath collection parent"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Nodes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((26, (29, 50364032)), 0, None), 0)",
+      "documentation": "Gets the collection of nodes within the subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Segments"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50365056)), 0, None), 0)",
+      "documentation": "Gets the collection of segments within the subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (3, 0, None), 0)",
+      "documentation": "Gets the index of the subpath within its curve"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Length"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, (5, 0, None), 0)",
+      "documentation": "Gets the length of the subpath (in document's units)"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Closed"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, (11, 0, None), 0)",
+      "documentation": "Gets or sets whether the subpath is open or closed"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Closed"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743814, (), ((11, 1, None),), 4, 4, 4, 0, 112, (24, 0, None), 0)",
+      "documentation": "Gets or sets whether the subpath is open or closed"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "PositionX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (5, 0, None), 0)",
+      "documentation": "Gets or sets the X position of the subpath's head"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "PositionX"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((5, 1, None),), 4, 4, 4, 0, 128, (24, 0, None), 0)",
+      "documentation": "Gets or sets the X position of the subpath's head"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "PositionY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 136, (5, 0, None), 0)",
+      "documentation": "Gets or sets the Y position of the subpath's head"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "PositionY"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743818, (), ((5, 1, None),), 4, 4, 4, 0, 144, (24, 0, None), 0)",
+      "documentation": "Gets or sets the Y position of the subpath's head"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "SizeWidth"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (), 4, 2, 4, 0, 152, (5, 0, None), 0)",
+      "documentation": "Gets the width of the whole subpath (in document's units)"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "SizeHeight"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743821, (), (), 4, 2, 4, 0, 160, (5, 0, None), 0)",
+      "documentation": "Gets the height of the whole subpath (in document's units)"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Selection"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743822, (), (), 4, 1, 4, 0, 168, ((26, (29, 50364800)), 0, None), 0)",
+      "documentation": "Creates a range containing all the select nodes on this subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "ReverseDirection"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743823, (), (), 4, 1, 4, 0, 176, (24, 0, None), 0)",
+      "documentation": "Reverses the node order within the subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Extract",
+        "OldCurve"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743824, (), (((26, (26, (29, 50363136))), 50, 0),), 4, 1, 4, 0, 184, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Extracts the subpath into a new separate curve"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Delete"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743825, (), (), 4, 1, 4, 0, 192, (24, 0, None), 0)",
+      "documentation": "Erases the whole subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743826, (), (((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 200, (24, 0, None), 0)",
+      "documentation": "Gets the horizontal and vertical position of the subpath's head on the page"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "SetPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743827, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 208, (24, 0, None), 0)",
+      "documentation": "Sets the horizontal and vertical position of the subpath's head on the page"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Move",
+        "DeltaX",
+        "DeltaY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743828, (), ((5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 216, (24, 0, None), 0)",
+      "documentation": "Moves the whole subpath by a given delta"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "IsOnSubPath",
+        "x",
+        "y",
+        "HotArea"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743829, (), ((5, 1, None), (5, 1, None), (5, 49, -1.0)), 4, 1, 4, 0, 224, ((29, 50338944), 0, None), 0)",
+      "documentation": "Finds if the given coordinates are 'inside', 'outside' or on the margins of the subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "AppendLineSegment",
+        "x",
+        "y",
+        "AppendAtBeginning"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743830, (), ((5, 1, None), (5, 1, None), (11, 49, False)), 4, 1, 4, 0, 232, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Appends a new line segment to this subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "AppendCurveSegment",
+        "x",
+        "y",
+        "StartingControlPointLength",
+        "StartingControlPointAngle",
+        "EndingControlPointLength",
+        "EndingControlPointAngle",
+        "AppendAtBeginning"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743831, (), ((5, 1, None), (5, 1, None), (5, 49, -1.0), (5, 49, 0.0), (5, 49, -1.0), (5, 49, 0.0), (11, 49, False)), 4, 1, 4, 0, 240, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Appends a new curve segment to this subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetPointPositionAt",
+        "x",
+        "y",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743832, (), (((26, 5), 2, None), ((26, 5), 2, None), (5, 49, 0.5), ((29, 50338688), 49, 1)), 4, 1, 4, 0, 248, (24, 0, None), 0)",
+      "documentation": "Gets the coordinates of a point located on the subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "BreakApartAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743833, (), ((5, 49, 0.5), ((29, 50338688), 49, 1)), 4, 1, 4, 0, 256, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Breaks this segment into two unconnected segments"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "AddNodeAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743834, (), ((5, 49, 0.5), ((29, 50338688), 49, 1)), 4, 1, 4, 0, 264, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Inserts a node on the segment"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetPerpendicularAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743835, (), ((5, 49, 0.5), ((29, 50338688), 49, 1)), 4, 1, 4, 0, 272, (5, 0, None), 0)",
+      "documentation": "Finds the perpendicular line to a point on the segment"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetTangentAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743836, (), ((5, 49, 0.5), ((29, 50338688), 49, 1)), 4, 1, 4, 0, 280, (5, 0, None), 0)",
+      "documentation": "Finds the tangent line to a point on the segment"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetIntersections",
+        "Target",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743837, (), (((26, (29, 50363904)), 1, None), ((29, 50338688), 49, 1)), 4, 1, 4, 0, 288, ((26, (29, 50364416)), 0, None), 0)",
+      "documentation": "Finds the intersection point(s) with another subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetSegmentAt",
+        "Offset",
+        "OffsetType",
+        "SegmentOffset"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743838, (), ((5, 49, 0.5), ((29, 50338688), 49, 1), ((26, 5), 50, 0.0)), 4, 1, 4, 0, 296, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Gets the segment at a given position"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Next"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743839, (), (), 4, 1, 4, 0, 304, ((26, (29, 50363904)), 0, None), 0)",
+      "documentation": "Gets the subpath following this one"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Previous"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743840, (), (), 4, 1, 4, 0, 312, ((26, (29, 50363904)), 0, None), 0)",
+      "documentation": "Gets the subpath preceding this one"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetCurvatureAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743841, (), ((5, 49, 0.5), ((29, 50338688), 49, 1)), 4, 1, 4, 0, 320, (5, 0, None), 0)",
+      "documentation": "Gets the Curve's Curvature at the current subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetCurveSpeedAt",
+        "Offset",
+        "OffsetType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743842, (), ((5, 49, 0.5), ((29, 50338688), 49, 1)), 4, 1, 4, 0, 328, (5, 0, None), 0)",
+      "documentation": "Gets the Curve's Speed at the current subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "StartNode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743843, (), (), 4, 2, 4, 0, 336, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Gets the start node"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "EndNode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743844, (), (), 4, 2, 4, 0, 344, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Gets the end node"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "FindSegmentOffset",
+        "AbsoluteOffset",
+        "Segment",
+        "ParamOffset",
+        "Remainder"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743845, (), ((5, 1, None), ((26, (26, (29, 50364288))), 2, None), ((26, 5), 2, None), ((26, 5), 50, 0.0)), 4, 1, 4, 0, 352, (11, 0, None), 0)",
+      "documentation": "Finds Segment Offset"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "FirstSegment"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743846, (), (), 4, 2, 4, 0, 360, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Gets the first segment of the subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "LastSegment"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743847, (), (), 4, 2, 4, 0, 368, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Gets the last segment of the subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "AppendCurveSegment2",
+        "x",
+        "y",
+        "StartingControlPointX",
+        "StartingControlPointY",
+        "EndingControlPointX",
+        "EndingControlPointY",
+        "AppendAtBeginning"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743848, (), ((5, 1, None), (5, 1, None), (5, 1, None), (5, 1, None), (5, 1, None), (5, 1, None), (11, 49, False)), 4, 1, 4, 0, 376, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Appends a new curve segment to this subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetCopy"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743849, (), (), 4, 1, 4, 0, 384, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns a copy of the current subpath as a separate curve"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetCurveInfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743850, (), (), 4, 1, 4, 0, 392, ((27, (29, 50355968)), 0, None), 0)",
+      "documentation": "Retrieves low-level curve information"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "PutCurveInfo",
+        "Source",
+        "NumElements"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743851, (), (((26, (27, (29, 50355968))), 1, None), (3, 49, -1)), 4, 1, 4, 0, 400, (3, 0, None), 0)",
+      "documentation": "Replaces the current subpath with node information provided"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetPolyline",
+        "CurvePrecision"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743852, (), ((3, 49, 0),), 4, 1, 4, 0, 408, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns curve consisting of line segments approximating the current subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "IsPointInside",
+        "x",
+        "y"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743853, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 416, (11, 0, None), 0)",
+      "documentation": "Determines if the specified point lies inside a closed path"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "IsRectOnEdge",
+        "x1",
+        "y1",
+        "x2",
+        "y2"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743854, (), ((5, 1, None), (5, 1, None), (5, 1, None), (5, 1, None)), 4, 1, 4, 0, 424, (11, 0, None), 0)",
+      "documentation": "Determines if the specified rectangle intersects the path"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "FindClosestSegment",
+        "x",
+        "y",
+        "ParamOffset"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743855, (), ((5, 1, None), (5, 1, None), ((26, 5), 2, None)), 4, 1, 4, 0, 432, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Finds a segment closest to the specified point"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "FindNodeAtPoint",
+        "x",
+        "y",
+        "HotArea"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743856, (), ((5, 1, None), (5, 1, None), (5, 49, -1.0)), 4, 1, 4, 0, 440, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Finds a node along the path at the specified point"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "FindSegmentAtPoint",
+        "x",
+        "y",
+        "ParamOffset",
+        "HotArea"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743857, (), ((5, 1, None), (5, 1, None), ((26, 5), 2, None), (5, 49, -1.0)), 4, 1, 4, 0, 448, ((26, (29, 50364288)), 0, None), 0)",
+      "documentation": "Finds a segment along the path at the specified point"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "IsClockwise"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743858, (), (), 4, 2, 4, 0, 456, (11, 0, None), 0)",
+      "documentation": "Returns True if the path direction is predominantly clockwise"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "Area"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743859, (), (), 4, 2, 4, 0, 464, (5, 0, None), 0)",
+      "documentation": "Returns the area of a closed path"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "GetBoundingBox",
+        "x",
+        "y",
+        "Width",
+        "Height"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743860, (), (((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 472, (11, 0, None), 0)",
+      "documentation": "Gets the bounding rectangle around the subpath"
+    },
+    {
+      "interface": "IVGSubPath",
+      "names": [
+        "BoundingBox"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743861, (), (), 4, 2, 4, 0, 480, ((26, (29, 50364672)), 0, None), 0)",
+      "documentation": "Returns the bounding rectangle around the subpath"
+    }
+  ],
+  "enums": {
+    "cdrShapeType": {
+      "cdrNoShape": 0,
+      "cdrRectangleShape": 1,
+      "cdrEllipseShape": 2,
+      "cdrCurveShape": 3,
+      "cdrPolygonShape": 4,
+      "cdrBitmapShape": 5,
+      "cdrTextShape": 6,
+      "cdrGroupShape": 7,
+      "cdrSelectionShape": 8,
+      "cdrGuidelineShape": 9,
+      "cdrBlendGroupShape": 10,
+      "cdrExtrudeGroupShape": 11,
+      "cdrOLEObjectShape": 12,
+      "cdrContourGroupShape": 13,
+      "cdrLinearDimensionShape": 14,
+      "cdrBevelGroupShape": 15,
+      "cdrDropShadowGroupShape": 16,
+      "cdr3DObjectShape": 17,
+      "cdrArtisticMediaGroupShape": 18,
+      "cdrConnectorShape": 19,
+      "cdrMeshFillShape": 20,
+      "cdrCustomShape": 21,
+      "cdrCustomEffectGroupShape": 22,
+      "cdrSymbolShape": 23,
+      "cdrHTMLFormObjectShape": 24,
+      "cdrHTMLActiveObjectShape": 25,
+      "cdrPerfectShape": 26,
+      "cdrEPSShape": 27
+    },
+    "cdrNodeType": {
+      "cdrCuspNode": 0,
+      "cdrSmoothNode": 1,
+      "cdrSymmetricalNode": 2,
+      "cdrMixedNodes": 3
+    },
+    "cdrSegmentType": {
+      "cdrLineSegment": 0,
+      "cdrCurveSegment": 1,
+      "cdrMixedSegments": 2
+    }
+  }
+}

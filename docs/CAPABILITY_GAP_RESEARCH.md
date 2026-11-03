@@ -8,10 +8,10 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 61 tools, all `implemented_unverified`. It has useful
+The current server exposes 67 tools, all `implemented_unverified`. It has useful
 inspection, simple drawing/editing, design-plan, numbering, and imposition
 foundations. Tool count does not establish complete workflow coverage: there is
-no general curve/boolean editing, clipping/effects,
+no node insertion/deletion, contour offsets, clipping/effects,
 complete prepress production, or AI component
 generation/revision interface yet. Specialist scripts are research artifacts,
 not general MCP capabilities.
@@ -39,7 +39,7 @@ is a requirements reference, not X7 automation evidence.
 | Document/page/layer work | New document, inspect pages/layers, CDR save | Controlled open/close, page management, editable/visible layers, source checkpoints |
 | Everyday typography | Artistic/paragraph creation, whole-story style edits, font catalog and aggregate/native chain overflow inspection | Spacing writes, per-run/linked/fitted editing, glyph checks and safe auto-fit |
 | Layout/transforms | Move/proportional resize, pivot rotation, mirroring, native matrix inspection, sibling order, measured distribution and grouping | Layer/page organization, guides, outline-aware bounds and safe-area reflow |
-| Vector construction | Rectangles/ellipses; specialist curve scripts | Lines/paths/nodes, combine/break apart, weld/trim/intersect, offsets and contour tools |
+| Vector construction | Line/cubic paths, full curve inspection, fingerprint-guarded nodes/handles; source-preserving combine/break apart and weld/trim/intersect | Node insertion/deletion, contour offsets, nested shaping and native winding/appearance gates |
 | Appearance and clipping | RGB fill; native fill inspection; raw outline readback | Proven outline units, CMYK/spot writes, transparency/gradients and PowerClip workflows |
 | Images and references | Validated imports; local cover/contain planning; retained tracing research | General crop/background/cleanup, effective-resolution checks, bounded tracing and fidelity reports |
 | Templates and data | Numbering/chest-bib sequence; named text templates, literal CSV, duplicates/count/overflow reconciliation and independent full/partial sheets | Image fields, mixed/linked text, auto-fit and numbering variants |
@@ -63,8 +63,9 @@ coverage in [TYPOGRAPHY.md](TYPOGRAPHY.md); native verification remains deferred
 Common transforms and measured distribution have the same implementation
 status; see [LAYOUT_TRANSFORMS.md](LAYOUT_TRANSFORMS.md) for X7 signatures,
 actual readback, projected-overlap scope and the pending native gate.
-Lookup and PowerClip still need wrappers and runtime evidence. General shaping research can begin
-with Corel's [shape programming guide](https://community.coreldraw.com/sdk/w/guide/214/8-6---working-with-shapes).
+PowerClip still needs a wrapper and runtime evidence. General shaping now has
+installed X7 signatures and 33 focused checks in [VECTOR_EDITING.md](VECTOR_EDITING.md),
+informed by Corel's [shape programming guide](https://community.coreldraw.com/sdk/w/guide/214/8-6---working-with-shapes).
 
 Data and print requirements are supported by Corel's
 [print merge documentation](https://product.corel.com/help/CorelDRAW/Documentation-Windows/CorelDRAW-en/CorelDRAW-Print-merge.html),
@@ -91,7 +92,7 @@ as an explicit dependency until the conversion is established. Parsed PDF
 page boxes and font resource checks are required; these do not prove PDF/X,
 ICC accuracy, visual fidelity or printer readiness. Two PDF tools now pass 22
 focused checks; see [PDF_PRODUCTION.md](PDF_PRODUCTION.md). The complete deferred
-inventory accounts for all 61 registered tools and prepared native gate candidates.
+inventory accounts for all 67 registered tools and prepared native gate candidates.
 
 1. **Reliability foundation:** ID-001 stale targets; SAFE-001 redacted records;
    SAFE-002 busy/timeout state and guarded recovery. Keep inspection bounded and

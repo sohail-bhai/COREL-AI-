@@ -55,6 +55,10 @@ class CorelX7Adapter:
     CDR_TRUE = -1
     CDR_GROUP_SHAPE = 7
     CDR_TEXT_SHAPE = 6
+    CDR_CURVE_SHAPE = 3
+    VECTOR_PRIMITIVE_TYPES = (1,2,3,4)
+    NODE_TYPE_CODES = {'cusp':0,'smooth':1,'symmetrical':2}
+    SEGMENT_TYPE_CODES = {'line':0,'cubic':1}
     FLIP_AXES = {"horizontal": 1, "vertical": 2, "both": 3}
 
     CDR_ALIGN_DISTRIBUTE_H_NONE = 0
@@ -132,6 +136,18 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "vector.create_path": CapabilitySupport(True,"implemented_unverified","Bounded editable line/cubic subpaths with complete native geometry readback; live gate pending.",
+            ("Application.CreateCurve","Curve.CreateSubPath","SubPath.AppendLineSegment","SubPath.AppendCurveSegment2","Layer.CreateCurve")),
+        "vector.inspect_geometry": CapabilitySupport(True,"implemented_unverified","Native node/handle topology and read-only primitive display curves are fingerprinted for exact targeting.",
+            ("Shape.Curve","Shape.DisplayCurve","Curve.SubPaths","Curve.Nodes","Curve.Segments")),
+        "vector.edit_geometry": CapabilitySupport(True,"implemented_unverified","Complete node/handle preflight, explicit cusp conversion, whole-curve readback and partial-failure quarantine.",
+            ("Node.SetPosition","Node.Type","Segment.SetStartingControlPointPosition","Segment.SetEndingControlPointPosition")),
+        "vector.boolean": CapabilitySupport(True,"implemented_unverified","Weld/trim/intersect operate on owned copies and verify measured inputs and membership; live semantics pending.",
+            ("Shape.Duplicate","Shape.Weld","Shape.Trim","Shape.Intersect")),
+        "vector.combine": CapabilitySupport(True,"implemented_unverified","Independent compound outputs preserve and reconcile input subpath geometry after owned conversion/copy.",
+            ("Application.CreateShapeRange","ShapeRange.Combine","Shape.ConvertToCurves")),
+        "vector.break_apart": CapabilitySupport(True,"implemented_unverified","Owned copied subpaths are matched to source geometry and counted before output acceptance.",
+            ("Shape.BreakApartEx","ShapeRange.Item","ShapeRange.Count")),
         "pdf.inspect": CapabilitySupport(
             True,"implemented_unverified","Bounded local PDF page boxes/counts and font-program presence checks; no renderer or ICC/PDF-X proof.",(),
         ),

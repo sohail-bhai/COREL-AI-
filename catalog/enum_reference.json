@@ -263,6 +263,31 @@
         "cdrFlipBoth": 3
       },
       "evidence": "docs/x7_layout_api_evidence.json"
+    },
+    "cdrNodeType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrnodetype",
+      "values": {
+        "cdrCuspNode": 0,
+        "cdrSmoothNode": 1,
+        "cdrSymmetricalNode": 2,
+        "cdrMixedNodes": 3
+      },
+      "bridge_usage": [
+        "Bounded native curve geometry and edits"
+      ],
+      "type_library_evidence": "docs/x7_vector_api_evidence.json"
+    },
+    "cdrSegmentType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrsegmenttype",
+      "values": {
+        "cdrLineSegment": 0,
+        "cdrCurveSegment": 1,
+        "cdrMixedSegments": 2
+      },
+      "bridge_usage": [
+        "Bounded native curve geometry and edits"
+      ],
+      "type_library_evidence": "docs/x7_vector_api_evidence.json"
     }
   }
 }
