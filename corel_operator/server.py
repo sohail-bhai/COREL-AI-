@@ -522,6 +522,45 @@ def inspect_text_template(object_name: str="",shape_index: int=0,object_referenc
 
 @mcp.tool()
 @recorded_operation
+def get_powerclip(object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
+    """Inspect bounded native PowerClip/group trees and a source-bound fingerprint.
+
+    Includes measured geometry, editable text/body hashes and native bitmap metadata.
+    Clipped descendants use identity metadata; extract copies for ordinary edit refs.
+    Limits: 1000 shapes/32 levels; visual/pixel/effect fidelity remains unverified.
+    """
+    return _tool("get_powerclip","get_powerclip",object_name,shape_index,object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def create_powerclip(frame_reference: dict,content_references: list[dict],fit_kind: str="none",padding_inches: float=0.,
+    contents_locked: bool=True,replace_existing_contents: bool=False,result_name: str="") -> dict:
+    """Create an independent editable PowerClip from exact same-layer root inputs.
+
+    Preserve source frame and 1-64 content objects. Group copied content in source
+    stacking order; choose none/contain/cover fitting, padding and lock behavior.
+    Replacing copied old contents is explicit. Verify full measured geometry/tree
+    ownership and discard only owned outputs on failure. No rasterization or clipboard.
+    """
+    return _tool("create_powerclip","create_powerclip",frame_reference,content_references,fit_kind,padding_inches,
+        contents_locked,replace_existing_contents,result_name)
+
+
+@mcp.tool()
+@recorded_operation
+def extract_powerclip_contents(frame_reference: dict,expected_fingerprint: str,result_name_prefix: str="AI_Extracted") -> dict:
+    """Extract copied PowerClip content into independently editable root objects.
+
+    Require current frame/content fingerprint, preserve complete measured source,
+    reconcile native extraction identities/geometry and return signed editing refs.
+    Native rendering/pixel/complex-effect fidelity remains deferred.
+    """
+    return _tool("extract_powerclip_contents","extract_powerclip_contents",frame_reference,expected_fingerprint,result_name_prefix)
+
+
+@mcp.tool()
+@recorded_operation
 def get_transparency(object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
     """Inspect native transparency type, uniform percent, affected channel and merge mode.
 

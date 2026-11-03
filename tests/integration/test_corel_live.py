@@ -402,6 +402,58 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed,failure)
 
+    def test_powerclip_workflows_live(self) -> None:
+        """Deferred editable mixed-payload clipping/extraction/rebuild gate."""
+        from PIL import Image
+        passed=False; failure=None
+        try:
+            self.status=self._step("connect",self.bridge.connect)
+            self._step("create clipping fixture",lambda:self.bridge.create_document(8.5,11))
+            frame=self._step("closed clip frame",lambda:self.bridge.draw_rectangle(1,1,3,3,"ClipFrame"))
+            frame_ref=self.bridge.get_object_info(object_name=frame["object_name"])["object"]["object_reference"]
+            vector=self._step("editable clip vector",lambda:self.bridge.create_vector_path([
+                {"start":{"x":0,"y":0},"closed":False,"segments":[
+                    {"type":"cubic","control1":{"x":0,"y":2},"control2":{"x":4,"y":2},"end":{"x":4,"y":0}}]}],"ClipVector"))
+            art_ref=vector["objects"][0]["object"]["object_reference"]
+            title=self._step("editable clip title",lambda:self.bridge.add_text("Editable clip title",0,2,18,"Arial",True,"ClipTitle"))
+            title_ref=self.bridge.get_object_info(object_name=title["object_name"])["object"]["object_reference"]
+            raster_path=self.output_dir/"clipping-raster.png"
+            Image.new("RGB",(600,300),(50,150,90)).save(raster_path,dpi=(300,300))
+            imported=self._step("synthetic clipping bitmap",lambda:self.bridge.import_artwork(str(raster_path),"ClipBitmap"))
+            photo_ref=self.bridge.get_object_info(object_name=imported["object_names"][0])["object"]["object_reference"]
+            self._step("position clip bitmap",lambda:self.bridge.move_object(0,3,object_reference=photo_ref))
+            source_snapshots=[self.bridge.get_powerclip(object_reference=reference)["powerclip"] for reference in (frame_ref,art_ref,title_ref,photo_ref)]
+            created=self._step("create_powerclip mixed contain",lambda:self.bridge.create_powerclip(frame_ref,[photo_ref,title_ref,art_ref],
+                fit_kind="contain",contents_locked=True,result_name="EditablePowerClip"))
+            self.assertEqual(created["created_count"],1); self.assertTrue(created["source_preservation"]["verified"])
+            clip_ref=created["objects"][0]["object"]["object_reference"]
+            inspected=self._step("get_powerclip created",lambda:self.bridge.get_powerclip(object_reference=clip_ref))
+            tree=inspected["powerclip"]["frame"]; self.assertEqual(len(tree["clip_children"]),1)
+            payload=tree["clip_children"][0]; self.assertEqual(payload["shape_type_code"],7)
+            self.assertEqual(sorted(node["shape_type_code"] for node in payload["group_children"]),[3,5,6])
+            extracted=self._step("extract_powerclip_contents",lambda:self.bridge.extract_powerclip_contents(clip_ref,inspected["powerclip"]["fingerprint"],"EditableBody"))
+            self.assertEqual(extracted["extracted_count"],1)
+            extracted_ref=extracted["objects"][0]["object"]["object_reference"]
+            group,_=self.bridge._resolve_object_reference(self.bridge.target_doc,extracted_ref,mutation=True)
+            title_copies=[self.bridge._collection_item(group.Shapes,i) for i in range(1,group.Shapes.Count+1)
+                          if self.bridge._collection_item(group.Shapes,i).Type==6]
+            self.assertEqual(len(title_copies),1)
+            copied_title_ref=self.bridge._reference_for_shape(self.bridge.target_doc,title_copies[0]); self.assertIsNotNone(copied_title_ref)
+            self._step("edit extracted title",lambda:self.bridge.set_text_content("Revised clip title",object_reference=copied_title_ref))
+            self.assertEqual(self.bridge.get_text_properties(object_reference=title_ref)["text"]["content"],"Editable clip title")
+            self.assertEqual(self.bridge.get_powerclip(object_reference=clip_ref)["powerclip"],inspected["powerclip"])
+            rebuilt=self._step("rebuild copied clip",lambda:self.bridge.create_powerclip(clip_ref,[extracted_ref],fit_kind="cover",
+                replace_existing_contents=True,contents_locked=False,result_name="RevisedPowerClip"))
+            self.assertFalse(rebuilt["objects"][0]["powerclip"]["frame"]["contents_locked"])
+            self.assertEqual([self.bridge.get_powerclip(object_reference=reference)["powerclip"] for reference in (frame_ref,art_ref,title_ref,photo_ref)],source_snapshots)
+            self._step("save clipping fixture",lambda:self.bridge.save_document(str(self.output_dir/"powerclip-workflows.cdr")))
+            self._step("export clipping fixture",lambda:self.bridge.export_pdf_controlled(str(self.output_dir/"powerclip-workflows.pdf")))
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed,failure)
+
     def test_document_inspection_live(self) -> None:
         """Consolidated inspection checks on a synthetic document with two pages."""
         passed=False; failure=None

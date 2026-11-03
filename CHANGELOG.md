@@ -8,6 +8,14 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Source-preserving PowerClip inspection, copied frame/content fitting and
+  extraction into editable component roots for revisions/rebuilds. Thirty-four
+  focused checks cover mixed content, nested locks, complete source geometry,
+  ownership/alias rejection and verified cleanup/quarantine. Installed X7
+  descriptors are retained without application access; online pages returned no
+  readable API content. The surface has 74 registered tools; 583 checks pass and
+  23 live gates remain deferred. Native clipping/extraction, pixel/visual evidence
+  and in-place edit mode remain pending.
 - Transparency inspection and controlled normal-mode uniform fill/outline/both
   application/removal. Eighteen checks cover exact percentage/scope/merge,
   non-uniform replacement intent, ignored/partial writes, preservation and

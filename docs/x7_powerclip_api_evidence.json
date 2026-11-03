@@ -1,0 +1,735 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "SizeWidth"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, (3, 0, None), 0)",
+      "documentation": "Gets the bitmap's horizontal size (width)"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "SizeHeight"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, (3, 0, None), 0)",
+      "documentation": "Gets the bitmap's vertical size (height)"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ResolutionX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Gets the bitmap's horizontal resolution"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ResolutionY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, (3, 0, None), 0)",
+      "documentation": "Gets the bitmap's vertical resolution"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ExternallyLinked"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (11, 0, None), 0)",
+      "documentation": "Gets the status of a bitmap: externally linked or embedded"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ResolveLink"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743813, (), (), 4, 1, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Embeds an externally linked bitmap"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "UpdateLink"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743814, (), (), 4, 1, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": "Updates an externally linked bitmap from its source"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Inflate",
+        "Width",
+        "Height"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743815, (), ((3, 1, None), (3, 1, None)), 4, 1, 4, 0, 112, (24, 0, None), 0)",
+      "documentation": "Inflates a bitmap"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "LinkFileName"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (8, 0, None), 0)",
+      "documentation": "Gets the file name of the externally linked bitmap"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Mode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, ((29, 50333824), 0, None), 0)",
+      "documentation": "Gets the color mode of the bitmap"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "SaveAs",
+        "FileName",
+        "Filter",
+        "Compression"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743818, (), ((8, 1, None), ((29, 50331648), 1, None), ((29, 50336128), 49, 0)), 4, 1, 4, 0, 136, ((26, (29, 50356224)), 0, None), 0)",
+      "documentation": "Saves the bitmap to the specified file and returns the filter object"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Resample",
+        "Width",
+        "Height",
+        "AntiAlias",
+        "ResolutionX",
+        "ResolutionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743819, (), ((3, 49, 0), (3, 49, 0), (11, 49, True), (5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 144, (24, 0, None), 0)",
+      "documentation": "Resamples the bitmap"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ConvertTo",
+        "Mode"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743820, (), (((29, 50333824), 1, None),), 4, 1, 4, 0, 152, (24, 0, None), 0)",
+      "documentation": "Changes the bitmap color mode"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ApplyBitmapEffect",
+        "UndoString",
+        "Command"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743821, (), ((8, 1, None), (8, 1, None)), 4, 1, 4, 0, 160, (24, 0, None), 0)",
+      "documentation": "Applies the specified bitmap effect"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Crop"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743822, (), (), 4, 1, 4, 0, 168, (24, 0, None), 0)",
+      "documentation": "Crops the bitmap to its clipping path"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Transparent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743823, (), (), 4, 2, 4, 0, 176, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap is transparent"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Watermarked"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743824, (), (), 4, 2, 4, 0, 184, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap has a watermark"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "OPILinked"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743825, (), (), 4, 2, 4, 0, 192, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap is linked to an OPI file"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "IsEPS"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743826, (), (), 4, 2, 4, 0, 200, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap is an EPS placeholder"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ExternalLinkTime"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743827, (), (), 4, 2, 4, 0, 208, (7, 0, None), 0)",
+      "documentation": "Gets the original time stamp of the file to which the bitmap is linked externally"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ConvertToPaletted",
+        "PaletteType",
+        "DitherType",
+        "DitherIntensity",
+        "Smoothing",
+        "NumColors",
+        "ColorSensitive",
+        "TargetColor",
+        "Importance",
+        "Lightness",
+        "ToleranceA",
+        "ToleranceB",
+        "Palette"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743828, (), (((29, 50335360), 1, None), ((29, 50335488), 49, 0), (3, 49, 100), (3, 49, 0), (3, 49, 256), (11, 49, False), (3, 49, 16777215), (3, 49, 500), (3, 49, 300), (3, 49, 300), (3, 49, 100), ((26, 12), 17, None)), 4, 1, 4, 1, 216, (24, 0, None), 0)",
+      "documentation": "Converts the bitmap to a paletted image using the specified parameters"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ConvertToPaletted2",
+        "Options"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743829, (), (((26, (29, 50365312)), 49, 0),), 4, 1, 4, 0, 224, (24, 0, None), 0)",
+      "documentation": "Converts the bitmap to a paletted image using the specified parameters"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ConvertToBW",
+        "RenderType",
+        "Intensity",
+        "Threshold",
+        "Halftone",
+        "HalftoneAngle",
+        "HalftoneSize"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743830, (), (((29, 50335616), 1, None), (3, 49, 100), (3, 49, 128), ((29, 50335744), 49, 0), (3, 49, 45), (3, 49, 0)), 4, 1, 4, 0, 232, (24, 0, None), 0)",
+      "documentation": "Converts the bitmap to black and white color mode"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ResetCropEnvelope"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743831, (), (), 4, 1, 4, 0, 240, (24, 0, None), 0)",
+      "documentation": "Removes a clipping path from a bitmap and resets its envelope to a bounding box rectangle"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Embedded"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743832, (), (), 4, 2, 4, 0, 248, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap is embedded into the document"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Cropped"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743833, (), (), 4, 2, 4, 0, 256, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap can be cropped"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "CropEnvelopeModified"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743834, (), (), 4, 2, 4, 0, 264, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap's clipping path has been modified"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "CropEnvelope"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743835, (), (), 4, 2, 4, 0, 272, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns the bitmap clipping path curve"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "BoundingBoxPath"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743836, (), (), 4, 2, 4, 0, 280, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns the uncropped read-only bitmap bounding box curve"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ConvertToDuotone",
+        "Duotone"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743837, (), (((26, (29, 50365440)), 1, None),), 4, 1, 4, 0, 288, (24, 0, None), 0)",
+      "documentation": "Converts the bitmap to duotone color mode"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Duotone"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743838, (), (), 4, 2, 4, 0, 296, ((26, (29, 50365440)), 0, None), 0)",
+      "documentation": "Returns the duotone settings of the bitmap"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "LinkFileName"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((8, 1, None),), 4, 4, 4, 0, 304, (24, 0, None), 0)",
+      "documentation": "Gets the file name of the externally linked bitmap"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Trace",
+        "TraceType",
+        "Smoothing",
+        "DetailLevelPercent",
+        "ColorMode",
+        "PaletteID",
+        "ColorCount",
+        "DeleteOriginalObject",
+        "RemoveBackground",
+        "RemoveEntireBackColor"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743840, (), (((29, 50348800), 1, None), (2, 49, -1), (2, 49, 0), ((29, 50333696), 49, 99), ((29, 50332288), 49, 0), (3, 49, 0), (11, 49, False), (11, 49, True), (11, 49, False)), 4, 1, 4, 0, 312, ((26, (29, 50366592)), 0, None), 0)",
+      "documentation": "Converts the bitmap into vector objects"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Application"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, ((26, (29, 50362240)), 0, None), 0)",
+      "documentation": "Gets the application to which the object belongs"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Parent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Gets the parent of which this object is a child"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Shapes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((26, (29, 50363008)), 0, None), 0)",
+      "documentation": "Gets the shapes in the powerclip"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "ContentsLocked"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, (11, 0, None), 0)",
+      "documentation": "Gets or sets whether to lock the contents of the powerclip"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "ContentsLocked"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743811, (), ((11, 1, None),), 4, 4, 4, 0, 88, (24, 0, None), 0)",
+      "documentation": "Gets or sets whether to lock the contents of the powerclip"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "EnterEditMode"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743813, (), (), 4, 1, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Enters the edit mode"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "LeaveEditMode"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743814, (), (), 4, 1, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": "Leaves the edit mode"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "ExtractShapes"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743815, (), (), 4, 1, 4, 0, 112, ((26, (29, 50366720)), 0, None), 0)",
+      "documentation": "Extracts PowerClip shapes from the frame"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Shapes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, ((26, (29, 50363008)), 0, None), 0)",
+      "documentation": "Gets a collection of shapes"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Bitmap"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743827, (), (), 4, 2, 4, 0, 208, ((26, (29, 50365184)), 0, None), 0)",
+      "documentation": "Allows users to access the bitmap properties"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Delete"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743832, (), (), 4, 1, 4, 0, 248, (24, 0, None), 0)",
+      "documentation": "Deletes the shape"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Duplicate",
+        "OffsetX",
+        "OffsetY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743833, (), ((5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 256, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Duplicates the shape"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Layer"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743857, (), (), 4, 2, 4, 0, 448, ((26, (29, 50362880)), 0, None), 0)",
+      "documentation": "Gets or sets the layer the shape resides upon"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Layer"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743857, (), (((26, (29, 50362880)), 1, None),), 4, 4, 4, 0, 456, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer the shape resides upon"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "SetPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743867, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 528, (24, 0, None), 0)",
+      "documentation": "Sets Position"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "SetSize",
+        "Width",
+        "Height"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743868, (), ((5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 536, (24, 0, None), 0)",
+      "documentation": "Sets Size"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "AddToPowerClip",
+        "Shape",
+        "CenterInContainer"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743899, (), (((26, (29, 50363136)), 1, None), ((29, 50342144), 49, -2)), 4, 1, 4, 0, 784, (24, 0, None), 0)",
+      "documentation": "Adds this shape to a power clip"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "PowerClip"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743901, (), (), 4, 2, 4, 0, 800, ((26, (29, 50376192)), 0, None), 0)",
+      "documentation": "Gets the powerclip"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "ParentGroup"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743922, (), (), 4, 2, 4, 0, 968, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "ParentGroup"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Page"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610744013, (), (), 4, 2, 4, 0, 1696, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Returns the page the shape belongs to"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "Item",
+        "IndexOrName"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((12, 1, None),), 4, 2, 4, 0, 72, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Gets a reference to the shape specified, in base 1"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (3, 0, None), 0)",
+      "documentation": "Gets the number of shapes in the range"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "Add",
+        "Shape"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743813, (), (((26, (29, 50363136)), 1, None),), 4, 1, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Adds a shape in a range"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "Group"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743827, (), (), 4, 1, 4, 0, 208, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Creates a group"
+    }
+  ]
+}

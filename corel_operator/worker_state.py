@@ -11,7 +11,7 @@ READ_ONLY_METHODS = frozenset({
     "connect", "status", "list_open_documents", "get_document_info", "list_pages",
     "get_page_bounds", "list_layers", "list_objects", "find_objects",
     "get_object_info", "get_object_bounds", "get_text_properties", "get_fill",
-    "inspect_repeat_unit", "list_fonts", "get_object_transform", "inspect_text_template", "get_curve_geometry", "get_transparency",
+    "inspect_repeat_unit", "list_fonts", "get_object_transform", "inspect_text_template", "get_curve_geometry", "get_transparency", "get_powerclip",
 })
 SAFE_REFUSALS = frozenset({
     ErrorCode.NO_TARGET_DOCUMENT, ErrorCode.CONFIRMATION_REQUIRED,

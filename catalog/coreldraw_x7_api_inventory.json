@@ -154,6 +154,13 @@
       "path": "docs/x7_appearance_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "Installed process-color/outline/fill/transparency/clipping signatures without application access."
+    },
+    {
+      "id": "x7_powerclip_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_powerclip_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "Installed clipping/grouping/transform/bitmap descriptors without application access."
     }
   ],
   "members": [
@@ -274,7 +281,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_application",
@@ -600,7 +610,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_document",
@@ -639,7 +652,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_document",
@@ -680,7 +696,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_document",
@@ -999,7 +1018,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_page",
@@ -1039,7 +1061,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_page",
@@ -1330,7 +1355,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1510,7 +1538,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1554,7 +1585,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1595,7 +1629,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1639,7 +1676,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1681,7 +1721,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1721,7 +1764,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1758,7 +1804,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1795,7 +1844,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1832,7 +1884,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1869,7 +1924,10 @@
         "revise_curve_topology",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1896,7 +1954,10 @@
         "execute_template_batch",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1921,7 +1982,10 @@
         "get_fill",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1944,7 +2008,10 @@
         "set_outline",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1966,7 +2033,8 @@
         "move_object",
         "prepare_contour_nesting",
         "prepare_imposition_job",
-        "distribute_objects"
+        "distribute_objects",
+        "create_powerclip"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1993,7 +2061,9 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2109,7 +2179,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2152,7 +2225,10 @@
         "inspect_text_template",
         "execute_template_batch",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2177,7 +2253,10 @@
         "inspect_text_template",
         "execute_template_batch",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2200,7 +2279,10 @@
         "inspect_text_template",
         "execute_template_batch",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2222,7 +2304,10 @@
         "inspect_text_template",
         "execute_template_batch",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2244,7 +2329,10 @@
         "inspect_text_template",
         "execute_template_batch",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2380,7 +2468,10 @@
         "get_fill",
         "get_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2403,7 +2494,10 @@
         "set_outline",
         "get_fill",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2425,7 +2519,10 @@
         "set_outline",
         "get_fill",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2447,7 +2544,10 @@
         "set_outline",
         "get_fill",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2467,7 +2567,10 @@
         "get_fill",
         "get_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2486,7 +2589,10 @@
         "get_fill",
         "get_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2505,7 +2611,10 @@
         "get_fill",
         "get_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2524,7 +2633,10 @@
         "get_fill",
         "get_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2543,7 +2655,10 @@
         "get_fill",
         "get_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2565,7 +2680,10 @@
         "get_fill",
         "get_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2585,7 +2703,10 @@
         "get_fill",
         "get_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2604,7 +2725,10 @@
         "get_fill",
         "get_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2623,7 +2747,10 @@
         "get_fill",
         "get_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_color",
@@ -2641,7 +2768,10 @@
       "used_by": [
         "set_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_outline",
@@ -2679,7 +2809,10 @@
         "list_objects",
         "set_outline",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "official_x7_outline",
@@ -2864,7 +2997,8 @@
         "align_objects",
         "align_to_page",
         "group_shapes",
-        "combine_vector_shapes"
+        "combine_vector_shapes",
+        "create_powerclip"
       ],
       "evidence": [
         "official_x7_application",
@@ -2933,7 +3067,8 @@
       "signature": "Group() -> Shape",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "group_shapes"
+        "group_shapes",
+        "create_powerclip"
       ],
       "evidence": [
         "official_x7_shaperange",
@@ -2988,7 +3123,10 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3030,7 +3168,10 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3051,7 +3192,10 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3238,7 +3382,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3267,7 +3414,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3297,7 +3447,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3472,7 +3625,9 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3494,7 +3649,9 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3516,7 +3673,9 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -3956,7 +4115,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -3980,7 +4142,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4004,7 +4169,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4028,7 +4196,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4052,7 +4223,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4076,7 +4250,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4100,7 +4277,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4124,7 +4304,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4148,7 +4331,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4172,7 +4358,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4196,7 +4385,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4220,7 +4412,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4244,7 +4439,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4268,7 +4466,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4292,7 +4493,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4337,7 +4541,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4358,7 +4565,9 @@
         "boolean_shapes",
         "combine_vector_shapes",
         "break_apart_curve",
-        "revise_curve_topology"
+        "revise_curve_topology",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4382,7 +4591,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4423,7 +4635,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4447,7 +4662,10 @@
         "break_apart_curve",
         "revise_curve_topology",
         "set_process_color",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4559,7 +4777,8 @@
       "signature": "Add, Shape",
       "status": "typelib_confirmed",
       "used_by": [
-        "combine_vector_shapes"
+        "combine_vector_shapes",
+        "create_powerclip"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4673,7 +4892,10 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -4690,7 +4912,10 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -4707,7 +4932,10 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -4724,7 +4952,10 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -4741,7 +4972,10 @@
       "status": "typelib_confirmed",
       "used_by": [
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -4779,6 +5013,217 @@
         "x7_appearance_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/transparency.applyuniformtransparency",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.ResolutionX",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "ResolutionX",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.resolutionx",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.ResolutionY",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "ResolutionY",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.resolutiony",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.SizeHeight",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "SizeHeight",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.sizeheight",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.SizeWidth",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "SizeWidth",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.sizewidth",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PowerClip.ContentsLocked",
+      "owner": "PowerClip",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "ContentsLocked",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/powerclip.contentslocked",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PowerClip.Parent",
+      "owner": "PowerClip",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Parent",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/powerclip.parent",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PowerClip.Shapes",
+      "owner": "PowerClip",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Shapes",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/powerclip.shapes",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.Bitmap",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Bitmap",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.bitmap",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.PowerClip",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "PowerClip",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.powerclip",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PowerClip.ExtractShapes",
+      "owner": "PowerClip",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "ExtractShapes",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_powerclip",
+        "extract_powerclip_contents"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/powerclip.extractshapes",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.AddToPowerClip",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "AddToPowerClip, Shape, CenterInContainer",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_powerclip"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.addtopowerclip",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.SetSize",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "SetSize, Width, Height",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "create_powerclip"
+      ],
+      "evidence": [
+        "x7_powerclip_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.setsize",
       "live_test_status": "not_run_deferred"
     }
   ]

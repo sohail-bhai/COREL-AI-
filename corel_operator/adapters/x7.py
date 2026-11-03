@@ -139,6 +139,12 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "appearance.powerclip_inspection": CapabilitySupport(True,"implemented_unverified","Bounded native group/clip trees, measured geometry/body metadata and source-bound fingerprints; clipped children require extraction for ordinary editing references.",
+            ("Shape.PowerClip","PowerClip.Parent","PowerClip.Shapes","PowerClip.ContentsLocked")),
+        "appearance.powerclip_create": CapabilitySupport(True,"implemented_unverified","Independent frame/content copies, grouped payloads and contain/cover fitting reconcile complete measured trees and preserve sources; native/visual gate pending.",
+            ("Shape.Duplicate","Shape.AddToPowerClip","ShapeRange.Group","PowerClip.ContentsLocked")),
+        "appearance.powerclip_extract": CapabilitySupport(True,"implemented_unverified","Copied clip extraction reconciles native identities/tree geometry and returns independent root editing references with owned-output cleanup.",
+            ("Shape.Duplicate","PowerClip.ExtractShapes","PowerClip.Shapes","Shape.Delete")),
         "appearance.transparency_inspection": CapabilitySupport(True,"implemented_unverified","Bounded transparency type/uniform/channel/merge metadata with explicit unavailable state; rendered appearance remains unverified.",
             ("Shape.Transparency","Transparency.Type","Transparency.Uniform","Transparency.AppliedTo","Transparency.MergeMode")),
         "appearance.uniform_transparency": CapabilitySupport(True,"implemented_unverified","Normal-mode uniform fill/outline/both transparency and removal verify native state and measured/base-appearance preservation.",

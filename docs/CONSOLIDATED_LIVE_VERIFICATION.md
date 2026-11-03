@@ -39,6 +39,12 @@ checks native percentages, affected fill/outline/both scope, normal merge mode,
 removal and measured preservation. Rendered blending, pixel identity and printed
 appearance require manual artifact review.
 
+The PowerClip gate creates mixed vector/text/bitmap fixtures, copies a frame and
+content with fitting, extracts independent editable copies, revises one text
+component and rebuilds a copied clip. Source identities/geometry, ownership and
+native extracted roots are reconciled. Getter absence, coordinate/lock semantics
+and rendered clipping require the native run and manual CDR/PDF review.
+
 Use `tests/integration/test_corel_live.py` with explicit live and disposable
 mutation flags only when the user resumes native verification. All generated
 fixtures and outputs belong to that run's unique temporary directory. Existing

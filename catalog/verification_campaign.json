@@ -25,6 +25,7 @@
         "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_document_inspection_live",
         "CorelDisposableDocumentLiveTests.test_standalone_contour_nesting_live",
         "CorelDisposableDocumentLiveTests.test_controlled_pdf_live",
@@ -66,6 +67,7 @@
       "native_gate_candidates": [
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_document_inspection_live",
         "CorelDisposableDocumentLiveTests.test_controlled_pdf_live",
         "CorelDisposableDocumentLiveTests.test_template_batch_live",
@@ -90,6 +92,7 @@
         "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_template_batch_live",
         "CorelDisposableDocumentLiveTests.test_existing_tools_on_new_disposable_document",
         "CorelDisposableDocumentLiveTests.test_find_objects_live",
@@ -172,6 +175,7 @@
       ],
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_existing_tools_on_new_disposable_document",
         "CorelDisposableDocumentLiveTests.test_closed_document_guard_live",
         "CorelDisposableDocumentLiveTests.test_object_references_live",
@@ -203,6 +207,7 @@
       ],
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_existing_tools_on_new_disposable_document",
         "CorelDisposableDocumentLiveTests.test_object_references_live",
         "CorelDisposableDocumentLiveTests.test_worker_recovery_live"
@@ -248,6 +253,7 @@
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_existing_tools_on_new_disposable_document",
         "CorelDisposableDocumentLiveTests.test_execute_design_plan_live"
       ],
@@ -265,6 +271,7 @@
         "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_document_inspection_live",
         "CorelDisposableDocumentLiveTests.test_raster_print_workflow_live",
         "CorelDisposableDocumentLiveTests.test_standalone_contour_nesting_live",
@@ -383,6 +390,7 @@
         "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_document_inspection_live"
       ],
       "native_result": "not_run",
@@ -437,6 +445,7 @@
       "native_gate_candidates": [
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_focused_object_inspection_live",
         "CorelDisposableDocumentLiveTests.test_object_references_live",
         "CorelDisposableDocumentLiveTests.test_typography_live",
@@ -908,6 +917,7 @@
         "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
         "CorelDisposableDocumentLiveTests.test_native_process_colors_live",
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live",
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_raster_print_workflow_live",
         "CorelDisposableDocumentLiveTests.test_controlled_pdf_live"
       ],
@@ -924,7 +934,8 @@
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
         "CorelDisposableDocumentLiveTests.test_vector_editing_and_shaping_live",
-        "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live"
+        "CorelDisposableDocumentLiveTests.test_vector_topology_revision_live",
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live"
       ],
       "native_result": "not_run",
       "mcp_envelope_result": "pending_consolidated_client_run",
@@ -1055,6 +1066,48 @@
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
         "CorelDisposableDocumentLiveTests.test_uniform_transparency_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "get_powerclip",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_powerclip.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "create_powerclip",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_powerclip.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "extract_powerclip_contents",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_powerclip.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live"
       ],
       "native_result": "not_run",
       "mcp_envelope_result": "pending_consolidated_client_run",

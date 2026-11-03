@@ -2911,6 +2911,317 @@
         "merge_mode"
       ],
       "additionalProperties": false
+    },
+    "powerclip_transform": {
+      "type": "object",
+      "properties": {
+        "bounds_inches": {
+          "$ref": "#/schema_definitions/layout_bounds_inches"
+        },
+        "matrix": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 6,
+          "maxItems": 6
+        },
+        "rotation_degrees": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMaximum": 360
+        },
+        "matrix_coordinate_space": {
+          "const": "native_affine_in_document_inches"
+        }
+      },
+      "required": [
+        "bounds_inches",
+        "matrix",
+        "rotation_degrees",
+        "matrix_coordinate_space"
+      ],
+      "additionalProperties": false
+    },
+    "powerclip_node": {
+      "type": "object",
+      "properties": {
+        "identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "static_id": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "object_name": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "name_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "name_truncated": {
+          "type": "boolean"
+        },
+        "shape_type_code": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "group_children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/powerclip_node"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "clip_children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/powerclip_node"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "contents_locked": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "transform": {
+          "$ref": "#/schema_definitions/powerclip_transform"
+        },
+        "fill": {
+          "$ref": "#/schema_definitions/fill_readback"
+        },
+        "outline": {
+          "$ref": "#/schema_definitions/outline_readback"
+        },
+        "transparency": {
+          "$ref": "#/schema_definitions/transparency_readback"
+        },
+        "curve": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/curve_geometry"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "content_sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "character_count": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2147483647
+                },
+                "text_type_code": {
+                  "enum": [
+                    0,
+                    1
+                  ]
+                },
+                "frame_count": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "preview": {
+                  "type": "string",
+                  "maxLength": 4000
+                },
+                "font": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 256
+                },
+                "size_points": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "exclusiveMinimum": 0
+                },
+                "bold": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "content_sha256",
+                "character_count",
+                "text_type_code",
+                "frame_count",
+                "preview",
+                "font",
+                "size_points",
+                "bold"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bitmap": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "SizeWidth": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2147483647
+                },
+                "SizeHeight": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2147483647
+                },
+                "ResolutionX": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2147483647
+                },
+                "ResolutionY": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2147483647
+                },
+                "units": {
+                  "const": "native_bitmap_size_resolution_metadata"
+                }
+              },
+              "required": [
+                "SizeWidth",
+                "SizeHeight",
+                "ResolutionX",
+                "ResolutionY",
+                "units"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "supported_payload": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "identity",
+        "static_id",
+        "object_name",
+        "name_sha256",
+        "name_truncated",
+        "shape_type_code",
+        "group_children",
+        "clip_children",
+        "contents_locked",
+        "transform",
+        "fill",
+        "outline",
+        "transparency",
+        "curve",
+        "text",
+        "bitmap",
+        "supported_payload"
+      ],
+      "additionalProperties": false
+    },
+    "powerclip_tree": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "powerclip-tree-v1"
+        },
+        "document_session_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "frame": {
+          "$ref": "#/schema_definitions/powerclip_node"
+        },
+        "shape_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "has_powerclip": {
+          "type": "boolean"
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema",
+        "document_session_id",
+        "frame",
+        "shape_count",
+        "has_powerclip",
+        "fingerprint"
+      ],
+      "additionalProperties": false
+    },
+    "powerclip_inspection": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "$ref": "#/schema_definitions/inspection_identity"
+        },
+        "powerclip": {
+          "$ref": "#/schema_definitions/powerclip_tree"
+        },
+        "verification_status": {
+          "const": "implemented_unverified"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "minItems": 0,
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "object",
+        "powerclip",
+        "verification_status",
+        "warnings"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -9802,6 +10113,844 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Transparency request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "get_powerclip": {
+      "request": {
+        "object_reference": {
+          "version": 1,
+          "bridge_session_id": "1a3eeee4656e2703e0a6eacc2a7043e4",
+          "document_session_id": "doc-0001",
+          "page_identity": "8b1a8060cb8326ed15ae0b07492115efb29b1f449b9026b4182a220e7358c76d",
+          "layer_identity": "6a347a9ef2ea8465c43cd5baba78dc15a2948a38aa4df64861bd3537a126d63d",
+          "ancestor_identities": [],
+          "shape_identity": "279872a97bfd26a6b447b9a0909b942d9b55e876e0c8c0098cdeac8997981182",
+          "static_id": 100,
+          "object_name": "Frame",
+          "shape_type_code": 1,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            1
+          ],
+          "signature": "5278558acab68dd0b6591a4eec1e923008b9cf45bfa2959d05ee989621fbae43"
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_powerclip",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "object": {
+            "object_name": "Frame",
+            "static_id": 100,
+            "shape_type_code": 1,
+            "layer_name": "ClipLayer",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:100",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "1a3eeee4656e2703e0a6eacc2a7043e4",
+              "document_session_id": "doc-0001",
+              "page_identity": "8b1a8060cb8326ed15ae0b07492115efb29b1f449b9026b4182a220e7358c76d",
+              "layer_identity": "6a347a9ef2ea8465c43cd5baba78dc15a2948a38aa4df64861bd3537a126d63d",
+              "ancestor_identities": [],
+              "shape_identity": "279872a97bfd26a6b447b9a0909b942d9b55e876e0c8c0098cdeac8997981182",
+              "static_id": 100,
+              "object_name": "Frame",
+              "shape_type_code": 1,
+              "page_index": 1,
+              "layer_index": 2,
+              "shape_path": [
+                1
+              ],
+              "signature": "5278558acab68dd0b6591a4eec1e923008b9cf45bfa2959d05ee989621fbae43"
+            }
+          },
+          "powerclip": {
+            "schema": "powerclip-tree-v1",
+            "document_session_id": "doc-0001",
+            "frame": {
+              "identity": "279872a97bfd26a6b447b9a0909b942d9b55e876e0c8c0098cdeac8997981182",
+              "static_id": 100,
+              "object_name": "Frame",
+              "name_sha256": "d0b50e064a4f8d9438c977e05a087f07815802c0055005c7f913181729464607",
+              "name_truncated": false,
+              "shape_type_code": 1,
+              "group_children": [],
+              "clip_children": [],
+              "contents_locked": null,
+              "transform": {
+                "bounds_inches": {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "width": 4.0,
+                  "height": 4.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_degrees": 0.0,
+                "matrix_coordinate_space": "native_affine_in_document_inches"
+              },
+              "fill": {
+                "type_code": 0,
+                "type": "none",
+                "color": null
+              },
+              "outline": {
+                "type_code": 0,
+                "type": "none",
+                "present": false,
+                "width_raw": null,
+                "width_units": null,
+                "color": null
+              },
+              "transparency": {
+                "available": true,
+                "type_code": 0,
+                "type": "none",
+                "uniform_percent": null,
+                "applied_to_code": null,
+                "applied_to": "unknown",
+                "merge_mode_code": null,
+                "merge_mode": "none"
+              },
+              "curve": {
+                "schema": "curve-geometry-v1",
+                "shape_identity": "279872a97bfd26a6b447b9a0909b942d9b55e876e0c8c0098cdeac8997981182",
+                "document_session_id": "doc-0001",
+                "paths": [
+                  {
+                    "start": {
+                      "x": 1.0,
+                      "y": 1.0
+                    },
+                    "segments": [
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 5.0,
+                          "y": 1.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 5.0,
+                          "y": 5.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 1.0,
+                          "y": 5.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 1.0,
+                          "y": 1.0
+                        }
+                      }
+                    ],
+                    "closed": true
+                  }
+                ],
+                "node_types": [
+                  [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "node_count": 4,
+                "segment_count": 4,
+                "bounds_inches": {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "width": 4.0,
+                  "height": 4.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "fingerprint": "e9970fb772b525909fb72cbfb7b1547a395aa381392dbed6e51676f830d18cc7"
+              },
+              "text": null,
+              "bitmap": null,
+              "supported_payload": true
+            },
+            "shape_count": 1,
+            "has_powerclip": false,
+            "fingerprint": "02f7ac85e68198e711694201935e8561cb6a2b7f5759f4af80178f4614a176b9"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Clipped descendants have source-bound identity metadata; extract independent copies to obtain ordinary editing references. Bitmap pixels, complex effects and rendered clipping need manual review."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_powerclip",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "PowerClip request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "create_powerclip": {
+      "request": {
+        "frame_reference": {
+          "version": 1,
+          "bridge_session_id": "1a3eeee4656e2703e0a6eacc2a7043e4",
+          "document_session_id": "doc-0001",
+          "page_identity": "8b1a8060cb8326ed15ae0b07492115efb29b1f449b9026b4182a220e7358c76d",
+          "layer_identity": "6a347a9ef2ea8465c43cd5baba78dc15a2948a38aa4df64861bd3537a126d63d",
+          "ancestor_identities": [],
+          "shape_identity": "279872a97bfd26a6b447b9a0909b942d9b55e876e0c8c0098cdeac8997981182",
+          "static_id": 100,
+          "object_name": "Frame",
+          "shape_type_code": 1,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            1
+          ],
+          "signature": "5278558acab68dd0b6591a4eec1e923008b9cf45bfa2959d05ee989621fbae43"
+        },
+        "content_references": [
+          {
+            "version": 1,
+            "bridge_session_id": "1a3eeee4656e2703e0a6eacc2a7043e4",
+            "document_session_id": "doc-0001",
+            "page_identity": "8b1a8060cb8326ed15ae0b07492115efb29b1f449b9026b4182a220e7358c76d",
+            "layer_identity": "6a347a9ef2ea8465c43cd5baba78dc15a2948a38aa4df64861bd3537a126d63d",
+            "ancestor_identities": [],
+            "shape_identity": "4ec13efc5ea2822213fb0ce84ee371e398218e0ff74a4e7ce19403aff194d79d",
+            "static_id": 101,
+            "object_name": "Artwork",
+            "shape_type_code": 3,
+            "page_index": 1,
+            "layer_index": 2,
+            "shape_path": [
+              2
+            ],
+            "signature": "1f2256870c966ad759d306f9893c4141d5574ad3f42462b0671057091daceeb0"
+          }
+        ],
+        "fit_kind": "contain"
+      },
+      "success": {
+        "ok": true,
+        "tool": "create_powerclip",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "created_count": 1,
+          "objects": [
+            {
+              "object": {
+                "object_name": "AI_PowerClip_001",
+                "static_id": 102,
+                "shape_type_code": 1,
+                "layer_name": "ClipLayer",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:102",
+                "shape_index": 3,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "1a3eeee4656e2703e0a6eacc2a7043e4",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "8b1a8060cb8326ed15ae0b07492115efb29b1f449b9026b4182a220e7358c76d",
+                  "layer_identity": "6a347a9ef2ea8465c43cd5baba78dc15a2948a38aa4df64861bd3537a126d63d",
+                  "ancestor_identities": [],
+                  "shape_identity": "40759913cd3d9fdde65d3404ba839dcff51320e1e148c5cda1c4909074ae33da",
+                  "static_id": 102,
+                  "object_name": "AI_PowerClip_001",
+                  "shape_type_code": 1,
+                  "page_index": 1,
+                  "layer_index": 2,
+                  "shape_path": [
+                    3
+                  ],
+                  "signature": "77d89de6e6a1f7ad0b81814e2fd3e1ab0401c15ec521232cebe7897b8f0694eb"
+                }
+              },
+              "powerclip": {
+                "schema": "powerclip-tree-v1",
+                "document_session_id": "doc-0001",
+                "frame": {
+                  "identity": "40759913cd3d9fdde65d3404ba839dcff51320e1e148c5cda1c4909074ae33da",
+                  "static_id": 102,
+                  "object_name": "AI_PowerClip_001",
+                  "name_sha256": "bc368e191c59de7acd3a2bf02b0e05fa2ddad95cf61700c12da8203d44a5104d",
+                  "name_truncated": false,
+                  "shape_type_code": 1,
+                  "group_children": [],
+                  "clip_children": [
+                    {
+                      "identity": "ce1c8b8a5bbc86e46e61bc48c6ef4b31dc3521d7a022bb35722749711411f602",
+                      "static_id": 103,
+                      "object_name": "Artwork",
+                      "name_sha256": "d5fbb86add39fc3c0bb9d230b3b5fa9f31a6decd3773d067c8e3e5cd39a2a981",
+                      "name_truncated": false,
+                      "shape_type_code": 3,
+                      "group_children": [],
+                      "clip_children": [],
+                      "contents_locked": null,
+                      "transform": {
+                        "bounds_inches": {
+                          "x": 1.0,
+                          "y": 2.0,
+                          "width": 4.0,
+                          "height": 2.0
+                        },
+                        "matrix": [
+                          1.0,
+                          0.0,
+                          0.0,
+                          1.0,
+                          1.0,
+                          2.0
+                        ],
+                        "rotation_degrees": 0.0,
+                        "matrix_coordinate_space": "native_affine_in_document_inches"
+                      },
+                      "fill": {
+                        "type_code": 0,
+                        "type": "none",
+                        "color": null
+                      },
+                      "outline": {
+                        "type_code": 0,
+                        "type": "none",
+                        "present": false,
+                        "width_raw": null,
+                        "width_units": null,
+                        "color": null
+                      },
+                      "transparency": {
+                        "available": true,
+                        "type_code": 0,
+                        "type": "none",
+                        "uniform_percent": null,
+                        "applied_to_code": null,
+                        "applied_to": "unknown",
+                        "merge_mode_code": null,
+                        "merge_mode": "none"
+                      },
+                      "curve": {
+                        "schema": "curve-geometry-v1",
+                        "shape_identity": "ce1c8b8a5bbc86e46e61bc48c6ef4b31dc3521d7a022bb35722749711411f602",
+                        "document_session_id": "doc-0001",
+                        "paths": [
+                          {
+                            "start": {
+                              "x": 1.0,
+                              "y": 2.0
+                            },
+                            "segments": [
+                              {
+                                "type": "line",
+                                "end": {
+                                  "x": 5.0,
+                                  "y": 2.0
+                                }
+                              },
+                              {
+                                "type": "line",
+                                "end": {
+                                  "x": 5.0,
+                                  "y": 4.0
+                                }
+                              },
+                              {
+                                "type": "line",
+                                "end": {
+                                  "x": 1.0,
+                                  "y": 4.0
+                                }
+                              },
+                              {
+                                "type": "line",
+                                "end": {
+                                  "x": 1.0,
+                                  "y": 2.0
+                                }
+                              }
+                            ],
+                            "closed": true
+                          }
+                        ],
+                        "node_types": [
+                          [
+                            0,
+                            0,
+                            0,
+                            0
+                          ]
+                        ],
+                        "node_count": 4,
+                        "segment_count": 4,
+                        "bounds_inches": {
+                          "x": 1.0,
+                          "y": 2.0,
+                          "width": 4.0,
+                          "height": 2.0
+                        },
+                        "matrix": [
+                          1.0,
+                          0.0,
+                          0.0,
+                          1.0,
+                          1.0,
+                          2.0
+                        ],
+                        "fingerprint": "c6b7c59aa1134882a054c6d489f815c1993b783981eb2794bd9a8cd68f2e38da"
+                      },
+                      "text": null,
+                      "bitmap": null,
+                      "supported_payload": true
+                    }
+                  ],
+                  "contents_locked": true,
+                  "transform": {
+                    "bounds_inches": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "width": 4.0,
+                      "height": 4.0
+                    },
+                    "matrix": [
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0
+                    ],
+                    "rotation_degrees": 0.0,
+                    "matrix_coordinate_space": "native_affine_in_document_inches"
+                  },
+                  "fill": {
+                    "type_code": 0,
+                    "type": "none",
+                    "color": null
+                  },
+                  "outline": {
+                    "type_code": 0,
+                    "type": "none",
+                    "present": false,
+                    "width_raw": null,
+                    "width_units": null,
+                    "color": null
+                  },
+                  "transparency": {
+                    "available": true,
+                    "type_code": 0,
+                    "type": "none",
+                    "uniform_percent": null,
+                    "applied_to_code": null,
+                    "applied_to": "unknown",
+                    "merge_mode_code": null,
+                    "merge_mode": "none"
+                  },
+                  "curve": {
+                    "schema": "curve-geometry-v1",
+                    "shape_identity": "40759913cd3d9fdde65d3404ba839dcff51320e1e148c5cda1c4909074ae33da",
+                    "document_session_id": "doc-0001",
+                    "paths": [
+                      {
+                        "start": {
+                          "x": 1.0,
+                          "y": 1.0
+                        },
+                        "segments": [
+                          {
+                            "type": "line",
+                            "end": {
+                              "x": 5.0,
+                              "y": 1.0
+                            }
+                          },
+                          {
+                            "type": "line",
+                            "end": {
+                              "x": 5.0,
+                              "y": 5.0
+                            }
+                          },
+                          {
+                            "type": "line",
+                            "end": {
+                              "x": 1.0,
+                              "y": 5.0
+                            }
+                          },
+                          {
+                            "type": "line",
+                            "end": {
+                              "x": 1.0,
+                              "y": 1.0
+                            }
+                          }
+                        ],
+                        "closed": true
+                      }
+                    ],
+                    "node_types": [
+                      [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    ],
+                    "node_count": 4,
+                    "segment_count": 4,
+                    "bounds_inches": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "width": 4.0,
+                      "height": 4.0
+                    },
+                    "matrix": [
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      0.0,
+                      0.0
+                    ],
+                    "fingerprint": "790c1c5a6ee0364d96f78733a38237e7c44e50bd80dc7fea479d0ced864b8157"
+                  },
+                  "text": null,
+                  "bitmap": null,
+                  "supported_payload": true
+                },
+                "shape_count": 2,
+                "has_powerclip": true,
+                "fingerprint": "e9e873f085264c987ff58405e7400a79377377ec96fe8ec8ae1c67ea8fec6399"
+              },
+              "verification_status": "implemented_unverified",
+              "warnings": [
+                "Clipped descendants have source-bound identity metadata; extract independent copies to obtain ordinary editing references. Bitmap pixels, complex effects and rendered clipping need manual review."
+              ]
+            }
+          ],
+          "source_preservation": {
+            "verified": true,
+            "scope": "root_membership_relative_order_complete_measured_source_tree_basic_appearance"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Native tree/geometry is read back; bitmap pixels, complex effects and rendered clipping require consolidated/manual verification."
+          ],
+          "fit": {
+            "kind": "contain",
+            "padding_inches": 0.0,
+            "scale": 1.0,
+            "planned_content_bounds_inches": {
+              "x": 1.0,
+              "y": 2.0,
+              "width": 4.0,
+              "height": 2.0
+            }
+          },
+          "content_input_count": 1,
+          "contents_locked": true
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "create_powerclip",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "PowerClip request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "extract_powerclip_contents": {
+      "request": {
+        "frame_reference": {
+          "version": 1,
+          "bridge_session_id": "1a3eeee4656e2703e0a6eacc2a7043e4",
+          "document_session_id": "doc-0001",
+          "page_identity": "8b1a8060cb8326ed15ae0b07492115efb29b1f449b9026b4182a220e7358c76d",
+          "layer_identity": "6a347a9ef2ea8465c43cd5baba78dc15a2948a38aa4df64861bd3537a126d63d",
+          "ancestor_identities": [],
+          "shape_identity": "40759913cd3d9fdde65d3404ba839dcff51320e1e148c5cda1c4909074ae33da",
+          "static_id": 102,
+          "object_name": "AI_PowerClip_001",
+          "shape_type_code": 1,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            3
+          ],
+          "signature": "77d89de6e6a1f7ad0b81814e2fd3e1ab0401c15ec521232cebe7897b8f0694eb"
+        },
+        "expected_fingerprint": "e9e873f085264c987ff58405e7400a79377377ec96fe8ec8ae1c67ea8fec6399"
+      },
+      "success": {
+        "ok": true,
+        "tool": "extract_powerclip_contents",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "created_count": 1,
+          "objects": [
+            {
+              "object": {
+                "object_name": "AI_Extracted_001",
+                "static_id": 105,
+                "shape_type_code": 3,
+                "layer_name": "ClipLayer",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:105",
+                "shape_index": 4,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "1a3eeee4656e2703e0a6eacc2a7043e4",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "8b1a8060cb8326ed15ae0b07492115efb29b1f449b9026b4182a220e7358c76d",
+                  "layer_identity": "6a347a9ef2ea8465c43cd5baba78dc15a2948a38aa4df64861bd3537a126d63d",
+                  "ancestor_identities": [],
+                  "shape_identity": "27cf687e5ca5d026023b8926a6c6bd71950745367ae1ace6275dd0b2927763d8",
+                  "static_id": 105,
+                  "object_name": "AI_Extracted_001",
+                  "shape_type_code": 3,
+                  "page_index": 1,
+                  "layer_index": 2,
+                  "shape_path": [
+                    4
+                  ],
+                  "signature": "53b4148ef2b9cf59573adfffcbe6dc21fd52dc3839e7213dab6af1c449b98f49"
+                }
+              },
+              "powerclip": {
+                "schema": "powerclip-tree-v1",
+                "document_session_id": "doc-0001",
+                "frame": {
+                  "identity": "27cf687e5ca5d026023b8926a6c6bd71950745367ae1ace6275dd0b2927763d8",
+                  "static_id": 105,
+                  "object_name": "AI_Extracted_001",
+                  "name_sha256": "a8bb8d9850831655481acc95b87e679d723d36d5bb99f49af55c47ed097166c3",
+                  "name_truncated": false,
+                  "shape_type_code": 3,
+                  "group_children": [],
+                  "clip_children": [],
+                  "contents_locked": null,
+                  "transform": {
+                    "bounds_inches": {
+                      "x": 1.0,
+                      "y": 2.0,
+                      "width": 4.0,
+                      "height": 2.0
+                    },
+                    "matrix": [
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      1.0,
+                      2.0
+                    ],
+                    "rotation_degrees": 0.0,
+                    "matrix_coordinate_space": "native_affine_in_document_inches"
+                  },
+                  "fill": {
+                    "type_code": 0,
+                    "type": "none",
+                    "color": null
+                  },
+                  "outline": {
+                    "type_code": 0,
+                    "type": "none",
+                    "present": false,
+                    "width_raw": null,
+                    "width_units": null,
+                    "color": null
+                  },
+                  "transparency": {
+                    "available": true,
+                    "type_code": 0,
+                    "type": "none",
+                    "uniform_percent": null,
+                    "applied_to_code": null,
+                    "applied_to": "unknown",
+                    "merge_mode_code": null,
+                    "merge_mode": "none"
+                  },
+                  "curve": {
+                    "schema": "curve-geometry-v1",
+                    "shape_identity": "27cf687e5ca5d026023b8926a6c6bd71950745367ae1ace6275dd0b2927763d8",
+                    "document_session_id": "doc-0001",
+                    "paths": [
+                      {
+                        "start": {
+                          "x": 1.0,
+                          "y": 2.0
+                        },
+                        "segments": [
+                          {
+                            "type": "line",
+                            "end": {
+                              "x": 5.0,
+                              "y": 2.0
+                            }
+                          },
+                          {
+                            "type": "line",
+                            "end": {
+                              "x": 5.0,
+                              "y": 4.0
+                            }
+                          },
+                          {
+                            "type": "line",
+                            "end": {
+                              "x": 1.0,
+                              "y": 4.0
+                            }
+                          },
+                          {
+                            "type": "line",
+                            "end": {
+                              "x": 1.0,
+                              "y": 2.0
+                            }
+                          }
+                        ],
+                        "closed": true
+                      }
+                    ],
+                    "node_types": [
+                      [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    ],
+                    "node_count": 4,
+                    "segment_count": 4,
+                    "bounds_inches": {
+                      "x": 1.0,
+                      "y": 2.0,
+                      "width": 4.0,
+                      "height": 2.0
+                    },
+                    "matrix": [
+                      1.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      1.0,
+                      2.0
+                    ],
+                    "fingerprint": "d6ab541323fe9b568d2d4120d12a7ff53f1f1e4fc962eef24ae7ca4edcc61ab1"
+                  },
+                  "text": null,
+                  "bitmap": null,
+                  "supported_payload": true
+                },
+                "shape_count": 1,
+                "has_powerclip": false,
+                "fingerprint": "dbe21f94a157ec95d688ec1557fc5123cb9cc81e3aac2241ec2ac9eedcc9e63e"
+              },
+              "verification_status": "implemented_unverified",
+              "warnings": [
+                "Clipped descendants have source-bound identity metadata; extract independent copies to obtain ordinary editing references. Bitmap pixels, complex effects and rendered clipping need manual review."
+              ]
+            }
+          ],
+          "source_preservation": {
+            "verified": true,
+            "scope": "root_membership_relative_order_complete_measured_source_tree_basic_appearance"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Native tree/geometry is read back; bitmap pixels, complex effects and rendered clipping require consolidated/manual verification."
+          ],
+          "source_fingerprint": "e9e873f085264c987ff58405e7400a79377377ec96fe8ec8ae1c67ea8fec6399",
+          "extracted_count": 1
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "extract_powerclip_contents",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "PowerClip request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -21989,6 +23138,796 @@
         "Uniform percent 1-100; 0 removes the effect. Non-uniform replacement is explicit; only normal merge mode is exposed for writes.",
         "Inspection reports unavailable/unknown properties. Non-uniform control internals, group opacity and blend variants remain separate work.",
         "Measured/base-appearance preservation does not establish bitmap pixel identity or full complex-effect preservation. Unverified partial writes quarantine."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "get_powerclip",
+      "category": "appearance",
+      "description": "Inspect complete bounded native group/clip trees with source-bound geometry/body fingerprints.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.get_powerclip"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_name": {
+            "type": "string",
+            "default": ""
+          },
+          "shape_index": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "object_reference": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/object_reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "object_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "object_name"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "shape_index"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "$ref": "#/schema_definitions/object_reference"
+              }
+            },
+            "required": [
+              "object_reference"
+            ]
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "powerclip": {
+                      "$ref": "#/schema_definitions/powerclip_tree"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "powerclip",
+                    "verification_status",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Bitmap.ResolutionX",
+        "Bitmap.ResolutionY",
+        "Bitmap.SizeHeight",
+        "Bitmap.SizeWidth",
+        "Color.CMYKBlack",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.RGBBlue",
+        "Color.RGBGreen",
+        "Color.RGBRed",
+        "Color.SpotColorName",
+        "Color.Tint",
+        "Color.Type",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Outline.Color",
+        "Outline.Width",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "PowerClip.ContentsLocked",
+        "PowerClip.Parent",
+        "PowerClip.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.Bitmap",
+        "Shape.Curve",
+        "Shape.DisplayCurve",
+        "Shape.Fill",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Outline",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.PowerClip",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Transparency",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments",
+        "Text.Frames",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Bold",
+        "TextRange.Font",
+        "TextRange.Size",
+        "TextRange.Text",
+        "Transparency.AppliedTo",
+        "Transparency.MergeMode",
+        "Transparency.Type",
+        "Transparency.Uniform"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_powerclip.py",
+          "docs/POWERCLIP.md",
+          "docs/x7_powerclip_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "X7 PowerClip getter absence, grouping/copy/coordinate/extraction identities and rendered clipping await the consolidated native/manual gate.",
+        "Root inputs on one page/layer; 1-64 content roots, 1000 total original/copied shapes, 32 levels and existing per-curve budgets. Linked paragraph stories are unsupported.",
+        "Contain/cover fits measured frame bounds; irregular frame visibility and mixed text/font/render fidelity require manual review. Source/bitmap metadata checks do not prove pixel identity.",
+        "Clipped descendants use native identity metadata; extract copied roots for signed general editing references. No in-place edit-mode or automatic undo; cleanup deletes only proven owned trees.",
+        "Complete measured source-tree/basic-appearance checks are not a full native-file/effect diff. Source-session fingerprints are not persistent after reopening."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "create_powerclip",
+      "category": "appearance",
+      "description": "Create source-preserving editable clipped artwork with copied frame/content, source stacking and complete affine fitting checks.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.create_powerclip"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "frame_reference": {
+            "$ref": "#/schema_definitions/object_reference"
+          },
+          "content_references": {
+            "type": "array",
+            "items": {
+              "$ref": "#/schema_definitions/object_reference"
+            },
+            "minItems": 1,
+            "maxItems": 64
+          },
+          "fit_kind": {
+            "enum": [
+              "none",
+              "contain",
+              "cover"
+            ],
+            "default": "none"
+          },
+          "padding_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 0
+          },
+          "contents_locked": {
+            "type": "boolean",
+            "default": true
+          },
+          "replace_existing_contents": {
+            "type": "boolean",
+            "default": false
+          },
+          "result_name": {
+            "type": "string",
+            "maxLength": 120,
+            "default": ""
+          }
+        },
+        "required": [
+          "frame_reference",
+          "content_references"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "created_count": {
+                      "const": 1
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/schema_definitions/powerclip_inspection"
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    },
+                    "source_preservation": {
+                      "type": "object",
+                      "properties": {
+                        "verified": {
+                          "const": true
+                        },
+                        "scope": {
+                          "const": "root_membership_relative_order_complete_measured_source_tree_basic_appearance"
+                        }
+                      },
+                      "required": [
+                        "verified",
+                        "scope"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    },
+                    "fit": {
+                      "type": "object",
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "none",
+                            "contain",
+                            "cover"
+                          ]
+                        },
+                        "padding_inches": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "scale": {
+                          "type": "number",
+                          "minimum": 1e-06,
+                          "maximum": 1000000
+                        },
+                        "planned_content_bounds_inches": {
+                          "$ref": "#/schema_definitions/layout_bounds_inches"
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "padding_inches",
+                        "scale",
+                        "planned_content_bounds_inches"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "content_input_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "contents_locked": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "created_count",
+                    "objects",
+                    "source_preservation",
+                    "verification_status",
+                    "warnings",
+                    "fit",
+                    "content_input_count",
+                    "contents_locked"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateShapeRange",
+        "Application.Documents",
+        "Bitmap.ResolutionX",
+        "Bitmap.ResolutionY",
+        "Bitmap.SizeHeight",
+        "Bitmap.SizeWidth",
+        "Color.CMYKBlack",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.RGBBlue",
+        "Color.RGBGreen",
+        "Color.RGBRed",
+        "Color.SpotColorName",
+        "Color.Tint",
+        "Color.Type",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Outline.Color",
+        "Outline.Width",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "PowerClip.ContentsLocked",
+        "PowerClip.ExtractShapes",
+        "PowerClip.Parent",
+        "PowerClip.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.AddToPowerClip",
+        "Shape.Bitmap",
+        "Shape.Curve",
+        "Shape.Delete",
+        "Shape.DisplayCurve",
+        "Shape.Duplicate",
+        "Shape.Fill",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Outline",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.PowerClip",
+        "Shape.RotationAngle",
+        "Shape.SetPosition",
+        "Shape.SetSize",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Transparency",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "ShapeRange.Add",
+        "ShapeRange.Group",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments",
+        "Text.Frames",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Bold",
+        "TextRange.Font",
+        "TextRange.Size",
+        "TextRange.Text",
+        "Transparency.AppliedTo",
+        "Transparency.MergeMode",
+        "Transparency.Type",
+        "Transparency.Uniform"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_powerclip.py",
+          "docs/POWERCLIP.md",
+          "docs/x7_powerclip_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "X7 PowerClip getter absence, grouping/copy/coordinate/extraction identities and rendered clipping await the consolidated native/manual gate.",
+        "Root inputs on one page/layer; 1-64 content roots, 1000 total original/copied shapes, 32 levels and existing per-curve budgets. Linked paragraph stories are unsupported.",
+        "Contain/cover fits measured frame bounds; irregular frame visibility and mixed text/font/render fidelity require manual review. Source/bitmap metadata checks do not prove pixel identity.",
+        "Clipped descendants use native identity metadata; extract copied roots for signed general editing references. No in-place edit-mode or automatic undo; cleanup deletes only proven owned trees.",
+        "Complete measured source-tree/basic-appearance checks are not a full native-file/effect diff. Source-session fingerprints are not persistent after reopening."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "extract_powerclip_contents",
+      "category": "appearance",
+      "description": "Extract copied clipped content into independent root editing objects after complete fingerprint/identity/tree reconciliation.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.extract_powerclip_contents"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "frame_reference": {
+            "$ref": "#/schema_definitions/object_reference"
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "result_name_prefix": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 110,
+            "default": "AI_Extracted"
+          }
+        },
+        "required": [
+          "frame_reference",
+          "expected_fingerprint"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "created_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/schema_definitions/powerclip_inspection"
+                      },
+                      "minItems": 1,
+                      "maxItems": 64
+                    },
+                    "source_preservation": {
+                      "type": "object",
+                      "properties": {
+                        "verified": {
+                          "const": true
+                        },
+                        "scope": {
+                          "const": "root_membership_relative_order_complete_measured_source_tree_basic_appearance"
+                        }
+                      },
+                      "required": [
+                        "verified",
+                        "scope"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    },
+                    "source_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "extracted_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "created_count",
+                    "objects",
+                    "source_preservation",
+                    "verification_status",
+                    "warnings",
+                    "source_fingerprint",
+                    "extracted_count"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Bitmap.ResolutionX",
+        "Bitmap.ResolutionY",
+        "Bitmap.SizeHeight",
+        "Bitmap.SizeWidth",
+        "Color.CMYKBlack",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.RGBBlue",
+        "Color.RGBGreen",
+        "Color.RGBRed",
+        "Color.SpotColorName",
+        "Color.Tint",
+        "Color.Type",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.BeginCommandGroup",
+        "Document.EndCommandGroup",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Outline.Color",
+        "Outline.Width",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "PowerClip.ContentsLocked",
+        "PowerClip.ExtractShapes",
+        "PowerClip.Parent",
+        "PowerClip.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.Bitmap",
+        "Shape.Curve",
+        "Shape.Delete",
+        "Shape.DisplayCurve",
+        "Shape.Duplicate",
+        "Shape.Fill",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Outline",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.PowerClip",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Transparency",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments",
+        "Text.Frames",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Bold",
+        "TextRange.Font",
+        "TextRange.Size",
+        "TextRange.Text",
+        "Transparency.AppliedTo",
+        "Transparency.MergeMode",
+        "Transparency.Type",
+        "Transparency.Uniform"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_powerclip.py",
+          "docs/POWERCLIP.md",
+          "docs/x7_powerclip_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "X7 PowerClip getter absence, grouping/copy/coordinate/extraction identities and rendered clipping await the consolidated native/manual gate.",
+        "Root inputs on one page/layer; 1-64 content roots, 1000 total original/copied shapes, 32 levels and existing per-curve budgets. Linked paragraph stories are unsupported.",
+        "Contain/cover fits measured frame bounds; irregular frame visibility and mixed text/font/render fidelity require manual review. Source/bitmap metadata checks do not prove pixel identity.",
+        "Clipped descendants use native identity metadata; extract copied roots for signed general editing references. No in-place edit-mode or automatic undo; cleanup deletes only proven owned trees.",
+        "Complete measured source-tree/basic-appearance checks are not a full native-file/effect diff. Source-session fingerprints are not persistent after reopening."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

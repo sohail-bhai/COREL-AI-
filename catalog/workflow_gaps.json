@@ -331,12 +331,16 @@
         "get_fill",
         "set_process_color",
         "get_transparency",
-        "set_uniform_transparency"
+        "set_uniform_transparency",
+        "get_powerclip",
+        "create_powerclip",
+        "extract_powerclip_contents"
       ],
       "missing_behavior": [
         "Proven outline width units",
         "Native spot creation/conversion and ICC/separation workflows",
-        "Gradients, broader blend/group opacity and PowerClip"
+        "Gradients and broader blend/group opacity",
+        "In-place clip editing and native/manual clipping verification"
       ],
       "source_ids": [
         "powerclip_api",
@@ -355,7 +359,12 @@
         "docs/test-reports/2026-11-03-process-colors-non-live.md",
         "docs/TRANSPARENCY.md",
         "tests/test_transparency.py",
-        "docs/test-reports/2026-11-03-transparency-non-live.md"
+        "docs/test-reports/2026-11-03-transparency-non-live.md",
+        "docs/POWERCLIP.md",
+        "docs/x7_powerclip_api_evidence.json",
+        "docs/powerclip_online_evidence.json",
+        "tests/test_powerclip.py",
+        "docs/test-reports/2026-11-03-powerclip-non-live.md"
       ]
     },
     {
