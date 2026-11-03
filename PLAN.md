@@ -435,7 +435,7 @@ The operator must then complete that workflow with deterministic tool calls, evi
 
 3. **Option C: Alignment & Grouping — COMPLETE VERTICAL SLICE**:
    - `align_objects`, `align_to_page`, `group_shapes`, and `ungroup_shapes` have unit and disposable X7 coverage.
-   - `distribute_objects` remains unimplemented and must follow the normal X7 evidence/test process.
+   - `distribute_objects` now supports measured equal-gap/equal-center/explicit-gap layouts with signed references and actual readback. Automated gates pass; its native X7 gate remains deferred. See `docs/LAYOUT_TRANSFORMS.md`.
 
 4. **Current active milestone: Imposition orchestration and source preservation — IMPLEMENTED-UNVERIFIED SLICE**:
    - `prepare_imposition_job` now provides one classify/plan/approve/execute route with deterministic plan fingerprints and source-identity revalidation.

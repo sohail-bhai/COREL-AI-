@@ -94,6 +94,12 @@
       "accessed": "2026-11-03",
       "kind": "official_primary_source",
       "x7_specific": true
+    },
+    "rotation_api": {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.rotateex",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
     }
   },
   "gaps": [
@@ -239,22 +245,41 @@
         "align_objects",
         "align_to_page",
         "group_shapes",
-        "ungroup_shapes"
+        "ungroup_shapes",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects"
       ],
       "missing_behavior": [
-        "Distribution/rotation/mirroring",
-        "Z-order and guide-aware layout"
+        "Layer/page organization and guide-aware layout",
+        "Outline-aware bounds and safe-area reflow",
+        "Shape/skew/path-specific transforms"
       ],
       "source_ids": [
         "x7_guide",
-        "layout"
+        "layout",
+        "rotation_api"
       ],
       "depends_on": [
         "ID-001",
         "SAFE-002"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "partial",
+      "live_status": "deferred",
+      "implemented_behavior": [
+        "Finite native matrix/rotation/bounds inspection",
+        "Explicit-pivot relative/absolute rotation",
+        "Mirror axes and matrix-parity readback",
+        "Verified immediate sibling stacking",
+        "Measured equal-gap/equal-center/explicit-gap distribution"
+      ],
+      "evidence": [
+        "docs/LAYOUT_TRANSFORMS.md",
+        "docs/x7_layout_api_evidence.json",
+        "tests/test_layout.py"
+      ]
     },
     {
       "id": "vectors",

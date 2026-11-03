@@ -255,6 +255,14 @@
         "cdrMixedFontLine": 7
       },
       "evidence": "docs/x7_typography_api_evidence.json"
+    },
+    "cdrFlipAxes": {
+      "values": {
+        "cdrFlipHorizontal": 1,
+        "cdrFlipVertical": 2,
+        "cdrFlipBoth": 3
+      },
+      "evidence": "docs/x7_layout_api_evidence.json"
     }
   }
 }

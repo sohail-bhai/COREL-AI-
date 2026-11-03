@@ -260,6 +260,9 @@ def validate() -> dict[str, int]:
         ("cdrTriState", "values", "cdrFalse"): CorelX7Adapter.CDR_FALSE,
         ("cdrTextLanguage", "values_in_current_bridge", "cdrLanguageNone"): CorelX7Adapter.CDR_LANGUAGE_NONE,
         ("cdrTextCharSet", "values_relevant_to_current_bridge", "cdrCharSetANSI"): CorelX7Adapter.CDR_CHARSET_ANSI,
+        ("cdrFlipAxes", "values", "cdrFlipHorizontal"): CorelX7Adapter.FLIP_AXES["horizontal"],
+        ("cdrFlipAxes", "values", "cdrFlipVertical"): CorelX7Adapter.FLIP_AXES["vertical"],
+        ("cdrFlipAxes", "values", "cdrFlipBoth"): CorelX7Adapter.FLIP_AXES["both"],
     }
     for (enum_name, values_key, value_name), expected in expected_constants.items():
         actual = enums.get(enum_name, {}).get(values_key, {}).get(value_name)

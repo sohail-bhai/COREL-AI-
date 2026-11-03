@@ -24,10 +24,11 @@
     "Records whose implementation.state is planned are catalog entries only and are not exposed by the MCP server.",
     "All current tools remain implemented_unverified until a reproducible X7 live-test report is recorded.",
     "Since bridge 0.6.0 every tool returns tool-schema v1: a stable envelope whose data field contains the operation-specific result.",
-    "ID-001: eleven registered selector tools accept signed session object_reference values. StaticID-derived object_id strings remain inspection-only; no persistent cross-session identity is promised.",
+    "ID-001: common inspection/editing tools accept signed session object_reference values. StaticID-derived object_id strings remain inspection-only; no persistent cross-session identity is promised.",
     "SAFE-001: opt-in external JSONL operation records cover all registered MCP tools and separate worker completion from caller return; operation_id is an optional envelope field. No client content or paths are logged.",
     "SAFE-002: the dispatcher refuses concurrent/native busy follow-ups, cancels only pending timeouts, and quarantines late mutations or uncertain failure until exact-ID native reconciliation. Three metadata/recovery tools remain unverified against X7.",
-    "Typography: paragraph creation, bounded font catalog, whole-story styling and explicit native chain overflow are implemented_unverified; linked/fitted edits are refused."
+    "Typography: paragraph creation, bounded font catalog, whole-story styling and explicit native chain overflow are implemented_unverified; linked/fitted edits are refused.",
+    "Layout: native transform inspection, explicit-pivot rotation, mirroring, verified sibling ordering and measured distribution are implemented_unverified. Partial edits are quarantined by worker recovery."
   ],
   "schema_definitions": {
     "object_selector": {
@@ -1813,6 +1814,97 @@
         "unavailable_properties"
       ],
       "additionalProperties": false
+    },
+    "layout_bounds_inches": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0
+        },
+        "height": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "additionalProperties": false
+    },
+    "native_object_transform": {
+      "type": "object",
+      "properties": {
+        "bounds_inches": {
+          "$ref": "#/schema_definitions/layout_bounds_inches"
+        },
+        "matrix": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 6,
+          "maxItems": 6
+        },
+        "rotation_degrees": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMaximum": 360
+        },
+        "native_z_order": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "matrix_coordinate_space": {
+          "const": "native_affine_in_document_inches"
+        }
+      },
+      "required": [
+        "bounds_inches",
+        "matrix",
+        "rotation_degrees",
+        "native_z_order",
+        "matrix_coordinate_space"
+      ],
+      "additionalProperties": false
+    },
+    "native_sibling_order": {
+      "type": "object",
+      "properties": {
+        "rank_from_front": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "sibling_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "native_z_order": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "rank_from_front",
+        "sibling_count",
+        "native_z_order"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -3109,7 +3201,7 @@
             "object_reference": null
           },
           "text": {
-            "content": "Hello\r\nनमस्ते",
+            "content": "Hello\r\n\u0928\u092e\u0938\u094d\u0924\u0947",
             "content_length": 13,
             "content_truncated": false,
             "formatting_scope": "whole_story_aggregate",
@@ -4658,6 +4750,658 @@
       "error": {
         "ok": false,
         "tool": "set_text_style",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Synthetic validation refusal.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "get_object_transform": {
+      "request": {
+        "object_name": "A"
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_object_transform",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "object": {
+            "object_name": "A",
+            "static_id": 101,
+            "shape_type_code": 1,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:101",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "910a9848f6a9f827a92c74055579adcb",
+              "document_session_id": "doc-0001",
+              "page_identity": "c20bd4cd56e9085a74798289c7036f0e7d7bd25c8ecd8c92993c5abe8b7de825",
+              "layer_identity": "fb5567862ddac6f8e870c63b202915f220e68a7ebcb14145c18a818b83718b33",
+              "ancestor_identities": [],
+              "shape_identity": "42904716669a410fe35e53a413af3efa4e883d47d54c82c329922543a8be116f",
+              "static_id": 101,
+              "object_name": "A",
+              "shape_type_code": 1,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                1
+              ],
+              "signature": "caa95f1e7f233c5ae02533413fde9e5c859a778e4c56833d0872075f3e29618c"
+            }
+          },
+          "transform": {
+            "bounds_inches": {
+              "x": 0.0,
+              "y": 1.0,
+              "width": 1.0,
+              "height": 1.0
+            },
+            "matrix": [
+              1.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              1.0
+            ],
+            "rotation_degrees": 0.0,
+            "native_z_order": 100,
+            "matrix_coordinate_space": "native_affine_in_document_inches"
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_object_transform",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Synthetic validation refusal.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "rotate_object": {
+      "request": {
+        "angle_degrees": 90,
+        "object_name": "A"
+      },
+      "success": {
+        "ok": true,
+        "tool": "rotate_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "rotated": true,
+          "object": {
+            "object_name": "A",
+            "static_id": 101,
+            "shape_type_code": 1,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:101",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "910a9848f6a9f827a92c74055579adcb",
+              "document_session_id": "doc-0001",
+              "page_identity": "c20bd4cd56e9085a74798289c7036f0e7d7bd25c8ecd8c92993c5abe8b7de825",
+              "layer_identity": "fb5567862ddac6f8e870c63b202915f220e68a7ebcb14145c18a818b83718b33",
+              "ancestor_identities": [],
+              "shape_identity": "42904716669a410fe35e53a413af3efa4e883d47d54c82c329922543a8be116f",
+              "static_id": 101,
+              "object_name": "A",
+              "shape_type_code": 1,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                1
+              ],
+              "signature": "caa95f1e7f233c5ae02533413fde9e5c859a778e4c56833d0872075f3e29618c"
+            }
+          },
+          "relative": true,
+          "applied_angle_degrees": 90,
+          "center_inches": {
+            "x": 0.5,
+            "y": 1.5
+          },
+          "before_transform": {
+            "bounds_inches": {
+              "x": 0.0,
+              "y": 1.0,
+              "width": 1.0,
+              "height": 1.0
+            },
+            "matrix": [
+              1.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              1.0
+            ],
+            "rotation_degrees": 0.0,
+            "native_z_order": 100,
+            "matrix_coordinate_space": "native_affine_in_document_inches"
+          },
+          "actual_transform": {
+            "bounds_inches": {
+              "x": 0.0,
+              "y": 1.0,
+              "width": 1.0,
+              "height": 1.0
+            },
+            "matrix": [
+              6.123233995736766e-17,
+              1.0,
+              -1.0,
+              6.123233995736766e-17,
+              1.0,
+              1.0
+            ],
+            "rotation_degrees": 90.0,
+            "native_z_order": 100,
+            "matrix_coordinate_space": "native_affine_in_document_inches"
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "rotate_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Synthetic validation refusal.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "flip_object": {
+      "request": {
+        "axis": "horizontal",
+        "object_name": "B"
+      },
+      "success": {
+        "ok": true,
+        "tool": "flip_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "flipped": true,
+          "object": {
+            "object_name": "B",
+            "static_id": 102,
+            "shape_type_code": 1,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:102",
+            "shape_index": 2,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "910a9848f6a9f827a92c74055579adcb",
+              "document_session_id": "doc-0001",
+              "page_identity": "c20bd4cd56e9085a74798289c7036f0e7d7bd25c8ecd8c92993c5abe8b7de825",
+              "layer_identity": "fb5567862ddac6f8e870c63b202915f220e68a7ebcb14145c18a818b83718b33",
+              "ancestor_identities": [],
+              "shape_identity": "3d8c0af4902b1fd3fb2424863bcb0aa29cb646e7d004ec530a6be2a73501006d",
+              "static_id": 102,
+              "object_name": "B",
+              "shape_type_code": 1,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                2
+              ],
+              "signature": "67643cc44838010d9253ed9192d04fd6e1719d4f0012e6a12d8ea3b84e56278d"
+            }
+          },
+          "axis": "horizontal",
+          "before_transform": {
+            "bounds_inches": {
+              "x": 4.0,
+              "y": 3.0,
+              "width": 2.0,
+              "height": 1.0
+            },
+            "matrix": [
+              1.0,
+              0.0,
+              0.0,
+              1.0,
+              4.0,
+              3.0
+            ],
+            "rotation_degrees": 0.0,
+            "native_z_order": 101,
+            "matrix_coordinate_space": "native_affine_in_document_inches"
+          },
+          "actual_transform": {
+            "bounds_inches": {
+              "x": 4.0,
+              "y": 3.0,
+              "width": 2.0,
+              "height": 1.0
+            },
+            "matrix": [
+              -1.0,
+              0.0,
+              -0.0,
+              1.0,
+              6.0,
+              3.0
+            ],
+            "rotation_degrees": 180.0,
+            "native_z_order": 101,
+            "matrix_coordinate_space": "native_affine_in_document_inches"
+          },
+          "orientation_check": "native_matrix_parity"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "flip_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Synthetic validation refusal.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "order_object": {
+      "request": {
+        "position": "front",
+        "object_name": "C"
+      },
+      "success": {
+        "ok": true,
+        "tool": "order_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "ordered": true,
+          "object": {
+            "object_name": "C",
+            "static_id": 103,
+            "shape_type_code": 1,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:103",
+            "shape_index": 3,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "910a9848f6a9f827a92c74055579adcb",
+              "document_session_id": "doc-0001",
+              "page_identity": "c20bd4cd56e9085a74798289c7036f0e7d7bd25c8ecd8c92993c5abe8b7de825",
+              "layer_identity": "fb5567862ddac6f8e870c63b202915f220e68a7ebcb14145c18a818b83718b33",
+              "ancestor_identities": [],
+              "shape_identity": "681c52f4f67fe5213817e9b1b1e700f7038555a9ca15adede1d4a5e7ea54ecb9",
+              "static_id": 103,
+              "object_name": "C",
+              "shape_type_code": 1,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                3
+              ],
+              "signature": "e333e661bd319344345f6d0755616fdff491bfbdb208db41b01ae64fc2ff9cfb"
+            }
+          },
+          "position": "front",
+          "scope": "immediate_siblings",
+          "before_order": {
+            "rank_from_front": 3,
+            "sibling_count": 3,
+            "native_z_order": 102
+          },
+          "actual_order": {
+            "rank_from_front": 1,
+            "sibling_count": 3,
+            "native_z_order": 100
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "order_object",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Synthetic validation refusal.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "distribute_objects": {
+      "request": {
+        "axis": "horizontal",
+        "object_names": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      "success": {
+        "ok": true,
+        "tool": "distribute_objects",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "distributed": true,
+          "axis": "horizontal",
+          "mode": "equal_gaps",
+          "spacing_inches": 3.5,
+          "overlap_allowed": false,
+          "objects": [
+            {
+              "object": {
+                "object_name": "A",
+                "static_id": 101,
+                "shape_type_code": 1,
+                "layer_name": "Artwork",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:101",
+                "shape_index": 1,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "910a9848f6a9f827a92c74055579adcb",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "c20bd4cd56e9085a74798289c7036f0e7d7bd25c8ecd8c92993c5abe8b7de825",
+                  "layer_identity": "fb5567862ddac6f8e870c63b202915f220e68a7ebcb14145c18a818b83718b33",
+                  "ancestor_identities": [],
+                  "shape_identity": "42904716669a410fe35e53a413af3efa4e883d47d54c82c329922543a8be116f",
+                  "static_id": 101,
+                  "object_name": "A",
+                  "shape_type_code": 1,
+                  "page_index": 1,
+                  "layer_index": 1,
+                  "shape_path": [
+                    2
+                  ],
+                  "signature": "df1f64b7ee3b7037ec8aa16aef2a3acf11c0ce749aa7c923ac42a193dd8e7cf7"
+                }
+              },
+              "before_transform": {
+                "bounds_inches": {
+                  "x": 0.0,
+                  "y": 1.0,
+                  "width": 1.0,
+                  "height": 1.0
+                },
+                "matrix": [
+                  6.123233995736766e-17,
+                  1.0,
+                  -1.0,
+                  6.123233995736766e-17,
+                  1.0,
+                  1.0
+                ],
+                "rotation_degrees": 90.0,
+                "native_z_order": 101,
+                "matrix_coordinate_space": "native_affine_in_document_inches"
+              },
+              "actual_transform": {
+                "bounds_inches": {
+                  "x": 0.0,
+                  "y": 1.0,
+                  "width": 1.0,
+                  "height": 1.0
+                },
+                "matrix": [
+                  6.123233995736766e-17,
+                  1.0,
+                  -1.0,
+                  6.123233995736766e-17,
+                  1.0,
+                  1.0
+                ],
+                "rotation_degrees": 90.0,
+                "native_z_order": 101,
+                "matrix_coordinate_space": "native_affine_in_document_inches"
+              },
+              "planned_bounds_inches": {
+                "x": 0.0,
+                "y": 1.0,
+                "width": 1.0,
+                "height": 1.0
+              }
+            },
+            {
+              "object": {
+                "object_name": "B",
+                "static_id": 102,
+                "shape_type_code": 1,
+                "layer_name": "Artwork",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:102",
+                "shape_index": 2,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "910a9848f6a9f827a92c74055579adcb",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "c20bd4cd56e9085a74798289c7036f0e7d7bd25c8ecd8c92993c5abe8b7de825",
+                  "layer_identity": "fb5567862ddac6f8e870c63b202915f220e68a7ebcb14145c18a818b83718b33",
+                  "ancestor_identities": [],
+                  "shape_identity": "3d8c0af4902b1fd3fb2424863bcb0aa29cb646e7d004ec530a6be2a73501006d",
+                  "static_id": 102,
+                  "object_name": "B",
+                  "shape_type_code": 1,
+                  "page_index": 1,
+                  "layer_index": 1,
+                  "shape_path": [
+                    3
+                  ],
+                  "signature": "9499ba3c83ee9a94be41115ee0fc57518be892d5e3057b933d6f99245717feef"
+                }
+              },
+              "before_transform": {
+                "bounds_inches": {
+                  "x": 4.0,
+                  "y": 3.0,
+                  "width": 2.0,
+                  "height": 1.0
+                },
+                "matrix": [
+                  -1.0,
+                  0.0,
+                  -0.0,
+                  1.0,
+                  6.0,
+                  3.0
+                ],
+                "rotation_degrees": 180.0,
+                "native_z_order": 102,
+                "matrix_coordinate_space": "native_affine_in_document_inches"
+              },
+              "actual_transform": {
+                "bounds_inches": {
+                  "x": 4.5,
+                  "y": 3.0,
+                  "width": 2.0,
+                  "height": 1.0
+                },
+                "matrix": [
+                  -1.0,
+                  0.0,
+                  -0.0,
+                  1.0,
+                  6.5,
+                  3.0
+                ],
+                "rotation_degrees": 180.0,
+                "native_z_order": 102,
+                "matrix_coordinate_space": "native_affine_in_document_inches"
+              },
+              "planned_bounds_inches": {
+                "x": 4.5,
+                "y": 3.0,
+                "width": 2.0,
+                "height": 1.0
+              }
+            },
+            {
+              "object": {
+                "object_name": "C",
+                "static_id": 103,
+                "shape_type_code": 1,
+                "layer_name": "Artwork",
+                "page_index": 1,
+                "object_name_truncated": false,
+                "layer_name_truncated": false,
+                "document_session_id": "doc-0001",
+                "object_id": "doc-0001:shape:103",
+                "shape_index": 3,
+                "object_reference": {
+                  "version": 1,
+                  "bridge_session_id": "910a9848f6a9f827a92c74055579adcb",
+                  "document_session_id": "doc-0001",
+                  "page_identity": "c20bd4cd56e9085a74798289c7036f0e7d7bd25c8ecd8c92993c5abe8b7de825",
+                  "layer_identity": "fb5567862ddac6f8e870c63b202915f220e68a7ebcb14145c18a818b83718b33",
+                  "ancestor_identities": [],
+                  "shape_identity": "681c52f4f67fe5213817e9b1b1e700f7038555a9ca15adede1d4a5e7ea54ecb9",
+                  "static_id": 103,
+                  "object_name": "C",
+                  "shape_type_code": 1,
+                  "page_index": 1,
+                  "layer_index": 1,
+                  "shape_path": [
+                    1
+                  ],
+                  "signature": "6595542130ff174e45bb6a5e2de71b38acbe9215e3bb77864042fdd1c8749539"
+                }
+              },
+              "before_transform": {
+                "bounds_inches": {
+                  "x": 10.0,
+                  "y": 6.0,
+                  "width": 1.0,
+                  "height": 1.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  10.0,
+                  6.0
+                ],
+                "rotation_degrees": 0.0,
+                "native_z_order": 100,
+                "matrix_coordinate_space": "native_affine_in_document_inches"
+              },
+              "actual_transform": {
+                "bounds_inches": {
+                  "x": 10.0,
+                  "y": 6.0,
+                  "width": 1.0,
+                  "height": 1.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  10.0,
+                  6.0
+                ],
+                "rotation_degrees": 0.0,
+                "native_z_order": 100,
+                "matrix_coordinate_space": "native_affine_in_document_inches"
+              },
+              "planned_bounds_inches": {
+                "x": 10.0,
+                "y": 6.0,
+                "width": 1.0,
+                "height": 1.0
+              }
+            }
+          ],
+          "has_axis_overlap": false
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "distribute_objects",
         "bridge_version": "0.6.0",
         "tool_schema_version": 1,
         "profile_id": "coreldraw-x7-17",
@@ -12174,6 +12918,885 @@
         "Font catalog presence does not prove glyph coverage or available face variants.",
         "Spacing edit units, character runs, linked/fitted text edits and auto-fit are deferred.",
         "Native partial changes require worker reconciliation; no generic automatic rollback."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "get_object_transform",
+      "category": "layout",
+      "description": "Inspect finite native affine matrix, rotation, actual bounds and opaque native stacking index.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.get_object_transform"
+      },
+      "input_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/reference_object_selector"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "object_name": {
+                "maxLength": 256
+              }
+            },
+            "required": []
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "transform": {
+                      "$ref": "#/schema_definitions/native_object_transform"
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "transform"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_layout.py",
+          "docs/LAYOUT_TRANSFORMS.md",
+          "docs/x7_layout_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native matrix/mirror/pivot and sibling semantics await the consolidated X7 gate.",
+        "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
+        "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "rotate_object",
+      "category": "layout",
+      "description": "Rotate one exact object relatively or to an absolute angle about an explicit or measured pivot; read back actual geometry.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.rotate_object"
+      },
+      "input_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/reference_object_selector"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "object_name": {
+                "maxLength": 256
+              },
+              "angle_degrees": {
+                "type": "number",
+                "minimum": -36000,
+                "maximum": 36000
+              },
+              "relative": {
+                "type": "boolean",
+                "default": true
+              },
+              "center_x_inches": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": -10000,
+                "maximum": 10000,
+                "default": null
+              },
+              "center_y_inches": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": -10000,
+                "maximum": 10000,
+                "default": null
+              }
+            },
+            "required": [
+              "angle_degrees"
+            ]
+          },
+          {
+            "anyOf": [
+              {
+                "properties": {
+                  "center_x_inches": {
+                    "type": "null"
+                  },
+                  "center_y_inches": {
+                    "type": "null"
+                  }
+                }
+              },
+              {
+                "required": [
+                  "center_x_inches",
+                  "center_y_inches"
+                ],
+                "properties": {
+                  "center_x_inches": {
+                    "type": "number"
+                  },
+                  "center_y_inches": {
+                    "type": "number"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "rotated": {
+                      "const": true
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "before_transform": {
+                      "$ref": "#/schema_definitions/native_object_transform"
+                    },
+                    "actual_transform": {
+                      "$ref": "#/schema_definitions/native_object_transform"
+                    },
+                    "relative": {
+                      "type": "boolean"
+                    },
+                    "applied_angle_degrees": {
+                      "type": "number"
+                    },
+                    "center_inches": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "rotated",
+                    "object",
+                    "before_transform",
+                    "actual_transform",
+                    "relative",
+                    "applied_angle_degrees",
+                    "center_inches"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotateEx",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_layout.py",
+          "docs/LAYOUT_TRANSFORMS.md",
+          "docs/x7_layout_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native matrix/mirror/pivot and sibling semantics await the consolidated X7 gate.",
+        "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
+        "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "flip_object",
+      "category": "layout",
+      "description": "Mirror one exact object on horizontal, vertical or both axes and inspect native matrix orientation and bounds.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.flip_object"
+      },
+      "input_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/reference_object_selector"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "object_name": {
+                "maxLength": 256
+              },
+              "axis": {
+                "enum": [
+                  "horizontal",
+                  "vertical",
+                  "both"
+                ]
+              }
+            },
+            "required": [
+              "axis"
+            ]
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "flipped": {
+                      "const": true
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "before_transform": {
+                      "$ref": "#/schema_definitions/native_object_transform"
+                    },
+                    "actual_transform": {
+                      "$ref": "#/schema_definitions/native_object_transform"
+                    },
+                    "axis": {
+                      "enum": [
+                        "horizontal",
+                        "vertical",
+                        "both"
+                      ]
+                    },
+                    "orientation_check": {
+                      "const": "native_matrix_parity"
+                    }
+                  },
+                  "required": [
+                    "flipped",
+                    "object",
+                    "before_transform",
+                    "actual_transform",
+                    "axis",
+                    "orientation_check"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.Flip",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_layout.py",
+          "docs/LAYOUT_TRANSFORMS.md",
+          "docs/x7_layout_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native matrix/mirror/pivot and sibling semantics await the consolidated X7 gate.",
+        "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
+        "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "order_object",
+      "category": "layout",
+      "description": "Change one object's immediate sibling stacking rank and verify complete sibling membership and native relations.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.order_object"
+      },
+      "input_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/reference_object_selector"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "object_name": {
+                "maxLength": 256
+              },
+              "position": {
+                "enum": [
+                  "front",
+                  "back",
+                  "forward_one",
+                  "back_one"
+                ]
+              }
+            },
+            "required": [
+              "position"
+            ]
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "ordered": {
+                      "const": true
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "position": {
+                      "enum": [
+                        "front",
+                        "back",
+                        "forward_one",
+                        "back_one"
+                      ]
+                    },
+                    "scope": {
+                      "const": "immediate_siblings"
+                    },
+                    "before_order": {
+                      "$ref": "#/schema_definitions/native_sibling_order"
+                    },
+                    "actual_order": {
+                      "$ref": "#/schema_definitions/native_sibling_order"
+                    }
+                  },
+                  "required": [
+                    "ordered",
+                    "object",
+                    "position",
+                    "scope",
+                    "before_order",
+                    "actual_order"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.OrderBackOne",
+        "Shape.OrderForwardOne",
+        "Shape.OrderIsInFrontOf",
+        "Shape.OrderToBack",
+        "Shape.OrderToFront",
+        "Shape.Page",
+        "Shape.ParentGroup",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_layout.py",
+          "docs/LAYOUT_TRANSFORMS.md",
+          "docs/x7_layout_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native matrix/mirror/pivot and sibling semantics await the consolidated X7 gate.",
+        "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
+        "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "distribute_objects",
+      "category": "layout",
+      "description": "Apply measured equal-gap, equal-center or explicit-gap placement to 3-100 independent exact targets and verify resulting bounds.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.distribute_objects"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "axis": {
+            "enum": [
+              "horizontal",
+              "vertical"
+            ]
+          },
+          "object_names": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256
+                },
+                "minItems": 3,
+                "maxItems": 100,
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "object_references": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/schema_definitions/object_reference"
+                },
+                "minItems": 3,
+                "maxItems": 100,
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "mode": {
+            "enum": [
+              "equal_gaps",
+              "equal_centers"
+            ],
+            "default": "equal_gaps"
+          },
+          "spacing_inches": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": -200,
+            "maximum": 200,
+            "default": null
+          },
+          "allow_overlap": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "axis"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "oneOf": [
+              {
+                "required": [
+                  "object_names"
+                ],
+                "properties": {
+                  "object_names": {
+                    "type": "array"
+                  },
+                  "object_references": {
+                    "type": "null"
+                  }
+                }
+              },
+              {
+                "required": [
+                  "object_references"
+                ],
+                "properties": {
+                  "object_references": {
+                    "type": "array"
+                  },
+                  "object_names": {
+                    "type": "null"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "if": {
+              "properties": {
+                "mode": {
+                  "const": "equal_centers"
+                }
+              },
+              "required": [
+                "mode"
+              ]
+            },
+            "then": {
+              "properties": {
+                "spacing_inches": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "distributed": {
+                      "const": true
+                    },
+                    "axis": {
+                      "enum": [
+                        "horizontal",
+                        "vertical"
+                      ]
+                    },
+                    "mode": {
+                      "enum": [
+                        "equal_gaps",
+                        "equal_centers"
+                      ]
+                    },
+                    "spacing_inches": {
+                      "type": "number"
+                    },
+                    "overlap_allowed": {
+                      "type": "boolean"
+                    },
+                    "objects": {
+                      "type": "array",
+                      "minItems": 3,
+                      "maxItems": 100,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "object": {
+                            "$ref": "#/schema_definitions/inspection_identity"
+                          },
+                          "before_transform": {
+                            "$ref": "#/schema_definitions/native_object_transform"
+                          },
+                          "actual_transform": {
+                            "$ref": "#/schema_definitions/native_object_transform"
+                          },
+                          "planned_bounds_inches": {
+                            "$ref": "#/schema_definitions/layout_bounds_inches"
+                          }
+                        },
+                        "required": [
+                          "object",
+                          "before_transform",
+                          "actual_transform",
+                          "planned_bounds_inches"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "has_axis_overlap": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "distributed",
+                    "axis",
+                    "mode",
+                    "spacing_inches",
+                    "has_axis_overlap",
+                    "overlap_allowed",
+                    "objects"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.SetPosition",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_layout.py",
+          "docs/LAYOUT_TRANSFORMS.md",
+          "docs/x7_layout_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native matrix/mirror/pivot and sibling semantics await the consolidated X7 gate.",
+        "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
+        "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

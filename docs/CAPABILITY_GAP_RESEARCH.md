@@ -8,7 +8,7 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 50 tools, all `implemented_unverified`. It has useful
+The current server exposes 55 tools, all `implemented_unverified`. It has useful
 inspection, simple drawing/editing, design-plan, numbering, and imposition
 foundations. Tool count does not establish complete workflow coverage: there is
 no general curve/boolean editing, clipping/effects, template personalization,
@@ -38,7 +38,7 @@ is a requirements reference, not X7 automation evidence.
 | Recovery and records | Bounded redacted records, explicit busy/timeout state, late/partial quarantine and guarded reconciliation | Existing-document checkpoints and specialized rollback policies |
 | Document/page/layer work | New document, inspect pages/layers, CDR save | Controlled open/close, page management, editable/visible layers, source checkpoints |
 | Everyday typography | Artistic/paragraph creation, whole-story style edits, font catalog and aggregate/native chain overflow inspection | Spacing writes, per-run/linked/fitted editing, glyph checks and safe auto-fit |
-| Layout/transforms | Move, proportional resize, duplicate, align, group/ungroup | Distribution, rotate/mirror, z-order and guide-aware layout |
+| Layout/transforms | Move/proportional resize, pivot rotation, mirroring, native matrix inspection, sibling order, measured distribution and grouping | Layer/page organization, guides, outline-aware bounds and safe-area reflow |
 | Vector construction | Rectangles/ellipses; specialist curve scripts | Lines/paths/nodes, combine/break apart, weld/trim/intersect, offsets and contour tools |
 | Appearance and clipping | RGB fill; native fill inspection; raw outline readback | Proven outline units, CMYK/spot writes, transparency/gradients and PowerClip workflows |
 | Images and references | Validated imports; local cover/contain planning; retained tracing research | General crop/background/cleanup, effective-resolution checks, bounded tracing and fidelity reports |
@@ -60,6 +60,9 @@ Useful implementation evidence includes X7's
 and [PowerClip contents](https://community.coreldraw.com/sdk/api/draw/17/p/powerclip.shapes).
 Paragraph creation now has local type-library evidence and fake-COM/schema
 coverage in [TYPOGRAPHY.md](TYPOGRAPHY.md); native verification remains deferred.
+Common transforms and measured distribution have the same implementation
+status; see [LAYOUT_TRANSFORMS.md](LAYOUT_TRANSFORMS.md) for X7 signatures,
+actual readback, projected-overlap scope and the pending native gate.
 Lookup and PowerClip still need wrappers and runtime evidence. General shaping research can begin
 with Corel's [shape programming guide](https://community.coreldraw.com/sdk/w/guide/214/8-6---working-with-shapes).
 

@@ -391,9 +391,10 @@ These are the next reviewable tickets:
 | 6 | INS-001 | Bounded `find_objects` implemented; disposable X7 gate prepared | Duplicate/nested results deterministic in fake-COM tests; live gate pending |
 | 7 | INS-002 | Focused text, bounds, and native fill inspection implemented; disposable X7 gate prepared | Strict selectors and bounded actual readback pass fake-COM/schema gates; live gate pending |
 | 8 | ID-001 | Document-liveness guard and signed object references implemented; lifecycle X7 gate prepared | Closed/replaced/stale/ambiguous targets are refused; nested edits and reorder pass fake-COM/dispatcher tests; live gate pending |
-| 9 | SAFE-001 | Opt-in bounded external operation records implemented | All 50 MCP tools have caller/worker events; redaction/storage/timeout event tests pass; no content on stdout |
+| 9 | SAFE-001 | Opt-in bounded external operation records implemented | All 55 MCP tools have caller/worker events; redaction/storage/timeout event tests pass; no content on stdout |
 | 10 | SAFE-002 | Explicit worker state and guarded reconciliation implemented; native gate prepared | Pending cancellation, late-result quarantine, native-stage tracking, partial-failure acknowledgement and exact-ID reconciliation pass automated gates; live verification deferred |
 | 11 | TYPO-001 | Paragraph frames, font catalog and whole-story style editing implemented; native gate prepared | Font preflight, reference targeting, actual formatting/bounds and native chain-overflow readback pass automated gates; spacing writes/glyphs/auto-fit remain gaps |
+| 12 | LAY-001 | Matrix inspection, pivot rotation, mirroring, sibling order and measured distribution implemented; native gate prepared | Exact references, actual matrices/bounds, complete stacking scope and independent batch targets pass automated gates; layers/guides/safe-area reflow remain gaps |
 
 DP-001 through DP-005 now pass their automated and disposable-X7 gates. Manual review of the
 dated design-plan CDR remains pending, so the tools retain `implemented_unverified` status.
@@ -409,9 +410,10 @@ native save/reopen/restart verification remains deferred. SAFE-001 now implement
 [redacted operation records](OPERATION_RECORDS.md); SAFE-002 implements
 [worker state/reconciliation](WORKER_RECOVERY.md). The immediate safety tickets
 pass their non-live gates; native verification remains deferred. Editable
-[typography](TYPOGRAPHY.md) now passes its automated gates. Common layout vocabulary
-is next, with spacing writes/auto-fit and existing-document checkpoints retained
-as separate requirements. See
+[typography](TYPOGRAPHY.md) and [layout transforms](LAYOUT_TRANSFORMS.md) now pass
+their automated gates. Reusable templates/data batches and full production are
+next; spacing/auto-fit, layer organization and existing-document checkpoints
+remain separate requirements. See
 [OBJECT_SEARCH.md](OBJECT_SEARCH.md) for the separate search contract/live gate.
 
 Do not begin broad typography, visual AI, or additional batch types until tickets 1–10 pass

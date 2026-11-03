@@ -58,7 +58,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 50
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 55
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -72,8 +72,11 @@ capability status, and keep live verification deferred.
   whole-story styles and native overflow/spacing readback pass automated gates.
   Native behavior, spacing writes and auto-fit remain deferred. See
   [TYPOGRAPHY.md](TYPOGRAPHY.md).
-- Next: common layout vocabulary, then reusable templates and batch production;
-  existing-document checkpoints remain a recovery gap.
+- Layout transforms are implemented: finite matrix inspection, explicit-pivot
+  rotation, mirroring, native sibling order and measured distribution pass
+  automated gates. See [LAYOUT_TRANSFORMS.md](LAYOUT_TRANSFORMS.md).
+- Next: reusable templates and batch production, then full print workflows;
+  spacing/fitting, layer organization and existing-document checkpoints remain gaps.
 
 **Gate:** The intended object can be found and inspected without mutation;
 common edits report actual state on an explicitly authorized disposable target.
@@ -94,8 +97,9 @@ This safety foundation remains required before broader editing and batch work.
 - Paragraph creation, font/size/style/alignment revisions, font catalog and
   chain-overflow/native-spacing inspection are implemented. Continue spacing
   writes, glyph coverage, safe fitting and the deferred native typography gate.
-- Complete useful gaps in distribution, proportional scaling, rotation,
-  z-order, and layer organization using confirmed X7 APIs.
+- Proportional resizing, rotation, mirroring, distribution and native sibling
+  order are implemented. Continue editable/visible layers, page organization,
+  guides and outline-aware/safe-area reflow using confirmed X7 APIs.
 
 **Gate:** Create and revise a simple card, label, or flyer while preserving
 editable text, exact dimensions, object identity, and recovery behavior.

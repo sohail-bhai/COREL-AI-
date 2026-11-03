@@ -32,6 +32,10 @@ from .typography import (
     validate_font, validate_style, validate_paragraph,
     read_property, style_readback, layout_readback,
 )
+from .layout import (
+    FLIP_AXES, ORDER_METHODS, MAX_LAYOUT_OBJECTS, POSITION_TOLERANCE,
+    choice, validate_rotation, plan_distribution, matrix_determinant, circular_difference,
+)
 from .object_references import (
     MAX_REFERENCE_DEPTH, MAX_REFERENCE_SCAN, authenticate_reference,
     identity_token, reference_signature, validate_reference,
@@ -1932,6 +1936,230 @@ class CorelBridge:
             raise
         except Exception as exc:
             raise CorelBridgeError("Could not resize object in CorelDRAW X7. Full COM error: " + str(exc)) from exc
+
+    def _layout_target(self, object_name="", shape_index=0, object_reference=None, mutation=False):
+        document, shape, identity = self._inspection_target(object_name, shape_index, object_reference)
+        if mutation and object_reference is not None:
+            shape, _ = self._resolve_object_reference(document, object_reference, mutation=True)
+        return document, shape, identity
+
+    @staticmethod
+    def _layout_method(shape, name):
+        try:
+            method = getattr(shape, name)
+            if callable(method):
+                return method
+        except Exception:
+            pass
+        raise CorelBridgeError("The selected object's required layout API is unavailable.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+
+    def _layout_snapshot(self, document, shape):
+        try:
+            method = self._layout_method(shape, "GetMatrix")
+            with self._in_inches(document, strict_restore=True), self._reference_point(document, strict_restore=True):
+                bounds = {field: getattr(shape, attr) for field,attr in
+                          (("x", "PositionX"), ("y", "PositionY"), ("width", "SizeWidth"), ("height", "SizeHeight"))}
+                matrix = method()
+                angle = shape.RotationAngle
+            if not isinstance(matrix, (tuple, list)) or len(matrix)!=6 or any(type(v) not in (int,float) for v in matrix):
+                raise ValueError("Incomplete matrix")
+            if any(type(v) not in (int,float) or not math.isfinite(v) for v in (*bounds.values(), *matrix, angle)) or bounds["width"]<0 or bounds["height"]<0:
+                raise ValueError("Nonfinite transform")
+            return {"bounds_inches": {key:float(value) for key,value in bounds.items()}, "matrix": [float(v) for v in matrix],
+                    "rotation_degrees": angle % 360, "native_z_order": _safe_int_attr(shape, "ZOrder"),
+                    "matrix_coordinate_space": "native_affine_in_document_inches"}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("Could not read the object's finite native transform and bounds.", ErrorCode.COREL_COM_ERROR) from exc
+
+    def get_object_transform(self, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None):
+        document, shape, identity = self._layout_target(object_name, shape_index, object_reference)
+        return {"object": identity, "transform": self._layout_snapshot(document, shape)}
+
+    @tracked_mutation
+    def rotate_object(
+        self, angle_degrees: float, relative: bool = True,
+        center_x_inches: float | None = None, center_y_inches: float | None = None,
+        object_name: str = "", shape_index: int = 0, object_reference: dict | None = None,
+    ):
+        validate_rotation(angle_degrees, relative, center_x_inches, center_y_inches)
+        document, shape, identity = self._layout_target(object_name, shape_index, object_reference, mutation=True)
+        method = self._layout_method(shape, "RotateEx")
+        before = self._layout_snapshot(document, shape)
+        bounds = before["bounds_inches"]
+        center = (bounds["x"]+bounds["width"]/2, bounds["y"]+bounds["height"]/2) if center_x_inches is None else (center_x_inches,center_y_inches)
+        delta = angle_degrees if relative else angle_degrees % 360-before["rotation_degrees"]
+        expected = (before["rotation_degrees"]+delta) % 360
+        try:
+            self._note_mutation()
+            with self._in_inches(document, strict_restore=True):
+                method(float(delta), float(center[0]), float(center[1]))
+            actual = self._layout_snapshot(document, shape)
+            if circular_difference(actual["rotation_degrees"], expected)>0.001:
+                raise CorelBridgeError("Native rotation readback differs from the requested angle.", ErrorCode.COREL_COM_ERROR)
+            return {"rotated": True, "object": identity, "relative": relative,
+                    "applied_angle_degrees": delta, "center_inches": {"x": center[0], "y": center[1]},
+                    "before_transform": before, "actual_transform": actual}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW could not rotate or inspect the selected object.", ErrorCode.COREL_COM_ERROR) from exc
+
+    @tracked_mutation
+    def flip_object(self, axis: str, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None):
+        choice(axis, "axis", FLIP_AXES)
+        document, shape, identity = self._layout_target(object_name, shape_index, object_reference, mutation=True)
+        method = self._layout_method(shape, "Flip")
+        before = self._layout_snapshot(document, shape)
+        old_determinant = matrix_determinant(before["matrix"])
+        if not math.isfinite(old_determinant) or abs(old_determinant)<1e-12:
+            raise CorelBridgeError("A degenerate native matrix cannot establish mirror orientation.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+        try:
+            self._note_mutation()
+            method(FLIP_AXES[axis])
+            actual = self._layout_snapshot(document, shape)
+            expected = old_determinant if axis=="both" else -old_determinant
+            actual_determinant = matrix_determinant(actual["matrix"])
+            if (actual_determinant==0 or math.copysign(1,actual_determinant)!=math.copysign(1,expected)
+                    or not math.isclose(actual_determinant, expected, rel_tol=1e-6, abs_tol=1e-9)):
+                raise CorelBridgeError("Native mirror orientation readback differs from the request.", ErrorCode.COREL_COM_ERROR)
+            if axis=="both" and any(not math.isclose(actual["matrix"][i], -before["matrix"][i], rel_tol=1e-6, abs_tol=1e-9) for i in range(4)):
+                raise CorelBridgeError("Native two-axis mirror matrix did not change as requested.", ErrorCode.COREL_COM_ERROR)
+            return {"flipped": True, "object": identity, "axis": axis,
+                    "before_transform": before, "actual_transform": actual,
+                    "orientation_check": "native_matrix_parity"}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW could not mirror or inspect the selected object.", ErrorCode.COREL_COM_ERROR) from exc
+
+    def _stacking_snapshot(self, shape):
+        try:
+            parent = shape.ParentGroup
+            collection = shape.Layer.Shapes if parent is None else parent.Shapes
+            count = collection.Count
+            if type(count) is not int or not 1 <= count <= MAX_REFERENCE_SCAN:
+                raise CorelBridgeError("The sibling stacking scope exceeds the 10000-object limit.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+            compare = self._layout_method(shape, "OrderIsInFrontOf")
+            members, above, found = set(), 0, 0
+            for index in range(1,count+1):
+                candidate = self._collection_item(collection,index)
+                key = self._reference_identity(candidate)
+                if key in members:
+                    raise ValueError("Ambiguous sibling membership")
+                members.add(key)
+                if self._same_com_object(candidate,shape,strict=True):
+                    found += 1
+                    continue
+                in_front = compare(candidate)
+                if type(in_front) is bool:
+                    pass
+                elif type(in_front) is int and in_front in (-1,0):
+                    in_front = bool(in_front)
+                else:
+                    raise ValueError("Unavailable native stacking relation")
+                if not in_front:
+                    above += 1
+            if found != 1:
+                raise ValueError("Selected shape is absent from its sibling scope")
+            scope = self._reference_identity(parent if parent is not None else shape.Layer)
+            return {"rank_from_front": above+1, "sibling_count": count,
+                    "native_z_order": _safe_int_attr(shape,"ZOrder")}, members, scope
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("Could not establish complete native sibling stacking order.", ErrorCode.COREL_COM_ERROR) from exc
+
+    @tracked_mutation
+    def order_object(self, position: str, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None):
+        choice(position,"position",ORDER_METHODS)
+        document, shape, identity = self._layout_target(object_name,shape_index,object_reference,mutation=True)
+        method = self._layout_method(shape,ORDER_METHODS[position])
+        before,members,scope = self._stacking_snapshot(shape)
+        expected = {"front": 1, "back": before["sibling_count"],
+                    "forward_one": max(1,before["rank_from_front"]-1),
+                    "back_one": min(before["sibling_count"],before["rank_from_front"]+1)}[position]
+        try:
+            self._note_mutation()
+            method()
+            actual,new_members,new_scope = self._stacking_snapshot(shape)
+            if members!=new_members or scope!=new_scope or actual["rank_from_front"]!=expected:
+                raise CorelBridgeError("Native sibling order readback differs from the request.",ErrorCode.COREL_COM_ERROR)
+            return {"ordered": True,"object": identity,"position": position,
+                    "scope": "immediate_siblings","before_order": before,"actual_order": actual}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW could not reorder or inspect the selected object.",ErrorCode.COREL_COM_ERROR) from exc
+
+    @tracked_mutation
+    def distribute_objects(
+        self, axis: str, object_names: list[str] | None = None, object_references: list[dict] | None = None,
+        mode: str = "equal_gaps", spacing_inches: float | None = None, allow_overlap: bool = False,
+    ):
+        choice(axis,"axis",("horizontal","vertical"))
+        choice(mode,"mode",("equal_gaps","equal_centers"))
+        if type(allow_overlap) is not bool:
+            raise CorelBridgeError("allow_overlap must be a boolean.",ErrorCode.INVALID_ARGUMENT)
+        # Validate spacing before any native context changes.
+        if spacing_inches is not None:
+            from .typography import finite_number
+            finite_number(spacing_inches,"spacing_inches",-200,200)
+            if mode!="equal_gaps":
+                raise CorelBridgeError("Explicit spacing requires equal_gaps mode.",ErrorCode.INVALID_ARGUMENT)
+        if (object_names is None)==(object_references is None):
+            raise CorelBridgeError("Supply exactly one object_names or object_references list.",ErrorCode.AMBIGUOUS_SELECTOR)
+        selectors = object_names if object_names is not None else object_references
+        if type(selectors) is not list or not 3<=len(selectors)<=MAX_LAYOUT_OBJECTS:
+            raise CorelBridgeError("Distribution requires a list of 3-100 objects.",ErrorCode.INVALID_ARGUMENT)
+        if object_names is not None and (any(type(name) is not str or not name.strip() or len(name)>MAX_NAME_CHARS for name in selectors) or len(set(selectors))!=len(selectors)):
+            raise CorelBridgeError("object_names must contain unique nonblank names of at most 256 characters.",ErrorCode.INVALID_ARGUMENT)
+        targets,keys = [],set()
+        for selector in selectors:
+            document,shape,identity = self._layout_target(object_name=selector if object_names is not None else "",
+                object_reference=selector if object_references is not None else None,mutation=True)
+            reference = identity["object_reference"]
+            if reference is None:
+                raise CorelBridgeError("Distribution requires complete session object identity for every target.",ErrorCode.UNSUPPORTED_IN_PROFILE)
+            key = reference["shape_identity"]
+            if key in keys:
+                raise CorelBridgeError("Distribution targets must be distinct objects.",ErrorCode.INVALID_ARGUMENT)
+            keys.add(key)
+            self._layout_method(shape,"SetPosition")
+            targets.append((document,shape,identity,reference))
+        if any(keys.intersection(reference["ancestor_identities"]) for _,_,_,reference in targets):
+            raise CorelBridgeError("A group and its descendant cannot be distributed together.",ErrorCode.INVALID_ARGUMENT)
+        before = [self._layout_snapshot(doc,shape) for doc,shape,_,_ in targets]
+        plan = plan_distribution([value["bounds_inches"] for value in before],axis,mode,spacing_inches,allow_overlap)
+        try:
+            document = targets[0][0]
+            for doc,_,_,reference in targets:
+                self._resolve_object_reference(doc,reference,mutation=True)
+            self._note_mutation()
+            with self._in_inches(document,strict_restore=True), self._reference_point(document,strict_restore=True):
+                for item in plan["targets"]:
+                    _,shape,_,reference = targets[item["input_index"]]
+                    # Recheck each exact identity immediately before moving it.
+                    shape,_ = self._resolve_object_reference(document,reference,mutation=True)
+                    bounds = item["bounds"]
+                    shape.SetPosition(bounds["x"],bounds["y"])
+            result = []
+            for item in plan["targets"]:
+                index = item["input_index"]
+                doc,shape,identity,_ = targets[index]
+                actual = self._layout_snapshot(doc,shape)
+                if any(not math.isclose(actual["bounds_inches"][key],value,abs_tol=POSITION_TOLERANCE,rel_tol=0)
+                       for key,value in item["bounds"].items()):
+                    raise CorelBridgeError("Native distributed bounds differ from the geometry plan.",ErrorCode.COREL_COM_ERROR)
+                result.append({"object": identity,"before_transform": before[index],"actual_transform": actual,
+                               "planned_bounds_inches": item["bounds"]})
+            return {"distributed": True,"axis": axis,"mode": mode,"spacing_inches": plan["spacing_inches"],
+                    "has_axis_overlap": plan["has_overlap"],"overlap_allowed": allow_overlap,"objects": result}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW could not distribute or inspect the selected objects.",ErrorCode.COREL_COM_ERROR) from exc
 
     @tracked_mutation
     def set_text_content(self, new_text: str, object_name: str = "", shape_index: int = 0,

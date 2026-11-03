@@ -443,6 +443,74 @@ def get_object_bounds(object_name: str = "", shape_index: int = 0, object_refere
 
 @mcp.tool()
 @recorded_operation
+def get_object_transform(object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Read actual native affine matrix, rotation, bounds in inches and raw stacking index.
+
+    Supply one unique active-page name, index, or signed object_reference. Reference
+    inspection can read other pages without activation. Units/reference point are restored.
+    """
+    return _tool("get_object_transform", "get_object_transform", object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def rotate_object(
+    angle_degrees: float, relative: bool = True,
+    center_x_inches: float | None = None, center_y_inches: float | None = None,
+    object_name: str = "", shape_index: int = 0, object_reference: dict | None = None,
+) -> dict:
+    """Rotate one object by a relative angle or to an absolute orientation.
+
+    Default pivot is its measured bounds center; supply both center coordinates
+    to rotate around another point in document ruler inches. Returns actual
+    transform/bounds. Signed reference edits require the referenced page active.
+    """
+    return _tool("rotate_object", "rotate_object", angle_degrees, relative, center_x_inches,
+                 center_y_inches, object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def flip_object(axis: str, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Mirror one object horizontally, vertically or on both axes; return its actual matrix and bounds.
+
+    axis: horizontal/vertical/both. Degenerate matrices are refused. Select by
+    unique active-page name, index, or signed object_reference on the active page.
+    """
+    return _tool("flip_object", "flip_object", axis, object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def order_object(position: str, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Move one object to front/back or forward_one/back_one within its immediate sibling stack.
+
+    Verify native sibling relations and membership after editing. Select by unique
+    active-page name, index, or signed object_reference on the active page.
+    """
+    return _tool("order_object", "order_object", position, object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def distribute_objects(
+    axis: str, object_names: list[str] | None = None, object_references: list[dict] | None = None,
+    mode: str = "equal_gaps", spacing_inches: float | None = None, allow_overlap: bool = False,
+) -> dict:
+    """Distribute 3-100 independent objects along horizontal/vertical using measured geometry.
+
+    Supply one list of unique names or signed references on the active page.
+    equal_gaps preserves the outer extent unless spacing_inches is supplied;
+    equal_centers preserves the first/last centers. Objects sort by current
+    position. Orthogonal positions/sizes stay fixed. Overlaps require explicit
+    allow_overlap. Partial native failures require worker reconciliation.
+    """
+    return _tool("distribute_objects", "distribute_objects", axis, object_names,
+                 object_references, mode, spacing_inches, allow_overlap)
+
+
+@mcp.tool()
+@recorded_operation
 def get_text_properties(object_name: str = "", shape_index: int = 0, max_text_chars: int = 2000, object_reference: dict | None = None) -> dict:
     """Read bounded story content and aggregate formatting for one text shape.
 

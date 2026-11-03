@@ -946,6 +946,93 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self._close_saved_target_if_needed()
             self._write_report(passed, failure)
 
+    def test_layout_transforms_live(self) -> None:
+        """X7 matrices/pivots/mirrors/sibling order/distribution on owned shapes."""
+        passed,failure,owned_session=False,None,None
+        try:
+            self.status=self._step("connect layout fixture",self.bridge.connect)
+            self._step("create layout document",lambda:self.bridge.create_document(8.5,11))
+            document=self.bridge.target_doc
+            owned_session=self.bridge._document_session_id(document)
+            original_context=(int(document.Unit),int(document.ReferencePoint))
+            for name,x,width,height in (("LayoutA",1,2,1),("LayoutB",4,1,2),("LayoutC",7,3,1)):
+                self.bridge.draw_rectangle(x,1,width,height,object_name=name)
+            references=[self.bridge.get_object_transform(object_name=name)["object"]["object_reference"]
+                        for name in ("LayoutA","LayoutB","LayoutC")]
+            self.assertTrue(all(reference is not None for reference in references))
+            rotated=self._step("rotate native asymmetric shape",lambda:self.bridge.rotate_object(90,object_reference=references[0]))
+            bounds=rotated["actual_transform"]["bounds_inches"]
+            self.assertAlmostEqual(bounds["width"],1,delta=.01)
+            self.assertAlmostEqual(bounds["height"],2,delta=.01)
+            self.assertAlmostEqual(bounds["x"]+bounds["width"]/2,2,delta=.01)
+            self.assertAlmostEqual(bounds["y"]+bounds["height"]/2,1.5,delta=.01)
+            pivoted=self._step("rotate native external pivot",lambda:self.bridge.rotate_object(
+                180,relative=False,center_x_inches=0,center_y_inches=0,object_reference=references[0]))
+            self.assertAlmostEqual(pivoted["actual_transform"]["rotation_degrees"],180,delta=.001)
+            self.bridge.rotate_object(-90,center_x_inches=0,center_y_inches=0,object_reference=references[0])
+            self.bridge.rotate_object(0,relative=False,object_reference=references[0])
+            self.bridge.move_object(1,1,object_reference=references[0])
+            before=self.bridge.get_object_transform(object_reference=references[1])["transform"]
+            mirrors=[]
+            for axis in ("horizontal","vertical","both"):
+                mirrors.append(self._step(f"mirror native {axis}",lambda axis=axis:self.bridge.flip_object(axis,object_reference=references[1])))
+                mirrored=mirrors[-1]["actual_transform"]
+                self.assertAlmostEqual(mirrored["matrix"][0],before["matrix"][0]*(-1 if axis in ("horizontal","both") else 1),delta=.0001)
+                self.assertAlmostEqual(mirrored["matrix"][3],before["matrix"][3]*(-1 if axis in ("vertical","both") else 1),delta=.0001)
+                for field in ("x","y","width","height"):
+                    self.assertAlmostEqual(mirrored["bounds_inches"][field],before["bounds_inches"][field],delta=.001)
+                self.bridge.flip_object(axis,object_reference=references[1])
+            after=self.bridge.get_object_transform(object_reference=references[1])["transform"]
+            for actual,expected in zip(after["matrix"],before["matrix"]):
+                self.assertAlmostEqual(actual,expected,delta=.0001)
+            order=[]
+            for position in ("front","back_one","forward_one","back"):
+                order.append(self._step(f"native stacking {position}",lambda position=position:self.bridge.order_object(position,object_reference=references[2])))
+            gaps=self._step("native equal-gap distribution",lambda:self.bridge.distribute_objects("horizontal",object_references=references))
+            self.assertAlmostEqual(gaps["spacing_inches"],1.5,delta=.01)
+            explicit=self._step("native explicit-gap distribution",lambda:self.bridge.distribute_objects(
+                "horizontal",object_references=references,spacing_inches=.25))
+            for previous,current in zip(explicit["objects"],explicit["objects"][1:]):
+                left=previous["actual_transform"]["bounds_inches"]
+                right=current["actual_transform"]["bounds_inches"]
+                self.assertAlmostEqual(right["x"]-left["x"]-left["width"],.25,delta=.001)
+            for reference,y in zip(references,(1,4,7)):
+                x=self.bridge.get_object_transform(object_reference=reference)["transform"]["bounds_inches"]["x"]
+                self.bridge.move_object(x,y,object_reference=reference)
+            centers=self._step("native equal-center distribution",lambda:self.bridge.distribute_objects(
+                "vertical",object_references=references,mode="equal_centers"))
+            center_values=[item["actual_transform"]["bounds_inches"]["y"]+item["actual_transform"]["bounds_inches"]["height"]/2 for item in centers["objects"]]
+            self.assertAlmostEqual(center_values[1]-center_values[0],center_values[2]-center_values[1],delta=.001)
+            self.bridge.group_shapes(["LayoutA","LayoutB"],group_name="LayoutGroup")
+            matches={m["object_name"]:m["object_reference"] for m in self.bridge.find_objects()["matches"]}
+            nested_order=self._step("native nested sibling order",lambda:self.bridge.order_object("front",object_reference=matches["LayoutB"]))
+            self.assertEqual(nested_order["actual_order"]["sibling_count"],2)
+            with self.assertRaises(CorelBridgeError) as ancestor:
+                self.bridge.distribute_objects("horizontal",object_references=[matches["LayoutGroup"],matches["LayoutA"],matches["LayoutC"]])
+            self.assertEqual(ancestor.exception.code,ErrorCode.INVALID_ARGUMENT)
+            self.assertEqual((int(document.Unit),int(document.ReferencePoint)),original_context)
+            (self.output_dir/"layout-readback.json").write_text(json.dumps({"rotated":rotated,"pivoted":pivoted,
+                "mirrors":mirrors,"orders":order,"gaps":gaps,"explicit":explicit,"centers":centers,"nested_order":nested_order},indent=2),encoding="utf-8")
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            try:
+                if owned_session is not None and self.bridge.target_doc is not None:
+                    document=self.bridge._target_document()
+                    if self.bridge._document_session_id(document)!=owned_session:
+                        raise AssertionError("Refusing layout cleanup of an unowned target")
+                    self._step("save owned layout fixture",lambda:self.bridge.save_document(str(self.cdr_path)))
+                    document.Close()
+                    self.bridge._invalidate_target_document()
+            except BaseException as exc:
+                passed=False
+                failure=f"Layout cleanup failed: {type(exc).__name__}: {exc}"
+                raise
+            finally:
+                self._write_report(passed,failure)
+
     def test_typography_live(self) -> None:
         """Native typography/readback on owned synthetic artwork; never run by default."""
         passed, failure, owned_session = False, None, None

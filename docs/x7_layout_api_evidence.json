@@ -1,0 +1,235 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IVGShape",
+      "names": [
+        "RotationAngle"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743836, (), (), 4, 2, 4, 0, 280, (5, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "RotationAngle"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743836, (), ((5, 1, None),), 4, 4, 4, 0, 288, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Rotate",
+        "Angle"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743842, (), ((5, 1, None),), 4, 1, 4, 0, 328, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "OrderToFront"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743847, (), (), 4, 1, 4, 0, 368, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "OrderToBack"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743848, (), (), 4, 1, 4, 0, 376, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "OrderForwardOne"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743849, (), (), 4, 1, 4, 0, 384, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "OrderBackOne"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743850, (), (), 4, 1, 4, 0, 392, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "OrderIsInFrontOf",
+        "Shape"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743853, (), (((26, (29, 50363136)), 1, None),), 4, 1, 4, 0, 416, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "SetPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743867, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 528, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "GetPosition",
+        "PositionX",
+        "PositionY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743869, (), (((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 544, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Flip",
+        "Axes"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743885, (), (((29, 50334592), 1, None),), 4, 1, 4, 0, 672, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "AbsoluteHScale"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743913, (), (), 4, 2, 4, 0, 896, (5, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "AbsoluteVScale"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743914, (), (), 4, 2, 4, 0, 904, (5, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "GetMatrix",
+        "d11",
+        "d12",
+        "d21",
+        "d22",
+        "tx",
+        "ty"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743917, (), (((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 928, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "RotateEx",
+        "Angle",
+        "CenterX",
+        "CenterY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743921, (), ((5, 1, None), (5, 1, None), (5, 1, None)), 4, 1, 4, 0, 960, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "ParentGroup"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743922, (), (), 4, 2, 4, 0, 968, ((26, (29, 50363136)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "ZOrder"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610744008, (), (), 4, 2, 4, 0, 1656, (3, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "OrderToFront"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743829, (), (), 4, 1, 4, 0, 224, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "OrderToBack"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743830, (), (), 4, 1, 4, 0, 232, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "Distribute",
+        "Type",
+        "PageExtent"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743888, (), (((29, 50343424), 1, None), (11, 49, False)), 4, 1, 4, 0, 696, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShapeRange",
+      "names": [
+        "AlignAndDistribute",
+        "MethodH",
+        "MethodV",
+        "AlignTo",
+        "DistributeArea",
+        "UseOutline",
+        "TextAlignOrigin",
+        "PointX",
+        "PointY",
+        "DistributeRect"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743955, (), (((29, 50350208), 1, None), ((29, 50350336), 1, None), ((29, 50350592), 49, 0), ((29, 50350464), 49, 0), (11, 49, False), ((29, 50345600), 49, 2), (5, 49, 0.0), (5, 49, 0.0), ((26, (29, 50364672)), 49, 0)), 4, 1, 4, 0, 1232, (24, 0, None), 0)"
+    }
+  ],
+  "enums": {
+    "cdrFlipAxes": {
+      "cdrFlipHorizontal": 1,
+      "cdrFlipVertical": 2,
+      "cdrFlipBoth": 3
+    },
+    "cdrAlignDistributeH": {
+      "cdrAlignDistributeHNone": 0,
+      "cdrAlignDistributeHAlignRight": 1,
+      "cdrAlignDistributeHAlignLeft": 2,
+      "cdrAlignDistributeHAlignCenter": 3,
+      "cdrAlignDistributeHDistributeRight": 4,
+      "cdrAlignDistributeHDistributeLeft": 5,
+      "cdrAlignDistributeHDistributeCenter": 6,
+      "cdrAlignDistributeHDistributeSpacing": 7
+    },
+    "cdrAlignDistributeV": {
+      "cdrAlignDistributeVNone": 0,
+      "cdrAlignDistributeVAlignTop": 1,
+      "cdrAlignDistributeVAlignBottom": 2,
+      "cdrAlignDistributeVAlignCenter": 3,
+      "cdrAlignDistributeVDistributeTop": 4,
+      "cdrAlignDistributeVDistributeBottom": 5,
+      "cdrAlignDistributeVDistributeCenter": 6,
+      "cdrAlignDistributeVDistributeSpacing": 7
+    },
+    "cdrAlignShapesTo": {
+      "cdrAlignShapesToLastSelected": 0,
+      "cdrAlignShapesToEdgeOfPage": 1,
+      "cdrAlignShapesToCenterOfPage": 2,
+      "cdrAlignShapesToGrid": 3,
+      "cdrAlignShapesToPoint": 4
+    }
+  }
+}

@@ -30,16 +30,19 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 399 tests (387 automated checks pass; twelve guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
+- 424 tests (411 automated checks pass; thirteen guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Signed session references for precise nested edits, opt-in redacted operation
-  records, and explicit worker/recovery state across 50 MCP tools. Three local
+  records, and explicit worker/recovery state across 55 MCP tools. Three local
   state/outcome/reconciliation tools block unsafe follow-up mutations after
   timeout or partial failure; see [`docs/WORKER_RECOVERY.md`](docs/WORKER_RECOVERY.md).
 - Editable paragraph frames, whole-story font/size/style/alignment revisions,
   bounded font catalog and native overflow/spacing inspection; see
   [`docs/TYPOGRAPHY.md`](docs/TYPOGRAPHY.md). Native verification remains deferred.
+- Matrix/bounds inspection, pivot rotation, mirroring, sibling stacking and
+  measured equal-gap/equal-center/explicit-gap distribution; see
+  [`docs/LAYOUT_TRANSFORMS.md`](docs/LAYOUT_TRANSFORMS.md).
 - Bound-document liveness checks that clear closed/replaced targets and prevent
   editing another active document; see [`docs/DOCUMENT_TARGETING.md`](docs/DOCUMENT_TARGETING.md).
 - Six implemented-unverified read-only inspection tools for open documents, target-document details, pages, page bounds, layers, and single objects.

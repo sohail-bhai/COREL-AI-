@@ -55,6 +55,7 @@ class CorelX7Adapter:
     CDR_TRUE = -1
     CDR_GROUP_SHAPE = 7
     CDR_TEXT_SHAPE = 6
+    FLIP_AXES = {"horizontal": 1, "vertical": 2, "both": 3}
 
     CDR_ALIGN_DISTRIBUTE_H_NONE = 0
     CDR_ALIGN_DISTRIBUTE_H_ALIGN_RIGHT = 1
@@ -131,6 +132,31 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "object.transform_inspect": CapabilitySupport(
+            True, "implemented_unverified",
+            "Finite X7 matrix/rotation/bounds readback is implemented; native matrix conventions await the consolidated gate.",
+            ("Shape.GetMatrix", "Shape.RotationAngle", "Shape.ZOrder"),
+        ),
+        "object.rotate": CapabilitySupport(
+            True, "implemented_unverified",
+            "Explicit-pivot relative/absolute rotation uses X7 RotateEx with signed targeting and actual angle/bounds readback.",
+            ("Shape.RotateEx", "Shape.GetMatrix", "Shape.RotationAngle"),
+        ),
+        "object.flip": CapabilitySupport(
+            True, "implemented_unverified",
+            "X7 mirror axes are confirmed; actual matrix parity is checked but native rendering remains unverified.",
+            ("Shape.Flip", "Shape.GetMatrix"),
+        ),
+        "object.order": CapabilitySupport(
+            True, "implemented_unverified",
+            "Native sibling relations and membership verify four stacking edits; nested X7 behavior awaits live testing.",
+            ("Shape.OrderToFront", "Shape.OrderToBack", "Shape.OrderIsInFrontOf", "Shape.ParentGroup"),
+        ),
+        "object.distribute": CapabilitySupport(
+            True, "implemented_unverified",
+            "Measured equal-gap/equal-center/explicit-gap plans use exact references and verify every resulting bound; partial failures require recovery.",
+            ("Shape.SetPosition", "Shape.GetMatrix", "Document.Unit", "Document.ReferencePoint"),
+        ),
         "text.paragraph_create": CapabilitySupport(
             True, "implemented_unverified",
             "X7 paragraph creation signature is confirmed; native text/glyph/overflow behavior awaits the consolidated live gate.",

@@ -119,6 +119,13 @@
       "path": "docs/x7_typography_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "Read-only inspection of installed X7 text members with connection_attempted false."
+    },
+    {
+      "id": "x7_layout_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_layout_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "Installed X7 transform/order signatures read without connecting to the application."
     }
   ],
   "members": [
@@ -163,7 +170,7 @@
       "access": "read",
       "signature": "Documents -> Documents collection",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_open_documents", "corel_status", "create_document", "use_active_document", "add_text", "draw_rectangle", "draw_ellipse", "list_objects", "set_fill_color", "set_outline", "move_object", "resize_object", "set_text_content", "rename_object", "duplicate_object", "import_artwork", "save_document", "export_pdf", "get_document_info", "list_pages", "get_page_bounds", "list_layers", "get_object_info", "get_object_bounds", "find_objects", "get_text_properties", "get_fill", "prepare_print_job", "create_chest_number_batch", "execute_design_plan", "align_objects", "align_to_page", "group_shapes", "ungroup_shapes", "inspect_repeat_unit", "prepare_contour_nesting", "prepare_imposition_job", "set_text_style"],
+      "used_by": ["list_open_documents", "corel_status", "create_document", "use_active_document", "add_text", "draw_rectangle", "draw_ellipse", "list_objects", "set_fill_color", "set_outline", "move_object", "resize_object", "set_text_content", "rename_object", "duplicate_object", "import_artwork", "save_document", "export_pdf", "get_document_info", "list_pages", "get_page_bounds", "list_layers", "get_object_info", "get_object_bounds", "find_objects", "get_text_properties", "get_fill", "prepare_print_job", "create_chest_number_batch", "execute_design_plan", "align_objects", "align_to_page", "group_shapes", "ungroup_shapes", "inspect_repeat_unit", "prepare_contour_nesting", "prepare_imposition_job", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_application", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.Documents",
       "live_test_status": "not_run"
@@ -357,7 +364,7 @@
       "access": "read",
       "signature": "Pages -> Pages collection",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status", "get_text_properties", "set_text_style"],
+      "used_by": ["corel_status", "get_text_properties", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.Pages",
       "live_test_status": "historical_report_needs_reproduction"
@@ -369,7 +376,7 @@
       "access": "read_write",
       "signature": "Unit -> cdrUnit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status", "create_document", "all_geometry_tools", "get_object_bounds", "add_paragraph_text", "set_text_style"],
+      "used_by": ["corel_status", "create_document", "all_geometry_tools", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.Unit",
       "live_test_status": "historical_report_needs_reproduction",
@@ -382,7 +389,7 @@
       "access": "read_write",
       "signature": "ReferencePoint -> cdrReferencePoint",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["create_document", "list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style"],
+      "used_by": ["create_document", "list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.ReferencePoint",
       "live_test_status": "not_run"
@@ -573,7 +580,7 @@
       "access": "read",
       "signature": "AllLayers -> Layers collection including master layers",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers", "get_text_properties", "set_text_style"],
+      "used_by": ["list_layers", "get_text_properties", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_page", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.AllLayers",
       "live_test_status": "not_run"
@@ -585,7 +592,7 @@
       "access": "read",
       "signature": "Shapes -> Shapes collection across all page layers",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "all_object_selector_tools", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "set_text_style"],
+      "used_by": ["list_objects", "all_object_selector_tools", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_page", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.Shapes",
       "live_test_status": "not_run",
@@ -768,7 +775,7 @@
       "access": "read",
       "signature": "Shapes -> Shapes collection on the layer",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers", "get_text_properties", "set_text_style"],
+      "used_by": ["list_layers", "get_text_properties", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_layer", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.Shapes",
       "live_test_status": "not_run"
@@ -866,7 +873,7 @@
       "access": "read_write",
       "signature": "Name -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["all_object_tools", "rename_object", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style"],
+      "used_by": ["all_object_tools", "rename_object", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Name",
       "live_test_status": "not_run",
@@ -879,7 +886,7 @@
       "access": "read",
       "signature": "StaticID -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style"],
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_shape", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.StaticID",
       "live_test_status": "unique_within_live_imposition_run_2026-11-01",
@@ -892,7 +899,7 @@
       "access": "read",
       "signature": "Shapes -> Shapes collection of group children",
       "status": "typelib_confirmed",
-      "used_by": ["find_objects", "inspect_repeat_unit", "prepare_imposition_job", "get_text_properties", "set_text_style"],
+      "used_by": ["find_objects", "inspect_repeat_unit", "prepare_imposition_job", "get_text_properties", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Shapes",
       "live_test_status": "not_run_for_find_objects",
@@ -905,7 +912,7 @@
       "access": "read_write",
       "signature": "Layer -> Layer",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style"],
+      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Layer",
       "live_test_status": "live_x7_passed_2026-11-01"
@@ -917,7 +924,7 @@
       "access": "read",
       "signature": "Page -> Page",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style"],
+      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Page",
       "live_test_status": "live_x7_passed_2026-11-01"
@@ -929,7 +936,7 @@
       "access": "read",
       "signature": "Type -> cdrShapeType",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style"],
+      "used_by": ["list_objects", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Type",
       "live_test_status": "not_run"
@@ -941,7 +948,7 @@
       "access": "read_write",
       "signature": "PositionX -> Double according to Document.ReferencePoint and Document.Unit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style"],
+      "used_by": ["list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.PositionX",
       "live_test_status": "not_run"
@@ -953,7 +960,7 @@
       "access": "read_write",
       "signature": "PositionY -> Double according to Document.ReferencePoint and Document.Unit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style"],
+      "used_by": ["list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.PositionY",
       "live_test_status": "not_run"
@@ -965,7 +972,7 @@
       "access": "read_write",
       "signature": "SizeWidth -> Double in document units",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "resize_object", "get_object_bounds", "add_paragraph_text", "set_text_style"],
+      "used_by": ["list_objects", "resize_object", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.SizeWidth",
       "live_test_status": "not_run"
@@ -977,7 +984,7 @@
       "access": "read_write",
       "signature": "SizeHeight -> Double in document units",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "resize_object", "get_object_bounds", "add_paragraph_text", "set_text_style"],
+      "used_by": ["list_objects", "resize_object", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.SizeHeight",
       "live_test_status": "not_run"
@@ -1026,7 +1033,7 @@
       "access": "mutating",
       "signature": "SetPosition(PositionX, PositionY)",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["move_object", "prepare_contour_nesting", "prepare_imposition_job"],
+      "used_by": ["move_object", "prepare_contour_nesting", "prepare_imposition_job", "distribute_objects"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.SetPosition",
       "live_test_status": "live_x7_passed_2026-11-01"
@@ -1849,6 +1856,203 @@
         "x7_typography_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/layer.createparagraphtext",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.GetMatrix",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "call",
+      "signature": "GetMatrix(d11, d12, d21, d22, tx, ty)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "distribute_objects"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.getmatrix",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.RotationAngle",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read",
+      "signature": "RotationAngle()",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "distribute_objects"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.rotationangle",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.ZOrder",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read",
+      "signature": "ZOrder()",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.zorder",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.RotateEx",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "call",
+      "signature": "RotateEx(Angle, CenterX, CenterY)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "rotate_object"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.rotateex",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.Flip",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "call",
+      "signature": "Flip(Axes)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "flip_object"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.flip",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.OrderBackOne",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "call",
+      "signature": "OrderBackOne()",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "order_object"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.orderbackone",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.OrderForwardOne",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "call",
+      "signature": "OrderForwardOne()",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "order_object"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.orderforwardone",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.OrderIsInFrontOf",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "call",
+      "signature": "OrderIsInFrontOf(Shape)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "order_object"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.orderisinfrontof",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.OrderToBack",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "call",
+      "signature": "OrderToBack()",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "order_object"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.ordertoback",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.OrderToFront",
+      "owner": "Shape",
+      "kind": "method",
+      "access": "call",
+      "signature": "OrderToFront()",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "order_object"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/shape.ordertofront",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Shape.ParentGroup",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read",
+      "signature": "ParentGroup()",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "order_object"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_layout_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.parentgroup",
       "live_test_status": "not_run"
     }
   ]
