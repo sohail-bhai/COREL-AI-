@@ -59,7 +59,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 59
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 61
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -77,10 +77,14 @@ capability status, and keep live verification deferred.
   rotation, mirroring, native sibling order and measured distribution pass
   automated gates. See [LAYOUT_TRANSFORMS.md](LAYOUT_TRANSFORMS.md).
 - Templates are implemented: named text-field snapshots, literal CSV, full-data
-  validation and full/partial output sheets pass 24 focused non-live checks.
+  validation and full/partial output sheets pass 25 focused non-live checks.
   Owned-output cleanup, final row readback and measured source preservation are
   covered. See [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md).
-- Next: controlled and inspected PDF production, then general graphics;
+- Controlled zero-bleed PDF export and local page/font inspection are implemented
+  with 22 focused checks and a deferred native gate. All 61 tools are included in
+  the consolidated coverage inventory. See [PDF_PRODUCTION.md](PDF_PRODUCTION.md)
+  and [CONSOLIDATED_LIVE_VERIFICATION.md](CONSOLIDATED_LIVE_VERIFICATION.md).
+- Next: general graphics and broader prepress;
   spacing/fitting, layer organization and existing-document checkpoints remain gaps.
 
 **Gate:** The intended object can be found and inspected without mutation;
@@ -111,10 +115,11 @@ editable text, exact dimensions, object identity, and recovery behavior.
 
 ### 4. Reusable templates and deterministic batches
 
-- Add named-field template updates for cards, labels, tickets, and certificates.
-- Add local CSV-driven personalization and numbering with missing-field,
-  duplicate-record, sequence, overflow, and count checks before mutation.
-- Keep reusable source templates unchanged and materialize distinct outputs.
+- Named text fields, literal CSV, complete preflight, duplicate policy and
+  independent full/partial output sheets are implemented. Final native readback
+  checks every record, field/item bounds, overflow and measured source state.
+- Image personalization, mixed/linked text, safe automatic fitting and additional
+  numbering variants remain gaps. Native and manual verification stay deferred.
 
 **Gate:** A small approved batch has correct content/counts, editable objects,
 unchanged source artwork, and no silent output overwrite.
@@ -123,8 +128,9 @@ unchanged source artwork, and no silent output overwrite.
 
 - Finish curved-contour X7 verification and automatic repeat-unit inspection.
 - Extend existing imposition to verified multi-sheet and partial-sheet output.
-- Add job-specific bleed, margins, gutters, marks, output layers, controlled
-  PDF export, and a production report backed by actual checks.
+- Controlled zero-bleed PDF export and parsed all-page/font checks are implemented.
+  Continue job-specific nonzero bleed, marks, ICC/PDF-X, spot/overprint checks
+  and general multisheet imposition after the required API/output research.
 
 **Gate:** Quantity, spacing, source preservation, page count, and export checks
 pass; `print_ready` is reported only when all applicable checks pass.

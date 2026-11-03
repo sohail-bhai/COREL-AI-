@@ -522,6 +522,38 @@ def inspect_text_template(object_name: str="",shape_index: int=0,object_referenc
 
 @mcp.tool()
 @recorded_operation
+def inspect_pdf(path: str,expected_page_count: int | None=None,expected_page_sizes: list[dict] | None=None,
+                require_embedded_fonts: bool=False,tolerance_inches: float=.01) -> dict:
+    """Parse a local PDF and check all page sizes/counts and font program presence.
+
+    Require an absolute .pdf path, at most 50 MiB, 500 pages and 10000 resource
+    objects. Summaries cap at 100 pages/fonts. No rendering or print-ready claim.
+    """
+    from .pdf_inspection import inspect_pdf as inspect_file
+    started=perf_counter()
+    try:
+        return success_result("inspect_pdf",inspect_file(path,expected_page_count,expected_page_sizes,
+            require_embedded_fonts,tolerance_inches),(perf_counter()-started)*1000)
+    except Exception as exc: return error_result("inspect_pdf",exc,(perf_counter()-started)*1000)
+
+
+@mcp.tool()
+@recorded_operation
+def export_pdf_controlled(path: str,color_mode: str="native",pdf_version: str="1.4",text_as_curves: bool=False,
+                          require_embedded_fonts: bool=True) -> dict:
+    """Export all bound-document pages with explicit zero-bleed/font/color controls.
+
+    Restore native PDF settings, inspect every page and font resource, then
+    publish exclusively to a new path. X7 and manual review remain pending;
+    ICC conversion, nonzero bleed and PDF/X are outside this contract.
+    """
+    result=_tool("export_pdf_controlled","export_pdf_controlled",path,color_mode,pdf_version,text_as_curves,require_embedded_fonts)
+    if result.get("ok"): result["warnings"].extend(result["data"]["warnings"])
+    return result
+
+
+@mcp.tool()
+@recorded_operation
 def read_template_csv(csv_path: str,delimiter: str=",") -> dict:
     """Read literal UTF-8 CSV rows for templates; preserve leading zeros and quoted text.
 

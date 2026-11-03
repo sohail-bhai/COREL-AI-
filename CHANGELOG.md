@@ -8,6 +8,12 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Controlled zero-bleed PDF export with explicit font/range/color/version and
+  bitmap controls, verified native setting restoration, full page/font structure
+  checks and exclusive output publication. Twenty-two focused tests cover native
+  failures, composite/Form fonts, races and staging changes. The catalog now has
+  61 registered tools and a complete deferred verification inventory; missing
+  document-inspection, raster-placement and low-level contour gates were prepared.
 - Four reusable template tools: bounded source snapshots, literal UTF-8 CSV,
   deterministic record/copy planning and independent full/partial sheet outputs.
   Final row/formatting/static geometry and native ownership checks cover shared

@@ -132,6 +132,13 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "pdf.inspect": CapabilitySupport(
+            True,"implemented_unverified","Bounded local PDF page boxes/counts and font-program presence checks; no renderer or ICC/PDF-X proof.",(),
+        ),
+        "pdf.controlled_export": CapabilitySupport(
+            True,"implemented_unverified","Explicit whole-document zero-bleed controls, verified settings restoration, parsed artifact checks and exclusive publication. Native/manual gates deferred.",
+            ("Document.PDFSettings","Document.PublishToPDF"),
+        ),
         "template.inspect": CapabilitySupport(
             True,"implemented_unverified","Bounded grouped text-template snapshots bind measured structure/text/basic appearance to a signed source reference.",
             ("Shape.Shapes","Shape.GetMatrix","Text.Story"),

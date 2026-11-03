@@ -246,6 +246,16 @@ class TemplateJobsTests(unittest.TestCase):
         with patch.object(Layer,"Paste",changed):
             error=self.error(ErrorCode.COREL_COM_ERROR,self.bridge.execute_template_batch,plan,plan["fingerprint"])
         self.assertTrue(error.details["rollback"]["verified"])
+    def test_nested_groups_can_change_bounds_with_personalized_text(self):
+        background,name,number=self.root.Shapes.items
+        nested=TemplateShape(self.app,"IdentityBlock",7,1.2,1.5,1,.7)
+        nested.Page,nested.Layer,nested.ParentGroup=self.root.Page,self.root.Layer,self.root
+        name.ParentGroup=number.ParentGroup=nested; nested.Shapes=Collection(name,number)
+        self.root.Shapes=Collection(background,nested)
+        self.template=self.bridge.inspect_text_template(object_name="Template")["template"]
+        plan=self.plan(); result=self.bridge.execute_template_batch(plan,plan["fingerprint"])
+        self.assertTrue(result["fit_checks_passed"])
+        self.assertEqual(name.Text.Story.Text,"NAME")
     def test_native_page_dimensions_are_read_back(self):
         plan=self.plan()
         with patch.object(Page,"SetSize",lambda page,w,h: None):

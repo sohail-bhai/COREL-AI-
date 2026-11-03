@@ -232,6 +232,114 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return report_path
 
+    def test_document_inspection_live(self) -> None:
+        """Consolidated inspection checks on a synthetic document with two pages."""
+        passed=False; failure=None
+        try:
+            self._step("connect",self.bridge.connect)
+            self.status=self._step("corel_status",self.bridge.status)
+            self.assertTrue(self.status["connected"])
+            self._step("create inspection fixture",lambda:self.bridge.create_document(8.5,11))
+            self._step("inspection fixture text",lambda:self.bridge.add_text("INSPECT 001",1,2,12,"Arial",False,"InspectText"))
+            document=self.bridge.target_doc
+            with self.bridge._in_inches(document,strict_restore=True): document.AddPagesEx(1,3,4)
+            self.bridge._collection_item(document.Pages,1).Activate()
+            unit=document.Unit; reference_point=document.ReferencePoint
+            page_before=self.bridge._reference_identity(document.ActivePage)
+            info=self._step("get_document_info",self.bridge.get_document_info)
+            self.assertEqual(info["document_name"],document.Name)
+            pages=self._step("list_pages",self.bridge.list_pages)["pages"]
+            self.assertEqual(len(pages),2)
+            self.assertAlmostEqual(pages[1]["width_inches"],3,delta=.001)
+            bounds=self._step("get_page_bounds",lambda:self.bridge.get_page_bounds(2))["bounds"]
+            self.assertAlmostEqual(bounds["height"],4,delta=.001)
+            layers=self._step("list_layers",lambda:self.bridge.list_layers(1))["layers"]
+            self.assertTrue(layers)
+            shape=self._step("get_object_info",lambda:self.bridge.get_object_info(object_name="InspectText"))["object"]
+            self.assertEqual(shape["text"]["text"],"INSPECT 001")
+            self.assertEqual(document.Unit,unit); self.assertEqual(document.ReferencePoint,reference_point)
+            self.assertEqual(self.bridge._reference_identity(document.ActivePage),page_before)
+            self._step("save inspection fixture",lambda:self.bridge.save_document(str(self.output_dir/"inspection-coverage.cdr")))
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed,failure)
+
+    def test_raster_print_workflow_live(self) -> None:
+        """Consolidated raster placement gate with disposable generated artwork."""
+        from PIL import Image
+        passed=False; failure=None
+        try:
+            self.status=self._step("connect",self.bridge.connect)
+            path=self.output_dir/"synthetic-raster.png"
+            Image.new("RGB",(300,300),(40,120,200)).save(path,dpi=(300,300))
+            result=self._step("prepare_print_job",lambda:self.bridge.prepare_print_job(str(path),1,1,3,2.5,
+                copies=3,gutter_inches=0,minimum_dpi=150))
+            self.assertEqual(result["created_count"],3); self.assertTrue(result["post_execution_verification"])
+            self.assertFalse(result["print_ready"])
+            self._step("save raster print fixture",lambda:self.bridge.save_document(str(self.output_dir/"raster-print.cdr")))
+            self._step("export raster print fixture",lambda:self.bridge.export_pdf_controlled(str(self.output_dir/"raster-print.pdf")))
+            baseline=self.bridge.app.Documents.Count
+            with self.assertRaises(CorelBridgeError): self.bridge.prepare_print_job(str(path),1,1,3,2.5,copies=100)
+            self.assertEqual(self.bridge.app.Documents.Count,baseline)
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed,failure)
+
+    def test_standalone_contour_nesting_live(self) -> None:
+        """Consolidated low-level contour gate using a synthetic native L contour."""
+        passed=False; failure=None
+        try:
+            self.status=self._step("connect",self.bridge.connect)
+            self._step("create contour fixture",lambda:self.bridge.create_document(12,18))
+            self._step("create synthetic contour source",self._create_asymmetric_imposition_fixture)
+            result=self._step("prepare_contour_nesting",lambda:self.bridge.prepare_contour_nesting(
+                "Repeat_Unit","CutContour",12,18,copies=2,cutting_method="digital_cutter",allow_180_rotation=True))
+            self.assertEqual(result["created_count"],2); self.assertTrue(result["source_preserved"])
+            self.assertTrue(result["post_execution_verification"])
+            self.assertEqual(self.bridge.target_doc.Pages.Count,2)
+            self._step("save contour fixture",lambda:self.bridge.save_document(str(self.output_dir/"contour-coverage.cdr")))
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed,failure)
+
+    def test_controlled_pdf_live(self) -> None:
+        """Deferred PDF gate on its own synthetic multipage document and output."""
+        from corel_operator.pdf_inspection import inspect_pdf
+        passed=False; failure=None
+        try:
+            self.status=self._step("connect",self.bridge.connect)
+            self._step("create PDF fixture",lambda:self.bridge.create_document(8.5,11))
+            self._step("PDF fixture text",lambda:self.bridge.add_text("PDF 001",1,2,12,"Arial",False,"PdfText"))
+            document=self.bridge.target_doc
+            with self.bridge._in_inches(document,strict_restore=True): document.AddPagesEx(1,3,4)
+            fields=('PublishRange ColorMode pdfVersion TextAsCurves EmbedFonts EmbedBaseFonts SubsetFonts IncludeBleed Bleed '
+                'CropMarks RegistrationMarks DensitometerScales FileInformation EncryptType BitmapCompression DownsampleColor '
+                'DownsampleGray DownsampleMono UseColorProfile ConvertSpotColors MaintainOPILinks EmbedFile ComplexFillsAsBitmaps '
+                'TextExportMode TrueTypeToType1').split()
+            original={field:getattr(document.PDFSettings,field) for field in fields}
+            path=self.output_dir/"controlled-pdf.pdf"
+            result=self._step("export_pdf_controlled",lambda:self.bridge.export_pdf_controlled(str(path)))
+            self.assertTrue(result["inspection"]["checks_passed"])
+            self.assertGreater(result["inspection"]["font_resource_count"],0)
+            self.assertEqual(result["inspection"]["page_count"],2)
+            self.assertEqual(original,{field:getattr(document.PDFSettings,field) for field in fields})
+            inspection=self._step("inspect_pdf",lambda:inspect_pdf(str(path),2,[{"width":8.5,"height":11},{"width":3,"height":4}],True))
+            with self.assertRaises(CorelBridgeError) as caught: self.bridge.export_pdf_controlled(str(path))
+            self.assertEqual(caught.exception.code,ErrorCode.OUTPUT_EXISTS)
+            self.assertEqual(inspection["source_sha256"],inspect_pdf(str(path))["source_sha256"])
+            self._step("save PDF source fixture",lambda:self.bridge.save_document(str(self.output_dir/"controlled-pdf-source.cdr")))
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed,failure)
+
     def test_template_batch_live(self) -> None:
         """Deferred template gate using synthetic records and independently owned documents."""
         from corel_operator.template_jobs import read_template_csv,plan_template_batch

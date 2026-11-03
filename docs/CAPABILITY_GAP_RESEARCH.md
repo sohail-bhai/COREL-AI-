@@ -8,7 +8,7 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 59 tools, all `implemented_unverified`. It has useful
+The current server exposes 61 tools, all `implemented_unverified`. It has useful
 inspection, simple drawing/editing, design-plan, numbering, and imposition
 foundations. Tool count does not establish complete workflow coverage: there is
 no general curve/boolean editing, clipping/effects,
@@ -44,7 +44,7 @@ is a requirements reference, not X7 automation evidence.
 | Images and references | Validated imports; local cover/contain planning; retained tracing research | General crop/background/cleanup, effective-resolution checks, bounded tracing and fidelity reports |
 | Templates and data | Numbering/chest-bib sequence; named text templates, literal CSV, duplicates/count/overflow reconciliation and independent full/partial sheets | Image fields, mixed/linked text, auto-fit and numbering variants |
 | Publications and sheet production | Grid/contour planning; single-sheet execution | Multiple sheets, partial final sheets, page order, bleed/marks, source-preserving production outputs |
-| Export and prepress | Non-overwriting CDR/PDF output; raster DPI and geometry checks | Controlled PDF settings, parsed output dimensions/pages/fonts, color/spot/overprint checks |
+| Export and prepress | Non-overwriting CDR/PDF output; controlled zero-bleed PDF settings and parsed all-page/font checks; raster DPI and geometry checks | Nonzero bleed, ICC/PDF-X, color/spot/overprint and effective raster-resolution checks |
 | Codes and specialty output | No general registered workflow | QR/barcodes, cut paths, sign/banner allowances and apparel separations after format/API research |
 | Component AI design | Structured executable plans with imported artwork | Provider interface; separate raster/vector/text components; regenerate one component; preserve approved pieces |
 | Smart redesign/revisions | Basic plan/readback and selected rollback | Reflow to new size, selective high-resolution regeneration, component history, diff and verified restore |
@@ -76,7 +76,7 @@ automatic tracing still requires explicit raster/vector status and visual eviden
 
 ## Delivery sequence
 
-**Template update:** Four registered template tools now pass 24 focused local
+**Template update:** Four registered template tools now pass 25 focused local
 checks; see [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md). Live and manual review
 remain deferred. They cover text personalization and independent multi-page
 outputs; generalized imposition and prepress remain separate gaps.
@@ -89,7 +89,9 @@ Corel's [X7.4 bleed property](https://community.coreldraw.com/sdk/api/draw/17.4/
 uses inconsistent unit wording in its summary and remarks. Retain nonzero bleed
 as an explicit dependency until the conversion is established. Parsed PDF
 page boxes and font resource checks are required; these do not prove PDF/X,
-ICC accuracy, visual fidelity or printer readiness.
+ICC accuracy, visual fidelity or printer readiness. Two PDF tools now pass 22
+focused checks; see [PDF_PRODUCTION.md](PDF_PRODUCTION.md). The complete deferred
+inventory accounts for all 61 registered tools and prepared native gate candidates.
 
 1. **Reliability foundation:** ID-001 stale targets; SAFE-001 redacted records;
    SAFE-002 busy/timeout state and guarded recovery. Keep inspection bounded and

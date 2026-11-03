@@ -32,6 +32,7 @@ REQUIRED_FILES = (
     CATALOG_DIR / "coreldraw_x7_api_inventory.json",
     CATALOG_DIR / "enum_reference.json",
     CATALOG_DIR / "mcp_tool_registry.json",
+    CATALOG_DIR / "verification_campaign.json",
 )
 
 
@@ -193,6 +194,10 @@ def validate() -> dict[str, int]:
             f"missing={sorted(server_names - registered_names)}, "
             f"extra={sorted(registered_names - server_names)}"
         )
+
+    from scripts.build_verification_campaign import build as expected_campaign
+    if _read_json(CATALOG_DIR / "verification_campaign.json") != expected_campaign():
+        raise ValueError("Consolidated verification inventory is stale; run scripts/build_verification_campaign.py")
 
     members = inventory.get("members")
     if not isinstance(members, list) or not members:

@@ -133,6 +133,13 @@
       "path": "docs/x7_template_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "Template copy/page/ownership/close signatures; no live application connection."
+    },
+    {
+      "id": "x7_pdf_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_pdf_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "126 retained PDF descriptors and 14 enums; no native application connection."
     }
   ],
   "members": [
@@ -554,7 +561,8 @@
         "order_object",
         "distribute_objects",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "export_pdf_controlled"
       ],
       "evidence": [
         "official_x7_document",
@@ -583,7 +591,8 @@
         "flip_object",
         "order_object",
         "distribute_objects",
-        "execute_template_batch"
+        "execute_template_batch",
+        "export_pdf_controlled"
       ],
       "evidence": [
         "official_x7_document",
@@ -707,7 +716,8 @@
       "signature": "PublishToPDF(FileName)",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "export_pdf"
+        "export_pdf",
+        "export_pdf_controlled"
       ],
       "evidence": [
         "official_x7_document",
@@ -3210,6 +3220,422 @@
         "x7_template_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/layer.activate",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Document.PDFSettings",
+      "owner": "Document",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Document.PDFSettings (see retained X7 type-library descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/document.pdfsettings",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.PublishRange",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "PublishRange get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.publishrange",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.ColorMode",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "ColorMode get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.colormode",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.pdfVersion",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "pdfVersion get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.pdfversion",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.TextAsCurves",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "TextAsCurves get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.textascurves",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.EmbedFonts",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "EmbedFonts get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.embedfonts",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.EmbedBaseFonts",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "EmbedBaseFonts get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.embedbasefonts",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.SubsetFonts",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "SubsetFonts get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.subsetfonts",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.IncludeBleed",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "IncludeBleed get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.includebleed",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.Bleed",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Bleed get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.bleed",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.CropMarks",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "CropMarks get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.cropmarks",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.RegistrationMarks",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "RegistrationMarks get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.registrationmarks",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.DensitometerScales",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "DensitometerScales get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.densitometerscales",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.FileInformation",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "FileInformation get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.fileinformation",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.EncryptType",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "EncryptType get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.encrypttype",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.BitmapCompression",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "BitmapCompression get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.bitmapcompression",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.DownsampleColor",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "DownsampleColor get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.downsamplecolor",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.DownsampleGray",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "DownsampleGray get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.downsamplegray",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.DownsampleMono",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "DownsampleMono get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.downsamplemono",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.UseColorProfile",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "UseColorProfile get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.usecolorprofile",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.ConvertSpotColors",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "ConvertSpotColors get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.convertspotcolors",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.MaintainOPILinks",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "MaintainOPILinks get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.maintainopilinks",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.EmbedFile",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "EmbedFile get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.embedfile",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.ComplexFillsAsBitmaps",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "ComplexFillsAsBitmaps get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.complexfillsasbitmaps",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.TextExportMode",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "TextExportMode get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.textexportmode",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.TrueTypeToType1",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "TrueTypeToType1 get/let (see X7 descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.truetypetotype1",
       "live_test_status": "not_run_deferred"
     }
   ]

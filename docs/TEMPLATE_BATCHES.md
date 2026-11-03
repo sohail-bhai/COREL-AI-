@@ -51,9 +51,11 @@ the existing exact-operation recovery protocol.
 
 - Installed X7 signatures: `x7_template_api_evidence.json`, read without connecting
   to CorelDRAW; copy/paste returns and page APIs are retained as descriptors.
-- 24 focused non-live tests: `tests/test_template_jobs.py`, including foreign
+- 25 focused non-live tests: `tests/test_template_jobs.py`, including foreign
   paste, reused duplicates, shared stories, static corruption, nonactive source
   pages, malformed CSV/styles, overflow and verified/unverified cleanup.
+  Nested groups can change their aggregate bounds when mapped text changes;
+  static leaf geometry and every component's linear transform remain checked.
 - Deferred disposable native gate:
   `CorelDisposableDocumentLiveTests.test_template_batch_live`. It saves synthetic
   source/output CDR and PDF artifacts, checks full/partial pages and rejects an

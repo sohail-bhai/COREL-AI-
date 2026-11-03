@@ -184,11 +184,13 @@ class TemplateBridgeMixin:
                         if breaks(node["text"]["content"])!=breaks(expected): raise CorelBridgeError("A final template record or static text changed unexpectedly.",ErrorCode.COREL_COM_ERROR)
                         if node["text"]["style"]!=original["text"]["style"]:
                             raise CorelBridgeError("Final template text formatting differs from the source.",ErrorCode.COREL_COM_ERROR)
-                    if index>0 and not columns:
+                    if index>0 and any(abs(node["matrix"][k]-original["matrix"][k])>1e-6 for k in range(4)):
+                        raise CorelBridgeError("Template component transforms changed during copying or personalization.",ErrorCode.COREL_COM_ERROR)
+                    if index>0 and not columns and node["type_code"]!=self.adapter.CDR_GROUP_SHAPE:
                         before=original["bounds_inches"]; actual=node["bounds_inches"]
                         expected={**before,"x":before["x"]+placement["x"]-template["bounds_inches"]["x"],
                                   "y":before["y"]+placement["y"]-template["bounds_inches"]["y"]}
-                        if any(abs(actual[k]-expected[k])>.001 for k in expected) or any(abs(node["matrix"][k]-original["matrix"][k])>1e-6 for k in range(4)):
+                        if any(abs(actual[k]-expected[k])>.001 for k in expected):
                             raise CorelBridgeError("Static template geometry changed during copying or personalization.",ErrorCode.COREL_COM_ERROR)
                     for column in columns:
                         self._verify_text_style({k:original["text"]["style"][k] for k in STYLE_ATTRIBUTES},node["text"]["style"])

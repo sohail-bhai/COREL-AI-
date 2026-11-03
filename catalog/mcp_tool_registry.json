@@ -2349,6 +2349,229 @@
         "fingerprint"
       ],
       "additionalProperties": false
+    },
+    "pdf_inspection": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "maxLength": 32767
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 52428800
+        },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "pdf_header": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "page_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "page_index": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 500
+              },
+              "rotation_degrees": {
+                "enum": [
+                  0,
+                  90,
+                  180,
+                  270
+                ]
+              },
+              "media_box_inches": {
+                "$ref": "#/schema_definitions/layout_bounds_inches"
+              },
+              "crop_box_inches": {
+                "$ref": "#/schema_definitions/layout_bounds_inches"
+              },
+              "trim_box_inches": {
+                "anyOf": [
+                  {
+                    "$ref": "#/schema_definitions/layout_bounds_inches"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "bleed_box_inches": {
+                "anyOf": [
+                  {
+                    "$ref": "#/schema_definitions/layout_bounds_inches"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "effective_width_inches": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "effective_height_inches": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "expected_size_matches": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "page_index",
+              "rotation_degrees",
+              "media_box_inches",
+              "crop_box_inches",
+              "trim_box_inches",
+              "bleed_box_inches",
+              "effective_width_inches",
+              "effective_height_inches",
+              "expected_size_matches"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 100
+        },
+        "pages_truncated": {
+          "type": "boolean"
+        },
+        "font_resource_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "fonts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 256
+              },
+              "subtype": {
+                "type": "string",
+                "maxLength": 256
+              },
+              "embedded_program_present": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
+              "subtype",
+              "embedded_program_present"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "fonts_truncated": {
+          "type": "boolean"
+        },
+        "unembedded_font_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "checks": {
+          "type": "object",
+          "properties": {
+            "page_count_matches": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "page_sizes_match": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "embedded_fonts_passed": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "page_count_matches",
+            "page_sizes_match",
+            "embedded_fonts_passed"
+          ],
+          "additionalProperties": false
+        },
+        "checks_passed": {
+          "type": "boolean"
+        },
+        "production_ready": {
+          "const": false
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "minItems": 0,
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "path",
+        "bytes",
+        "source_sha256",
+        "pdf_header",
+        "page_count",
+        "pages",
+        "pages_truncated",
+        "font_resource_count",
+        "fonts",
+        "fonts_truncated",
+        "unembedded_font_count",
+        "checks",
+        "checks_passed",
+        "production_ready",
+        "warnings"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -7293,6 +7516,192 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Template request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "inspect_pdf": {
+      "request": {
+        "path": "C:/jobs/verified-output.pdf"
+      },
+      "success": {
+        "ok": true,
+        "tool": "inspect_pdf",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "path": "C:/jobs/verified-output.pdf",
+          "bytes": 714,
+          "source_sha256": "34a838ba4bce19e734a5e024b9764f34a63313187f567cb5ffb1884851f26604",
+          "pdf_header": "%PDF-1.3",
+          "page_count": 1,
+          "pages": [
+            {
+              "page_index": 1,
+              "rotation_degrees": 0,
+              "media_box_inches": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 8.5,
+                "height": 11.0
+              },
+              "crop_box_inches": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 8.5,
+                "height": 11.0
+              },
+              "trim_box_inches": null,
+              "bleed_box_inches": null,
+              "effective_width_inches": 8.5,
+              "effective_height_inches": 11.0,
+              "expected_size_matches": true
+            }
+          ],
+          "pages_truncated": false,
+          "font_resource_count": 1,
+          "fonts": [
+            {
+              "name": "/Helvetica",
+              "subtype": "/Type1",
+              "embedded_program_present": true
+            }
+          ],
+          "fonts_truncated": false,
+          "unembedded_font_count": 0,
+          "checks": {
+            "page_count_matches": true,
+            "page_sizes_match": true,
+            "embedded_fonts_passed": true
+          },
+          "checks_passed": true,
+          "production_ready": false,
+          "warnings": [
+            "Structure checks do not establish visual fidelity, valid font programs, ICC/PDF-X compliance or printer readiness."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "inspect_pdf",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "PDF request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "export_pdf_controlled": {
+      "request": {
+        "path": "C:/jobs/verified-output.pdf"
+      },
+      "success": {
+        "ok": true,
+        "tool": "export_pdf_controlled",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "exported": true,
+          "path": "C:/jobs/verified-output.pdf",
+          "bytes": 714,
+          "controls": {
+            "color_mode": "native",
+            "pdf_version": "1.4",
+            "text_as_curves": false,
+            "whole_document": true,
+            "embed_fonts": true,
+            "bleed_inches": 0,
+            "marks_enabled": false
+          },
+          "settings_restored": true,
+          "inspection": {
+            "path": "C:/jobs/verified-output.pdf",
+            "bytes": 714,
+            "source_sha256": "34a838ba4bce19e734a5e024b9764f34a63313187f567cb5ffb1884851f26604",
+            "pdf_header": "%PDF-1.3",
+            "page_count": 1,
+            "pages": [
+              {
+                "page_index": 1,
+                "rotation_degrees": 0,
+                "media_box_inches": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 8.5,
+                  "height": 11.0
+                },
+                "crop_box_inches": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 8.5,
+                  "height": 11.0
+                },
+                "trim_box_inches": null,
+                "bleed_box_inches": null,
+                "effective_width_inches": 8.5,
+                "effective_height_inches": 11.0,
+                "expected_size_matches": true
+              }
+            ],
+            "pages_truncated": false,
+            "font_resource_count": 1,
+            "fonts": [
+              {
+                "name": "/Helvetica",
+                "subtype": "/Type1",
+                "embedded_program_present": true
+              }
+            ],
+            "fonts_truncated": false,
+            "unembedded_font_count": 0,
+            "checks": {
+              "page_count_matches": true,
+              "page_sizes_match": true,
+              "embedded_fonts_passed": true
+            },
+            "checks_passed": true,
+            "production_ready": false,
+            "warnings": [
+              "Structure checks do not establish visual fidelity, valid font programs, ICC/PDF-X compliance or printer readiness."
+            ]
+          },
+          "verification_status": "implemented_unverified",
+          "production_ready": false,
+          "warnings": [
+            "Zero-bleed export has no ICC/PDF-X/prepress guarantee; native and manual review remain pending."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "export_pdf_controlled",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "PDF request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -16595,6 +17004,357 @@
         "Consolidated native and manual visual gates remain pending.",
         "Text fields only; no linked/fitted stories, mixed field formatting, automatic fitting or image personalization.",
         "Bounds/basic appearance verification does not establish glyphs, complex effects, visual fidelity or print readiness."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "inspect_pdf",
+      "category": "pdf_production",
+      "description": "Parse all PDF pages/font resources with bounded structural expectations.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.pdf_inspection.inspect_pdf"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "maxLength": 32767,
+            "minLength": 1
+          },
+          "expected_page_count": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "expected_page_sizes": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "width": {
+                      "type": "number",
+                      "minimum": 0.001,
+                      "maximum": 200
+                    },
+                    "height": {
+                      "type": "number",
+                      "minimum": 0.001,
+                      "maximum": 200
+                    }
+                  },
+                  "required": [
+                    "width",
+                    "height"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1,
+                "maxItems": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "require_embedded_fonts": {
+            "type": "boolean",
+            "default": false
+          },
+          "tolerance_inches": {
+            "type": "number",
+            "minimum": 0.0001,
+            "maximum": 0.1,
+            "default": 0.01
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "$ref": "#/schema_definitions/pdf_inspection"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_pdf_production.py",
+          "docs/PDF_PRODUCTION.md",
+          "docs/x7_pdf_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native/manual verification remains deferred.",
+        "Zero bleed; no ICC/PDF-X/prepress or font-program validity guarantee.",
+        "50 MiB/500 pages/10000 resource budget; summaries cap at 100 pages/fonts; no rendering or effective raster DPI check."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "export_pdf_controlled",
+      "category": "pdf_production",
+      "description": "Control zero-bleed whole-document PDF output, restore settings, inspect and publish without overwriting.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.export_pdf_controlled"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "maxLength": 32767,
+            "minLength": 1
+          },
+          "color_mode": {
+            "enum": [
+              "rgb",
+              "cmyk",
+              "native"
+            ],
+            "default": "native"
+          },
+          "pdf_version": {
+            "enum": [
+              "1.4",
+              "1.7"
+            ],
+            "default": "1.4"
+          },
+          "text_as_curves": {
+            "type": "boolean",
+            "default": false
+          },
+          "require_embedded_fonts": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "exported": {
+                      "const": true
+                    },
+                    "path": {
+                      "type": "string",
+                      "maxLength": 32767
+                    },
+                    "bytes": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 52428800
+                    },
+                    "controls": {
+                      "type": "object",
+                      "properties": {
+                        "color_mode": {
+                          "enum": [
+                            "rgb",
+                            "cmyk",
+                            "native"
+                          ]
+                        },
+                        "pdf_version": {
+                          "enum": [
+                            "1.4",
+                            "1.7"
+                          ]
+                        },
+                        "text_as_curves": {
+                          "type": "boolean"
+                        },
+                        "whole_document": {
+                          "const": true
+                        },
+                        "embed_fonts": {
+                          "const": true
+                        },
+                        "bleed_inches": {
+                          "const": 0
+                        },
+                        "marks_enabled": {
+                          "const": false
+                        }
+                      },
+                      "required": [
+                        "color_mode",
+                        "pdf_version",
+                        "text_as_curves",
+                        "whole_document",
+                        "embed_fonts",
+                        "bleed_inches",
+                        "marks_enabled"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "settings_restored": {
+                      "const": true
+                    },
+                    "inspection": {
+                      "$ref": "#/schema_definitions/pdf_inspection"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "production_ready": {
+                      "const": false
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "exported",
+                    "path",
+                    "bytes",
+                    "controls",
+                    "settings_restored",
+                    "inspection",
+                    "verification_status",
+                    "production_ready",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Document.PDFSettings",
+        "Document.PublishToPDF",
+        "Document.Pages",
+        "Document.Unit",
+        "PDFVBASettings.PublishRange",
+        "PDFVBASettings.ColorMode",
+        "PDFVBASettings.pdfVersion",
+        "PDFVBASettings.TextAsCurves",
+        "PDFVBASettings.EmbedFonts",
+        "PDFVBASettings.EmbedBaseFonts",
+        "PDFVBASettings.SubsetFonts",
+        "PDFVBASettings.IncludeBleed",
+        "PDFVBASettings.Bleed",
+        "PDFVBASettings.CropMarks",
+        "PDFVBASettings.RegistrationMarks",
+        "PDFVBASettings.DensitometerScales",
+        "PDFVBASettings.FileInformation",
+        "PDFVBASettings.EncryptType",
+        "PDFVBASettings.BitmapCompression",
+        "PDFVBASettings.DownsampleColor",
+        "PDFVBASettings.DownsampleGray",
+        "PDFVBASettings.DownsampleMono",
+        "PDFVBASettings.UseColorProfile",
+        "PDFVBASettings.ConvertSpotColors",
+        "PDFVBASettings.MaintainOPILinks",
+        "PDFVBASettings.EmbedFile",
+        "PDFVBASettings.ComplexFillsAsBitmaps",
+        "PDFVBASettings.TextExportMode",
+        "PDFVBASettings.TrueTypeToType1"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_pdf_production.py",
+          "docs/PDF_PRODUCTION.md",
+          "docs/x7_pdf_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native/manual verification remains deferred.",
+        "Zero bleed; no ICC/PDF-X/prepress or font-program validity guarantee.",
+        "50 MiB/500 pages/10000 resource budget; summaries cap at 100 pages/fonts; no rendering or effective raster DPI check."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

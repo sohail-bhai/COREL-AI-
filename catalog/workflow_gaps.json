@@ -424,12 +424,14 @@
       "coverage": "partial",
       "registered_tools": [
         "save_document",
-        "export_pdf"
+        "export_pdf",
+        "inspect_pdf",
+        "export_pdf_controlled"
       ],
       "missing_behavior": [
-        "Controlled PDF settings",
-        "Parsed page/dimension/font checks",
-        "Color/spot/overprint and applicable production gates"
+        "Proven nonzero bleed and production marks",
+        "ICC/PDF-X and color/spot/overprint checks",
+        "Effective raster resolution and visual/prepress verification"
       ],
       "source_ids": [
         "preflight",
@@ -439,8 +441,12 @@
         "SAFE-002",
         "print_production"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "zero_bleed_structural_workflow_implemented_unverified",
+      "live_status": "deferred",
+      "evidence": [
+        "docs/PDF_PRODUCTION.md",
+        "tests/test_pdf_production.py"
+      ]
     },
     {
       "id": "specialty",
