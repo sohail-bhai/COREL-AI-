@@ -399,7 +399,8 @@ is the next implementation ticket. See [OBJECT_SEARCH.md](OBJECT_SEARCH.md)
 for the search contract and its separate live gate.
 
 Do not begin broad typography, visual AI, or additional batch types until tickets 1–10 pass
-their gates.
+their applicable API-research and automated safety gates. Per the 2026-11-03 user decision,
+live-only acceptance checks are deferred to the consolidated verification pass in section 7.
 
 ## 7. Test and release gates
 
@@ -419,6 +420,22 @@ their gates.
    incomplete.
 4. **Verified:** dated disposable X7 test passes, artifacts receive required manual review,
    limitations are recorded, and the catalog links the evidence.
+
+### Consolidated live verification — user decision 2026-11-03
+
+The user requested one later verification pass covering all implemented features.
+Continue non-live implementation batches with the required automated gates;
+defer live-only acceptance checks rather than running them after each feature.
+Keep tools `implemented_unverified` while applicable X7/manual evidence is pending.
+
+Before that combined pass, reconcile every registered feature with its test
+coverage and required artifacts, retain feature-specific disposable gates, and
+identify missing coverage. Run the suite sequentially against new synthetic
+documents when the user initiates the live campaign, record per-feature results
+and failures, and complete the required artifact review before status promotion.
+No automatic live run is authorized by this timing decision. API research,
+preflight, recovery/rollback testing, and production safety requirements continue
+to apply throughout implementation.
 
 ### Release rules
 

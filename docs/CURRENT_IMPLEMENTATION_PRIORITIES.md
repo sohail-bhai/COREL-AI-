@@ -13,6 +13,19 @@ remain technical references, but their reconstruction sequence does not block
 common-work implementation. No further Alhamdulillah tracing, typography,
 lighting, or fidelity correction is in the active queue.
 
+## Verification timing — user decision 2026-11-03
+
+Defer live CorelDRAW verification until a later consolidated pass covering all
+implemented features. Continue implementation and the required non-live tests
+for each batch; pending live-only acceptance checks do not block that work.
+Keep feature-specific disposable test gates and an explicit coverage inventory
+so the combined run can account for every implemented feature and its failures.
+
+API research, preflight, fake-COM recovery/rollback, and product safety remain
+required. Features stay `implemented_unverified` until their applicable live
+checks and required manual artifact review pass. The timing decision does not
+authorize running live tests now or using existing client artwork as fixtures.
+
 ## Active delivery order
 
 ### 1. Reliable inspection and common-operation verification

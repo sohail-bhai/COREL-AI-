@@ -55,6 +55,13 @@ The validator checks server/registry tool parity, API/evidence references, enum/
 
 ## Guarded live test
 
+**User decision — 2026-11-03:** Defer live verification to one later consolidated
+pass covering all implemented features. Keep running default tests, catalog
+validation, and static diagnostics for each implementation batch. Retain the
+feature-specific gates below, reconcile coverage before the combined run, and
+keep per-feature evidence/status distinct. Pending live gates remain unverified;
+the timing decision does not enable either live-test flag now.
+
 `tests/integration/test_corel_live.py` is skipped by default. Its read-only gate checks status/profile metadata and enumerates open documents without binding a target.
 
 Run it only when the user explicitly wants to attach to or launch CorelDRAW X7:
