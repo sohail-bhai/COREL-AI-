@@ -511,6 +511,67 @@ def distribute_objects(
 
 @mcp.tool()
 @recorded_operation
+def inspect_text_template(object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
+    """Capture a bounded grouped template and its named editable text fields.
+
+    Supply one name/index/signed reference. Returns a source fingerprint and
+    ordinary JSON; linked/fitted stories are refused. Native verification is pending.
+    """
+    return _tool("inspect_text_template","inspect_text_template",object_name,shape_index,object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def read_template_csv(csv_path: str,delimiter: str=",") -> dict:
+    """Read literal UTF-8 CSV rows for templates; preserve leading zeros and quoted text.
+
+    Require an absolute .csv path, unique headers and complete rows. Limits:
+    2 MiB, 1000 records, 128 columns, 10000 characters per cell. No native call.
+    """
+    from .template_jobs import read_template_csv as read_csv
+    started=perf_counter()
+    try: return success_result("read_template_csv",read_csv(csv_path,delimiter),(perf_counter()-started)*1000)
+    except Exception as exc: return error_result("read_template_csv",exc,(perf_counter()-started)*1000)
+
+
+@mcp.tool()
+@recorded_operation
+def plan_template_batch(
+    template: dict,field_mapping: dict,records: list[dict],field_regions: dict | None=None,
+    sheet_width_inches: float=8.5,sheet_height_inches: float=11,margin_inches: float=.25,gutter_inches: float=.125,
+    copies_per_record: int=1,record_key: str | None=None,duplicate_policy: str="reject",overflow_policy: str="reject",
+) -> dict:
+    """Validate data and plan independent template copies across full/partial output sheets.
+
+    field_mapping maps data columns to unique template text names. Optional field
+    regions are template-relative inch boxes. Duplicates require allow policy;
+    overflow policy is reject/report. Return a complete fingerprinted plan without COM.
+    """
+    from .template_jobs import plan_template_batch as plan_batch
+    started=perf_counter()
+    try:
+        data=plan_batch(template,field_mapping,records,field_regions,sheet_width_inches,sheet_height_inches,
+                        margin_inches,gutter_inches,copies_per_record,record_key,duplicate_policy,overflow_policy)
+        return success_result("plan_template_batch",data,(perf_counter()-started)*1000)
+    except Exception as exc: return error_result("plan_template_batch",exc,(perf_counter()-started)*1000)
+
+
+@mcp.tool()
+@recorded_operation
+def execute_template_batch(plan: dict,approved_fingerprint: str) -> dict:
+    """Revalidate an approved template/data plan and create a separately owned editable document.
+
+    Verify every row after all edits, measured source preservation, counts and
+    field/item bounds. Failures discard only the owned output with verified
+    cleanup; uncertain cleanup requires worker reconciliation. Replaces clipboard.
+    """
+    result=_tool("execute_template_batch","execute_template_batch",plan,approved_fingerprint)
+    if result.get("ok"): result["warnings"].extend(result["data"]["warnings"])
+    return result
+
+
+@mcp.tool()
+@recorded_operation
 def get_text_properties(object_name: str = "", shape_index: int = 0, max_text_chars: int = 2000, object_reference: dict | None = None) -> dict:
     """Read bounded story content and aggregate formatting for one text shape.
 

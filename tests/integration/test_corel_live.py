@@ -232,6 +232,52 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return report_path
 
+    def test_template_batch_live(self) -> None:
+        """Deferred template gate using synthetic records and independently owned documents."""
+        from corel_operator.template_jobs import read_template_csv,plan_template_batch
+        source=None; output=None; passed=False; failure=None
+        try:
+            self.status=self._step("connect",self.bridge.connect)
+            self._step("create synthetic template source",lambda:self.bridge.create_document(8.5,11))
+            source=self.bridge.target_doc
+            self._step("template background",lambda:self.bridge.draw_rectangle(1,1,3,2,"Background"))
+            self._step("template name",lambda:self.bridge.add_text("NAME",1.2,2,12,"Arial",False,"Name"))
+            self._step("template ID",lambda:self.bridge.add_text("ID",1.2,1.5,12,"Arial",False,"ID"))
+            self._step("group template",lambda:self.bridge.group_shapes(["Background","Name","ID"],"Template"))
+            self._step("save source",lambda:self.bridge.save_document(str(self.output_dir/"template-source.cdr")))
+            manifest=self._step("inspect_text_template",lambda:self.bridge.inspect_text_template(object_name="Template"))["template"]
+            csv_path=self.output_dir/"members.csv"
+            csv_path.write_text("member,number\nAlia,001\nBilal,002\nCora,003\n",encoding="utf-8")
+            rows=self._step("read_template_csv",lambda:read_template_csv(str(csv_path)))
+            plan=self._step("plan_template_batch",lambda:plan_template_batch(manifest,{"member":"Name","number":"ID"},
+                rows["records"],sheet_width_inches=6.5,sheet_height_inches=2.5,gutter_inches=0,record_key="number"))
+            merged=self._step("execute_template_batch",lambda:self.bridge.execute_template_batch(plan,plan["fingerprint"]))
+            output=self.bridge.target_doc
+            self.assertIsNot(output,source); self.assertEqual(merged["item_count"],3); self.assertEqual(merged["sheet_count"],2)
+            self.assertTrue(merged["source_preservation"]["verified"]); self.assertTrue(merged["fit_checks_passed"])
+            for record in rows["records"]:
+                matches=self._step("find output row "+record["number"],lambda:self.bridge.find_objects(text_contains=record["member"]))["matches"]
+                self.assertEqual(len(matches),1)
+            self._step("save merged editable output",lambda:self.bridge.save_document(str(self.output_dir/"template-output.cdr")))
+            self._step("export merged PDF",lambda:self.bridge.export_pdf(str(self.output_dir/"template-output.pdf")))
+            self._close_saved_target_if_needed(); output=None
+            self.bridge._bind_target_document(source); source.Activate()
+            self.assertEqual(self.bridge.inspect_text_template(object_reference=manifest["template_reference"])["template"]["fingerprint"],manifest["fingerprint"])
+            bad_records=[{**rows["records"][0],"member":"X"*2000}]
+            bad=plan_template_batch(manifest,{"member":"Name","number":"ID"},bad_records,
+                sheet_width_inches=6.5,sheet_height_inches=2.5,gutter_inches=0)
+            baseline={self.bridge._reference_identity(d) for d in self.bridge._open_document_proxies(self.bridge.app)}
+            with self.assertRaises(CorelBridgeError): self.bridge.execute_template_batch(bad,bad["fingerprint"])
+            self.assertEqual(baseline,{self.bridge._reference_identity(d) for d in self.bridge._open_document_proxies(self.bridge.app)})
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed()
+            if source is not None and any(self.bridge._same_com_object(source,d,strict=True) for d in self.bridge._open_document_proxies(self.bridge.app)):
+                self.bridge._bind_target_document(source); source.Activate(); self._close_saved_target_if_needed()
+            self._write_report(passed,failure)
+
     def test_existing_tools_on_new_disposable_document(self) -> None:
         passed = False
         failure: str | None = None

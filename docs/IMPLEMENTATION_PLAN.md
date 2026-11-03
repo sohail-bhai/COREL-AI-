@@ -1,6 +1,7 @@
 # Future Implementation Plan — CorelDRAW AI Operator
 
 - **Plan date:** 2026-10-31
+- **Updated:** 2026-11-03
 - **Target:** CorelDRAW X7 17.0.0.491 on Windows 11
 - **Runtime:** Python 3.11, MCP SDK v1, pywin32
 - **Planning horizon:** prototype stabilization through production-ready local operator
@@ -13,6 +14,14 @@ for the active delivery order: inspection and common-operation verification,
 recovery, everyday text/layout, templates/batches, then print production.
 Custom calligraphy and other-language reconstruction are deferred by the user;
 the milestones below remain technical references and safety gates.
+
+**Approved expansion — 2026-11-03:** Add component-based AI design generation,
+smart redesign, simpler reference-to-vector recreation, image preparation,
+design quality checks, product mockups, and revision history. See
+[section 10](#10-approved-design-expansion--2026-11-03) for implementation steps
+and acceptance gates. These additions follow the existing reliability foundation.
+Brand kits, a job manager, additional business integrations, and general
+export-preset expansion are outside the approved scope.
 
 ## 1. Purpose
 
@@ -331,6 +340,10 @@ report that distinguishes verified facts from warnings and unperformed checks.
    from operation logs.
 6. Return measurable differences (bounds, scale, alignment, color samples where meaningful)
    and request approval for subjective corrections.
+7. Implement the component generation and redesign workflows in section 10:
+   maintain separately replaceable components, preserve approved content, and
+   distinguish generated raster assets from verified editable vectors. The older
+   custom-calligraphy sequence remains deferred under the active priority update.
 
 #### Exit gate
 
@@ -496,3 +509,157 @@ The first production-ready release is reached when a user can safely:
    an output.
 
 Capabilities outside this definition remain future work, not implied support.
+
+## 10. Approved design expansion — 2026-11-03
+
+These seven capabilities were accepted by the user as future implementation work.
+They extend the existing design-plan and preflight architecture; they do not add
+implemented or verified tools merely by appearing here. The initial five delivery
+priorities in `CURRENT_IMPLEMENTATION_PRIORITIES.md` remain in force.
+
+### 10.1 Component-based AI design generation
+
+**Goal:** Build an editable design from independently generated artwork components
+so a rejected part can be replaced without rebuilding the approved design.
+
+1. Collect the brief, exact page dimensions and units, orientation, bleed, safe
+   area, intended output resolution, and required text before planning components.
+2. Divide the design into named components with stable IDs, roles, bounds, layers,
+   z-order, and approval state. Use native editable text and geometric vectors
+   wherever supported; generate illustrations, decorations, backgrounds, and
+   other complex artwork as separate image assets through the provider interface.
+3. Request each image at suitable pixel dimensions and aspect ratio, with
+   transparency where appropriate. Keep style consistent within this design
+   through shared direction and approved references, without requiring brand kits.
+4. Keep a local component manifest containing asset paths/hashes, versions,
+   generation settings, placement, raster/vector type, and approved/locked state.
+   Provider calls stay separate from the COM worker and use the existing external
+   upload authorization rules; durable state must not depend on provider handles.
+5. Reconstruct or trace suitable artwork into editable vectors where fidelity and
+   X7 support permit. Identify remaining bitmaps explicitly; importing an image
+   into a CDR does not make the image vector artwork. Keep required text editable.
+6. Support bounded removal and replacement by component ID. Generate a candidate
+   separately, preview it in context, and apply the approved replacement through a
+   validated plan. Preserve other approved components, their content and placement.
+7. Record the replaced component/version, read back actual bounds and appearance,
+   and restore the previous component if replacement or verification fails.
+
+**Gate:** Create a design with separately addressable artwork and editable text;
+regenerate and replace one rejected component, proving that other approved parts
+are unchanged and that a failed replacement restores the prior state.
+
+### 10.2 Smart redesign to the required size and resolution
+
+**Goal:** Adapt an approved design to correct production dimensions using its
+editable structure and separately replaceable artwork components.
+
+1. Inspect the approved source and collect target width/height, units, orientation,
+   bleed, safe area, resolution, and output intent. Preserve a local source revision
+   and build the redesign in a distinct document/page with no silent overwrite.
+2. Reuse component IDs, approved text, artwork, and their layout relationships.
+   If only a flattened reference is available, propose its decomposition and have
+   the reconstructed content/layout reviewed before treating it as approved.
+3. Plan proportional scaling, anchors, text reflow, spacing, and composition for
+   the new aspect ratio. Show planned changes; avoid a blanket stretch that distorts
+   text, logos, or artwork. Respect locked components and required content.
+4. Reuse suitable assets; crop, prepare, reconstruct, or regenerate only components
+   that cannot fit the new geometry or meet the target effective resolution. Review
+   changed artwork before replacement; regeneration must not silently alter
+   approved subjects, wording, or other protected details.
+5. Calculate raster pixel requirements from placed physical size and requested DPI
+   (`pixels = inches * DPI`, rounded up). Measure effective resolution from actual
+   source pixels and placement, including crop/scale effects. Changing DPI metadata
+   alone does not add detail; vectors remain resolution-independent. Report an
+   unmet requirement if the provider/source cannot supply sufficient pixels.
+6. Execute the validated redesign, read back page/object dimensions, and check
+   text overflow, aspect ratio, raster resolution, bleed, and safe placement.
+   Compare the result against the approved source and record reviewed changes.
+
+**Gate:** Recompose an approved design for a different physical size/aspect ratio
+with exact measured dimensions, preserved approved content, editable text, and
+the requested effective raster resolution or an explicit failed/unmet check.
+
+### 10.3 Simpler reference-to-vector recreation
+
+1. Classify reference regions into text, simple native geometry, traceable artwork,
+   and raster content before proposing a reconstruction plan.
+2. Rebuild supported text and shapes natively; use selective tracing or curve
+   reconstruction for suitable logos/illustrations with confirmed X7 capabilities.
+3. Inspect editability, curve quality, bounds, alignment, and meaningful color
+   differences. Preview the result and report remaining raster regions and fidelity
+   limitations. Preserve the original reference and approved component versions.
+
+**Gate:** Recreate a simple reference with individually editable text/vector
+objects and a reviewed comparison report; no unsupported claim of full-vector or
+pixel-perfect output. Custom calligraphy and complex scripts remain deferred.
+
+### 10.4 Image preparation
+
+1. Add component-scoped background removal, crop, transparency handling, and
+   cleanup through local image tools or the separated image-provider interface.
+2. Preserve source assets and record derived versions, pixel dimensions, crop,
+   transparency, and actual resolution at intended placement.
+3. Preview edge quality and cleanup changes before adoption. Report upscaling as
+   derived processing, not proof that missing original detail has been recovered.
+
+**Gate:** Prepare and replace one image with reviewed crop/transparency, measured
+resolution, an intact source, and a restorable previous component version.
+
+### 10.5 Design quality checks
+
+1. Extend deterministic inspection/preflight with text overflow, missing fonts,
+   inconsistent typography, alignment/spacing, safe-area violations, unintended
+   overlap, missing assets, and low effective raster resolution.
+2. Add visual-review warnings for crowded layouts, weak contrast, and suspected
+   content errors. Identify subjective judgments and intentional exceptions;
+   aesthetic warnings must not silently trigger edits or claim objective failure.
+3. Return severity, affected component/object, evidence, and `passed`, `failed`,
+   `warning`, or `not_checked` for each applicable check. Offer a bounded correction
+   plan and recheck the actual result after approved corrections.
+
+**Gate:** Known layout/resolution faults are detected with object-level evidence;
+intentional overlaps are respected and unchecked/subjective items stay explicit.
+
+### 10.6 Product mockups
+
+1. Place a specific approved design revision on shirt, mug, box, sign, or other
+   requested product references using separate mockup assets and outputs.
+2. Preserve the production CDR and component manifest; perspective, lighting, and
+   surface effects belong to the presentation preview. Identify the source revision
+   and show artwork placement without silently substituting text or logos.
+3. Keep mockup review distinct from print preflight: a visual approval does not
+   establish production dimensions, color accuracy, or print readiness.
+
+**Gate:** Produce a reviewed mockup linked to the correct design revision while
+leaving production geometry, text, and source assets unchanged.
+
+### 10.7 Revision history and restoration
+
+1. Create local CDR checkpoints and component manifests at approval boundaries and
+   before replacements/redesigns. Include asset hashes, page/layout measurements,
+   component versions, approval/lock state, and sanitized generation settings.
+2. Compare revisions by text, dimensions, placement, appearance, and changed assets;
+   keep unrelated component versions available when only one component is revised.
+3. Restore into a distinct output or explicitly bound approved target using the
+   existing recovery contract. Re-resolve object references after loading and
+   verify actual state instead of reusing stale document/object handles.
+
+**Gate:** Revise one component, compare the change, and restore the earlier design
+with matching content/layout and resolved references after reopening the checkpoint.
+
+### Delivery dependencies and scope
+
+- Start implementation only after applicable inspection, identity, editing,
+  recovery, and design-plan safety gates pass; retain the current five-priority
+  delivery sequence rather than making this expansion an immediate coding queue.
+- Establish revision checkpoints and quality checks as safeguards for the new
+  workflows. Image preparation and simpler vector reconstruction support component
+  generation; smart redesign builds on the approved component manifest. Product
+  mockups follow stable design revisions.
+- Validate pure plans, use fake-COM failure/readback tests where applicable, and
+  run explicitly enabled disposable X7 regressions before raising tool status.
+  Visual gates require reviewed artifacts, not only a successful tool result.
+- Exclude company-specific brand kits, a job manager, additional order/business
+  integrations, and general export-preset expansion for now. Existing CDR saving,
+  controlled PDF print output, and the required image-generation provider interface
+  remain within their already defined workflows.

@@ -132,6 +132,20 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "template.inspect": CapabilitySupport(
+            True,"implemented_unverified","Bounded grouped text-template snapshots bind measured structure/text/basic appearance to a signed source reference.",
+            ("Shape.Shapes","Shape.GetMatrix","Text.Story"),
+        ),
+        "template.csv_data": CapabilitySupport(
+            True,"implemented_unverified","Local literal UTF-8 CSV parsing enforces complete bounded rows and unique headers without a native call.",(),
+        ),
+        "template.batch_plan": CapabilitySupport(
+            True,"implemented_unverified","Data, duplicates, named fields, regions and multiple output sheets form a complete fingerprinted local plan.",(),
+        ),
+        "template.batch_execute": CapabilitySupport(
+            True,"implemented_unverified","Independent output documents/copies are rechecked after all edits; owned discard and source observations gate rollback. Native behavior awaits the consolidated campaign.",
+            ("Application.CreateDocument","Shape.Copy","Layer.Paste","Shape.Duplicate","Document.AddPagesEx","Document.Dirty","Document.Close"),
+        ),
         "object.transform_inspect": CapabilitySupport(
             True, "implemented_unverified",
             "Finite X7 matrix/rotation/bounds readback is implemented; native matrix conventions await the consolidated gate.",

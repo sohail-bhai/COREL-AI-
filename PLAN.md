@@ -1,7 +1,7 @@
 # CorelDRAW AI Operator — Implementation Plan
 
 **Plan date:** 2026-10-30  
-**Roadmap revision:** 2026-11-02
+**Roadmap revision:** 2026-11-03
 **Target application:** CorelDRAW Graphics Suite X7, version 17.0.0.491  
 **Primary runtime:** Windows 11, Python 3.11, MCP SDK v1  
 **Product stage:** Working proof of concept entering stabilization  
@@ -13,6 +13,15 @@ and print production follow
 The user deferred custom calligraphy and other-language reconstruction to the
 future backlog. Alhamdulillah V2 remains a retained intermediate checkpoint;
 its remaining visual gates do not block common-work development.
+
+**Accepted expansion (2026-11-03):** Component-based AI design generation and
+smart redesign, plus simpler reference-to-vector recreation, image preparation,
+design quality checks, product mockups, and local revision history. Generate and
+replace artwork components individually; preserve approved content and verify
+target dimensions and effective raster DPI. Brand kits, a job manager, additional
+business integrations, and general export-preset expansion are excluded for now.
+The delivery dependencies and gates are in
+[`docs/IMPLEMENTATION_PLAN.md`, section 10](docs/IMPLEMENTATION_PLAN.md#10-approved-design-expansion--2026-11-03).
 
 ## 1. Objective
 
@@ -351,6 +360,16 @@ The report must distinguish `passed`, `failed`, `warning`, and `not_checked`. Th
 - Apply targeted revisions rather than blindly rebuilding everything.
 - Add image-generation providers behind a separate adapter.
 - Require explicit approval before uploading private artwork or prompts to an external service.
+- Generate artwork as separately named components, compose with editable native
+  text/vectors, and regenerate or replace only a rejected component. Report which
+  elements remain raster and which were actually reconstructed into vectors.
+- Adapt approved designs to requested physical sizes/aspect ratios with text
+  reflow, component-aware layout changes, and actual raster-resolution checks.
+  Preserve the approved source and review regenerated components before adoption.
+- Add component-scoped image preparation and design quality checks, local revision
+  comparison/restoration, and product mockups tied to an approved design revision.
+- Implement these additions through the steps and gates in
+  [`docs/IMPLEMENTATION_PLAN.md`, section 10](docs/IMPLEMENTATION_PLAN.md#10-approved-design-expansion--2026-11-03).
 
 Pixel-perfect recreation of every flattened reference remains a non-goal; discrepancies must be reported truthfully.
 

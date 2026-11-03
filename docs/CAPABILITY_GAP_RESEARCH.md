@@ -8,11 +8,11 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 55 tools, all `implemented_unverified`. It has useful
+The current server exposes 59 tools, all `implemented_unverified`. It has useful
 inspection, simple drawing/editing, design-plan, numbering, and imposition
 foundations. Tool count does not establish complete workflow coverage: there is
-no general curve/boolean editing, clipping/effects, template personalization,
-complete multisheet production, or AI component
+no general curve/boolean editing, clipping/effects,
+complete prepress production, or AI component
 generation/revision interface yet. Specialist scripts are research artifacts,
 not general MCP capabilities.
 
@@ -42,7 +42,7 @@ is a requirements reference, not X7 automation evidence.
 | Vector construction | Rectangles/ellipses; specialist curve scripts | Lines/paths/nodes, combine/break apart, weld/trim/intersect, offsets and contour tools |
 | Appearance and clipping | RGB fill; native fill inspection; raw outline readback | Proven outline units, CMYK/spot writes, transparency/gradients and PowerClip workflows |
 | Images and references | Validated imports; local cover/contain planning; retained tracing research | General crop/background/cleanup, effective-resolution checks, bounded tracing and fidelity reports |
-| Templates and data | Numbering/chest-bib sequence and layout planning | Named-field templates, CSV personalization, numbering variants, duplicates/count/overflow reconciliation |
+| Templates and data | Numbering/chest-bib sequence; named text templates, literal CSV, duplicates/count/overflow reconciliation and independent full/partial sheets | Image fields, mixed/linked text, auto-fit and numbering variants |
 | Publications and sheet production | Grid/contour planning; single-sheet execution | Multiple sheets, partial final sheets, page order, bleed/marks, source-preserving production outputs |
 | Export and prepress | Non-overwriting CDR/PDF output; raster DPI and geometry checks | Controlled PDF settings, parsed output dimensions/pages/fonts, color/spot/overprint checks |
 | Codes and specialty output | No general registered workflow | QR/barcodes, cut paths, sign/banner allowances and apparel separations after format/API research |
@@ -75,6 +75,21 @@ For image conversion, Corel documents [tracing controls](https://product.corel.c
 automatic tracing still requires explicit raster/vector status and visual evidence.
 
 ## Delivery sequence
+
+**Template update:** Four registered template tools now pass 24 focused local
+checks; see [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md). Live and manual review
+remain deferred. They cover text personalization and independent multi-page
+outputs; generalized imposition and prepress remain separate gaps.
+
+**PDF research update:** The installed X7 type library confirms 126 PDF
+descriptors and 14 enum groups without connecting to CorelDRAW; see
+`x7_pdf_api_evidence.json`. Whole-document range, embedding, text-as-curves,
+RGB/CMYK/native color modes, zero bleed and disabled marks can be controlled.
+Corel's [X7.4 bleed property](https://community.coreldraw.com/sdk/api/draw/17.4/p/pdfvbasettings.bleed)
+uses inconsistent unit wording in its summary and remarks. Retain nonzero bleed
+as an explicit dependency until the conversion is established. Parsed PDF
+page boxes and font resource checks are required; these do not prove PDF/X,
+ICC accuracy, visual fidelity or printer readiness.
 
 1. **Reliability foundation:** ID-001 stale targets; SAFE-001 redacted records;
    SAFE-002 busy/timeout state and guarded recovery. Keep inspection bounded and

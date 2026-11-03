@@ -1,7 +1,8 @@
 # Current Implementation Priorities
 
-**Updated:** 2026-11-02
-**Decision:** Prioritize common editing, layout, templates, and print production.
+**Updated:** 2026-11-03
+**Decision:** Prioritize common editing, layout, templates, and print production;
+then extend into component-based AI design and smart redesign.
 
 The user reviewed the current Alhamdulillah result and deferred further custom
 calligraphy and other-language reference reconstruction. These remain future
@@ -58,7 +59,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 55
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 59
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -75,7 +76,11 @@ capability status, and keep live verification deferred.
 - Layout transforms are implemented: finite matrix inspection, explicit-pivot
   rotation, mirroring, native sibling order and measured distribution pass
   automated gates. See [LAYOUT_TRANSFORMS.md](LAYOUT_TRANSFORMS.md).
-- Next: reusable templates and batch production, then full print workflows;
+- Templates are implemented: named text-field snapshots, literal CSV, full-data
+  validation and full/partial output sheets pass 24 focused non-live checks.
+  Owned-output cleanup, final row readback and measured source preservation are
+  covered. See [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md).
+- Next: controlled and inspected PDF production, then general graphics;
   spacing/fitting, layer organization and existing-document checkpoints remain gaps.
 
 **Gate:** The intended object can be found and inspected without mutation;
@@ -125,6 +130,44 @@ unchanged source artwork, and no silent output overwrite.
 pass; `print_ready` is reported only when all applicable checks pass.
 
 ## Future backlog
+
+### Accepted design expansion — 2026-11-03
+
+The user approved these additions to the implementation plan. They are planned
+capabilities, not claims of implemented tools. The five active priorities above
+remain the initial delivery order; these additions depend on their inspection,
+editing, recovery, and preflight gates.
+
+- **Component-based AI design generation:** Generate artwork components
+  separately, combine them with native editable text and vector objects, and
+  allow an individual component to be removed, regenerated, and replaced while
+  preserving approved parts. Generated images remain raster unless actually
+  reconstructed or traced into verified editable vectors.
+- **Smart redesign:** Adapt an approved design to the requested physical size,
+  aspect ratio, bleed, safe area, and raster resolution. Reflow the layout and
+  regenerate only components that need new geometry or sufficient pixels;
+  preserve the approved source and review replacements before finalizing.
+- **Reference-to-vector recreation:** Rebuild simpler logos and reference
+  artwork as editable objects, with explicit raster/vector status and fidelity
+  limits. Custom calligraphy and complex-script reconstruction remain deferred.
+- **Image preparation:** Background removal, cropping, cleanup, and effective
+  resolution checks using versioned copies of the source images.
+- **Design quality checks:** Combine measured layout, font, safe-area, and
+  resolution checks with clearly identified visual-review warnings.
+- **Product mockups:** Preview approved artwork on products such as shirts,
+  mugs, boxes, and signs, separately from production artwork.
+- **Revision history:** Keep local design/component versions, compare changes,
+  and restore a prior revision with verified document state.
+
+Company-specific brand kits, a job manager, additional business integrations,
+and general export-preset expansion are excluded from this scope. Existing CDR
+saving and controlled PDF output remain part of the print-production workflow;
+the image-generation provider interface is needed for the accepted design work.
+
+Implementation steps, dependencies, and acceptance gates are in
+[Implementation Plan, section 10](IMPLEMENTATION_PLAN.md#10-approved-design-expansion--2026-11-03).
+
+### Deferred reconstruction research
 
 Custom Arabic/calligraphy tracing, other complex-script reconstruction, and
 advanced reference fidelity remain in the existing V2 and reconstruction plans.

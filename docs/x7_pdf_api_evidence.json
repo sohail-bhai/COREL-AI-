@@ -1,0 +1,1120 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "QueryInterface",
+        "riid",
+        "ppvObj"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612736, (), (((26, (29, 16777216)), 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 0, (24, 0, None), 1)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "AddRef"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612737, (), (), 4, 1, 4, 0, 4, (19, 0, None), 1)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Release"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610612738, (), (), 4, 1, 4, 0, 8, (19, 0, None), 1)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "GetTypeInfoCount",
+        "pctinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678272, (), (((26, 23), 2, None),), 4, 1, 4, 0, 12, (24, 0, None), 1)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "GetTypeInfo",
+        "itinfo",
+        "lcid",
+        "pptinfo"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678273, (), ((23, 1, None), (19, 1, None), ((26, (26, 24)), 2, None)), 4, 1, 4, 0, 16, (24, 0, None), 1)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "GetIDsOfNames",
+        "riid",
+        "rgszNames",
+        "cNames",
+        "lcid",
+        "rgdispid"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678274, (), (((26, (29, 33554432)), 1, None), ((26, (26, 16)), 1, None), (23, 1, None), (19, 1, None), ((26, 3), 2, None)), 4, 1, 4, 0, 20, (24, 0, None), 1)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Invoke",
+        "dispidMember",
+        "riid",
+        "lcid",
+        "wFlags",
+        "pdispparams",
+        "pvarResult",
+        "pexcepinfo",
+        "puArgErr"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610678275, (), ((3, 1, None), ((26, (29, 33554432)), 1, None), (19, 1, None), (18, 1, None), ((26, (29, 33554560)), 1, None), ((26, 12), 2, None), ((26, (29, 33554688)), 2, None), ((26, 23), 2, None)), 4, 1, 4, 0, 24, (24, 0, None), 1)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Reset"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743808, (), (), 4, 1, 4, 0, 56, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Load",
+        "SettingName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743809, (), ((8, 1, None),), 4, 1, 4, 0, 64, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Save",
+        "SettingName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743810, (), ((8, 1, None),), 4, 1, 4, 0, 72, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ShowDialog"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743811, (), (), 4, 1, 4, 0, 80, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "PublishToPDF",
+        "FileName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743812, (), ((8, 1, None),), 4, 1, 4, 0, 88, (24, 0, None), 1)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "PublishRange"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743813, (), (((29, 50353280), 1, None),), 4, 4, 4, 0, 96, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "PublishRange"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 104, ((29, 50353280), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "PageRange"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743815, (), ((8, 1, None),), 4, 4, 4, 0, 112, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "PageRange"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743815, (), (), 4, 2, 4, 0, 120, (8, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Author"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743817, (), ((8, 1, None),), 4, 4, 4, 0, 128, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Author"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 136, (8, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Subject"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743819, (), ((8, 1, None),), 4, 4, 4, 0, 144, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Subject"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743819, (), (), 4, 2, 4, 0, 152, (8, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Keywords"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743821, (), ((8, 1, None),), 4, 4, 4, 0, 160, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Keywords"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743821, (), (), 4, 2, 4, 0, 168, (8, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "BitmapCompression"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743823, (), (((29, 50353408), 1, None),), 4, 4, 4, 0, 176, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "BitmapCompression"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743823, (), (), 4, 2, 4, 0, 184, ((29, 50353408), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "JPEGQualityFactor"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743825, (), ((22, 1, None),), 4, 4, 4, 0, 192, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "JPEGQualityFactor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743825, (), (), 4, 2, 4, 0, 200, (22, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "TextAsCurves"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743827, (), ((11, 1, None),), 4, 4, 4, 0, 208, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "TextAsCurves"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743827, (), (), 4, 2, 4, 0, 216, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EmbedFonts"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743829, (), ((11, 1, None),), 4, 4, 4, 0, 224, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EmbedFonts"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743829, (), (), 4, 2, 4, 0, 232, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EmbedBaseFonts"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743831, (), ((11, 1, None),), 4, 4, 4, 0, 240, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EmbedBaseFonts"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743831, (), (), 4, 2, 4, 0, 248, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "TrueTypeToType1"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743833, (), ((11, 1, None),), 4, 4, 4, 0, 256, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "TrueTypeToType1"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743833, (), (), 4, 2, 4, 0, 264, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "SubsetFonts"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743835, (), ((11, 1, None),), 4, 4, 4, 0, 272, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "SubsetFonts"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743835, (), (), 4, 2, 4, 0, 280, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "SubsetPct"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743837, (), ((3, 1, None),), 4, 4, 4, 0, 288, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "SubsetPct"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743837, (), (), 4, 2, 4, 0, 296, (3, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "CompressText"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743839, (), ((11, 1, None),), 4, 4, 4, 0, 304, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "CompressText"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743839, (), (), 4, 2, 4, 0, 312, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Encoding"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743841, (), (((29, 50353536), 1, None),), 4, 4, 4, 0, 320, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Encoding"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743841, (), (), 4, 2, 4, 0, 328, ((29, 50353536), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "DownsampleColor"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743843, (), ((11, 1, None),), 4, 4, 4, 0, 336, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "DownsampleColor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743843, (), (), 4, 2, 4, 0, 344, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "DownsampleGray"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743845, (), ((11, 1, None),), 4, 4, 4, 0, 352, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "DownsampleGray"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743845, (), (), 4, 2, 4, 0, 360, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "DownsampleMono"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743847, (), ((11, 1, None),), 4, 4, 4, 0, 368, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "DownsampleMono"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743847, (), (), 4, 2, 4, 0, 376, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ColorResolution"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743849, (), ((3, 1, None),), 4, 4, 4, 0, 384, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ColorResolution"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743849, (), (), 4, 2, 4, 0, 392, (3, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "MonoResolution"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743851, (), ((3, 1, None),), 4, 4, 4, 0, 400, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "MonoResolution"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743851, (), (), 4, 2, 4, 0, 408, (3, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "GrayResolution"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743853, (), ((3, 1, None),), 4, 4, 4, 0, 416, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "GrayResolution"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743853, (), (), 4, 2, 4, 0, 424, (3, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Hyperlinks"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743855, (), ((11, 1, None),), 4, 4, 4, 0, 432, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Hyperlinks"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743855, (), (), 4, 2, 4, 0, 440, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Bookmarks"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743857, (), ((11, 1, None),), 4, 4, 4, 0, 448, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Bookmarks"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743857, (), (), 4, 2, 4, 0, 456, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Thumbnails"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743859, (), ((11, 1, None),), 4, 4, 4, 0, 464, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Thumbnails"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743859, (), (), 4, 2, 4, 0, 472, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Startup"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743861, (), (((29, 50354048), 1, None),), 4, 4, 4, 0, 480, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Startup"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743861, (), (), 4, 2, 4, 0, 488, ((29, 50354048), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ComplexFillsAsBitmaps"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743863, (), ((11, 1, None),), 4, 4, 4, 0, 496, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ComplexFillsAsBitmaps"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743863, (), (), 4, 2, 4, 0, 504, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Overprints"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743865, (), ((11, 1, None),), 4, 4, 4, 0, 512, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Overprints"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743865, (), (), 4, 2, 4, 0, 520, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Halftones"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743867, (), ((11, 1, None),), 4, 4, 4, 0, 528, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Halftones"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743867, (), (), 4, 2, 4, 0, 536, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "SpotColors"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743869, (), ((11, 1, None),), 4, 4, 4, 0, 544, (24, 0, None), 64)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "SpotColors"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743869, (), (), 4, 2, 4, 0, 552, (11, 0, None), 64)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "MaintainOPILinks"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743871, (), ((11, 1, None),), 4, 4, 4, 0, 560, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "MaintainOPILinks"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743871, (), (), 4, 2, 4, 0, 568, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "FountainSteps"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743873, (), ((3, 1, None),), 4, 4, 4, 0, 576, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "FountainSteps"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743873, (), (), 4, 2, 4, 0, 584, (3, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EPSAs"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743875, (), (((29, 50353920), 1, None),), 4, 4, 4, 0, 592, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EPSAs"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743875, (), (), 4, 2, 4, 0, 600, ((29, 50353920), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "pdfVersion"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743877, (), (((29, 50354176), 1, None),), 4, 4, 4, 0, 608, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "pdfVersion"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743877, (), (), 4, 2, 4, 0, 616, ((29, 50354176), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "IncludeBleed"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743879, (), ((11, 1, None),), 4, 4, 4, 0, 624, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "IncludeBleed"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743879, (), (), 4, 2, 4, 0, 632, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Bleed"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743881, (), ((22, 1, None),), 4, 4, 4, 0, 640, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Bleed"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743881, (), (), 4, 2, 4, 0, 648, (22, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Linearize"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743883, (), ((11, 1, None),), 4, 4, 4, 0, 656, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "Linearize"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743883, (), (), 4, 2, 4, 0, 664, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "CropMarks"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743885, (), ((11, 1, None),), 4, 4, 4, 0, 672, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "CropMarks"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743885, (), (), 4, 2, 4, 0, 680, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "RegistrationMarks"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743887, (), ((11, 1, None),), 4, 4, 4, 0, 688, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "RegistrationMarks"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743887, (), (), 4, 2, 4, 0, 696, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "DensitometerScales"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743889, (), ((11, 1, None),), 4, 4, 4, 0, 704, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "DensitometerScales"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743889, (), (), 4, 2, 4, 0, 712, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "FileInformation"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743891, (), ((11, 1, None),), 4, 4, 4, 0, 720, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "FileInformation"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743891, (), (), 4, 2, 4, 0, 728, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ColorMode"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743893, (), (((29, 50353664), 1, None),), 4, 4, 4, 0, 736, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ColorMode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743893, (), (), 4, 2, 4, 0, 744, ((29, 50353664), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "UseColorProfile"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743895, (), ((11, 1, None),), 4, 4, 4, 0, 752, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "UseColorProfile"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743895, (), (), 4, 2, 4, 0, 760, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ColorProfile"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743897, (), (((29, 50353792), 1, None),), 4, 4, 4, 0, 768, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ColorProfile"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743897, (), (), 4, 2, 4, 0, 776, ((29, 50353792), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EmbedFilename"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743899, (), ((8, 1, None),), 4, 4, 4, 0, 784, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EmbedFilename"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743899, (), (), 4, 2, 4, 0, 792, (8, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EmbedFile"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743901, (), ((11, 1, None),), 4, 4, 4, 0, 800, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EmbedFile"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743901, (), (), 4, 2, 4, 0, 808, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "JP2QualityFactor"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743903, (), ((22, 1, None),), 4, 4, 4, 0, 816, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "JP2QualityFactor"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743903, (), (), 4, 2, 4, 0, 824, (22, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "TextExportMode"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743905, (), (((29, 50354304), 1, None),), 4, 4, 4, 0, 832, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "TextExportMode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743905, (), (), 4, 2, 4, 0, 840, ((29, 50354304), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "PrintPermissions"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743907, (), (((29, 50354432), 1, None),), 4, 4, 4, 0, 848, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "PrintPermissions"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743907, (), (), 4, 2, 4, 0, 856, ((29, 50354432), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EditPermissions"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743909, (), (((29, 50354560), 1, None),), 4, 4, 4, 0, 864, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EditPermissions"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743909, (), (), 4, 2, 4, 0, 872, ((29, 50354560), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ContentCopyingAllowed"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743911, (), ((11, 1, None),), 4, 4, 4, 0, 880, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ContentCopyingAllowed"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743911, (), (), 4, 2, 4, 0, 888, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "OpenPassword"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743913, (), ((8, 1, None),), 4, 4, 4, 0, 896, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "OpenPassword"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743913, (), (), 4, 2, 4, 0, 904, (8, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "PermissionPassword"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743915, (), ((8, 1, None),), 4, 4, 4, 0, 912, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "PermissionPassword"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743915, (), (), 4, 2, 4, 0, 920, (8, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ConvertSpotColors"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743917, (), ((11, 1, None),), 4, 4, 4, 0, 928, (24, 0, None), 64)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "ConvertSpotColors"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743917, (), (), 4, 2, 4, 0, 936, (11, 0, None), 64)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EncryptType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743919, (), (((29, 50354688), 1, None),), 4, 4, 4, 0, 944, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "EncryptType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743919, (), (), 4, 2, 4, 0, 952, ((29, 50354688), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "OutputSpotColorsAs"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743921, (), (((29, 50354816), 1, None),), 4, 4, 4, 0, 960, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "OutputSpotColorsAs"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743921, (), (), 4, 2, 4, 0, 968, ((29, 50354816), 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "OverprintBlackLimit"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743923, (), ((22, 1, None),), 4, 4, 4, 0, 976, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IPDFVBASettings",
+      "names": [
+        "OverprintBlackLimit"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743923, (), (), 4, 2, 4, 0, 984, (22, 0, None), 0)"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "PDFSettings"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743887, (), (), 4, 2, 4, 0, 688, ((26, (29, 50361984)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "PublishToPDF",
+        "FileName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743888, (), ((8, 1, None),), 4, 1, 4, 0, 696, (24, 0, None), 0)"
+    }
+  ],
+  "enums": {
+    "PrnPDFStartup": {
+      "prnPDFFullScreen": 0,
+      "prnPDFPageOnly": 1,
+      "prnPDFThumbnails": 2,
+      "prnPDFOutlines": 3
+    },
+    "pdfExportRange": {
+      "pdfWholeDocument": 0,
+      "pdfCurrentPage": 1,
+      "pdfSelection": 2,
+      "pdfPageRange": 3
+    },
+    "pdfBitmapCompressionType": {
+      "pdfNone": 0,
+      "pdfLZW": 1,
+      "pdfJPEG": 2,
+      "pdfZIP": 3,
+      "pdfJP2": 4
+    },
+    "pdfEncodingType": {
+      "pdfASCII85": 0,
+      "pdfBinary": 1
+    },
+    "pdfColorMode": {
+      "pdfRGB": 0,
+      "pdfCMYK": 1,
+      "pdfGrayscale": 2,
+      "pdfNative": 3
+    },
+    "pdfColorProfile": {
+      "pdfCompositeProfile": 0,
+      "pdfSeparationProfile": 1
+    },
+    "pdfEPSAs": {
+      "pdfPostscript": 0,
+      "pdfPreview": 1
+    },
+    "pdfDisplayOnStart": {
+      "pdfPageOnly": 0,
+      "pdfFullScreen": 1,
+      "pdfBookmarks": 2,
+      "pdfThumbnails": 3
+    },
+    "pdfVersion": {
+      "pdfVersion12": 0,
+      "pdfVersion13": 1,
+      "pdfVersionPDFX1": 2,
+      "pdfVersion14": 3,
+      "pdfVersionPDFX1a": 4,
+      "pdfVersionPDFX3": 5,
+      "pdfVersion15": 6,
+      "pdfVersionPDFA1b": 7,
+      "pdfVersion17": 8,
+      "pdfVersion17_Acrobat9": 9
+    },
+    "pdfTextExportMode": {
+      "pdfTextAsUnicode": 0,
+      "pdfTextAsAscii": 1
+    },
+    "pdfPrintPermissions": {
+      "pdfPrintPermissionNone": 0,
+      "pdfPrintPermissionLowResolution": 1,
+      "pdfPrintPermissionHighResolution": 2
+    },
+    "pdfEditPermissions": {
+      "pdfEditPermissionNone": 0,
+      "pdfEditPermissionInsertDeleteRotatePage": 1,
+      "pdfEditPermissionAny": 2
+    },
+    "pdfEncryptionType": {
+      "pdfEncryptTypeNone": 0,
+      "pdfEncryptTypeStandard": 1,
+      "pdfEncryptTypeAES": 2,
+      "pdfEncryptTypeAES256": 3
+    },
+    "pdfSpotType": {
+      "pdfSpotAsSpot": 0,
+      "pdfSpotAsRGB": 1,
+      "pdfSpotAsCMYK": 2,
+      "pdfSpotAsGray": 3
+    }
+  }
+}

@@ -13,7 +13,6 @@ import secrets
 import struct
 from contextlib import contextmanager
 from importlib import metadata
-from functools import wraps
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -36,6 +35,8 @@ from .layout import (
     FLIP_AXES, ORDER_METHODS, MAX_LAYOUT_OBJECTS, POSITION_TOLERANCE,
     choice, validate_rotation, plan_distribution, matrix_determinant, circular_difference,
 )
+from .native_tracking import tracked_mutation
+from .template_bridge import TemplateBridgeMixin
 from .object_references import (
     MAX_REFERENCE_DEPTH, MAX_REFERENCE_SCAN, authenticate_reference,
     identity_token, reference_signature, validate_reference,
@@ -51,22 +52,7 @@ from .contour_nesting import (
 )
 
 
-def tracked_mutation(function):
-    """Distinguish preflight refusals from failures after entering a native edit stage."""
-    @wraps(function)
-    def wrapper(self, *args, **kwargs):
-        outermost = self._mutation_depth == 0
-        if outermost:
-            self._operation_mutation_started = False
-        self._mutation_depth += 1
-        try:
-            return function(self, *args, **kwargs)
-        finally:
-            self._mutation_depth -= 1
-    return wrapper
-
-
-class CorelBridge:
+class CorelBridge(TemplateBridgeMixin):
     CDR_INCH = CorelX7Adapter.CDR_INCH
     CDR_BOTTOM_LEFT = CorelX7Adapter.CDR_BOTTOM_LEFT
     MAX_IMPORT_BYTES = 250 * 1024 * 1024

@@ -1,0 +1,199 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IVGApplication",
+      "names": [
+        "Documents"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50362368)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGApplication",
+      "names": [
+        "ActiveDocument"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50362112)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGApplication",
+      "names": [
+        "CreateDocument"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743834, (), (), 4, 1, 4, 0, 264, ((26, (29, 50362112)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "Close"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743822, (), (), 4, 1, 4, 0, 168, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "Activate"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743826, (), (), 4, 1, 4, 0, 200, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "Dirty"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743839, (), (), 4, 2, 4, 0, 304, (11, 0, None), 0)"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "Dirty"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743839, (), ((11, 1, None),), 4, 4, 4, 0, 312, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "BeginCommandGroup",
+        "CommandName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743843, (), ((8, 17, None),), 4, 1, 4, 0, 336, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "EndCommandGroup"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743844, (), (), 4, 1, 4, 0, 344, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGDocument",
+      "names": [
+        "AddPagesEx",
+        "NumberOfPages",
+        "Width",
+        "Height"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743865, (), ((3, 1, None), (5, 1, None), (5, 1, None)), 4, 1, 4, 0, 512, ((26, (29, 50362496)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Shapes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50363008)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Activate"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743813, (), (), 4, 1, 4, 0, 96, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Paste"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743841, (), (), 4, 1, 4, 0, 320, ((26, (29, 50363136)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "ActiveLayer"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, ((26, (29, 50362880)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "Activate"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743827, (), (), 4, 1, 4, 0, 208, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "CreateLayer",
+        "LayerName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743829, (), ((8, 1, None),), 4, 1, 4, 0, 224, ((26, (29, 50362880)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "SetSize",
+        "Width",
+        "Height"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743847, (), ((5, 1, None), (5, 1, None)), 4, 1, 4, 0, 368, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Name"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (8, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Name"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743812, (), ((8, 1, None),), 4, 4, 4, 0, 96, (24, 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Shapes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, ((26, (29, 50363008)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743828, (), (), 4, 2, 4, 0, 216, ((29, 50336896), 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Duplicate",
+        "OffsetX",
+        "OffsetY"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743833, (), ((5, 49, 0.0), (5, 49, 0.0)), 4, 1, 4, 0, 256, ((26, (29, 50363136)), 0, None), 0)"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Copy"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743863, (), (), 4, 1, 4, 0, 496, (24, 0, None), 0)"
+    }
+  ]
+}

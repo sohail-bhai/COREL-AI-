@@ -9,11 +9,11 @@ class ToolSchemaTests(unittest.TestCase):
     def test_catalog_and_tool_schemas_are_consistent(self) -> None:
         counts = validate()
 
-        self.assertEqual(counts["registered_tools"], 55)
-        self.assertEqual(counts["registry_records"], 57)
-        self.assertEqual(counts["matrix_rows"], 57)
-        self.assertEqual(counts["examples_checked"], 171)
-        self.assertEqual(counts["adapter_capabilities"], 40)
+        self.assertEqual(counts["registered_tools"], 59)
+        self.assertEqual(counts["registry_records"], 61)
+        self.assertEqual(counts["matrix_rows"], 61)
+        self.assertEqual(counts["examples_checked"], 183)
+        self.assertEqual(counts["adapter_capabilities"], 44)
         self.assertGreaterEqual(counts["inventory_members"], 110)
         self.assertEqual(counts["enum_groups"], 16)
 

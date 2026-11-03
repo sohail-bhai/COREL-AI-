@@ -126,6 +126,13 @@
       "path": "docs/x7_layout_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "Installed X7 transform/order signatures read without connecting to the application."
+    },
+    {
+      "id": "x7_template_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_template_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "Template copy/page/ownership/close signatures; no live application connection."
     }
   ],
   "members": [
@@ -137,8 +144,13 @@
       "signature": "CorelDRAW.Application.17 -> CLSID {2FBA0002-B5E2-C3B0-412E-C843C16BAFDB}",
       "status": "registered_locally",
       "used_by": [],
-      "evidence": ["installed_com_registration"],
-      "notes": ["Preferred and attempted first by the X7 compatibility adapter.", "Connected applications are rejected unless major version 17 is detected."]
+      "evidence": [
+        "installed_com_registration"
+      ],
+      "notes": [
+        "Preferred and attempted first by the X7 compatibility adapter.",
+        "Connected applications are rejected unless major version 17 is detected."
+      ]
     },
     {
       "id": "COM.ProgID.CorelDRAW.Application",
@@ -147,9 +159,18 @@
       "access": "connect",
       "signature": "CorelDRAW.Application -> CurVer CorelDRAW.Application.17",
       "status": "registered_locally",
-      "used_by": ["corel_status", "all_current_tools"],
-      "evidence": ["installed_com_registration", "prototype_source"],
-      "notes": ["Retained as a fallback after the explicit X7 ProgID.", "The adapter validates major version 17 instead of trusting generic CurVer."]
+      "used_by": [
+        "corel_status",
+        "all_current_tools"
+      ],
+      "evidence": [
+        "installed_com_registration",
+        "prototype_source"
+      ],
+      "notes": [
+        "Retained as a fallback after the explicit X7 ProgID.",
+        "The adapter validates major version 17 instead of trusting generic CurVer."
+      ]
     },
     {
       "id": "Application.ActiveDocument",
@@ -158,8 +179,15 @@
       "access": "read",
       "signature": "ActiveDocument -> Document",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status", "use_active_document"],
-      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status",
+        "use_active_document"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.ActiveDocument",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -170,8 +198,57 @@
       "access": "read",
       "signature": "Documents -> Documents collection",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_open_documents", "corel_status", "create_document", "use_active_document", "add_text", "draw_rectangle", "draw_ellipse", "list_objects", "set_fill_color", "set_outline", "move_object", "resize_object", "set_text_content", "rename_object", "duplicate_object", "import_artwork", "save_document", "export_pdf", "get_document_info", "list_pages", "get_page_bounds", "list_layers", "get_object_info", "get_object_bounds", "find_objects", "get_text_properties", "get_fill", "prepare_print_job", "create_chest_number_batch", "execute_design_plan", "align_objects", "align_to_page", "group_shapes", "ungroup_shapes", "inspect_repeat_unit", "prepare_contour_nesting", "prepare_imposition_job", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_application", "installed_x7_typelib"],
+      "used_by": [
+        "list_open_documents",
+        "corel_status",
+        "create_document",
+        "use_active_document",
+        "add_text",
+        "draw_rectangle",
+        "draw_ellipse",
+        "list_objects",
+        "set_fill_color",
+        "set_outline",
+        "move_object",
+        "resize_object",
+        "set_text_content",
+        "rename_object",
+        "duplicate_object",
+        "import_artwork",
+        "save_document",
+        "export_pdf",
+        "get_document_info",
+        "list_pages",
+        "get_page_bounds",
+        "list_layers",
+        "get_object_info",
+        "get_object_bounds",
+        "find_objects",
+        "get_text_properties",
+        "get_fill",
+        "prepare_print_job",
+        "create_chest_number_batch",
+        "execute_design_plan",
+        "align_objects",
+        "align_to_page",
+        "group_shapes",
+        "ungroup_shapes",
+        "inspect_repeat_unit",
+        "prepare_contour_nesting",
+        "prepare_imposition_job",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.Documents",
       "live_test_status": "not_run"
     },
@@ -182,8 +259,14 @@
       "access": "read",
       "signature": "Version -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status"],
-      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.Version",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -194,8 +277,14 @@
       "access": "read",
       "signature": "VersionMajor -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status"],
-      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.VersionMajor",
       "live_test_status": "not_run"
     },
@@ -206,8 +295,14 @@
       "access": "read",
       "signature": "VersionMinor -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status"],
-      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.VersionMinor",
       "live_test_status": "not_run"
     },
@@ -218,8 +313,14 @@
       "access": "read",
       "signature": "VersionBuild -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status"],
-      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.VersionBuild",
       "live_test_status": "not_run"
     },
@@ -230,8 +331,14 @@
       "access": "read_write",
       "signature": "Visible -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status"],
-      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.Visible",
       "live_test_status": "not_run"
     },
@@ -243,9 +350,14 @@
       "signature": "Caption -> unknown",
       "status": "research_required",
       "used_by": [],
-      "evidence": ["historical_v0_5_source"],
+      "evidence": [
+        "historical_v0_5_source"
+      ],
       "live_test_status": "not_run",
-      "notes": ["Caption was not found on the official X7 Application class page or installed X7 type-library property map.", "The unconfirmed dynamic read was removed from corel_status in bridge 0.6.0."]
+      "notes": [
+        "Caption was not found on the official X7 Application class page or installed X7 type-library property map.",
+        "The unconfirmed dynamic read was removed from corel_status in bridge 0.6.0."
+      ]
     },
     {
       "id": "Application.CreateDocument",
@@ -254,8 +366,15 @@
       "access": "mutating",
       "signature": "CreateDocument() -> Document",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["create_document"],
-      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "create_document",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Application.CreateDocument",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -266,10 +385,16 @@
       "access": "read_only_factory",
       "signature": "CreateCurve(Document) -> Curve",
       "status": "typelib_confirmed",
-      "used_by": ["guarded_imposition_live_fixture"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "guarded_imposition_live_fixture"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "live_test_status": "live_x7_passed_2026-11-01",
-      "notes": ["Used only to construct a synthetic disposable contour fixture; it is not exposed as an MCP tool."]
+      "notes": [
+        "Used only to construct a synthetic disposable contour fixture; it is not exposed as an MCP tool."
+      ]
     },
     {
       "id": "Application.CreateRGBColor",
@@ -278,8 +403,15 @@
       "access": "read_only_factory",
       "signature": "CreateRGBColor(Red, Green, Blue) -> Color",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["set_fill_color", "set_outline"],
-      "evidence": ["official_x7_application", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "set_fill_color",
+        "set_outline"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Application.CreateRGBColor",
       "live_test_status": "not_run"
     },
@@ -290,8 +422,15 @@
       "access": "read_only_factory",
       "signature": "CreateStructSaveAsOptions() -> StructSaveAsOptions",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["save_document"],
-      "evidence": ["official_x7_application", "official_x7_save_options", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "save_document"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "official_x7_save_options",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Application.CreateStructSaveAsOptions",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -302,8 +441,17 @@
       "access": "read_write",
       "signature": "Name -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status", "use_active_document", "list_objects", "save_document"],
-      "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status",
+        "use_active_document",
+        "list_objects",
+        "save_document"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.Name",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -314,11 +462,18 @@
       "access": "read",
       "signature": "FullFileName -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_document_info"],
-      "evidence": ["official_x7_document", "installed_x7_typelib"],
+      "used_by": [
+        "get_document_info"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.FullFileName",
       "live_test_status": "not_run",
-      "notes": ["Behavior for unsaved documents must be tested before relying on a non-empty path."]
+      "notes": [
+        "Behavior for unsaved documents must be tested before relying on a non-empty path."
+      ]
     },
     {
       "id": "Document.Dirty",
@@ -327,8 +482,14 @@
       "access": "read_write",
       "signature": "Dirty -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_document_info"],
-      "evidence": ["official_x7_document", "installed_x7_typelib"],
+      "used_by": [
+        "get_document_info",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.Dirty",
       "live_test_status": "not_run"
     },
@@ -339,8 +500,16 @@
       "access": "read",
       "signature": "ActivePage -> Page",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status", "create_document", "all_object_tools"],
-      "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status",
+        "create_document",
+        "all_object_tools"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.ActivePage",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -351,11 +520,22 @@
       "access": "read",
       "signature": "ActiveLayer -> Layer",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["add_text", "draw_rectangle", "draw_ellipse", "import_artwork"],
-      "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "add_text",
+        "draw_rectangle",
+        "draw_ellipse",
+        "import_artwork"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.ActiveLayer",
       "live_test_status": "historical_report_needs_reproduction",
-      "notes": ["Used only as a fallback when ActivePage.ActiveLayer cannot be read."]
+      "notes": [
+        "Used only as a fallback when ActivePage.ActiveLayer cannot be read."
+      ]
     },
     {
       "id": "Document.Pages",
@@ -364,8 +544,23 @@
       "access": "read",
       "signature": "Pages -> Pages collection",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status", "get_text_properties", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status",
+        "get_text_properties",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.Pages",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -376,11 +571,30 @@
       "access": "read_write",
       "signature": "Unit -> cdrUnit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status", "create_document", "all_geometry_tools", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status",
+        "create_document",
+        "all_geometry_tools",
+        "get_object_bounds",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.Unit",
       "live_test_status": "historical_report_needs_reproduction",
-      "notes": ["Temporary unit changes must be restored after an operation except for a newly created document's explicit setup."]
+      "notes": [
+        "Temporary unit changes must be restored after an operation except for a newly created document's explicit setup."
+      ]
     },
     {
       "id": "Document.ReferencePoint",
@@ -389,8 +603,25 @@
       "access": "read_write",
       "signature": "ReferencePoint -> cdrReferencePoint",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["create_document", "list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "create_document",
+        "list_objects",
+        "move_object",
+        "get_object_bounds",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.ReferencePoint",
       "live_test_status": "not_run"
     },
@@ -401,8 +632,14 @@
       "access": "read",
       "signature": "SelectionRange -> ShapeRange",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["import_artwork"],
-      "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "import_artwork"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.SelectionRange",
       "live_test_status": "not_run"
     },
@@ -413,8 +650,15 @@
       "access": "ui_state_mutating",
       "signature": "Activate()",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["create_document"],
-      "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "create_document",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Document.Activate",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -425,8 +669,14 @@
       "access": "ui_state_mutating",
       "signature": "ClearSelection()",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["import_artwork"],
-      "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "import_artwork"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Document.ClearSelection",
       "live_test_status": "not_run"
     },
@@ -437,8 +687,15 @@
       "access": "external_io",
       "signature": "SaveAs(FileName, Options=0)",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["save_document"],
-      "evidence": ["official_x7_document", "official_x7_save_options", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "save_document"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "official_x7_save_options",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Document.SaveAs",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -449,11 +706,19 @@
       "access": "export",
       "signature": "PublishToPDF(FileName)",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["export_pdf"],
-      "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "export_pdf"
+      ],
+      "evidence": [
+        "official_x7_document",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Document.PublishToPDF",
       "live_test_status": "not_run",
-      "notes": ["Uses the document's existing PDFSettings; successful return does not establish print readiness."]
+      "notes": [
+        "Uses the document's existing PDFSettings; successful return does not establish print readiness."
+      ]
     },
     {
       "id": "Document.AddPagesEx",
@@ -462,10 +727,18 @@
       "access": "mutating",
       "signature": "AddPagesEx(NumberOfPages, Width, Height)",
       "status": "typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "prepare_contour_nesting",
+        "prepare_imposition_job",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "live_test_status": "live_x7_passed_2026-11-01",
-      "notes": ["Created exactly one sized output page during the guarded disposable imposition regression."]
+      "notes": [
+        "Created exactly one sized output page during the guarded disposable imposition regression."
+      ]
     },
     {
       "id": "Document.DeletePages",
@@ -474,10 +747,18 @@
       "access": "destructive",
       "signature": "DeletePages(StartPage, NumPages=1) -> Boolean",
       "status": "typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "prepare_contour_nesting",
+        "prepare_imposition_job"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "not_run",
-      "notes": ["Used only as a targeted rollback fallback for the newly appended output page."]
+      "notes": [
+        "Used only as a targeted rollback fallback for the newly appended output page."
+      ]
     },
     {
       "id": "Page.Activate",
@@ -486,8 +767,15 @@
       "access": "ui_state_mutating",
       "signature": "Activate()",
       "status": "typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "prepare_contour_nesting",
+        "prepare_imposition_job",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
@@ -497,8 +785,15 @@
       "access": "mutating",
       "signature": "CreateLayer(LayerName) -> Layer",
       "status": "typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "prepare_contour_nesting",
+        "prepare_imposition_job",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
@@ -508,10 +803,18 @@
       "access": "destructive",
       "signature": "Delete()",
       "status": "typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "prepare_contour_nesting",
+        "prepare_imposition_job"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "live_x7_passed_2026-11-01",
-      "notes": ["A forced post-placement discrepancy deleted only the newly created output page and preserved the source plus the prior successful output page."]
+      "notes": [
+        "A forced post-placement discrepancy deleted only the newly created output page and preserved the source plus the prior successful output page."
+      ]
     },
     {
       "id": "Page.ActiveLayer",
@@ -520,8 +823,18 @@
       "access": "read",
       "signature": "ActiveLayer -> Layer",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["add_text", "draw_rectangle", "draw_ellipse", "import_artwork"],
-      "evidence": ["official_x7_page", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "add_text",
+        "draw_rectangle",
+        "draw_ellipse",
+        "import_artwork",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.ActiveLayer",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -532,8 +845,13 @@
       "access": "read",
       "signature": "Index -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_pages"],
-      "evidence": ["official_x7_page", "installed_x7_typelib"],
+      "used_by": [
+        "list_pages"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.Index",
       "live_test_status": "not_run"
     },
@@ -544,8 +862,13 @@
       "access": "read_write",
       "signature": "Name -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_pages"],
-      "evidence": ["official_x7_page", "installed_x7_typelib"],
+      "used_by": [
+        "list_pages"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.Name",
       "live_test_status": "not_run"
     },
@@ -556,8 +879,13 @@
       "access": "read_write",
       "signature": "Orientation -> cdrPageOrientation",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_pages"],
-      "evidence": ["official_x7_page", "installed_x7_typelib"],
+      "used_by": [
+        "list_pages"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.Orientation",
       "live_test_status": "not_run"
     },
@@ -568,8 +896,13 @@
       "access": "read",
       "signature": "Layers -> page Layers collection",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
-      "evidence": ["official_x7_page", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.Layers",
       "live_test_status": "not_run"
     },
@@ -580,8 +913,22 @@
       "access": "read",
       "signature": "AllLayers -> Layers collection including master layers",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers", "get_text_properties", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_page", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers",
+        "get_text_properties",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.AllLayers",
       "live_test_status": "not_run"
     },
@@ -592,11 +939,32 @@
       "access": "read",
       "signature": "Shapes -> Shapes collection across all page layers",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "all_object_selector_tools", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_page", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "all_object_selector_tools",
+        "import_artwork",
+        "get_object_bounds",
+        "get_text_properties",
+        "get_fill",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.Shapes",
       "live_test_status": "not_run",
-      "notes": ["Current bridge enumerates this collection but does not yet define nested-group traversal semantics."]
+      "notes": [
+        "Current bridge enumerates this collection but does not yet define nested-group traversal semantics."
+      ]
     },
     {
       "id": "Page.SizeWidth",
@@ -605,8 +973,14 @@
       "access": "read_write",
       "signature": "SizeWidth -> Double in document units",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status"],
-      "evidence": ["official_x7_page", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.SizeWidth",
       "live_test_status": "not_run"
     },
@@ -617,8 +991,14 @@
       "access": "read_write",
       "signature": "SizeHeight -> Double in document units",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status"],
-      "evidence": ["official_x7_page", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.SizeHeight",
       "live_test_status": "not_run"
     },
@@ -629,11 +1009,19 @@
       "access": "read",
       "signature": "GetSize(out Width, out Height)",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status"],
-      "evidence": ["official_x7_page", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "corel_status"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Page.GetSize",
       "live_test_status": "not_run",
-      "notes": ["pywin32 return shape must be covered by a live/readback test; current code falls back to SizeWidth/SizeHeight."]
+      "notes": [
+        "pywin32 return shape must be covered by a live/readback test; current code falls back to SizeWidth/SizeHeight."
+      ]
     },
     {
       "id": "Page.GetBoundingBox",
@@ -642,8 +1030,13 @@
       "access": "read",
       "signature": "GetBoundingBox(out x, out y, out Width, out Height)",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_page_bounds"],
-      "evidence": ["official_x7_page", "installed_x7_typelib"],
+      "used_by": [
+        "get_page_bounds"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Page.GetBoundingBox",
       "live_test_status": "not_run"
     },
@@ -654,8 +1047,15 @@
       "access": "mutating",
       "signature": "SetSize(Width, Height)",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["create_document"],
-      "evidence": ["official_x7_page", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "create_document",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_page",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Page.SetSize",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -666,11 +1066,20 @@
       "access": "mutating",
       "signature": "CreateArtisticText(Left, Bottom, Text, LanguageID=0, CharSet=-1, Font=empty, Size=0, Bold=-2, Italic=-2, Underline=7, Alignment=6) -> Shape",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["add_text"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "add_text"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Layer.CreateArtisticText",
       "live_test_status": "historical_report_needs_reproduction",
-      "notes": ["Current code supplies LanguageID=0 and CharSet=0 rather than the type-library default CharSet=-1.", "Text insertion coordinates and resulting object bounds require explicit live verification."]
+      "notes": [
+        "Current code supplies LanguageID=0 and CharSet=0 rather than the type-library default CharSet=-1.",
+        "Text insertion coordinates and resulting object bounds require explicit live verification."
+      ]
     },
     {
       "id": "Layer.Name",
@@ -679,8 +1088,13 @@
       "access": "read_write",
       "signature": "Name -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.Name",
       "live_test_status": "not_run"
     },
@@ -691,8 +1105,13 @@
       "access": "read",
       "signature": "Index -> Long within page Layers collection",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.Index",
       "live_test_status": "not_run"
     },
@@ -703,8 +1122,13 @@
       "access": "read",
       "signature": "AbsoluteIndex -> Long across document including master layers",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.AbsoluteIndex",
       "live_test_status": "not_run"
     },
@@ -715,8 +1139,13 @@
       "access": "read_write",
       "signature": "Visible -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.Visible",
       "live_test_status": "not_run"
     },
@@ -727,8 +1156,13 @@
       "access": "read_write",
       "signature": "Editable -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.Editable",
       "live_test_status": "not_run"
     },
@@ -739,8 +1173,13 @@
       "access": "read_write",
       "signature": "Printable -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.Printable",
       "live_test_status": "not_run"
     },
@@ -751,8 +1190,13 @@
       "access": "read_write",
       "signature": "Master -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.Master",
       "live_test_status": "not_run"
     },
@@ -763,8 +1207,13 @@
       "access": "read",
       "signature": "IsSpecialLayer -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.IsSpecialLayer",
       "live_test_status": "not_run"
     },
@@ -775,8 +1224,22 @@
       "access": "read",
       "signature": "Shapes -> Shapes collection on the layer",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers", "get_text_properties", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib"],
+      "used_by": [
+        "list_layers",
+        "get_text_properties",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.Shapes",
       "live_test_status": "not_run"
     },
@@ -787,8 +1250,14 @@
       "access": "mutating",
       "signature": "CreateRectangle2(x, y, Width, Height, RadiusUL=0, RadiusUR=0, RadiusLR=0, RadiusLL=0) -> Shape",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["draw_rectangle"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "draw_rectangle"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Layer.CreateRectangle2",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -799,8 +1268,14 @@
       "access": "mutating",
       "signature": "CreateEllipse2(CenterX, CenterY, Radius1, Radius2=0, StartAngle=90, EndAngle=90, Pie=false) -> Shape",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["draw_ellipse"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "draw_ellipse"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Layer.CreateEllipse2",
       "live_test_status": "not_run"
     },
@@ -811,11 +1286,20 @@
       "access": "external_io_mutating",
       "signature": "Import(FileName, Filter=0, Options=0)",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["import_artwork"],
-      "evidence": ["official_x7_layer", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "import_artwork"
+      ],
+      "evidence": [
+        "official_x7_layer",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Layer.Import",
       "live_test_status": "not_run",
-      "notes": ["Filter=0 is cdrAutoSense.", "The bridge's extension allowlist is broader than the formats that have been live-tested."]
+      "notes": [
+        "Filter=0 is cdrAutoSense.",
+        "The bridge's extension allowlist is broader than the formats that have been live-tested."
+      ]
     },
     {
       "id": "Layer.CreateCurve",
@@ -824,10 +1308,16 @@
       "access": "mutating",
       "signature": "CreateCurve(Source) -> Shape",
       "status": "typelib_confirmed",
-      "used_by": ["guarded_imposition_live_fixture"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "guarded_imposition_live_fixture"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "live_test_status": "live_x7_passed_2026-11-01",
-      "notes": ["Used only to construct synthetic disposable test artwork; it is not exposed as an MCP tool."]
+      "notes": [
+        "Used only to construct synthetic disposable test artwork; it is not exposed as an MCP tool."
+      ]
     },
     {
       "id": "Layer.Paste",
@@ -836,10 +1326,19 @@
       "access": "mutating",
       "signature": "Paste() -> Shape",
       "status": "typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "prepare_contour_nesting",
+        "prepare_imposition_job",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "cross_page_group_live_x7_passed_2026-11-01",
-      "notes": ["The X7 fallback pastes a copied source group onto the explicit output layer and necessarily replaces current system clipboard contents."]
+      "notes": [
+        "The X7 fallback pastes a copied source group onto the explicit output layer and necessarily replaces current system clipboard contents."
+      ]
     },
     {
       "id": "Shapes.Count",
@@ -848,8 +1347,15 @@
       "access": "read",
       "signature": "Count -> Long",
       "status": "typelib_confirmed",
-      "used_by": ["list_objects", "all_object_selector_tools", "import_artwork"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "all_object_selector_tools",
+        "import_artwork"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/c/Shapes",
       "live_test_status": "not_run"
     },
@@ -860,11 +1366,20 @@
       "access": "read",
       "signature": "Item(Index) -> Shape",
       "status": "typelib_confirmed",
-      "used_by": ["list_objects", "all_object_selector_tools", "import_artwork"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "all_object_selector_tools",
+        "import_artwork"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/c/Shapes",
       "live_test_status": "not_run",
-      "notes": ["Shape collection indexing is 1-based in the current bridge."]
+      "notes": [
+        "Shape collection indexing is 1-based in the current bridge."
+      ]
     },
     {
       "id": "Shape.Name",
@@ -873,11 +1388,32 @@
       "access": "read_write",
       "signature": "Name -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["all_object_tools", "rename_object", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "all_object_tools",
+        "rename_object",
+        "get_object_bounds",
+        "get_text_properties",
+        "get_fill",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Name",
       "live_test_status": "not_run",
-      "notes": ["Names are mutable and are not guaranteed unique for pre-existing user objects."]
+      "notes": [
+        "Names are mutable and are not guaranteed unique for pre-existing user objects."
+      ]
     },
     {
       "id": "Shape.StaticID",
@@ -886,11 +1422,31 @@
       "access": "read",
       "signature": "StaticID -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib"],
+      "used_by": [
+        "prepare_contour_nesting",
+        "prepare_imposition_job",
+        "get_object_bounds",
+        "get_text_properties",
+        "get_fill",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.StaticID",
       "live_test_status": "unique_within_live_imposition_run_2026-11-01",
-      "notes": ["Four imposed groups returned distinct StaticIDs in one disposable X7 run; persistence across save/reopen remains unverified."]
+      "notes": [
+        "Four imposed groups returned distinct StaticIDs in one disposable X7 run; persistence across save/reopen remains unverified."
+      ]
     },
     {
       "id": "Shape.Shapes",
@@ -899,11 +1455,29 @@
       "access": "read",
       "signature": "Shapes -> Shapes collection of group children",
       "status": "typelib_confirmed",
-      "used_by": ["find_objects", "inspect_repeat_unit", "prepare_imposition_job", "get_text_properties", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "find_objects",
+        "inspect_repeat_unit",
+        "prepare_imposition_job",
+        "get_text_properties",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Shapes",
       "live_test_status": "not_run_for_find_objects",
-      "notes": ["IVGShape.Shapes property-get existence was confirmed by read-only type-library inspection on 2026-11-02; nested search behavior remains unverified live."]
+      "notes": [
+        "IVGShape.Shapes property-get existence was confirmed by read-only type-library inspection on 2026-11-02; nested search behavior remains unverified live."
+      ]
     },
     {
       "id": "Shape.Layer",
@@ -912,8 +1486,29 @@
       "access": "read_write",
       "signature": "Layer -> Layer",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "rename_object",
+        "duplicate_object",
+        "import_artwork",
+        "get_object_bounds",
+        "get_text_properties",
+        "get_fill",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Layer",
       "live_test_status": "live_x7_passed_2026-11-01"
     },
@@ -924,8 +1519,29 @@
       "access": "read",
       "signature": "Page -> Page",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "rename_object",
+        "duplicate_object",
+        "import_artwork",
+        "get_object_bounds",
+        "get_text_properties",
+        "get_fill",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Page",
       "live_test_status": "live_x7_passed_2026-11-01"
     },
@@ -936,8 +1552,26 @@
       "access": "read",
       "signature": "Type -> cdrShapeType",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "get_object_bounds",
+        "get_text_properties",
+        "get_fill",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Type",
       "live_test_status": "not_run"
     },
@@ -948,8 +1582,23 @@
       "access": "read_write",
       "signature": "PositionX -> Double according to Document.ReferencePoint and Document.Unit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "move_object",
+        "get_object_bounds",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.PositionX",
       "live_test_status": "not_run"
     },
@@ -960,8 +1609,23 @@
       "access": "read_write",
       "signature": "PositionY -> Double according to Document.ReferencePoint and Document.Unit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "move_object",
+        "get_object_bounds",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.PositionY",
       "live_test_status": "not_run"
     },
@@ -972,8 +1636,23 @@
       "access": "read_write",
       "signature": "SizeWidth -> Double in document units",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "resize_object", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "resize_object",
+        "get_object_bounds",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.SizeWidth",
       "live_test_status": "not_run"
     },
@@ -984,8 +1663,23 @@
       "access": "read_write",
       "signature": "SizeHeight -> Double in document units",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "resize_object", "get_object_bounds", "add_paragraph_text", "set_text_style", "get_object_transform", "rotate_object", "flip_object", "order_object", "distribute_objects"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "resize_object",
+        "get_object_bounds",
+        "add_paragraph_text",
+        "set_text_style",
+        "get_object_transform",
+        "rotate_object",
+        "flip_object",
+        "order_object",
+        "distribute_objects"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.SizeHeight",
       "live_test_status": "not_run"
     },
@@ -996,11 +1690,25 @@
       "access": "read",
       "signature": "Text -> Text",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_text_content", "get_text_properties", "add_paragraph_text", "set_text_style"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "set_text_content",
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Text",
       "live_test_status": "not_run",
-      "notes": ["Access raises for non-text shapes; current list operation intentionally converts that case to null."]
+      "notes": [
+        "Access raises for non-text shapes; current list operation intentionally converts that case to null."
+      ]
     },
     {
       "id": "Shape.Fill",
@@ -1009,8 +1717,16 @@
       "access": "read_write",
       "signature": "Fill -> Fill",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["set_fill_color", "get_fill"],
-      "evidence": ["official_x7_shape", "official_x7_fill", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "set_fill_color",
+        "get_fill"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "official_x7_fill",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Fill",
       "live_test_status": "not_run"
     },
@@ -1021,8 +1737,16 @@
       "access": "read",
       "signature": "Outline -> Outline",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_outline"],
-      "evidence": ["official_x7_shape", "official_x7_outline", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "set_outline"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "official_x7_outline",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Outline",
       "live_test_status": "not_run"
     },
@@ -1033,8 +1757,17 @@
       "access": "mutating",
       "signature": "SetPosition(PositionX, PositionY)",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["move_object", "prepare_contour_nesting", "prepare_imposition_job", "distribute_objects"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "move_object",
+        "prepare_contour_nesting",
+        "prepare_imposition_job",
+        "distribute_objects"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.SetPosition",
       "live_test_status": "live_x7_passed_2026-11-01"
     },
@@ -1045,8 +1778,17 @@
       "access": "mutating",
       "signature": "Duplicate(OffsetX=0, OffsetY=0) -> Shape",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["duplicate_object", "prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "duplicate_object",
+        "prepare_contour_nesting",
+        "prepare_imposition_job",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.Duplicate",
       "live_test_status": "live_x7_passed_2026-11-01"
     },
@@ -1057,10 +1799,19 @@
       "access": "ui_state_mutating",
       "signature": "Copy()",
       "status": "typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "prepare_contour_nesting",
+        "prepare_imposition_job",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "cross_page_group_live_x7_passed_2026-11-01",
-      "notes": ["Copies the approved source to the system clipboard without moving or renaming it; clipboard replacement is disclosed in the result."]
+      "notes": [
+        "Copies the approved source to the system clipboard without moving or renaming it; clipboard replacement is disclosed in the result."
+      ]
     },
     {
       "id": "Shape.CopyToLayer",
@@ -1070,9 +1821,13 @@
       "signature": "CopyToLayer(Layer) -> Shape",
       "status": "documented_and_typelib_confirmed_behavior_research_required",
       "used_by": [],
-      "evidence": ["installed_x7_typelib"],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "live_test_status": "failed_cross_page_group_copy_17.0.0.491_2026-11-01",
-      "notes": ["The method exists but raised COM error -2147352567 / inner -2147467259 when copying the synthetic repeat group to a layer on a new page. The bridge uses the live-probed Shape.Copy plus Layer.Paste equivalent instead."]
+      "notes": [
+        "The method exists but raised COM error -2147352567 / inner -2147467259 when copying the synthetic repeat group to a layer on a new page. The bridge uses the live-probed Shape.Copy plus Layer.Paste equivalent instead."
+      ]
     },
     {
       "id": "Shape.Rotate",
@@ -1081,8 +1836,14 @@
       "access": "mutating",
       "signature": "Rotate(Angle)",
       "status": "typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "prepare_contour_nesting",
+        "prepare_imposition_job"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
@@ -1092,8 +1853,12 @@
       "access": "mutating_factory",
       "signature": "CreateSubPath(x, y) -> SubPath",
       "status": "typelib_confirmed",
-      "used_by": ["guarded_imposition_live_fixture"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "guarded_imposition_live_fixture"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
@@ -1103,8 +1868,12 @@
       "access": "mutating_factory",
       "signature": "AppendLineSegment(x, y, AppendAtBeginning=false)",
       "status": "typelib_confirmed",
-      "used_by": ["guarded_imposition_live_fixture"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "guarded_imposition_live_fixture"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
@@ -1114,8 +1883,14 @@
       "access": "read_write",
       "signature": "Closed -> Boolean",
       "status": "typelib_confirmed",
-      "used_by": ["guarded_imposition_live_fixture", "inspect_repeat_unit"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "guarded_imposition_live_fixture",
+        "inspect_repeat_unit"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "live_x7_passed_2026-11-01"
     },
     {
@@ -1125,8 +1900,15 @@
       "access": "read",
       "signature": "GetPolyline(CurvePrecision=0) -> Curve",
       "status": "documented_unverified_on_reported_build",
-      "used_by": ["inspect_repeat_unit", "prepare_contour_nesting", "prepare_imposition_job"],
-      "evidence": ["official_x7_subpath", "prototype_source"],
+      "used_by": [
+        "inspect_repeat_unit",
+        "prepare_contour_nesting",
+        "prepare_imposition_job"
+      ],
+      "evidence": [
+        "official_x7_subpath",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17.6/m/SubPath.GetPolyline",
       "live_test_status": "straight_contour_passed_2026-11-01_curved_fixture_pending"
     },
@@ -1137,8 +1919,19 @@
       "access": "read",
       "signature": "Story -> TextRange",
       "status": "typelib_confirmed",
-      "used_by": ["list_objects", "set_text_content", "get_text_properties", "add_paragraph_text", "set_text_style"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "set_text_content",
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Text.Story",
       "live_test_status": "not_run"
     },
@@ -1149,8 +1942,19 @@
       "access": "read_write",
       "signature": "Text -> String",
       "status": "typelib_confirmed",
-      "used_by": ["list_objects", "set_text_content", "get_text_properties", "add_paragraph_text", "set_text_style"],
-      "evidence": ["installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "set_text_content",
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Text",
       "live_test_status": "not_run"
     },
@@ -1161,8 +1965,16 @@
       "access": "read_write",
       "signature": "Font -> String",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Font",
       "live_test_status": "not_run"
     },
@@ -1173,8 +1985,16 @@
       "access": "read_write",
       "signature": "Size -> Single",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Size",
       "live_test_status": "not_run"
     },
@@ -1185,8 +2005,16 @@
       "access": "read_write",
       "signature": "Bold -> Boolean (X7 property; creation parameters use cdrTriState)",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Bold",
       "live_test_status": "not_run"
     },
@@ -1197,8 +2025,16 @@
       "access": "read_write",
       "signature": "Italic -> Boolean (X7 property; creation parameters use cdrTriState)",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Italic",
       "live_test_status": "not_run"
     },
@@ -1209,8 +2045,16 @@
       "access": "read_write",
       "signature": "Underline -> cdrFontLine",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Underline",
       "live_test_status": "not_run"
     },
@@ -1221,8 +2065,16 @@
       "access": "read_write",
       "signature": "Alignment -> cdrAlignment",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
-      "evidence": ["installed_x7_typelib"],
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Alignment",
       "live_test_status": "not_run"
     },
@@ -1233,8 +2085,14 @@
       "access": "mutating",
       "signature": "ApplyUniformFill(Color)",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["set_fill_color"],
-      "evidence": ["official_x7_fill", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "set_fill_color"
+      ],
+      "evidence": [
+        "official_x7_fill",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Fill.ApplyUniformFill",
       "live_test_status": "not_run"
     },
@@ -1245,8 +2103,13 @@
       "access": "read",
       "signature": "Type -> cdrFillType",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_fill"],
-      "evidence": ["official_x7_fill", "installed_x7_typelib"],
+      "used_by": [
+        "get_fill"
+      ],
+      "evidence": [
+        "official_x7_fill",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Fill.Type",
       "live_test_status": "not_run"
     },
@@ -1257,8 +2120,13 @@
       "access": "read_write",
       "signature": "UniformColor -> Color",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_fill"],
-      "evidence": ["official_x7_fill", "installed_x7_typelib"],
+      "used_by": [
+        "get_fill"
+      ],
+      "evidence": [
+        "official_x7_fill",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Fill.UniformColor",
       "live_test_status": "not_run"
     },
@@ -1269,8 +2137,18 @@
       "access": "read",
       "signature": "Type -> cdrColorType",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_fill_color", "set_outline", "get_fill", "get_outline"],
-      "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "set_fill_color",
+        "set_outline",
+        "get_fill",
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Color.Type",
       "live_test_status": "not_run"
     },
@@ -1281,8 +2159,17 @@
       "access": "read",
       "signature": "RGBRed -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_fill_color", "set_outline", "get_fill"],
-      "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "set_fill_color",
+        "set_outline",
+        "get_fill"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1292,8 +2179,17 @@
       "access": "read",
       "signature": "RGBGreen -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_fill_color", "set_outline", "get_fill"],
-      "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "set_fill_color",
+        "set_outline",
+        "get_fill"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1303,8 +2199,17 @@
       "access": "read",
       "signature": "RGBBlue -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_fill_color", "set_outline", "get_fill"],
-      "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "set_fill_color",
+        "set_outline",
+        "get_fill"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1314,8 +2219,14 @@
       "access": "read",
       "signature": "CMYKCyan -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_fill", "get_outline"],
-      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "used_by": [
+        "get_fill",
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1325,8 +2236,14 @@
       "access": "read",
       "signature": "CMYKMagenta -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_fill", "get_outline"],
-      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "used_by": [
+        "get_fill",
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1336,8 +2253,14 @@
       "access": "read",
       "signature": "CMYKYellow -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_fill", "get_outline"],
-      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "used_by": [
+        "get_fill",
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1347,8 +2270,14 @@
       "access": "read",
       "signature": "CMYKBlack -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_fill", "get_outline"],
-      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "used_by": [
+        "get_fill",
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1358,8 +2287,14 @@
       "access": "read",
       "signature": "Gray -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_fill", "get_outline"],
-      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "used_by": [
+        "get_fill",
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1369,8 +2304,18 @@
       "access": "read",
       "signature": "HexValue -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_fill_color", "set_outline", "get_fill", "get_outline"],
-      "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "set_fill_color",
+        "set_outline",
+        "get_fill",
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1380,8 +2325,14 @@
       "access": "read",
       "signature": "Name -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_fill", "get_outline"],
-      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "used_by": [
+        "get_fill",
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1391,8 +2342,14 @@
       "access": "read",
       "signature": "SpotColorName -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_fill", "get_outline"],
-      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "used_by": [
+        "get_fill",
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1402,8 +2359,14 @@
       "access": "read",
       "signature": "Tint -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_fill", "get_outline"],
-      "evidence": ["official_x7_color", "installed_x7_typelib"],
+      "used_by": [
+        "get_fill",
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_color",
+        "installed_x7_typelib"
+      ],
       "live_test_status": "not_run"
     },
     {
@@ -1413,8 +2376,14 @@
       "access": "read_write",
       "signature": "Color -> Color",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["set_outline"],
-      "evidence": ["official_x7_outline", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "set_outline"
+      ],
+      "evidence": [
+        "official_x7_outline",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Outline.Color",
       "live_test_status": "not_run"
     },
@@ -1425,8 +2394,13 @@
       "access": "read_write",
       "signature": "Type -> cdrOutlineType",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_outline"],
-      "evidence": ["official_x7_outline", "installed_x7_typelib"],
+      "used_by": [
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_outline",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Outline.Type",
       "live_test_status": "not_run"
     },
@@ -1437,11 +2411,21 @@
       "access": "read_write",
       "signature": "Width -> Double; unit semantics not established by current evidence",
       "status": "documented_and_typelib_confirmed_behavior_research_required",
-      "used_by": ["list_objects", "set_outline"],
-      "evidence": ["official_x7_outline", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "list_objects",
+        "set_outline"
+      ],
+      "evidence": [
+        "official_x7_outline",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Outline.Width",
       "live_test_status": "not_run",
-      "notes": ["Current MCP boundary labels this value as points, but the X7 class summary and installed type library do not establish that conversion semantic.", "Do not mark set_outline verified until a known-width object is written and read back in X7."]
+      "notes": [
+        "Current MCP boundary labels this value as points, but the X7 class summary and installed type library do not establish that conversion semantic.",
+        "Do not mark set_outline verified until a known-width object is written and read back in X7."
+      ]
     },
     {
       "id": "Outline.SetNoOutline",
@@ -1450,8 +2434,14 @@
       "access": "mutating",
       "signature": "SetNoOutline()",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["set_outline"],
-      "evidence": ["official_x7_outline", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "set_outline"
+      ],
+      "evidence": [
+        "official_x7_outline",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Outline.SetNoOutline",
       "live_test_status": "not_run"
     },
@@ -1462,8 +2452,13 @@
       "access": "read_write",
       "signature": "Style -> OutlineStyle",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["get_outline"],
-      "evidence": ["official_x7_outline", "installed_x7_typelib"],
+      "used_by": [
+        "get_outline"
+      ],
+      "evidence": [
+        "official_x7_outline",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Outline.Style",
       "live_test_status": "not_run"
     },
@@ -1474,8 +2469,14 @@
       "access": "read_write",
       "signature": "Filter -> cdrFilter",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["save_document"],
-      "evidence": ["official_x7_save_options", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "save_document"
+      ],
+      "evidence": [
+        "official_x7_save_options",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/StructSaveAsOptions.Filter",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -1486,8 +2487,14 @@
       "access": "read_write",
       "signature": "Version -> cdrFileVersion",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["save_document"],
-      "evidence": ["official_x7_save_options", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "save_document"
+      ],
+      "evidence": [
+        "official_x7_save_options",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/StructSaveAsOptions.Version",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -1498,8 +2505,14 @@
       "access": "read_write",
       "signature": "Range -> cdrExportRange",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["save_document"],
-      "evidence": ["official_x7_save_options", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "save_document"
+      ],
+      "evidence": [
+        "official_x7_save_options",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/StructSaveAsOptions.Range",
       "live_test_status": "historical_report_needs_reproduction"
     },
@@ -1510,8 +2523,14 @@
       "access": "read_write",
       "signature": "EmbedICCProfile -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["save_document"],
-      "evidence": ["official_x7_save_options", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "save_document"
+      ],
+      "evidence": [
+        "official_x7_save_options",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "historical_report_needs_reproduction"
     },
     {
@@ -1521,8 +2540,14 @@
       "access": "read_write",
       "signature": "EmbedVBAProject -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["save_document"],
-      "evidence": ["official_x7_save_options", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "save_document"
+      ],
+      "evidence": [
+        "official_x7_save_options",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "historical_report_needs_reproduction"
     },
     {
@@ -1532,8 +2557,14 @@
       "access": "read_write",
       "signature": "IncludeCMXData -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["save_document"],
-      "evidence": ["official_x7_save_options", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "save_document"
+      ],
+      "evidence": [
+        "official_x7_save_options",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "historical_report_needs_reproduction"
     },
     {
@@ -1543,10 +2574,18 @@
       "access": "read_write",
       "signature": "Overwrite -> Boolean",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["save_document"],
-      "evidence": ["official_x7_save_options", "installed_x7_typelib", "prototype_source"],
+      "used_by": [
+        "save_document"
+      ],
+      "evidence": [
+        "official_x7_save_options",
+        "installed_x7_typelib",
+        "prototype_source"
+      ],
       "live_test_status": "historical_report_needs_reproduction",
-      "notes": ["Bridge also performs an operating-system existence check before invoking CorelDRAW."]
+      "notes": [
+        "Bridge also performs an operating-system existence check before invoking CorelDRAW."
+      ]
     },
     {
       "id": "Application.CreateShapeRange",
@@ -1555,8 +2594,15 @@
       "access": "read_only_factory",
       "signature": "CreateShapeRange() -> ShapeRange",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["align_objects", "align_to_page", "group_shapes"],
-      "evidence": ["official_x7_application", "installed_x7_typelib"],
+      "used_by": [
+        "align_objects",
+        "align_to_page",
+        "group_shapes"
+      ],
+      "evidence": [
+        "official_x7_application",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Application.CreateShapeRange",
       "live_test_status": "not_run"
     },
@@ -1567,8 +2613,14 @@
       "access": "mutating",
       "signature": "AlignAndDistribute(MethodH, MethodV, AlignTo, DistributeArea, UseOutline, TextAlignOrigin, PointX, PointY, DistributeRect) -> None",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["align_objects", "align_to_page"],
-      "evidence": ["official_x7_shaperange", "installed_x7_typelib"],
+      "used_by": [
+        "align_objects",
+        "align_to_page"
+      ],
+      "evidence": [
+        "official_x7_shaperange",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/ShapeRange.AlignAndDistribute",
       "live_test_status": "not_run"
     },
@@ -1579,8 +2631,13 @@
       "access": "mutating",
       "signature": "AlignRangeToPage(Type) -> None",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["align_to_page"],
-      "evidence": ["official_x7_shaperange", "installed_x7_typelib"],
+      "used_by": [
+        "align_to_page"
+      ],
+      "evidence": [
+        "official_x7_shaperange",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/ShapeRange.AlignRangeToPage",
       "live_test_status": "not_run"
     },
@@ -1591,8 +2648,13 @@
       "access": "mutating",
       "signature": "AlignRangeToPageCenter(Type) -> None",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["align_to_page"],
-      "evidence": ["official_x7_shaperange", "installed_x7_typelib"],
+      "used_by": [
+        "align_to_page"
+      ],
+      "evidence": [
+        "official_x7_shaperange",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/ShapeRange.AlignRangeToPageCenter",
       "live_test_status": "not_run"
     },
@@ -1603,8 +2665,13 @@
       "access": "mutating",
       "signature": "Group() -> Shape",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["group_shapes"],
-      "evidence": ["official_x7_shaperange", "installed_x7_typelib"],
+      "used_by": [
+        "group_shapes"
+      ],
+      "evidence": [
+        "official_x7_shaperange",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/ShapeRange.Group",
       "live_test_status": "not_run"
     },
@@ -1615,8 +2682,13 @@
       "access": "mutating",
       "signature": "Ungroup() -> None",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["ungroup_shapes"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib"],
+      "used_by": [
+        "ungroup_shapes"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.Ungroup",
       "live_test_status": "not_run"
     },
@@ -1627,8 +2699,13 @@
       "access": "mutating",
       "signature": "UngroupAll() -> None",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["ungroup_shapes"],
-      "evidence": ["official_x7_shape", "installed_x7_typelib"],
+      "used_by": [
+        "ungroup_shapes"
+      ],
+      "evidence": [
+        "official_x7_shape",
+        "installed_x7_typelib"
+      ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.UngroupAll",
       "live_test_status": "not_run"
     },
@@ -1642,7 +2719,9 @@
       "used_by": [
         "get_text_properties",
         "add_paragraph_text",
-        "set_text_style"
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1661,7 +2740,9 @@
       "used_by": [
         "get_text_properties",
         "add_paragraph_text",
-        "set_text_style"
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1680,7 +2761,9 @@
       "used_by": [
         "get_text_properties",
         "add_paragraph_text",
-        "set_text_style"
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1699,7 +2782,9 @@
       "used_by": [
         "get_text_properties",
         "add_paragraph_text",
-        "set_text_style"
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1718,7 +2803,9 @@
       "used_by": [
         "get_text_properties",
         "add_paragraph_text",
-        "set_text_style"
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1737,7 +2824,9 @@
       "used_by": [
         "get_text_properties",
         "add_paragraph_text",
-        "set_text_style"
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1756,7 +2845,9 @@
       "used_by": [
         "get_text_properties",
         "add_paragraph_text",
-        "set_text_style"
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1775,7 +2866,9 @@
       "used_by": [
         "get_text_properties",
         "add_paragraph_text",
-        "set_text_style"
+        "set_text_style",
+        "inspect_text_template",
+        "execute_template_batch"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2054,6 +3147,70 @@
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.parentgroup",
       "live_test_status": "not_run"
+    },
+    {
+      "id": "Document.Close",
+      "owner": "Document",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Document.Close (see retained installed type-library descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "x7_template_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/document.close",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Document.BeginCommandGroup",
+      "owner": "Document",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Document.BeginCommandGroup (see retained installed type-library descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "x7_template_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/document.begincommandgroup",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Document.EndCommandGroup",
+      "owner": "Document",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Document.EndCommandGroup (see retained installed type-library descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "x7_template_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/document.endcommandgroup",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Layer.Activate",
+      "owner": "Layer",
+      "kind": "method",
+      "access": "mutating",
+      "signature": "Layer.Activate (see retained installed type-library descriptor)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "execute_template_batch"
+      ],
+      "evidence": [
+        "x7_template_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/layer.activate",
+      "live_test_status": "not_run_deferred"
     }
   ]
 }

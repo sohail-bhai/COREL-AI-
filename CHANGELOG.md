@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Four reusable template tools: bounded source snapshots, literal UTF-8 CSV,
+  deterministic record/copy planning and independent full/partial sheet outputs.
+  Final row/formatting/static geometry and native ownership checks cover shared
+  copies, source preservation, overflow and verified cleanup. Twenty-four focused
+  tests pass; the disposable native gate and visual review remain deferred.
+- Retained installed X7 PDF signatures/enums for controlled export research;
+  no application connection was used.
 - Worker recovery (SAFE-002): immediate operator/outcome metadata tools and
   exact-ID native reconciliation, one admitted COM call, pending-timeout
   cancellation, no automatic replay of running work, bounded pinned history,

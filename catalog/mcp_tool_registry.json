@@ -1905,6 +1905,450 @@
         "native_z_order"
       ],
       "additionalProperties": false
+    },
+    "template_node": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "minItems": 0,
+          "maxItems": 16
+        },
+        "name": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "type_code": {
+          "type": "integer"
+        },
+        "identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "static_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bounds_inches": {
+          "$ref": "#/schema_definitions/layout_bounds_inches"
+        },
+        "matrix": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000
+          },
+          "minItems": 6,
+          "maxItems": 6
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 10000
+                },
+                "style": {
+                  "$ref": "#/schema_definitions/actual_text_style"
+                },
+                "layout": {
+                  "$ref": "#/schema_definitions/text_layout_readback"
+                }
+              },
+              "required": [
+                "content",
+                "style",
+                "layout"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fill": {
+          "$ref": "#/schema_definitions/fill_readback"
+        },
+        "outline": {
+          "$ref": "#/schema_definitions/outline_readback"
+        }
+      },
+      "required": [
+        "path",
+        "name",
+        "type_code",
+        "identity",
+        "static_id",
+        "bounds_inches",
+        "matrix",
+        "text",
+        "fill",
+        "outline"
+      ],
+      "additionalProperties": false
+    },
+    "text_template": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "text-template-v1"
+        },
+        "template_reference": {
+          "$ref": "#/schema_definitions/object_reference"
+        },
+        "bounds_inches": {
+          "$ref": "#/schema_definitions/layout_bounds_inches"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/template_node"
+          },
+          "minItems": 2,
+          "maxItems": 1000
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema",
+        "template_reference",
+        "bounds_inches",
+        "nodes",
+        "fingerprint"
+      ],
+      "additionalProperties": false
+    },
+    "template_batch_request": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "$ref": "#/schema_definitions/text_template"
+        },
+        "field_mapping": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 128,
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "minProperties": 1,
+            "maxProperties": 128,
+            "propertyNames": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 10000,
+              "pattern": "^[^\\u0000]*$"
+            }
+          },
+          "minItems": 1,
+          "maxItems": 1000
+        },
+        "field_regions": {
+          "type": "object",
+          "maxProperties": 128,
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 200
+              },
+              "y": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 200
+              },
+              "width": {
+                "type": "number",
+                "minimum": 0.001,
+                "maximum": 200
+              },
+              "height": {
+                "type": "number",
+                "minimum": 0.001,
+                "maximum": 200
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "width",
+              "height"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "sheet_width_inches": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 200
+        },
+        "sheet_height_inches": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 200
+        },
+        "margin_inches": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50
+        },
+        "gutter_inches": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50
+        },
+        "copies_per_record": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "record_key": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duplicate_policy": {
+          "enum": [
+            "reject",
+            "allow"
+          ]
+        },
+        "overflow_policy": {
+          "enum": [
+            "reject",
+            "report"
+          ]
+        }
+      },
+      "required": [
+        "template",
+        "field_mapping",
+        "records",
+        "field_regions",
+        "sheet_width_inches",
+        "sheet_height_inches",
+        "margin_inches",
+        "gutter_inches",
+        "copies_per_record",
+        "record_key",
+        "duplicate_policy",
+        "overflow_policy"
+      ],
+      "additionalProperties": false
+    },
+    "template_placement": {
+      "type": "object",
+      "properties": {
+        "record_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "copy_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "page_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "x": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "y": {
+          "type": "number",
+          "minimum": -10000,
+          "maximum": 10000
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 200
+        },
+        "height": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 200
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        }
+      },
+      "required": [
+        "record_index",
+        "copy_index",
+        "page_index",
+        "x",
+        "y",
+        "width",
+        "height",
+        "label"
+      ],
+      "additionalProperties": false
+    },
+    "template_batch_plan": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "template-batch-plan-v1"
+        },
+        "request": {
+          "$ref": "#/schema_definitions/template_batch_request"
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "record_count": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "item_count": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "sheet_count": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "columns": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "rows": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "items_per_sheet": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "unused_columns": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "minItems": 0,
+              "maxItems": 128000
+            },
+            "duplicate_rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "record_index": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000
+                  },
+                  "first_record_index": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000
+                  }
+                },
+                "required": [
+                  "record_index",
+                  "first_record_index"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 999
+            }
+          },
+          "required": [
+            "record_count",
+            "item_count",
+            "sheet_count",
+            "columns",
+            "rows",
+            "items_per_sheet",
+            "unused_columns",
+            "duplicate_rows"
+          ],
+          "additionalProperties": false
+        },
+        "placements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/template_placement"
+          },
+          "minItems": 1,
+          "maxItems": 2000
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema",
+        "request",
+        "summary",
+        "placements",
+        "fingerprint"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -5411,6 +5855,1444 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Synthetic validation refusal.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "inspect_text_template": {
+      "request": {
+        "object_name": "Template"
+      },
+      "success": {
+        "ok": true,
+        "tool": "inspect_text_template",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "template": {
+            "schema": "text-template-v1",
+            "template_reference": {
+              "version": 1,
+              "bridge_session_id": "e6cdefce9048322797f321c79bb43b10",
+              "document_session_id": "doc-0001",
+              "page_identity": "8e6003c4bd6d2adba577459bbf54b53462285df6b6d8cf0fc07119f8259f157b",
+              "layer_identity": "356621c725389ef0a8e26550b46230730a87d628ae45f31a064f6899f5c01d23",
+              "ancestor_identities": [],
+              "shape_identity": "447fe0dfa7d4724622fdd41d76a565680de9e92630f7250221462d33ea7ea059",
+              "static_id": 100,
+              "object_name": "Template",
+              "shape_type_code": 7,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                1
+              ],
+              "signature": "853264b681c09680a77dae7c0ae21ab9351dafab98c7381947326e294a5bacc4"
+            },
+            "bounds_inches": {
+              "x": 1.0,
+              "y": 1.0,
+              "width": 3.0,
+              "height": 2.0
+            },
+            "nodes": [
+              {
+                "path": [],
+                "name": "Template",
+                "type_code": 7,
+                "identity": "447fe0dfa7d4724622fdd41d76a565680de9e92630f7250221462d33ea7ea059",
+                "static_id": 100,
+                "bounds_inches": {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "width": 3.0,
+                  "height": 2.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "text": null,
+                "fill": {
+                  "type_code": 0,
+                  "type": "none",
+                  "color": null
+                },
+                "outline": {
+                  "type_code": 0,
+                  "type": "none",
+                  "present": false,
+                  "width_raw": null,
+                  "width_units": null,
+                  "color": null
+                }
+              },
+              {
+                "path": [
+                  1
+                ],
+                "name": "Background",
+                "type_code": 1,
+                "identity": "54e0a6b1b63ed10af1bfd2fbdbb5027083f80a2f607af93ca0a43548f7218506",
+                "static_id": 101,
+                "bounds_inches": {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "width": 3.0,
+                  "height": 2.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "text": null,
+                "fill": {
+                  "type_code": 0,
+                  "type": "none",
+                  "color": null
+                },
+                "outline": {
+                  "type_code": 0,
+                  "type": "none",
+                  "present": false,
+                  "width_raw": null,
+                  "width_units": null,
+                  "color": null
+                }
+              },
+              {
+                "path": [
+                  2
+                ],
+                "name": "Name",
+                "type_code": 6,
+                "identity": "08cf0dc44eb3bb41399f1240a8509361f2b3d6008a56ae615a2ec609008d3738",
+                "static_id": 102,
+                "bounds_inches": {
+                  "x": 1.2,
+                  "y": 2.0,
+                  "width": 0.2,
+                  "height": 0.2
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  1.2,
+                  2.0
+                ],
+                "text": {
+                  "content": "NAME",
+                  "style": {
+                    "font": "Arial",
+                    "size_points": 12.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": "none",
+                    "alignment": "left",
+                    "unavailable_or_mixed_properties": []
+                  },
+                  "layout": {
+                    "text_type_code": 0,
+                    "text_type": "artistic",
+                    "overflow": null,
+                    "overflow_scope": "linked_story",
+                    "frame_count": 1,
+                    "char_spacing_native": 0.0,
+                    "word_spacing_native": 100.0,
+                    "line_spacing_native": 100.0,
+                    "line_spacing_type_code": 0,
+                    "unavailable_properties": []
+                  }
+                },
+                "fill": {
+                  "type_code": 0,
+                  "type": "none",
+                  "color": null
+                },
+                "outline": {
+                  "type_code": 0,
+                  "type": "none",
+                  "present": false,
+                  "width_raw": null,
+                  "width_units": null,
+                  "color": null
+                }
+              },
+              {
+                "path": [
+                  3
+                ],
+                "name": "ID",
+                "type_code": 6,
+                "identity": "ef896f9bff421d0cdece809238edd96f0141d58a8d07a532dd6a5850d5c9481e",
+                "static_id": 103,
+                "bounds_inches": {
+                  "x": 1.2,
+                  "y": 1.5,
+                  "width": 0.1,
+                  "height": 0.2
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  1.2,
+                  1.5
+                ],
+                "text": {
+                  "content": "ID",
+                  "style": {
+                    "font": "Arial",
+                    "size_points": 12.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": "none",
+                    "alignment": "left",
+                    "unavailable_or_mixed_properties": []
+                  },
+                  "layout": {
+                    "text_type_code": 0,
+                    "text_type": "artistic",
+                    "overflow": null,
+                    "overflow_scope": "linked_story",
+                    "frame_count": 1,
+                    "char_spacing_native": 0.0,
+                    "word_spacing_native": 100.0,
+                    "line_spacing_native": 100.0,
+                    "line_spacing_type_code": 0,
+                    "unavailable_properties": []
+                  }
+                },
+                "fill": {
+                  "type_code": 0,
+                  "type": "none",
+                  "color": null
+                },
+                "outline": {
+                  "type_code": 0,
+                  "type": "none",
+                  "present": false,
+                  "width_raw": null,
+                  "width_units": null,
+                  "color": null
+                }
+              }
+            ],
+            "fingerprint": "0b392170748b5e7b5a0fd5ba34b353975081479c23f007f784dd2e7e55dbc816"
+          },
+          "text_object_names": [
+            "Name",
+            "ID"
+          ],
+          "preservation_scope": "identity_structure_geometry_text_basic_appearance"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "inspect_text_template",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Template request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "read_template_csv": {
+      "request": {
+        "csv_path": "C:/jobs/members.csv"
+      },
+      "success": {
+        "ok": true,
+        "tool": "read_template_csv",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "columns": [
+            "member",
+            "number"
+          ],
+          "records": [
+            {
+              "member": "Alia",
+              "number": "001"
+            }
+          ],
+          "row_count": 1,
+          "source_lines": [
+            2
+          ],
+          "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "read_template_csv",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Template request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "plan_template_batch": {
+      "request": {
+        "template": {
+          "schema": "text-template-v1",
+          "template_reference": {
+            "version": 1,
+            "bridge_session_id": "e6cdefce9048322797f321c79bb43b10",
+            "document_session_id": "doc-0001",
+            "page_identity": "8e6003c4bd6d2adba577459bbf54b53462285df6b6d8cf0fc07119f8259f157b",
+            "layer_identity": "356621c725389ef0a8e26550b46230730a87d628ae45f31a064f6899f5c01d23",
+            "ancestor_identities": [],
+            "shape_identity": "447fe0dfa7d4724622fdd41d76a565680de9e92630f7250221462d33ea7ea059",
+            "static_id": 100,
+            "object_name": "Template",
+            "shape_type_code": 7,
+            "page_index": 1,
+            "layer_index": 1,
+            "shape_path": [
+              1
+            ],
+            "signature": "853264b681c09680a77dae7c0ae21ab9351dafab98c7381947326e294a5bacc4"
+          },
+          "bounds_inches": {
+            "x": 1.0,
+            "y": 1.0,
+            "width": 3.0,
+            "height": 2.0
+          },
+          "nodes": [
+            {
+              "path": [],
+              "name": "Template",
+              "type_code": 7,
+              "identity": "447fe0dfa7d4724622fdd41d76a565680de9e92630f7250221462d33ea7ea059",
+              "static_id": 100,
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 1.0,
+                "width": 3.0,
+                "height": 2.0
+              },
+              "matrix": [
+                1.0,
+                0.0,
+                0.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "text": null,
+              "fill": {
+                "type_code": 0,
+                "type": "none",
+                "color": null
+              },
+              "outline": {
+                "type_code": 0,
+                "type": "none",
+                "present": false,
+                "width_raw": null,
+                "width_units": null,
+                "color": null
+              }
+            },
+            {
+              "path": [
+                1
+              ],
+              "name": "Background",
+              "type_code": 1,
+              "identity": "54e0a6b1b63ed10af1bfd2fbdbb5027083f80a2f607af93ca0a43548f7218506",
+              "static_id": 101,
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 1.0,
+                "width": 3.0,
+                "height": 2.0
+              },
+              "matrix": [
+                1.0,
+                0.0,
+                0.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "text": null,
+              "fill": {
+                "type_code": 0,
+                "type": "none",
+                "color": null
+              },
+              "outline": {
+                "type_code": 0,
+                "type": "none",
+                "present": false,
+                "width_raw": null,
+                "width_units": null,
+                "color": null
+              }
+            },
+            {
+              "path": [
+                2
+              ],
+              "name": "Name",
+              "type_code": 6,
+              "identity": "08cf0dc44eb3bb41399f1240a8509361f2b3d6008a56ae615a2ec609008d3738",
+              "static_id": 102,
+              "bounds_inches": {
+                "x": 1.2,
+                "y": 2.0,
+                "width": 0.2,
+                "height": 0.2
+              },
+              "matrix": [
+                1.0,
+                0.0,
+                0.0,
+                1.0,
+                1.2,
+                2.0
+              ],
+              "text": {
+                "content": "NAME",
+                "style": {
+                  "font": "Arial",
+                  "size_points": 12.0,
+                  "bold": false,
+                  "italic": false,
+                  "underline": "none",
+                  "alignment": "left",
+                  "unavailable_or_mixed_properties": []
+                },
+                "layout": {
+                  "text_type_code": 0,
+                  "text_type": "artistic",
+                  "overflow": null,
+                  "overflow_scope": "linked_story",
+                  "frame_count": 1,
+                  "char_spacing_native": 0.0,
+                  "word_spacing_native": 100.0,
+                  "line_spacing_native": 100.0,
+                  "line_spacing_type_code": 0,
+                  "unavailable_properties": []
+                }
+              },
+              "fill": {
+                "type_code": 0,
+                "type": "none",
+                "color": null
+              },
+              "outline": {
+                "type_code": 0,
+                "type": "none",
+                "present": false,
+                "width_raw": null,
+                "width_units": null,
+                "color": null
+              }
+            },
+            {
+              "path": [
+                3
+              ],
+              "name": "ID",
+              "type_code": 6,
+              "identity": "ef896f9bff421d0cdece809238edd96f0141d58a8d07a532dd6a5850d5c9481e",
+              "static_id": 103,
+              "bounds_inches": {
+                "x": 1.2,
+                "y": 1.5,
+                "width": 0.1,
+                "height": 0.2
+              },
+              "matrix": [
+                1.0,
+                0.0,
+                0.0,
+                1.0,
+                1.2,
+                1.5
+              ],
+              "text": {
+                "content": "ID",
+                "style": {
+                  "font": "Arial",
+                  "size_points": 12.0,
+                  "bold": false,
+                  "italic": false,
+                  "underline": "none",
+                  "alignment": "left",
+                  "unavailable_or_mixed_properties": []
+                },
+                "layout": {
+                  "text_type_code": 0,
+                  "text_type": "artistic",
+                  "overflow": null,
+                  "overflow_scope": "linked_story",
+                  "frame_count": 1,
+                  "char_spacing_native": 0.0,
+                  "word_spacing_native": 100.0,
+                  "line_spacing_native": 100.0,
+                  "line_spacing_type_code": 0,
+                  "unavailable_properties": []
+                }
+              },
+              "fill": {
+                "type_code": 0,
+                "type": "none",
+                "color": null
+              },
+              "outline": {
+                "type_code": 0,
+                "type": "none",
+                "present": false,
+                "width_raw": null,
+                "width_units": null,
+                "color": null
+              }
+            }
+          ],
+          "fingerprint": "0b392170748b5e7b5a0fd5ba34b353975081479c23f007f784dd2e7e55dbc816"
+        },
+        "field_mapping": {
+          "member": "Name",
+          "number": "ID"
+        },
+        "records": [
+          {
+            "member": "Alia",
+            "number": "001"
+          },
+          {
+            "member": "Bilal",
+            "number": "002"
+          },
+          {
+            "member": "Cora",
+            "number": "003"
+          }
+        ],
+        "field_regions": {},
+        "sheet_width_inches": 6.5,
+        "sheet_height_inches": 2.5,
+        "margin_inches": 0.25,
+        "gutter_inches": 0.0,
+        "copies_per_record": 1,
+        "record_key": "number",
+        "duplicate_policy": "reject",
+        "overflow_policy": "reject"
+      },
+      "success": {
+        "ok": true,
+        "tool": "plan_template_batch",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "schema": "template-batch-plan-v1",
+          "request": {
+            "template": {
+              "schema": "text-template-v1",
+              "template_reference": {
+                "version": 1,
+                "bridge_session_id": "e6cdefce9048322797f321c79bb43b10",
+                "document_session_id": "doc-0001",
+                "page_identity": "8e6003c4bd6d2adba577459bbf54b53462285df6b6d8cf0fc07119f8259f157b",
+                "layer_identity": "356621c725389ef0a8e26550b46230730a87d628ae45f31a064f6899f5c01d23",
+                "ancestor_identities": [],
+                "shape_identity": "447fe0dfa7d4724622fdd41d76a565680de9e92630f7250221462d33ea7ea059",
+                "static_id": 100,
+                "object_name": "Template",
+                "shape_type_code": 7,
+                "page_index": 1,
+                "layer_index": 1,
+                "shape_path": [
+                  1
+                ],
+                "signature": "853264b681c09680a77dae7c0ae21ab9351dafab98c7381947326e294a5bacc4"
+              },
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 1.0,
+                "width": 3.0,
+                "height": 2.0
+              },
+              "nodes": [
+                {
+                  "path": [],
+                  "name": "Template",
+                  "type_code": 7,
+                  "identity": "447fe0dfa7d4724622fdd41d76a565680de9e92630f7250221462d33ea7ea059",
+                  "static_id": 100,
+                  "bounds_inches": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "width": 3.0,
+                    "height": 2.0
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "text": null,
+                  "fill": {
+                    "type_code": 0,
+                    "type": "none",
+                    "color": null
+                  },
+                  "outline": {
+                    "type_code": 0,
+                    "type": "none",
+                    "present": false,
+                    "width_raw": null,
+                    "width_units": null,
+                    "color": null
+                  }
+                },
+                {
+                  "path": [
+                    1
+                  ],
+                  "name": "Background",
+                  "type_code": 1,
+                  "identity": "54e0a6b1b63ed10af1bfd2fbdbb5027083f80a2f607af93ca0a43548f7218506",
+                  "static_id": 101,
+                  "bounds_inches": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "width": 3.0,
+                    "height": 2.0
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "text": null,
+                  "fill": {
+                    "type_code": 0,
+                    "type": "none",
+                    "color": null
+                  },
+                  "outline": {
+                    "type_code": 0,
+                    "type": "none",
+                    "present": false,
+                    "width_raw": null,
+                    "width_units": null,
+                    "color": null
+                  }
+                },
+                {
+                  "path": [
+                    2
+                  ],
+                  "name": "Name",
+                  "type_code": 6,
+                  "identity": "08cf0dc44eb3bb41399f1240a8509361f2b3d6008a56ae615a2ec609008d3738",
+                  "static_id": 102,
+                  "bounds_inches": {
+                    "x": 1.2,
+                    "y": 2.0,
+                    "width": 0.2,
+                    "height": 0.2
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.2,
+                    2.0
+                  ],
+                  "text": {
+                    "content": "NAME",
+                    "style": {
+                      "font": "Arial",
+                      "size_points": 12.0,
+                      "bold": false,
+                      "italic": false,
+                      "underline": "none",
+                      "alignment": "left",
+                      "unavailable_or_mixed_properties": []
+                    },
+                    "layout": {
+                      "text_type_code": 0,
+                      "text_type": "artistic",
+                      "overflow": null,
+                      "overflow_scope": "linked_story",
+                      "frame_count": 1,
+                      "char_spacing_native": 0.0,
+                      "word_spacing_native": 100.0,
+                      "line_spacing_native": 100.0,
+                      "line_spacing_type_code": 0,
+                      "unavailable_properties": []
+                    }
+                  },
+                  "fill": {
+                    "type_code": 0,
+                    "type": "none",
+                    "color": null
+                  },
+                  "outline": {
+                    "type_code": 0,
+                    "type": "none",
+                    "present": false,
+                    "width_raw": null,
+                    "width_units": null,
+                    "color": null
+                  }
+                },
+                {
+                  "path": [
+                    3
+                  ],
+                  "name": "ID",
+                  "type_code": 6,
+                  "identity": "ef896f9bff421d0cdece809238edd96f0141d58a8d07a532dd6a5850d5c9481e",
+                  "static_id": 103,
+                  "bounds_inches": {
+                    "x": 1.2,
+                    "y": 1.5,
+                    "width": 0.1,
+                    "height": 0.2
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.2,
+                    1.5
+                  ],
+                  "text": {
+                    "content": "ID",
+                    "style": {
+                      "font": "Arial",
+                      "size_points": 12.0,
+                      "bold": false,
+                      "italic": false,
+                      "underline": "none",
+                      "alignment": "left",
+                      "unavailable_or_mixed_properties": []
+                    },
+                    "layout": {
+                      "text_type_code": 0,
+                      "text_type": "artistic",
+                      "overflow": null,
+                      "overflow_scope": "linked_story",
+                      "frame_count": 1,
+                      "char_spacing_native": 0.0,
+                      "word_spacing_native": 100.0,
+                      "line_spacing_native": 100.0,
+                      "line_spacing_type_code": 0,
+                      "unavailable_properties": []
+                    }
+                  },
+                  "fill": {
+                    "type_code": 0,
+                    "type": "none",
+                    "color": null
+                  },
+                  "outline": {
+                    "type_code": 0,
+                    "type": "none",
+                    "present": false,
+                    "width_raw": null,
+                    "width_units": null,
+                    "color": null
+                  }
+                }
+              ],
+              "fingerprint": "0b392170748b5e7b5a0fd5ba34b353975081479c23f007f784dd2e7e55dbc816"
+            },
+            "field_mapping": {
+              "member": "Name",
+              "number": "ID"
+            },
+            "records": [
+              {
+                "member": "Alia",
+                "number": "001"
+              },
+              {
+                "member": "Bilal",
+                "number": "002"
+              },
+              {
+                "member": "Cora",
+                "number": "003"
+              }
+            ],
+            "field_regions": {},
+            "sheet_width_inches": 6.5,
+            "sheet_height_inches": 2.5,
+            "margin_inches": 0.25,
+            "gutter_inches": 0.0,
+            "copies_per_record": 1,
+            "record_key": "number",
+            "duplicate_policy": "reject",
+            "overflow_policy": "reject"
+          },
+          "summary": {
+            "record_count": 3,
+            "item_count": 3,
+            "sheet_count": 2,
+            "columns": 2,
+            "rows": 1,
+            "items_per_sheet": 2,
+            "unused_columns": [],
+            "duplicate_rows": []
+          },
+          "placements": [
+            {
+              "record_index": 1,
+              "copy_index": 1,
+              "page_index": 1,
+              "x": 0.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "label": "Batch_R0001_C001"
+            },
+            {
+              "record_index": 2,
+              "copy_index": 1,
+              "page_index": 1,
+              "x": 3.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "label": "Batch_R0002_C001"
+            },
+            {
+              "record_index": 3,
+              "copy_index": 1,
+              "page_index": 2,
+              "x": 0.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "label": "Batch_R0003_C001"
+            }
+          ],
+          "fingerprint": "1da24e95e413a6502f3df7fcf35f8ee2114ffd2e73bf4ff4889a22e4e2dbf5ae"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "plan_template_batch",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Template request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "execute_template_batch": {
+      "request": {
+        "plan": {
+          "schema": "template-batch-plan-v1",
+          "request": {
+            "template": {
+              "schema": "text-template-v1",
+              "template_reference": {
+                "version": 1,
+                "bridge_session_id": "e6cdefce9048322797f321c79bb43b10",
+                "document_session_id": "doc-0001",
+                "page_identity": "8e6003c4bd6d2adba577459bbf54b53462285df6b6d8cf0fc07119f8259f157b",
+                "layer_identity": "356621c725389ef0a8e26550b46230730a87d628ae45f31a064f6899f5c01d23",
+                "ancestor_identities": [],
+                "shape_identity": "447fe0dfa7d4724622fdd41d76a565680de9e92630f7250221462d33ea7ea059",
+                "static_id": 100,
+                "object_name": "Template",
+                "shape_type_code": 7,
+                "page_index": 1,
+                "layer_index": 1,
+                "shape_path": [
+                  1
+                ],
+                "signature": "853264b681c09680a77dae7c0ae21ab9351dafab98c7381947326e294a5bacc4"
+              },
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 1.0,
+                "width": 3.0,
+                "height": 2.0
+              },
+              "nodes": [
+                {
+                  "path": [],
+                  "name": "Template",
+                  "type_code": 7,
+                  "identity": "447fe0dfa7d4724622fdd41d76a565680de9e92630f7250221462d33ea7ea059",
+                  "static_id": 100,
+                  "bounds_inches": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "width": 3.0,
+                    "height": 2.0
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "text": null,
+                  "fill": {
+                    "type_code": 0,
+                    "type": "none",
+                    "color": null
+                  },
+                  "outline": {
+                    "type_code": 0,
+                    "type": "none",
+                    "present": false,
+                    "width_raw": null,
+                    "width_units": null,
+                    "color": null
+                  }
+                },
+                {
+                  "path": [
+                    1
+                  ],
+                  "name": "Background",
+                  "type_code": 1,
+                  "identity": "54e0a6b1b63ed10af1bfd2fbdbb5027083f80a2f607af93ca0a43548f7218506",
+                  "static_id": 101,
+                  "bounds_inches": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "width": 3.0,
+                    "height": 2.0
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "text": null,
+                  "fill": {
+                    "type_code": 0,
+                    "type": "none",
+                    "color": null
+                  },
+                  "outline": {
+                    "type_code": 0,
+                    "type": "none",
+                    "present": false,
+                    "width_raw": null,
+                    "width_units": null,
+                    "color": null
+                  }
+                },
+                {
+                  "path": [
+                    2
+                  ],
+                  "name": "Name",
+                  "type_code": 6,
+                  "identity": "08cf0dc44eb3bb41399f1240a8509361f2b3d6008a56ae615a2ec609008d3738",
+                  "static_id": 102,
+                  "bounds_inches": {
+                    "x": 1.2,
+                    "y": 2.0,
+                    "width": 0.2,
+                    "height": 0.2
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.2,
+                    2.0
+                  ],
+                  "text": {
+                    "content": "NAME",
+                    "style": {
+                      "font": "Arial",
+                      "size_points": 12.0,
+                      "bold": false,
+                      "italic": false,
+                      "underline": "none",
+                      "alignment": "left",
+                      "unavailable_or_mixed_properties": []
+                    },
+                    "layout": {
+                      "text_type_code": 0,
+                      "text_type": "artistic",
+                      "overflow": null,
+                      "overflow_scope": "linked_story",
+                      "frame_count": 1,
+                      "char_spacing_native": 0.0,
+                      "word_spacing_native": 100.0,
+                      "line_spacing_native": 100.0,
+                      "line_spacing_type_code": 0,
+                      "unavailable_properties": []
+                    }
+                  },
+                  "fill": {
+                    "type_code": 0,
+                    "type": "none",
+                    "color": null
+                  },
+                  "outline": {
+                    "type_code": 0,
+                    "type": "none",
+                    "present": false,
+                    "width_raw": null,
+                    "width_units": null,
+                    "color": null
+                  }
+                },
+                {
+                  "path": [
+                    3
+                  ],
+                  "name": "ID",
+                  "type_code": 6,
+                  "identity": "ef896f9bff421d0cdece809238edd96f0141d58a8d07a532dd6a5850d5c9481e",
+                  "static_id": 103,
+                  "bounds_inches": {
+                    "x": 1.2,
+                    "y": 1.5,
+                    "width": 0.1,
+                    "height": 0.2
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.2,
+                    1.5
+                  ],
+                  "text": {
+                    "content": "ID",
+                    "style": {
+                      "font": "Arial",
+                      "size_points": 12.0,
+                      "bold": false,
+                      "italic": false,
+                      "underline": "none",
+                      "alignment": "left",
+                      "unavailable_or_mixed_properties": []
+                    },
+                    "layout": {
+                      "text_type_code": 0,
+                      "text_type": "artistic",
+                      "overflow": null,
+                      "overflow_scope": "linked_story",
+                      "frame_count": 1,
+                      "char_spacing_native": 0.0,
+                      "word_spacing_native": 100.0,
+                      "line_spacing_native": 100.0,
+                      "line_spacing_type_code": 0,
+                      "unavailable_properties": []
+                    }
+                  },
+                  "fill": {
+                    "type_code": 0,
+                    "type": "none",
+                    "color": null
+                  },
+                  "outline": {
+                    "type_code": 0,
+                    "type": "none",
+                    "present": false,
+                    "width_raw": null,
+                    "width_units": null,
+                    "color": null
+                  }
+                }
+              ],
+              "fingerprint": "0b392170748b5e7b5a0fd5ba34b353975081479c23f007f784dd2e7e55dbc816"
+            },
+            "field_mapping": {
+              "member": "Name",
+              "number": "ID"
+            },
+            "records": [
+              {
+                "member": "Alia",
+                "number": "001"
+              },
+              {
+                "member": "Bilal",
+                "number": "002"
+              },
+              {
+                "member": "Cora",
+                "number": "003"
+              }
+            ],
+            "field_regions": {},
+            "sheet_width_inches": 6.5,
+            "sheet_height_inches": 2.5,
+            "margin_inches": 0.25,
+            "gutter_inches": 0.0,
+            "copies_per_record": 1,
+            "record_key": "number",
+            "duplicate_policy": "reject",
+            "overflow_policy": "reject"
+          },
+          "summary": {
+            "record_count": 3,
+            "item_count": 3,
+            "sheet_count": 2,
+            "columns": 2,
+            "rows": 1,
+            "items_per_sheet": 2,
+            "unused_columns": [],
+            "duplicate_rows": []
+          },
+          "placements": [
+            {
+              "record_index": 1,
+              "copy_index": 1,
+              "page_index": 1,
+              "x": 0.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "label": "Batch_R0001_C001"
+            },
+            {
+              "record_index": 2,
+              "copy_index": 1,
+              "page_index": 1,
+              "x": 3.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "label": "Batch_R0002_C001"
+            },
+            {
+              "record_index": 3,
+              "copy_index": 1,
+              "page_index": 2,
+              "x": 0.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "label": "Batch_R0003_C001"
+            }
+          ],
+          "fingerprint": "1da24e95e413a6502f3df7fcf35f8ee2114ffd2e73bf4ff4889a22e4e2dbf5ae"
+        },
+        "approved_fingerprint": "1da24e95e413a6502f3df7fcf35f8ee2114ffd2e73bf4ff4889a22e4e2dbf5ae"
+      },
+      "success": {
+        "ok": true,
+        "tool": "execute_template_batch",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "record_count": 3,
+          "item_count": 3,
+          "sheet_count": 2,
+          "output_document": {
+            "name": "Output1",
+            "document_session_id": "doc-0003"
+          },
+          "source_preservation": {
+            "verified": true,
+            "scope": "identity_structure_geometry_text_basic_appearance"
+          },
+          "fit_checks_passed": true,
+          "fit_issue_count": 0,
+          "fit_issues": [],
+          "fit_issues_truncated": false,
+          "items": [
+            {
+              "record_index": 1,
+              "copy_index": 1,
+              "page_index": 1,
+              "object_name": "Batch_R0001_C001",
+              "object_reference": {
+                "version": 1,
+                "bridge_session_id": "e6cdefce9048322797f321c79bb43b10",
+                "document_session_id": "doc-0003",
+                "page_identity": "46541fe98863eb7f8c3b76dae7ac5f175bac2645a8276e36e35b9dfccb9c067d",
+                "layer_identity": "9842333e75a5724e7b0a9b190fc3c28366a3ef0c2971cf6cff706f9ca52f3169",
+                "ancestor_identities": [],
+                "shape_identity": "9698f2925407776917bdf216be78241043f9cedcb45d06599aa29c4d3766539f",
+                "static_id": 104,
+                "object_name": "Batch_R0001_C001",
+                "shape_type_code": 7,
+                "page_index": 1,
+                "layer_index": 2,
+                "shape_path": [
+                  1
+                ],
+                "signature": "e82b4ed374b57597ce6c87a2dbd45b9cef4a6a777402dc1b38710bbbd188337b"
+              },
+              "fields": [
+                {
+                  "column": "member",
+                  "content_matches": true,
+                  "style_matches": true,
+                  "overflow": null,
+                  "fits_region": true,
+                  "bounds_inches": {
+                    "x": 0.45,
+                    "y": 1.25,
+                    "width": 0.2,
+                    "height": 0.2
+                  },
+                  "region_inches": {
+                    "x": 0.25,
+                    "y": 0.25,
+                    "width": 3.0,
+                    "height": 2.0
+                  }
+                },
+                {
+                  "column": "number",
+                  "content_matches": true,
+                  "style_matches": true,
+                  "overflow": null,
+                  "fits_region": true,
+                  "bounds_inches": {
+                    "x": 0.45,
+                    "y": 0.75,
+                    "width": 0.15,
+                    "height": 0.2
+                  },
+                  "region_inches": {
+                    "x": 0.25,
+                    "y": 0.25,
+                    "width": 3.0,
+                    "height": 2.0
+                  }
+                }
+              ],
+              "fields_truncated": false
+            },
+            {
+              "record_index": 2,
+              "copy_index": 1,
+              "page_index": 1,
+              "object_name": "Batch_R0002_C001",
+              "object_reference": {
+                "version": 1,
+                "bridge_session_id": "e6cdefce9048322797f321c79bb43b10",
+                "document_session_id": "doc-0003",
+                "page_identity": "46541fe98863eb7f8c3b76dae7ac5f175bac2645a8276e36e35b9dfccb9c067d",
+                "layer_identity": "9842333e75a5724e7b0a9b190fc3c28366a3ef0c2971cf6cff706f9ca52f3169",
+                "ancestor_identities": [],
+                "shape_identity": "79f7ae143fccf5d83769df0aeb14afc996786cb8410e4b063147e4408b0e3a7b",
+                "static_id": 108,
+                "object_name": "Batch_R0002_C001",
+                "shape_type_code": 7,
+                "page_index": 1,
+                "layer_index": 2,
+                "shape_path": [
+                  2
+                ],
+                "signature": "9f5f441eea9f711eba1d084b055c99b7c88f473e970563b63f536711db0206a1"
+              },
+              "fields": [
+                {
+                  "column": "member",
+                  "content_matches": true,
+                  "style_matches": true,
+                  "overflow": null,
+                  "fits_region": true,
+                  "bounds_inches": {
+                    "x": 3.45,
+                    "y": 1.25,
+                    "width": 0.25,
+                    "height": 0.2
+                  },
+                  "region_inches": {
+                    "x": 3.25,
+                    "y": 0.25,
+                    "width": 3.0,
+                    "height": 2.0
+                  }
+                },
+                {
+                  "column": "number",
+                  "content_matches": true,
+                  "style_matches": true,
+                  "overflow": null,
+                  "fits_region": true,
+                  "bounds_inches": {
+                    "x": 3.45,
+                    "y": 0.75,
+                    "width": 0.15,
+                    "height": 0.2
+                  },
+                  "region_inches": {
+                    "x": 3.25,
+                    "y": 0.25,
+                    "width": 3.0,
+                    "height": 2.0
+                  }
+                }
+              ],
+              "fields_truncated": false
+            },
+            {
+              "record_index": 3,
+              "copy_index": 1,
+              "page_index": 2,
+              "object_name": "Batch_R0003_C001",
+              "object_reference": {
+                "version": 1,
+                "bridge_session_id": "e6cdefce9048322797f321c79bb43b10",
+                "document_session_id": "doc-0003",
+                "page_identity": "f532dab31f88cb79dff59a419ee6b62cb7fbf09367749f8f900bbe5a9511ae67",
+                "layer_identity": "823fcae1912d141aec5243acb1086010822d1b601310688454548b384448fa6a",
+                "ancestor_identities": [],
+                "shape_identity": "7c259dbd6f06d32efeffc63a4f967f7d4da6f64d46cb6ed4b2d51e3b1eba4f6e",
+                "static_id": 112,
+                "object_name": "Batch_R0003_C001",
+                "shape_type_code": 7,
+                "page_index": 2,
+                "layer_index": 2,
+                "shape_path": [
+                  1
+                ],
+                "signature": "d45e6238341358c98801c58455c74745bdeb34e4e5ddea2fef2cf9e33f5f40f4"
+              },
+              "fields": [
+                {
+                  "column": "member",
+                  "content_matches": true,
+                  "style_matches": true,
+                  "overflow": null,
+                  "fits_region": true,
+                  "bounds_inches": {
+                    "x": 0.45,
+                    "y": 1.25,
+                    "width": 0.2,
+                    "height": 0.2
+                  },
+                  "region_inches": {
+                    "x": 0.25,
+                    "y": 0.25,
+                    "width": 3.0,
+                    "height": 2.0
+                  }
+                },
+                {
+                  "column": "number",
+                  "content_matches": true,
+                  "style_matches": true,
+                  "overflow": null,
+                  "fits_region": true,
+                  "bounds_inches": {
+                    "x": 0.45,
+                    "y": 0.75,
+                    "width": 0.15,
+                    "height": 0.2
+                  },
+                  "region_inches": {
+                    "x": 0.25,
+                    "y": 0.25,
+                    "width": 3.0,
+                    "height": 2.0
+                  }
+                }
+              ],
+              "fields_truncated": false
+            }
+          ],
+          "items_truncated": false,
+          "clipboard_modified": true,
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "System clipboard contents were replaced by the template copy.",
+            "Glyph, visual and print readiness remain unverified."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "execute_template_batch",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Template request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -13797,6 +15679,922 @@
         "Native matrix/mirror/pivot and sibling semantics await the consolidated X7 gate.",
         "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
         "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "inspect_text_template",
+      "category": "templates",
+      "description": "Capture a source-bound grouped text template and named text fields without editing artwork.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.inspect_text_template"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_name": {
+            "type": "string",
+            "default": ""
+          },
+          "shape_index": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "object_reference": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/object_reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "object_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "object_name"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "shape_index"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "$ref": "#/schema_definitions/object_reference"
+              }
+            },
+            "required": [
+              "object_reference"
+            ]
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "template": {
+                      "$ref": "#/schema_definitions/text_template"
+                    },
+                    "text_object_names": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 256
+                      },
+                      "minItems": 0,
+                      "maxItems": 999
+                    },
+                    "preservation_scope": {
+                      "const": "identity_structure_geometry_text_basic_appearance"
+                    }
+                  },
+                  "required": [
+                    "template",
+                    "text_object_names",
+                    "preservation_scope"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.Pages",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.Shapes",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Type",
+        "Text.Frames",
+        "Text.Overflow",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Alignment",
+        "TextRange.Bold",
+        "TextRange.CharSpacing",
+        "TextRange.Font",
+        "TextRange.Italic",
+        "TextRange.LineSpacing",
+        "TextRange.LineSpacingType",
+        "TextRange.Size",
+        "TextRange.Text",
+        "TextRange.Underline",
+        "TextRange.WordSpacing"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_template_jobs.py",
+          "docs/TEMPLATE_BATCHES.md",
+          "docs/x7_template_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Consolidated native and manual visual gates remain pending.",
+        "Text fields only; no linked/fitted stories, mixed field formatting, automatic fitting or image personalization.",
+        "Bounds/basic appearance verification does not establish glyphs, complex effects, visual fidelity or print readiness."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "read_template_csv",
+      "category": "templates",
+      "description": "Read bounded UTF-8 CSV as literal strings with leading zeros, source lines and SHA-256.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.template_jobs.read_template_csv"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "csv_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          },
+          "delimiter": {
+            "enum": [
+              ",",
+              ";",
+              "\t"
+            ],
+            "default": ","
+          }
+        },
+        "required": [
+          "csv_path"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "columns": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 128
+                      },
+                      "minItems": 1,
+                      "maxItems": 128
+                    },
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "minProperties": 1,
+                        "maxProperties": 128,
+                        "propertyNames": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 128
+                        },
+                        "additionalProperties": {
+                          "type": "string",
+                          "minLength": 0,
+                          "maxLength": 10000,
+                          "pattern": "^[^\\u0000]*$"
+                        }
+                      },
+                      "minItems": 1,
+                      "maxItems": 1000
+                    },
+                    "row_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1000
+                    },
+                    "source_lines": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer",
+                        "minimum": 2,
+                        "maximum": 20000000
+                      },
+                      "minItems": 1,
+                      "maxItems": 1000
+                    },
+                    "source_sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "required": [
+                    "columns",
+                    "records",
+                    "row_count",
+                    "source_lines",
+                    "source_sha256"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_template_jobs.py",
+          "docs/TEMPLATE_BATCHES.md",
+          "docs/x7_template_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Consolidated native and manual visual gates remain pending.",
+        "Text fields only; no linked/fitted stories, mixed field formatting, automatic fitting or image personalization.",
+        "Bounds/basic appearance verification does not establish glyphs, complex effects, visual fidelity or print readiness."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "plan_template_batch",
+      "category": "templates",
+      "description": "Validate all template records and create deterministic full/partial sheet placements without native calls.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.template_jobs.plan_template_batch"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "template": {
+            "$ref": "#/schema_definitions/text_template"
+          },
+          "field_mapping": {
+            "type": "object",
+            "minProperties": 1,
+            "maxProperties": 128,
+            "propertyNames": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "minProperties": 1,
+              "maxProperties": 128,
+              "propertyNames": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "additionalProperties": {
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 10000,
+                "pattern": "^[^\\u0000]*$"
+              }
+            },
+            "minItems": 1,
+            "maxItems": 1000
+          },
+          "field_regions": {
+            "anyOf": [
+              {
+                "type": "object",
+                "maxProperties": 128,
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 200
+                    },
+                    "y": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 200
+                    },
+                    "width": {
+                      "type": "number",
+                      "minimum": 0.001,
+                      "maximum": 200
+                    },
+                    "height": {
+                      "type": "number",
+                      "minimum": 0.001,
+                      "maximum": 200
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y",
+                    "width",
+                    "height"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "minimum": 0.001,
+            "maximum": 200,
+            "default": 8.5
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "minimum": 0.001,
+            "maximum": 200,
+            "default": 11
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 50,
+            "default": 0.25
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 50,
+            "default": 0.125
+          },
+          "copies_per_record": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 1
+          },
+          "record_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "duplicate_policy": {
+            "enum": [
+              "reject",
+              "allow"
+            ],
+            "default": "reject"
+          },
+          "overflow_policy": {
+            "enum": [
+              "reject",
+              "report"
+            ],
+            "default": "reject"
+          }
+        },
+        "required": [
+          "template",
+          "field_mapping",
+          "records"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "$ref": "#/schema_definitions/template_batch_plan"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_template_jobs.py",
+          "docs/TEMPLATE_BATCHES.md",
+          "docs/x7_template_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Consolidated native and manual visual gates remain pending.",
+        "Text fields only; no linked/fitted stories, mixed field formatting, automatic fitting or image personalization.",
+        "Bounds/basic appearance verification does not establish glyphs, complex effects, visual fidelity or print readiness."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "execute_template_batch",
+      "category": "templates",
+      "description": "Create an independently owned editable output with final per-row readback, fit checks and verified cleanup.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.execute_template_batch"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "$ref": "#/schema_definitions/template_batch_plan"
+          },
+          "approved_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "plan",
+          "approved_fingerprint"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "record_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1000
+                    },
+                    "item_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 2000
+                    },
+                    "sheet_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 500
+                    },
+                    "output_document": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "minLength": 0,
+                          "maxLength": 4096
+                        },
+                        "document_session_id": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "document_session_id"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "source_preservation": {
+                      "type": "object",
+                      "properties": {
+                        "verified": {
+                          "const": true
+                        },
+                        "scope": {
+                          "const": "identity_structure_geometry_text_basic_appearance"
+                        }
+                      },
+                      "required": [
+                        "verified",
+                        "scope"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "fit_checks_passed": {
+                      "type": "boolean"
+                    },
+                    "fit_issue_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2000
+                    },
+                    "fit_issues": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "record_index": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 1000
+                          },
+                          "copy_index": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 100
+                          },
+                          "columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 128
+                            },
+                            "minItems": 1,
+                            "maxItems": 129
+                          }
+                        },
+                        "required": [
+                          "record_index",
+                          "copy_index",
+                          "columns"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 0,
+                      "maxItems": 100
+                    },
+                    "fit_issues_truncated": {
+                      "type": "boolean"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "record_index": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 1000
+                          },
+                          "copy_index": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 100
+                          },
+                          "page_index": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 500
+                          },
+                          "object_name": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 120
+                          },
+                          "object_reference": {
+                            "anyOf": [
+                              {
+                                "$ref": "#/schema_definitions/object_reference"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "fields": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "column": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 128
+                                },
+                                "content_matches": {
+                                  "const": true
+                                },
+                                "style_matches": {
+                                  "const": true
+                                },
+                                "overflow": {
+                                  "anyOf": [
+                                    {
+                                      "type": "boolean"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "fits_region": {
+                                  "type": "boolean"
+                                },
+                                "bounds_inches": {
+                                  "$ref": "#/schema_definitions/layout_bounds_inches"
+                                },
+                                "region_inches": {
+                                  "$ref": "#/schema_definitions/layout_bounds_inches"
+                                }
+                              },
+                              "required": [
+                                "column",
+                                "content_matches",
+                                "style_matches",
+                                "overflow",
+                                "fits_region",
+                                "bounds_inches",
+                                "region_inches"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "minItems": 1,
+                            "maxItems": 8
+                          },
+                          "fields_truncated": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "record_index",
+                          "copy_index",
+                          "page_index",
+                          "object_name",
+                          "object_reference",
+                          "fields",
+                          "fields_truncated"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 100
+                    },
+                    "items_truncated": {
+                      "type": "boolean"
+                    },
+                    "clipboard_modified": {
+                      "type": "boolean"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 1000
+                      },
+                      "minItems": 0,
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "record_count",
+                    "item_count",
+                    "sheet_count",
+                    "output_document",
+                    "source_preservation",
+                    "fit_checks_passed",
+                    "fit_issue_count",
+                    "fit_issues",
+                    "fit_issues_truncated",
+                    "items",
+                    "items_truncated",
+                    "clipboard_modified",
+                    "verification_status",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "approved_plan_fingerprint_and_bound_source_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateDocument",
+        "Application.Documents",
+        "Document.Activate",
+        "Document.AddPagesEx",
+        "Document.BeginCommandGroup",
+        "Document.Close",
+        "Document.Dirty",
+        "Document.EndCommandGroup",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Activate",
+        "Layer.Paste",
+        "Layer.Shapes",
+        "Page.Activate",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.CreateLayer",
+        "Page.SetSize",
+        "Page.Shapes",
+        "Shape.Copy",
+        "Shape.Duplicate",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.Shapes",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Type",
+        "Text.Frames",
+        "Text.Overflow",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Alignment",
+        "TextRange.Bold",
+        "TextRange.CharSpacing",
+        "TextRange.Font",
+        "TextRange.Italic",
+        "TextRange.LineSpacing",
+        "TextRange.LineSpacingType",
+        "TextRange.Size",
+        "TextRange.Text",
+        "TextRange.Underline",
+        "TextRange.WordSpacing"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_template_jobs.py",
+          "docs/TEMPLATE_BATCHES.md",
+          "docs/x7_template_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Consolidated native and manual visual gates remain pending.",
+        "Text fields only; no linked/fitted stories, mixed field formatting, automatic fitting or image personalization.",
+        "Bounds/basic appearance verification does not establish glyphs, complex effects, visual fidelity or print readiness."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

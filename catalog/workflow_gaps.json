@@ -360,12 +360,16 @@
       "coverage": "partial",
       "registered_tools": [
         "plan_chest_number_batch",
-        "create_chest_number_batch"
+        "create_chest_number_batch",
+        "inspect_text_template",
+        "read_template_csv",
+        "plan_template_batch",
+        "execute_template_batch"
       ],
       "missing_behavior": [
-        "Named-field template plans",
-        "CSV personalization",
-        "Missing/duplicate/overflow/count reconciliation"
+        "Image field personalization",
+        "Mixed/linked text and safe automatic fitting",
+        "Additional numbering variants"
       ],
       "source_ids": [
         "merge",
@@ -376,8 +380,12 @@
         "SAFE-002",
         "typography"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "text_workflow_implemented_unverified",
+      "live_status": "deferred",
+      "evidence": [
+        "docs/TEMPLATE_BATCHES.md",
+        "tests/test_template_jobs.py"
+      ]
     },
     {
       "id": "print_production",
