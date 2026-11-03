@@ -21,10 +21,15 @@ lighting, or fidelity correction is in the active queue.
   page/layer scope, nested group traversal, and deterministic duplicate-name
   retention. Default tests and catalog validation pass; the prepared disposable
   X7 search gate remains pending. See [OBJECT_SEARCH.md](OBJECT_SEARCH.md).
-- Add focused text, bounds, fill, and outline inspection for safe revisions.
+- INS-002 is implemented: focused `get_object_bounds`, `get_text_properties`,
+  and `get_fill` provide bounded actual-state readback, strict selectors, and
+  explicit unavailable/indeterminate properties. Fake-COM/catalog gates pass;
+  the disposable X7 gate remains pending. See [OBJECT_INSPECTION.md](OBJECT_INSPECTION.md).
+- Standalone outline inspection remains pending X7 outline-unit research.
 - Review the retained common-work CDR evidence and live-verify the applicable
   text replacement, move/resize, duplicate, align, group, save, and PDF tools.
-- Detect stale references and refuse ambiguous targets.
+- Next: detect stale references (ID-001); focused inspection already refuses
+  ambiguous active-page names.
 
 **Gate:** The intended object can be found and inspected without mutation;
 common edits report actual state on an explicitly authorized disposable target.

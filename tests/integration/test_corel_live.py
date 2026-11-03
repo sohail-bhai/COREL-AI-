@@ -145,9 +145,18 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         if doc is None:
             return
         saved_cdrs = list(self.output_dir.glob("*.cdr")) if self.output_dir.is_dir() else []
-        if not saved_cdrs and not self.cdr_path.is_file():
+        try:
+            needs_save = not saved_cdrs or bool(doc.Dirty)
+        except Exception:
+            self.cleanup_notes.append("Disposable document left open because its dirty state could not be read.")
+            return
+        if needs_save:
+            checkpoint = self.cdr_path
+            if checkpoint.exists():
+                stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+                checkpoint = self.output_dir / f"cleanup-{stamp}.cdr"
             try:
-                self.bridge.save_document(str(self.cdr_path))
+                self.bridge.save_document(str(checkpoint))
                 self.cleanup_notes.append("Saved the disposable document during cleanup before closing it.")
             except Exception as exc:
                 self.cleanup_notes.append(
@@ -714,6 +723,102 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
                 str(self.output_dir / "disposable-object-search.cdr"),
             ))
             self.assertGreater(saved["bytes"], 0)
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            self._close_saved_target_if_needed()
+            self._write_report(passed, failure)
+
+    def test_focused_object_inspection_live(self) -> None:
+        """Read only synthetic fixtures and preserve selection, context and saved artwork."""
+        passed = False
+        failure: str | None = None
+        try:
+            self.status = self._step("connect / corel_status", self.bridge.connect)
+            self._step("create_document", lambda: self.bridge.create_document(8.5, 11.0))
+            doc = self.bridge.target_doc
+            self._step("create_inspection_text", lambda: self.bridge.add_text(
+                "Inspection text", 1.0, 5.0, 18, "Arial", True, "InspectionText",
+            ))
+            self._step("create_inspection_box", lambda: self.bridge.draw_rectangle(
+                1.25, 2.5, 3.0, 0.5, "InspectionBox",
+            ))
+            self._step("apply_known_rgb_fill", lambda: self.bridge.set_fill_color(
+                10, 20, 30, object_name="InspectionBox",
+            ))
+            box = self.bridge._find_shape(doc, "InspectionBox")
+            box.CreateSelection()
+            duplicate = box.Duplicate(0, 1)
+            duplicate.Name = "InspectionBox"
+            box_index = self.bridge._index_for_shape(doc, box)
+            self.assertIsNotNone(box_index)
+            doc.Unit = 3
+            doc.ReferencePoint = 9
+            self._step("save_synthetic_inspection_fixture", lambda: self.bridge.save_document(
+                str(self.output_dir / "disposable-focused-inspection.cdr"),
+            ))
+
+            def state():
+                return {
+                    "unit": int(doc.Unit), "reference_point": int(doc.ReferencePoint),
+                    "dirty": bool(doc.Dirty), "count": int(doc.ActivePage.Shapes.Count),
+                    "page": self.bridge._com_identity(doc.ActivePage),
+                    "layer": self.bridge._com_identity(doc.ActivePage.ActiveLayer),
+                    "selection": [
+                        int(self.bridge._collection_item(doc.SelectionRange, i).StaticID)
+                        for i in range(1, int(doc.SelectionRange.Count) + 1)
+                    ],
+                }
+
+            before = state()
+            self.assertFalse(before["dirty"])
+            bounds = self._step("inspect_box_bounds", lambda: self.bridge.get_object_bounds(
+                shape_index=box_index,
+            ))
+            self.assertEqual(bounds["unit"], "inch")
+            for actual, expected in (
+                (bounds["bounds"]["lower_left"]["x"], 1.25),
+                (bounds["bounds"]["lower_left"]["y"], 2.5),
+                (bounds["bounds"]["width"], 3.0), (bounds["bounds"]["height"], 0.5),
+            ):
+                self.assertAlmostEqual(actual, expected, delta=0.01)
+            text = self._step("inspect_text_properties", lambda: self.bridge.get_text_properties(
+                object_name="InspectionText",
+            ))
+            self.assertEqual(text["text"]["content"], "Inspection text")
+            self.assertEqual(text["text"]["font"], "Arial")
+            self.assertAlmostEqual(text["text"]["size_points"], 18, delta=0.1)
+            self.assertTrue(text["text"]["bold"])
+            short = self._step("inspect_bounded_text", lambda: self.bridge.get_text_properties(
+                object_name="InspectionText", max_text_chars=4,
+            ))
+            self.assertEqual(short["text"]["content"], "Insp")
+            self.assertTrue(short["text"]["content_truncated"])
+            fill = self._step("inspect_native_fill", lambda: self.bridge.get_fill(shape_index=box_index))
+            self.assertEqual(fill["fill"]["type"], "uniform")
+            self.assertEqual(fill["fill"]["color"]["model"], "rgb")
+            self.assertEqual(fill["fill"]["color"]["value"], {"red": 10, "green": 20, "blue": 30})
+            self.assertEqual(bounds["object"], fill["object"])
+            for method, arguments, expected in (
+                ("get_object_bounds", {"object_name": "InspectionBox"}, ErrorCode.AMBIGUOUS_SELECTOR),
+                ("get_fill", {"object_name": "InspectionBox"}, ErrorCode.AMBIGUOUS_SELECTOR),
+                ("get_text_properties", {"shape_index": box_index}, ErrorCode.INVALID_ARGUMENT),
+                ("get_fill", {"object_name": "MissingInspectionObject"}, ErrorCode.OBJECT_NOT_FOUND),
+            ):
+                with self.assertRaises(CorelBridgeError) as caught:
+                    getattr(self.bridge, method)(**arguments)
+                self.assertEqual(caught.exception.code, expected)
+            self.assertEqual(state(), before)
+            readback_path = self.output_dir / "focused-inspection-readback.json"
+            with readback_path.open("x", encoding="utf-8") as handle:
+                json.dump({"bounds": bounds, "text": text, "short_text": short, "fill": fill},
+                          handle, indent=2, allow_nan=False)
+                handle.write("\n")
+            self._step("retain_focused_readback", lambda: {
+                "path": str(readback_path), "bytes": readback_path.stat().st_size,
+            })
             passed = True
         except BaseException as exc:
             failure = f"{type(exc).__name__}: {exc}"

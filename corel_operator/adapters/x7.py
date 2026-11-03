@@ -178,6 +178,24 @@ class CorelX7Adapter:
             "Bounded page/layer/group enumeration uses X7-confirmed members; live search behavior remains unverified.",
             ("Page.AllLayers", "Layer.Shapes", "Shape.Shapes", "Shape.StaticID", "TextRange.Text"),
         ),
+        "object.bounds": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Focused bounds inspection restores units/reference point; ruler-origin semantics need live verification.",
+            ("Shape.PositionX", "Shape.PositionY", "Shape.SizeWidth", "Shape.SizeHeight"),
+        ),
+        "text.inspect": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Bounded story and aggregate formatting inspection uses confirmed X7 properties; text runs remain unsupported.",
+            ("Text.Story", "TextRange.Text", "TextRange.Font", "TextRange.Size", "TextRange.Bold", "TextRange.Italic"),
+        ),
+        "fill.inspect": CapabilitySupport(
+            True,
+            "implemented_unverified",
+            "Fill type and native uniform color inspection preserve color models; complex fill details remain unsupported.",
+            ("Fill.Type", "Fill.UniformColor", "Color.Type"),
+        ),
         "document.create": CapabilitySupport(
             True,
             "implemented_unverified",

@@ -11,15 +11,15 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 221 tests
-OK (skipped=7)
+Ran 256 tests
+OK (skipped=8)
 ```
 
 Coverage includes:
 
 - authoritative bridge/schema/profile versions;
 - tool-schema v1 success and error envelopes;
-- all catalog JSON Schemas and 135 request/success/error examples;
+- all catalog JSON Schemas and 138 request/success/error examples;
 - bridge argument validation and stable error codes;
 - inch-unit and reference-point context restoration;
 - protected target-document behavior using fake COM objects;
@@ -33,6 +33,9 @@ Coverage includes:
 - bounded literal object search across pages/layers/groups, duplicate names,
   master locations, Unicode filters, exact scan/result limits, cycle detection,
   non-mutating inspection, and strict actual-result schemas using fake COM;
+- focused text/bounds/fill inspection with bounded identity and Unicode content,
+  indeterminate tri-state formatting, native RGB/CMYK/gray/spot preservation,
+  strict selectors, finite coordinates, and context-restoration failure checks;
 - canonical design-plan schema/domain validation, asset preflight, preview readiness, actual-state readback, sanitized failures, command-group cleanup, and verified rollback;
 - alignment and grouping validation/dispatch with guarded disposable-document live gates;
 - contour routing/planning plus fingerprint-gated source-preserving imposition, new-page output, independent repeat groups, source-change rejection, and output-page-only rollback using fake COM objects;
@@ -86,6 +89,19 @@ must be explicitly enabled with both flags:
 $env:COREL_LIVE_TESTS = "1"
 $env:COREL_LIVE_MUTATION_TESTS = "1"
 .\.venv\Scripts\python.exe -m unittest tests.integration.test_corel_live.CorelDisposableDocumentLiveTests.test_find_objects_live -v
+```
+
+The focused-inspection gate creates synthetic text and a known RGB rectangle,
+including duplicate names. It checks actual text/bounds/fill, bounded previews,
+strict selector refusals, and unchanged saved-document dirty state, selection,
+page/layer, units, and reference point. It retains CDR and JSON readback without
+using existing client artwork. Run it with the same explicit disposable-target
+authorization:
+
+```powershell
+$env:COREL_LIVE_TESTS = "1"
+$env:COREL_LIVE_MUTATION_TESTS = "1"
+.\.venv\Scripts\python.exe -m unittest tests.integration.test_corel_live.CorelDisposableDocumentLiveTests.test_focused_object_inspection_live -v
 ```
 
 Run only the source-preserving imposition gate with:

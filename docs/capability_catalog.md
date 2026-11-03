@@ -107,6 +107,9 @@ The zero verified count is intentional. Dated disposable X7 reports now exist, b
 | `get_page_bounds` | read-only | P1 | implemented_unverified | Explicit page-local bounds calculation has fake-COM tests | Test drawing-origin and facing-page behavior in X7 |
 | `list_layers` | read-only | P1 | implemented_unverified | Layer state/count enumeration has fake-COM tests | Test page, master, and special layers in X7 |
 | `get_object_info` | read-only | P1 | implemented_unverified | Identity, bounds, text, fill, and outline composition has fake-COM tests | Test StaticID persistence and nested-object limitations in X7 |
+| `get_object_bounds` | read-only | P1 | implemented_unverified | Finite bounds, strict active-page targeting, and context restoration have fake-COM tests | Run the disposable focused-inspection gate; verify ruler origin and unchanged state |
+| `get_text_properties` | read-only | P1 | implemented_unverified | Bounded content and aggregate formatting expose unavailable/indeterminate values with strict schemas | Verify font/style codes and text/selection preservation in X7 |
+| `get_fill` | read-only | P1 | implemented_unverified | Native RGB/CMYK/gray/spot readback preserves models and reports missing/capped values | Verify known fills on disposable X7 objects |
 | `find_objects` | read-only | P0 | implemented_unverified | 20 fake-COM tests cover bounded page/layer/group traversal, literal filters, duplicate names, master locations, and failures; X7 members/type codes confirmed locally | Run the prepared disposable X7 search gate; verify collection order and StaticID scope |
 | `calculate_sheet_layout` | read-only | P1 | implemented_unverified | Pure best-fit geometry covers uniform and mixed rotations, sheet orientation, allowances, waste, alternatives, and production quantities | Review representative coordinates and cutting plans before production use |
 | `plan_print_job` | external I/O | P0 | implemented_unverified | Pure bounded raster inspection plus fit/crop, effective-DPI, bleed/safe-area, best-fit imposition, and sheet-count planning has unit coverage | Exercise representative color/profile/orientation fixtures and retain reports |
@@ -130,8 +133,6 @@ The zero verified count is intentional. Dated disposable X7 reports now exist, b
 
 The registry contains draft records for:
 
-- `get_text_properties`
-- `get_fill`
 - `get_outline`
 - `arrange_n_up_print_sheet`
 
@@ -141,13 +142,17 @@ These remaining entries are catalog records only. They do not become available t
 examples. Its IDs and group paths are inspection data only; read the
 [search contract](OBJECT_SEARCH.md) before using counts or interpreting absence.
 
+`get_object_bounds`, `get_text_properties`, and `get_fill` are registered with
+strict schemas and validated actual-result examples. Their bounded output and
+aggregate-formatting limits are documented in [OBJECT_INSPECTION.md](OBJECT_INSPECTION.md).
+
 ## Important findings from this catalog pass
 
 ### Version-aware connection is feasible
 
 The X7 adapter now prefers `CorelDRAW.Application.17`, validates that the connected application reports major version 17, and reports the ProgID/mode used. Generic `CorelDRAW.Application` remains a validated fallback because another installed CorelDRAW version could change `CurVer`.
 
-The adapter exposes evidence/status for 28 approved capabilities. Twenty-seven are available but still `implemented_unverified`; the claimed point semantics for outline width remain unavailable and `research_required`. No capability is reported as live verified yet.
+The adapter exposes evidence/status for 32 approved capabilities. Thirty-one are available but still `implemented_unverified`; the claimed point semantics for outline width remain unavailable and `research_required`. No capability is reported as live verified yet.
 
 ### The unconfirmed `Application.Caption` read was removed
 

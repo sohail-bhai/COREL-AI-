@@ -5,6 +5,7 @@ an explicit `use_active_document` call so a client design isn't modified by acci
 """
 from __future__ import annotations
 
+import math
 import os
 import platform
 import struct
@@ -19,6 +20,10 @@ from .version import BRIDGE_VERSION, CAPABILITY_PROFILE_ID, TOOL_SCHEMA_VERSION
 from .workflows import build_chest_number_sequence
 from .design_plans import validate_design_plan
 from .object_search import validate_search_inputs
+from .object_inspection import (
+    DEFAULT_TEXT_CHARS, MAX_NAME_CHARS, MAX_NAME_SCAN,
+    validate_inspection_selector, validate_text_limit,
+)
 from .print_jobs import materialize_placement_artwork, plan_print_job
 from .contour_nesting import (
     classify_imposition_job,
@@ -133,38 +138,48 @@ class CorelBridge:
         }
 
     @contextmanager
-    def _in_inches(self, doc: Any) -> Iterator[None]:
+    def _in_inches(self, doc: Any, strict_restore: bool = False) -> Iterator[None]:
         previous = None
         changed = False
         try:
             previous = int(doc.Unit)
             if previous != self.CDR_INCH:
-                doc.Unit = self.CDR_INCH
                 changed = True
+                doc.Unit = self.CDR_INCH
             yield
         finally:
             if changed and previous is not None:
                 try:
                     doc.Unit = previous
-                except Exception:
-                    pass
+                except Exception as exc:
+                    if strict_restore:
+                        raise CorelBridgeError(
+                            "Could not restore the document unit after inspection.",
+                            ErrorCode.COREL_COM_ERROR,
+                        ) from exc
 
     @contextmanager
-    def _reference_point(self, doc: Any, point: int = CDR_BOTTOM_LEFT) -> Iterator[None]:
+    def _reference_point(
+        self, doc: Any, point: int = CDR_BOTTOM_LEFT, strict_restore: bool = False,
+    ) -> Iterator[None]:
         previous = None
         changed = False
         try:
             previous = int(doc.ReferencePoint)
             if previous != point:
-                doc.ReferencePoint = point
                 changed = True
+                doc.ReferencePoint = point
             yield
         finally:
             if changed and previous is not None:
                 try:
                     doc.ReferencePoint = previous
-                except Exception:
-                    pass
+                except Exception as exc:
+                    if strict_restore:
+                        raise CorelBridgeError(
+                            "Could not restore the document reference point after inspection.",
+                            ErrorCode.COREL_COM_ERROR,
+                        ) from exc
 
     @staticmethod
     def _page_dimensions(page: Any) -> dict[str, Any]:
@@ -184,9 +199,13 @@ class CorelBridge:
                 result[key] = None
         return result
 
-    def _shape_bounds_inches(self, doc: Any, shape: Any) -> dict[str, float | None]:
+    def _shape_bounds_inches(
+        self, doc: Any, shape: Any, strict_context: bool = False,
+    ) -> dict[str, float | None]:
         result: dict[str, float | None] = {}
-        with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
+        with self._in_inches(doc, strict_restore=strict_context), self._reference_point(
+            doc, self.CDR_BOTTOM_LEFT, strict_restore=strict_context,
+        ):
             for key, attr in (
                 ("x", "PositionX"),
                 ("y", "PositionY"),
@@ -226,7 +245,7 @@ class CorelBridge:
             "text": str(text) if text is not None else None,
             "font": str(font) if font is not None else None,
             "size_points": size,
-            "bold": bold_code == self.adapter.CDR_TRUE if bold_code is not None else None,
+            "bold": {self.adapter.CDR_TRUE: True, self.adapter.CDR_FALSE: False}.get(bold_code),
             "bold_code": bold_code,
         }
 
@@ -525,6 +544,185 @@ class CorelBridge:
         identity["fill"] = self._fill_readback(shape)
         identity["outline"] = self._outline_readback(shape)
         return {"document_name": _safe_string_attr(document, "Name"), "object": identity}
+
+    def _inspection_target(self, object_name: str, shape_index: int) -> tuple[Any, Any, dict[str, Any]]:
+        """Resolve only an explicit top-level selector on the bound document's active page."""
+        validate_inspection_selector(object_name, shape_index)
+        document = self._target_document()
+        try:
+            shapes = self._shapes(document)
+            count = int(shapes.Count)
+            if object_name:
+                if count > MAX_NAME_SCAN:
+                    raise CorelBridgeError(
+                        "The active page exceeds the 10000-object name lookup limit; "
+                        "supply an explicit shape_index.", ErrorCode.AMBIGUOUS_SELECTOR,
+                    )
+                matches = []
+                for index in range(1, count + 1):
+                    candidate = self._collection_item(shapes, index)
+                    if str(candidate.Name or "") == object_name:
+                        matches.append((index, candidate))
+                if not matches:
+                    raise CorelBridgeError(
+                        "No object with the requested name exists on the bound document's active page.",
+                        ErrorCode.OBJECT_NOT_FOUND,
+                    )
+                if len(matches) != 1:
+                    raise CorelBridgeError(
+                        "The requested name is not unique on the bound document's active page.",
+                        ErrorCode.AMBIGUOUS_SELECTOR,
+                    )
+                shape_index, shape = matches[0]
+            else:
+                if shape_index > count:
+                    raise CorelBridgeError(
+                        "shape_index does not exist on the bound document's active page.",
+                        ErrorCode.OBJECT_NOT_FOUND,
+                    )
+                shape = self._collection_item(shapes, shape_index)
+            identity = self._shape_identity(shape)
+            for field in ("object_name", "layer_name"):
+                value = identity[field]
+                identity[field + "_truncated"] = value is not None and len(value) > MAX_NAME_CHARS
+                if value is not None:
+                    identity[field] = value[:MAX_NAME_CHARS]
+            session_id = self._document_session_id(document)
+            static_id = identity["static_id"]
+            identity.update(
+                document_session_id=session_id,
+                object_id=f"{session_id}:shape:{static_id}" if static_id is not None else None,
+                shape_index=shape_index,
+            )
+            return document, shape, identity
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError(
+                "Could not resolve the requested object on the bound document.",
+                ErrorCode.COREL_COM_ERROR,
+            ) from exc
+
+    def get_object_bounds(self, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+        document, shape, identity = self._inspection_target(object_name, shape_index)
+        try:
+            values = self._shape_bounds_inches(document, shape, strict_context=True)
+            if any(value is None or not math.isfinite(value) for value in values.values()):
+                raise ValueError("Unavailable bounds")
+            x, y, width, height = (values[field] for field in ("x", "y", "width", "height"))
+            if width < 0 or height < 0:
+                raise ValueError("Invalid dimensions")
+            if not all(math.isfinite(value) for value in (x + width, y + height)):
+                raise ValueError("Unrepresentable bounds")
+            return {
+                "document_name": _safe_string_attr(document, "Name"), "object": identity,
+                "bounds": {
+                    "lower_left": {"x": x, "y": y},
+                    "upper_right": {"x": round(x + width, 4), "y": round(y + height, 4)},
+                    "center": {"x": round(x + width / 2, 4), "y": round(y + height / 2, 4)},
+                    "width": width, "height": height,
+                    "coordinate_space": "document_ruler_bottom_left_reference",
+                },
+                "unit": "inch",
+            }
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError(
+                "Could not read finite object bounds in inches.", ErrorCode.COREL_COM_ERROR,
+            ) from exc
+
+    def get_text_properties(
+        self, object_name: str = "", shape_index: int = 0,
+        max_text_chars: int = DEFAULT_TEXT_CHARS,
+    ) -> dict[str, Any]:
+        validate_text_limit(max_text_chars)
+        document, shape, identity = self._inspection_target(object_name, shape_index)
+        if identity["shape_type_code"] is None:
+            raise CorelBridgeError("Could not read the object's type.", ErrorCode.COREL_COM_ERROR)
+        if identity["shape_type_code"] != self.adapter.CDR_TEXT_SHAPE:
+            raise CorelBridgeError("The selected object is not a text shape.", ErrorCode.INVALID_ARGUMENT)
+        try:
+            story = shape.Text.Story
+            content = story.Text
+            if not isinstance(content, str):
+                raise ValueError("Unavailable text")
+        except Exception as exc:
+            raise CorelBridgeError(
+                "Could not read the selected text object's story.", ErrorCode.COREL_COM_ERROR,
+            ) from exc
+        unavailable: list[str] = []
+        indeterminate: list[str] = []
+        truncated: list[str] = []
+        text: dict[str, Any] = {
+            "content": content[:max_text_chars], "content_length": len(content),
+            "content_truncated": len(content) > max_text_chars,
+            "formatting_scope": "whole_story_aggregate",
+        }
+        for field, attr, reader in (
+            ("font", "Font", _safe_string_attr),
+            ("size_points", "Size", _safe_float_attr),
+            ("bold_code", "Bold", _safe_int_attr),
+            ("italic_code", "Italic", _safe_int_attr),
+            ("underline_code", "Underline", _safe_int_attr),
+            ("alignment_code", "Alignment", _safe_int_attr),
+        ):
+            value = reader(story, attr)
+            if value is None or (isinstance(value, float) and not math.isfinite(value)):
+                unavailable.append(field)
+                value = None
+            elif (field == "font" and not value) or (field == "size_points" and value <= 0):
+                indeterminate.append(field)
+                value = None
+            elif field.endswith("_code") and value < 0:
+                if field not in ("bold_code", "italic_code") or value != self.adapter.CDR_TRUE:
+                    indeterminate.append(field)
+            if field == "font" and value is not None and len(value) > MAX_NAME_CHARS:
+                value = value[:MAX_NAME_CHARS]
+                truncated.append(field)
+            text[field] = value
+        for field in ("bold", "italic"):
+            code = text[field + "_code"]
+            text[field] = {self.adapter.CDR_TRUE: True, self.adapter.CDR_FALSE: False}.get(code)
+            if code is not None and text[field] is None and field + "_code" not in indeterminate:
+                indeterminate.append(field + "_code")
+        text["unavailable_properties"] = unavailable
+        text["indeterminate_properties"] = indeterminate
+        text["truncated_properties"] = truncated
+        return {"document_name": _safe_string_attr(document, "Name"), "object": identity, "text": text}
+
+    def get_fill(self, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+        document, shape, identity = self._inspection_target(object_name, shape_index)
+        fill = self._fill_readback(shape)
+        if fill["type_code"] is None:
+            raise CorelBridgeError("Could not read the object's fill type.", ErrorCode.COREL_COM_ERROR)
+        unavailable: list[str] = []
+        truncated: list[str] = []
+        color = fill["color"]
+        if fill["type"] == "uniform":
+            if color is None:
+                unavailable.append("color")
+            else:
+                if color["type_code"] is None:
+                    unavailable.append("color.type_code")
+                if isinstance(color["value"], dict):
+                    unavailable.extend(
+                        "color.value." + key for key, value in color["value"].items() if value is None
+                    )
+                for key in ("name", "hex_value"):
+                    value = color[key]
+                    if value is not None and len(value) > MAX_NAME_CHARS:
+                        color[key] = value[:MAX_NAME_CHARS]
+                        truncated.append("color." + key)
+                if isinstance(color["value"], dict):
+                    value = color["value"].get("spot_name")
+                    if value is not None and len(value) > MAX_NAME_CHARS:
+                        color["value"]["spot_name"] = value[:MAX_NAME_CHARS]
+                        truncated.append("color.value.spot_name")
+        fill["detail_scope"] = "type_and_uniform_color"
+        fill["unavailable_properties"] = unavailable
+        fill["truncated_properties"] = truncated
+        return {"document_name": _safe_string_attr(document, "Name"), "object": identity, "fill": fill}
 
     def find_objects(
         self, name_contains: str = "", shape_type_code: int | None = None,

@@ -71,6 +71,9 @@ class X7AdapterTests(unittest.TestCase):
         self.assertTrue(CorelX7Adapter.supports("object.inspect"))
         self.assertTrue(CorelX7Adapter.supports("object.find"))
         self.assertFalse(CorelX7Adapter.supports("object.find", require_verified=True))
+        for capability in ("object.bounds", "text.inspect", "fill.inspect"):
+            self.assertTrue(CorelX7Adapter.supports(capability))
+            self.assertFalse(CorelX7Adapter.supports(capability, require_verified=True))
         self.assertFalse(CorelX7Adapter.supports("shape.create_rectangle", require_verified=True))
         self.assertFalse(CorelX7Adapter.supports("outline.width_points"))
         self.assertFalse(CorelX7Adapter.supports("unknown.capability"))
@@ -82,7 +85,7 @@ class X7AdapterTests(unittest.TestCase):
         self.assertEqual(summary["profile_id"], "coreldraw-x7-17")
         self.assertEqual(summary["product_major"], 17)
         self.assertEqual(summary["preferred_prog_id"], "CorelDRAW.Application.17")
-        self.assertEqual(summary["capability_count"], 29)
+        self.assertEqual(summary["capability_count"], 32)
         self.assertEqual(summary["verified_capability_count"], 0)
 
 

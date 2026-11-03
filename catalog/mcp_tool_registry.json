@@ -2,7 +2,7 @@
   "registry_schema_version": 1,
   "tool_schema_version": 1,
   "json_schema_dialect": "https://json-schema.org/draft/2020-12/schema",
-  "catalog_revision": "2026-11-02",
+  "catalog_revision": "2026-11-03",
   "profile_id": "coreldraw-x7-17",
   "status_values": [
     "planned",
@@ -477,6 +477,505 @@
             "integer",
             "null"
           ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "inspection_identity": {
+      "type": "object",
+      "required": [
+        "object_name",
+        "static_id",
+        "shape_type_code",
+        "layer_name",
+        "page_index",
+        "object_name_truncated",
+        "layer_name_truncated",
+        "document_session_id",
+        "object_id",
+        "shape_index"
+      ],
+      "properties": {
+        "object_name": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "static_id": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "shape_type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "layer_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256
+        },
+        "page_index": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "object_name_truncated": {
+          "type": "boolean"
+        },
+        "layer_name_truncated": {
+          "type": "boolean"
+        },
+        "document_session_id": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "object_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 128
+        },
+        "shape_index": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "inspection_selector": {
+      "type": "object",
+      "properties": {
+        "object_name": {
+          "type": "string",
+          "default": "",
+          "maxLength": 256
+        },
+        "shape_index": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "object_name": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "shape_index": {
+              "const": 0
+            }
+          },
+          "required": [
+            "object_name"
+          ]
+        },
+        {
+          "properties": {
+            "object_name": {
+              "const": ""
+            },
+            "shape_index": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "shape_index"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "object_bounds_inspection": {
+      "type": "object",
+      "required": [
+        "lower_left",
+        "upper_right",
+        "center",
+        "width",
+        "height",
+        "coordinate_space"
+      ],
+      "properties": {
+        "lower_left": {
+          "type": "object",
+          "required": [
+            "x",
+            "y"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "upper_right": {
+          "type": "object",
+          "required": [
+            "x",
+            "y"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "center": {
+          "type": "object",
+          "required": [
+            "x",
+            "y"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0
+        },
+        "height": {
+          "type": "number",
+          "minimum": 0
+        },
+        "coordinate_space": {
+          "const": "document_ruler_bottom_left_reference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "text_properties_inspection": {
+      "type": "object",
+      "required": [
+        "content",
+        "content_length",
+        "content_truncated",
+        "formatting_scope",
+        "font",
+        "size_points",
+        "bold",
+        "italic",
+        "bold_code",
+        "italic_code",
+        "underline_code",
+        "alignment_code",
+        "unavailable_properties",
+        "indeterminate_properties",
+        "truncated_properties"
+      ],
+      "properties": {
+        "content": {
+          "type": "string",
+          "maxLength": 10000
+        },
+        "content_length": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "content_truncated": {
+          "type": "boolean"
+        },
+        "formatting_scope": {
+          "const": "whole_story_aggregate"
+        },
+        "font": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256
+        },
+        "size_points": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "bold": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "italic": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "bold_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "italic_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "underline_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "alignment_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "unavailable_properties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "uniqueItems": true,
+          "maxItems": 8
+        },
+        "indeterminate_properties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "uniqueItems": true,
+          "maxItems": 8
+        },
+        "truncated_properties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "uniqueItems": true,
+          "maxItems": 8
+        }
+      },
+      "additionalProperties": false
+    },
+    "inspection_color": {
+      "type": "object",
+      "required": [
+        "type_code",
+        "model",
+        "hex_value",
+        "name",
+        "value"
+      ],
+      "properties": {
+        "type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "model": {
+          "type": "string"
+        },
+        "hex_value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "red",
+                "green",
+                "blue"
+              ],
+              "properties": {
+                "red": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "green": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "blue": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": [
+                "cyan",
+                "magenta",
+                "yellow",
+                "black"
+              ],
+              "properties": {
+                "cyan": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "magenta": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "yellow": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "black": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": [
+                "gray"
+              ],
+              "properties": {
+                "gray": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": [
+                "spot_name",
+                "tint"
+              ],
+              "properties": {
+                "spot_name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 256
+                },
+                "tint": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "fill_properties_inspection": {
+      "type": "object",
+      "required": [
+        "type_code",
+        "type",
+        "color",
+        "detail_scope",
+        "unavailable_properties",
+        "truncated_properties"
+      ],
+      "properties": {
+        "type_code": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        },
+        "color": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/schema_definitions/inspection_color"
+            }
+          ]
+        },
+        "detail_scope": {
+          "const": "type_and_uniform_color"
+        },
+        "unavailable_properties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "uniqueItems": true,
+          "maxItems": 8
+        },
+        "truncated_properties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "uniqueItems": true,
+          "maxItems": 8
         }
       },
       "additionalProperties": false
@@ -1747,7 +2246,7 @@
     },
     "get_text_properties": {
       "request": {
-        "object_name": "title"
+        "shape_index": 1
       },
       "success": {
         "ok": true,
@@ -1755,13 +2254,39 @@
         "bridge_version": "0.6.0",
         "tool_schema_version": 1,
         "profile_id": "coreldraw-x7-17",
-        "target_document": null,
+        "target_document": {
+          "name": "Target.cdr"
+        },
         "data": {
-          "object_name": "title",
+          "document_name": "Target.cdr",
+          "object": {
+            "object_name": "headline",
+            "static_id": 101,
+            "shape_type_code": 6,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:101",
+            "shape_index": 1
+          },
           "text": {
-            "content": "CORELDRAW AI OPERATOR",
+            "content": "Hello\r\nनमस्ते",
+            "content_length": 13,
+            "content_truncated": false,
+            "formatting_scope": "whole_story_aggregate",
             "font": "Arial",
-            "size_points": 22
+            "size_points": 18.0,
+            "bold_code": -1,
+            "italic_code": 0,
+            "underline_code": 0,
+            "alignment_code": 1,
+            "bold": true,
+            "italic": false,
+            "unavailable_properties": [],
+            "indeterminate_properties": [],
+            "truncated_properties": []
           }
         },
         "warnings": [],
@@ -1787,7 +2312,7 @@
     },
     "get_fill": {
       "request": {
-        "object_name": "panel"
+        "shape_index": 1
       },
       "success": {
         "ok": true,
@@ -1795,17 +2320,40 @@
         "bridge_version": "0.6.0",
         "tool_schema_version": 1,
         "profile_id": "coreldraw-x7-17",
-        "target_document": null,
+        "target_document": {
+          "name": "Target.cdr"
+        },
         "data": {
-          "object_name": "panel",
+          "document_name": "Target.cdr",
+          "object": {
+            "object_name": "headline",
+            "static_id": 101,
+            "shape_type_code": 6,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:101",
+            "shape_index": 1
+          },
           "fill": {
+            "type_code": 1,
             "type": "uniform",
-            "model": "rgb",
-            "value": [
-              20,
-              45,
-              90
-            ]
+            "color": {
+              "type_code": 5,
+              "model": "rgb",
+              "hex_value": "0A141E",
+              "name": "RGB",
+              "value": {
+                "red": 10,
+                "green": 20,
+                "blue": 30
+              }
+            },
+            "detail_scope": "type_and_uniform_color",
+            "unavailable_properties": [],
+            "truncated_properties": []
           }
         },
         "warnings": [],
@@ -2569,6 +3117,73 @@
           "details": {}
         },
         "duration_ms": 1.5
+      }
+    },
+    "get_object_bounds": {
+      "request": {
+        "shape_index": 1
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_object_bounds",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Target.cdr"
+        },
+        "data": {
+          "document_name": "Target.cdr",
+          "object": {
+            "object_name": "headline",
+            "static_id": 101,
+            "shape_type_code": 6,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:101",
+            "shape_index": 1
+          },
+          "bounds": {
+            "lower_left": {
+              "x": -1.25,
+              "y": 2.5
+            },
+            "upper_right": {
+              "x": 1.75,
+              "y": 3.0
+            },
+            "center": {
+              "x": 0.25,
+              "y": 2.75
+            },
+            "width": 3.0,
+            "height": 0.5,
+            "coordinate_space": "document_ruler_bottom_left_reference"
+          },
+          "unit": "inch"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_object_bounds",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Example validation error.",
+          "details": {}
+        },
+        "duration_ms": 0.1
       }
     }
   },
@@ -5377,6 +5992,107 @@
       "result_contract": "tool-schema-v1-envelope"
     },
     {
+      "name": "get_object_bounds",
+      "category": "object_inspection",
+      "description": "Read finite object bounds in inches using the document ruler and bottom-left reference; restore inspection context.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.get_object_bounds"
+      },
+      "input_schema": {
+        "$ref": "#/schema_definitions/inspection_selector"
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "document_name",
+                    "object",
+                    "bounds",
+                    "unit"
+                  ],
+                  "properties": {
+                    "document_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "bounds": {
+                      "$ref": "#/schema_definitions/object_bounds_inspection"
+                    },
+                    "unit": {
+                      "const": "inch"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Page.Shapes",
+        "Shape.Name",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.Layer",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.SizeWidth",
+        "Shape.SizeHeight",
+        "Document.Unit",
+        "Document.ReferencePoint"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_object_inspection.py",
+          "tests/test_server_contract.py"
+        ]
+      },
+      "known_limitations": [
+        "Top-level active-page selectors only; names are scanned only on pages with at most 10000 objects.",
+        "Coordinates retain the current document ruler origin; page-local, outline-inclusive, and facing-page semantics are not claimed.",
+        "Returned IDs are inspection-only and bridge-local; stale-reference detection is a separate ticket."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
       "name": "find_objects",
       "category": "object_inspection",
       "description": "Read-only, bounded literal search on the bound document with explicit page/layer scope and deterministic nested-group paths. Duplicate names are retained.",
@@ -5653,12 +6369,63 @@
     {
       "name": "get_text_properties",
       "category": "text_inspection",
-      "description": "Return text content, type, font, size, style, alignment, and spacing for one text object.",
+      "description": "Read bounded text content and whole-story aggregate font, size, style and alignment codes; report unavailable or indeterminate properties.",
       "implementation": {
-        "state": "planned"
+        "state": "registered",
+        "bridge_method": "CorelBridge.get_text_properties"
       },
       "input_schema": {
-        "$ref": "#/schema_definitions/object_selector"
+        "type": "object",
+        "properties": {
+          "object_name": {
+            "type": "string",
+            "default": "",
+            "maxLength": 256
+          },
+          "shape_index": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "max_text_chars": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "default": 2000
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "object_name": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "shape_index": {
+                "const": 0
+              }
+            },
+            "required": [
+              "object_name"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "shape_index"
+            ]
+          }
+        ],
+        "additionalProperties": false
       },
       "output_schema": {
         "allOf": [
@@ -5681,15 +6448,22 @@
                 "data": {
                   "type": "object",
                   "required": [
-                    "object_name",
+                    "document_name",
+                    "object",
                     "text"
                   ],
                   "properties": {
-                    "object_name": {
-                      "type": "string"
+                    "document_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
                     },
                     "text": {
-                      "type": "object"
+                      "$ref": "#/schema_definitions/text_properties_inspection"
                     }
                   },
                   "additionalProperties": false
@@ -5707,6 +6481,12 @@
         "coreldraw-x7-17"
       ],
       "api_requirements": [
+        "Page.Shapes",
+        "Shape.Name",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.Layer",
+        "Shape.Page",
         "Shape.Text",
         "Text.Story",
         "TextRange.Text",
@@ -5717,26 +6497,35 @@
         "TextRange.Underline",
         "TextRange.Alignment"
       ],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_object_inspection.py",
+          "tests/test_server_contract.py"
+        ]
       },
       "known_limitations": [
-        "Mixed formatting requires an explicit representation and additional X7 inventory work."
+        "Whole-story aggregates do not describe character runs or prove uniform formatting.",
+        "Text subtype, spacing, font availability and overflow inspection are deferred.",
+        "Top-level active-page selectors only; returned IDs are inspection-only and bridge-local."
       ],
-      "planned_phase": 2,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
     },
     {
       "name": "get_fill",
       "category": "appearance_inspection",
-      "description": "Return the actual fill type and available color details for one object.",
+      "description": "Read fill type and native uniform color without color-model conversion; bound string summaries and identify missing properties.",
       "implementation": {
-        "state": "planned"
+        "state": "registered",
+        "bridge_method": "CorelBridge.get_fill"
       },
       "input_schema": {
-        "$ref": "#/schema_definitions/object_selector"
+        "$ref": "#/schema_definitions/inspection_selector"
       },
       "output_schema": {
         "allOf": [
@@ -5759,15 +6548,22 @@
                 "data": {
                   "type": "object",
                   "required": [
-                    "object_name",
+                    "document_name",
+                    "object",
                     "fill"
                   ],
                   "properties": {
-                    "object_name": {
-                      "type": "string"
+                    "document_name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
                     },
                     "fill": {
-                      "type": "object"
+                      "$ref": "#/schema_definitions/fill_properties_inspection"
                     }
                   },
                   "additionalProperties": false
@@ -5785,20 +6581,46 @@
         "coreldraw-x7-17"
       ],
       "api_requirements": [
+        "Page.Shapes",
+        "Shape.Name",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.Layer",
+        "Shape.Page",
         "Shape.Fill",
         "Fill.Type",
-        "Fill.UniformColor"
+        "Fill.UniformColor",
+        "Color.Type",
+        "Color.Name",
+        "Color.HexValue",
+        "Color.RGBRed",
+        "Color.RGBGreen",
+        "Color.RGBBlue",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.CMYKBlack",
+        "Color.Gray",
+        "Color.SpotColorName",
+        "Color.Tint"
       ],
-      "status": "planned",
+      "status": "implemented_unverified",
       "test_evidence": {
-        "status": "not_run",
-        "sources": []
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_object_inspection.py",
+          "tests/test_server_contract.py"
+        ]
       },
       "known_limitations": [
-        "Color-model and complex-fill schemas require additional enum/member inventory."
+        "Complex fill internals and unsupported color-model channels are outside type_and_uniform_color scope.",
+        "Top-level active-page selectors only; returned IDs are inspection-only and bridge-local."
       ],
-      "planned_phase": 2,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
     },
     {
       "name": "get_outline",

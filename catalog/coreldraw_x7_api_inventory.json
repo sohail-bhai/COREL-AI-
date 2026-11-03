@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": "2026-11-02",
+  "catalog_revision": "2026-11-03",
   "profile": {
     "profile_id": "coreldraw-x7-17",
     "product": "CorelDRAW Graphics Suite X7",
@@ -362,7 +362,7 @@
       "access": "read_write",
       "signature": "Unit -> cdrUnit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status", "create_document", "all_geometry_tools"],
+      "used_by": ["corel_status", "create_document", "all_geometry_tools", "get_object_bounds"],
       "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.Unit",
       "live_test_status": "historical_report_needs_reproduction",
@@ -375,7 +375,7 @@
       "access": "read_write",
       "signature": "ReferencePoint -> cdrReferencePoint",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["create_document", "list_objects", "move_object"],
+      "used_by": ["create_document", "list_objects", "move_object", "get_object_bounds"],
       "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.ReferencePoint",
       "live_test_status": "not_run"
@@ -578,7 +578,7 @@
       "access": "read",
       "signature": "Shapes -> Shapes collection across all page layers",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "all_object_selector_tools", "import_artwork"],
+      "used_by": ["list_objects", "all_object_selector_tools", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill"],
       "evidence": ["official_x7_page", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.Shapes",
       "live_test_status": "not_run",
@@ -859,7 +859,7 @@
       "access": "read_write",
       "signature": "Name -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["all_object_tools", "rename_object"],
+      "used_by": ["all_object_tools", "rename_object", "get_object_bounds", "get_text_properties", "get_fill"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Name",
       "live_test_status": "not_run",
@@ -872,7 +872,7 @@
       "access": "read",
       "signature": "StaticID -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job"],
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job", "get_object_bounds", "get_text_properties", "get_fill"],
       "evidence": ["official_x7_shape", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.StaticID",
       "live_test_status": "unique_within_live_imposition_run_2026-11-01",
@@ -898,7 +898,7 @@
       "access": "read_write",
       "signature": "Layer -> Layer",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork"],
+      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Layer",
       "live_test_status": "live_x7_passed_2026-11-01"
@@ -910,7 +910,7 @@
       "access": "read",
       "signature": "Page -> Page",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork"],
+      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Page",
       "live_test_status": "live_x7_passed_2026-11-01"
@@ -922,7 +922,7 @@
       "access": "read",
       "signature": "Type -> cdrShapeType",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects"],
+      "used_by": ["list_objects", "get_object_bounds", "get_text_properties", "get_fill"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Type",
       "live_test_status": "not_run"
@@ -934,7 +934,7 @@
       "access": "read_write",
       "signature": "PositionX -> Double according to Document.ReferencePoint and Document.Unit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "move_object"],
+      "used_by": ["list_objects", "move_object", "get_object_bounds"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.PositionX",
       "live_test_status": "not_run"
@@ -946,7 +946,7 @@
       "access": "read_write",
       "signature": "PositionY -> Double according to Document.ReferencePoint and Document.Unit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "move_object"],
+      "used_by": ["list_objects", "move_object", "get_object_bounds"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.PositionY",
       "live_test_status": "not_run"
@@ -958,7 +958,7 @@
       "access": "read_write",
       "signature": "SizeWidth -> Double in document units",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "resize_object"],
+      "used_by": ["list_objects", "resize_object", "get_object_bounds"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.SizeWidth",
       "live_test_status": "not_run"
@@ -970,7 +970,7 @@
       "access": "read_write",
       "signature": "SizeHeight -> Double in document units",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "resize_object"],
+      "used_by": ["list_objects", "resize_object", "get_object_bounds"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.SizeHeight",
       "live_test_status": "not_run"
@@ -982,7 +982,7 @@
       "access": "read",
       "signature": "Text -> Text",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_text_content"],
+      "used_by": ["list_objects", "set_text_content", "get_text_properties"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Text",
       "live_test_status": "not_run",
@@ -995,7 +995,7 @@
       "access": "read_write",
       "signature": "Fill -> Fill",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["set_fill_color"],
+      "used_by": ["set_fill_color", "get_fill"],
       "evidence": ["official_x7_shape", "official_x7_fill", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Fill",
       "live_test_status": "not_run"
@@ -1123,7 +1123,7 @@
       "access": "read",
       "signature": "Story -> TextRange",
       "status": "typelib_confirmed",
-      "used_by": ["list_objects", "set_text_content"],
+      "used_by": ["list_objects", "set_text_content", "get_text_properties"],
       "evidence": ["installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Text.Story",
       "live_test_status": "not_run"
@@ -1135,7 +1135,7 @@
       "access": "read_write",
       "signature": "Text -> String",
       "status": "typelib_confirmed",
-      "used_by": ["list_objects", "set_text_content"],
+      "used_by": ["list_objects", "set_text_content", "get_text_properties"],
       "evidence": ["installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Text",
       "live_test_status": "not_run"
@@ -1267,7 +1267,7 @@
       "access": "read",
       "signature": "RGBRed -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_fill_color", "set_outline"],
+      "used_by": ["list_objects", "set_fill_color", "set_outline", "get_fill"],
       "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
       "live_test_status": "not_run"
     },
@@ -1278,7 +1278,7 @@
       "access": "read",
       "signature": "RGBGreen -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_fill_color", "set_outline"],
+      "used_by": ["list_objects", "set_fill_color", "set_outline", "get_fill"],
       "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
       "live_test_status": "not_run"
     },
@@ -1289,7 +1289,7 @@
       "access": "read",
       "signature": "RGBBlue -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_fill_color", "set_outline"],
+      "used_by": ["list_objects", "set_fill_color", "set_outline", "get_fill"],
       "evidence": ["official_x7_color", "installed_x7_typelib", "prototype_source"],
       "live_test_status": "not_run"
     },

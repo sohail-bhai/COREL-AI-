@@ -69,6 +69,9 @@ class ServerContractTests(unittest.TestCase):
         server.get_page_bounds(2)
         server.list_layers(3)
         server.get_object_info("headline", 0)
+        server.get_object_bounds("headline", 0)
+        server.get_text_properties("headline", 0, 100)
+        server.get_fill("headline", 0)
 
         self.assertEqual(
             fake.calls,
@@ -79,6 +82,9 @@ class ServerContractTests(unittest.TestCase):
                 ("get_page_bounds", (2,), {}),
                 ("list_layers", (3,), {}),
                 ("get_object_info", ("headline", 0), {}),
+                ("get_object_bounds", ("headline", 0), {}),
+                ("get_text_properties", ("headline", 0, 100), {}),
+                ("get_fill", ("headline", 0), {}),
             ],
         )
 

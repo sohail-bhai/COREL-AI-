@@ -140,6 +140,37 @@ def get_object_info(object_name: str = "", shape_index: int = 0) -> dict:
 
 
 @mcp.tool()
+def get_object_bounds(object_name: str = "", shape_index: int = 0) -> dict:
+    """Read object bounds in inches relative to the document ruler's bottom-left reference.
+
+    Specify exactly one unique active-page object_name or 1-based shape_index.
+    Targets the explicitly bound document and restores units/reference point.
+    """
+    return _tool("get_object_bounds", "get_object_bounds", object_name, shape_index)
+
+
+@mcp.tool()
+def get_text_properties(object_name: str = "", shape_index: int = 0, max_text_chars: int = 2000) -> dict:
+    """Read bounded story content and aggregate formatting for one text shape.
+
+    Specify exactly one unique active-page object_name or 1-based shape_index.
+    max_text_chars is 0-10000; truncation and unavailable/indeterminate properties
+    are explicit. Aggregate formatting does not describe individual text runs.
+    """
+    return _tool("get_text_properties", "get_text_properties", object_name, shape_index, max_text_chars)
+
+
+@mcp.tool()
+def get_fill(object_name: str = "", shape_index: int = 0) -> dict:
+    """Read fill type and uniform color in its original model without conversion.
+
+    Specify exactly one unique active-page object_name or 1-based shape_index.
+    Nonuniform fill internals are outside this inspection's detail scope.
+    """
+    return _tool("get_fill", "get_fill", object_name, shape_index)
+
+
+@mcp.tool()
 def find_objects(
     name_contains: str = "", shape_type_code: int | None = None,
     text_contains: str = "", page_index: int | None = None,

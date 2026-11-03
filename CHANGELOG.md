@@ -8,6 +8,15 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Focused read-only object inspection (INS-002): `get_object_bounds`,
+  `get_text_properties`, and `get_fill` with strict active-page selectors,
+  bounded story/identity/color output, explicit unavailable/indeterminate
+  formatting, native color-model preservation, finite bounds, and verified
+  fake-COM context restoration. Strict catalog schemas, 34 focused tests,
+  dispatcher coverage, and a guarded disposable X7 gate are included; live
+  verification remains pending. Shared bold readback now preserves undefined
+  tri-state values as null. Live cleanup saves dirty disposable fixtures to a
+  unique checkpoint before closing.
 - Bounded read-only `find_objects` (INS-001) with literal name/text/type filters,
   explicit page/layer scope, deterministic nested-group paths, duplicate-name
   retention, scan/depth/result completeness reporting, bounded summaries, and
