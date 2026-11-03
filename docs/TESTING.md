@@ -55,6 +55,16 @@ Run independently with:
 
 The validator checks server/registry tool parity, API/evidence references, enum/registry versions, error-code parity, CSV consistency, JSON Schemas, and every catalog example.
 
+## Operation-record verification
+
+The optional journal is tested without CorelDRAW: input/output redaction and
+final writer allowlists, exclusive external files, limits, disk failure, pure
+MCP tools, real dispatcher events with fake COM, and late completion after a
+caller timeout. During the later consolidated campaign, enable
+`COREL_OPERATION_LOG_DIR` in the run's unique external output directory and
+verify native target/created IDs and caller/worker event correlation for the
+MCP creation/edit/save flow. See [OPERATION_RECORDS.md](OPERATION_RECORDS.md).
+
 ## Guarded live test
 
 **User decision — 2026-11-03:** Defer live verification to one later consolidated

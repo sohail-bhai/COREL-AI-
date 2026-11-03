@@ -58,14 +58,20 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- Next: SAFE-001 redacted operation records and SAFE-002 timeout recovery.
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 44
+  MCP tools, with input type counts, worker target IDs, result/created IDs,
+  duration, rollback flags and separate caller/worker completion. Redaction,
+  filesystem failure, capacity, concurrency and timeout event tests pass. See
+  [OPERATION_RECORDS.md](OPERATION_RECORDS.md).
+- Next: SAFE-002 busy/timeout recovery and mutation gating.
 
 **Gate:** The intended object can be found and inspected without mutation;
 common edits report actual state on an explicitly authorized disposable target.
 
 ### 2. Recovery and operation records
 
-- Complete redacted operation records and busy/timeout recovery behavior.
+- Redacted operation records are implemented; complete busy/timeout recovery
+  behavior and block unsafe follow-up mutations until reconciliation.
 - Preserve preflight, explicit document binding, overwrite protection,
   discrepancy reporting, and verified rollback for each common workflow.
 

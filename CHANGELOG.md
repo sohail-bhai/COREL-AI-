@@ -8,6 +8,14 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Opt-in redacted operation records (SAFE-001) covering all 44 MCP tools,
+  with exclusive bounded JSONL files outside the repository, input type counts,
+  target/created IDs when available, durations, result codes, rollback flags,
+  and correlated caller/worker events. Text, paths, names and raw errors are
+  excluded at extraction and disk boundaries. Twenty logging/dispatcher tests
+  cover storage failures, concurrency, late completion after caller timeout,
+  and envelope/schema compatibility. Creation primitives return object IDs.
+  Busy/timeout mutation gating remains the separate SAFE-002 ticket.
 - Session object references (ID-001) accepted by eleven common inspection/edit
   tools, with signed bridge/document/page/layer/group/native shape identity,
   full name/type/StaticID checks, complete bounded scope resolution, stale and

@@ -24,7 +24,8 @@
     "Records whose implementation.state is planned are catalog entries only and are not exposed by the MCP server.",
     "All current tools remain implemented_unverified until a reproducible X7 live-test report is recorded.",
     "Since bridge 0.6.0 every tool returns tool-schema v1: a stable envelope whose data field contains the operation-specific result.",
-    "ID-001: eleven registered selector tools accept signed session object_reference values. StaticID-derived object_id strings remain inspection-only; no persistent cross-session identity is promised."
+    "ID-001: eleven registered selector tools accept signed session object_reference values. StaticID-derived object_id strings remain inspection-only; no persistent cross-session identity is promised.",
+    "SAFE-001: opt-in external JSONL operation records cover all registered MCP tools and separate worker completion from caller return; operation_id is an optional envelope field. No client content or paths are logged."
   ],
   "schema_definitions": {
     "object_selector": {
@@ -286,6 +287,13 @@
         "duration_ms": {
           "type": "number",
           "minimum": 0
+        },
+        "operation_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$",
+          "minLength": 32,
+          "maxLength": 32,
+          "description": "Correlation ID present when opt-in operation recording is enabled."
         }
       },
       "allOf": [
@@ -4263,6 +4271,9 @@
                     },
                     "note": {
                       "type": "string"
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/object_identity"
                     }
                   },
                   "additionalProperties": false
@@ -4293,7 +4304,11 @@
         "TextRange.Font",
         "TextRange.Size",
         "TextRange.Bold",
-        "Application.Documents"
+        "Application.Documents",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.Layer",
+        "Shape.Page"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -4404,6 +4419,9 @@
                     },
                     "actual_bounds_inches": {
                       "$ref": "#/schema_definitions/bounds_inches"
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/object_identity"
                     }
                   },
                   "additionalProperties": false
@@ -4428,7 +4446,11 @@
         "Shape.PositionY",
         "Shape.SizeWidth",
         "Shape.SizeHeight",
-        "Application.Documents"
+        "Application.Documents",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.Layer",
+        "Shape.Page"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -4538,6 +4560,9 @@
                     },
                     "actual_bounds_inches": {
                       "$ref": "#/schema_definitions/bounds_inches"
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/object_identity"
                     }
                   },
                   "additionalProperties": false
@@ -4562,7 +4587,11 @@
         "Shape.PositionY",
         "Shape.SizeWidth",
         "Shape.SizeHeight",
-        "Application.Documents"
+        "Application.Documents",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.Layer",
+        "Shape.Page"
       ],
       "status": "implemented_unverified",
       "test_evidence": {

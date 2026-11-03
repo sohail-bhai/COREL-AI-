@@ -1,6 +1,6 @@
 # CorelDRAW X7 Automation Capability Catalog
 
-**Catalog revision:** 2026-11-02
+**Catalog revision:** 2026-11-03
 
 **Profile:** `coreldraw-x7-17`
 
@@ -36,7 +36,18 @@ It deliberately does **not** equate CorelDRAW UI commands with automation APIs. 
 
 ### Layer C — High-level workflows
 
-Workflow records orchestrate atomic tools deterministically. The initial registry contains draft records for sheet-layout calculation, chest-number generation, and N-up arrangement. They are not MCP tools yet.
+Registered planning/execution workflows appear in Layer B, including sheet
+layout, chest-number batches, design plans, print jobs, and contour imposition.
+`catalog/workflow_gaps.json` maps the current tools into fifteen researched
+workflow families and records missing capabilities; this coverage inventory
+does not register additional tools. Primary sources and delivery order are in
+[CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
+
+The common selector tools now support signed session
+[object references](OBJECT_REFERENCES.md). All 44 MCP tools also support opt-in
+[redacted operation records](OPERATION_RECORDS.md), with separate caller and
+worker events. Native lifecycle verification remains deferred; recovery
+mutation gating is the next SAFE-002 slice.
 
 ## Evidence hierarchy
 

@@ -391,7 +391,7 @@ These are the next reviewable tickets:
 | 6 | INS-001 | Bounded `find_objects` implemented; disposable X7 gate prepared | Duplicate/nested results deterministic in fake-COM tests; live gate pending |
 | 7 | INS-002 | Focused text, bounds, and native fill inspection implemented; disposable X7 gate prepared | Strict selectors and bounded actual readback pass fake-COM/schema gates; live gate pending |
 | 8 | ID-001 | Document-liveness guard and signed object references implemented; lifecycle X7 gate prepared | Closed/replaced/stale/ambiguous targets are refused; nested edits and reorder pass fake-COM/dispatcher tests; live gate pending |
-| 9 | SAFE-001 | Add redacted operation records | No secrets/content on MCP stdout |
+| 9 | SAFE-001 | Opt-in bounded external operation records implemented | All 44 MCP tools have caller/worker events; redaction/storage/timeout event tests pass; no content on stdout |
 | 10 | SAFE-002 | Define busy/timeout recovery state | Mutations blocked while state is unknown |
 
 DP-001 through DP-005 now pass their automated and disposable-X7 gates. Manual review of the
@@ -404,7 +404,9 @@ its disposable-X7 geometry/text/fill and unchanged-state gate is prepared.
 See [OBJECT_INSPECTION.md](OBJECT_INSPECTION.md). `ID-001` implements the
 [document guard](DOCUMENT_TARGETING.md) and [object references](OBJECT_REFERENCES.md).
 Scope/lifecycle/limits and reference-aware edits pass fake-COM/dispatcher gates;
-native save/reopen/restart verification remains deferred. SAFE-001 is next. See
+native save/reopen/restart verification remains deferred. SAFE-001 now implements
+[redacted operation records](OPERATION_RECORDS.md); SAFE-002 recovery/mutation
+gating is next. See
 [OBJECT_SEARCH.md](OBJECT_SEARCH.md) for the separate search contract/live gate.
 
 Do not begin broad typography, visual AI, or additional batch types until tickets 1–10 pass

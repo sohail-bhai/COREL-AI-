@@ -2,12 +2,18 @@
 from __future__ import annotations
 import queue
 import threading
+import uuid
 from concurrent.futures import Future
+from functools import wraps
 from time import perf_counter
 from typing import Any
 from mcp.server.fastmcp import FastMCP
 from .corel_bridge import CorelBridge
 from .results import error_result, success_result
+from .operation_records import (
+    OperationJournal, RecordedOperation, current_operation, input_summary,
+    result_metadata, target_ids,
+)
 from .workflows import (
     build_chest_number_sequence as _build_chest_number_sequence,
     calculate_sheet_layout as _calculate_sheet_layout,
@@ -23,6 +29,33 @@ from .contour_nesting import (
 )
 
 mcp = FastMCP("coreldraw-ai-operator")
+operation_journal = OperationJournal.from_environment()
+
+
+def recorded_operation(function):
+    """Preserve MCP signatures and correlate caller/worker events without content."""
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        if not operation_journal.enabled:
+            return function(*args, **kwargs)
+        operation = RecordedOperation(uuid.uuid4().hex, function.__name__, operation_journal)
+        token = current_operation.set(operation)
+        started = perf_counter()
+        try:
+            operation.journal.write(operation.operation_id, operation.tool, "requested", input_summary=input_summary(args, kwargs))
+            result = function(*args, **kwargs)
+            metadata = result_metadata(result.get("data")) if result.get("ok") else {"result_code": (result.get("error") or {}).get("code")}
+            operation.journal.write(operation.operation_id, operation.tool, "returned", duration_ms=(perf_counter() - started) * 1000, **metadata)
+            result["operation_id"] = operation.operation_id
+            if not operation.journal.available:
+                result["warnings"].append("Operation recording could not persist all events.")
+            return result
+        except BaseException as exc:
+            operation.journal.write(operation.operation_id, operation.tool, "returned", duration_ms=(perf_counter() - started) * 1000, **result_metadata(error=exc))
+            raise
+        finally:
+            current_operation.reset(token)
+    return wrapper
 
 
 class CorelDispatcher:
@@ -54,12 +87,22 @@ class CorelDispatcher:
                 job = self._jobs.get()
                 if job is None:
                     break
-                method_name, args, kwargs, future = job
+                method_name, args, kwargs, future, operation = job
                 if not future.set_running_or_notify_cancel():
+                    if operation is not None:
+                        operation.journal.write(operation.operation_id, operation.tool, "worker_cancelled")
                     continue
+                started = perf_counter()
+                if operation is not None:
+                    operation.journal.write(operation.operation_id, operation.tool, "worker_started", target_ids=target_ids(self._bridge))
                 try:
-                    future.set_result(getattr(self._bridge, method_name)(*args, **kwargs))
+                    result = getattr(self._bridge, method_name)(*args, **kwargs)
+                    if operation is not None:
+                        operation.journal.write(operation.operation_id, operation.tool, "worker_completed", target_ids=target_ids(self._bridge), duration_ms=(perf_counter() - started) * 1000, **result_metadata(result))
+                    future.set_result(result)
                 except BaseException as exc:
+                    if operation is not None:
+                        operation.journal.write(operation.operation_id, operation.tool, "worker_failed", target_ids=target_ids(self._bridge), duration_ms=(perf_counter() - started) * 1000, **result_metadata(error=exc))
                     future.set_exception(exc)
         finally:
             if pythoncom is not None:
@@ -72,7 +115,7 @@ class CorelDispatcher:
         if not self._thread.is_alive():
             raise RuntimeError("CorelDRAW COM worker is not running.")
         future: Future[Any] = Future()
-        self._jobs.put((method_name, args, kwargs, future))
+        self._jobs.put((method_name, args, kwargs, future, current_operation.get()))
         return future.result(timeout=120)
 
     def close(self, timeout: float = 5.0) -> None:
@@ -98,48 +141,56 @@ def _tool(tool_name: str, method: str, *args: Any, **kwargs: Any) -> dict:
 
 
 @mcp.tool()
+@recorded_operation
 def corel_status() -> dict:
     """Report CorelDRAW version, active document and protected target document. This does not edit anything."""
     return _tool("corel_status", "status")
 
 
 @mcp.tool()
+@recorded_operation
 def list_open_documents() -> dict:
     """List open CorelDRAW documents without activating, selecting, or binding any of them."""
     return _tool("list_open_documents", "list_open_documents")
 
 
 @mcp.tool()
+@recorded_operation
 def get_document_info() -> dict:
     """Inspect identity, path, dirty state, units, and active page for the bound target document."""
     return _tool("get_document_info", "get_document_info")
 
 
 @mcp.tool()
+@recorded_operation
 def list_pages() -> dict:
     """List pages and their actual dimensions for the bound target document without changing the active page."""
     return _tool("list_pages", "list_pages")
 
 
 @mcp.tool()
+@recorded_operation
 def get_page_bounds(page_index: int) -> dict:
     """Return page-local bottom-left bounds in inches for one page of the bound target document."""
     return _tool("get_page_bounds", "get_page_bounds", page_index)
 
 
 @mcp.tool()
+@recorded_operation
 def list_layers(page_index: int) -> dict:
     """List page and master layers with state and object counts without changing the active layer."""
     return _tool("list_layers", "list_layers", page_index)
 
 
 @mcp.tool()
+@recorded_operation
 def get_object_info(object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Inspect one object selected unambiguously by name, index, or issued object_reference."""
     return _tool("get_object_info", "get_object_info", object_name, shape_index, object_reference)
 
 
 @mcp.tool()
+@recorded_operation
 def get_object_bounds(object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Read object bounds in inches relative to the document ruler's bottom-left reference.
 
@@ -150,6 +201,7 @@ def get_object_bounds(object_name: str = "", shape_index: int = 0, object_refere
 
 
 @mcp.tool()
+@recorded_operation
 def get_text_properties(object_name: str = "", shape_index: int = 0, max_text_chars: int = 2000, object_reference: dict | None = None) -> dict:
     """Read bounded story content and aggregate formatting for one text shape.
 
@@ -161,6 +213,7 @@ def get_text_properties(object_name: str = "", shape_index: int = 0, max_text_ch
 
 
 @mcp.tool()
+@recorded_operation
 def get_fill(object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Read fill type and uniform color in its original model without conversion.
 
@@ -171,6 +224,7 @@ def get_fill(object_name: str = "", shape_index: int = 0, object_reference: dict
 
 
 @mcp.tool()
+@recorded_operation
 def find_objects(
     name_contains: str = "", shape_type_code: int | None = None,
     text_contains: str = "", page_index: int | None = None,
@@ -192,18 +246,21 @@ def find_objects(
 
 
 @mcp.tool()
+@recorded_operation
 def create_document(width_inches: float = 8.27, height_inches: float = 11.69) -> dict:
     """Create and bind a new target document. Subsequent edits/save target this document even if another window is activated."""
     return _tool("create_document", "create_document", width_inches, height_inches)
 
 
 @mcp.tool()
+@recorded_operation
 def use_active_document(confirm_existing_document: bool = False) -> dict:
     """Explicitly bind the currently active document for editing. Set confirm_existing_document=True only after backing up client work."""
     return _tool("use_active_document", "use_active_document", confirm_existing_document)
 
 
 @mcp.tool()
+@recorded_operation
 def add_text(text: str, x_inches: float, y_inches: float, size_points: float = 24,
              font: str = "Arial", bold: bool = False, object_name: str = "") -> dict:
     """Create editable artistic text in the target document. Names are used to edit objects later."""
@@ -211,6 +268,7 @@ def add_text(text: str, x_inches: float, y_inches: float, size_points: float = 2
 
 
 @mcp.tool()
+@recorded_operation
 def draw_rectangle(x_inches: float, y_inches: float, width_inches: float, height_inches: float,
                    object_name: str = "") -> dict:
     """Draw a rectangle in the target document; optionally assign a useful unique object_name."""
@@ -218,6 +276,7 @@ def draw_rectangle(x_inches: float, y_inches: float, width_inches: float, height
 
 
 @mcp.tool()
+@recorded_operation
 def draw_ellipse(x_inches: float, y_inches: float, width_inches: float, height_inches: float,
                  object_name: str = "") -> dict:
     """Draw an ellipse in the target document; optionally assign a useful unique object_name."""
@@ -225,12 +284,14 @@ def draw_ellipse(x_inches: float, y_inches: float, width_inches: float, height_i
 
 
 @mcp.tool()
+@recorded_operation
 def list_objects(max_objects: int = 200) -> dict:
     """List objects on the target page including object names, indexes, positions, sizes and text where available."""
     return _tool("list_objects", "list_objects", max_objects)
 
 
 @mcp.tool()
+@recorded_operation
 def calculate_sheet_layout(item_width_inches: float, item_height_inches: float,
                            sheet_width_inches: float, sheet_height_inches: float,
                            margin_inches: float = 0.0, gutter_inches: float = 0.0,
@@ -265,6 +326,7 @@ def calculate_sheet_layout(item_width_inches: float, item_height_inches: float,
 
 
 @mcp.tool()
+@recorded_operation
 def classify_imposition_job(
     footprint_kind: str = "auto",
     has_explicit_cut_contour: bool = False,
@@ -285,6 +347,7 @@ def classify_imposition_job(
 
 
 @mcp.tool()
+@recorded_operation
 def plan_contour_nesting(
     contour_points_inches: list[list[float]],
     sheet_width_inches: float,
@@ -313,6 +376,7 @@ def plan_contour_nesting(
 
 
 @mcp.tool()
+@recorded_operation
 def inspect_repeat_unit(
     source_group_name: str,
     dieline_name: str,
@@ -328,6 +392,7 @@ def inspect_repeat_unit(
 
 
 @mcp.tool()
+@recorded_operation
 def prepare_contour_nesting(
     source_group_name: str,
     dieline_name: str,
@@ -355,6 +420,7 @@ def prepare_contour_nesting(
 
 
 @mcp.tool()
+@recorded_operation
 def prepare_imposition_job(
     source_group_name: str,
     dieline_name: str,
@@ -385,6 +451,7 @@ def prepare_imposition_job(
 
 
 @mcp.tool()
+@recorded_operation
 def plan_chest_number_batch(start: int, end: int, zero_pad_width: int = 0,
                             item_width_inches: float | None = None,
                             item_height_inches: float | None = None,
@@ -406,6 +473,7 @@ def plan_chest_number_batch(start: int, end: int, zero_pad_width: int = 0,
 
 
 @mcp.tool()
+@recorded_operation
 def plan_print_job(
     file_path: str,
     finished_width_inches: float,
@@ -453,6 +521,7 @@ def plan_print_job(
 
 
 @mcp.tool()
+@recorded_operation
 def prepare_print_job(
     file_path: str,
     finished_width_inches: float,
@@ -493,6 +562,7 @@ def prepare_print_job(
 
 
 @mcp.tool()
+@recorded_operation
 def create_chest_number_batch(start: int, end: int,
                               item_width_inches: float, item_height_inches: float,
                               font: str = "Arial", font_size_points: float = 72.0,
@@ -514,6 +584,7 @@ def create_chest_number_batch(start: int, end: int,
 
 
 @mcp.tool()
+@recorded_operation
 def validate_design_plan(plan: dict) -> dict:
     """Validate a multi-element design plan against schema and domain rules without modifying CorelDRAW."""
     started = perf_counter()
@@ -526,6 +597,7 @@ def validate_design_plan(plan: dict) -> dict:
 
 
 @mcp.tool()
+@recorded_operation
 def preview_design_plan(plan: dict) -> dict:
     """Preview layout statistics, palette, typography, and bounding box of a design plan without modifying CorelDRAW."""
     started = perf_counter()
@@ -538,6 +610,7 @@ def preview_design_plan(plan: dict) -> dict:
 
 
 @mcp.tool()
+@recorded_operation
 def execute_design_plan(plan: dict, create_new_document: bool = False,
                         rollback_on_failure: bool = True) -> dict:
     """Execute a structured multi-element design plan transactionally with atomic rollback on failure."""
@@ -548,12 +621,14 @@ def execute_design_plan(plan: dict, create_new_document: bool = False,
 
 
 @mcp.tool()
+@recorded_operation
 def set_fill_color(red: int, green: int, blue: int, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Set an object's solid fill using RGB 0-255. Specify one selector: name, index, or object_reference. Reference edits require its page to be active."""
     return _tool("set_fill_color", "set_fill_color", red, green, blue, object_name, shape_index, object_reference)
 
 
 @mcp.tool()
+@recorded_operation
 def set_outline(red: int, green: int, blue: int, width_points: float = 1.0,
                 object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Set an object's outline color/width in points. Use width_points=0 to remove outline. Reference edits require its page to be active."""
@@ -561,12 +636,14 @@ def set_outline(red: int, green: int, blue: int, width_points: float = 1.0,
 
 
 @mcp.tool()
+@recorded_operation
 def move_object(x_inches: float, y_inches: float, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Move an object so its bottom-left reference point is at x/y inches on the page. Reference edits require its page to be active."""
     return _tool("move_object", "move_object", x_inches, y_inches, object_name, shape_index, object_reference)
 
 
 @mcp.tool()
+@recorded_operation
 def resize_object(width_inches: float = 0, height_inches: float = 0, keep_aspect_ratio: bool = False,
                   object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Resize an object in inches. For proportional resizing, provide only one dimension and set keep_aspect_ratio=True. Reference edits require its page to be active."""
@@ -574,18 +651,21 @@ def resize_object(width_inches: float = 0, height_inches: float = 0, keep_aspect
 
 
 @mcp.tool()
+@recorded_operation
 def set_text_content(new_text: str, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Replace the text of an existing text object. Target must be artistic/paragraph text. Reference edits require its page to be active."""
     return _tool("set_text_content", "set_text_content", new_text, object_name, shape_index, object_reference)
 
 
 @mcp.tool()
+@recorded_operation
 def rename_object(new_name: str, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Rename an object to make later natural-language edits more reliable. Supply exactly one current selector. Reference edits require its page to be active."""
     return _tool("rename_object", "rename_object", new_name, object_name, shape_index, object_reference)
 
 
 @mcp.tool()
+@recorded_operation
 def duplicate_object(offset_x_inches: float = 0.25, offset_y_inches: float = -0.25,
                      object_name: str = "", shape_index: int = 0, new_name: str = "", object_reference: dict | None = None) -> dict:
     """Duplicate an object with an offset in inches. Supply exactly one source selector. Reference edits require its page to be active."""
@@ -593,24 +673,28 @@ def duplicate_object(offset_x_inches: float = 0.25, offset_y_inches: float = -0.
 
 
 @mcp.tool()
+@recorded_operation
 def import_artwork(file_path: str, object_name: str = "AI_Artwork") -> dict:
     """Import local PNG/JPG/BMP/TIFF/SVG/PDF/EPS/AI/WMF/EMF/CMX artwork. Then inspect and position it with list_objects/move_object/resize_object."""
     return _tool("import_artwork", "import_artwork", file_path, object_name)
 
 
 @mcp.tool()
+@recorded_operation
 def save_document(path: str) -> dict:
     """Save the bound target document as a new CDR file. Refuses to overwrite existing files."""
     return _tool("save_document", "save_document", path)
 
 
 @mcp.tool()
+@recorded_operation
 def export_pdf(path: str) -> dict:
     """Export the bound target document to a new PDF. Print settings need separate verification."""
     return _tool("export_pdf", "export_pdf", path)
 
 
 @mcp.tool()
+@recorded_operation
 def align_objects(
     object_names: list[str],
     horizontal: str = "none",
@@ -622,6 +706,7 @@ def align_objects(
 
 
 @mcp.tool()
+@recorded_operation
 def align_to_page(
     object_names: list[str],
     horizontal: str = "none",
@@ -633,12 +718,14 @@ def align_to_page(
 
 
 @mcp.tool()
+@recorded_operation
 def group_shapes(object_names: list[str], group_name: str = "") -> dict:
     """Group two or more shapes on the active page into a single named group shape."""
     return _tool("group_shapes", "group_shapes", object_names, group_name)
 
 
 @mcp.tool()
+@recorded_operation
 def ungroup_shapes(
     object_name: str = "",
     shape_index: int = 0,

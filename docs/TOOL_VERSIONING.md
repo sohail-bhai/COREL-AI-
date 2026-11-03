@@ -1,6 +1,6 @@
 # Tool and Compatibility Versioning
 
-**Revision:** 2026-10-30
+**Revision:** 2026-11-03
 
 CorelDRAW application versions, bridge releases, MCP tool schemas, compatibility profiles, and catalog formats are separate version domains. They must never be treated as interchangeable.
 
@@ -45,6 +45,12 @@ Every registered tool returns:
 - `warnings`: array of warning strings;
 - `error`: `null` on success or `{code, message, details}` on failure;
 - `duration_ms`.
+
+The unreleased SAFE-001 implementation adds optional `operation_id` when
+external operation recording is enabled. It correlates caller/worker JSONL
+events and is absent by default. ID-001 adds optional `object_reference`
+selectors to eleven common tools without changing legacy selector semantics.
+Both remain additive tool-schema v1 changes for the next bridge minor release.
 
 The v0.5 success dictionary is preserved under `data`. The former unstructured `{error: string}` result is replaced by the stable error object in v0.6.
 

@@ -1467,6 +1467,7 @@ class CorelBridge:
             actual_text = self._text_readback(shape)
             actual_bounds = self._shape_bounds_inches(doc, shape)
             return {"created": True, "type": "text", "object_name": name, "text": text,
+                    "object": self._shape_identity(shape),
                     "font": font, "size_points": size_pt, "bold": bold,
                     "actual_text": actual_text,
                     "actual_bounds_inches": actual_bounds,
@@ -1490,6 +1491,7 @@ class CorelBridge:
                 name = self._name_shape(doc, shape, object_name, "AI_Rectangle")
             actual_bounds = self._shape_bounds_inches(doc, shape)
             return {"created": True, "type": "rectangle", "object_name": name,
+                    "object": self._shape_identity(shape),
                     "x_inches": x_in, "y_inches": y_in,
                     "width_inches": width_in, "height_inches": height_in,
                     "actual_bounds_inches": actual_bounds}
@@ -1513,6 +1515,7 @@ class CorelBridge:
                 name = self._name_shape(doc, shape, object_name, "AI_Ellipse")
             actual_bounds = self._shape_bounds_inches(doc, shape)
             return {"created": True, "type": "ellipse", "object_name": name,
+                    "object": self._shape_identity(shape),
                     "x_inches": x_in, "y_inches": y_in,
                     "width_inches": width_in, "height_inches": height_in,
                     "actual_bounds_inches": actual_bounds}

@@ -30,7 +30,7 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 314 default tests (ten guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
+- 334 default tests (ten guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Bound-document liveness checks that clear closed/replaced targets and prevent
