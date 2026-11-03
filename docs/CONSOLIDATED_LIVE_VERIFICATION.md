@@ -34,6 +34,11 @@ ordinary-outline recoloring and measured geometry/other-channel preservation.
 Its PDF/CDR artifacts require separate visual/color/prepress review; exact native
 components do not establish ICC conversion or separation correctness.
 
+The uniform-transparency gate creates its own vector/text/bitmap fixtures and
+checks native percentages, affected fill/outline/both scope, normal merge mode,
+removal and measured preservation. Rendered blending, pixel identity and printed
+appearance require manual artifact review.
+
 Use `tests/integration/test_corel_live.py` with explicit live and disposable
 mutation flags only when the user resumes native verification. All generated
 fixtures and outputs belong to that run's unique temporary directory. Existing

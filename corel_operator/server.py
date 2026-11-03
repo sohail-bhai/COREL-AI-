@@ -522,6 +522,31 @@ def inspect_text_template(object_name: str="",shape_index: int=0,object_referenc
 
 @mcp.tool()
 @recorded_operation
+def get_transparency(object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
+    """Inspect native transparency type, uniform percent, affected channel and merge mode.
+
+    Unavailable properties are explicit. Non-uniform transparency internals and
+    rendered appearance require separate inspection/manual review.
+    """
+    return _tool("get_transparency","get_transparency",object_name,shape_index,object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def set_uniform_transparency(percent: int,applied_to: str="fill",replace_existing: bool=False,
+    object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
+    """Set normal-mode uniform transparency 1-100 or remove the effect with 0.
+
+    applied_to is fill, outline or both. Non-uniform replacement is explicit.
+    Verify actual native state and measured geometry/base appearance. Partial
+    failures quarantine. Bitmap pixel/visual fidelity remains deferred.
+    """
+    return _tool("set_uniform_transparency","set_uniform_transparency",percent,applied_to,replace_existing,
+        object_name,shape_index,object_reference)
+
+
+@mcp.tool()
+@recorded_operation
 def set_process_color(color: dict,channel: str="fill",replace_non_uniform: bool=False,
     object_name: str="",shape_index: int=0,object_reference: dict | None=None) -> dict:
     """Set exact native RGB/CMYK process fill or an existing ordinary outline color.

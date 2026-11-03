@@ -59,6 +59,9 @@ class CorelX7Adapter:
     VECTOR_PRIMITIVE_TYPES = (1,2,3,4)
     NODE_TYPE_CODES = {'cusp':0,'smooth':1,'symmetrical':2}
     SEGMENT_TYPE_CODES = {'line':0,'cubic':1}
+    TRANSPARENCY_TYPE_NAMES = {0:'none',1:'uniform',2:'fountain',3:'pattern',4:'texture'}
+    TRANSPARENCY_APPLIED_TO = {'fill':0,'outline':1,'both':2}
+    CDR_MERGE_NORMAL = 0
     FLIP_AXES = {"horizontal": 1, "vertical": 2, "both": 3}
 
     CDR_ALIGN_DISTRIBUTE_H_NONE = 0
@@ -136,6 +139,10 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "appearance.transparency_inspection": CapabilitySupport(True,"implemented_unverified","Bounded transparency type/uniform/channel/merge metadata with explicit unavailable state; rendered appearance remains unverified.",
+            ("Shape.Transparency","Transparency.Type","Transparency.Uniform","Transparency.AppliedTo","Transparency.MergeMode")),
+        "appearance.uniform_transparency": CapabilitySupport(True,"implemented_unverified","Normal-mode uniform fill/outline/both transparency and removal verify native state and measured/base-appearance preservation.",
+            ("Transparency.ApplyUniformTransparency","Transparency.ApplyNoTransparency","Transparency.AppliedTo","Transparency.MergeMode")),
         "appearance.process_color": CapabilitySupport(True,"implemented_unverified","Native RGB/CMYK process fill/ordinary-outline assignment verifies complete components and measured geometry/other-channel preservation; no ICC/spot proof.",
             ("Application.CreateRGBColor","Application.CreateCMYKColor","Fill.ApplyUniformFill","Outline.Color")),
         "vector.revise_topology": CapabilitySupport(True,"implemented_unverified","Source-preserving parameter subdivision and explicit nonadjacent node reconnection with complete native geometry/appearance readback.",

@@ -288,6 +288,69 @@
         "Bounded native curve geometry and edits"
       ],
       "type_library_evidence": "docs/x7_vector_api_evidence.json"
+    },
+    "cdrTransparencyType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrtransparencytype",
+      "values": {
+        "cdrNoTransparency": 0,
+        "cdrUniformTransparency": 1,
+        "cdrFountainTransparency": 2,
+        "cdrPatternTransparency": 3,
+        "cdrTextureTransparency": 4
+      },
+      "bridge_usage": [
+        "Bounded transparency inspection and controlled normal-mode uniform effect"
+      ],
+      "type_library_evidence": "docs/x7_appearance_api_evidence.json"
+    },
+    "cdrTransparencyAppliedTo": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrtransparencyappliedto",
+      "values": {
+        "cdrApplyToFill": 0,
+        "cdrApplyToOutline": 1,
+        "cdrApplyToFillAndOutline": 2
+      },
+      "bridge_usage": [
+        "Bounded transparency inspection and controlled normal-mode uniform effect"
+      ],
+      "type_library_evidence": "docs/x7_appearance_api_evidence.json"
+    },
+    "cdrMergeMode": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrmergemode",
+      "values": {
+        "cdrMergeNormal": 0,
+        "cdrMergeAND": 1,
+        "cdrMergeOR": 2,
+        "cdrMergeXOR": 3,
+        "cdrMergeInvert": 6,
+        "cdrMergeAdd": 7,
+        "cdrMergeSubtract": 8,
+        "cdrMergeMultiply": 9,
+        "cdrMergeDivide": 10,
+        "cdrMergeIfLighter": 11,
+        "cdrMergeIfDarker": 12,
+        "cdrMergeTexturize": 13,
+        "cdrMergeColor": 14,
+        "cdrMergeHue": 15,
+        "cdrMergeSaturation": 16,
+        "cdrMergeLightness": 17,
+        "cdrMergeRed": 18,
+        "cdrMergeGreen": 19,
+        "cdrMergeBlue": 20,
+        "cdrMergeDifference": 24,
+        "cdrMergeBehind": 27,
+        "cdrMergeScreen": 28,
+        "cdrMergeOverlay": 29,
+        "cdrMergeSoftlight": 30,
+        "cdrMergeHardlight": 31,
+        "cdrMergeDodge": 33,
+        "cdrMergeBurn": 34,
+        "cdrMergeExclusion": 36
+      },
+      "bridge_usage": [
+        "Bounded transparency inspection and controlled normal-mode uniform effect"
+      ],
+      "type_library_evidence": "docs/x7_appearance_api_evidence.json"
     }
   }
 }

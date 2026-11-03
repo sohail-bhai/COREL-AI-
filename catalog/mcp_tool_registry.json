@@ -2841,6 +2841,76 @@
           "additionalProperties": false
         }
       ]
+    },
+    "transparency_readback": {
+      "type": "object",
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "type": {
+          "enum": [
+            "none",
+            "uniform",
+            "fountain",
+            "pattern",
+            "texture",
+            "unknown"
+          ]
+        },
+        "uniform_percent": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "applied_to_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "applied_to": {
+          "enum": [
+            "fill",
+            "outline",
+            "both",
+            "unknown"
+          ]
+        },
+        "merge_mode_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "merge_mode": {
+          "enum": [
+            "normal",
+            "none",
+            "other_or_unavailable"
+          ]
+        }
+      },
+      "required": [
+        "available",
+        "type_code",
+        "type",
+        "uniform_percent",
+        "applied_to_code",
+        "applied_to",
+        "merge_mode_code",
+        "merge_mode"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -9528,6 +9598,210 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Process color was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "get_transparency": {
+      "request": {
+        "object_reference": {
+          "version": 1,
+          "bridge_session_id": "5feb4f2a7198bbae444bef3b6e46fbb7",
+          "document_session_id": "doc-0001",
+          "page_identity": "e208a8c1210253b448a0f5c2b904b24c5cf989e57118885e2aaf1928085d6639",
+          "layer_identity": "a9b49b946ddbe6a1f556774538f2f1b3ec042942c6ae9ab6e03a0a9601ac641c",
+          "ancestor_identities": [],
+          "shape_identity": "ce52b43d6fa0c8b9aeecf8efc288c2030b40d46a5e6e5697bf5fa6c7696ea468",
+          "static_id": 100,
+          "object_name": "ProcessSource",
+          "shape_type_code": 3,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            1
+          ],
+          "signature": "9ce2a1a24cb21791a543c4e591e9825cbc7c7706cd8d25d271ee768ca3eb190e"
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "get_transparency",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "object": {
+            "object_name": "ProcessSource",
+            "static_id": 100,
+            "shape_type_code": 3,
+            "layer_name": "Vectors",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:100",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "5feb4f2a7198bbae444bef3b6e46fbb7",
+              "document_session_id": "doc-0001",
+              "page_identity": "e208a8c1210253b448a0f5c2b904b24c5cf989e57118885e2aaf1928085d6639",
+              "layer_identity": "a9b49b946ddbe6a1f556774538f2f1b3ec042942c6ae9ab6e03a0a9601ac641c",
+              "ancestor_identities": [],
+              "shape_identity": "ce52b43d6fa0c8b9aeecf8efc288c2030b40d46a5e6e5697bf5fa6c7696ea468",
+              "static_id": 100,
+              "object_name": "ProcessSource",
+              "shape_type_code": 3,
+              "page_index": 1,
+              "layer_index": 2,
+              "shape_path": [
+                1
+              ],
+              "signature": "9ce2a1a24cb21791a543c4e591e9825cbc7c7706cd8d25d271ee768ca3eb190e"
+            }
+          },
+          "transparency": {
+            "available": true,
+            "type_code": 0,
+            "type": "none",
+            "uniform_percent": null,
+            "applied_to_code": null,
+            "applied_to": "unknown",
+            "merge_mode_code": null,
+            "merge_mode": "none"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Non-uniform transparency details and rendered appearance are outside this inspection."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_transparency",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Transparency request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "set_uniform_transparency": {
+      "request": {
+        "percent": 40,
+        "object_reference": {
+          "version": 1,
+          "bridge_session_id": "5feb4f2a7198bbae444bef3b6e46fbb7",
+          "document_session_id": "doc-0001",
+          "page_identity": "e208a8c1210253b448a0f5c2b904b24c5cf989e57118885e2aaf1928085d6639",
+          "layer_identity": "a9b49b946ddbe6a1f556774538f2f1b3ec042942c6ae9ab6e03a0a9601ac641c",
+          "ancestor_identities": [],
+          "shape_identity": "ce52b43d6fa0c8b9aeecf8efc288c2030b40d46a5e6e5697bf5fa6c7696ea468",
+          "static_id": 100,
+          "object_name": "ProcessSource",
+          "shape_type_code": 3,
+          "page_index": 1,
+          "layer_index": 2,
+          "shape_path": [
+            1
+          ],
+          "signature": "9ce2a1a24cb21791a543c4e591e9825cbc7c7706cd8d25d271ee768ca3eb190e"
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "set_uniform_transparency",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "removed": false,
+          "object": {
+            "object_name": "ProcessSource",
+            "static_id": 100,
+            "shape_type_code": 3,
+            "layer_name": "Vectors",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:100",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "5feb4f2a7198bbae444bef3b6e46fbb7",
+              "document_session_id": "doc-0001",
+              "page_identity": "e208a8c1210253b448a0f5c2b904b24c5cf989e57118885e2aaf1928085d6639",
+              "layer_identity": "a9b49b946ddbe6a1f556774538f2f1b3ec042942c6ae9ab6e03a0a9601ac641c",
+              "ancestor_identities": [],
+              "shape_identity": "ce52b43d6fa0c8b9aeecf8efc288c2030b40d46a5e6e5697bf5fa6c7696ea468",
+              "static_id": 100,
+              "object_name": "ProcessSource",
+              "shape_type_code": 3,
+              "page_index": 1,
+              "layer_index": 2,
+              "shape_path": [
+                1
+              ],
+              "signature": "9ce2a1a24cb21791a543c4e591e9825cbc7c7706cd8d25d271ee768ca3eb190e"
+            }
+          },
+          "before_transparency": {
+            "available": true,
+            "type_code": 0,
+            "type": "none",
+            "uniform_percent": null,
+            "applied_to_code": null,
+            "applied_to": "unknown",
+            "merge_mode_code": null,
+            "merge_mode": "none"
+          },
+          "transparency": {
+            "available": true,
+            "type_code": 1,
+            "type": "uniform",
+            "uniform_percent": 40,
+            "applied_to_code": 0,
+            "applied_to": "fill",
+            "merge_mode_code": 0,
+            "merge_mode": "normal"
+          },
+          "preservation_verified": true,
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Native transparency is read back; rendered blend behavior, bitmap pixel preservation and printed output require the consolidated/manual campaign."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "set_uniform_transparency",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Transparency request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -21251,6 +21525,470 @@
         "RGB 0-255 or CMYK 0-100 integer channels; no spot-color creation, groups or bitmap colorization. Non-uniform fill replacement is explicit.",
         "Outline recoloring requires an existing ordinary outline; raw width is preserved and its native unit convention remains unresolved.",
         "Partial/unverified existing-object edits have no automatic undo and quarantine subsequent mutations. Text preservation covers readable content/font/size/bold and measured bounds."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "get_transparency",
+      "category": "appearance",
+      "description": "Inspect native transparency metadata.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.get_transparency"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_name": {
+            "type": "string",
+            "default": ""
+          },
+          "shape_index": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "object_reference": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/object_reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "object_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "object_name"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "shape_index"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "$ref": "#/schema_definitions/object_reference"
+              }
+            },
+            "required": [
+              "object_reference"
+            ]
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "transparency": {
+                      "$ref": "#/schema_definitions/transparency_readback"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "transparency",
+                    "verification_status",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.Pages",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.Fill",
+        "Shape.Name",
+        "Shape.Outline",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Transparency",
+        "Shape.Type",
+        "Transparency.AppliedTo",
+        "Transparency.MergeMode",
+        "Transparency.Type",
+        "Transparency.Uniform"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_transparency.py",
+          "docs/TRANSPARENCY.md",
+          "docs/x7_appearance_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native percentage/scope/normal blending and printed/visual fidelity await the consolidated campaign.",
+        "Uniform percent 1-100; 0 removes the effect. Non-uniform replacement is explicit; only normal merge mode is exposed for writes.",
+        "Inspection reports unavailable/unknown properties. Non-uniform control internals, group opacity and blend variants remain separate work.",
+        "Measured/base-appearance preservation does not establish bitmap pixel identity or full complex-effect preservation. Unverified partial writes quarantine."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "set_uniform_transparency",
+      "category": "appearance",
+      "description": "Apply normal-mode uniform fill/outline/both transparency or remove the effect, with complete native state and measured preservation checks.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.set_uniform_transparency"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_name": {
+            "type": "string",
+            "default": ""
+          },
+          "shape_index": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "object_reference": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/object_reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "percent": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "applied_to": {
+            "enum": [
+              "fill",
+              "outline",
+              "both"
+            ],
+            "default": "fill"
+          },
+          "replace_existing": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "object_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "object_name"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "shape_index"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "$ref": "#/schema_definitions/object_reference"
+              }
+            },
+            "required": [
+              "object_reference"
+            ]
+          }
+        ],
+        "required": [
+          "percent"
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "transparency": {
+                      "$ref": "#/schema_definitions/transparency_readback"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "maxItems": 20
+                    },
+                    "updated": {
+                      "const": true
+                    },
+                    "removed": {
+                      "type": "boolean"
+                    },
+                    "before_transparency": {
+                      "$ref": "#/schema_definitions/transparency_readback"
+                    },
+                    "preservation_verified": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "transparency",
+                    "verification_status",
+                    "warnings",
+                    "updated",
+                    "removed",
+                    "before_transparency",
+                    "preservation_verified"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "bound_exact_target_and_complete_preflight_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateCMYKColor",
+        "Application.CreateRGBColor",
+        "Application.Documents",
+        "Color.CMYKBlack",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.RGBBlue",
+        "Color.RGBGreen",
+        "Color.RGBRed",
+        "Color.SpotColorName",
+        "Color.Tint",
+        "Color.Type",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Fill.ApplyUniformFill",
+        "Layer.Shapes",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Outline.Color",
+        "Outline.Width",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.Curve",
+        "Shape.DisplayCurve",
+        "Shape.Fill",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Outline",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Transparency",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments",
+        "Text.Story",
+        "TextRange.Bold",
+        "TextRange.Font",
+        "TextRange.Size",
+        "TextRange.Text",
+        "Transparency.AppliedTo",
+        "Transparency.ApplyNoTransparency",
+        "Transparency.ApplyUniformTransparency",
+        "Transparency.MergeMode",
+        "Transparency.Type",
+        "Transparency.Uniform"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_transparency.py",
+          "docs/TRANSPARENCY.md",
+          "docs/x7_appearance_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native percentage/scope/normal blending and printed/visual fidelity await the consolidated campaign.",
+        "Uniform percent 1-100; 0 removes the effect. Non-uniform replacement is explicit; only normal merge mode is exposed for writes.",
+        "Inspection reports unavailable/unknown properties. Non-uniform control internals, group opacity and blend variants remain separate work.",
+        "Measured/base-appearance preservation does not establish bitmap pixel identity or full complex-effect preservation. Unverified partial writes quarantine."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

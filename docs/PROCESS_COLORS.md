@@ -30,10 +30,11 @@ and readback discrepancies have no automatic undo and quarantine subsequent
 mutations through exact-operation recovery.
 
 Installed X7 evidence in `x7_appearance_api_evidence.json` retains 274 descriptors
-and five enums with `connection_attempted:false`, including
+and six enums with `connection_attempted:false`, including
 `Application.CreateCMYKColor(Cyan, Magenta, Yellow, Black)`, native CMYK channels,
 `Fill.ApplyUniformFill` and `Outline.Color`. The evidence also inventories
-transparency/PowerClip APIs for subsequent work; it does not register them.
+transparency/PowerClip APIs. Uniform transparency wrappers are documented in
+[TRANSPARENCY.md](TRANSPARENCY.md); PowerClip remains subsequent work.
 The primary API reference location is
 [CreateCMYKColor](https://community.coreldraw.com/sdk/api/draw/17/m/application.createcmykcolor).
 Installed signatures support this wrapper; native execution remains deferred.

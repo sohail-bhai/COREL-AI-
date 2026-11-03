@@ -274,6 +274,10 @@ def validate() -> dict[str, int]:
         ("cdrNodeType", "values", "cdrSymmetricalNode"): CorelX7Adapter.NODE_TYPE_CODES['symmetrical'],
         ("cdrSegmentType", "values", "cdrLineSegment"): CorelX7Adapter.SEGMENT_TYPE_CODES['line'],
         ("cdrSegmentType", "values", "cdrCurveSegment"): CorelX7Adapter.SEGMENT_TYPE_CODES['cubic'],
+        ("cdrTransparencyAppliedTo", "values", "cdrApplyToFill"): CorelX7Adapter.TRANSPARENCY_APPLIED_TO['fill'],
+        ("cdrTransparencyAppliedTo", "values", "cdrApplyToOutline"): CorelX7Adapter.TRANSPARENCY_APPLIED_TO['outline'],
+        ("cdrTransparencyAppliedTo", "values", "cdrApplyToFillAndOutline"): CorelX7Adapter.TRANSPARENCY_APPLIED_TO['both'],
+        ("cdrMergeMode", "values", "cdrMergeNormal"): CorelX7Adapter.CDR_MERGE_NORMAL,
     }
     for (enum_name, values_key, value_name), expected in expected_constants.items():
         actual = enums.get(enum_name, {}).get(values_key, {}).get(value_name)
@@ -286,6 +290,7 @@ def validate() -> dict[str, int]:
         "cdrFillType": CorelX7Adapter.FILL_TYPE_NAMES,
         "cdrOutlineType": CorelX7Adapter.OUTLINE_TYPE_NAMES,
         "cdrColorType": CorelX7Adapter.COLOR_TYPE_NAMES,
+        "cdrTransparencyType": CorelX7Adapter.TRANSPARENCY_TYPE_NAMES,
     }
     for enum_name, adapter_map in enum_map_checks.items():
         catalog_values = set(enums.get(enum_name, {}).get("values", {}).values())

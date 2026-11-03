@@ -30,11 +30,11 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 552 tests (531 automated checks pass; twenty-one guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
+- 571 tests (549 automated checks pass; twenty-two guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Signed session references for precise nested edits, opt-in redacted operation
-  records, and explicit worker/recovery state across 69 MCP tools. Three local
+  records, and explicit worker/recovery state across 71 MCP tools. Three local
   state/outcome/reconciliation tools block unsafe follow-up mutations after
   timeout or partial failure; see [`docs/WORKER_RECOVERY.md`](docs/WORKER_RECOVERY.md).
 - Editable paragraph frames, whole-story font/size/style/alignment revisions,
@@ -56,6 +56,9 @@ Validate the catalog without starting CorelDRAW:
 - Controlled native RGB/CMYK fill and existing-outline colors, exact component
   readback and measured geometry/other-channel preservation; see
   [`docs/PROCESS_COLORS.md`](docs/PROCESS_COLORS.md).
+- Native transparency inspection and normal-mode uniform fill/outline/both
+  application/removal with actual effect and preservation checks; see
+  [`docs/TRANSPARENCY.md`](docs/TRANSPARENCY.md).
 - A complete deferred verification inventory for every registered tool; see
   [`docs/CONSOLIDATED_LIVE_VERIFICATION.md`](docs/CONSOLIDATED_LIVE_VERIFICATION.md).
 - Bound-document liveness checks that clear closed/replaced targets and prevent

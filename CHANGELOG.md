@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Transparency inspection and controlled normal-mode uniform fill/outline/both
+  application/removal. Eighteen checks cover exact percentage/scope/merge,
+  non-uniform replacement intent, ignored/partial writes, preservation and
+  quarantine with continued inspection. Installed X7 applied-to/merge constants
+  are catalogued and validated. The surface has 71 registered tools; 549 checks
+  pass and 22 live gates remain deferred. Rendered blending/pixel/print behavior
+  remains unverified.
 - Controlled native RGB/CMYK process fills and existing ordinary-outline colors.
   Native factory/final components, measured vector/text geometry and the other
   appearance channel gate success; non-uniform fill replacement is explicit.

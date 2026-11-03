@@ -59,7 +59,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 69
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 71
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -81,7 +81,7 @@ capability status, and keep live verification deferred.
   Owned-output cleanup, final row readback and measured source preservation are
   covered. See [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md).
 - Controlled zero-bleed PDF export and local page/font inspection are implemented
-  with 22 focused checks and a deferred native gate. All 69 tools are included in
+  with 22 focused checks and a deferred native gate. All 71 tools are included in
   the consolidated coverage inventory. See [PDF_PRODUCTION.md](PDF_PRODUCTION.md)
   and [CONSOLIDATED_LIVE_VERIFICATION.md](CONSOLIDATED_LIVE_VERIFICATION.md).
 - General vectors are implemented: line/cubic creation, full geometry inspection,
@@ -98,7 +98,11 @@ capability status, and keep live verification deferred.
   Replacing non-uniform fills is explicit; outline colors preserve raw widths.
   Native color/print verification and outline-width units remain deferred/unresolved.
   See [PROCESS_COLORS.md](PROCESS_COLORS.md).
-- Next: transparency/PowerClip, contour offsets and broader prepress;
+- Transparency inspection and normal-mode uniform fill/outline/both application/
+  removal are implemented with 18 focused checks. Native percentage/scope/merge
+  readback and measured/base-appearance preservation gate success; partial failures
+  quarantine while inspection remains available. See [TRANSPARENCY.md](TRANSPARENCY.md).
+- Next: PowerClip, gradients, contour offsets and broader prepress;
   spacing/fitting, layer organization and existing-document checkpoints remain gaps.
 
 **Gate:** The intended object can be found and inspected without mutation;

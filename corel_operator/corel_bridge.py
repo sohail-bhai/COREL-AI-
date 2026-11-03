@@ -40,6 +40,7 @@ from .template_bridge import TemplateBridgeMixin
 from .pdf_bridge import PdfBridgeMixin
 from .vector_bridge import VectorBridgeMixin
 from .appearance_bridge import AppearanceBridgeMixin
+from .transparency_bridge import TransparencyBridgeMixin
 from .object_references import (
     MAX_REFERENCE_DEPTH, MAX_REFERENCE_SCAN, authenticate_reference,
     identity_token, reference_signature, validate_reference,
@@ -55,7 +56,7 @@ from .contour_nesting import (
 )
 
 
-class CorelBridge(TemplateBridgeMixin,PdfBridgeMixin,VectorBridgeMixin,AppearanceBridgeMixin):
+class CorelBridge(TemplateBridgeMixin,PdfBridgeMixin,VectorBridgeMixin,AppearanceBridgeMixin,TransparencyBridgeMixin):
     CDR_INCH = CorelX7Adapter.CDR_INCH
     CDR_BOTTOM_LEFT = CorelX7Adapter.CDR_BOTTOM_LEFT
     MAX_IMPORT_BYTES = 250 * 1024 * 1024

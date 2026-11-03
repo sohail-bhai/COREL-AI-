@@ -2790,6 +2790,11 @@
       "cdrPatternTransparency": 3,
       "cdrTextureTransparency": 4
     },
+    "cdrTransparencyAppliedTo": {
+      "cdrApplyToFill": 0,
+      "cdrApplyToOutline": 1,
+      "cdrApplyToFillAndOutline": 2
+    },
     "cdrMergeMode": {
       "cdrMergeNormal": 0,
       "cdrMergeAND": 1,

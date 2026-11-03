@@ -362,6 +362,46 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed,failure)
 
+    def test_uniform_transparency_live(self) -> None:
+        """Deferred normal-mode percentage/scope/removal gate on synthetic artwork."""
+        from PIL import Image
+        passed=False; failure=None
+        try:
+            self.status=self._step("connect",self.bridge.connect)
+            self._step("create transparency fixture",lambda:self.bridge.create_document(8.5,11))
+            box=self._step("transparency vector",lambda:self.bridge.draw_rectangle(1,1,3,2,"TransparencyVector"))
+            reference=self.bridge.get_object_info(object_name=box["object_name"])["object"]["object_reference"]
+            self._step("base fill",lambda:self.bridge.set_process_color({"model":"rgb","red":20,"green":100,"blue":180},object_reference=reference))
+            self._step("base outline",lambda:self.bridge.set_outline(0,0,0,1,object_reference=reference))
+            before=self.bridge.get_curve_geometry(object_reference=reference)["curve"]
+            self.assertEqual(self._step("get_transparency none",lambda:self.bridge.get_transparency(object_reference=reference))["transparency"]["type"],"none")
+            for percent,scope in ((25,"fill"),(60,"outline"),(100,"both")):
+                result=self._step("set_uniform_transparency "+scope,lambda:self.bridge.set_uniform_transparency(percent,scope,object_reference=reference))
+                self.assertEqual(result["transparency"]["uniform_percent"],percent)
+                self.assertEqual(result["transparency"]["applied_to"],scope)
+                self.assertEqual(result["transparency"]["merge_mode_code"],0)
+                self.assertEqual(self.bridge.get_curve_geometry(object_reference=reference)["curve"],before)
+            removed=self._step("remove transparency",lambda:self.bridge.set_uniform_transparency(0,object_reference=reference))
+            self.assertTrue(removed["removed"]); self.assertEqual(removed["transparency"]["type"],"none")
+            title=self._step("transparency text",lambda:self.bridge.add_text("Editable transparent title",1,5,18,"Arial",True,"TransparencyTitle"))
+            title_ref=self.bridge.get_object_info(object_name=title["object_name"])["object"]["object_reference"]
+            text=self.bridge.get_text_properties(object_reference=title_ref)["text"]
+            self._step("text transparency",lambda:self.bridge.set_uniform_transparency(35,object_reference=title_ref))
+            self.assertEqual(self.bridge.get_text_properties(object_reference=title_ref)["text"],text)
+            raster_path=self.output_dir/"transparency-raster.png"
+            Image.new("RGB",(300,300),(50,160,90)).save(raster_path,dpi=(300,300))
+            imported=self._step("synthetic transparency bitmap",lambda:self.bridge.import_artwork(str(raster_path),"TransparencyBitmap"))
+            bitmap_ref=self.bridge.get_object_info(object_name=imported["object_names"][0])["object"]["object_reference"]
+            bitmap=self._step("bitmap transparency",lambda:self.bridge.set_uniform_transparency(50,object_reference=bitmap_ref))
+            self.assertTrue(bitmap["preservation_verified"])
+            self._step("save transparency fixture",lambda:self.bridge.save_document(str(self.output_dir/"uniform-transparency.cdr")))
+            self._step("export transparency fixture",lambda:self.bridge.export_pdf_controlled(str(self.output_dir/"uniform-transparency.pdf")))
+            passed=True
+        except BaseException as exc:
+            failure=f"{type(exc).__name__}: {exc}"; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed,failure)
+
     def test_document_inspection_live(self) -> None:
         """Consolidated inspection checks on a synthetic document with two pages."""
         passed=False; failure=None

@@ -18,7 +18,7 @@ def main():
         name=info.GetDocumentation(-1)[0]
         if name in seen: continue
         seen.add(name)
-        if attr.typekind==pythoncom.TKIND_ENUM and name in ('cdrColorType','cdrFillType','cdrOutlineType','cdrTransparencyType','cdrMergeMode'):
+        if attr.typekind==pythoncom.TKIND_ENUM and name in ('cdrColorType','cdrFillType','cdrOutlineType','cdrTransparencyType','cdrTransparencyAppliedTo','cdrMergeMode'):
             values={}
             for j in range(attr.cVars):
                 descriptor=info.GetVarDesc(j); values[info.GetDocumentation(descriptor[0])[0]]=descriptor[1]

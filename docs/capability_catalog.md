@@ -44,7 +44,7 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 69 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 71 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
@@ -75,6 +75,12 @@ or existing ordinary-outline color with complete component and measured
 preservation readback. Eighteen focused checks pass. Native color/print behavior,
 ICC/spot workflows, outline-width units and broader transparency/clipping remain
 pending.
+
+Two [transparency tools](TRANSPARENCY.md) inspect native metadata and apply/remove
+normal-mode uniform fill/outline/both effects with complete native percentage,
+scope/merge and measured/base-appearance checks. Eighteen focused checks pass.
+Native rendered blending, bitmap pixel identity, group opacity and broader
+effects remain pending.
 
 ## Evidence hierarchy
 
