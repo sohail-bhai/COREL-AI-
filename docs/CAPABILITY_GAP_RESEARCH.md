@@ -8,11 +8,11 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 44 tools, all `implemented_unverified`. It has useful
+The current server exposes 50 tools, all `implemented_unverified`. It has useful
 inspection, simple drawing/editing, design-plan, numbering, and imposition
 foundations. Tool count does not establish complete workflow coverage: there is
-no general paragraph-text authoring, curve/boolean editing, clipping/effects,
-template personalization, complete multisheet production, or AI component
+no general curve/boolean editing, clipping/effects, template personalization,
+complete multisheet production, or AI component
 generation/revision interface yet. Specialist scripts are research artifacts,
 not general MCP capabilities.
 
@@ -34,11 +34,11 @@ is a requirements reference, not X7 automation evidence.
 
 | Workflow family | Current coverage | Missing behavior and implementation target |
 |---|---|---|
-| Reliable targeting | Explicit binding; bounded search; unique-name checks; implemented open-document liveness guard | Session-scoped object references and stale-object refusal |
-| Recovery and records | Serialized STA; verified fake rollback in selected workflows | Redacted operation records; explicit busy/timeout/unknown-state handling; safe reconciliation |
+| Reliable targeting | Bound-document liveness, bounded search and signed page/layer/group/object references | Persistent/reopened document strategies and broader reference-aware tools |
+| Recovery and records | Bounded redacted records, explicit busy/timeout state, late/partial quarantine and guarded reconciliation | Existing-document checkpoints and specialized rollback policies |
 | Document/page/layer work | New document, inspect pages/layers, CDR save | Controlled open/close, page management, editable/visible layers, source checkpoints |
-| Everyday typography | Artistic text creation/replacement; aggregate inspection | Paragraph frames, font/size/style/alignment revisions, spacing, overflow and font checks |
-| Layout/transforms | Move, resize, duplicate, align, group/ungroup | Proportional sizing, distribution, rotate/mirror, z-order and guide-aware layout |
+| Everyday typography | Artistic/paragraph creation, whole-story style edits, font catalog and aggregate/native chain overflow inspection | Spacing writes, per-run/linked/fitted editing, glyph checks and safe auto-fit |
+| Layout/transforms | Move, proportional resize, duplicate, align, group/ungroup | Distribution, rotate/mirror, z-order and guide-aware layout |
 | Vector construction | Rectangles/ellipses; specialist curve scripts | Lines/paths/nodes, combine/break apart, weld/trim/intersect, offsets and contour tools |
 | Appearance and clipping | RGB fill; native fill inspection; raw outline readback | Proven outline units, CMYK/spot writes, transparency/gradients and PowerClip workflows |
 | Images and references | Validated imports; local cover/contain planning; retained tracing research | General crop/background/cleanup, effective-resolution checks, bounded tracing and fidelity reports |
@@ -58,8 +58,9 @@ Useful implementation evidence includes X7's
 [CreateParagraphText signature](https://community.coreldraw.com/sdk/api/draw/17/m/layer.createparagraphtext),
 [shape lookup](https://community.coreldraw.com/sdk/api/draw/17/m/shapes.findshape),
 and [PowerClip contents](https://community.coreldraw.com/sdk/api/draw/17/p/powerclip.shapes).
-Each still needs local type-library checks, deterministic wrappers, fake-COM
-coverage, and eventual runtime evidence. General shaping research can begin
+Paragraph creation now has local type-library evidence and fake-COM/schema
+coverage in [TYPOGRAPHY.md](TYPOGRAPHY.md); native verification remains deferred.
+Lookup and PowerClip still need wrappers and runtime evidence. General shaping research can begin
 with Corel's [shape programming guide](https://community.coreldraw.com/sdk/w/guide/214/8-6---working-with-shapes).
 
 Data and print requirements are supported by Corel's

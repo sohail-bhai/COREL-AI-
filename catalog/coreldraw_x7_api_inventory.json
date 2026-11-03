@@ -112,6 +112,13 @@
       "commit": "f6bf29b",
       "path": "corel_operator/corel_bridge.py",
       "description": "Catalog-foundation baseline retaining the historical v0.5 dynamic Caption read."
+    },
+    {
+      "id": "x7_typography_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_typography_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "Read-only inspection of installed X7 text members with connection_attempted false."
     }
   ],
   "members": [
@@ -156,7 +163,7 @@
       "access": "read",
       "signature": "Documents -> Documents collection",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_open_documents", "corel_status", "create_document", "use_active_document", "add_text", "draw_rectangle", "draw_ellipse", "list_objects", "set_fill_color", "set_outline", "move_object", "resize_object", "set_text_content", "rename_object", "duplicate_object", "import_artwork", "save_document", "export_pdf", "get_document_info", "list_pages", "get_page_bounds", "list_layers", "get_object_info", "get_object_bounds", "find_objects", "get_text_properties", "get_fill", "prepare_print_job", "create_chest_number_batch", "execute_design_plan", "align_objects", "align_to_page", "group_shapes", "ungroup_shapes", "inspect_repeat_unit", "prepare_contour_nesting", "prepare_imposition_job"],
+      "used_by": ["list_open_documents", "corel_status", "create_document", "use_active_document", "add_text", "draw_rectangle", "draw_ellipse", "list_objects", "set_fill_color", "set_outline", "move_object", "resize_object", "set_text_content", "rename_object", "duplicate_object", "import_artwork", "save_document", "export_pdf", "get_document_info", "list_pages", "get_page_bounds", "list_layers", "get_object_info", "get_object_bounds", "find_objects", "get_text_properties", "get_fill", "prepare_print_job", "create_chest_number_batch", "execute_design_plan", "align_objects", "align_to_page", "group_shapes", "ungroup_shapes", "inspect_repeat_unit", "prepare_contour_nesting", "prepare_imposition_job", "set_text_style"],
       "evidence": ["official_x7_application", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Application.Documents",
       "live_test_status": "not_run"
@@ -350,7 +357,7 @@
       "access": "read",
       "signature": "Pages -> Pages collection",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status"],
+      "used_by": ["corel_status", "get_text_properties", "set_text_style"],
       "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.Pages",
       "live_test_status": "historical_report_needs_reproduction"
@@ -362,7 +369,7 @@
       "access": "read_write",
       "signature": "Unit -> cdrUnit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["corel_status", "create_document", "all_geometry_tools", "get_object_bounds"],
+      "used_by": ["corel_status", "create_document", "all_geometry_tools", "get_object_bounds", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.Unit",
       "live_test_status": "historical_report_needs_reproduction",
@@ -375,7 +382,7 @@
       "access": "read_write",
       "signature": "ReferencePoint -> cdrReferencePoint",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["create_document", "list_objects", "move_object", "get_object_bounds"],
+      "used_by": ["create_document", "list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_document", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Document.ReferencePoint",
       "live_test_status": "not_run"
@@ -566,7 +573,7 @@
       "access": "read",
       "signature": "AllLayers -> Layers collection including master layers",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
+      "used_by": ["list_layers", "get_text_properties", "set_text_style"],
       "evidence": ["official_x7_page", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.AllLayers",
       "live_test_status": "not_run"
@@ -578,7 +585,7 @@
       "access": "read",
       "signature": "Shapes -> Shapes collection across all page layers",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "all_object_selector_tools", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill"],
+      "used_by": ["list_objects", "all_object_selector_tools", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "set_text_style"],
       "evidence": ["official_x7_page", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Page.Shapes",
       "live_test_status": "not_run",
@@ -761,7 +768,7 @@
       "access": "read",
       "signature": "Shapes -> Shapes collection on the layer",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_layers"],
+      "used_by": ["list_layers", "get_text_properties", "set_text_style"],
       "evidence": ["official_x7_layer", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Layer.Shapes",
       "live_test_status": "not_run"
@@ -859,7 +866,7 @@
       "access": "read_write",
       "signature": "Name -> String",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["all_object_tools", "rename_object", "get_object_bounds", "get_text_properties", "get_fill"],
+      "used_by": ["all_object_tools", "rename_object", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Name",
       "live_test_status": "not_run",
@@ -872,7 +879,7 @@
       "access": "read",
       "signature": "StaticID -> Long",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["prepare_contour_nesting", "prepare_imposition_job", "get_object_bounds", "get_text_properties", "get_fill"],
+      "used_by": ["prepare_contour_nesting", "prepare_imposition_job", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_shape", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.StaticID",
       "live_test_status": "unique_within_live_imposition_run_2026-11-01",
@@ -885,7 +892,7 @@
       "access": "read",
       "signature": "Shapes -> Shapes collection of group children",
       "status": "typelib_confirmed",
-      "used_by": ["find_objects", "inspect_repeat_unit", "prepare_imposition_job"],
+      "used_by": ["find_objects", "inspect_repeat_unit", "prepare_imposition_job", "get_text_properties", "set_text_style"],
       "evidence": ["installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Shapes",
       "live_test_status": "not_run_for_find_objects",
@@ -898,7 +905,7 @@
       "access": "read_write",
       "signature": "Layer -> Layer",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill"],
+      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Layer",
       "live_test_status": "live_x7_passed_2026-11-01"
@@ -910,7 +917,7 @@
       "access": "read",
       "signature": "Page -> Page",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill"],
+      "used_by": ["list_objects", "rename_object", "duplicate_object", "import_artwork", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Page",
       "live_test_status": "live_x7_passed_2026-11-01"
@@ -922,7 +929,7 @@
       "access": "read",
       "signature": "Type -> cdrShapeType",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "get_object_bounds", "get_text_properties", "get_fill"],
+      "used_by": ["list_objects", "get_object_bounds", "get_text_properties", "get_fill", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Type",
       "live_test_status": "not_run"
@@ -934,7 +941,7 @@
       "access": "read_write",
       "signature": "PositionX -> Double according to Document.ReferencePoint and Document.Unit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "move_object", "get_object_bounds"],
+      "used_by": ["list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.PositionX",
       "live_test_status": "not_run"
@@ -946,7 +953,7 @@
       "access": "read_write",
       "signature": "PositionY -> Double according to Document.ReferencePoint and Document.Unit",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "move_object", "get_object_bounds"],
+      "used_by": ["list_objects", "move_object", "get_object_bounds", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.PositionY",
       "live_test_status": "not_run"
@@ -958,7 +965,7 @@
       "access": "read_write",
       "signature": "SizeWidth -> Double in document units",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "resize_object", "get_object_bounds"],
+      "used_by": ["list_objects", "resize_object", "get_object_bounds", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.SizeWidth",
       "live_test_status": "not_run"
@@ -970,7 +977,7 @@
       "access": "read_write",
       "signature": "SizeHeight -> Double in document units",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "resize_object", "get_object_bounds"],
+      "used_by": ["list_objects", "resize_object", "get_object_bounds", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.SizeHeight",
       "live_test_status": "not_run"
@@ -982,7 +989,7 @@
       "access": "read",
       "signature": "Text -> Text",
       "status": "documented_and_typelib_confirmed",
-      "used_by": ["list_objects", "set_text_content", "get_text_properties"],
+      "used_by": ["list_objects", "set_text_content", "get_text_properties", "add_paragraph_text", "set_text_style"],
       "evidence": ["official_x7_shape", "installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Shape.Text",
       "live_test_status": "not_run",
@@ -1123,7 +1130,7 @@
       "access": "read",
       "signature": "Story -> TextRange",
       "status": "typelib_confirmed",
-      "used_by": ["list_objects", "set_text_content", "get_text_properties"],
+      "used_by": ["list_objects", "set_text_content", "get_text_properties", "add_paragraph_text", "set_text_style"],
       "evidence": ["installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/Text.Story",
       "live_test_status": "not_run"
@@ -1135,7 +1142,7 @@
       "access": "read_write",
       "signature": "Text -> String",
       "status": "typelib_confirmed",
-      "used_by": ["list_objects", "set_text_content", "get_text_properties"],
+      "used_by": ["list_objects", "set_text_content", "get_text_properties", "add_paragraph_text", "set_text_style"],
       "evidence": ["installed_x7_typelib", "prototype_source"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Text",
       "live_test_status": "not_run"
@@ -1147,7 +1154,7 @@
       "access": "read_write",
       "signature": "Font -> String",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties"],
+      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
       "evidence": ["installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Font",
       "live_test_status": "not_run"
@@ -1159,7 +1166,7 @@
       "access": "read_write",
       "signature": "Size -> Single",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties"],
+      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
       "evidence": ["installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Size",
       "live_test_status": "not_run"
@@ -1169,9 +1176,9 @@
       "owner": "TextRange",
       "kind": "property",
       "access": "read_write",
-      "signature": "Bold -> cdrTriState",
+      "signature": "Bold -> Boolean (X7 property; creation parameters use cdrTriState)",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties"],
+      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
       "evidence": ["installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Bold",
       "live_test_status": "not_run"
@@ -1181,9 +1188,9 @@
       "owner": "TextRange",
       "kind": "property",
       "access": "read_write",
-      "signature": "Italic -> cdrTriState",
+      "signature": "Italic -> Boolean (X7 property; creation parameters use cdrTriState)",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties"],
+      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
       "evidence": ["installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Italic",
       "live_test_status": "not_run"
@@ -1195,7 +1202,7 @@
       "access": "read_write",
       "signature": "Underline -> cdrFontLine",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties"],
+      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
       "evidence": ["installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Underline",
       "live_test_status": "not_run"
@@ -1207,7 +1214,7 @@
       "access": "read_write",
       "signature": "Alignment -> cdrAlignment",
       "status": "typelib_confirmed",
-      "used_by": ["get_text_properties"],
+      "used_by": ["get_text_properties", "add_paragraph_text", "set_text_style"],
       "evidence": ["installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/TextRange.Alignment",
       "live_test_status": "not_run"
@@ -1616,6 +1623,232 @@
       "used_by": ["ungroup_shapes"],
       "evidence": ["official_x7_shape", "installed_x7_typelib"],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/Shape.UngroupAll",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Text.Type",
+      "owner": "Text",
+      "kind": "property",
+      "access": "read",
+      "signature": "Type",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/text.type",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Text.Overflow",
+      "owner": "Text",
+      "kind": "property",
+      "access": "read",
+      "signature": "Overflow",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/text.overflow",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Text.Frames",
+      "owner": "Text",
+      "kind": "property",
+      "access": "read",
+      "signature": "Frames",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/text.frames",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextFrames.Count",
+      "owner": "TextFrames",
+      "kind": "property",
+      "access": "read",
+      "signature": "Count",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframes.count",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.CharSpacing",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "CharSpacing",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.charspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.WordSpacing",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "WordSpacing",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.wordspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.LineSpacing",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "LineSpacing",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.linespacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.LineSpacingType",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read",
+      "signature": "LineSpacingType",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_text_properties",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.linespacingtype",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Application.FontList",
+      "owner": "Application",
+      "kind": "property",
+      "access": "read",
+      "signature": "FontList",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "list_fonts",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/application.fontlist",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "FontList.Count",
+      "owner": "FontList",
+      "kind": "property",
+      "access": "read",
+      "signature": "Count",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "list_fonts",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fontlist.count",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "FontList.Item",
+      "owner": "FontList",
+      "kind": "property",
+      "access": "read",
+      "signature": "Item",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "list_fonts",
+        "add_paragraph_text",
+        "set_text_style"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/fontlist.item",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Layer.CreateParagraphText",
+      "owner": "Layer",
+      "kind": "method",
+      "access": "call",
+      "signature": "CreateParagraphText(Left, Top, Right, Bottom, Text, LanguageID, CharSet, Font, Size, Bold, Italic, Underline, Alignment) -> Shape",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "add_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_typography_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/layer.createparagraphtext",
       "live_test_status": "not_run"
     }
   ]

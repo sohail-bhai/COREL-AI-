@@ -50,6 +50,7 @@ class CorelX7Adapter:
     CDR_ALL_PAGES = 0
     CDR_LANGUAGE_NONE = 0
     CDR_CHARSET_ANSI = 0
+    CDR_CHARSET_MIXED = -1
     CDR_FALSE = 0
     CDR_TRUE = -1
     CDR_GROUP_SHAPE = 7
@@ -130,6 +131,21 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "text.paragraph_create": CapabilitySupport(
+            True, "implemented_unverified",
+            "X7 paragraph creation signature is confirmed; native text/glyph/overflow behavior awaits the consolidated live gate.",
+            ("Layer.CreateParagraphText", "Text.Type", "Text.Overflow"),
+        ),
+        "text.style_edit": CapabilitySupport(
+            True, "implemented_unverified",
+            "Whole-story editing with signed targeting, font preflight and formatting readback passes fake-COM tests; linked/fitted text is refused.",
+            ("Text.Story", "Text.Frames", "TextRange.Font", "TextRange.Size", "TextRange.Alignment"),
+        ),
+        "text.font_catalog": CapabilitySupport(
+            True, "implemented_unverified",
+            "Bounded X7 font catalog inspection is type-library confirmed; catalog membership does not establish glyph coverage.",
+            ("Application.FontList", "FontList.Count", "FontList.Item"),
+        ),
         "application.status": CapabilitySupport(
             True,
             "implemented_unverified",

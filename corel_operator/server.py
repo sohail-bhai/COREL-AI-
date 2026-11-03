@@ -502,6 +502,53 @@ def use_active_document(confirm_existing_document: bool = False) -> dict:
 
 @mcp.tool()
 @recorded_operation
+def list_fonts(name_contains: str = "", max_results: int = 100, max_scan: int = 5000) -> dict:
+    """Inspect X7's font catalog using a case-insensitive literal filter.
+
+    Limits: 1-1000 results, 1-10000 scanned entries. Check incomplete_reasons
+    before concluding a font is absent. Catalog presence does not prove glyph coverage.
+    """
+    return _tool("list_fonts", "list_fonts", name_contains, max_results, max_scan)
+
+
+@mcp.tool()
+@recorded_operation
+def add_paragraph_text(
+    text: str, x_inches: float, y_inches: float, width_inches: float, height_inches: float,
+    size_points: float = 12, font: str = "Arial", bold: bool = False, italic: bool = False,
+    underline: str = "none", alignment: str = "left", object_name: str = "",
+) -> dict:
+    """Create editable paragraph text in an explicit frame in the bound document.
+
+    x/y locate the frame's lower-left in document ruler inches; width/height are
+    positive. Verify the font catalog before creating; return actual formatting,
+    bounds, and native linked-story overflow. Text is limited to 100000 characters.
+    """
+    return _tool("add_paragraph_text", "add_paragraph_text", text, x_inches, y_inches,
+                 width_inches, height_inches, size_points, font, bold, italic,
+                 underline, alignment, object_name)
+
+
+@mcp.tool()
+@recorded_operation
+def set_text_style(
+    font: str | None = None, size_points: float | None = None,
+    bold: bool | None = None, italic: bool | None = None,
+    underline: str | None = None, alignment: str | None = None,
+    object_name: str = "", shape_index: int = 0, object_reference: dict | None = None,
+) -> dict:
+    """Apply supplied formatting to one entire, unfitted, unlinked text story.
+
+    Null properties are preserved. Select by unique active-page name, index, or
+    signed object_reference on the active page. Underline: none/single; alignment:
+    left/right/center/justify/force_justify. Returns before/actual styles and bounds.
+    """
+    return _tool("set_text_style", "set_text_style", font, size_points, bold, italic,
+                 underline, alignment, object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
 def add_text(text: str, x_inches: float, y_inches: float, size_points: float = 24,
              font: str = "Arial", bold: bool = False, object_name: str = "") -> dict:
     """Create editable artistic text in the target document. Names are used to edit objects later."""

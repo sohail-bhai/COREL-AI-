@@ -27,6 +27,11 @@ from .object_inspection import (
     DEFAULT_TEXT_CHARS, MAX_NAME_CHARS, MAX_NAME_SCAN,
     validate_inspection_selector, validate_text_limit,
 )
+from .typography import (
+    ALIGNMENTS, UNDERLINES, STYLE_ATTRIBUTES, MAX_FONT_SCAN, MAX_FONT_CHARS,
+    validate_font, validate_style, validate_paragraph,
+    read_property, style_readback, layout_readback,
+)
 from .object_references import (
     MAX_REFERENCE_DEPTH, MAX_REFERENCE_SCAN, authenticate_reference,
     identity_token, reference_signature, validate_reference,
@@ -1066,6 +1071,7 @@ class CorelBridge:
         text["unavailable_properties"] = unavailable
         text["indeterminate_properties"] = indeterminate
         text["truncated_properties"] = truncated
+        text["layout"] = layout_readback(shape.Text, story)
         return {"document_name": _safe_string_attr(document, "Name"), "object": identity, "text": text}
 
     def get_fill(self, object_name: str = "", shape_index: int = 0,
@@ -1517,6 +1523,173 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("Object was created but could not be named for later edits: " + str(exc)) from exc
         return name
+
+    def _font_collection(self):
+        try:
+            collection = self._require_app().FontList
+            count = collection.Count
+            if type(count) is not int or count < 0 or count > 100000:
+                raise ValueError("Invalid font count")
+            return collection, count
+        except Exception as exc:
+            raise CorelBridgeError("Could not read the X7 font catalog.", ErrorCode.COREL_COM_ERROR) from exc
+
+    def _font_at(self, collection, index):
+        value = self._collection_item(collection, index)
+        if type(value) is not str or not value.strip() or len(value) > MAX_FONT_CHARS:
+            raise ValueError("Unavailable font name")
+        return value
+
+    def list_fonts(self, name_contains: str = "", max_results: int = 100, max_scan: int = 5000):
+        if type(name_contains) is not str or len(name_contains) > MAX_FONT_CHARS:
+            raise CorelBridgeError("name_contains must be a string of at most 200 characters.", ErrorCode.INVALID_ARGUMENT)
+        if type(max_results) is not int or not 1 <= max_results <= 1000:
+            raise CorelBridgeError("max_results must be an integer between 1 and 1000.", ErrorCode.INVALID_ARGUMENT)
+        if type(max_scan) is not int or not 1 <= max_scan <= MAX_FONT_SCAN:
+            raise CorelBridgeError("max_scan must be an integer between 1 and 10000.", ErrorCode.INVALID_ARGUMENT)
+        collection, count = self._font_collection()
+        fonts, reasons, scanned = [], set(), 0
+        for index in range(1, min(count, max_scan) + 1):
+            scanned += 1
+            try:
+                name = self._font_at(collection, index)
+            except Exception:
+                reasons.add("unavailable_font_entry")
+                continue
+            if name_contains.casefold() not in name.casefold():
+                continue
+            if len(fonts) == max_results:
+                reasons.add("max_results")
+                break
+            fonts.append(name)
+        if count > max_scan and "max_results" not in reasons:
+            reasons.add("max_scan")
+        return {"fonts": fonts, "returned_count": len(fonts), "total_count": count,
+                "scanned_count": scanned, "truncated": bool(reasons),
+                "incomplete_reasons": sorted(reasons), "availability_scope": "coreldraw_font_catalog"}
+
+    def _require_font(self, font):
+        validate_font(font)
+        # Inspect the complete catalog with a literal filter. A missing font may
+        # only be concluded when no entry or scan limit is unavailable.
+        catalog = self.list_fonts(name_contains=font, max_results=1000, max_scan=MAX_FONT_SCAN)
+        if catalog["total_count"] > MAX_FONT_SCAN:
+            raise CorelBridgeError("The font catalog exceeds the 10000-entry verification limit.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+        if catalog["truncated"]:
+            raise CorelBridgeError("Could not establish complete font availability before editing.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+        matches = [name for name in catalog["fonts"] if name.casefold() == font.casefold()]
+        if not matches:
+            raise CorelBridgeError("The requested font is absent from CorelDRAW's font catalog.", ErrorCode.INVALID_ARGUMENT)
+        return matches[0]
+
+    def _typography_bounds(self, document, shape):
+        bounds = self._shape_bounds_inches(document, shape, strict_context=True)
+        if any(value is None or not math.isfinite(value) for value in bounds.values()):
+            raise CorelBridgeError("Could not read actual text bounds after editing.", ErrorCode.COREL_COM_ERROR)
+        return bounds
+
+    @tracked_mutation
+    def add_paragraph_text(
+        self, text: str, x_inches: float, y_inches: float, width_inches: float, height_inches: float,
+        size_points: float = 12, font: str = "Arial", bold: bool = False, italic: bool = False,
+        underline: str = "none", alignment: str = "left", object_name: str = "",
+    ):
+        validate_paragraph(text, x_inches, y_inches, width_inches, height_inches, object_name)
+        requested = validate_style(font, size_points, bold, italic, underline, alignment)
+        document = self._target_document()
+        requested["font"] = self._require_font(font)
+        if int(self._shapes(document).Count) > MAX_NAME_SCAN:
+            raise CorelBridgeError("The page exceeds the 10000-object naming limit.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+        name = self._unique_name(document, object_name, "AI_Paragraph")
+        layer = self._get_layer(document)
+        try:
+            self._note_mutation()
+            with self._in_inches(document, strict_restore=True):
+                shape = layer.CreateParagraphText(
+                    float(x_inches), float(y_inches + height_inches),
+                    float(x_inches + width_inches), float(y_inches), text,
+                    self.adapter.CDR_LANGUAGE_NONE, self.adapter.CDR_CHARSET_MIXED,
+                    requested["font"], float(size_points),
+                    self.adapter.CDR_TRUE if bold else self.adapter.CDR_FALSE,
+                    self.adapter.CDR_TRUE if italic else self.adapter.CDR_FALSE,
+                    UNDERLINES[underline], ALIGNMENTS[alignment],
+                )
+                shape.Name = name
+            story = shape.Text.Story
+            actual_content = story.Text
+            normalize_breaks = lambda value: value.replace("\r\n", "\r").replace("\n", "\r")
+            if not isinstance(actual_content, str) or normalize_breaks(actual_content) != normalize_breaks(text):
+                raise CorelBridgeError("Paragraph text content readback differs from the request.", ErrorCode.COREL_COM_ERROR)
+            actual_style = style_readback(story)
+            self._verify_text_style(requested, actual_style)
+            layout = layout_readback(shape.Text, story)
+            if layout["text_type_code"] != 1:
+                raise CorelBridgeError("CorelDRAW did not return an editable paragraph text object.", ErrorCode.COREL_COM_ERROR)
+            identity = self._shape_identity(shape)
+            identity["object_reference"] = self._reference_for_shape(document, shape)
+            return {"created": True, "object_name": name, "object": identity,
+                    "requested_style": requested, "actual_style": actual_style,
+                    "line_breaks_normalized": actual_content != text,
+                    "actual_bounds_inches": self._typography_bounds(document, shape), "layout": layout}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW could not create or inspect paragraph text.", ErrorCode.COREL_COM_ERROR) from exc
+
+    @staticmethod
+    def _verify_text_style(requested, actual):
+        for field, expected in requested.items():
+            observed = actual[field]
+            matches = observed == expected
+            if field == "size_points":
+                matches = observed is not None and math.isclose(observed, expected, abs_tol=0.01, rel_tol=0)
+            elif field == "font":
+                matches = observed is not None and observed.casefold() == expected.casefold()
+            if not matches:
+                raise CorelBridgeError("Native text formatting readback differs from the request.",
+                                       ErrorCode.COREL_COM_ERROR, {"property": field})
+
+    @tracked_mutation
+    def set_text_style(
+        self, font: str | None = None, size_points: float | None = None,
+        bold: bool | None = None, italic: bool | None = None,
+        underline: str | None = None, alignment: str | None = None,
+        object_name: str = "", shape_index: int = 0, object_reference: dict | None = None,
+    ):
+        requested = validate_style(font, size_points, bold, italic, underline, alignment)
+        document, shape, identity = self._inspection_target(object_name, shape_index, object_reference)
+        if object_reference is not None:
+            shape, _ = self._resolve_object_reference(document, object_reference, mutation=True)
+        if identity["shape_type_code"] != self.adapter.CDR_TEXT_SHAPE:
+            raise CorelBridgeError("The selected object is not a text shape.", ErrorCode.INVALID_ARGUMENT)
+        try:
+            text = shape.Text
+            story = text.Story
+            layout = layout_readback(text, story)
+            if layout["text_type_code"] not in (0, 1) or layout["frame_count"] != 1:
+                raise CorelBridgeError("Style editing requires one unfitted, unlinked text frame.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+            before = style_readback(story)
+            # Verify property access before the first write. Mixed formatting is
+            # permitted: this operation explicitly applies to the entire story.
+            for field in requested:
+                getattr(story, STYLE_ATTRIBUTES[field])
+            if font is not None:
+                requested["font"] = self._require_font(font)
+            for field, value in requested.items():
+                native = UNDERLINES[value] if field == "underline" else ALIGNMENTS[value] if field == "alignment" else value
+                self._note_mutation()
+                setattr(story, STYLE_ATTRIBUTES[field], native)
+            actual = style_readback(story)
+            self._verify_text_style(requested, actual)
+            identity["object_reference"] = self._reference_for_shape(document, shape)
+            return {"updated": True, "object": identity, "formatting_scope": "whole_story",
+                    "requested_style": requested, "before_style": before, "actual_style": actual,
+                    "actual_bounds_inches": self._typography_bounds(document, shape),
+                    "layout": layout_readback(text, story)}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW could not apply or inspect text formatting.", ErrorCode.COREL_COM_ERROR) from exc
 
     @tracked_mutation
     def add_text(self, text: str, x_in: float, y_in: float, size_pt: float = 24,

@@ -44,12 +44,17 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 47 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 50 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
 after native timeout or uncertain failure. Existing-document checkpoints and
 specialized rollback policies remain broader recovery work.
+
+Three [typography tools](TYPOGRAPHY.md) now create paragraph frames, inspect the
+font catalog, and revise whole-story styles with actual formatting/bounds and
+chain-overflow readback. Spacing writes, glyph checks and native evidence remain
+pending.
 
 ## Evidence hierarchy
 

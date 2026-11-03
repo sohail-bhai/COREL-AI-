@@ -946,6 +946,77 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self._close_saved_target_if_needed()
             self._write_report(passed, failure)
 
+    def test_typography_live(self) -> None:
+        """Native typography/readback on owned synthetic artwork; never run by default."""
+        passed, failure, owned_session = False, None, None
+        try:
+            self.status = self._step("connect typography fixture", self.bridge.connect)
+            self._step("create typography document", lambda: self.bridge.create_document(8.5, 11))
+            document = self.bridge.target_doc
+            owned_session = self.bridge._document_session_id(document)
+            original_context = (int(document.Unit), int(document.ReferencePoint))
+            fonts = self._step("inspect native Arial catalog", lambda: self.bridge.list_fonts("Arial", max_scan=10000))
+            self.assertFalse(fonts["truncated"])
+            self.assertIn("Arial", fonts["fonts"])
+            self.bridge.add_text("Editable title", 1, 8, object_name="TypeTitle")
+            title = self.bridge.get_text_properties(object_name="TypeTitle")
+            reference = title["object"]["object_reference"]
+            self.assertIsNotNone(reference)
+            changed = self._step("revise native title typography", lambda: self.bridge.set_text_style(
+                font="Arial", size_points=28, bold=True, italic=True, underline="single",
+                alignment="center", object_reference=reference))
+            self.assertEqual(changed["actual_style"]["size_points"], 28)
+            self.assertTrue(changed["actual_style"]["bold"])
+            self.assertEqual(self.bridge.get_text_properties(object_reference=reference)["text"]["content"], "Editable title")
+            body_text = "Synthetic paragraph\n" + "Overflow measurement example. " * 100
+            paragraph = self._step("create native paragraph frame", lambda: self.bridge.add_paragraph_text(
+                body_text, 1, 4, 2, .5, size_points=24, object_name="TypeBody"))
+            body_reference = paragraph["object"]["object_reference"]
+            self.assertIsNotNone(body_reference)
+            self.assertEqual(paragraph["layout"]["text_type"], "paragraph")
+            self.assertEqual(paragraph["layout"]["frame_count"], 1)
+            self.assertTrue(paragraph["layout"]["overflow"])
+            self.assertEqual(paragraph["layout"]["overflow_scope"], "linked_story")
+            for field, expected in (("x", 1), ("y", 4), ("width", 2), ("height", .5)):
+                self.assertAlmostEqual(paragraph["actual_bounds_inches"][field], expected, delta=.02)
+            styled_body = self._step("revise paragraph font size", lambda: self.bridge.set_text_style(
+                size_points=12, alignment="justify", object_reference=body_reference))
+            self.assertEqual(styled_body["actual_style"]["alignment"], "justify")
+            body = self.bridge.get_text_properties(object_reference=body_reference, max_text_chars=10000)
+            normalize = lambda value: value.replace("\r\n", "\r").replace("\n", "\r")
+            self.assertEqual(normalize(body["text"]["content"]), normalize(body_text))
+            self._step("set native text color", lambda: self.bridge.set_fill_color(20, 40, 60, object_reference=body_reference))
+            self.assertEqual(self.bridge.get_fill(object_reference=body_reference)["fill"]["type"], "uniform")
+            shape_count = int(document.ActivePage.Shapes.Count)
+            with self.assertRaises(CorelBridgeError) as missing:
+                self.bridge.set_text_style(font="SyntheticMissingFont_941923", object_reference=body_reference)
+            self.assertEqual(missing.exception.code, ErrorCode.INVALID_ARGUMENT)
+            self.assertEqual(int(document.ActivePage.Shapes.Count), shape_count)
+            self.assertEqual((int(document.Unit), int(document.ReferencePoint)), original_context)
+            (self.output_dir / "typography-readback.json").write_text(
+                json.dumps({"title": changed, "paragraph": paragraph, "revised_body": styled_body,
+                            "body_inspection": body}, indent=2, ensure_ascii=False), encoding="utf-8")
+            self._step("verify native typography", lambda: {"updated": True})
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            try:
+                if owned_session is not None and self.bridge.target_doc is not None:
+                    document = self.bridge._target_document()
+                    if self.bridge._document_session_id(document) != owned_session:
+                        raise AssertionError("Refusing typography cleanup of an unowned target")
+                    self._step("save owned typography fixture", lambda: self.bridge.save_document(str(self.cdr_path)))
+                    document.Close()
+                    self.bridge._invalidate_target_document()
+            except BaseException as exc:
+                passed = False
+                failure = f"Typography cleanup failed: {type(exc).__name__}: {exc}"
+                raise
+            finally:
+                self._write_report(passed, failure)
+
     def test_worker_recovery_live(self) -> None:
         """Native synthetic edits with a controlled caller timeout; real modal behavior is separate."""
         from corel_operator import server

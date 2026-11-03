@@ -76,6 +76,24 @@
       "accessed": "2026-11-03",
       "kind": "official_primary_source",
       "x7_specific": false
+    },
+    "overflow_api": {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/text.overflow",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
+    "char_spacing_api": {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.charspacing",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
+    "word_spacing_api": {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.wordspacing",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
     }
   },
   "gaps": [
@@ -173,23 +191,41 @@
       "registered_tools": [
         "add_text",
         "set_text_content",
-        "get_text_properties"
+        "get_text_properties",
+        "list_fonts",
+        "add_paragraph_text",
+        "set_text_style"
       ],
       "missing_behavior": [
-        "Paragraph text",
-        "Font/size/style/alignment revisions",
-        "Spacing/font availability/overflow checks"
+        "Spacing writes with established user-facing units",
+        "Per-run and linked/fitted story edits",
+        "Font face/glyph coverage",
+        "Safe auto-fit and template reflow"
       ],
       "source_ids": [
         "paragraph_api",
-        "x7_guide"
+        "x7_guide",
+        "overflow_api",
+        "char_spacing_api",
+        "word_spacing_api"
       ],
       "depends_on": [
         "ID-001",
         "SAFE-002"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "partial",
+      "live_status": "deferred",
+      "implemented_behavior": [
+        "Editable paragraph frames",
+        "Whole-story font/size/style/alignment revisions",
+        "Bounded font catalog with complete preflight",
+        "Native subtype/frame/spacing/chain-overflow inspection"
+      ],
+      "evidence": [
+        "docs/TYPOGRAPHY.md",
+        "docs/x7_typography_api_evidence.json",
+        "tests/test_typography.py"
+      ]
     },
     {
       "id": "layout",
@@ -206,7 +242,6 @@
         "ungroup_shapes"
       ],
       "missing_behavior": [
-        "Proportional scaling",
         "Distribution/rotation/mirroring",
         "Z-order and guide-aware layout"
       ],

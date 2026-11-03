@@ -2,7 +2,7 @@
 
 **Implemented:** 2026-11-03. Recording is disabled by default.
 
-All 47 MCP tools have optional operation events, including pure planning tools.
+All 50 MCP tools have optional operation events, including pure planning tools.
 Enable recording by setting `COREL_OPERATION_LOG_DIR` to an absolute directory
 outside this repository before starting the MCP server. Environment files are
 not loaded automatically. No files or logging output are created when disabled.

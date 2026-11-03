@@ -26,7 +26,8 @@
     "Since bridge 0.6.0 every tool returns tool-schema v1: a stable envelope whose data field contains the operation-specific result.",
     "ID-001: eleven registered selector tools accept signed session object_reference values. StaticID-derived object_id strings remain inspection-only; no persistent cross-session identity is promised.",
     "SAFE-001: opt-in external JSONL operation records cover all registered MCP tools and separate worker completion from caller return; operation_id is an optional envelope field. No client content or paths are logged.",
-    "SAFE-002: the dispatcher refuses concurrent/native busy follow-ups, cancels only pending timeouts, and quarantines late mutations or uncertain failure until exact-ID native reconciliation. Three metadata/recovery tools remain unverified against X7."
+    "SAFE-002: the dispatcher refuses concurrent/native busy follow-ups, cancels only pending timeouts, and quarantines late mutations or uncertain failure until exact-ID native reconciliation. Three metadata/recovery tools remain unverified against X7.",
+    "Typography: paragraph creation, bounded font catalog, whole-story styling and explicit native chain overflow are implemented_unverified; linked/fitted edits are refused."
   ],
   "schema_definitions": {
     "object_selector": {
@@ -849,6 +850,9 @@
           },
           "uniqueItems": true,
           "maxItems": 8
+        },
+        "layout": {
+          "$ref": "#/schema_definitions/text_layout_readback"
         }
       },
       "additionalProperties": false
@@ -1578,6 +1582,235 @@
         "unit_code",
         "reference_point_code",
         "dirty"
+      ],
+      "additionalProperties": false
+    },
+    "requested_text_style": {
+      "type": "object",
+      "properties": {
+        "font": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[^\\u0000-\\u001f]+$"
+        },
+        "size_points": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "bold": {
+          "type": "boolean"
+        },
+        "italic": {
+          "type": "boolean"
+        },
+        "underline": {
+          "enum": [
+            "none",
+            "single"
+          ]
+        },
+        "alignment": {
+          "enum": [
+            "left",
+            "right",
+            "center",
+            "justify",
+            "force_justify"
+          ]
+        }
+      },
+      "required": [],
+      "additionalProperties": false,
+      "minProperties": 1
+    },
+    "actual_text_style": {
+      "type": "object",
+      "properties": {
+        "font": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[^\\u0000-\\u001f]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "size_points": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "bold": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "italic": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "underline": {
+          "anyOf": [
+            {
+              "enum": [
+                "none",
+                "single"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "alignment": {
+          "anyOf": [
+            {
+              "enum": [
+                "left",
+                "right",
+                "center",
+                "justify",
+                "force_justify"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unavailable_or_mixed_properties": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "font",
+              "size_points",
+              "bold",
+              "italic",
+              "underline",
+              "alignment"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "font",
+        "size_points",
+        "bold",
+        "italic",
+        "underline",
+        "alignment",
+        "unavailable_or_mixed_properties"
+      ],
+      "additionalProperties": false
+    },
+    "text_layout_readback": {
+      "type": "object",
+      "properties": {
+        "text_type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "text_type": {
+          "enum": [
+            "artistic",
+            "paragraph",
+            "artistic_fitted",
+            "paragraph_fitted",
+            null
+          ]
+        },
+        "overflow": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "overflow_scope": {
+          "const": "linked_story"
+        },
+        "frame_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "char_spacing_native": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "word_spacing_native": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "line_spacing_native": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "line_spacing_type_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "unavailable_properties": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "text_type_code",
+              "text_type",
+              "overflow",
+              "overflow_scope",
+              "frame_count",
+              "char_spacing_native",
+              "word_spacing_native",
+              "line_spacing_native",
+              "line_spacing_type_code"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "text_type_code",
+        "text_type",
+        "overflow",
+        "overflow_scope",
+        "frame_count",
+        "char_spacing_native",
+        "word_spacing_native",
+        "line_spacing_native",
+        "line_spacing_type_code",
+        "unavailable_properties"
       ],
       "additionalProperties": false
     }
@@ -4185,6 +4418,258 @@
           "details": {}
         },
         "duration_ms": 0.1
+      }
+    },
+    "list_fonts": {
+      "request": {
+        "name_contains": "Arial"
+      },
+      "success": {
+        "ok": true,
+        "tool": "list_fonts",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "fonts": [
+            "Arial"
+          ],
+          "returned_count": 1,
+          "total_count": 3,
+          "scanned_count": 3,
+          "truncated": false,
+          "incomplete_reasons": [],
+          "availability_scope": "coreldraw_font_catalog"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "list_fonts",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Synthetic validation refusal.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "add_paragraph_text": {
+      "request": {
+        "text": "Example body",
+        "x_inches": 1,
+        "y_inches": 2,
+        "width_inches": 3,
+        "height_inches": 2
+      },
+      "success": {
+        "ok": true,
+        "tool": "add_paragraph_text",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "object_name": "AI_Paragraph_001",
+          "object": {
+            "object_name": "AI_Paragraph_001",
+            "static_id": 102,
+            "shape_type_code": 6,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "7b2933b433fb91f456fb65f4b2970322",
+              "document_session_id": "doc-0001",
+              "page_identity": "f3267b57b331c901b3eaef88ae8cb27dc85d5c212f98cf9c004667840ca2387d",
+              "layer_identity": "50d9ff76ac470beb14c88ed1c214348e6fc9e5999ed4ed81bb14926a1a8dc484",
+              "ancestor_identities": [],
+              "shape_identity": "cf4ddd2cba2dbc1e33f711bfabf2a17c0ba8cfae07d93ca617952762dfbea17d",
+              "static_id": 102,
+              "object_name": "AI_Paragraph_001",
+              "shape_type_code": 6,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                2
+              ],
+              "signature": "5e6e70d98bc4841f16891fd884f57db8974a1c5acafda093562d4b5fe9871481"
+            }
+          },
+          "requested_style": {
+            "font": "Arial",
+            "size_points": 12,
+            "bold": false,
+            "italic": false,
+            "underline": "none",
+            "alignment": "left"
+          },
+          "actual_style": {
+            "font": "Arial",
+            "size_points": 12.0,
+            "bold": false,
+            "italic": false,
+            "underline": "none",
+            "alignment": "left",
+            "unavailable_or_mixed_properties": []
+          },
+          "line_breaks_normalized": false,
+          "actual_bounds_inches": {
+            "x": 1.0,
+            "y": 2.0,
+            "width": 3.0,
+            "height": 2.0
+          },
+          "layout": {
+            "text_type_code": 1,
+            "text_type": "paragraph",
+            "overflow": true,
+            "overflow_scope": "linked_story",
+            "frame_count": 1,
+            "char_spacing_native": 0.0,
+            "word_spacing_native": 100.0,
+            "line_spacing_native": 100.0,
+            "line_spacing_type_code": 0,
+            "unavailable_properties": []
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "add_paragraph_text",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Synthetic validation refusal.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "set_text_style": {
+      "request": {
+        "size_points": 18,
+        "bold": true,
+        "object_name": "Title"
+      },
+      "success": {
+        "ok": true,
+        "tool": "set_text_style",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "object": {
+            "object_name": "Title",
+            "static_id": 101,
+            "shape_type_code": 6,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:101",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "7b2933b433fb91f456fb65f4b2970322",
+              "document_session_id": "doc-0001",
+              "page_identity": "f3267b57b331c901b3eaef88ae8cb27dc85d5c212f98cf9c004667840ca2387d",
+              "layer_identity": "50d9ff76ac470beb14c88ed1c214348e6fc9e5999ed4ed81bb14926a1a8dc484",
+              "ancestor_identities": [],
+              "shape_identity": "9e1bbf55d923c156d8731ed881f7ad26c461d8cf706634f27d89c09d7157482c",
+              "static_id": 101,
+              "object_name": "Title",
+              "shape_type_code": 6,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                1
+              ],
+              "signature": "42346db759cd3c99e9282934d416f63de1e88cf8584274a59751078c92b561be"
+            }
+          },
+          "formatting_scope": "whole_story",
+          "requested_style": {
+            "size_points": 18,
+            "bold": true
+          },
+          "before_style": {
+            "font": "Arial",
+            "size_points": 12.0,
+            "bold": false,
+            "italic": false,
+            "underline": "none",
+            "alignment": "left",
+            "unavailable_or_mixed_properties": []
+          },
+          "actual_style": {
+            "font": "Arial",
+            "size_points": 18.0,
+            "bold": true,
+            "italic": false,
+            "underline": "none",
+            "alignment": "left",
+            "unavailable_or_mixed_properties": []
+          },
+          "actual_bounds_inches": {
+            "x": 1.0,
+            "y": 2.0,
+            "width": 3.0,
+            "height": 0.5
+          },
+          "layout": {
+            "text_type_code": 0,
+            "text_type": "artistic",
+            "overflow": null,
+            "overflow_scope": "linked_story",
+            "frame_count": 1,
+            "char_spacing_native": 0.0,
+            "word_spacing_native": 100.0,
+            "line_spacing_native": 100.0,
+            "line_spacing_type_code": 0,
+            "unavailable_properties": []
+          }
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "set_text_style",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Synthetic validation refusal.",
+          "details": {}
+        },
+        "duration_ms": 1.0
       }
     }
   },
@@ -7689,7 +8174,15 @@
         "Document.Pages",
         "Page.AllLayers",
         "Layer.Shapes",
-        "Shape.Shapes"
+        "Shape.Shapes",
+        "Text.Type",
+        "Text.Overflow",
+        "Text.Frames",
+        "TextFrames.Count",
+        "TextRange.CharSpacing",
+        "TextRange.WordSpacing",
+        "TextRange.LineSpacing",
+        "TextRange.LineSpacingType"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -7697,12 +8190,13 @@
         "sources": [
           "tests/test_object_inspection.py",
           "tests/test_server_contract.py",
-          "tests/test_object_references.py"
+          "tests/test_object_references.py",
+          "tests/test_typography.py"
         ]
       },
       "known_limitations": [
         "Whole-story aggregates do not describe character runs or prove uniform formatting.",
-        "Text subtype, spacing, font availability and overflow inspection are deferred.",
+        "Text subtype, raw spacing and native chain overflow are inspected; glyph coverage and per-run formatting remain deferred.",
         "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
         "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
@@ -11019,6 +11513,673 @@
       ],
       "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v1-envelope"
+    },
+    {
+      "name": "list_fonts",
+      "category": "typography",
+      "description": "Inspect the bounded X7 font catalog using a literal case-insensitive filter; report incomplete scans.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.list_fonts"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "name_contains": {
+            "type": "string",
+            "maxLength": 200,
+            "default": ""
+          },
+          "max_results": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "default": 100
+          },
+          "max_scan": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "default": 5000
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "fonts": {
+                      "type": "array",
+                      "maxItems": 1000,
+                      "items": {
+                        "type": "string",
+                        "maxLength": 200
+                      }
+                    },
+                    "returned_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1000
+                    },
+                    "total_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100000
+                    },
+                    "scanned_count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 10000
+                    },
+                    "truncated": {
+                      "type": "boolean"
+                    },
+                    "incomplete_reasons": {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "max_results",
+                          "max_scan",
+                          "unavailable_font_entry"
+                        ]
+                      },
+                      "uniqueItems": true
+                    },
+                    "availability_scope": {
+                      "const": "coreldraw_font_catalog"
+                    }
+                  },
+                  "required": [
+                    "fonts",
+                    "returned_count",
+                    "total_count",
+                    "scanned_count",
+                    "truncated",
+                    "incomplete_reasons",
+                    "availability_scope"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.FontList",
+        "FontList.Count",
+        "FontList.Item"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_typography.py",
+          "docs/TYPOGRAPHY.md",
+          "docs/x7_typography_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "All native verification is deferred to the consolidated X7 campaign.",
+        "Font catalog presence does not prove glyph coverage or available face variants.",
+        "Spacing edit units, character runs, linked/fitted text edits and auto-fit are deferred.",
+        "Native partial changes require worker reconciliation; no generic automatic rollback."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "add_paragraph_text",
+      "category": "typography",
+      "description": "Create editable text in an explicit paragraph frame with verified font/style/bounds and native linked-story overflow.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.add_paragraph_text"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100000,
+            "pattern": "^[^\\u0000]*$"
+          },
+          "x_inches": {
+            "type": "number",
+            "minimum": -10000,
+            "maximum": 10000
+          },
+          "y_inches": {
+            "type": "number",
+            "minimum": -10000,
+            "maximum": 10000
+          },
+          "width_inches": {
+            "type": "number",
+            "minimum": 0.001,
+            "maximum": 200
+          },
+          "height_inches": {
+            "type": "number",
+            "minimum": 0.001,
+            "maximum": 200
+          },
+          "font": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[^\\u0000-\\u001f]+$",
+            "default": "Arial"
+          },
+          "size_points": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 12
+          },
+          "bold": {
+            "type": "boolean",
+            "default": false
+          },
+          "italic": {
+            "type": "boolean",
+            "default": false
+          },
+          "underline": {
+            "enum": [
+              "none",
+              "single"
+            ],
+            "default": "none"
+          },
+          "alignment": {
+            "enum": [
+              "left",
+              "right",
+              "center",
+              "justify",
+              "force_justify"
+            ],
+            "default": "left"
+          },
+          "object_name": {
+            "type": "string",
+            "maxLength": 120,
+            "pattern": "^[^\\u0000-\\u001f]*$",
+            "default": ""
+          }
+        },
+        "required": [
+          "text",
+          "x_inches",
+          "y_inches",
+          "width_inches",
+          "height_inches"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "object_name": {
+                      "type": "string",
+                      "maxLength": 140
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/object_identity"
+                    },
+                    "line_breaks_normalized": {
+                      "type": "boolean"
+                    },
+                    "requested_style": {
+                      "$ref": "#/schema_definitions/requested_text_style"
+                    },
+                    "actual_style": {
+                      "$ref": "#/schema_definitions/actual_text_style"
+                    },
+                    "actual_bounds_inches": {
+                      "$ref": "#/schema_definitions/bounds_inches"
+                    },
+                    "layout": {
+                      "$ref": "#/schema_definitions/text_layout_readback"
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "object_name",
+                    "object",
+                    "line_breaks_normalized",
+                    "requested_style",
+                    "actual_style",
+                    "actual_bounds_inches",
+                    "layout"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.FontList",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "FontList.Count",
+        "FontList.Item",
+        "Layer.CreateParagraphText",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Type",
+        "Text.Frames",
+        "Text.Overflow",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Alignment",
+        "TextRange.Bold",
+        "TextRange.CharSpacing",
+        "TextRange.Font",
+        "TextRange.Italic",
+        "TextRange.LineSpacing",
+        "TextRange.LineSpacingType",
+        "TextRange.Size",
+        "TextRange.Text",
+        "TextRange.Underline",
+        "TextRange.WordSpacing"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_typography.py",
+          "docs/TYPOGRAPHY.md",
+          "docs/x7_typography_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "All native verification is deferred to the consolidated X7 campaign.",
+        "Font catalog presence does not prove glyph coverage or available face variants.",
+        "Spacing edit units, character runs, linked/fitted text edits and auto-fit are deferred.",
+        "Native partial changes require worker reconciliation; no generic automatic rollback."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "set_text_style",
+      "category": "typography",
+      "description": "Apply selected font/size/style/alignment properties to one entire unfitted unlinked text story and verify actual formatting.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.set_text_style"
+      },
+      "input_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/reference_object_selector"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "font": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "pattern": "^[^\\u0000-\\u001f]+$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "size_points": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 500
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "bold": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "italic": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "underline": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "none",
+                      "single"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "alignment": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "left",
+                      "right",
+                      "center",
+                      "justify",
+                      "force_justify"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              }
+            }
+          },
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "font"
+                ],
+                "properties": {
+                  "font": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              },
+              {
+                "required": [
+                  "size_points"
+                ],
+                "properties": {
+                  "size_points": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              },
+              {
+                "required": [
+                  "bold"
+                ],
+                "properties": {
+                  "bold": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              },
+              {
+                "required": [
+                  "italic"
+                ],
+                "properties": {
+                  "italic": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              },
+              {
+                "required": [
+                  "underline"
+                ],
+                "properties": {
+                  "underline": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              },
+              {
+                "required": [
+                  "alignment"
+                ],
+                "properties": {
+                  "alignment": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "updated": {
+                      "const": true
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "formatting_scope": {
+                      "const": "whole_story"
+                    },
+                    "before_style": {
+                      "$ref": "#/schema_definitions/actual_text_style"
+                    },
+                    "requested_style": {
+                      "$ref": "#/schema_definitions/requested_text_style"
+                    },
+                    "actual_style": {
+                      "$ref": "#/schema_definitions/actual_text_style"
+                    },
+                    "actual_bounds_inches": {
+                      "$ref": "#/schema_definitions/bounds_inches"
+                    },
+                    "layout": {
+                      "$ref": "#/schema_definitions/text_layout_readback"
+                    }
+                  },
+                  "required": [
+                    "updated",
+                    "object",
+                    "formatting_scope",
+                    "before_style",
+                    "requested_style",
+                    "actual_style",
+                    "actual_bounds_inches",
+                    "layout"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Application.FontList",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "FontList.Count",
+        "FontList.Item",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Type",
+        "Text.Frames",
+        "Text.Overflow",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Alignment",
+        "TextRange.Bold",
+        "TextRange.CharSpacing",
+        "TextRange.Font",
+        "TextRange.Italic",
+        "TextRange.LineSpacing",
+        "TextRange.LineSpacingType",
+        "TextRange.Size",
+        "TextRange.Text",
+        "TextRange.Underline",
+        "TextRange.WordSpacing"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_typography.py",
+          "docs/TYPOGRAPHY.md",
+          "docs/x7_typography_api_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "All native verification is deferred to the consolidated X7 campaign.",
+        "Font catalog presence does not prove glyph coverage or available face variants.",
+        "Spacing edit units, character runs, linked/fitted text edits and auto-fit are deferred.",
+        "Native partial changes require worker reconciliation; no generic automatic rollback."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
     }
   ]
 }

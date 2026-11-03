@@ -34,8 +34,14 @@
         "cdrUnitQ": 15,
         "cdrUnitH": 16
       },
-      "bridge_usage": ["CDR_INCH=1", "corel_status unit-name mapping"],
-      "notes": ["The bridge's inch value 1 is confirmed.", "Value 2 is cdrFoot, not inches."]
+      "bridge_usage": [
+        "CDR_INCH=1",
+        "corel_status unit-name mapping"
+      ],
+      "notes": [
+        "The bridge's inch value 1 is confirmed.",
+        "Value 2 is cdrFoot, not inches."
+      ]
     },
     "cdrReferencePoint": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrReferencePoint",
@@ -50,7 +56,9 @@
         "cdrMiddleRight": 8,
         "cdrCenter": 9
       },
-      "bridge_usage": ["CDR_BOTTOM_LEFT=5"]
+      "bridge_usage": [
+        "CDR_BOTTOM_LEFT=5"
+      ]
     },
     "cdrFilter": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrFilter",
@@ -58,8 +66,13 @@
         "cdrAutoSense": 0,
         "cdrCDR": 1795
       },
-      "bridge_usage": ["Layer.Import default Filter=0", "StructSaveAsOptions.Filter=1795"],
-      "notes": ["Only values currently used by the bridge are included in this initial catalog."]
+      "bridge_usage": [
+        "Layer.Import default Filter=0",
+        "StructSaveAsOptions.Filter=1795"
+      ],
+      "notes": [
+        "Only values currently used by the bridge are included in this initial catalog."
+      ]
     },
     "cdrFileVersion": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrFileVersion",
@@ -67,8 +80,12 @@
         "cdrCurrentVersion": 0,
         "cdrVersion17": 17
       },
-      "bridge_usage": ["StructSaveAsOptions.Version=0"],
-      "notes": ["Current version refers to the running application's native CDR version; it is not the same concept as application build or tool schema version."]
+      "bridge_usage": [
+        "StructSaveAsOptions.Version=0"
+      ],
+      "notes": [
+        "Current version refers to the running application's native CDR version; it is not the same concept as application build or tool schema version."
+      ]
     },
     "cdrExportRange": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrExportRange",
@@ -77,7 +94,9 @@
         "cdrCurrentPage": 1,
         "cdrSelection": 2
       },
-      "bridge_usage": ["StructSaveAsOptions.Range=0"]
+      "bridge_usage": [
+        "StructSaveAsOptions.Range=0"
+      ]
     },
     "cdrTriState": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrTriState",
@@ -86,7 +105,9 @@
         "cdrTrue": -1,
         "cdrUndefined": -2
       },
-      "bridge_usage": ["CreateArtisticText Bold uses -1 for true and 0 for false"]
+      "bridge_usage": [
+        "CreateArtisticText Bold uses -1 for true and 0 for false"
+      ]
     },
     "cdrTextLanguage": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrTextLanguage",
@@ -94,8 +115,12 @@
         "cdrLanguageNone": 0,
         "cdrLanguageMixed": -1
       },
-      "bridge_usage": ["CreateArtisticText LanguageID=0"],
-      "notes": ["The full language enum is intentionally deferred from this initial current-use subset."]
+      "bridge_usage": [
+        "CreateArtisticText LanguageID=0"
+      ],
+      "notes": [
+        "The full language enum is intentionally deferred from this initial current-use subset."
+      ]
     },
     "cdrTextCharSet": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrTextCharSet",
@@ -104,8 +129,12 @@
         "cdrCharSetANSI": 0,
         "cdrCharSetDefault": 1
       },
-      "bridge_usage": ["CreateArtisticText currently passes CharSet=0"],
-      "notes": ["The installed type-library method default is -1; the bridge's explicit ANSI value needs multilingual text testing."]
+      "bridge_usage": [
+        "CreateArtisticText currently passes CharSet=0"
+      ],
+      "notes": [
+        "The installed type-library method default is -1; the bridge's explicit ANSI value needs multilingual text testing."
+      ]
     },
     "cdrShapeType": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrShapeType",
@@ -139,7 +168,9 @@
         "cdrPerfectShape": 26,
         "cdrEPSShape": 27
       },
-      "bridge_usage": ["list_objects shape_type_code"]
+      "bridge_usage": [
+        "list_objects shape_type_code"
+      ]
     },
     "cdrFillType": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrFillType",
@@ -152,7 +183,9 @@
         "cdrPatternFill": 9,
         "cdrHatchFill": 10
       },
-      "bridge_usage": ["fill type readback"]
+      "bridge_usage": [
+        "fill type readback"
+      ]
     },
     "cdrOutlineType": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrOutlineType",
@@ -161,7 +194,9 @@
         "cdrOutline": 1,
         "cdrEnhancedOutline": 2
       },
-      "bridge_usage": ["outline presence/type readback"]
+      "bridge_usage": [
+        "outline presence/type readback"
+      ]
     },
     "cdrColorType": {
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrColorType",
@@ -183,7 +218,43 @@
         "cdrColorMultiChannel": 26,
         "cdrColorMixed": 99
       },
-      "bridge_usage": ["native color-model readback without conversion"]
+      "bridge_usage": [
+        "native color-model readback without conversion"
+      ]
+    },
+    "cdrAlignment": {
+      "values": {
+        "cdrNoAlignment": 0,
+        "cdrLeftAlignment": 1,
+        "cdrRightAlignment": 2,
+        "cdrCenterAlignment": 3,
+        "cdrFullJustifyAlignment": 4,
+        "cdrForceJustifyAlignment": 5,
+        "cdrMixedAlignment": 6
+      },
+      "evidence": "docs/x7_typography_api_evidence.json"
+    },
+    "cdrTextType": {
+      "values": {
+        "cdrArtisticText": 0,
+        "cdrParagraphText": 1,
+        "cdrArtisticFittedText": 2,
+        "cdrParagraphFittedText": 3
+      },
+      "evidence": "docs/x7_typography_api_evidence.json"
+    },
+    "cdrFontLine": {
+      "values": {
+        "cdrNoFontLine": 0,
+        "cdrSingleThinFontLine": 1,
+        "cdrSingleThinWordFontLine": 2,
+        "cdrSingleThickFontLine": 3,
+        "cdrSingleThickWordFontLine": 4,
+        "cdrDoubleThinFontLine": 5,
+        "cdrDoubleThinWordFontLine": 6,
+        "cdrMixedFontLine": 7
+      },
+      "evidence": "docs/x7_typography_api_evidence.json"
     }
   }
 }

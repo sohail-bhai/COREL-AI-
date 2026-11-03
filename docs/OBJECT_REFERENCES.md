@@ -17,7 +17,7 @@ bridge.set_text_content("Member Bob", object_reference=reference)
 
 Accepted by `get_object_info`, `get_object_bounds`, `get_text_properties`,
 `get_fill`, `set_fill_color`, `set_outline`, `move_object`, `resize_object`,
-`set_text_content`, `rename_object`, and `duplicate_object`. References support
+`set_text_content`, `set_text_style`, `rename_object`, and `duplicate_object`. References support
 nested groups and duplicate names. Legacy names/indexes remain explicit
 top-level active-page selectors. Inspection-only `object_id` strings and
 `shape_path` arrays are not reference selectors.

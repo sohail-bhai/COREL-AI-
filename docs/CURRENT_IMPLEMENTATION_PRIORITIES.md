@@ -58,7 +58,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 47
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 50
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -68,8 +68,12 @@ capability status, and keep live verification deferred.
   partial-failure quarantine and exact-ID reconciliation. Forty-one focused tests
   pass; the synthetic native gate and real modal/busy checks remain deferred.
   See [WORKER_RECOVERY.md](WORKER_RECOVERY.md).
-- Next: editable typography and common layout vocabulary, then reusable templates
-  and batch production; existing-document checkpoints remain a recovery gap.
+- Typography is implemented: paragraph frames, font catalog, reference-aware
+  whole-story styles and native overflow/spacing readback pass automated gates.
+  Native behavior, spacing writes and auto-fit remain deferred. See
+  [TYPOGRAPHY.md](TYPOGRAPHY.md).
+- Next: common layout vocabulary, then reusable templates and batch production;
+  existing-document checkpoints remain a recovery gap.
 
 **Gate:** The intended object can be found and inspected without mutation;
 common edits report actual state on an explicitly authorized disposable target.
@@ -87,8 +91,9 @@ This safety foundation remains required before broader editing and batch work.
 
 ### 3. Everyday text and layout controls
 
-- Implement and verify missing paragraph-text and font/size/style/alignment
-  controls, text overflow checks, spacing, and color inspection/readback.
+- Paragraph creation, font/size/style/alignment revisions, font catalog and
+  chain-overflow/native-spacing inspection are implemented. Continue spacing
+  writes, glyph coverage, safe fitting and the deferred native typography gate.
 - Complete useful gaps in distribution, proportional scaling, rotation,
   z-order, and layer organization using confirmed X7 APIs.
 
