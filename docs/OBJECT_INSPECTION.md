@@ -11,7 +11,9 @@ objects, activate a page/layer, or edit artwork.
 
 ## Selectors and identity
 
-Supply exactly one `object_name` or positive 1-based `shape_index`. Names are
+Supply exactly one `object_name`, positive 1-based `shape_index`, or signed
+`object_reference`. References inspect nested groups and other pages using the
+[ID-001 scope/lifecycle contract](OBJECT_REFERENCES.md). Legacy names are
 literal, case-sensitive, nonblank strings of at most 256 characters. Lookup
 covers top-level shapes on the bound document's active page. Duplicate names
 return `AMBIGUOUS_SELECTOR`; missing names/indexes return `OBJECT_NOT_FOUND`.
@@ -24,7 +26,9 @@ page/layer, active-page index, bridge-local session ID, and inspection-only ID.
 Names/layer names are capped at 256 characters with explicit truncation flags.
 IDs are not edit selectors and are not persistent across bridge restarts.
 Closed-document detection uses the [bound-document guard](DOCUMENT_TARGETING.md).
-Composite object-reference resolution remains the next part of ID-001.
+`object_reference` is a separate accepted selector when complete identity metadata
+is available; it is null otherwise. Native identity determines active-page
+`shape_index`, which is null for nested or non-active-page reference targets.
 
 ## Bounds
 

@@ -23,7 +23,8 @@
     "Records whose implementation.state is registered describe the actual MCP surface in corel_operator/server.py.",
     "Records whose implementation.state is planned are catalog entries only and are not exposed by the MCP server.",
     "All current tools remain implemented_unverified until a reproducible X7 live-test report is recorded.",
-    "Since bridge 0.6.0 every tool returns tool-schema v1: a stable envelope whose data field contains the operation-specific result."
+    "Since bridge 0.6.0 every tool returns tool-schema v1: a stable envelope whose data field contains the operation-specific result.",
+    "ID-001: eleven registered selector tools accept signed session object_reference values. StaticID-derived object_id strings remain inspection-only; no persistent cross-session identity is promised."
   ],
   "schema_definitions": {
     "object_selector": {
@@ -477,6 +478,16 @@
             "integer",
             "null"
           ]
+        },
+        "object_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/object_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -493,7 +504,8 @@
         "layer_name_truncated",
         "document_session_id",
         "object_id",
-        "shape_index"
+        "shape_index",
+        "object_reference"
       ],
       "properties": {
         "object_name": {
@@ -543,8 +555,22 @@
           "maxLength": 128
         },
         "shape_index": {
-          "type": "integer",
+          "type": [
+            "integer",
+            "null"
+          ],
           "minimum": 1
+        },
+        "object_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/object_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "additionalProperties": false
@@ -561,6 +587,17 @@
           "type": "integer",
           "minimum": 0,
           "default": 0
+        },
+        "object_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/object_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "oneOf": [
@@ -573,6 +610,9 @@
             },
             "shape_index": {
               "const": 0
+            },
+            "object_reference": {
+              "type": "null"
             }
           },
           "required": [
@@ -587,10 +627,29 @@
             "shape_index": {
               "type": "integer",
               "minimum": 1
+            },
+            "object_reference": {
+              "type": "null"
             }
           },
           "required": [
             "shape_index"
+          ]
+        },
+        {
+          "properties": {
+            "object_name": {
+              "const": ""
+            },
+            "shape_index": {
+              "const": 0
+            },
+            "object_reference": {
+              "$ref": "#/schema_definitions/object_reference"
+            }
+          },
+          "required": [
+            "object_reference"
           ]
         }
       ],
@@ -979,6 +1038,187 @@
         }
       },
       "additionalProperties": false
+    },
+    "object_reference": {
+      "type": "object",
+      "required": [
+        "version",
+        "bridge_session_id",
+        "document_session_id",
+        "page_identity",
+        "layer_identity",
+        "ancestor_identities",
+        "shape_identity",
+        "static_id",
+        "object_name",
+        "shape_type_code",
+        "page_index",
+        "layer_index",
+        "shape_path",
+        "signature"
+      ],
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "bridge_session_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$",
+          "minLength": 32,
+          "maxLength": 32
+        },
+        "document_session_id": {
+          "type": "string",
+          "pattern": "^doc-[0-9]{4,16}$",
+          "maxLength": 20
+        },
+        "page_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "minLength": 64,
+          "maxLength": 64
+        },
+        "layer_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "minLength": 64,
+          "maxLength": 64
+        },
+        "ancestor_identities": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "minLength": 64,
+            "maxLength": 64
+          }
+        },
+        "shape_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "minLength": 64,
+          "maxLength": 64
+        },
+        "static_id": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "object_name": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "shape_type_code": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "page_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "layer_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "shape_path": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 33,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "signature": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "minLength": 64,
+          "maxLength": 64
+        }
+      },
+      "additionalProperties": false
+    },
+    "reference_object_selector": {
+      "type": "object",
+      "properties": {
+        "object_name": {
+          "type": "string",
+          "default": ""
+        },
+        "shape_index": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "object_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/object_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "object_name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "shape_index": {
+              "const": 0
+            },
+            "object_reference": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "object_name"
+          ]
+        },
+        {
+          "properties": {
+            "object_name": {
+              "const": ""
+            },
+            "shape_index": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "object_reference": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "shape_index"
+          ]
+        },
+        {
+          "properties": {
+            "object_name": {
+              "const": ""
+            },
+            "shape_index": {
+              "const": 0
+            },
+            "object_reference": {
+              "$ref": "#/schema_definitions/object_reference"
+            }
+          },
+          "required": [
+            "object_reference"
+          ]
+        }
+      ]
     }
   },
   "tool_examples": {
@@ -2197,7 +2437,8 @@
                 1
               ],
               "text_preview": "Member Alice",
-              "text_truncated": false
+              "text_truncated": false,
+              "object_reference": null
             },
             {
               "object_name": "TITLE",
@@ -2215,7 +2456,8 @@
                 1
               ],
               "text_preview": "Member Bob",
-              "text_truncated": false
+              "text_truncated": false,
+              "object_reference": null
             }
           ],
           "truncated": false,
@@ -2269,7 +2511,8 @@
             "layer_name_truncated": false,
             "document_session_id": "doc-0001",
             "object_id": "doc-0001:shape:101",
-            "shape_index": 1
+            "shape_index": 1,
+            "object_reference": null
           },
           "text": {
             "content": "Hello\r\nनमस्ते",
@@ -2335,7 +2578,8 @@
             "layer_name_truncated": false,
             "document_session_id": "doc-0001",
             "object_id": "doc-0001:shape:101",
-            "shape_index": 1
+            "shape_index": 1,
+            "object_reference": null
           },
           "fill": {
             "type_code": 1,
@@ -3052,29 +3296,223 @@
       }
     },
     "classify_imposition_job": {
-      "request": {"footprint_kind": "rectangular"},
-      "success": {"ok": true, "tool": "classify_imposition_job", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": null, "data": {}, "warnings": [], "error": null, "duration_ms": 0.1},
-      "error": {"ok": false, "tool": "classify_imposition_job", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": null, "data": null, "warnings": [], "error": {"code": "INVALID_ARGUMENT", "message": "Invalid footprint kind.", "details": {}}, "duration_ms": 0.1}
+      "request": {
+        "footprint_kind": "rectangular"
+      },
+      "success": {
+        "ok": true,
+        "tool": "classify_imposition_job",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {},
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "classify_imposition_job",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Invalid footprint kind.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     },
     "plan_contour_nesting": {
-      "request": {"contour_points_inches": [[0, 0], [4, 0], [4, 2], [1, 2], [1, 4], [0, 4]], "sheet_width_inches": 8, "sheet_height_inches": 6, "cutting_method": "digital_cutter", "allow_180_rotation": true},
-      "success": {"ok": true, "tool": "plan_contour_nesting", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": null, "data": {}, "warnings": [], "error": null, "duration_ms": 1.0},
-      "error": {"ok": false, "tool": "plan_contour_nesting", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": null, "data": null, "warnings": [], "error": {"code": "INVALID_ARGUMENT", "message": "The cut contour is invalid.", "details": {}}, "duration_ms": 0.2}
+      "request": {
+        "contour_points_inches": [
+          [
+            0,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "sheet_width_inches": 8,
+        "sheet_height_inches": 6,
+        "cutting_method": "digital_cutter",
+        "allow_180_rotation": true
+      },
+      "success": {
+        "ok": true,
+        "tool": "plan_contour_nesting",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {},
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "plan_contour_nesting",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "The cut contour is invalid.",
+          "details": {}
+        },
+        "duration_ms": 0.2
+      }
     },
     "inspect_repeat_unit": {
-      "request": {"source_group_name": "Repeat_Unit", "dieline_name": "CutContour"},
-      "success": {"ok": true, "tool": "inspect_repeat_unit", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": {}, "warnings": [], "error": null, "duration_ms": 2.0},
-      "error": {"ok": false, "tool": "inspect_repeat_unit", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": null, "warnings": [], "error": {"code": "OBJECT_NOT_FOUND", "message": "The dieline was not found.", "details": {}}, "duration_ms": 0.5}
+      "request": {
+        "source_group_name": "Repeat_Unit",
+        "dieline_name": "CutContour"
+      },
+      "success": {
+        "ok": true,
+        "tool": "inspect_repeat_unit",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {},
+        "warnings": [],
+        "error": null,
+        "duration_ms": 2.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "inspect_repeat_unit",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "OBJECT_NOT_FOUND",
+          "message": "The dieline was not found.",
+          "details": {}
+        },
+        "duration_ms": 0.5
+      }
     },
     "prepare_contour_nesting": {
-      "request": {"source_group_name": "Repeat_Unit", "dieline_name": "CutContour", "sheet_width_inches": 8, "sheet_height_inches": 6, "copies": 4, "cutting_method": "digital_cutter", "allow_180_rotation": true},
-      "success": {"ok": true, "tool": "prepare_contour_nesting", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": {}, "warnings": [], "error": null, "duration_ms": 15.0},
-      "error": {"ok": false, "tool": "prepare_contour_nesting", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": null, "warnings": [], "error": {"code": "INVALID_ARGUMENT", "message": "The repeat unit is not ready for contour nesting.", "details": {}}, "duration_ms": 1.0}
+      "request": {
+        "source_group_name": "Repeat_Unit",
+        "dieline_name": "CutContour",
+        "sheet_width_inches": 8,
+        "sheet_height_inches": 6,
+        "copies": 4,
+        "cutting_method": "digital_cutter",
+        "allow_180_rotation": true
+      },
+      "success": {
+        "ok": true,
+        "tool": "prepare_contour_nesting",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {},
+        "warnings": [],
+        "error": null,
+        "duration_ms": 15.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "prepare_contour_nesting",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "The repeat unit is not ready for contour nesting.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
     },
     "prepare_imposition_job": {
-      "request": {"source_group_name": "Repeat_Unit", "dieline_name": "CutContour", "sheet_width_inches": 8, "sheet_height_inches": 6, "quantity": 4, "cutting_method": "digital_cutter", "allow_180_rotation": true},
-      "success": {"ok": true, "tool": "prepare_imposition_job", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": {}, "warnings": [], "error": null, "duration_ms": 4.0},
-      "error": {"ok": false, "tool": "prepare_imposition_job", "bridge_version": "0.6.0", "tool_schema_version": 1, "profile_id": "coreldraw-x7-17", "target_document": {"name": "Graphic1"}, "data": null, "warnings": [], "error": {"code": "CONFIRMATION_REQUIRED", "message": "Execution requires the exact fingerprint returned by the current approved plan.", "details": {}}, "duration_ms": 1.0}
+      "request": {
+        "source_group_name": "Repeat_Unit",
+        "dieline_name": "CutContour",
+        "sheet_width_inches": 8,
+        "sheet_height_inches": 6,
+        "quantity": 4,
+        "cutting_method": "digital_cutter",
+        "allow_180_rotation": true
+      },
+      "success": {
+        "ok": true,
+        "tool": "prepare_imposition_job",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": {},
+        "warnings": [],
+        "error": null,
+        "duration_ms": 4.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "prepare_imposition_job",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": {
+          "name": "Graphic1"
+        },
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "CONFIRMATION_REQUIRED",
+          "message": "Execution requires the exact fingerprint returned by the current approved plan.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
     },
     "ungroup_shapes": {
       "request": {
@@ -3121,7 +3559,24 @@
     },
     "get_object_bounds": {
       "request": {
-        "shape_index": 1
+        "object_reference": {
+          "version": 1,
+          "bridge_session_id": "11111111111111111111111111111111",
+          "document_session_id": "doc-0001",
+          "page_identity": "2222222222222222222222222222222222222222222222222222222222222222",
+          "layer_identity": "3333333333333333333333333333333333333333333333333333333333333333",
+          "ancestor_identities": [],
+          "shape_identity": "4444444444444444444444444444444444444444444444444444444444444444",
+          "static_id": 101,
+          "object_name": "headline",
+          "shape_type_code": 6,
+          "page_index": 1,
+          "layer_index": 1,
+          "shape_path": [
+            1
+          ],
+          "signature": "5555555555555555555555555555555555555555555555555555555555555555"
+        }
       },
       "success": {
         "ok": true,
@@ -3144,7 +3599,25 @@
             "layer_name_truncated": false,
             "document_session_id": "doc-0001",
             "object_id": "doc-0001:shape:101",
-            "shape_index": 1
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "11111111111111111111111111111111",
+              "document_session_id": "doc-0001",
+              "page_identity": "2222222222222222222222222222222222222222222222222222222222222222",
+              "layer_identity": "3333333333333333333333333333333333333333333333333333333333333333",
+              "ancestor_identities": [],
+              "shape_identity": "4444444444444444444444444444444444444444444444444444444444444444",
+              "static_id": 101,
+              "object_name": "headline",
+              "shape_type_code": 6,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                1
+              ],
+              "signature": "5555555555555555555555555555555555555555555555555555555555555555"
+            }
           },
           "bounds": {
             "lower_left": {
@@ -4340,7 +4813,7 @@
             "$ref": "#/schema_definitions/rgb_properties"
           },
           {
-            "$ref": "#/schema_definitions/object_selector"
+            "$ref": "#/schema_definitions/reference_object_selector"
           }
         ],
         "unevaluatedProperties": false
@@ -4436,16 +4909,28 @@
         "Color.Name",
         "Color.SpotColorName",
         "Color.Tint",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes",
+        "Shape.StaticID",
+        "Shape.Name",
+        "Shape.Type"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "not_run",
-        "sources": []
+        "sources": [
+          "tests/test_object_references.py"
+        ]
       },
       "known_limitations": [
         "Native fill/color values are read back without model conversion, but still need a recorded X7 live test.",
-        "RGB only for mutation; no CMYK/spot-color setter semantics yet."
+        "RGB only for mutation; no CMYK/spot-color setter semantics yet.",
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
       "result_contract": "tool-schema-v1-envelope"
@@ -4465,7 +4950,7 @@
             "$ref": "#/schema_definitions/rgb_properties"
           },
           {
-            "$ref": "#/schema_definitions/object_selector"
+            "$ref": "#/schema_definitions/reference_object_selector"
           },
           {
             "type": "object",
@@ -4561,16 +5046,28 @@
         "Color.Name",
         "Color.SpotColorName",
         "Color.Tint",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes",
+        "Shape.StaticID",
+        "Shape.Name",
+        "Shape.Type"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "not_run",
-        "sources": []
+        "sources": [
+          "tests/test_object_references.py"
+        ]
       },
       "known_limitations": [
         "Color/type/width are read back, but Outline.Width units remain explicitly unverified.",
-        "Does not check Shape.CanHaveOutline."
+        "Does not check Shape.CanHaveOutline.",
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
       "result_contract": "tool-schema-v1-envelope"
@@ -4587,7 +5084,7 @@
       "input_schema": {
         "allOf": [
           {
-            "$ref": "#/schema_definitions/object_selector"
+            "$ref": "#/schema_definitions/reference_object_selector"
           },
           {
             "type": "object",
@@ -4671,16 +5168,28 @@
         "Shape.SetPosition",
         "Shape.PositionX",
         "Shape.PositionY",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes",
+        "Shape.StaticID",
+        "Shape.Name",
+        "Shape.Type"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "not_run",
-        "sources": []
+        "sources": [
+          "tests/test_object_references.py"
+        ]
       },
       "known_limitations": [
         "Page drawing origin is not inspected.",
-        "Result is rounded to four decimal places."
+        "Result is rounded to four decimal places.",
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
       "result_contract": "tool-schema-v1-envelope"
@@ -4697,7 +5206,7 @@
       "input_schema": {
         "allOf": [
           {
-            "$ref": "#/schema_definitions/object_selector"
+            "$ref": "#/schema_definitions/reference_object_selector"
           },
           {
             "type": "object",
@@ -4809,16 +5318,28 @@
         "Document.Unit",
         "Shape.SizeWidth",
         "Shape.SizeHeight",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes",
+        "Shape.StaticID",
+        "Shape.Name",
+        "Shape.Type"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "not_run",
-        "sources": []
+        "sources": [
+          "tests/test_object_references.py"
+        ]
       },
       "known_limitations": [
         "Bounding-box resize can stretch text glyphs.",
-        "Resize anchor depends on document/reference state and is not explicitly controlled."
+        "Resize anchor depends on document/reference state and is not explicitly controlled.",
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
       "result_contract": "tool-schema-v1-envelope"
@@ -4835,7 +5356,7 @@
       "input_schema": {
         "allOf": [
           {
-            "$ref": "#/schema_definitions/object_selector"
+            "$ref": "#/schema_definitions/reference_object_selector"
           },
           {
             "type": "object",
@@ -4910,17 +5431,29 @@
         "Shape.Text",
         "Text.Story",
         "TextRange.Text",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes",
+        "Shape.StaticID",
+        "Shape.Name",
+        "Shape.Type"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "not_run",
-        "sources": []
+        "sources": [
+          "tests/test_object_references.py"
+        ]
       },
       "known_limitations": [
         "Formatting preservation is not verified.",
         "Empty text is intentionally rejected.",
-        "Old text is truncated in the result."
+        "Old text is truncated in the result.",
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
       "result_contract": "tool-schema-v1-envelope"
@@ -4937,7 +5470,7 @@
       "input_schema": {
         "allOf": [
           {
-            "$ref": "#/schema_definitions/object_selector"
+            "$ref": "#/schema_definitions/reference_object_selector"
           },
           {
             "type": "object",
@@ -5018,16 +5551,25 @@
         "Shape.Type",
         "Shape.Layer",
         "Shape.Page",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "not_run",
-        "sources": []
+        "sources": [
+          "tests/test_object_references.py"
+        ]
       },
       "known_limitations": [
         "Shape.Name is mutable and not a persistent bridge ID.",
-        "Uniqueness is checked only on the active page's enumerated shapes."
+        "Uniqueness is checked only on the active page's enumerated shapes.",
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
       "result_contract": "tool-schema-v1-envelope"
@@ -5044,7 +5586,7 @@
       "input_schema": {
         "allOf": [
           {
-            "$ref": "#/schema_definitions/object_selector"
+            "$ref": "#/schema_definitions/reference_object_selector"
           },
           {
             "type": "object",
@@ -5142,16 +5684,25 @@
         "Shape.Type",
         "Shape.Layer",
         "Shape.Page",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "not_run",
-        "sources": []
+        "sources": [
+          "tests/test_object_references.py"
+        ]
       },
       "known_limitations": [
         "Actual duplicate bounds are not read back.",
-        "Shape-index lookup relies on bridge-generated unique names."
+        "Shape-index lookup relies on bridge-generated unique names.",
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
       "result_contract": "tool-schema-v1-envelope"
@@ -5938,7 +6489,12 @@
         "bridge_method": "CorelBridge.get_object_info"
       },
       "input_schema": {
-        "$ref": "#/schema_definitions/object_selector"
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/reference_object_selector"
+          }
+        ],
+        "unevaluatedProperties": false
       },
       "output_schema": {
         "allOf": [
@@ -5997,18 +6553,24 @@
         "Shape.Text",
         "Shape.Fill",
         "Shape.Outline",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "mock_com_passed",
         "sources": [
-          "tests/test_inspection.py"
+          "tests/test_inspection.py",
+          "tests/test_object_references.py"
         ]
       },
       "known_limitations": [
-        "Selection is currently limited to a unique bridge name or active-page shape index.",
-        "The returned StaticID-derived object ID is not yet accepted as an input selector and requires live persistence testing."
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v1-envelope"
@@ -6094,20 +6656,27 @@
         "Shape.SizeHeight",
         "Document.Unit",
         "Document.ReferencePoint",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "mock_com_passed",
         "sources": [
           "tests/test_object_inspection.py",
-          "tests/test_server_contract.py"
+          "tests/test_server_contract.py",
+          "tests/test_object_references.py"
         ]
       },
       "known_limitations": [
-        "Top-level active-page selectors only; names are scanned only on pages with at most 10000 objects.",
         "Coordinates retain the current document ruler origin; page-local, outline-inclusive, and facing-page semantics are not claimed.",
-        "Returned IDs are inspection-only and bridge-local; stale-reference detection is a separate ticket."
+        "Returned IDs are inspection-only and bridge-local; stale-reference detection is a separate ticket.",
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {
@@ -6244,7 +6813,8 @@
                           "group_depth",
                           "shape_path",
                           "text_preview",
-                          "text_truncated"
+                          "text_truncated",
+                          "object_reference"
                         ],
                         "properties": {
                           "object_name": {
@@ -6307,6 +6877,17 @@
                           },
                           "text_truncated": {
                             "type": "boolean"
+                          },
+                          "object_reference": {
+                            "anyOf": [
+                              {
+                                "$ref": "#/schema_definitions/object_reference"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
                           }
                         },
                         "additionalProperties": false
@@ -6375,7 +6956,8 @@
         "status": "mock_com_passed",
         "sources": [
           "tests/test_object_search.py",
-          "tests/test_server_contract.py"
+          "tests/test_server_contract.py",
+          "tests/test_object_references.py"
         ]
       },
       "known_limitations": [
@@ -6385,7 +6967,8 @@
         "Master-layer objects can appear once per applicable page with the same StaticID and distinct page locations.",
         "Only cdrGroupShape children are traversed; PowerClip, symbols, and other container types are outside this scope.",
         "max_scan counts page, layer, and shape visits; inspect truncated and incomplete_reasons before treating absence or result counts as complete.",
-        "All-page nested search and StaticID behavior still require a guarded disposable X7 live test."
+        "All-page nested search and StaticID behavior still require a guarded disposable X7 live test.",
+        "Search emits signed session references when complete native identity metadata is available; object_id remains inspection-only. Complete scope uniqueness is checked on resolution."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": "0.7.0-dev"
@@ -6411,6 +6994,17 @@
             "minimum": 0,
             "default": 0
           },
+          "object_reference": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/object_reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
           "max_text_chars": {
             "type": "integer",
             "minimum": 0,
@@ -6428,6 +7022,9 @@
               },
               "shape_index": {
                 "const": 0
+              },
+              "object_reference": {
+                "type": "null"
               }
             },
             "required": [
@@ -6442,10 +7039,29 @@
               "shape_index": {
                 "type": "integer",
                 "minimum": 1
+              },
+              "object_reference": {
+                "type": "null"
               }
             },
             "required": [
               "shape_index"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "$ref": "#/schema_definitions/object_reference"
+              }
+            },
+            "required": [
+              "object_reference"
             ]
           }
         ],
@@ -6520,20 +7136,27 @@
         "TextRange.Italic",
         "TextRange.Underline",
         "TextRange.Alignment",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "mock_com_passed",
         "sources": [
           "tests/test_object_inspection.py",
-          "tests/test_server_contract.py"
+          "tests/test_server_contract.py",
+          "tests/test_object_references.py"
         ]
       },
       "known_limitations": [
         "Whole-story aggregates do not describe character runs or prove uniform formatting.",
         "Text subtype, spacing, font availability and overflow inspection are deferred.",
-        "Top-level active-page selectors only; returned IDs are inspection-only and bridge-local."
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {
@@ -6628,19 +7251,26 @@
         "Color.Gray",
         "Color.SpotColorName",
         "Color.Tint",
-        "Application.Documents"
+        "Application.Documents",
+        "Document.Pages",
+        "Page.AllLayers",
+        "Layer.Shapes",
+        "Shape.Shapes"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
         "status": "mock_com_passed",
         "sources": [
           "tests/test_object_inspection.py",
-          "tests/test_server_contract.py"
+          "tests/test_server_contract.py",
+          "tests/test_object_references.py"
         ]
       },
       "known_limitations": [
         "Complex fill internals and unsupported color-model channels are outside type_and_uniform_color scope.",
-        "Top-level active-page selectors only; returned IDs are inspection-only and bridge-local."
+        "object_reference is issued by one bridge/document session and requires matching page/layer/group identity, native shape identity, StaticID, name and type; no stale fallback.",
+        "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
+        "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {
@@ -6813,34 +7443,55 @@
           },
           "rotation_policy": {
             "type": "string",
-            "enum": ["never", "all", "best_fit"],
+            "enum": [
+              "never",
+              "all",
+              "best_fit"
+            ],
             "default": "never"
           },
           "sheet_orientation": {
             "type": "string",
-            "enum": ["fixed", "portrait", "landscape", "best_fit"],
+            "enum": [
+              "fixed",
+              "portrait",
+              "landscape",
+              "best_fit"
+            ],
             "default": "fixed"
           },
           "margin_left_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "maximum": 20,
             "default": null
           },
           "margin_top_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "maximum": 20,
             "default": null
           },
           "margin_right_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "maximum": 20,
             "default": null
           },
           "margin_bottom_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "maximum": 20,
             "default": null
@@ -6853,7 +7504,12 @@
           },
           "gripper_edge": {
             "type": "string",
-            "enum": ["top", "right", "bottom", "left"],
+            "enum": [
+              "top",
+              "right",
+              "bottom",
+              "left"
+            ],
             "default": "bottom"
           },
           "mark_clearance_inches": {
@@ -6994,34 +7650,55 @@
           },
           "rotation_policy": {
             "type": "string",
-            "enum": ["never", "all", "best_fit"],
+            "enum": [
+              "never",
+              "all",
+              "best_fit"
+            ],
             "default": "never"
           },
           "sheet_orientation": {
             "type": "string",
-            "enum": ["fixed", "portrait", "landscape", "best_fit"],
+            "enum": [
+              "fixed",
+              "portrait",
+              "landscape",
+              "best_fit"
+            ],
             "default": "fixed"
           },
           "margin_left_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "maximum": 20,
             "default": null
           },
           "margin_top_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "maximum": 20,
             "default": null
           },
           "margin_right_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "maximum": 20,
             "default": null
           },
           "margin_bottom_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "maximum": 20,
             "default": null
@@ -7034,7 +7711,12 @@
           },
           "gripper_edge": {
             "type": "string",
-            "enum": ["top", "right", "bottom", "left"],
+            "enum": [
+              "top",
+              "right",
+              "bottom",
+              "left"
+            ],
             "default": "bottom"
           },
           "mark_clearance_inches": {
@@ -7136,32 +7818,57 @@
             "default": true
           },
           "rotation_policy": {
-            "type": ["string", "null"],
-            "enum": ["never", "all", "best_fit", null],
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "never",
+              "all",
+              "best_fit",
+              null
+            ],
             "default": null
           },
           "sheet_orientation": {
             "type": "string",
-            "enum": ["fixed", "portrait", "landscape", "best_fit"],
+            "enum": [
+              "fixed",
+              "portrait",
+              "landscape",
+              "best_fit"
+            ],
             "default": "fixed"
           },
           "margin_left_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "default": null
           },
           "margin_top_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "default": null
           },
           "margin_right_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "default": null
           },
           "margin_bottom_inches": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "minimum": 0,
             "default": null
           },
@@ -7172,7 +7879,12 @@
           },
           "gripper_edge": {
             "type": "string",
-            "enum": ["top", "right", "bottom", "left"],
+            "enum": [
+              "top",
+              "right",
+              "bottom",
+              "left"
+            ],
             "default": "bottom"
           },
           "mark_clearance_inches": {
@@ -7181,7 +7893,10 @@
             "default": 0
           },
           "requested_quantity": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "minimum": 1,
             "default": null
           }
@@ -8938,28 +9653,72 @@
       "name": "classify_imposition_job",
       "category": "print_production_planning",
       "description": "Route obvious rectangular jobs without cutter questions and request missing production facts only for non-rectangular contour work.",
-      "implementation": {"state": "registered", "server": "corel_operator/server.py", "planner": "corel_operator.contour_nesting.classify_imposition_job"},
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "planner": "corel_operator.contour_nesting.classify_imposition_job"
+      },
       "input_schema": {
         "type": "object",
         "properties": {
-          "footprint_kind": {"type": "string", "enum": ["auto", "rectangular", "contour"], "default": "auto"},
-          "has_explicit_cut_contour": {"type": "boolean", "default": false},
-          "cutting_method": {"type": "string", "enum": ["unknown", "digital_cutter", "die_cut", "guillotine"], "default": "unknown"},
-          "allow_180_rotation": {"type": ["boolean", "null"], "default": null},
-          "source_is_combined": {"type": "boolean", "default": false}
+          "footprint_kind": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "rectangular",
+              "contour"
+            ],
+            "default": "auto"
+          },
+          "has_explicit_cut_contour": {
+            "type": "boolean",
+            "default": false
+          },
+          "cutting_method": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "digital_cutter",
+              "die_cut",
+              "guillotine"
+            ],
+            "default": "unknown"
+          },
+          "allow_180_rotation": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "default": null
+          },
+          "source_is_combined": {
+            "type": "boolean",
+            "default": false
+          }
         },
         "additionalProperties": false
       },
-      "output_schema": {"$ref": "#/schema_definitions/result_envelope"},
+      "output_schema": {
+        "$ref": "#/schema_definitions/result_envelope"
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required",
       "priority": "P0",
-      "coreldraw_profiles": ["bridge_algorithm"],
+      "coreldraw_profiles": [
+        "bridge_algorithm"
+      ],
       "api_requirements": [],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "unit_passed", "sources": ["tests/test_contour_nesting.py"]},
-      "known_limitations": ["Auto routing depends on an explicit contour signal or repeat-unit inspection."],
+      "test_evidence": {
+        "status": "unit_passed",
+        "sources": [
+          "tests/test_contour_nesting.py"
+        ]
+      },
+      "known_limitations": [
+        "Auto routing depends on an explicit contour signal or repeat-unit inspection."
+      ],
       "planned_phase": 6,
       "result_contract": "tool-schema-v1-envelope"
     },
@@ -8967,35 +9726,123 @@
       "name": "plan_contour_nesting",
       "category": "print_production_planning",
       "description": "Plan deterministic, collision-checked complete rows from a closed cut contour, including safe 0/180-degree paired-row interlocking.",
-      "implementation": {"state": "registered", "server": "corel_operator/server.py", "planner": "corel_operator.contour_nesting.plan_contour_nesting"},
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "planner": "corel_operator.contour_nesting.plan_contour_nesting"
+      },
       "input_schema": {
         "type": "object",
         "properties": {
-          "contour_points_inches": {"type": "array", "minItems": 3, "maxItems": 5001, "items": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}}},
-          "sheet_width_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
-          "sheet_height_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
-          "quantity": {"type": "integer", "minimum": 1, "maximum": 5000, "default": 1},
-          "margin_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0.25},
-          "gutter_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0},
-          "bleed_inches": {"type": "number", "minimum": 0, "maximum": 2, "default": 0},
-          "cutting_method": {"type": "string", "enum": ["unknown", "digital_cutter", "die_cut", "guillotine"], "default": "unknown"},
-          "allow_180_rotation": {"type": ["boolean", "null"], "default": null},
-          "sheet_orientation": {"type": "string", "enum": ["fixed", "portrait", "landscape", "best_fit"], "default": "fixed"},
-          "geometry_tolerance_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.05, "default": 0.0005}
+          "contour_points_inches": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 5001,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5000,
+            "default": 1
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0.25
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0
+          },
+          "bleed_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "default": 0
+          },
+          "cutting_method": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "digital_cutter",
+              "die_cut",
+              "guillotine"
+            ],
+            "default": "unknown"
+          },
+          "allow_180_rotation": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "default": null
+          },
+          "sheet_orientation": {
+            "type": "string",
+            "enum": [
+              "fixed",
+              "portrait",
+              "landscape",
+              "best_fit"
+            ],
+            "default": "fixed"
+          },
+          "geometry_tolerance_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 0.05,
+            "default": 0.0005
+          }
         },
-        "required": ["contour_points_inches", "sheet_width_inches", "sheet_height_inches"],
+        "required": [
+          "contour_points_inches",
+          "sheet_width_inches",
+          "sheet_height_inches"
+        ],
         "additionalProperties": false
       },
-      "output_schema": {"$ref": "#/schema_definitions/result_envelope"},
+      "output_schema": {
+        "$ref": "#/schema_definitions/result_envelope"
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required",
       "priority": "P0",
-      "coreldraw_profiles": ["bridge_algorithm"],
+      "coreldraw_profiles": [
+        "bridge_algorithm"
+      ],
       "api_requirements": [],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "unit_passed", "sources": ["tests/test_contour_nesting.py"]},
-      "known_limitations": ["Optimizes complete aligned rows at 0 and 180 degrees; it does not perform unrestricted free-form nesting or horizontal row staggering."],
+      "test_evidence": {
+        "status": "unit_passed",
+        "sources": [
+          "tests/test_contour_nesting.py"
+        ]
+      },
+      "known_limitations": [
+        "Optimizes complete aligned rows at 0 and 180 degrees; it does not perform unrestricted free-form nesting or horizontal row staggering."
+      ],
       "planned_phase": 6,
       "result_contract": "tool-schema-v1-envelope"
     },
@@ -9003,32 +9850,78 @@
       "name": "inspect_repeat_unit",
       "category": "print_production_inspection",
       "description": "Inspect one grouped vector repeat and named closed dieline, flatten curves through CorelDRAW, reject combined sources, and return conditional workflow questions.",
-      "implementation": {"state": "registered", "server": "corel_operator/server.py", "bridge_method": "CorelBridge.inspect_repeat_unit"},
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.inspect_repeat_unit"
+      },
       "input_schema": {
         "type": "object",
         "properties": {
-          "source_group_name": {"type": "string", "minLength": 1},
-          "dieline_name": {"type": "string", "minLength": 1},
-          "cutting_method": {"type": "string", "enum": ["unknown", "digital_cutter", "die_cut", "guillotine"], "default": "unknown"},
-          "allow_180_rotation": {"type": ["boolean", "null"], "default": null},
-          "curve_precision": {"type": "integer", "minimum": 1, "maximum": 10, "default": 5}
+          "source_group_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dieline_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "cutting_method": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "digital_cutter",
+              "die_cut",
+              "guillotine"
+            ],
+            "default": "unknown"
+          },
+          "allow_180_rotation": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "default": null
+          },
+          "curve_precision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 5
+          }
         },
-        "required": ["source_group_name", "dieline_name"],
+        "required": [
+          "source_group_name",
+          "dieline_name"
+        ],
         "additionalProperties": false
       },
-      "output_schema": {"$ref": "#/schema_definitions/result_envelope"},
+      "output_schema": {
+        "$ref": "#/schema_definitions/result_envelope"
+      },
       "permission": "read_only",
       "risk": "low",
       "confirmation": "not_required_for_bound_document_inspection",
       "priority": "P0",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
       "api_requirements": [
         "SubPath.GetPolyline",
         "Application.Documents"
       ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "live_x7_passed", "sources": ["tests/test_contour_nesting.py", "tests/integration/test_corel_live.py", "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"]},
-      "known_limitations": ["Requires one top-level group and one uniquely named closed single-subpath dieline."],
+      "test_evidence": {
+        "status": "live_x7_passed",
+        "sources": [
+          "tests/test_contour_nesting.py",
+          "tests/integration/test_corel_live.py",
+          "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"
+        ]
+      },
+      "known_limitations": [
+        "Requires one top-level group and one uniquely named closed single-subpath dieline."
+      ],
       "planned_phase": 6,
       "result_contract": "tool-schema-v1-envelope"
     },
@@ -9036,34 +9929,118 @@
       "name": "prepare_contour_nesting",
       "category": "print_production_execution",
       "description": "Copy one pristine vector repeat to a new output page, create independently named groups, apply planned 0/180 rotations, and verify contour clearance without moving or renaming the source.",
-      "implementation": {"state": "registered", "server": "corel_operator/server.py", "bridge_method": "CorelBridge.prepare_contour_nesting"},
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.prepare_contour_nesting"
+      },
       "input_schema": {
         "type": "object",
         "properties": {
-          "source_group_name": {"type": "string", "minLength": 1},
-          "dieline_name": {"type": "string", "minLength": 1},
-          "sheet_width_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
-          "sheet_height_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
-          "copies": {"type": "integer", "minimum": 1, "maximum": 5000, "default": 1},
-          "margin_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0.25},
-          "gutter_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0},
-          "bleed_inches": {"type": "number", "minimum": 0, "maximum": 2, "default": 0},
-          "cutting_method": {"type": "string", "enum": ["unknown", "digital_cutter", "die_cut", "guillotine"], "default": "unknown"},
-          "allow_180_rotation": {"type": ["boolean", "null"], "default": null},
-          "sheet_orientation": {"type": "string", "enum": ["fixed", "portrait", "landscape", "best_fit"], "default": "fixed"},
-          "curve_precision": {"type": "integer", "minimum": 1, "maximum": 10, "default": 5},
-          "object_name_prefix": {"type": "string", "minLength": 1, "default": "Nested_Copy"},
-          "output_layer_name": {"type": "string", "minLength": 1, "default": "Imposition_Repeats"}
+          "source_group_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dieline_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "copies": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5000,
+            "default": 1
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0.25
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0
+          },
+          "bleed_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "default": 0
+          },
+          "cutting_method": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "digital_cutter",
+              "die_cut",
+              "guillotine"
+            ],
+            "default": "unknown"
+          },
+          "allow_180_rotation": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "default": null
+          },
+          "sheet_orientation": {
+            "type": "string",
+            "enum": [
+              "fixed",
+              "portrait",
+              "landscape",
+              "best_fit"
+            ],
+            "default": "fixed"
+          },
+          "curve_precision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 5
+          },
+          "object_name_prefix": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Nested_Copy"
+          },
+          "output_layer_name": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Imposition_Repeats"
+          }
         },
-        "required": ["source_group_name", "dieline_name", "sheet_width_inches", "sheet_height_inches"],
+        "required": [
+          "source_group_name",
+          "dieline_name",
+          "sheet_width_inches",
+          "sheet_height_inches"
+        ],
         "additionalProperties": false
       },
-      "output_schema": {"$ref": "#/schema_definitions/result_envelope"},
+      "output_schema": {
+        "$ref": "#/schema_definitions/result_envelope"
+      },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "requires_completed_contour_qa",
       "priority": "P0",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
       "api_requirements": [
         "Document.AddPagesEx",
         "Document.DeletePages",
@@ -9079,8 +10056,17 @@
         "Application.Documents"
       ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "live_x7_passed_manual_review_pending", "sources": ["tests/test_contour_nesting.py", "tests/integration/test_corel_live.py", "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"]},
-      "known_limitations": ["Executes one new output page per call. X7 cross-page transfer uses Shape.Copy plus Layer.Paste because CopyToLayer failed live; this replaces current system clipboard contents and is disclosed in the result."],
+      "test_evidence": {
+        "status": "live_x7_passed_manual_review_pending",
+        "sources": [
+          "tests/test_contour_nesting.py",
+          "tests/integration/test_corel_live.py",
+          "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"
+        ]
+      },
+      "known_limitations": [
+        "Executes one new output page per call. X7 cross-page transfer uses Shape.Copy plus Layer.Paste because CopyToLayer failed live; this replaces current system clipboard contents and is disclosed in the result."
+      ],
       "planned_phase": 6,
       "result_contract": "tool-schema-v1-envelope"
     },
@@ -9088,36 +10074,127 @@
       "name": "prepare_imposition_job",
       "category": "print_production_workflow",
       "description": "Preferred plan/approval/execute orchestrator for selected vector repeats. It routes rectangular and contour jobs, asks only geometry-relevant production questions, fingerprints the approved plan, and preserves the source on a separate output page.",
-      "implementation": {"state": "registered", "server": "corel_operator/server.py", "bridge_method": "CorelBridge.prepare_imposition_job"},
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.prepare_imposition_job"
+      },
       "input_schema": {
         "type": "object",
         "properties": {
-          "source_group_name": {"type": "string", "minLength": 1},
-          "dieline_name": {"type": "string", "minLength": 1},
-          "sheet_width_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
-          "sheet_height_inches": {"type": "number", "exclusiveMinimum": 0, "maximum": 200},
-          "quantity": {"type": "integer", "minimum": 1, "maximum": 5000, "default": 1},
-          "margin_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0.25},
-          "gutter_inches": {"type": "number", "minimum": 0, "maximum": 20, "default": 0},
-          "bleed_inches": {"type": "number", "minimum": 0, "maximum": 2, "default": 0},
-          "cutting_method": {"type": "string", "enum": ["unknown", "digital_cutter", "die_cut", "guillotine"], "default": "unknown"},
-          "allow_180_rotation": {"type": ["boolean", "null"], "default": null},
-          "sheet_orientation": {"type": "string", "enum": ["fixed", "portrait", "landscape", "best_fit"], "default": "fixed"},
-          "curve_precision": {"type": "integer", "minimum": 1, "maximum": 10, "default": 5},
-          "object_name_prefix": {"type": "string", "minLength": 1, "default": "Imposed_Copy"},
-          "output_layer_name": {"type": "string", "minLength": 1, "default": "Imposition_Repeats"},
-          "confirm_execution": {"type": "boolean", "default": false},
-          "approved_plan_fingerprint": {"type": "string", "maxLength": 71, "default": ""}
+          "source_group_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dieline_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5000,
+            "default": 1
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0.25
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0
+          },
+          "bleed_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "default": 0
+          },
+          "cutting_method": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "digital_cutter",
+              "die_cut",
+              "guillotine"
+            ],
+            "default": "unknown"
+          },
+          "allow_180_rotation": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "default": null
+          },
+          "sheet_orientation": {
+            "type": "string",
+            "enum": [
+              "fixed",
+              "portrait",
+              "landscape",
+              "best_fit"
+            ],
+            "default": "fixed"
+          },
+          "curve_precision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 5
+          },
+          "object_name_prefix": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Imposed_Copy"
+          },
+          "output_layer_name": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Imposition_Repeats"
+          },
+          "confirm_execution": {
+            "type": "boolean",
+            "default": false
+          },
+          "approved_plan_fingerprint": {
+            "type": "string",
+            "maxLength": 71,
+            "default": ""
+          }
         },
-        "required": ["source_group_name", "dieline_name", "sheet_width_inches", "sheet_height_inches"],
+        "required": [
+          "source_group_name",
+          "dieline_name",
+          "sheet_width_inches",
+          "sheet_height_inches"
+        ],
         "additionalProperties": false
       },
-      "output_schema": {"$ref": "#/schema_definitions/result_envelope"},
+      "output_schema": {
+        "$ref": "#/schema_definitions/result_envelope"
+      },
       "permission": "mutating",
       "risk": "medium",
       "confirmation": "requires_true_and_matching_plan_fingerprint",
       "priority": "P0",
-      "coreldraw_profiles": ["coreldraw-x7-17"],
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
       "api_requirements": [
         "Document.AddPagesEx",
         "Document.DeletePages",
@@ -9133,8 +10210,17 @@
         "Application.Documents"
       ],
       "status": "implemented_unverified",
-      "test_evidence": {"status": "live_x7_passed_manual_review_pending", "sources": ["tests/test_contour_nesting.py", "tests/integration/test_corel_live.py", "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"]},
-      "known_limitations": ["Executes only quantities that fit one output page, keeps rectangular vector jobs upright, replaces current system clipboard contents during X7 cross-page transfer, and does not yet add production marks or controlled export settings."],
+      "test_evidence": {
+        "status": "live_x7_passed_manual_review_pending",
+        "sources": [
+          "tests/test_contour_nesting.py",
+          "tests/integration/test_corel_live.py",
+          "docs/test-reports/2026-11-01T102314660325Z-x7-disposable-regression.md"
+        ]
+      },
+      "known_limitations": [
+        "Executes only quantities that fit one output page, keeps rectangular vector jobs upright, replaces current system clipboard contents during X7 cross-page transfer, and does not yet add production marks or controlled export settings."
+      ],
       "planned_phase": 6,
       "result_contract": "tool-schema-v1-envelope"
     }

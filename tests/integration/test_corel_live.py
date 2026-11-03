@@ -864,6 +864,87 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self._close_saved_target_if_needed()
             self._write_report(passed, failure)
 
+    def test_object_references_live(self) -> None:
+        """Consolidated ID-001 gate using synthetic artwork and its own saved file only."""
+        passed = False
+        failure: str | None = None
+        try:
+            self.status = self._step("connect / corel_status", self.bridge.connect)
+            self._step("create_reference_fixture", lambda: self.bridge.create_document(8.5, 11.0))
+            self.bridge.add_text("Nested title", 1, 2, object_name="ReferenceTitle")
+            self.bridge.draw_rectangle(1, 3, 1, 1, object_name="ReferenceBox")
+            self.bridge.group_shapes(["ReferenceTitle", "ReferenceBox"], "ReferenceGroup")
+            self.bridge.add_text("Top title", 1, 5, object_name="ReferenceTitle")
+            doc = self.bridge.target_doc
+            nested_match = self.bridge.find_objects(text_contains="Nested title")["matches"][0]
+            reference = nested_match["object_reference"]
+            self.assertIsNotNone(reference)
+            self.assertEqual(nested_match["group_depth"], 1)
+            self.assertEqual(self.bridge.get_text_properties(object_reference=reference)["text"]["content"], "Nested title")
+            self.assertEqual(reference, self.bridge.find_objects(text_contains="Nested title")["matches"][0]["object_reference"])
+
+            # X7 ShapeRange.OrderToFront is documented; native proxy/ID behavior is measured here.
+            shape_range = self.bridge.app.CreateShapeRange()
+            shape_range.Add(self.bridge._find_shape(doc, object_name="ReferenceGroup"))
+            shape_range.OrderToFront()
+            self._step("reference_survives_stacking_reorder", lambda: self.bridge.get_text_properties(object_reference=reference))
+            self.bridge.set_text_content("Nested changed", object_reference=reference)
+            self.assertEqual(self.bridge.get_text_properties(object_name="ReferenceTitle")["text"]["content"], "Top title")
+            fresh = self.bridge.rename_object("NestedRenamed", object_reference=reference)["object"]["object_reference"]
+            self.assertIsNotNone(fresh)
+            with self.assertRaises(CorelBridgeError) as stale_name:
+                self.bridge.set_text_content("Forbidden", object_reference=reference)
+            self.assertEqual(stale_name.exception.code, ErrorCode.OBJECT_NOT_FOUND)
+            duplicate = self.bridge.duplicate_object(object_reference=fresh, new_name="NestedCopy")
+            duplicate_ref = duplicate["object"]["object_reference"]
+            self.assertIsNotNone(duplicate_ref)
+            self.assertNotEqual(duplicate_ref["shape_identity"], fresh["shape_identity"])
+            self.assertEqual(self.bridge.get_text_properties(object_reference=duplicate_ref)["text"]["content"], "Nested changed")
+            self.bridge._resolve_object_reference(doc, duplicate_ref)[0].Delete()
+            with self.assertRaises(CorelBridgeError) as deleted:
+                self.bridge.move_object(6, 7, object_reference=duplicate_ref)
+            self.assertEqual(deleted.exception.code, ErrorCode.OBJECT_NOT_FOUND)
+
+            self._step("save_reference_fixture", lambda: self.bridge.save_document(str(self.cdr_path)))
+            before_reopen_id = fresh["static_id"]
+            doc.Close()
+            with self.assertRaises(CorelBridgeError) as closed:
+                self.bridge.get_text_properties(object_reference=fresh)
+            self.assertEqual(closed.exception.code, ErrorCode.NO_TARGET_DOCUMENT)
+            # Open only the file this gate just created; bind as a new document lifetime.
+            reopened = self.bridge.app.OpenDocument(str(self.cdr_path))
+            self.bridge._bind_target_document(reopened, new_document=True)
+            with self.assertRaises(CorelBridgeError) as old_session:
+                self.bridge.set_text_content("Forbidden", object_reference=fresh)
+            self.assertEqual(old_session.exception.code, ErrorCode.OBJECT_NOT_FOUND)
+            reopened_match = self.bridge.find_objects(name_contains="NestedRenamed")["matches"][0]
+            reopened_ref = reopened_match["object_reference"]
+            self.assertIsNotNone(reopened_ref)
+            self.assertEqual(self.bridge.get_text_properties(object_reference=reopened_ref)["text"]["content"], "Nested changed")
+            restarted = CorelBridge()
+            restarted.app = self.bridge.app
+            restarted._bind_target_document(reopened)
+            with self.assertRaises(CorelBridgeError) as restart:
+                restarted.move_object(6, 7, object_reference=reopened_ref)
+            self.assertEqual(restart.exception.code, ErrorCode.OBJECT_NOT_FOUND)
+            readback = {
+                "before_reopen_static_id": before_reopen_id,
+                "after_reopen_static_id": reopened_match["static_id"],
+                "reorder_reference": reference, "reopened_reference": reopened_ref,
+                "closed_document_error": closed.exception.code.value,
+                "reopened_session_error": old_session.exception.code.value,
+                "bridge_restart_error": restart.exception.code.value,
+            }
+            (self.output_dir / "reference-readback.json").write_text(json.dumps(readback, indent=2), encoding="utf-8")
+            self._step("verify_reference_lifecycle", lambda: {"updated": True, "object_count": len(self.bridge.find_objects()["matches"])})
+            passed = True
+        except BaseException as exc:
+            failure = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            self._close_saved_target_if_needed()
+            self._write_report(passed, failure)
+
     def test_align_and_group_live(self) -> None:
         passed = False
         failure: str | None = None

@@ -9,6 +9,7 @@ import math
 import os
 import platform
 import re
+import secrets
 import struct
 from contextlib import contextmanager
 from importlib import metadata
@@ -24,6 +25,11 @@ from .object_search import validate_search_inputs
 from .object_inspection import (
     DEFAULT_TEXT_CHARS, MAX_NAME_CHARS, MAX_NAME_SCAN,
     validate_inspection_selector, validate_text_limit,
+)
+from .object_references import (
+    MAX_REFERENCE_DEPTH, MAX_REFERENCE_SCAN, authenticate_reference,
+    identity_token, reference_signature, validate_reference,
+    validate_reference_selector,
 )
 from .print_jobs import materialize_placement_artwork, plan_print_job
 from .contour_nesting import (
@@ -56,6 +62,8 @@ class CorelBridge:
         self._next_document_session = 1
         self._target_application_key: str | None = None
         self._target_document_key: str | None = None
+        self._bridge_session_id = secrets.token_hex(16)
+        self._reference_secret = secrets.token_bytes(32)
 
     def connect(self) -> dict[str, Any]:
         if os.name != "nt":
@@ -474,8 +482,11 @@ class CorelBridge:
                         ) from exc
             try:
                 return f"iunknown:{int(ole.GetIUnknown())}"
-            except Exception:
-                pass
+            except Exception as exc:
+                if strict:
+                    raise CorelBridgeError(
+                        "Could not verify COM object identity.", ErrorCode.COREL_COM_ERROR,
+                    ) from exc
         return f"python:{id(value)}"
 
     def _same_com_object(self, left: Any, right: Any, strict: bool = False) -> bool:
@@ -642,31 +653,204 @@ class CorelBridge:
             "layers": result,
         }
 
-    def get_object_info(self, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
-        document = self._target_document()
-        shape = self._find_shape(document, object_name, shape_index)
-        identity = self._shape_identity(shape)
-        static_id = identity.get("static_id")
-        document_session_id = self._document_session_id(document)
-        identity["document_session_id"] = document_session_id
-        identity["object_id"] = (
-            f"{document_session_id}:shape:{static_id}" if static_id is not None else None
-        )
-        identity["shape_index"] = self._index_for_shape(document, shape)
+    def _reference_identity(self, value: Any) -> str:
+        return identity_token(self._reference_secret, self._com_identity(value, strict=True))
+
+    def _make_object_reference(
+        self, document: Any, page: Any, layer: Any, shape: Any,
+        page_index: int, layer_index: int, path: tuple[int, ...],
+        ancestors: tuple[str, ...],
+    ) -> dict[str, Any] | None:
+        """Issue only complete identities. Missing native identity metadata is explicit null."""
+        try:
+            reference = {
+                "version": 1, "bridge_session_id": self._bridge_session_id,
+                "document_session_id": self._document_session_id(document),
+                "page_identity": self._reference_identity(page),
+                "layer_identity": self._reference_identity(layer),
+                "ancestor_identities": list(ancestors),
+                "shape_identity": self._reference_identity(shape),
+                "static_id": shape.StaticID, "object_name": shape.Name or "",
+                "shape_type_code": shape.Type,
+                "page_index": page_index, "layer_index": layer_index,
+                "shape_path": list(path),
+            }
+            reference["signature"] = reference_signature(self._reference_secret, reference)
+            validate_reference(reference)
+            return reference
+        except Exception:
+            return None
+
+    @staticmethod
+    def _reference_budget():
+        remaining = MAX_REFERENCE_SCAN
+
+        def consume(count: int = 1) -> None:
+            nonlocal remaining
+            if count < 0:
+                raise CorelBridgeError("Invalid collection count during reference resolution.", ErrorCode.COREL_COM_ERROR)
+            if count > remaining:
+                raise CorelBridgeError(
+                    "Object reference resolution exceeds the 10000-entry limit; narrow the document and inspect again.",
+                    ErrorCode.AMBIGUOUS_SELECTOR,
+                )
+            remaining -= count
+        return consume
+
+    @staticmethod
+    def _reference_count(collection: Any) -> int:
+        count = collection.Count
+        if type(count) is not int or count < 0:
+            raise CorelBridgeError("Invalid collection count during reference resolution.", ErrorCode.COREL_COM_ERROR)
+        return count
+
+    def _reference_collection(self, collection: Any, consume):
+        count = self._reference_count(collection)
+        consume(count)
+        for index in range(1, count + 1):
+            yield index, self._collection_item(collection, index)
+
+    def _reference_scope(self, document: Any, page_key: str, layer_key: str, consume):
+        pages = [
+            (index, page) for index, page in self._reference_collection(document.Pages, consume)
+            if self._reference_identity(page) == page_key
+        ]
+        if len(pages) > 1:
+            raise CorelBridgeError("Object reference page is ambiguous.", ErrorCode.AMBIGUOUS_SELECTOR)
+        if not pages:
+            raise CorelBridgeError("Object reference page no longer exists.", ErrorCode.OBJECT_NOT_FOUND)
+        page_index, page = pages[0]
+        layers = _safe_attr(page, "AllLayers")
+        if layers is None:
+            layers = page.Layers
+        matches = [
+            (index, layer) for index, layer in self._reference_collection(layers, consume)
+            if self._reference_identity(layer) == layer_key
+        ]
+        if len(matches) > 1:
+            raise CorelBridgeError("Object reference layer is ambiguous.", ErrorCode.AMBIGUOUS_SELECTOR)
+        if not matches:
+            raise CorelBridgeError("Object reference layer no longer exists on its page.", ErrorCode.OBJECT_NOT_FOUND)
+        layer_index, layer = matches[0]
+        return page_index, page, layer_index, layer
+
+    def _walk_reference_shapes(self, collection: Any, consume, path=(), ancestors=()):
+        for index, shape in self._reference_collection(collection, consume):
+            key = self._reference_identity(shape)
+            if key in ancestors:
+                raise CorelBridgeError("A group cycle prevents unique reference resolution.", ErrorCode.AMBIGUOUS_SELECTOR)
+            shape_path = (*path, index)
+            yield shape, shape_path, ancestors
+            type_code = shape.Type
+            if type(type_code) is not int or type_code < 0:
+                raise CorelBridgeError("Could not verify shape type during reference traversal.", ErrorCode.COREL_COM_ERROR)
+            if type_code == self.adapter.CDR_GROUP_SHAPE:
+                children = shape.Shapes
+                if self._reference_count(children) > 0:
+                    if len(ancestors) >= MAX_REFERENCE_DEPTH:
+                        raise CorelBridgeError("Reference traversal exceeds 32 group levels.", ErrorCode.AMBIGUOUS_SELECTOR)
+                    yield from self._walk_reference_shapes(children, consume, shape_path, (*ancestors, key))
+
+    def _selector_document(self, object_name: str, shape_index: int, object_reference: dict | None):
+        validate_reference_selector(object_name, shape_index, object_reference)
+        if object_reference is not None:
+            authenticate_reference(self._reference_secret, self._bridge_session_id, object_reference)
+        return self._target_document()
+
+    def _resolve_object_reference(self, document: Any, reference: dict, mutation: bool = False):
+        """Rescan the recorded scope completely; never fall back to stored names/indices."""
+        validate_reference(reference)
+        authenticate_reference(self._reference_secret, self._bridge_session_id, reference)
+        if reference["document_session_id"] != self._document_session_id(document):
+            raise CorelBridgeError("Object reference belongs to another document session.", ErrorCode.OBJECT_NOT_FOUND)
+        try:
+            consume = self._reference_budget()
+            page_index, page, layer_index, layer = self._reference_scope(
+                document, reference["page_identity"], reference["layer_identity"], consume,
+            )
+            matches = []
+            static_matches = 0
+            for shape, path, ancestors in self._walk_reference_shapes(layer.Shapes, consume):
+                # Identity checks must fail on unreadable native metadata, never interpret it as absence.
+                static_id = shape.StaticID
+                if type(static_id) is not int or static_id < 0:
+                    raise ValueError("Unavailable StaticID")
+                if static_id == reference["static_id"]:
+                    static_matches += 1
+                if self._reference_identity(shape) == reference["shape_identity"]:
+                    matches.append((shape, path, ancestors))
+            if len(matches) > 1 or static_matches > 1:
+                raise CorelBridgeError("Object reference identity is ambiguous within its layer.", ErrorCode.AMBIGUOUS_SELECTOR)
+            if not matches:
+                raise CorelBridgeError("Referenced object was deleted or replaced.", ErrorCode.OBJECT_NOT_FOUND)
+            shape, path, ancestors = matches[0]
+            name = shape.Name
+            if name is not None and type(name) is not str:
+                raise ValueError("Unavailable name")
+            if (shape.StaticID != reference["static_id"] or (name or "") != reference["object_name"]
+                    or shape.Type != reference["shape_type_code"] or list(ancestors) != reference["ancestor_identities"]):
+                raise CorelBridgeError("Referenced object identity or group membership changed; inspect it again.", ErrorCode.OBJECT_NOT_FOUND)
+            if mutation and not self._same_com_object(page, document.ActivePage, strict=True):
+                raise CorelBridgeError(
+                    "Activate the referenced page explicitly before editing its objects.", ErrorCode.INVALID_ARGUMENT,
+                )
+            fresh = self._make_object_reference(document, page, layer, shape, page_index, layer_index, path, ancestors)
+            if fresh is None:
+                raise ValueError("Unavailable reference metadata")
+            return shape, fresh
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("Could not verify object reference identity and scope.", ErrorCode.COREL_COM_ERROR) from exc
+
+    def _reference_for_shape(self, document: Any, shape: Any) -> dict | None:
+        """Best-effort issuance for legacy results; failure never creates a fabricated reference."""
+        try:
+            consume = self._reference_budget()
+            page_index, page, layer_index, layer = self._reference_scope(
+                document, self._reference_identity(shape.Page), self._reference_identity(shape.Layer), consume,
+            )
+            matches = [
+                (candidate, path, ancestors)
+                for candidate, path, ancestors in self._walk_reference_shapes(layer.Shapes, consume)
+                if self._same_com_object(candidate, shape, strict=True)
+            ]
+            if len(matches) != 1:
+                return None
+            candidate, path, ancestors = matches[0]
+            return self._make_object_reference(document, page, layer, candidate, page_index, layer_index, path, ancestors)
+        except Exception:
+            return None
+
+    def get_object_info(self, object_name: str = "", shape_index: int = 0,
+                        object_reference: dict | None = None) -> dict[str, Any]:
+        document, shape, identity = self._inspection_target(object_name, shape_index, object_reference)
         identity["bounds_inches"] = self._shape_bounds_inches(document, shape)
         identity["text"] = self._text_readback(shape)
         identity["fill"] = self._fill_readback(shape)
         identity["outline"] = self._outline_readback(shape)
         return {"document_name": _safe_string_attr(document, "Name"), "object": identity}
 
-    def _inspection_target(self, object_name: str, shape_index: int) -> tuple[Any, Any, dict[str, Any]]:
-        """Resolve only an explicit top-level selector on the bound document's active page."""
-        validate_inspection_selector(object_name, shape_index)
-        document = self._target_document()
+    def _inspection_target(self, object_name: str, shape_index: int,
+                           object_reference: dict | None = None) -> tuple[Any, Any, dict[str, Any]]:
+        """Resolve a legacy active-page selector or an exact scoped reference."""
+        if object_reference is None:
+            validate_inspection_selector(object_name, shape_index)
+        document = self._selector_document(object_name, shape_index, object_reference)
         try:
-            shapes = self._shapes(document)
-            count = int(shapes.Count)
-            if object_name:
+            fresh_reference = None
+            if object_reference is not None:
+                shape, fresh_reference = self._resolve_object_reference(document, object_reference)
+                shape_index = None
+                if (not fresh_reference["ancestor_identities"]
+                        and fresh_reference["page_identity"] == self._reference_identity(document.ActivePage)):
+                    shape_index = self._index_for_shape(document, shape)
+            else:
+                shapes = self._shapes(document)
+                count = int(shapes.Count)
+            if object_reference is not None:
+                pass
+            elif object_name:
                 if count > MAX_NAME_SCAN:
                     raise CorelBridgeError(
                         "The active page exceeds the 10000-object name lookup limit; "
@@ -696,6 +880,8 @@ class CorelBridge:
                     )
                 shape = self._collection_item(shapes, shape_index)
             identity = self._shape_identity(shape)
+            if fresh_reference is not None:
+                identity["page_index"] = fresh_reference["page_index"]
             for field in ("object_name", "layer_name"):
                 value = identity[field]
                 identity[field + "_truncated"] = value is not None and len(value) > MAX_NAME_CHARS
@@ -707,6 +893,7 @@ class CorelBridge:
                 document_session_id=session_id,
                 object_id=f"{session_id}:shape:{static_id}" if static_id is not None else None,
                 shape_index=shape_index,
+                object_reference=fresh_reference if fresh_reference is not None else self._reference_for_shape(document, shape),
             )
             return document, shape, identity
         except CorelBridgeError:
@@ -717,8 +904,9 @@ class CorelBridge:
                 ErrorCode.COREL_COM_ERROR,
             ) from exc
 
-    def get_object_bounds(self, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
-        document, shape, identity = self._inspection_target(object_name, shape_index)
+    def get_object_bounds(self, object_name: str = "", shape_index: int = 0,
+                          object_reference: dict | None = None) -> dict[str, Any]:
+        document, shape, identity = self._inspection_target(object_name, shape_index, object_reference)
         try:
             values = self._shape_bounds_inches(document, shape, strict_context=True)
             if any(value is None or not math.isfinite(value) for value in values.values()):
@@ -749,9 +937,10 @@ class CorelBridge:
     def get_text_properties(
         self, object_name: str = "", shape_index: int = 0,
         max_text_chars: int = DEFAULT_TEXT_CHARS,
+        object_reference: dict | None = None,
     ) -> dict[str, Any]:
         validate_text_limit(max_text_chars)
-        document, shape, identity = self._inspection_target(object_name, shape_index)
+        document, shape, identity = self._inspection_target(object_name, shape_index, object_reference)
         if identity["shape_type_code"] is None:
             raise CorelBridgeError("Could not read the object's type.", ErrorCode.COREL_COM_ERROR)
         if identity["shape_type_code"] != self.adapter.CDR_TEXT_SHAPE:
@@ -805,8 +994,9 @@ class CorelBridge:
         text["truncated_properties"] = truncated
         return {"document_name": _safe_string_attr(document, "Name"), "object": identity, "text": text}
 
-    def get_fill(self, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
-        document, shape, identity = self._inspection_target(object_name, shape_index)
+    def get_fill(self, object_name: str = "", shape_index: int = 0,
+                 object_reference: dict | None = None) -> dict[str, Any]:
+        document, shape, identity = self._inspection_target(object_name, shape_index, object_reference)
         fill = self._fill_readback(shape)
         if fill["type_code"] is None:
             raise CorelBridgeError("Could not read the object's fill type.", ErrorCode.COREL_COM_ERROR)
@@ -870,7 +1060,7 @@ class CorelBridge:
             scanned_entries += 1
             return True
 
-        def walk(collection: Any, path: tuple[int, ...], ancestors: frozenset[str]):
+        def walk(collection: Any, path: tuple[int, ...], ancestors: tuple[str, ...]):
             nonlocal scanned_objects
             count = int(collection.Count)
             for index in range(1, count + 1):
@@ -883,7 +1073,7 @@ class CorelBridge:
                     reasons.add("cycle")
                     continue
                 shape_path = (*path, index)
-                yield shape, shape_path
+                yield shape, shape_path, ancestors
                 if stop:
                     return
                 if include_nested and int(shape.Type) == self.adapter.CDR_GROUP_SHAPE:
@@ -892,7 +1082,7 @@ class CorelBridge:
                         if len(shape_path) - 1 >= max_depth:
                             reasons.add("max_depth")
                         else:
-                            yield from walk(children, shape_path, ancestors | {key})
+                            yield from walk(children, shape_path, (*ancestors, key))
 
         try:
             if page_index is not None:
@@ -915,7 +1105,7 @@ class CorelBridge:
                     current_layer_name = str(layer.Name or "")
                     if layer_filter and normalize(current_layer_name) != layer_filter:
                         continue
-                    for shape, shape_path in walk(layer.Shapes, (), frozenset()):
+                    for shape, shape_path, ancestors in walk(layer.Shapes, (), ()):
                         name = str(shape.Name or "")
                         type_code = int(shape.Type)
                         if name_filter and name_filter not in normalize(name):
@@ -939,6 +1129,10 @@ class CorelBridge:
                             "name_truncated": len(name) > 256,
                             "static_id": static_id,
                             "object_id": f"{session_id}:shape:{static_id}" if static_id is not None else None,
+                            "object_reference": self._make_object_reference(
+                                document, page, layer, shape, current_page_index, layer_index,
+                                shape_path, tuple(identity_token(self._reference_secret, key) for key in ancestors),
+                            ),
                             "shape_type_code": type_code,
                             "page_index": current_page_index,
                             "layer_index": layer_index,
@@ -1050,7 +1244,11 @@ class CorelBridge:
             except Exception as exc:
                 raise CorelBridgeError(f"Could not access shape index {shape_index}.") from exc
 
-    def _find_shape(self, doc: Any, object_name: str = "", shape_index: int = 0) -> Any:
+    def _find_shape(self, doc: Any, object_name: str = "", shape_index: int = 0,
+                    object_reference: dict | None = None) -> Any:
+        if object_reference is not None:
+            validate_reference_selector(object_name, shape_index, object_reference)
+            return self._resolve_object_reference(doc, object_reference, mutation=True)[0]
         has_name = bool(object_name.strip())
         has_index = int(shape_index) > 0
         if has_name == has_index:
@@ -1374,10 +1572,11 @@ class CorelBridge:
             )
 
     def set_fill_color(self, red: int, green: int, blue: int,
-                       object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+                       object_name: str = "", shape_index: int = 0,
+                       object_reference: dict | None = None) -> dict[str, Any]:
         self._validate_rgb(red, green, blue)
-        doc = self._target_document()
-        shape = self._find_shape(doc, object_name, shape_index)
+        doc = self._selector_document(object_name, shape_index, object_reference)
+        shape = self._find_shape(doc, object_name, shape_index, object_reference)
         try:
             color = self._require_app().CreateRGBColor(red, green, blue)
             shape.Fill.ApplyUniformFill(color)
@@ -1389,15 +1588,16 @@ class CorelBridge:
             raise CorelBridgeError("Could not set fill color in CorelDRAW X7. Full COM error: " + str(exc)) from exc
 
     def set_outline(self, red: int, green: int, blue: int, width_points: float = 1.0,
-                    object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+                    object_name: str = "", shape_index: int = 0,
+                    object_reference: dict | None = None) -> dict[str, Any]:
         self._validate_rgb(red, green, blue)
         if not (0 <= width_points <= 72):
             raise CorelBridgeError(
                 "Outline width must be between 0 and 72 points; use 0 to remove it.",
                 ErrorCode.INVALID_ARGUMENT,
             )
-        doc = self._target_document()
-        shape = self._find_shape(doc, object_name, shape_index)
+        doc = self._selector_document(object_name, shape_index, object_reference)
+        shape = self._find_shape(doc, object_name, shape_index, object_reference)
         try:
             if width_points == 0:
                 shape.Outline.SetNoOutline()
@@ -1415,9 +1615,10 @@ class CorelBridge:
             raise CorelBridgeError("Could not set outline in CorelDRAW X7. Full COM error: " + str(exc)) from exc
 
     def move_object(self, x_inches: float, y_inches: float,
-                    object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
-        doc = self._target_document()
-        shape = self._find_shape(doc, object_name, shape_index)
+                    object_name: str = "", shape_index: int = 0,
+                    object_reference: dict | None = None) -> dict[str, Any]:
+        doc = self._selector_document(object_name, shape_index, object_reference)
+        shape = self._find_shape(doc, object_name, shape_index, object_reference)
         try:
             with self._in_inches(doc), self._reference_point(doc, self.CDR_BOTTOM_LEFT):
                 shape.SetPosition(float(x_inches), float(y_inches))
@@ -1431,7 +1632,8 @@ class CorelBridge:
 
     def resize_object(self, width_inches: float = 0, height_inches: float = 0,
                       keep_aspect_ratio: bool = False,
-                      object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+                      object_name: str = "", shape_index: int = 0,
+                      object_reference: dict | None = None) -> dict[str, Any]:
         if width_inches <= 0 and height_inches <= 0:
             raise CorelBridgeError(
                 "Provide a positive width or height in inches.",
@@ -1442,8 +1644,8 @@ class CorelBridge:
                 "Provide both width and height, or set keep_aspect_ratio=True.",
                 ErrorCode.INVALID_ARGUMENT,
             )
-        doc = self._target_document()
-        shape = self._find_shape(doc, object_name, shape_index)
+        doc = self._selector_document(object_name, shape_index, object_reference)
+        shape = self._find_shape(doc, object_name, shape_index, object_reference)
         try:
             with self._in_inches(doc):
                 old_w, old_h = float(shape.SizeWidth), float(shape.SizeHeight)
@@ -1469,11 +1671,12 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("Could not resize object in CorelDRAW X7. Full COM error: " + str(exc)) from exc
 
-    def set_text_content(self, new_text: str, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+    def set_text_content(self, new_text: str, object_name: str = "", shape_index: int = 0,
+                         object_reference: dict | None = None) -> dict[str, Any]:
         if not new_text.strip():
             raise CorelBridgeError("Text cannot be empty.", ErrorCode.INVALID_ARGUMENT)
-        doc = self._target_document()
-        shape = self._find_shape(doc, object_name, shape_index)
+        doc = self._selector_document(object_name, shape_index, object_reference)
+        shape = self._find_shape(doc, object_name, shape_index, object_reference)
         try:
             story = shape.Text.Story
             old_text = str(story.Text)
@@ -1483,11 +1686,12 @@ class CorelBridge:
         except Exception as exc:
             raise CorelBridgeError("Could not edit text; target may not be a text object. Full COM error: " + str(exc)) from exc
 
-    def rename_object(self, new_name: str, object_name: str = "", shape_index: int = 0) -> dict[str, Any]:
+    def rename_object(self, new_name: str, object_name: str = "", shape_index: int = 0,
+                      object_reference: dict | None = None) -> dict[str, Any]:
         if not new_name.strip():
             raise CorelBridgeError("new_name cannot be blank.", ErrorCode.INVALID_ARGUMENT)
-        doc = self._target_document()
-        shape = self._find_shape(doc, object_name, shape_index)
+        doc = self._selector_document(object_name, shape_index, object_reference)
+        shape = self._find_shape(doc, object_name, shape_index, object_reference)
         unique = self._unique_name(doc, new_name, "AI_Object")
         # If we're renaming the selected object to its current name, preserve it.
         if unique != new_name and str(_safe_attr(shape, "Name") or "") == new_name:
@@ -1495,24 +1699,28 @@ class CorelBridge:
         try:
             old = str(_safe_attr(shape, "Name") or "")
             shape.Name = unique
+            identity = self._shape_identity(shape)
+            identity["object_reference"] = self._reference_for_shape(doc, shape)
             return {"renamed": True, "old_name": old, "object_name": unique,
-                    "object": self._shape_identity(shape)}
+                    "object": identity}
         except Exception as exc:
             raise CorelBridgeError("Could not rename the object. Full COM error: " + str(exc)) from exc
 
     def duplicate_object(self, offset_x_inches: float = 0.25, offset_y_inches: float = -0.25,
                          object_name: str = "", shape_index: int = 0,
-                         new_name: str = "") -> dict[str, Any]:
-        doc = self._target_document()
-        shape = self._find_shape(doc, object_name, shape_index)
+                         new_name: str = "", object_reference: dict | None = None) -> dict[str, Any]:
+        doc = self._selector_document(object_name, shape_index, object_reference)
+        shape = self._find_shape(doc, object_name, shape_index, object_reference)
         try:
             with self._in_inches(doc):
                 new_shape = shape.Duplicate(float(offset_x_inches), float(offset_y_inches))
                 name = self._name_shape(doc, new_shape, new_name, "AI_Copy")
+            identity = self._shape_identity(new_shape)
+            identity["object_reference"] = self._reference_for_shape(doc, new_shape)
             return {"duplicated": True, "source_name": str(_safe_attr(shape, "Name") or ""),
                     "object_name": name, "offset_inches": [offset_x_inches, offset_y_inches],
                     "shape_index": self._index_for_shape(doc, new_shape),
-                    "object": self._shape_identity(new_shape)}
+                    "object": identity}
         except Exception as exc:
             raise CorelBridgeError("Could not duplicate object. Full COM error: " + str(exc)) from exc
 
@@ -1920,11 +2128,12 @@ class CorelBridge:
 
     def _index_for_shape(self, doc: Any, target: Any) -> int | None:
         shapes = self._shapes(doc)
-        for i in range(1, int(shapes.Count) + 1):
-            shape = self._shape_at(doc, i)
-            if str(_safe_attr(shape, "Name") or "") == str(_safe_attr(target, "Name") or ""):
-                # Names are unique for all shapes created by this bridge. If imported art has
-                # duplicate names we don't depend on this lookup for its primary identity.
+        count = int(shapes.Count)
+        if count > MAX_NAME_SCAN:
+            return None
+        for i in range(1, count + 1):
+            shape = self._collection_item(shapes, i)
+            if self._same_com_object(shape, target, strict=True):
                 return i
         return None
 

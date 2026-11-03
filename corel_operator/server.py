@@ -134,40 +134,40 @@ def list_layers(page_index: int) -> dict:
 
 
 @mcp.tool()
-def get_object_info(object_name: str = "", shape_index: int = 0) -> dict:
-    """Inspect one object selected unambiguously by bridge name or 1-based active-page shape index."""
-    return _tool("get_object_info", "get_object_info", object_name, shape_index)
+def get_object_info(object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Inspect one object selected unambiguously by name, index, or issued object_reference."""
+    return _tool("get_object_info", "get_object_info", object_name, shape_index, object_reference)
 
 
 @mcp.tool()
-def get_object_bounds(object_name: str = "", shape_index: int = 0) -> dict:
+def get_object_bounds(object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Read object bounds in inches relative to the document ruler's bottom-left reference.
 
-    Specify exactly one unique active-page object_name or 1-based shape_index.
+    Supply one unique active-page name, index, or object_reference. References also inspect nested objects on other pages.
     Targets the explicitly bound document and restores units/reference point.
     """
-    return _tool("get_object_bounds", "get_object_bounds", object_name, shape_index)
+    return _tool("get_object_bounds", "get_object_bounds", object_name, shape_index, object_reference)
 
 
 @mcp.tool()
-def get_text_properties(object_name: str = "", shape_index: int = 0, max_text_chars: int = 2000) -> dict:
+def get_text_properties(object_name: str = "", shape_index: int = 0, max_text_chars: int = 2000, object_reference: dict | None = None) -> dict:
     """Read bounded story content and aggregate formatting for one text shape.
 
-    Specify exactly one unique active-page object_name or 1-based shape_index.
+    Supply one unique active-page name, index, or object_reference. References also inspect nested objects on other pages.
     max_text_chars is 0-10000; truncation and unavailable/indeterminate properties
     are explicit. Aggregate formatting does not describe individual text runs.
     """
-    return _tool("get_text_properties", "get_text_properties", object_name, shape_index, max_text_chars)
+    return _tool("get_text_properties", "get_text_properties", object_name, shape_index, max_text_chars, object_reference)
 
 
 @mcp.tool()
-def get_fill(object_name: str = "", shape_index: int = 0) -> dict:
+def get_fill(object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
     """Read fill type and uniform color in its original model without conversion.
 
-    Specify exactly one unique active-page object_name or 1-based shape_index.
+    Supply one unique active-page name, index, or object_reference. References also inspect nested objects on other pages.
     Nonuniform fill internals are outside this inspection's detail scope.
     """
-    return _tool("get_fill", "get_fill", object_name, shape_index)
+    return _tool("get_fill", "get_fill", object_name, shape_index, object_reference)
 
 
 @mcp.tool()
@@ -548,48 +548,48 @@ def execute_design_plan(plan: dict, create_new_document: bool = False,
 
 
 @mcp.tool()
-def set_fill_color(red: int, green: int, blue: int, object_name: str = "", shape_index: int = 0) -> dict:
-    """Set an object's solid fill using RGB 0-255. Specify exactly one selector: object_name or 1-based shape_index."""
-    return _tool("set_fill_color", "set_fill_color", red, green, blue, object_name, shape_index)
+def set_fill_color(red: int, green: int, blue: int, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Set an object's solid fill using RGB 0-255. Specify one selector: name, index, or object_reference. Reference edits require its page to be active."""
+    return _tool("set_fill_color", "set_fill_color", red, green, blue, object_name, shape_index, object_reference)
 
 
 @mcp.tool()
 def set_outline(red: int, green: int, blue: int, width_points: float = 1.0,
-                object_name: str = "", shape_index: int = 0) -> dict:
-    """Set an object's outline color/width in points. Use width_points=0 to remove outline."""
-    return _tool("set_outline", "set_outline", red, green, blue, width_points, object_name, shape_index)
+                object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Set an object's outline color/width in points. Use width_points=0 to remove outline. Reference edits require its page to be active."""
+    return _tool("set_outline", "set_outline", red, green, blue, width_points, object_name, shape_index, object_reference)
 
 
 @mcp.tool()
-def move_object(x_inches: float, y_inches: float, object_name: str = "", shape_index: int = 0) -> dict:
-    """Move an object so its bottom-left reference point is at x/y inches on the page."""
-    return _tool("move_object", "move_object", x_inches, y_inches, object_name, shape_index)
+def move_object(x_inches: float, y_inches: float, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Move an object so its bottom-left reference point is at x/y inches on the page. Reference edits require its page to be active."""
+    return _tool("move_object", "move_object", x_inches, y_inches, object_name, shape_index, object_reference)
 
 
 @mcp.tool()
 def resize_object(width_inches: float = 0, height_inches: float = 0, keep_aspect_ratio: bool = False,
-                  object_name: str = "", shape_index: int = 0) -> dict:
-    """Resize an object in inches. For proportional resizing, provide only one dimension and set keep_aspect_ratio=True."""
-    return _tool("resize_object", "resize_object", width_inches, height_inches, keep_aspect_ratio, object_name, shape_index)
+                  object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Resize an object in inches. For proportional resizing, provide only one dimension and set keep_aspect_ratio=True. Reference edits require its page to be active."""
+    return _tool("resize_object", "resize_object", width_inches, height_inches, keep_aspect_ratio, object_name, shape_index, object_reference)
 
 
 @mcp.tool()
-def set_text_content(new_text: str, object_name: str = "", shape_index: int = 0) -> dict:
-    """Replace the text of an existing text object. Target must be artistic/paragraph text."""
-    return _tool("set_text_content", "set_text_content", new_text, object_name, shape_index)
+def set_text_content(new_text: str, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Replace the text of an existing text object. Target must be artistic/paragraph text. Reference edits require its page to be active."""
+    return _tool("set_text_content", "set_text_content", new_text, object_name, shape_index, object_reference)
 
 
 @mcp.tool()
-def rename_object(new_name: str, object_name: str = "", shape_index: int = 0) -> dict:
-    """Rename an object to make later natural-language edits more reliable. Supply exactly one current selector."""
-    return _tool("rename_object", "rename_object", new_name, object_name, shape_index)
+def rename_object(new_name: str, object_name: str = "", shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Rename an object to make later natural-language edits more reliable. Supply exactly one current selector. Reference edits require its page to be active."""
+    return _tool("rename_object", "rename_object", new_name, object_name, shape_index, object_reference)
 
 
 @mcp.tool()
 def duplicate_object(offset_x_inches: float = 0.25, offset_y_inches: float = -0.25,
-                     object_name: str = "", shape_index: int = 0, new_name: str = "") -> dict:
-    """Duplicate an object with an offset in inches. Supply exactly one source selector."""
-    return _tool("duplicate_object", "duplicate_object", offset_x_inches, offset_y_inches, object_name, shape_index, new_name)
+                     object_name: str = "", shape_index: int = 0, new_name: str = "", object_reference: dict | None = None) -> dict:
+    """Duplicate an object with an offset in inches. Supply exactly one source selector. Reference edits require its page to be active."""
+    return _tool("duplicate_object", "duplicate_object", offset_x_inches, offset_y_inches, object_name, shape_index, new_name, object_reference)
 
 
 @mcp.tool()

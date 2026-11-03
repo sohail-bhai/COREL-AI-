@@ -53,8 +53,12 @@ capability status, and keep live verification deferred.
 - ID-001 document liveness is implemented: targeted operations check bounded
   open-document membership and invalidate closed/replaced bindings without
   active-document fallback. See [DOCUMENT_TARGETING.md](DOCUMENT_TARGETING.md).
-- Next: composite object references and reference-aware revisions; focused
-  inspection already refuses ambiguous active-page names.
+- ID-001 object references are implemented: eleven inspection/editing tools
+  accept signed bridge/document/page/layer/group references, reject stale or
+  ambiguous identities, and preserve targeting after reorder. Fake-COM and
+  dispatcher gates pass; native lifecycle verification is deferred. See
+  [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
+- Next: SAFE-001 redacted operation records and SAFE-002 timeout recovery.
 
 **Gate:** The intended object can be found and inspected without mutation;
 common edits report actual state on an explicitly authorized disposable target.

@@ -66,6 +66,14 @@ the timing decision does not enable either live-test flag now.
 
 `tests/integration/test_corel_live.py` is skipped by default. Its read-only gate checks status/profile metadata and enumerates open documents without binding a target.
 
+The prepared ID-001 object-reference gate uses nested synthetic objects and
+duplicate names, measures native identity through stacking reorder, edits the
+exact child, tests rename/duplicate/delete, saves and reopens only its own CDR,
+and refuses references from the retired document or a restarted bridge. It
+retains JSON StaticID/reference readback without claiming persistence before
+execution. Gate name: `test_object_references_live`. It remains deferred with
+the other nine guarded live gates. See [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
+
 Run it only when the user explicitly wants to attach to or launch CorelDRAW X7:
 
 ```powershell

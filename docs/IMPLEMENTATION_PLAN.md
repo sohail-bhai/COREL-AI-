@@ -137,15 +137,15 @@ Rules for future work:
 
 #### Implementation
 
-1. Add a pure object-reference model containing document session ID, page index, layer
-   identity, StaticID when available, object name, and type.
+1. Add a pure object-reference model containing bridge/document session, page/layer
+   identity, ancestor-group and native shape identity, StaticID, full object name,
+   type, and diagnostic indices. Emit null when complete metadata is unavailable.
 2. Resolve references inside `CorelBridge` on the COM worker. Never persist COM proxies or
    silently fall back to the active document.
-3. Use this selector order:
-   - exact document session;
-   - exact StaticID when its scope is known;
-   - exact page/layer/name tuple;
-   - shape index only when explicitly supplied as a documented fallback.
+3. Authenticate issued references, require exact bridge/document session, and resolve
+   exact page/layer/group/native shape identity with matching StaticID, name, and type.
+   Never fall back from stale references to names/indices. Legacy names and indexes
+   remain separate explicit active-page selectors.
 4. Return `AMBIGUOUS_SELECTOR` for duplicate matches and `OBJECT_NOT_FOUND` for stale IDs.
 5. Add bounded traversal options (`recursive`, `max_depth`, `max_results`) so groups cannot
    create unbounded enumeration.
@@ -390,19 +390,21 @@ These are the next reviewable tickets:
 | 5 | DP-005 | Run guarded disposable design-plan test | Dated report and editable CDR produced |
 | 6 | INS-001 | Bounded `find_objects` implemented; disposable X7 gate prepared | Duplicate/nested results deterministic in fake-COM tests; live gate pending |
 | 7 | INS-002 | Focused text, bounds, and native fill inspection implemented; disposable X7 gate prepared | Strict selectors and bounded actual readback pass fake-COM/schema gates; live gate pending |
-| 8 | ID-001 | Document-liveness guard implemented; composite object references next | Closed/replaced targets are cleared before use; reference-aware revisions remain pending |
+| 8 | ID-001 | Document-liveness guard and signed object references implemented; lifecycle X7 gate prepared | Closed/replaced/stale/ambiguous targets are refused; nested edits and reorder pass fake-COM/dispatcher tests; live gate pending |
 | 9 | SAFE-001 | Add redacted operation records | No secrets/content on MCP stdout |
 | 10 | SAFE-002 | Define busy/timeout recovery state | Mutations blocked while state is unknown |
 
 DP-001 through DP-005 now pass their automated and disposable-X7 gates. Manual review of the
 dated design-plan CDR remains pending, so the tools retain `implemented_unverified` status.
 `INS-001` now passes its default tests and catalog/schema gates; the prepared
-disposable-X7 search gate remains pending. Its IDs/paths remain inspection-only.
+disposable-X7 search gate remains pending. Its IDs/paths remain inspection-only;
+separate signed object references are accepted by the common selector tools.
 `INS-002` now passes fake-COM, strict request/result schema, and catalog gates;
 its disposable-X7 geometry/text/fill and unchanged-state gate is prepared.
-See [OBJECT_INSPECTION.md](OBJECT_INSPECTION.md). `ID-001` (stale references)
-is in progress: [DOCUMENT_TARGETING.md](DOCUMENT_TARGETING.md) documents the
-implemented document guard; composite object references are next. See
+See [OBJECT_INSPECTION.md](OBJECT_INSPECTION.md). `ID-001` implements the
+[document guard](DOCUMENT_TARGETING.md) and [object references](OBJECT_REFERENCES.md).
+Scope/lifecycle/limits and reference-aware edits pass fake-COM/dispatcher gates;
+native save/reopen/restart verification remains deferred. SAFE-001 is next. See
 [OBJECT_SEARCH.md](OBJECT_SEARCH.md) for the separate search contract/live gate.
 
 Do not begin broad typography, visual AI, or additional batch types until tickets 1–10 pass

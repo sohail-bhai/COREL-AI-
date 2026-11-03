@@ -66,6 +66,11 @@ Do not use incomplete results to prove absence, uniqueness, or a total count.
 An unexpected COM failure returns a sanitized `COREL_COM_ERROR` without a
 partial successful result.
 
+Each match also includes a signed `object_reference` when complete native identity
+metadata is available, or null otherwise. Eleven common inspection/editing tools
+accept this separate selector under the [ID-001 contract](OBJECT_REFERENCES.md).
+Resolution rechecks complete scope uniqueness, regardless of search truncation.
+
 IDs and paths describe this inspection and are not edit selectors. Session IDs
 are bridge-local; shape paths change after reorder/regroup, and StaticID
 persistence across reopen/restart is unverified. Existing edits continue to

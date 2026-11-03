@@ -47,8 +47,8 @@ It creates and saves two synthetic documents, closes the bound first document,
 verifies edit refusal and unchanged second artwork, then closes the remaining
 owned fixture. See [TESTING.md](TESTING.md).
 
-This completes the document-liveness portion of ID-001. Composite object
-references, stale object IDs, and reference-aware edits are the next identity
-portion. Existing IDs remain inspection-only and integer indexes describe the
-current active-page order; this guard does not turn either into a persistent
-object reference. Required live persistence tests remain deferred.
+This completes the document-liveness portion of ID-001. Signed
+[object references](OBJECT_REFERENCES.md) now add exact page/layer/group/native
+shape identity to eleven common inspection/editing tools. Existing object_id
+strings remain inspection-only, and legacy integer indexes describe current
+active-page order. Required native lifecycle/persistence gates remain deferred.

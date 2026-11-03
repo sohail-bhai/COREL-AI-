@@ -59,6 +59,29 @@ class ServerContractTests(unittest.TestCase):
         self.assertEqual(result["error"]["code"], "NO_TARGET_DOCUMENT")
         self.assertEqual(fake.calls, [("list_objects", (200,), {})])
 
+    def test_reference_wrappers_dispatch_all_eleven_selectors(self) -> None:
+        fake = _FakeDispatcher({})
+        server.dispatcher = fake
+        reference = {"test": "reference passed unchanged to the worker"}
+        cases = [
+            ("get_object_info", (), ("", 0, reference)),
+            ("get_object_bounds", (), ("", 0, reference)),
+            ("get_text_properties", (), ("", 0, 2000, reference)),
+            ("get_fill", (), ("", 0, reference)),
+            ("set_fill_color", (1, 2, 3), (1, 2, 3, "", 0, reference)),
+            ("set_outline", (1, 2, 3), (1, 2, 3, 1.0, "", 0, reference)),
+            ("move_object", (4, 5), (4, 5, "", 0, reference)),
+            ("resize_object", (), (0, 0, False, "", 0, reference)),
+            ("set_text_content", ("Changed",), ("Changed", "", 0, reference)),
+            ("rename_object", ("New name",), ("New name", "", 0, reference)),
+            ("duplicate_object", (), (0.25, -0.25, "", 0, "", reference)),
+        ]
+        for name, args, expected in cases:
+            with self.subTest(tool=name):
+                result = getattr(server, name)(*args, object_reference=reference)
+                self.assertTrue(result["ok"])
+                self.assertEqual(fake.calls[-1], (name, expected, {}))
+
     def test_inspection_wrappers_dispatch_expected_methods_and_arguments(self) -> None:
         fake = _FakeDispatcher({})
         server.dispatcher = fake
@@ -81,10 +104,10 @@ class ServerContractTests(unittest.TestCase):
                 ("list_pages", (), {}),
                 ("get_page_bounds", (2,), {}),
                 ("list_layers", (3,), {}),
-                ("get_object_info", ("headline", 0), {}),
-                ("get_object_bounds", ("headline", 0), {}),
-                ("get_text_properties", ("headline", 0, 100), {}),
-                ("get_fill", ("headline", 0), {}),
+                ("get_object_info", ("headline", 0, None), {}),
+                ("get_object_bounds", ("headline", 0, None), {}),
+                ("get_text_properties", ("headline", 0, 100, None), {}),
+                ("get_fill", ("headline", 0, None), {}),
             ],
         )
 
