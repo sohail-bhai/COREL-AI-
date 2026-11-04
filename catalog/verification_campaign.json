@@ -1303,6 +1303,30 @@
       "native_result": "not_run",
       "mcp_envelope_result": "pending_consolidated_client_run",
       "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "inspect_raster_asset",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_raster_assets.py"
+      ],
+      "native_coverage": "local_only",
+      "native_gate_candidates": [],
+      "native_result": "not_applicable",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "prepare_raster_asset",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_raster_assets.py"
+      ],
+      "native_coverage": "local_only",
+      "native_gate_candidates": [],
+      "native_result": "not_applicable",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
     }
   ]
 }

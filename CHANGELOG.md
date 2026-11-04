@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Two local raster tools for immutable source inspection and fingerprint-guarded
+  source-preserving PNG/TIFF crop/quarter rotation/flips/fitting. Forty-nine checks
+  cover decoded pixels, all EXIF orientations, grayscale/palette transparency,
+  mode/ICC/DPI preservation, stale sources, publication races, owned-output cleanup,
+  strict schemas and redacted records. Primary Pillow evidence is retained;
+  Corel import and visual review remain deferred. The surface has 87 tools;
+  775 automated checks pass and 27 guarded live gates are skipped.
 - Native bitmap metadata and placed affine resolution inspection, including
   rotation, mirrors, skew and worst directional DPI. Thirty-eight focused checks
   cover pixel-grid/crop geometry, two-read consistency, nested effect scope,

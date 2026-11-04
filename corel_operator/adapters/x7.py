@@ -150,6 +150,10 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "images.raster_asset_inspection": CapabilitySupport(True, "implemented_unverified", "Bounded local raster snapshots, EXIF-normalized decoded pixel/source hashes, dimensions, alpha and opaque ICC/DPI metadata; no native dependency or color approval.",
+            ()),
+        "images.raster_preparation": CapabilitySupport(True, "implemented_unverified", "Fingerprint-guarded PNG/TIFF derivatives with crop/quarter rotation/flips/fitting and verified pixels, metadata and unchanged source bytes; Corel import and visual review remain deferred.",
+            ()),
         "images.bitmap_inspection": CapabilitySupport(True, "implemented_unverified", "Native pixel/mode/link/crop metadata plus placed affine pixel-grid resolution, including minimum directional DPI; unclear/effect/clipping geometry remains indeterminate and native semantics require deferred verification.",
             ("Shape.Bitmap", "Bitmap.SizeWidth", "Bitmap.SizeHeight", "Bitmap.BoundingBoxPath", "Shape.GetMatrix")),
         "document.organization_inspection": CapabilitySupport(True, "implemented_unverified", "Bounded page/local/master layer structure, active context, root identities and current-session fingerprints; native verification remains deferred.",

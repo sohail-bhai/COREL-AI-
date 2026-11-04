@@ -4231,6 +4231,427 @@
           }
         }
       ]
+    },
+    "raster_pixel_size": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        }
+      },
+      "required": [
+        "width",
+        "height"
+      ],
+      "additionalProperties": false
+    },
+    "raster_crop_box": {
+      "type": "object",
+      "properties": {
+        "left": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "top": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "right": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "bottom": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535
+        }
+      },
+      "required": [
+        "left",
+        "top",
+        "right",
+        "bottom"
+      ],
+      "additionalProperties": false
+    },
+    "raster_metadata_dpi": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1000000
+        },
+        "y": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1000000
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "additionalProperties": false
+    },
+    "raster_icc_metadata": {
+      "type": "object",
+      "properties": {
+        "present": {
+          "type": "boolean"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8388608
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "present",
+        "bytes",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "raster_alpha_metadata": {
+      "type": "object",
+      "properties": {
+        "present": {
+          "type": "boolean"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "present",
+        "minimum",
+        "maximum"
+      ],
+      "additionalProperties": false
+    },
+    "raster_asset": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "raster-asset-v1"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32767
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 134217728
+        },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "format": {
+          "enum": [
+            "PNG",
+            "JPEG",
+            "TIFF",
+            "BMP",
+            "GIF"
+          ]
+        },
+        "native_mode": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "mode": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "native_size_pixels": {
+          "$ref": "#/schema_definitions/raster_pixel_size"
+        },
+        "size_pixels": {
+          "$ref": "#/schema_definitions/raster_pixel_size"
+        },
+        "pixels_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "exif_orientation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "exif_orientation_applied": {
+          "type": "boolean"
+        },
+        "has_multiple_frames": {
+          "type": "boolean"
+        },
+        "metadata_dpi": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/raster_metadata_dpi"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "icc_profile": {
+          "$ref": "#/schema_definitions/raster_icc_metadata"
+        },
+        "alpha": {
+          "$ref": "#/schema_definitions/raster_alpha_metadata"
+        },
+        "preparation_supported": {
+          "type": "boolean"
+        },
+        "unsupported_reasons": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "multi_frame_source_requires_explicit_frame_workflow",
+              "source_mode_requires_precision_or_color_workflow"
+            ]
+          },
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema",
+        "path",
+        "bytes",
+        "source_sha256",
+        "format",
+        "native_mode",
+        "mode",
+        "native_size_pixels",
+        "size_pixels",
+        "pixels_sha256",
+        "exif_orientation",
+        "exif_orientation_applied",
+        "has_multiple_frames",
+        "metadata_dpi",
+        "icc_profile",
+        "alpha",
+        "preparation_supported",
+        "unsupported_reasons",
+        "fingerprint"
+      ],
+      "additionalProperties": false
+    },
+    "raster_inspection_result": {
+      "type": "object",
+      "properties": {
+        "asset": {
+          "$ref": "#/schema_definitions/raster_asset"
+        },
+        "verification_status": {
+          "const": "implemented_unverified"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "asset",
+        "verification_status",
+        "warnings"
+      ],
+      "additionalProperties": false
+    },
+    "raster_preparation_operations": {
+      "type": "object",
+      "properties": {
+        "crop_box": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/raster_crop_box"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rotation_degrees": {
+          "enum": [
+            0,
+            90,
+            180,
+            270
+          ]
+        },
+        "flip_horizontal": {
+          "type": "boolean"
+        },
+        "flip_vertical": {
+          "type": "boolean"
+        },
+        "before_resize_pixels": {
+          "$ref": "#/schema_definitions/raster_pixel_size"
+        },
+        "target_size": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/raster_pixel_size"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resize_mode": {
+          "enum": [
+            "contain",
+            "cover",
+            "stretch"
+          ]
+        },
+        "fitting_crop_box": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/raster_crop_box"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resampling": {
+          "enum": [
+            "nearest",
+            "bicubic",
+            "lanczos"
+          ]
+        },
+        "upscaled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "crop_box",
+        "rotation_degrees",
+        "flip_horizontal",
+        "flip_vertical",
+        "before_resize_pixels",
+        "target_size",
+        "resize_mode",
+        "fitting_crop_box",
+        "resampling",
+        "upscaled"
+      ],
+      "additionalProperties": false
+    },
+    "raster_preparation_result": {
+      "type": "object",
+      "properties": {
+        "prepared": {
+          "const": true
+        },
+        "source": {
+          "$ref": "#/schema_definitions/raster_asset"
+        },
+        "output": {
+          "$ref": "#/schema_definitions/raster_asset"
+        },
+        "operations": {
+          "$ref": "#/schema_definitions/raster_preparation_operations"
+        },
+        "source_preservation": {
+          "type": "object",
+          "properties": {
+            "source_written": {
+              "const": false
+            },
+            "byte_hash_verified": {
+              "const": true
+            }
+          },
+          "required": [
+            "source_written",
+            "byte_hash_verified"
+          ],
+          "additionalProperties": false
+        },
+        "pixel_readback_verified": {
+          "const": true
+        },
+        "verification_status": {
+          "const": "implemented_unverified"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "prepared",
+        "source",
+        "output",
+        "operations",
+        "source_preservation",
+        "pixel_readback_verified",
+        "verification_status",
+        "warnings"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -13599,6 +14020,231 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Bitmap inspection was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "inspect_raster_asset": {
+      "request": {
+        "source_path": "C:/jobs/source.png"
+      },
+      "success": {
+        "ok": true,
+        "tool": "inspect_raster_asset",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "asset": {
+            "schema": "raster-asset-v1",
+            "path": "C:/jobs/source.png",
+            "bytes": 98,
+            "source_sha256": "7aa325c7026c874b49d7d02758fe72879f794c953a4441a26009eed137e4bfaa",
+            "format": "PNG",
+            "native_mode": "RGBA",
+            "mode": "RGBA",
+            "native_size_pixels": {
+              "width": 4,
+              "height": 3
+            },
+            "size_pixels": {
+              "width": 4,
+              "height": 3
+            },
+            "pixels_sha256": "01e086c58f25b62ee557aa43e02c2a70700411d91eb2d7b723292679e955cc21",
+            "exif_orientation": 1,
+            "exif_orientation_applied": false,
+            "has_multiple_frames": false,
+            "metadata_dpi": {
+              "x": 299.9994,
+              "y": 299.9994
+            },
+            "icc_profile": {
+              "present": false,
+              "bytes": 0,
+              "sha256": null
+            },
+            "alpha": {
+              "present": true,
+              "minimum": 128,
+              "maximum": 128
+            },
+            "preparation_supported": true,
+            "unsupported_reasons": [],
+            "fingerprint": "a816f005b251f5322ac3fb79d49c38b6e95960ac7e1ce8ff0ef673cef6c6e544"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Pixel hashes describe the decoded EXIF-normalized first frame; multi-frame/precision modes require separate preparation workflows. ICC/DPI metadata is not color or print approval."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "inspect_raster_asset",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Raster request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "prepare_raster_asset": {
+      "request": {
+        "source_path": "C:/jobs/source.png",
+        "destination_path": "C:/jobs/prepared.png",
+        "expected_source_fingerprint": "a816f005b251f5322ac3fb79d49c38b6e95960ac7e1ce8ff0ef673cef6c6e544",
+        "crop_box": {
+          "left": 1,
+          "top": 0,
+          "right": 4,
+          "bottom": 2
+        },
+        "rotation_degrees": 90
+      },
+      "success": {
+        "ok": true,
+        "tool": "prepare_raster_asset",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "prepared": true,
+          "source": {
+            "schema": "raster-asset-v1",
+            "path": "C:/jobs/source.png",
+            "bytes": 98,
+            "source_sha256": "7aa325c7026c874b49d7d02758fe72879f794c953a4441a26009eed137e4bfaa",
+            "format": "PNG",
+            "native_mode": "RGBA",
+            "mode": "RGBA",
+            "native_size_pixels": {
+              "width": 4,
+              "height": 3
+            },
+            "size_pixels": {
+              "width": 4,
+              "height": 3
+            },
+            "pixels_sha256": "01e086c58f25b62ee557aa43e02c2a70700411d91eb2d7b723292679e955cc21",
+            "exif_orientation": 1,
+            "exif_orientation_applied": false,
+            "has_multiple_frames": false,
+            "metadata_dpi": {
+              "x": 299.9994,
+              "y": 299.9994
+            },
+            "icc_profile": {
+              "present": false,
+              "bytes": 0,
+              "sha256": null
+            },
+            "alpha": {
+              "present": true,
+              "minimum": 128,
+              "maximum": 128
+            },
+            "preparation_supported": true,
+            "unsupported_reasons": [],
+            "fingerprint": "a816f005b251f5322ac3fb79d49c38b6e95960ac7e1ce8ff0ef673cef6c6e544"
+          },
+          "output": {
+            "schema": "raster-asset-v1",
+            "path": "C:/jobs/prepared.png",
+            "bytes": 99,
+            "source_sha256": "b48c0c6cb1056fc0d0b8e2ffc2aced7250d426e0463b8e871d15ecefb75e559e",
+            "format": "PNG",
+            "native_mode": "RGBA",
+            "mode": "RGBA",
+            "native_size_pixels": {
+              "width": 2,
+              "height": 3
+            },
+            "size_pixels": {
+              "width": 2,
+              "height": 3
+            },
+            "pixels_sha256": "8add2a1d168b76511881fbfe64265ca7bef74500bb8d8ff4d20192a524b624f0",
+            "exif_orientation": 1,
+            "exif_orientation_applied": false,
+            "has_multiple_frames": false,
+            "metadata_dpi": {
+              "x": 299.9994,
+              "y": 299.9994
+            },
+            "icc_profile": {
+              "present": false,
+              "bytes": 0,
+              "sha256": null
+            },
+            "alpha": {
+              "present": true,
+              "minimum": 128,
+              "maximum": 128
+            },
+            "preparation_supported": true,
+            "unsupported_reasons": [],
+            "fingerprint": "9f4e7699197c520b02643f1ee946196f6902c3315f84fca41f0c49fa86deb016"
+          },
+          "operations": {
+            "crop_box": {
+              "left": 1,
+              "top": 0,
+              "right": 4,
+              "bottom": 2
+            },
+            "rotation_degrees": 90,
+            "flip_horizontal": false,
+            "flip_vertical": false,
+            "before_resize_pixels": {
+              "width": 2,
+              "height": 3
+            },
+            "target_size": null,
+            "resize_mode": "contain",
+            "fitting_crop_box": null,
+            "resampling": "lanczos",
+            "upscaled": false
+          },
+          "source_preservation": {
+            "source_written": false,
+            "byte_hash_verified": true
+          },
+          "pixel_readback_verified": true,
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Derivatives retain recognized DPI and opaque ICC bytes; EXIF and other ancillary metadata are not copied. No ICC conversion or print approval is performed."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "prepare_raster_asset",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Raster request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -28931,6 +29577,247 @@
         "Cropped bounds must stay inside the uncropped grid. Native Cropped means crop capability; CropEnvelopeModified identifies the modified envelope. Cropping or resampling cannot establish new source detail.",
         "Source pixel data, image content fidelity, ICC/spot/separation, external linked-file stability and print readiness are not verified by native metadata or calculated DPI.",
         "Resolution threshold is 1-2400 DPI; metadata axes are bounded at one million pixels and 500 million total pixels. No native bitmap modification, tracing, crop edit or background removal is exposed by this inspection tool."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "inspect_raster_asset",
+      "category": "images",
+      "description": "Inspect an immutable raster snapshot and decoded EXIF-normalized pixel provenance.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.raster_assets.inspect_raster_asset"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "source_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          }
+        },
+        "required": [
+          "source_path"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "$ref": "#/schema_definitions/raster_inspection_result"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "offline_passed",
+        "sources": [
+          "tests/test_raster_assets.py",
+          "docs/RASTER_PREPARATION.md",
+          "docs/raster_preparation_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "128 MiB encoded/64 million pixels/65535 per side/8 MiB ICC limits; sources PNG/JPEG/TIFF/BMP/GIF.",
+        "Preparation accepts single-frame RGB/RGBA/L/LA/CMYK; palette/bitonal sources normalize, precision and multiple frames require separate workflows.",
+        "PNG/TIFF only; CMYK uses TIFF. Opaque ICC bytes and recognized DPI are retained without conversion or print approval.",
+        "No background removal, tracing, AI enhancement, native bitmap mutation or document-wide raster preflight.",
+        "Filesystem ownership and source hashes are checked at bounded observations; paths are not locked against concurrent external edits.",
+        "Consolidated MCP client, Corel import and visual/artifact review remain deferred."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "prepare_raster_asset",
+      "category": "images",
+      "description": "Prepare a new source-preserving PNG/TIFF with verified pixel, ICC/DPI and source readback.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.raster_assets.prepare_raster_asset"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "source_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          },
+          "destination_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          },
+          "expected_source_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "crop_box": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/raster_crop_box"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "rotation_degrees": {
+            "enum": [
+              0,
+              90,
+              180,
+              270
+            ],
+            "default": 0
+          },
+          "flip_horizontal": {
+            "type": "boolean",
+            "default": false
+          },
+          "flip_vertical": {
+            "type": "boolean",
+            "default": false
+          },
+          "target_size": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/raster_pixel_size"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "resize_mode": {
+            "enum": [
+              "contain",
+              "cover",
+              "stretch"
+            ],
+            "default": "contain"
+          },
+          "allow_upscale": {
+            "type": "boolean",
+            "default": false
+          },
+          "resampling": {
+            "enum": [
+              "nearest",
+              "bicubic",
+              "lanczos"
+            ],
+            "default": "lanczos"
+          },
+          "output_dpi": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 2400
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "required": [
+          "source_path",
+          "destination_path",
+          "expected_source_fingerprint"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "$ref": "#/schema_definitions/raster_preparation_result"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "export",
+      "risk": "medium",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "offline_passed",
+        "sources": [
+          "tests/test_raster_assets.py",
+          "docs/RASTER_PREPARATION.md",
+          "docs/raster_preparation_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "128 MiB encoded/64 million pixels/65535 per side/8 MiB ICC limits; sources PNG/JPEG/TIFF/BMP/GIF.",
+        "Preparation accepts single-frame RGB/RGBA/L/LA/CMYK; palette/bitonal sources normalize, precision and multiple frames require separate workflows.",
+        "PNG/TIFF only; CMYK uses TIFF. Opaque ICC bytes and recognized DPI are retained without conversion or print approval.",
+        "No background removal, tracing, AI enhancement, native bitmap mutation or document-wide raster preflight.",
+        "Filesystem ownership and source hashes are checked at bounded observations; paths are not locked against concurrent external edits.",
+        "Consolidated MCP client, Corel import and visual/artifact review remain deferred."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

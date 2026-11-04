@@ -435,11 +435,13 @@
         "import_artwork",
         "plan_print_job",
         "prepare_print_job",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "inspect_raster_asset",
+        "prepare_raster_asset"
       ],
       "missing_behavior": [
-        "General crop/background/cleanup",
-        "Resolution and derivative provenance",
+        "Background removal/cleanup and AI enhancement",
+        "Document-wide native raster preflight and source-detail/color/visual verification",
         "Bounded tracing and fidelity reporting"
       ],
       "source_ids": [
@@ -451,7 +453,12 @@
         "SAFE-002"
       ],
       "implementation_status": "partial_implemented_unverified",
-      "live_status": "deferred"
+      "live_status": "deferred",
+      "evidence": [
+        "docs/RASTER_PREPARATION.md",
+        "tests/test_raster_assets.py",
+        "docs/raster_preparation_online_evidence.json"
+      ]
     },
     {
       "id": "templates",

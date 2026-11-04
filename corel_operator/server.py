@@ -805,6 +805,46 @@ def break_apart_curve(object_reference: dict,result_name_prefix: str="AI_Subpath
 
 @mcp.tool()
 @recorded_operation
+def inspect_raster_asset(source_path: str) -> dict:
+    """Inspect a bounded local raster snapshot with EXIF-normalized pixel hashes.
+
+    Return dimensions, mode, alpha, ICC/DPI metadata and a source fingerprint.
+    Multi-frame and precision sources remain inspectable; preparation is refused.
+    """
+    from .raster_assets import inspect_raster_asset as inspect_file
+    started = perf_counter()
+    try:
+        return success_result("inspect_raster_asset", inspect_file(source_path), (perf_counter()-started)*1000)
+    except Exception as exc:
+        return error_result("inspect_raster_asset", exc, (perf_counter()-started)*1000)
+
+
+@mcp.tool()
+@recorded_operation
+def prepare_raster_asset(source_path: str, destination_path: str, expected_source_fingerprint: str,
+                         crop_box: dict | None = None, rotation_degrees: int = 0,
+                         flip_horizontal: bool = False, flip_vertical: bool = False,
+                         target_size: dict | None = None, resize_mode: str = "contain",
+                         allow_upscale: bool = False, resampling: str = "lanczos",
+                         output_dpi: float | None = None) -> dict:
+    """Create a new PNG/TIFF derivative with exact pixel and source readback.
+
+    Normalize EXIF, crop, rotate counterclockwise, flip, then fit/resize. Preserve
+    source bytes and recognized ICC/DPI; require explicit upscale, never overwrite.
+    """
+    from .raster_assets import prepare_raster_asset as prepare_file
+    started = perf_counter()
+    try:
+        result = prepare_file(source_path, destination_path, expected_source_fingerprint, crop_box,
+            rotation_degrees, flip_horizontal, flip_vertical, target_size, resize_mode, allow_upscale,
+            resampling, output_dpi)
+        return success_result("prepare_raster_asset", result, (perf_counter()-started)*1000)
+    except Exception as exc:
+        return error_result("prepare_raster_asset", exc, (perf_counter()-started)*1000)
+
+
+@mcp.tool()
+@recorded_operation
 def inspect_pdf(path: str,expected_page_count: int | None=None,expected_page_sizes: list[dict] | None=None,
                 require_embedded_fonts: bool=False,tolerance_inches: float=.01) -> dict:
     """Parse a local PDF and check all page sizes/counts and font program presence.
