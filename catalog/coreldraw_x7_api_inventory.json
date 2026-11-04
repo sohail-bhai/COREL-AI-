@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": "2026-11-03",
+  "catalog_revision": "2026-11-04",
   "profile": {
     "profile_id": "coreldraw-x7-17",
     "product": "CorelDRAW Graphics Suite X7",
@@ -182,6 +182,13 @@
       "path": "docs/x7_organization_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "Installed page/layer control descriptors without application access."
+    },
+    {
+      "id": "x7_bitmap_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_bitmap_api_evidence.json",
+      "inspection_date": "2026-11-03",
+      "description": "Installed bitmap metadata/uncropped-box descriptors without application access."
     }
   ],
   "members": [
@@ -315,7 +322,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_application",
@@ -664,7 +672,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_document",
@@ -715,7 +724,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_document",
@@ -761,7 +771,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_document",
@@ -1127,7 +1138,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_page",
@@ -1173,7 +1185,8 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_page",
@@ -1534,7 +1547,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1660,7 +1674,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1686,7 +1701,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1735,7 +1751,8 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1785,7 +1802,8 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1832,7 +1850,8 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1889,7 +1908,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1944,7 +1964,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1990,7 +2011,8 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2032,7 +2054,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2074,7 +2097,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2116,7 +2140,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2158,7 +2183,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2425,7 +2451,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3699,7 +3726,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3733,7 +3761,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3768,7 +3797,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -4447,7 +4477,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4476,7 +4507,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4505,7 +4537,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4534,7 +4567,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4563,7 +4597,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4592,7 +4627,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4650,7 +4686,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4737,7 +4774,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4824,7 +4862,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4853,7 +4892,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5004,7 +5044,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5033,7 +5074,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5407,7 +5449,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5426,7 +5469,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5445,7 +5489,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5464,7 +5509,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5540,7 +5586,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5559,7 +5606,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -6628,7 +6676,8 @@
       "signature": "Count",
       "status": "typelib_confirmed",
       "used_by": [
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_contour_offset_inspection"
@@ -6676,7 +6725,8 @@
       "signature": "Effects",
       "status": "typelib_confirmed",
       "used_by": [
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "get_bitmap_properties"
       ],
       "evidence": [
         "x7_contour_offset_inspection"
@@ -6846,6 +6896,102 @@
         "x7_organization_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/layer.delete",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.BoundingBoxPath",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "BoundingBoxPath",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_bitmap_properties"
+      ],
+      "evidence": [
+        "x7_bitmap_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.boundingboxpath",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.CropEnvelopeModified",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "CropEnvelopeModified",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_bitmap_properties"
+      ],
+      "evidence": [
+        "x7_bitmap_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.cropenvelopemodified",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.Cropped",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Cropped",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_bitmap_properties"
+      ],
+      "evidence": [
+        "x7_bitmap_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.cropped",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.Embedded",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Embedded",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_bitmap_properties"
+      ],
+      "evidence": [
+        "x7_bitmap_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.embedded",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.ExternallyLinked",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "ExternallyLinked",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_bitmap_properties"
+      ],
+      "evidence": [
+        "x7_bitmap_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.externallylinked",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.Mode",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "Mode",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "get_bitmap_properties"
+      ],
+      "evidence": [
+        "x7_bitmap_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.mode",
       "live_test_status": "not_run_deferred"
     }
   ]

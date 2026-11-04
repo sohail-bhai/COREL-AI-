@@ -522,6 +522,20 @@ def inspect_text_template(object_name: str="",shape_index: int=0,object_referenc
 
 @mcp.tool()
 @recorded_operation
+def get_bitmap_properties(minimum_dpi: float = 150., object_name: str = "", shape_index: int = 0,
+                          object_reference: dict | None = None) -> dict:
+    """Inspect native bitmap metadata and calculate its placed affine pixel DPI.
+
+    Reconcile the uncropped pixel-grid box with bounds and native affine axes,
+    including rotation/skew. Report worst directional resolution against a
+    requested minimum. Unknown/effect/crop geometry stays indeterminate; metadata
+    or calculated DPI alone never establishes source detail or print readiness.
+    """
+    return _tool("get_bitmap_properties", "get_bitmap_properties", minimum_dpi, object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
 def get_document_structure() -> dict:
     """Inspect bounded page/local/master-layer structure and root membership.
 

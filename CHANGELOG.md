@@ -8,6 +8,12 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Native bitmap metadata and placed affine resolution inspection, including
+  rotation, mirrors, skew and worst directional DPI. Thirty-eight focused checks
+  cover pixel-grid/crop geometry, two-read consistency, nested effect scope,
+  missing metadata, context restoration and strict schemas. X7 evidence is
+  retained and the disposable native gate remains deferred. The surface has 85
+  tools; 726 automated checks pass and 27 guarded live gates are skipped.
 - Seven guarded page/layer tools for structure fingerprints, exact activation,
   naming, explicit-size page append, ordinary local layer creation and native
   visibility/editability/printing flags. Thirty-eight focused checks cover stale

@@ -1,6 +1,6 @@
 # Current Implementation Priorities
 
-**Updated:** 2026-11-03
+**Updated:** 2026-11-04
 **Decision:** Prioritize common editing, layout, templates, and print production;
 then extend into component-based AI design and smart redesign.
 
@@ -33,6 +33,12 @@ commit/push, then pause autonomous work. Remaining priorities include image
 preparation/effective raster resolution, broader multisheet production, prepress
 and component AI workflows. Live verification remains deferred.
 
+**Resume decision — 2026-11-04:** The user reactivated the full autonomous goal.
+Continue the saved backlog, beginning with native bitmap/effective-resolution
+inspection and general image preparation. The completed page/local-layer batch
+is pushed; the earlier pause no longer blocks work. Live verification remains
+deferred to the consolidated campaign.
+
 ## Active delivery order
 
 **Autonomous delivery update — 2026-11-03:** The user authorized continued
@@ -55,6 +61,12 @@ capability status, and keep live verification deferred.
   explicit unavailable/indeterminate properties. Fake-COM/catalog gates pass;
   the disposable X7 gate remains pending. See [OBJECT_INSPECTION.md](OBJECT_INSPECTION.md).
 - Standalone outline inspection remains pending X7 outline-unit research.
+- Native bitmap inspection is implemented: `get_bitmap_properties` provides
+  pixel/mode/link/crop metadata and affine placed/worst-direction DPI, with
+  two-read consistency, nested effect scope and exact context restoration.
+  Thirty-eight focused checks pass; native crop/skew/group coordinates and pixel/
+  color/source-detail approval remain deferred. See [BITMAP_INSPECTION.md](BITMAP_INSPECTION.md).
+  Continue general image preparation and document-wide raster preflight.
 - Review the retained common-work CDR evidence and live-verify the applicable
   text replacement, move/resize, duplicate, align, group, save, and PDF tools.
 - ID-001 document liveness is implemented: targeted operations check bounded
@@ -65,7 +77,7 @@ capability status, and keep live verification deferred.
   ambiguous identities, and preserve targeting after reorder. Fake-COM and
   dispatcher gates pass; native lifecycle verification is deferred. See
   [OBJECT_REFERENCES.md](OBJECT_REFERENCES.md).
-- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 84
+- SAFE-001 is implemented: opt-in bounded external JSONL events cover all 85
   MCP tools, with input type counts, worker target IDs, result/created IDs,
   duration, rollback flags and separate caller/worker completion. Redaction,
   filesystem failure, capacity, concurrency and timeout event tests pass. See
@@ -87,7 +99,7 @@ capability status, and keep live verification deferred.
   Owned-output cleanup, final row readback and measured source preservation are
   covered. See [TEMPLATE_BATCHES.md](TEMPLATE_BATCHES.md).
 - Controlled zero-bleed PDF export and local page/font inspection are implemented
-  with 22 focused checks and a deferred native gate. All 84 tools are included in
+  with 22 focused checks and a deferred native gate. All 85 tools are included in
   the consolidated coverage inventory. See [PDF_PRODUCTION.md](PDF_PRODUCTION.md)
   and [CONSOLIDATED_LIVE_VERIFICATION.md](CONSOLIDATED_LIVE_VERIFICATION.md).
 - General vectors are implemented: line/cubic creation, full geometry inspection,

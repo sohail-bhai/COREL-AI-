@@ -1,6 +1,6 @@
 # Capability research and delivery backlog
 
-**Research date:** 2026-11-03
+**Research date:** 2026-11-04
 **Target:** CorelDRAW X7 17.0.0.491; Python/MCP/serialized COM bridge.
 **Authorization:** Continue the implementation plan autonomously, research online
 capabilities, and use evidence-backed gaps to guide further work. Live checks
@@ -8,7 +8,7 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 84 tools, all `implemented_unverified`. It covers
+The current server exposes 85 tools, all `implemented_unverified`. It covers
 inspection, editable typography/layout, reusable text batches, vectors, process
 colors/gradients/transparency, clipping, copied contour derivatives and guarded
 page/local-layer creation, activation, naming and flags. Complete
@@ -40,7 +40,7 @@ is a requirements reference, not X7 automation evidence.
 | Layout/transforms | Move/proportional resize, pivot rotation, mirroring, native matrix inspection, sibling order, measured distribution/grouping and guarded page/local-layer controls | Cross-layer/page object moves, guides, outline-aware bounds and safe-area reflow |
 | Vector construction | Line/cubic paths and guarded nodes/handles; copied topology/shaping/compound revisions; native inside/outside contour derivatives | Adjacent deletion/fitting, open endpoint cropping, nested shaping, text/effect/open contours and exact native winding/offset/cutting gates |
 | Appearance and clipping | Native RGB/CMYK process colors; uniform transparency; PowerClip fitting/extraction/rebuilds; opaque direct multicolor gradients with guarded revisions | Proven outline units, spot/ICC, wider gradient/blend/group effects, in-place clip editing and native/visual verification |
-| Images and references | Validated imports; local cover/contain planning; retained tracing research | General crop/background/cleanup, effective-resolution checks, bounded tracing and fidelity reports |
+| Images and references | Validated imports; local cover/contain planning; native bitmap metadata and placed affine effective-resolution inspection; retained tracing research | General crop/background/cleanup, document-wide raster preflight, bounded tracing and fidelity reports |
 | Templates and data | Numbering/chest-bib sequence; named text templates, literal CSV, duplicates/count/overflow reconciliation and independent full/partial sheets | Image fields, mixed/linked text, auto-fit and numbering variants |
 | Publications and sheet production | Grid/contour planning; single-sheet execution | Multiple sheets, partial final sheets, page order, bleed/marks, source-preserving production outputs |
 | Export and prepress | Non-overwriting CDR/PDF output; controlled zero-bleed PDF settings and parsed all-page/font checks; raster DPI and geometry checks | Nonzero bleed, ICC/PDF-X, color/spot/overprint and effective raster-resolution checks |
@@ -106,6 +106,15 @@ activation, named explicit-size append and local-layer flags are implemented;
 existing-page size/order/deletion, cross-layer moves, master/special edits,
 checkpoints and native/artifact verification remain broader work.
 
+Native bitmap inspection now passes 38 focused checks in
+[BITMAP_INSPECTION.md](BITMAP_INSPECTION.md). Pixel dimensions and the uncropped
+affine grid yield axis and worst directional DPI, with separate native metadata,
+crop/scope checks and two-read consistency. Readable X7 size/resolution help and
+32 installed descriptors support the requirement; three SDK pages returned no
+readable API content. Native coordinates/crop/skew/groups, source detail and
+color/print approval remain deferred. General image preparation and whole-job
+raster preflight still require implementation.
+
 Data and print requirements are supported by Corel's
 [print merge documentation](https://product.corel.com/help/CorelDRAW/Documentation-Windows/CorelDRAW-en/CorelDRAW-Print-merge.html),
 [page layout guide](https://help.coreldraw.com/CorelDRAW/540111192/Documentation-Windows/CorelDRAW-en/CorelDRAW-Page-layout.html),
@@ -131,7 +140,7 @@ as an explicit dependency until the conversion is established. Parsed PDF
 page boxes and font resource checks are required; these do not prove PDF/X,
 ICC accuracy, visual fidelity or printer readiness. Two PDF tools now pass 22
 focused checks; see [PDF_PRODUCTION.md](PDF_PRODUCTION.md). The complete deferred
-inventory accounts for all 84 registered tools and prepared native gate candidates.
+inventory accounts for all 85 registered tools and prepared native gate candidates.
 
 1. **Reliability foundation:** ID-001 stale targets; SAFE-001 redacted records;
    SAFE-002 busy/timeout state and guarded recovery. Keep inspection bounded and

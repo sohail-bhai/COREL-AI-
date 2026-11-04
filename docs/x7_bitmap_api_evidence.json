@@ -1,0 +1,304 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "SizeWidth"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, (3, 0, None), 0)",
+      "documentation": "Gets the bitmap's horizontal size (width)"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "SizeHeight"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, (3, 0, None), 0)",
+      "documentation": "Gets the bitmap's vertical size (height)"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ResolutionX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Gets the bitmap's horizontal resolution"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ResolutionY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, (3, 0, None), 0)",
+      "documentation": "Gets the bitmap's vertical resolution"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ExternallyLinked"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (11, 0, None), 0)",
+      "documentation": "Gets the status of a bitmap: externally linked or embedded"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Mode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, ((29, 50333824), 0, None), 0)",
+      "documentation": "Gets the color mode of the bitmap"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Embedded"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743832, (), (), 4, 2, 4, 0, 248, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap is embedded into the document"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Cropped"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743833, (), (), 4, 2, 4, 0, 256, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap can be cropped"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "CropEnvelopeModified"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743834, (), (), 4, 2, 4, 0, 264, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap's clipping path has been modified"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "CropEnvelope"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743835, (), (), 4, 2, 4, 0, 272, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns the bitmap clipping path curve"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "BoundingBoxPath"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743836, (), (), 4, 2, 4, 0, 280, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns the uncropped read-only bitmap bounding box curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "SubPaths"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50363776)), 0, None), 0)",
+      "documentation": "Gets the collection of subpaths within the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Nodes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((26, (29, 50364032)), 0, None), 0)",
+      "documentation": "Gets the collection of nodes within the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "Segments"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50365056)), 0, None), 0)",
+      "documentation": "Gets the collection of segments within the curve"
+    },
+    {
+      "interface": "IVGCurve",
+      "names": [
+        "GetBoundingBox",
+        "x",
+        "y",
+        "Width",
+        "Height"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743837, (), (((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 288, (11, 0, None), 0)",
+      "documentation": "Gets the bounding rectangle around the curve"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "PositionX"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (5, 0, None), 0)",
+      "documentation": "Gets or sets the horizontal position (X) of the node on the page, according to the document's reference point"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "PositionX"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743810, (), ((5, 1, None),), 4, 4, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Gets or sets the horizontal position (X) of the node on the page, according to the document's reference point"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "PositionY"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (5, 0, None), 0)",
+      "documentation": "Gets or sets the vertical position (Y) of the node on the page, according to the document's reference point"
+    },
+    {
+      "interface": "IVGNode",
+      "names": [
+        "PositionY"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743812, (), ((5, 1, None),), 4, 4, 4, 0, 96, (24, 0, None), 0)",
+      "documentation": "Gets or sets the vertical position (Y) of the node on the page, according to the document's reference point"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((29, 50338560), 0, None), 0)",
+      "documentation": "Gets or sets the segment type"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "Type"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743810, (), (((29, 50338560), 1, None),), 4, 4, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Gets or sets the segment type"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "StartNode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743833, (), (), 4, 2, 4, 0, 256, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Gets the start node"
+    },
+    {
+      "interface": "IVGSegment",
+      "names": [
+        "EndNode"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743834, (), (), 4, 2, 4, 0, 264, ((26, (29, 50364160)), 0, None), 0)",
+      "documentation": "Gets the end node"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "SizeWidth"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (), 4, 2, 4, 0, 152, (5, 0, None), 0)",
+      "documentation": "Gets or sets the width of the shape on the page"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "SizeWidth"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743820, (), ((5, 1, None),), 4, 4, 4, 0, 160, (24, 0, None), 0)",
+      "documentation": "Gets or sets the width of the shape on the page"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "SizeHeight"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743822, (), (), 4, 2, 4, 0, 168, (5, 0, None), 0)",
+      "documentation": "Gets or sets the height of the shape on the page"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "SizeHeight"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743822, (), ((5, 1, None),), 4, 4, 4, 0, 176, (24, 0, None), 0)",
+      "documentation": "Gets or sets the height of the shape on the page"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Bitmap"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743827, (), (), 4, 2, 4, 0, 208, ((26, (29, 50365184)), 0, None), 0)",
+      "documentation": "Allows users to access the bitmap properties"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Effects"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743879, (), (), 4, 2, 4, 0, 624, ((26, (29, 50370176)), 0, None), 0)",
+      "documentation": "Gets collection of effects applied to object"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "PowerClip"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743901, (), (), 4, 2, 4, 0, 800, ((26, (29, 50376192)), 0, None), 0)",
+      "documentation": "Gets the powerclip"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "GetMatrix",
+        "d11",
+        "d12",
+        "d21",
+        "d22",
+        "tx",
+        "ty"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743917, (), (((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None), ((26, 5), 2, None)), 4, 1, 4, 0, 928, (24, 0, None), 0)",
+      "documentation": "Gets Matrix"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "DisplayCurve"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743941, (), (), 4, 2, 4, 0, 1120, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns a read-only curve object representing the current shape"
+    }
+  ]
+}

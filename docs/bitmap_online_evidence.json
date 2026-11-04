@@ -1,0 +1,43 @@
+{
+  "browser_used": false,
+  "sources": [
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.sizewidth",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.sizewidth",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.resolutionx",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.resolutionx",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.boundingboxpath",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.boundingboxpath",
+      "excerpts": [],
+      "relevant_text_found": false
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Changing-the-dimensions-and-resolution-of-bitmaps.html",
+      "accessed": "2026-11-03",
+      "status": 200,
+      "resolved_url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Changing-the-dimensions-and-resolution-of-bitmaps.html",
+      "excerpts": [
+        " CorelDRAW Help | Changing the dimensions and resolution of bitmaps CorelDRAW Help : Bitmaps : Working with bitmaps : Changing the dimensions and resolution of bitmaps Quick links to procedures on this page: \u2022 To change the dimensions of a bitmap \u2022 To change the resolution of a bitmap Changing the dimensions and resolution of bitmaps After you add a bitmap to a drawing, you can change its dimensions and resolution. Changing dimensions You can change the physical dimensions of bitmaps by increasing or decreasing their height and width. When you increase the dimensions, the application inserts new pixels between existing pixels, and their colors are based on the colors of adjacent pixels. If you increase the dimensions of bitmaps significantly, bitmaps may appear stretched and pixelated. The size of the bitmap on your screen depends on the pixel height and width of the bitmap, on the z",
+        "resolution of bitmaps CorelDRAW Help : Bitmaps : Working with bitmaps : Changing the dimensions and resolution of bitmaps Quick links to procedures on this page: \u2022 To change the dimensions of a bitmap \u2022 To change the resolution of a bitmap Changing the dimensions and resolution of bitmaps After you add a bitmap to a drawing, you can change its dimensions and resolution. Changing dimensions You can change the physical dimensions of bitmaps by increasing or decreasing their height and width. When you increase the dimensions, the application inserts new pixels between existing pixels, and their colors are based on the colors of adjacent pixels. If you increase the dimensions of bitmaps significantly, bitmaps may appear stretched and pixelated. The size of the bitmap on your screen depends on the pixel height and width of the bitmap, on the zoom level, and on your monitor settings. As a result, the size of the bitmap may appear different on",
+        "maps Quick links to procedures on this page: \u2022 To change the dimensions of a bitmap \u2022 To change the resolution of a bitmap Changing the dimensions and resolution of bitmaps After you add a bitmap to a drawing, you can change its dimensions and resolution. Changing dimensions You can change the physical dimensions of bitmaps by increasing or decreasing their height and width. When you increase the dimensions, the application inserts new pixels between existing pixels, and their colors are based on the colors of adjacent pixels. If you increase the dimensions of bitmaps significantly, bitmaps may appear stretched and pixelated. The size of the bitmap on your screen depends on the pixel height and width of the bitmap, on the zoom level, and on your monitor settings. As a result, the size of the bitmap may appear different on your screen and in print. Changing bitmap resolution You can change the resolution of a bitmap to increase or decrea",
+        "hange the dimensions of a bitmap \u2022 To change the resolution of a bitmap Changing the dimensions and resolution of bitmaps After you add a bitmap to a drawing, you can change its dimensions and resolution. Changing dimensions You can change the physical dimensions of bitmaps by increasing or decreasing their height and width. When you increase the dimensions, the application inserts new pixels between existing pixels, and their colors are based on the colors of adjacent pixels. If you increase the dimensions of bitmaps significantly, bitmaps may appear stretched and pixelated. The size of the bitmap on your screen depends on the pixel height and width of the bitmap, on the zoom level, and on your monitor settings. As a result, the size of the bitmap may appear different on your screen and in print. Changing bitmap resolution You can change the resolution of a bitmap to increase or decrease its file size. Resolution is measured by the num",
+        "ns and resolution of bitmaps After you add a bitmap to a drawing, you can change its dimensions and resolution. Changing dimensions You can change the physical dimensions of bitmaps by increasing or decreasing their height and width. When you increase the dimensions, the application inserts new pixels between existing pixels, and their colors are based on the colors of adjacent pixels. If you increase the dimensions of bitmaps significantly, bitmaps may appear stretched and pixelated. The size of the bitmap on your screen depends on the pixel height and width of the bitmap, on the zoom level, and on your monitor settings. As a result, the size of the bitmap may appear different on your screen and in print. Changing bitmap resolution You can change the resolution of a bitmap to increase or decrease its file size. Resolution is measured by the number of dots per inch (dpi) when the bitmap is printed. The resolution you choose depends on h"
+      ],
+      "relevant_text_found": true
+    }
+  ]
+}

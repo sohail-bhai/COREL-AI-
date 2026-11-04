@@ -150,6 +150,8 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "images.bitmap_inspection": CapabilitySupport(True, "implemented_unverified", "Native pixel/mode/link/crop metadata plus placed affine pixel-grid resolution, including minimum directional DPI; unclear/effect/clipping geometry remains indeterminate and native semantics require deferred verification.",
+            ("Shape.Bitmap", "Bitmap.SizeWidth", "Bitmap.SizeHeight", "Bitmap.BoundingBoxPath", "Shape.GetMatrix")),
         "document.organization_inspection": CapabilitySupport(True, "implemented_unverified", "Bounded page/local/master layer structure, active context, root identities and current-session fingerprints; native verification remains deferred.",
             ("Document.Pages", "Document.MasterPage", "Page.Layers", "Page.AllLayers")),
         "document.page_organization": CapabilitySupport(True, "implemented_unverified", "Fingerprint-guarded page activation/rename and source-preserving appended empty pages; existing-page resize/reorder/deletion remain deferred.",

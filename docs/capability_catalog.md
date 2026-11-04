@@ -1,6 +1,6 @@
 # CorelDRAW X7 Automation Capability Catalog
 
-**Catalog revision:** 2026-11-03
+**Catalog revision:** 2026-11-04
 
 **Profile:** `coreldraw-x7-17`
 
@@ -44,7 +44,7 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 84 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 85 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
@@ -108,6 +108,12 @@ Thirty-eight focused checks cover fingerprints, root/order preservation, unit
 restoration and owned cleanup/recovery. Native lifecycle and artifacts are
 deferred; existing-page resizing/reordering/deletion and cross-layer moves remain gaps.
 
+[Bitmap inspection](BITMAP_INSPECTION.md) adds native pixel/link/crop metadata and
+placed affine resolution, including worst directional DPI under skew. Thirty-eight
+focused checks cover analytic geometry, readback consistency, effects/groups,
+context restoration and late document closure. Native coordinates, crop/group
+behavior and source-detail/color/artifact approval remain deferred.
+
 ## Evidence hierarchy
 
 Evidence is evaluated in this order:
@@ -143,7 +149,7 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic and workflow tools — `implemented_unverified` | 84 |
+| Registered atomic and workflow tools — `implemented_unverified` | 85 |
 | Planned atomic/workflow tools — `planned` | 1 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |
@@ -177,6 +183,7 @@ The zero verified count is intentional. Dated disposable X7 reports now exist, b
 | `get_page_bounds` | read-only | P1 | implemented_unverified | Explicit page-local bounds calculation has fake-COM tests | Test drawing-origin and facing-page behavior in X7 |
 | `list_layers` | read-only | P1 | implemented_unverified | Layer state/count enumeration has fake-COM tests | Test page, master, and special layers in X7 |
 | `get_document_structure` | read-only | P1 | implemented_unverified | Bounded page/local/master state, root identities and fingerprint; fake-COM/unit restoration checks | Native membership and unit behavior |
+| `get_bitmap_properties` | read-only | P1 | implemented_unverified | Native pixel/link/crop metadata and affine minimum directional DPI; two-read consistency and nested effect-scope tests | Native path/matrix/crop/group semantics and source-detail/color manual review |
 | `activate_page` | mutating | P1 | implemented_unverified | Exact identity/fingerprint targeting unlocks signed cross-page edits | Native focus/context behavior |
 | `activate_layer` | mutating | P1 | implemented_unverified | Exact ordinary visible/editable layer activation routes later creation | Native page/layer context behavior |
 | `rename_page` | mutating | P1 | implemented_unverified | Guarded name and full recorded structure reconciliation | Native page-name behavior |

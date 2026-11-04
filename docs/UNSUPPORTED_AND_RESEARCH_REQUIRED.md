@@ -19,6 +19,7 @@ implementation coverage and remaining work are tracked in
 |---|---|---|
 | Application caption | `Application.Caption` was not found in the official X7 Application class or installed type-library property map and was removed from `corel_status` in v0.6 | Keep unsupported unless future X7 evidence demonstrates a reliable member |
 | Outline width | `Outline.Width` exists, but the inspected evidence does not prove the bridge's value is in points | Set several known widths in a disposable document, read them back under controlled document units, and visually inspect one result |
+| Bitmap affine resolution | Metadata and uncropped-grid inspection have offline gates; native path/matrix coordinates, crop/skew/group behavior and source detail remain unverified | Run the disposable bitmap gate and manual crop/skew/linked/group/image-quality/color review in the consolidated campaign |
 | Text insertion coordinates | `CreateArtisticText` is confirmed, but insertion point/baseline versus resulting bounds is not recorded | Create text at known coordinates and compare insertion point with actual bounds |
 | Text charset | The type-library default is `cdrCharSetMixed (-1)` while the bridge explicitly passes ANSI `0` | Test ASCII and non-ASCII text; select an explicit documented policy |
 | Font substitution | Font and size are now read back, but no recorded X7 run demonstrates substitution behavior | Compare requested and actual formatting on X7 with available/missing fonts |

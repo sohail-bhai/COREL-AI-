@@ -636,6 +636,54 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed,failure)
 
+    def test_bitmap_properties_live(self) -> None:
+        """Deferred pixel-grid inspection under scaling, rotation and grouping."""
+        from PIL import Image
+        passed = False; failure = None
+        try:
+            self.status = self._step('connect', self.bridge.connect)
+            self._step('new bitmap fixture document', lambda: self.bridge.create_document(8.5, 11))
+            image_path = self.output_dir / 'bitmap-properties-source.png'
+            Image.new('RGB', (1200, 600), (40, 120, 200)).save(image_path, dpi=(72, 72))
+            imported = self._step('import bitmap fixture', lambda: self.bridge.import_artwork(str(image_path), 'BitmapPropertiesFixture'))
+            self.assertEqual(imported['object_count'], 1)
+            name = imported['object_names'][0]
+            self._step('place bitmap at explicit size', lambda: self.bridge.resize_object(4., 2., object_name=name))
+            reference = self.bridge.get_object_info(object_name=name)['object']['object_reference']
+            records = []
+            for phase in ('placed', 'rotated', 'mirrored', 'scaled'):
+                if phase == 'rotated': self._step('rotate bitmap', lambda: self.bridge.rotate_object(45., object_reference=reference))
+                if phase == 'mirrored': self._step('mirror bitmap', lambda: self.bridge.flip_object('horizontal', object_reference=reference))
+                if phase == 'scaled':
+                    current_angle = self.bridge.get_object_transform(object_reference=reference)['transform']['rotation_degrees']
+                    self._step('rotate bitmap back', lambda: self.bridge.rotate_object(-current_angle, object_reference=reference))
+                    self._step('enlarge bitmap', lambda: self.bridge.resize_object(8., 4., object_reference=reference))
+                result = self._step('get_bitmap_properties ' + phase, lambda: self.bridge.get_bitmap_properties(200., object_reference=reference))
+                self.assertEqual(result['bitmap']['size_pixels'], {'width': 1200, 'height': 600})
+                self.assertEqual(result['inspection_consistency']['status'], 'two_reads_reconciled')
+                self.assertEqual(result['effective_resolution']['status'], 'calculated')
+                expected = 150. if phase == 'scaled' else 300.
+                self.assertAlmostEqual(result['effective_resolution']['minimum_direction_dpi'], expected, delta=.01)
+                self.assertEqual(result['effective_resolution']['resolution_check'], 'below_requested' if phase == 'scaled' else 'pass')
+                records.append({'phase': phase, 'result': result})
+            frame = self._step('group companion', lambda: self.bridge.draw_rectangle(1, 1, 1, 1, 'BitmapGroupCompanion'))
+            self._step('group bitmap fixture', lambda: self.bridge.group_shapes([name, frame['object_name']], 'BitmapInspectionGroup'))
+            self._step('rotate bitmap group', lambda: self.bridge.rotate_object(30., object_name='BitmapInspectionGroup'))
+            matches = self.bridge.find_objects(name_contains=name, shape_type_code=5)['matches']
+            self.assertEqual(len(matches), 1)
+            nested = self._step('nested bitmap properties', lambda: self.bridge.get_bitmap_properties(200., object_reference=matches[0]['object_reference']))
+            self.assertEqual(nested['effective_resolution']['status'], 'calculated')
+            self.assertAlmostEqual(nested['effective_resolution']['minimum_direction_dpi'], 150., delta=.01)
+            records.append({'phase': 'transformed_group', 'result': nested})
+            self._step('save bitmap fixture', lambda: self.bridge.save_document(str(self.output_dir / 'bitmap-properties.cdr')))
+            self._step('export bitmap fixture', lambda: self.bridge.export_pdf_controlled(str(self.output_dir / 'bitmap-properties.pdf')))
+            (self.output_dir / 'bitmap-properties-readback.json').write_text(json.dumps(records, indent=2), encoding='utf-8')
+            passed = True
+        except BaseException as exc:
+            failure = f'{type(exc).__name__}: {exc}'; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed, failure)
+
     def test_raster_print_workflow_live(self) -> None:
         """Consolidated raster placement gate with disposable generated artwork."""
         from PIL import Image

@@ -35,6 +35,12 @@ visible/editable/printable property readback. It retains original artwork bounds
 and CDR/PDF/native-state artifacts. Native special/master layer exposures,
 active-context behavior and rendered/printed visibility remain deferred review.
 
+The bitmap gate covers native pixel/mode/link/crop metadata, placed uncropped
+geometry, two-read consistency and scaled/rotated/mirrored/transformed-group
+effective DPI, with disposable PNG/CDR/PDF/readback artifacts. Native cropping,
+skew/global coordinates, source detail, pixels and color/prepress approval remain
+manual/consolidated dependencies; metadata does not establish production readiness.
+
 The process-color gate covers exact native RGB/CMYK components on vectors/text,
 ordinary-outline recoloring and measured geometry/other-channel preservation.
 Its PDF/CDR artifacts require separate visual/color/prepress review; exact native

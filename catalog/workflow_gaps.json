@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "research_date": "2026-11-03",
+  "research_date": "2026-11-04",
   "profile_id": "coreldraw-x7-17",
   "verification_policy": "deferred_consolidated_live_campaign",
   "scope": "Workflow gaps guide implementation; this file does not register MCP tools.",
@@ -121,6 +121,12 @@
     },
     "layers_help": {
       "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Working-with-layers.html",
+      "accessed": "2026-11-03",
+      "kind": "official_primary_source",
+      "x7_specific": true
+    },
+    "bitmap_dimensions_help": {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Changing-the-dimensions-and-resolution-of-bitmaps.html",
       "accessed": "2026-11-03",
       "kind": "official_primary_source",
       "x7_specific": true
@@ -428,7 +434,8 @@
       "registered_tools": [
         "import_artwork",
         "plan_print_job",
-        "prepare_print_job"
+        "prepare_print_job",
+        "get_bitmap_properties"
       ],
       "missing_behavior": [
         "General crop/background/cleanup",
@@ -437,12 +444,13 @@
       ],
       "source_ids": [
         "trace",
-        "x7_guide"
+        "x7_guide",
+        "bitmap_dimensions_help"
       ],
       "depends_on": [
         "SAFE-002"
       ],
-      "implementation_status": "queued",
+      "implementation_status": "partial_implemented_unverified",
       "live_status": "deferred"
     },
     {
@@ -517,22 +525,24 @@
         "save_document",
         "export_pdf",
         "inspect_pdf",
-        "export_pdf_controlled"
+        "export_pdf_controlled",
+        "get_bitmap_properties"
       ],
       "missing_behavior": [
         "Proven nonzero bleed and production marks",
         "ICC/PDF-X and color/spot/overprint checks",
-        "Effective raster resolution and visual/prepress verification"
+        "Document-wide raster preflight and native/source-detail/visual/prepress verification"
       ],
       "source_ids": [
         "preflight",
-        "versions"
+        "versions",
+        "bitmap_dimensions_help"
       ],
       "depends_on": [
         "SAFE-002",
         "print_production"
       ],
-      "implementation_status": "zero_bleed_structural_workflow_implemented_unverified",
+      "implementation_status": "partial_implemented_unverified",
       "live_status": "deferred",
       "evidence": [
         "docs/PDF_PRODUCTION.md",
