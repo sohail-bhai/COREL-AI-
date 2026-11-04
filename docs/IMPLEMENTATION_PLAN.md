@@ -1,7 +1,7 @@
 # Future Implementation Plan — CorelDRAW AI Operator
 
 - **Plan date:** 2026-10-31
-- **Updated:** 2026-11-03
+- **Updated:** 2026-11-04
 - **Target:** CorelDRAW X7 17.0.0.491 on Windows 11
 - **Runtime:** Python 3.11, MCP SDK v1, pywin32
 - **Planning horizon:** prototype stabilization through production-ready local operator
@@ -34,6 +34,14 @@ when the bridge can identify the correct document and object, validate the full 
 recover safely from failure, read back the actual result, and report limitations honestly.
 
 ## 2. Current baseline
+
+Latest completed iteration (2026-11-04): general native-artwork print runs with
+complete full/partial-sheet plans, independently owned output, final measured
+copy/placement/count/ownership and source-context checks. See [PRINT_RUNS.md](PRINT_RUNS.md).
+Current totals are 91 registered tools and 874 tests (845 pass, 29 guarded live
+tests skipped). All tools remain `implemented_unverified`. The user requested
+pausing after this iteration; continue later from [IMPLEMENTATION_HANDOFF.md](IMPLEMENTATION_HANDOFF.md).
+The historical baseline below records the original plan date.
 
 As of this plan date:
 

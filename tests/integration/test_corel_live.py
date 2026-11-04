@@ -807,6 +807,43 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed,failure)
 
+    def test_print_run_live(self) -> None:
+        """Deferred full/partial sheet and rotation gate using disposable source/output."""
+        from corel_operator.print_runs import plan_print_run
+        source = None; passed = False; failure = None
+        try:
+            self.status = self._step('connect', self.bridge.connect)
+            self._step('create repeat source', lambda: self.bridge.create_document(8.5, 11))
+            source = self.bridge.target_doc
+            self._step('repeat rectangle', lambda: self.bridge.draw_rectangle(1, 2, 3, 2, 'Repeat'))
+            self._step('save repeat source', lambda: self.bridge.save_document(str(self.output_dir/'print-run-source.cdr')))
+            repeat = self._step('inspect_print_repeat', lambda: self.bridge.inspect_print_repeat(object_name='Repeat'))['repeat']
+            for rotation in (False, True):
+                plan = self._step('plan_print_run', lambda: plan_print_run(repeat, 5,
+                    2.5 if rotation else 6.5, 3.5 if rotation else 2.5, gutter_inches=0., rotation_policy='best_fit' if rotation else 'never'))
+                result = self._step('execute_print_run', lambda: self.bridge.execute_print_run(plan, plan['fingerprint']))
+                self.assertEqual(result['copy_count'], 5)
+                self.assertEqual([s['copy_count'] for s in result['sheets']], [1]*5 if rotation else [2, 2, 1])
+                self.assertTrue(result['source_preservation']['verified'])
+                for item in result['items']:
+                    actual = self.bridge.get_object_transform(object_reference=item['object_reference'])['transform']['bounds_inches']
+                    placement = plan['placements'][item['copy_index']-1]
+                    for field in ('x', 'y', 'width', 'height'): self.assertAlmostEqual(actual[field], placement[field], places=4)
+                stem = 'print-run-rotated' if rotation else 'print-run-partial'
+                self._step('save repeat output', lambda: self.bridge.save_document(str(self.output_dir/(stem+'.cdr'))))
+                self._step('export repeat PDF', lambda: self.bridge.export_pdf(str(self.output_dir/(stem+'.pdf'))))
+                self._close_saved_target_if_needed()
+                self.bridge._bind_target_document(source); source.Activate()
+                self.assertEqual(self.bridge.inspect_print_repeat(object_reference=repeat['object_reference'])['repeat'], repeat)
+            passed = True
+        except BaseException as exc:
+            failure = f'{type(exc).__name__}: {exc}'; raise
+        finally:
+            self._close_saved_target_if_needed()
+            if source is not None:
+                self.bridge._bind_target_document(source); source.Activate(); self._close_saved_target_if_needed()
+            self._write_report(passed, failure)
+
     def test_template_batch_live(self) -> None:
         """Deferred template gate using synthetic records and independently owned documents."""
         from corel_operator.template_jobs import read_template_csv,plan_template_batch

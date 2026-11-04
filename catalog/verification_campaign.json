@@ -34,6 +34,7 @@
         "CorelDisposableDocumentLiveTests.test_document_raster_preflight_live",
         "CorelDisposableDocumentLiveTests.test_standalone_contour_nesting_live",
         "CorelDisposableDocumentLiveTests.test_controlled_pdf_live",
+        "CorelDisposableDocumentLiveTests.test_print_run_live",
         "CorelDisposableDocumentLiveTests.test_template_batch_live",
         "CorelDisposableDocumentLiveTests.test_existing_tools_on_new_disposable_document",
         "CorelDisposableDocumentLiveTests.test_create_chest_number_batch_live",
@@ -104,6 +105,7 @@
         "CorelDisposableDocumentLiveTests.test_powerclip_workflows_live",
         "CorelDisposableDocumentLiveTests.test_bitmap_properties_live",
         "CorelDisposableDocumentLiveTests.test_document_raster_preflight_live",
+        "CorelDisposableDocumentLiveTests.test_print_run_live",
         "CorelDisposableDocumentLiveTests.test_template_batch_live",
         "CorelDisposableDocumentLiveTests.test_existing_tools_on_new_disposable_document",
         "CorelDisposableDocumentLiveTests.test_find_objects_live",
@@ -298,6 +300,7 @@
         "CorelDisposableDocumentLiveTests.test_raster_print_workflow_live",
         "CorelDisposableDocumentLiveTests.test_standalone_contour_nesting_live",
         "CorelDisposableDocumentLiveTests.test_controlled_pdf_live",
+        "CorelDisposableDocumentLiveTests.test_print_run_live",
         "CorelDisposableDocumentLiveTests.test_template_batch_live",
         "CorelDisposableDocumentLiveTests.test_existing_tools_on_new_disposable_document",
         "CorelDisposableDocumentLiveTests.test_create_chest_number_batch_live",
@@ -322,6 +325,7 @@
       "local_test_sources": [],
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_print_run_live",
         "CorelDisposableDocumentLiveTests.test_template_batch_live",
         "CorelDisposableDocumentLiveTests.test_existing_tools_on_new_disposable_document"
       ],
@@ -811,6 +815,7 @@
       "native_coverage": "prepared_pending_run",
       "native_gate_candidates": [
         "CorelDisposableDocumentLiveTests.test_bitmap_properties_live",
+        "CorelDisposableDocumentLiveTests.test_print_run_live",
         "CorelDisposableDocumentLiveTests.test_layout_transforms_live"
       ],
       "native_result": "not_run",
@@ -1352,6 +1357,49 @@
       "native_result": "not_run",
       "mcp_envelope_result": "pending_consolidated_client_run",
       "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "inspect_print_repeat",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_print_runs.py",
+        "tests/integration/test_corel_live.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_print_run_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "plan_print_run",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_print_runs.py",
+        "tests/integration/test_corel_live.py"
+      ],
+      "native_coverage": "local_only",
+      "native_gate_candidates": [],
+      "native_result": "not_applicable",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "execute_print_run",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_print_runs.py",
+        "tests/integration/test_corel_live.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_print_run_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
     }
   ]
 }

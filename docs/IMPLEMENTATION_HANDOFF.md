@@ -1,48 +1,59 @@
 # Implementation handoff — 2026-11-04
 
-The user resumed the autonomous goal after the raster-preparation pause.
-The goal is active and incomplete. Document-wide raster preflight is the latest
-completed implementation batch; continue the approved researched backlog.
+The user requested stopping after the current iteration and continuing later.
+The general native-artwork repeat-run iteration is complete. Autonomous work
+is paused; the broader objective is incomplete. Do not start the next backlog
+item until the user resumes. Live verification stays deferred to one campaign.
 
-Branch: `feature/workflow-planning-slice`. Source-preserving raster preparation
-was pushed as `03623db`; the preflight batch is committed on top of it.
+Branch: `feature/workflow-planning-slice`. Preserve the current branch and read
+`HARNESS_INCIDENTS.md` before subsequent project work. Completed batches are
+committed/pushed; inspect Git history/status for their exact commit IDs.
 
-Current surface: 88 registered tools, all `implemented_unverified`; 90 registry
-records/matrix rows, 313 native members, 252 checked schemas, 270 examples,
-28 enum groups and 69 adapter capabilities. Default suite: 850 tests, 822 pass,
-28 guarded live tests skipped. No live CorelDRAW verification ran.
+Current surface: 91 registered tools, all `implemented_unverified`; 93 registry
+records/matrix rows, 313 native members, 264 checked schemas, 279 examples,
+28 enum groups and 72 adapter capabilities. Default suite: 874 tests, 845 pass,
+29 guarded live tests skipped. No live CorelDRAW verification ran this iteration.
 
-`preflight_document_rasters` performs two bounded native graph scans and three
-document structure snapshots across page/master layers, groups and PowerClips.
-It reports affine DPI, local linked-file presence, per-object locations/checks,
-partial/stale/uncertain scope and preserved units/reference/dirty/selection/focus.
-Known missing/empty linked files and low DPI fail. Relative/OPI link mapping,
-master/clip/effect/EPS geometry and unavailable evidence remain indeterminate.
-Opaque symbol/OLE/EPS/custom containers and special effect groups prevent clean
-coverage; ordinary supported groups and clips still enumerate observed bitmaps.
-Native link resolve/update and pixel/source decoding are never called. Source
-detail, cache freshness, color/overprint, export-generated rasterization and
-printer approval stay unchecked. Details are in [RASTER_PREFLIGHT.md](RASTER_PREFLIGHT.md)
-and [the offline report](test-reports/2026-11-04-raster-preflight-non-live.md).
+Latest tools: `inspect_print_repeat`, `plan_print_run`, `execute_print_run`.
+Two bounded complete source scans reconcile measured native payload and source
+context. Plans preserve physical size, materialize all full/partial sheets and
+create exactly the requested copies without overage. Optional 90-degree rotation,
+sheet orientation, per-edge margins, gripper and mark clearance reuse existing
+researched imposition APIs. Output is independently owned and editable; existing
+save/PDF tools are subsequent explicit operations. Failure cleanup discards only
+proven owned output and reports uncertain source/context reconciliation.
 
-Next: read `HARNESS_INCIDENTS.md`, inspect local Git state, then implement the
-remaining multi-sheet print-production workflow. Reuse the existing complete
-print-job planners, page organization, source-preserving copies, literal data
-and native PDF controls; verify per-sheet placement/count/order/source state,
-partial final sheets and owned-output failure cleanup. Research native APIs
-where evidence is missing. Continue broader production/component gaps in
+Final checks cover every copy after all edits: supported payload/paths/paint,
+placement/transforms, page order/dimensions, complete root membership, descendant
+ownership/counts, and measured source units/reference/dirty/selection/structure/
+active page/layer. Limits: 1000 repeat shapes, 32 levels, 10000 segments, 8 MiB
+manifest; 500 copies and 50000 output shapes. Live effects, opaque containers,
+complex paint and unlocked PowerClips are refused. Clipboard contents change.
+Pixels/link freshness, text runs/glyphs, rendered clipping/visual fidelity,
+outline-aware trim, nonzero bleed/marks, color/overprint and printer approval
+stay unchecked. Details: [PRINT_RUNS.md](PRINT_RUNS.md) and
+[offline report](test-reports/2026-11-04-print-runs-non-live.md).
+
+Twenty-three focused tests cover exact partial quantities, rotation/orientation,
+production allowances, stale/tampered plans, bounds/matrices, independent nested
+group/clip/text/bitmap copies, source dirty/selection drift, stray output/late
+sheet edits, reused/foreign receipts, final corruption, bounded returned refs,
+schemas and owned/uncertain cleanup. Existing APIs were reused from catalog and
+installed-type-library research; no new browser or native run was needed.
+
+The consolidated inventory covers all 91 tools with zero missing explicit native
+gates. The new guarded `test_print_run_live` prepares disposable full/partial and
+rotated runs with CDR/PDF artifacts. Expanded bitmap/text/gradient/PowerClip native
+fixtures, worker/client envelopes and manual production/artifact acceptance stay
+pending. Raster preparation/preflight gates also remain deferred. Passing offline
+tests does not mark any feature verified or the broader objective complete.
+
+On resume: review the researched remaining production/component gaps in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md) and
-`catalog/workflow_gaps.json`, including nonzero bleed/prepress, background/cleanup,
-tracing and component AI generation/revisions.
-
-All live verification remains deferred to one consolidated campaign. The
-campaign covers all 88 tools and has zero missing explicit native gates. The new
-`test_document_raster_preflight_live` prepares an independent transparent PNG,
-imports two owned pages, checks a nested low-DPI bitmap on the inactive page,
-preserves context and saves CDR/PDF/readback artifacts. Linked-file, OPI/EPS,
-clipping/master/nonprinting and unusual-coordinate native/manual cases need
-later expansion. Raster local tools remain `local_only`; MCP client and artifact
-acceptance remain pending. Do not mark the full objective complete.
+`catalog/workflow_gaps.json`. Prioritize supported nonzero bleed/prepress/marks
+research and implementation, background/cleanup and component AI generation/
+revision work according to `CURRENT_IMPLEMENTATION_PRIORITIES.md`. Custom
+Alhamdulillah calligraphy/reconstruction remains deferred.
 
 Keep sequential bounded foreground operations and ordinary workspace files.
 No browser preview, background jobs, parallel wrappers or subagents. Preserve
@@ -53,6 +64,6 @@ these unrelated untracked files untouched and uncommitted:
 - `scripts/create_membership_card_print_job.py`
 - `scripts/inspect_membership_template.py`
 
-No new harness incident occurred in the preflight iteration. Commit/push coherent
-offline-tested batches and retain `implemented_unverified` until the required
-native and manual evidence is reviewed.
+No new harness incident occurred during the print-run iteration. Resume only
+when requested; continue retaining `implemented_unverified` until native/manual
+evidence has been reviewed.

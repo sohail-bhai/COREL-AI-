@@ -47,6 +47,7 @@ from .contour_offset_bridge import ContourOffsetBridgeMixin
 from .organization_bridge import OrganizationBridgeMixin
 from .bitmap_bridge import BitmapBridgeMixin
 from .raster_preflight import RasterPreflightMixin
+from .print_run_bridge import PrintRunBridgeMixin
 from .object_references import (
     MAX_REFERENCE_DEPTH, MAX_REFERENCE_SCAN, authenticate_reference,
     identity_token, reference_signature, validate_reference,
@@ -62,7 +63,7 @@ from .contour_nesting import (
 )
 
 
-class CorelBridge(TemplateBridgeMixin,PdfBridgeMixin,VectorBridgeMixin,AppearanceBridgeMixin,TransparencyBridgeMixin,PowerClipBridgeMixin,GradientBridgeMixin,ContourOffsetBridgeMixin,OrganizationBridgeMixin,BitmapBridgeMixin,RasterPreflightMixin):
+class CorelBridge(PrintRunBridgeMixin,TemplateBridgeMixin,PdfBridgeMixin,VectorBridgeMixin,AppearanceBridgeMixin,TransparencyBridgeMixin,PowerClipBridgeMixin,GradientBridgeMixin,ContourOffsetBridgeMixin,OrganizationBridgeMixin,BitmapBridgeMixin,RasterPreflightMixin):
     CDR_INCH = CorelX7Adapter.CDR_INCH
     CDR_BOTTOM_LEFT = CorelX7Adapter.CDR_BOTTOM_LEFT
     MAX_IMPORT_BYTES = 250 * 1024 * 1024

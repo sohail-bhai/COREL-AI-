@@ -509,12 +509,15 @@
         "prepare_contour_nesting",
         "prepare_imposition_job",
         "plan_print_job",
-        "prepare_print_job"
+        "prepare_print_job",
+        "inspect_print_repeat",
+        "plan_print_run",
+        "execute_print_run"
       ],
       "missing_behavior": [
-        "Actual multisheet and partial-sheet outputs",
-        "Bleed/margins/marks/page order",
-        "Unchanged source and copy/page-count checks"
+        "Native/manual acceptance of multisheet and partial-sheet repeat outputs",
+        "Nonzero bleed and drawn production marks",
+        "Broader job-specific native/source/visual production checks"
       ],
       "source_ids": [
         "layout",
@@ -525,8 +528,12 @@
         "SAFE-002",
         "layout"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "partial_implemented_unverified",
+      "live_status": "deferred",
+      "evidence": [
+        "docs/PRINT_RUNS.md",
+        "tests/test_print_runs.py"
+      ]
     },
     {
       "id": "export_prepress",
@@ -538,7 +545,10 @@
         "inspect_pdf",
         "export_pdf_controlled",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "plan_print_run",
+        "execute_print_run"
       ],
       "missing_behavior": [
         "Proven nonzero bleed and production marks",
@@ -560,7 +570,9 @@
         "docs/PDF_PRODUCTION.md",
         "tests/test_pdf_production.py",
         "docs/RASTER_PREFLIGHT.md",
-        "tests/test_raster_preflight.py"
+        "tests/test_raster_preflight.py",
+        "docs/PRINT_RUNS.md",
+        "tests/test_print_runs.py"
       ]
     },
     {

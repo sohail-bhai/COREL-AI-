@@ -890,6 +890,56 @@ def export_pdf_controlled(path: str,color_mode: str="native",pdf_version: str="1
 
 @mcp.tool()
 @recorded_operation
+def inspect_print_repeat(object_name: str='', shape_index: int=0, object_reference: dict | None=None) -> dict:
+    """Inspect one complete repeat with two native scans and preserved source context.
+
+    Supports measured primitives, unlinked text, bitmaps, groups and PowerClips
+    without live effects. Limits: 1000 shapes, 32 levels, 10000 curve segments,
+    8 MiB manifest. Pixels, text runs, rendered clipping and prepress stay unchecked.
+    """
+    return _tool('inspect_print_repeat', 'inspect_print_repeat', object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def plan_print_run(repeat: dict, copies: int, sheet_width_inches: float, sheet_height_inches: float,
+    margin_inches: float=.25, gutter_inches: float=.125, rotation_policy: str='never', sheet_orientation: str='fixed',
+    margin_left_inches: float | None=None, margin_top_inches: float | None=None, margin_right_inches: float | None=None,
+    margin_bottom_inches: float | None=None, gripper_inches: float=0., gripper_edge: str='bottom',
+    mark_clearance_inches: float=0., object_name_prefix: str='Print_Run') -> dict:
+    """Plan every full/partial sheet for 1-500 native artwork copies without COM.
+
+    Preserve repeat size, allow optional 90-degree rotation and sheet orientation,
+    production margins/gripper/mark clearance; return complete approval fingerprint.
+    Zero bleed and no marks; no padded copies or overage. At most 50000 output shapes.
+    """
+    from .print_runs import plan_print_run as plan_run
+    started = perf_counter()
+    try:
+        data = plan_run(repeat, copies, sheet_width_inches, sheet_height_inches, margin_inches, gutter_inches,
+            rotation_policy, sheet_orientation, margin_left_inches, margin_top_inches, margin_right_inches,
+            margin_bottom_inches, gripper_inches, gripper_edge, mark_clearance_inches, object_name_prefix)
+        return success_result('plan_print_run', data, (perf_counter()-started)*1000, data['warnings'])
+    except Exception as exc:
+        return error_result('plan_print_run', exc, (perf_counter()-started)*1000)
+
+
+@mcp.tool()
+@recorded_operation
+def execute_print_run(plan: dict, approved_fingerprint: str) -> dict:
+    """Create independent sheets from an approved repeat plan and verify all copies.
+
+    Reinspect source before mutation, check every payload/placement/ownership after
+    all edits, preserve measured source context; discard only owned output on failure.
+    Replaces the clipboard. Native/manual acceptance stays implemented_unverified.
+    """
+    result = _tool('execute_print_run', 'execute_print_run', plan, approved_fingerprint)
+    if result.get('ok'): result['warnings'].extend(result['data']['warnings'])
+    return result
+
+
+@mcp.tool()
+@recorded_operation
 def read_template_csv(csv_path: str,delimiter: str=",") -> dict:
     """Read literal UTF-8 CSV rows for templates; preserve leading zeros and quoted text.
 

@@ -5576,6 +5576,884 @@
           }
         }
       ]
+    },
+    "print_repeat_node": {
+      "type": "object",
+      "properties": {
+        "identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "static_id": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "object_name": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "name_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "name_truncated": {
+          "type": "boolean"
+        },
+        "shape_type_code": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "group_children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/print_repeat_node"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "clip_children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/print_repeat_node"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "contents_locked": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "transform": {
+          "$ref": "#/schema_definitions/powerclip_transform"
+        },
+        "fill": {
+          "$ref": "#/schema_definitions/fill_readback"
+        },
+        "outline": {
+          "$ref": "#/schema_definitions/outline_readback"
+        },
+        "transparency": {
+          "$ref": "#/schema_definitions/transparency_readback"
+        },
+        "curve": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/curve_geometry"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "content_sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "character_count": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2147483647
+                },
+                "text_type_code": {
+                  "enum": [
+                    0,
+                    1
+                  ]
+                },
+                "frame_count": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "preview": {
+                  "type": "string",
+                  "maxLength": 4000
+                },
+                "font": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 256
+                },
+                "size_points": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "exclusiveMinimum": 0
+                },
+                "bold": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "content_sha256",
+                "character_count",
+                "text_type_code",
+                "frame_count",
+                "preview",
+                "font",
+                "size_points",
+                "bold"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bitmap": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "SizeWidth": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2147483647
+                },
+                "SizeHeight": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2147483647
+                },
+                "ResolutionX": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2147483647
+                },
+                "ResolutionY": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2147483647
+                },
+                "units": {
+                  "const": "native_bitmap_size_resolution_metadata"
+                }
+              },
+              "required": [
+                "SizeWidth",
+                "SizeHeight",
+                "ResolutionX",
+                "ResolutionY",
+                "units"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "supported_payload": {
+          "const": true
+        },
+        "effects_count": {
+          "const": 0
+        },
+        "gradient": {
+          "$ref": "#/schema_definitions/gradient_state"
+        }
+      },
+      "required": [
+        "identity",
+        "static_id",
+        "object_name",
+        "name_sha256",
+        "name_truncated",
+        "shape_type_code",
+        "group_children",
+        "clip_children",
+        "contents_locked",
+        "transform",
+        "fill",
+        "outline",
+        "transparency",
+        "curve",
+        "text",
+        "bitmap",
+        "supported_payload",
+        "effects_count",
+        "gradient"
+      ],
+      "additionalProperties": false
+    },
+    "print_repeat": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "print-repeat-v1"
+        },
+        "object_reference": {
+          "$ref": "#/schema_definitions/object_reference"
+        },
+        "bounds_inches": {
+          "$ref": "#/schema_definitions/bounds_inches"
+        },
+        "node_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "segment_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "tree": {
+          "$ref": "#/schema_definitions/print_repeat_node"
+        },
+        "verification_scope": {
+          "const": "measured_native_repeat"
+        },
+        "unchecked_checks": {
+          "const": [
+            "bitmap_pixels_and_link_freshness",
+            "text_run_formatting_and_glyphs",
+            "rendered_clipping_and_visual_fidelity",
+            "outline_aware_trim_and_bleed",
+            "color_overprint_and_printer_approval"
+          ]
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema",
+        "object_reference",
+        "bounds_inches",
+        "node_count",
+        "segment_count",
+        "tree",
+        "verification_scope",
+        "unchecked_checks",
+        "fingerprint"
+      ],
+      "additionalProperties": false
+    },
+    "print_run_request": {
+      "type": "object",
+      "properties": {
+        "repeat": {
+          "$ref": "#/schema_definitions/print_repeat"
+        },
+        "copies": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "sheet_width_inches": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 200
+        },
+        "sheet_height_inches": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 200
+        },
+        "margin_inches": {
+          "type": "number",
+          "minimum": 0
+        },
+        "gutter_inches": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rotation_policy": {
+          "enum": [
+            "never",
+            "all",
+            "best_fit"
+          ]
+        },
+        "sheet_orientation": {
+          "enum": [
+            "fixed",
+            "portrait",
+            "landscape",
+            "best_fit"
+          ]
+        },
+        "margin_left_inches": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "margin_top_inches": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "margin_right_inches": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "margin_bottom_inches": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gripper_inches": {
+          "type": "number",
+          "minimum": 0
+        },
+        "gripper_edge": {
+          "enum": [
+            "left",
+            "top",
+            "right",
+            "bottom"
+          ]
+        },
+        "mark_clearance_inches": {
+          "type": "number",
+          "minimum": 0
+        },
+        "object_name_prefix": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[^\\x00-\\x1f]+$"
+        }
+      },
+      "required": [
+        "repeat",
+        "copies",
+        "sheet_width_inches",
+        "sheet_height_inches",
+        "margin_inches",
+        "gutter_inches",
+        "rotation_policy",
+        "sheet_orientation",
+        "margin_left_inches",
+        "margin_top_inches",
+        "margin_right_inches",
+        "margin_bottom_inches",
+        "gripper_inches",
+        "gripper_edge",
+        "mark_clearance_inches",
+        "object_name_prefix"
+      ],
+      "additionalProperties": false
+    },
+    "print_run_sheet": {
+      "type": "object",
+      "properties": {
+        "page_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "first_copy_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "last_copy_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "copy_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "unused_capacity": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "partial": {
+          "type": "boolean"
+        },
+        "width_inches": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 200
+        },
+        "height_inches": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 200
+        }
+      },
+      "required": [
+        "page_index",
+        "first_copy_index",
+        "last_copy_index",
+        "copy_count",
+        "unused_capacity",
+        "partial",
+        "width_inches",
+        "height_inches"
+      ],
+      "additionalProperties": false
+    },
+    "print_run_placement": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "row": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "column": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "strip": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rotated": {
+          "type": "boolean"
+        },
+        "rotation_degrees": {
+          "enum": [
+            0,
+            90
+          ]
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "copy_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "slot_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "object_name": {
+          "type": "string",
+          "maxLength": 512
+        }
+      },
+      "required": [
+        "index",
+        "row",
+        "column",
+        "strip",
+        "rotated",
+        "rotation_degrees",
+        "x",
+        "y",
+        "width",
+        "height",
+        "copy_index",
+        "page_index",
+        "slot_index",
+        "object_name"
+      ],
+      "additionalProperties": false
+    },
+    "print_run_plan": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "print-run-plan-v1"
+        },
+        "request": {
+          "$ref": "#/schema_definitions/print_run_request"
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "requested_copies": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "produced_copies": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "overage": {
+              "const": 0
+            },
+            "sheet_count": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "capacity_per_sheet": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "output_shape_count": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50000
+            }
+          },
+          "required": [
+            "requested_copies",
+            "produced_copies",
+            "overage",
+            "sheet_count",
+            "capacity_per_sheet",
+            "output_shape_count"
+          ],
+          "additionalProperties": false
+        },
+        "layout": {
+          "type": "object",
+          "properties": {
+            "fits": {
+              "type": "boolean"
+            },
+            "rotation_policy": {
+              "type": "string",
+              "maxLength": 512
+            },
+            "mixed_rotation_evaluated": {
+              "type": "boolean"
+            },
+            "sheet_orientation_policy": {
+              "type": "string",
+              "maxLength": 512
+            },
+            "layout_strategy": {
+              "type": "string",
+              "maxLength": 512
+            },
+            "sheet_orientation": {
+              "type": "string",
+              "maxLength": 512
+            },
+            "sheet_orientation_changed": {
+              "type": "boolean"
+            },
+            "sheet_width_inches": {
+              "type": "number"
+            },
+            "sheet_height_inches": {
+              "type": "number"
+            },
+            "columns": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "capacity": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "copies_per_sheet": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rotated": {
+              "type": "boolean"
+            },
+            "rotation_used": {
+              "type": "boolean"
+            },
+            "mixed_rotation": {
+              "type": "boolean"
+            },
+            "usable_width_inches": {
+              "type": "number"
+            },
+            "usable_height_inches": {
+              "type": "number"
+            },
+            "margins_inches": {
+              "type": "object",
+              "properties": {
+                "left": {
+                  "type": "number"
+                },
+                "top": {
+                  "type": "number"
+                },
+                "right": {
+                  "type": "number"
+                },
+                "bottom": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "left",
+                "top",
+                "right",
+                "bottom"
+              ],
+              "additionalProperties": false
+            },
+            "gripper_inches": {
+              "type": "number"
+            },
+            "gripper_edge": {
+              "type": "string",
+              "maxLength": 512
+            },
+            "mark_clearance_inches": {
+              "type": "number"
+            },
+            "waste_percent": {
+              "type": "number"
+            },
+            "paper_waste_percent": {
+              "type": "number"
+            },
+            "cutting_complexity_score": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "cutting_complexity": {
+              "type": "string",
+              "maxLength": 512
+            },
+            "guillotine_friendly": {
+              "type": "boolean"
+            },
+            "scale_percent": {
+              "type": "number"
+            },
+            "alternatives": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "layout_strategy": {
+                    "type": "string",
+                    "maxLength": 512
+                  },
+                  "sheet_orientation": {
+                    "type": "string",
+                    "maxLength": 512
+                  },
+                  "sheet_width_inches": {
+                    "type": "number"
+                  },
+                  "sheet_height_inches": {
+                    "type": "number"
+                  },
+                  "capacity": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "waste_percent": {
+                    "type": "number"
+                  },
+                  "paper_waste_percent": {
+                    "type": "number"
+                  },
+                  "rotation_used": {
+                    "type": "boolean"
+                  },
+                  "mixed_rotation": {
+                    "type": "boolean"
+                  },
+                  "cutting_complexity_score": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "cutting_complexity": {
+                    "type": "string",
+                    "maxLength": 512
+                  },
+                  "selected": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "layout_strategy",
+                  "sheet_orientation",
+                  "sheet_width_inches",
+                  "sheet_height_inches",
+                  "capacity",
+                  "waste_percent",
+                  "paper_waste_percent",
+                  "rotation_used",
+                  "mixed_rotation",
+                  "cutting_complexity_score",
+                  "cutting_complexity",
+                  "selected"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 32
+            },
+            "requested_quantity": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "sheets_required": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "placements_truncated": {
+              "type": "boolean"
+            },
+            "placements_limit": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "fits",
+            "rotation_policy",
+            "mixed_rotation_evaluated",
+            "sheet_orientation_policy",
+            "layout_strategy",
+            "sheet_orientation",
+            "sheet_orientation_changed",
+            "sheet_width_inches",
+            "sheet_height_inches",
+            "columns",
+            "rows",
+            "capacity",
+            "copies_per_sheet",
+            "rotated",
+            "rotation_used",
+            "mixed_rotation",
+            "usable_width_inches",
+            "usable_height_inches",
+            "margins_inches",
+            "gripper_inches",
+            "gripper_edge",
+            "mark_clearance_inches",
+            "waste_percent",
+            "paper_waste_percent",
+            "cutting_complexity_score",
+            "cutting_complexity",
+            "guillotine_friendly",
+            "scale_percent",
+            "alternatives",
+            "requested_quantity",
+            "sheets_required"
+          ],
+          "additionalProperties": false
+        },
+        "sheets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/print_run_sheet"
+          },
+          "minItems": 1,
+          "maxItems": 500
+        },
+        "placements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/print_run_placement"
+          },
+          "minItems": 1,
+          "maxItems": 500
+        },
+        "scale_percent": {
+          "const": 100.0
+        },
+        "bleed_inches": {
+          "const": 0.0
+        },
+        "production_ready": {
+          "const": false
+        },
+        "verification_status": {
+          "const": "implemented_unverified"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "maxItems": 20
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema",
+        "request",
+        "summary",
+        "layout",
+        "sheets",
+        "placements",
+        "scale_percent",
+        "bleed_inches",
+        "production_ready",
+        "verification_status",
+        "warnings",
+        "fingerprint"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -15510,6 +16388,1389 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Raster preflight request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "inspect_print_repeat": {
+      "request": {
+        "object_name": "Repeat"
+      },
+      "success": {
+        "ok": true,
+        "tool": "inspect_print_repeat",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "repeat": {
+            "schema": "print-repeat-v1",
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "d580c10a8b13156f261a9ba7200dd124",
+              "document_session_id": "doc-0001",
+              "page_identity": "8b7c160dc89163ba80398806394348967dc8d8b3a4956945ffc08af294d1d37f",
+              "layer_identity": "bbaa8cef86e2d8f5bc70fab1eef4d72952529f1c77d0b519b481979343e23600",
+              "ancestor_identities": [],
+              "shape_identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+              "static_id": 100,
+              "object_name": "Repeat",
+              "shape_type_code": 3,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                1
+              ],
+              "signature": "5c85ae3714fd27eb2eabb905fdd25fece221e3042039e0fa835b3079326607e8"
+            },
+            "bounds_inches": {
+              "x": 1.0,
+              "y": 2.0,
+              "width": 3.0,
+              "height": 2.0
+            },
+            "node_count": 1,
+            "segment_count": 4,
+            "tree": {
+              "identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+              "static_id": 100,
+              "object_name": "Repeat",
+              "name_sha256": "b6b7a0065808a62e7d5781b356c5ddba4e000433c34b5d561d200158a4443eb1",
+              "name_truncated": false,
+              "shape_type_code": 3,
+              "group_children": [],
+              "clip_children": [],
+              "contents_locked": null,
+              "transform": {
+                "bounds_inches": {
+                  "x": 1.0,
+                  "y": 2.0,
+                  "width": 3.0,
+                  "height": 2.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_degrees": 0.0,
+                "matrix_coordinate_space": "native_affine_in_document_inches"
+              },
+              "fill": {
+                "type_code": 0,
+                "type": "none",
+                "color": null
+              },
+              "outline": {
+                "type_code": 0,
+                "type": "none",
+                "present": false,
+                "width_raw": null,
+                "width_units": null,
+                "color": null
+              },
+              "transparency": {
+                "available": true,
+                "type_code": 0,
+                "type": "none",
+                "uniform_percent": null,
+                "applied_to_code": null,
+                "applied_to": "unknown",
+                "merge_mode_code": null,
+                "merge_mode": "none"
+              },
+              "curve": {
+                "schema": "curve-geometry-v1",
+                "shape_identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+                "document_session_id": "doc-0001",
+                "paths": [
+                  {
+                    "start": {
+                      "x": 1.0,
+                      "y": 2.0
+                    },
+                    "segments": [
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 4.0,
+                          "y": 2.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 4.0,
+                          "y": 4.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 1.0,
+                          "y": 4.0
+                        }
+                      },
+                      {
+                        "type": "line",
+                        "end": {
+                          "x": 1.0,
+                          "y": 2.0
+                        }
+                      }
+                    ],
+                    "closed": true
+                  }
+                ],
+                "node_types": [
+                  [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "node_count": 4,
+                "segment_count": 4,
+                "bounds_inches": {
+                  "x": 1.0,
+                  "y": 2.0,
+                  "width": 3.0,
+                  "height": 2.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "fingerprint": "65eb7b444e82fc061604dbe6e598e9fba71b9f19f482bf76b422c7783d6f30ae"
+              },
+              "text": null,
+              "bitmap": null,
+              "supported_payload": true,
+              "effects_count": 0,
+              "gradient": {
+                "fill_available": true,
+                "fill_type_code": 0,
+                "fill_type": "none",
+                "gradient": null,
+                "complete": true,
+                "unavailable_properties": []
+              }
+            },
+            "verification_scope": "measured_native_repeat",
+            "unchecked_checks": [
+              "bitmap_pixels_and_link_freshness",
+              "text_run_formatting_and_glyphs",
+              "rendered_clipping_and_visual_fidelity",
+              "outline_aware_trim_and_bleed",
+              "color_overprint_and_printer_approval"
+            ],
+            "fingerprint": "641377830682037206efc507a1fd6ed78cd54068c2a11b2c500efc7c975f8c61"
+          },
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "Two bounded native scans reconcile measured payload and source context. Visual, pixel, glyph and production acceptance remain pending."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "inspect_print_repeat",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Print run request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "plan_print_run": {
+      "request": {
+        "repeat": {
+          "schema": "print-repeat-v1",
+          "object_reference": {
+            "version": 1,
+            "bridge_session_id": "d580c10a8b13156f261a9ba7200dd124",
+            "document_session_id": "doc-0001",
+            "page_identity": "8b7c160dc89163ba80398806394348967dc8d8b3a4956945ffc08af294d1d37f",
+            "layer_identity": "bbaa8cef86e2d8f5bc70fab1eef4d72952529f1c77d0b519b481979343e23600",
+            "ancestor_identities": [],
+            "shape_identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+            "static_id": 100,
+            "object_name": "Repeat",
+            "shape_type_code": 3,
+            "page_index": 1,
+            "layer_index": 1,
+            "shape_path": [
+              1
+            ],
+            "signature": "5c85ae3714fd27eb2eabb905fdd25fece221e3042039e0fa835b3079326607e8"
+          },
+          "bounds_inches": {
+            "x": 1.0,
+            "y": 2.0,
+            "width": 3.0,
+            "height": 2.0
+          },
+          "node_count": 1,
+          "segment_count": 4,
+          "tree": {
+            "identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+            "static_id": 100,
+            "object_name": "Repeat",
+            "name_sha256": "b6b7a0065808a62e7d5781b356c5ddba4e000433c34b5d561d200158a4443eb1",
+            "name_truncated": false,
+            "shape_type_code": 3,
+            "group_children": [],
+            "clip_children": [],
+            "contents_locked": null,
+            "transform": {
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 2.0,
+                "width": 3.0,
+                "height": 2.0
+              },
+              "matrix": [
+                1.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              "rotation_degrees": 0.0,
+              "matrix_coordinate_space": "native_affine_in_document_inches"
+            },
+            "fill": {
+              "type_code": 0,
+              "type": "none",
+              "color": null
+            },
+            "outline": {
+              "type_code": 0,
+              "type": "none",
+              "present": false,
+              "width_raw": null,
+              "width_units": null,
+              "color": null
+            },
+            "transparency": {
+              "available": true,
+              "type_code": 0,
+              "type": "none",
+              "uniform_percent": null,
+              "applied_to_code": null,
+              "applied_to": "unknown",
+              "merge_mode_code": null,
+              "merge_mode": "none"
+            },
+            "curve": {
+              "schema": "curve-geometry-v1",
+              "shape_identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+              "document_session_id": "doc-0001",
+              "paths": [
+                {
+                  "start": {
+                    "x": 1.0,
+                    "y": 2.0
+                  },
+                  "segments": [
+                    {
+                      "type": "line",
+                      "end": {
+                        "x": 4.0,
+                        "y": 2.0
+                      }
+                    },
+                    {
+                      "type": "line",
+                      "end": {
+                        "x": 4.0,
+                        "y": 4.0
+                      }
+                    },
+                    {
+                      "type": "line",
+                      "end": {
+                        "x": 1.0,
+                        "y": 4.0
+                      }
+                    },
+                    {
+                      "type": "line",
+                      "end": {
+                        "x": 1.0,
+                        "y": 2.0
+                      }
+                    }
+                  ],
+                  "closed": true
+                }
+              ],
+              "node_types": [
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "node_count": 4,
+              "segment_count": 4,
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 2.0,
+                "width": 3.0,
+                "height": 2.0
+              },
+              "matrix": [
+                1.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              "fingerprint": "65eb7b444e82fc061604dbe6e598e9fba71b9f19f482bf76b422c7783d6f30ae"
+            },
+            "text": null,
+            "bitmap": null,
+            "supported_payload": true,
+            "effects_count": 0,
+            "gradient": {
+              "fill_available": true,
+              "fill_type_code": 0,
+              "fill_type": "none",
+              "gradient": null,
+              "complete": true,
+              "unavailable_properties": []
+            }
+          },
+          "verification_scope": "measured_native_repeat",
+          "unchecked_checks": [
+            "bitmap_pixels_and_link_freshness",
+            "text_run_formatting_and_glyphs",
+            "rendered_clipping_and_visual_fidelity",
+            "outline_aware_trim_and_bleed",
+            "color_overprint_and_printer_approval"
+          ],
+          "fingerprint": "641377830682037206efc507a1fd6ed78cd54068c2a11b2c500efc7c975f8c61"
+        },
+        "copies": 5,
+        "sheet_width_inches": 6.5,
+        "sheet_height_inches": 2.5,
+        "gutter_inches": 0.0
+      },
+      "success": {
+        "ok": true,
+        "tool": "plan_print_run",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "schema": "print-run-plan-v1",
+          "request": {
+            "repeat": {
+              "schema": "print-repeat-v1",
+              "object_reference": {
+                "version": 1,
+                "bridge_session_id": "d580c10a8b13156f261a9ba7200dd124",
+                "document_session_id": "doc-0001",
+                "page_identity": "8b7c160dc89163ba80398806394348967dc8d8b3a4956945ffc08af294d1d37f",
+                "layer_identity": "bbaa8cef86e2d8f5bc70fab1eef4d72952529f1c77d0b519b481979343e23600",
+                "ancestor_identities": [],
+                "shape_identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+                "static_id": 100,
+                "object_name": "Repeat",
+                "shape_type_code": 3,
+                "page_index": 1,
+                "layer_index": 1,
+                "shape_path": [
+                  1
+                ],
+                "signature": "5c85ae3714fd27eb2eabb905fdd25fece221e3042039e0fa835b3079326607e8"
+              },
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 2.0,
+                "width": 3.0,
+                "height": 2.0
+              },
+              "node_count": 1,
+              "segment_count": 4,
+              "tree": {
+                "identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+                "static_id": 100,
+                "object_name": "Repeat",
+                "name_sha256": "b6b7a0065808a62e7d5781b356c5ddba4e000433c34b5d561d200158a4443eb1",
+                "name_truncated": false,
+                "shape_type_code": 3,
+                "group_children": [],
+                "clip_children": [],
+                "contents_locked": null,
+                "transform": {
+                  "bounds_inches": {
+                    "x": 1.0,
+                    "y": 2.0,
+                    "width": 3.0,
+                    "height": 2.0
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0
+                  ],
+                  "rotation_degrees": 0.0,
+                  "matrix_coordinate_space": "native_affine_in_document_inches"
+                },
+                "fill": {
+                  "type_code": 0,
+                  "type": "none",
+                  "color": null
+                },
+                "outline": {
+                  "type_code": 0,
+                  "type": "none",
+                  "present": false,
+                  "width_raw": null,
+                  "width_units": null,
+                  "color": null
+                },
+                "transparency": {
+                  "available": true,
+                  "type_code": 0,
+                  "type": "none",
+                  "uniform_percent": null,
+                  "applied_to_code": null,
+                  "applied_to": "unknown",
+                  "merge_mode_code": null,
+                  "merge_mode": "none"
+                },
+                "curve": {
+                  "schema": "curve-geometry-v1",
+                  "shape_identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+                  "document_session_id": "doc-0001",
+                  "paths": [
+                    {
+                      "start": {
+                        "x": 1.0,
+                        "y": 2.0
+                      },
+                      "segments": [
+                        {
+                          "type": "line",
+                          "end": {
+                            "x": 4.0,
+                            "y": 2.0
+                          }
+                        },
+                        {
+                          "type": "line",
+                          "end": {
+                            "x": 4.0,
+                            "y": 4.0
+                          }
+                        },
+                        {
+                          "type": "line",
+                          "end": {
+                            "x": 1.0,
+                            "y": 4.0
+                          }
+                        },
+                        {
+                          "type": "line",
+                          "end": {
+                            "x": 1.0,
+                            "y": 2.0
+                          }
+                        }
+                      ],
+                      "closed": true
+                    }
+                  ],
+                  "node_types": [
+                    [
+                      0,
+                      0,
+                      0,
+                      0
+                    ]
+                  ],
+                  "node_count": 4,
+                  "segment_count": 4,
+                  "bounds_inches": {
+                    "x": 1.0,
+                    "y": 2.0,
+                    "width": 3.0,
+                    "height": 2.0
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0
+                  ],
+                  "fingerprint": "65eb7b444e82fc061604dbe6e598e9fba71b9f19f482bf76b422c7783d6f30ae"
+                },
+                "text": null,
+                "bitmap": null,
+                "supported_payload": true,
+                "effects_count": 0,
+                "gradient": {
+                  "fill_available": true,
+                  "fill_type_code": 0,
+                  "fill_type": "none",
+                  "gradient": null,
+                  "complete": true,
+                  "unavailable_properties": []
+                }
+              },
+              "verification_scope": "measured_native_repeat",
+              "unchecked_checks": [
+                "bitmap_pixels_and_link_freshness",
+                "text_run_formatting_and_glyphs",
+                "rendered_clipping_and_visual_fidelity",
+                "outline_aware_trim_and_bleed",
+                "color_overprint_and_printer_approval"
+              ],
+              "fingerprint": "641377830682037206efc507a1fd6ed78cd54068c2a11b2c500efc7c975f8c61"
+            },
+            "copies": 5,
+            "sheet_width_inches": 6.5,
+            "sheet_height_inches": 2.5,
+            "margin_inches": 0.25,
+            "gutter_inches": 0.0,
+            "rotation_policy": "never",
+            "sheet_orientation": "fixed",
+            "margin_left_inches": null,
+            "margin_top_inches": null,
+            "margin_right_inches": null,
+            "margin_bottom_inches": null,
+            "gripper_inches": 0.0,
+            "gripper_edge": "bottom",
+            "mark_clearance_inches": 0.0,
+            "object_name_prefix": "Print_Run"
+          },
+          "summary": {
+            "requested_copies": 5,
+            "produced_copies": 5,
+            "overage": 0,
+            "sheet_count": 3,
+            "capacity_per_sheet": 2,
+            "output_shape_count": 5
+          },
+          "layout": {
+            "fits": true,
+            "rotation_policy": "never",
+            "mixed_rotation_evaluated": false,
+            "sheet_orientation_policy": "fixed",
+            "layout_strategy": "upright_grid",
+            "sheet_orientation": "landscape",
+            "sheet_orientation_changed": false,
+            "sheet_width_inches": 6.5,
+            "sheet_height_inches": 2.5,
+            "columns": 2,
+            "rows": 1,
+            "capacity": 2,
+            "copies_per_sheet": 2,
+            "rotated": false,
+            "rotation_used": false,
+            "mixed_rotation": false,
+            "usable_width_inches": 6.0,
+            "usable_height_inches": 2.0,
+            "margins_inches": {
+              "left": 0.25,
+              "top": 0.25,
+              "right": 0.25,
+              "bottom": 0.25
+            },
+            "gripper_inches": 0.0,
+            "gripper_edge": "bottom",
+            "mark_clearance_inches": 0.0,
+            "waste_percent": 0.0,
+            "paper_waste_percent": 26.154,
+            "cutting_complexity_score": 0,
+            "cutting_complexity": "simple",
+            "guillotine_friendly": true,
+            "scale_percent": 100.0,
+            "alternatives": [
+              {
+                "layout_strategy": "upright_grid",
+                "sheet_orientation": "landscape",
+                "sheet_width_inches": 6.5,
+                "sheet_height_inches": 2.5,
+                "capacity": 2,
+                "waste_percent": 0.0,
+                "paper_waste_percent": 26.154,
+                "rotation_used": false,
+                "mixed_rotation": false,
+                "cutting_complexity_score": 0,
+                "cutting_complexity": "simple",
+                "selected": true
+              }
+            ],
+            "requested_quantity": 5,
+            "sheets_required": 3
+          },
+          "sheets": [
+            {
+              "page_index": 1,
+              "first_copy_index": 1,
+              "last_copy_index": 2,
+              "copy_count": 2,
+              "unused_capacity": 0,
+              "partial": false,
+              "width_inches": 6.5,
+              "height_inches": 2.5
+            },
+            {
+              "page_index": 2,
+              "first_copy_index": 3,
+              "last_copy_index": 4,
+              "copy_count": 2,
+              "unused_capacity": 0,
+              "partial": false,
+              "width_inches": 6.5,
+              "height_inches": 2.5
+            },
+            {
+              "page_index": 3,
+              "first_copy_index": 5,
+              "last_copy_index": 5,
+              "copy_count": 1,
+              "unused_capacity": 1,
+              "partial": true,
+              "width_inches": 6.5,
+              "height_inches": 2.5
+            }
+          ],
+          "placements": [
+            {
+              "index": 1,
+              "row": 1,
+              "column": 1,
+              "strip": 1,
+              "rotated": false,
+              "rotation_degrees": 0,
+              "x": 0.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "copy_index": 1,
+              "page_index": 1,
+              "slot_index": 1,
+              "object_name": "Print_Run_001"
+            },
+            {
+              "index": 2,
+              "row": 1,
+              "column": 2,
+              "strip": 1,
+              "rotated": false,
+              "rotation_degrees": 0,
+              "x": 3.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "copy_index": 2,
+              "page_index": 1,
+              "slot_index": 2,
+              "object_name": "Print_Run_002"
+            },
+            {
+              "index": 1,
+              "row": 1,
+              "column": 1,
+              "strip": 1,
+              "rotated": false,
+              "rotation_degrees": 0,
+              "x": 0.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "copy_index": 3,
+              "page_index": 2,
+              "slot_index": 1,
+              "object_name": "Print_Run_003"
+            },
+            {
+              "index": 2,
+              "row": 1,
+              "column": 2,
+              "strip": 1,
+              "rotated": false,
+              "rotation_degrees": 0,
+              "x": 3.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "copy_index": 4,
+              "page_index": 2,
+              "slot_index": 2,
+              "object_name": "Print_Run_004"
+            },
+            {
+              "index": 1,
+              "row": 1,
+              "column": 1,
+              "strip": 1,
+              "rotated": false,
+              "rotation_degrees": 0,
+              "x": 0.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "copy_index": 5,
+              "page_index": 3,
+              "slot_index": 1,
+              "object_name": "Print_Run_005"
+            }
+          ],
+          "scale_percent": 100.0,
+          "bleed_inches": 0.0,
+          "production_ready": false,
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "The final sheet uses only the remaining requested copies; no padded copies or overage are created.",
+            "Repeat size is preserved; prepare the desired physical size before inspection. Rotations are 0/90 degrees.",
+            "Nonzero bleed, production marks, outline-aware bounds, source pixels, color/glyph/visual fidelity and printer approval remain separate checks."
+          ],
+          "fingerprint": "d88750cab72414c67c143cc17479801507d5e791cbbe387bb5f06160c1269e7e"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "plan_print_run",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Print run request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "execute_print_run": {
+      "request": {
+        "plan": {
+          "schema": "print-run-plan-v1",
+          "request": {
+            "repeat": {
+              "schema": "print-repeat-v1",
+              "object_reference": {
+                "version": 1,
+                "bridge_session_id": "d580c10a8b13156f261a9ba7200dd124",
+                "document_session_id": "doc-0001",
+                "page_identity": "8b7c160dc89163ba80398806394348967dc8d8b3a4956945ffc08af294d1d37f",
+                "layer_identity": "bbaa8cef86e2d8f5bc70fab1eef4d72952529f1c77d0b519b481979343e23600",
+                "ancestor_identities": [],
+                "shape_identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+                "static_id": 100,
+                "object_name": "Repeat",
+                "shape_type_code": 3,
+                "page_index": 1,
+                "layer_index": 1,
+                "shape_path": [
+                  1
+                ],
+                "signature": "5c85ae3714fd27eb2eabb905fdd25fece221e3042039e0fa835b3079326607e8"
+              },
+              "bounds_inches": {
+                "x": 1.0,
+                "y": 2.0,
+                "width": 3.0,
+                "height": 2.0
+              },
+              "node_count": 1,
+              "segment_count": 4,
+              "tree": {
+                "identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+                "static_id": 100,
+                "object_name": "Repeat",
+                "name_sha256": "b6b7a0065808a62e7d5781b356c5ddba4e000433c34b5d561d200158a4443eb1",
+                "name_truncated": false,
+                "shape_type_code": 3,
+                "group_children": [],
+                "clip_children": [],
+                "contents_locked": null,
+                "transform": {
+                  "bounds_inches": {
+                    "x": 1.0,
+                    "y": 2.0,
+                    "width": 3.0,
+                    "height": 2.0
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0
+                  ],
+                  "rotation_degrees": 0.0,
+                  "matrix_coordinate_space": "native_affine_in_document_inches"
+                },
+                "fill": {
+                  "type_code": 0,
+                  "type": "none",
+                  "color": null
+                },
+                "outline": {
+                  "type_code": 0,
+                  "type": "none",
+                  "present": false,
+                  "width_raw": null,
+                  "width_units": null,
+                  "color": null
+                },
+                "transparency": {
+                  "available": true,
+                  "type_code": 0,
+                  "type": "none",
+                  "uniform_percent": null,
+                  "applied_to_code": null,
+                  "applied_to": "unknown",
+                  "merge_mode_code": null,
+                  "merge_mode": "none"
+                },
+                "curve": {
+                  "schema": "curve-geometry-v1",
+                  "shape_identity": "eab4a6286e9ed37a945d3fcf52771f07ea1136bf0bce97be2552cf41dab656fb",
+                  "document_session_id": "doc-0001",
+                  "paths": [
+                    {
+                      "start": {
+                        "x": 1.0,
+                        "y": 2.0
+                      },
+                      "segments": [
+                        {
+                          "type": "line",
+                          "end": {
+                            "x": 4.0,
+                            "y": 2.0
+                          }
+                        },
+                        {
+                          "type": "line",
+                          "end": {
+                            "x": 4.0,
+                            "y": 4.0
+                          }
+                        },
+                        {
+                          "type": "line",
+                          "end": {
+                            "x": 1.0,
+                            "y": 4.0
+                          }
+                        },
+                        {
+                          "type": "line",
+                          "end": {
+                            "x": 1.0,
+                            "y": 2.0
+                          }
+                        }
+                      ],
+                      "closed": true
+                    }
+                  ],
+                  "node_types": [
+                    [
+                      0,
+                      0,
+                      0,
+                      0
+                    ]
+                  ],
+                  "node_count": 4,
+                  "segment_count": 4,
+                  "bounds_inches": {
+                    "x": 1.0,
+                    "y": 2.0,
+                    "width": 3.0,
+                    "height": 2.0
+                  },
+                  "matrix": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0
+                  ],
+                  "fingerprint": "65eb7b444e82fc061604dbe6e598e9fba71b9f19f482bf76b422c7783d6f30ae"
+                },
+                "text": null,
+                "bitmap": null,
+                "supported_payload": true,
+                "effects_count": 0,
+                "gradient": {
+                  "fill_available": true,
+                  "fill_type_code": 0,
+                  "fill_type": "none",
+                  "gradient": null,
+                  "complete": true,
+                  "unavailable_properties": []
+                }
+              },
+              "verification_scope": "measured_native_repeat",
+              "unchecked_checks": [
+                "bitmap_pixels_and_link_freshness",
+                "text_run_formatting_and_glyphs",
+                "rendered_clipping_and_visual_fidelity",
+                "outline_aware_trim_and_bleed",
+                "color_overprint_and_printer_approval"
+              ],
+              "fingerprint": "641377830682037206efc507a1fd6ed78cd54068c2a11b2c500efc7c975f8c61"
+            },
+            "copies": 5,
+            "sheet_width_inches": 6.5,
+            "sheet_height_inches": 2.5,
+            "margin_inches": 0.25,
+            "gutter_inches": 0.0,
+            "rotation_policy": "never",
+            "sheet_orientation": "fixed",
+            "margin_left_inches": null,
+            "margin_top_inches": null,
+            "margin_right_inches": null,
+            "margin_bottom_inches": null,
+            "gripper_inches": 0.0,
+            "gripper_edge": "bottom",
+            "mark_clearance_inches": 0.0,
+            "object_name_prefix": "Print_Run"
+          },
+          "summary": {
+            "requested_copies": 5,
+            "produced_copies": 5,
+            "overage": 0,
+            "sheet_count": 3,
+            "capacity_per_sheet": 2,
+            "output_shape_count": 5
+          },
+          "layout": {
+            "fits": true,
+            "rotation_policy": "never",
+            "mixed_rotation_evaluated": false,
+            "sheet_orientation_policy": "fixed",
+            "layout_strategy": "upright_grid",
+            "sheet_orientation": "landscape",
+            "sheet_orientation_changed": false,
+            "sheet_width_inches": 6.5,
+            "sheet_height_inches": 2.5,
+            "columns": 2,
+            "rows": 1,
+            "capacity": 2,
+            "copies_per_sheet": 2,
+            "rotated": false,
+            "rotation_used": false,
+            "mixed_rotation": false,
+            "usable_width_inches": 6.0,
+            "usable_height_inches": 2.0,
+            "margins_inches": {
+              "left": 0.25,
+              "top": 0.25,
+              "right": 0.25,
+              "bottom": 0.25
+            },
+            "gripper_inches": 0.0,
+            "gripper_edge": "bottom",
+            "mark_clearance_inches": 0.0,
+            "waste_percent": 0.0,
+            "paper_waste_percent": 26.154,
+            "cutting_complexity_score": 0,
+            "cutting_complexity": "simple",
+            "guillotine_friendly": true,
+            "scale_percent": 100.0,
+            "alternatives": [
+              {
+                "layout_strategy": "upright_grid",
+                "sheet_orientation": "landscape",
+                "sheet_width_inches": 6.5,
+                "sheet_height_inches": 2.5,
+                "capacity": 2,
+                "waste_percent": 0.0,
+                "paper_waste_percent": 26.154,
+                "rotation_used": false,
+                "mixed_rotation": false,
+                "cutting_complexity_score": 0,
+                "cutting_complexity": "simple",
+                "selected": true
+              }
+            ],
+            "requested_quantity": 5,
+            "sheets_required": 3
+          },
+          "sheets": [
+            {
+              "page_index": 1,
+              "first_copy_index": 1,
+              "last_copy_index": 2,
+              "copy_count": 2,
+              "unused_capacity": 0,
+              "partial": false,
+              "width_inches": 6.5,
+              "height_inches": 2.5
+            },
+            {
+              "page_index": 2,
+              "first_copy_index": 3,
+              "last_copy_index": 4,
+              "copy_count": 2,
+              "unused_capacity": 0,
+              "partial": false,
+              "width_inches": 6.5,
+              "height_inches": 2.5
+            },
+            {
+              "page_index": 3,
+              "first_copy_index": 5,
+              "last_copy_index": 5,
+              "copy_count": 1,
+              "unused_capacity": 1,
+              "partial": true,
+              "width_inches": 6.5,
+              "height_inches": 2.5
+            }
+          ],
+          "placements": [
+            {
+              "index": 1,
+              "row": 1,
+              "column": 1,
+              "strip": 1,
+              "rotated": false,
+              "rotation_degrees": 0,
+              "x": 0.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "copy_index": 1,
+              "page_index": 1,
+              "slot_index": 1,
+              "object_name": "Print_Run_001"
+            },
+            {
+              "index": 2,
+              "row": 1,
+              "column": 2,
+              "strip": 1,
+              "rotated": false,
+              "rotation_degrees": 0,
+              "x": 3.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "copy_index": 2,
+              "page_index": 1,
+              "slot_index": 2,
+              "object_name": "Print_Run_002"
+            },
+            {
+              "index": 1,
+              "row": 1,
+              "column": 1,
+              "strip": 1,
+              "rotated": false,
+              "rotation_degrees": 0,
+              "x": 0.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "copy_index": 3,
+              "page_index": 2,
+              "slot_index": 1,
+              "object_name": "Print_Run_003"
+            },
+            {
+              "index": 2,
+              "row": 1,
+              "column": 2,
+              "strip": 1,
+              "rotated": false,
+              "rotation_degrees": 0,
+              "x": 3.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "copy_index": 4,
+              "page_index": 2,
+              "slot_index": 2,
+              "object_name": "Print_Run_004"
+            },
+            {
+              "index": 1,
+              "row": 1,
+              "column": 1,
+              "strip": 1,
+              "rotated": false,
+              "rotation_degrees": 0,
+              "x": 0.25,
+              "y": 0.25,
+              "width": 3.0,
+              "height": 2.0,
+              "copy_index": 5,
+              "page_index": 3,
+              "slot_index": 1,
+              "object_name": "Print_Run_005"
+            }
+          ],
+          "scale_percent": 100.0,
+          "bleed_inches": 0.0,
+          "production_ready": false,
+          "verification_status": "implemented_unverified",
+          "warnings": [
+            "The final sheet uses only the remaining requested copies; no padded copies or overage are created.",
+            "Repeat size is preserved; prepare the desired physical size before inspection. Rotations are 0/90 degrees.",
+            "Nonzero bleed, production marks, outline-aware bounds, source pixels, color/glyph/visual fidelity and printer approval remain separate checks."
+          ],
+          "fingerprint": "d88750cab72414c67c143cc17479801507d5e791cbbe387bb5f06160c1269e7e"
+        },
+        "approved_fingerprint": "d88750cab72414c67c143cc17479801507d5e791cbbe387bb5f06160c1269e7e"
+      },
+      "success": {
+        "ok": true,
+        "tool": "execute_print_run",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "created": true,
+          "copy_count": 5,
+          "sheet_count": 3,
+          "output_shape_count": 5,
+          "approved_fingerprint": "d88750cab72414c67c143cc17479801507d5e791cbbe387bb5f06160c1269e7e",
+          "output_document": {
+            "name": "Print output",
+            "document_session_id": "doc-0003"
+          },
+          "sheets": [
+            {
+              "page_index": 1,
+              "first_copy_index": 1,
+              "last_copy_index": 2,
+              "copy_count": 2,
+              "unused_capacity": 0,
+              "partial": false,
+              "width_inches": 6.5,
+              "height_inches": 2.5
+            },
+            {
+              "page_index": 2,
+              "first_copy_index": 3,
+              "last_copy_index": 4,
+              "copy_count": 2,
+              "unused_capacity": 0,
+              "partial": false,
+              "width_inches": 6.5,
+              "height_inches": 2.5
+            },
+            {
+              "page_index": 3,
+              "first_copy_index": 5,
+              "last_copy_index": 5,
+              "copy_count": 1,
+              "unused_capacity": 1,
+              "partial": true,
+              "width_inches": 6.5,
+              "height_inches": 2.5
+            }
+          ],
+          "items": [
+            {
+              "copy_index": 1,
+              "page_index": 1,
+              "slot_index": 1,
+              "object_name": "Print_Run_001",
+              "object_reference": {
+                "version": 1,
+                "bridge_session_id": "d580c10a8b13156f261a9ba7200dd124",
+                "document_session_id": "doc-0003",
+                "page_identity": "c8a7edf0702d4e0eaef43e970a53e67a157bbc7729c1339ee13cdfcd5de0b3f2",
+                "layer_identity": "279136db60a249144d864a97b60a2225a14e65035884bffaff4e881804ee7490",
+                "ancestor_identities": [],
+                "shape_identity": "79763106b80bad8d8d3a5e2cfc50cf86bbf8688fcc2b08c7de0dd10776e5395b",
+                "static_id": 101,
+                "object_name": "Print_Run_001",
+                "shape_type_code": 3,
+                "page_index": 1,
+                "layer_index": 2,
+                "shape_path": [
+                  1
+                ],
+                "signature": "4dc30db4c14167cc020f9435d8165336b2e632671646d46dd95a1964990ff35f"
+              }
+            },
+            {
+              "copy_index": 2,
+              "page_index": 1,
+              "slot_index": 2,
+              "object_name": "Print_Run_002",
+              "object_reference": {
+                "version": 1,
+                "bridge_session_id": "d580c10a8b13156f261a9ba7200dd124",
+                "document_session_id": "doc-0003",
+                "page_identity": "c8a7edf0702d4e0eaef43e970a53e67a157bbc7729c1339ee13cdfcd5de0b3f2",
+                "layer_identity": "279136db60a249144d864a97b60a2225a14e65035884bffaff4e881804ee7490",
+                "ancestor_identities": [],
+                "shape_identity": "c80bb28410d86b391042dd5d9b3e46c77d70b2c92f6503d438fd83059532f5ca",
+                "static_id": 102,
+                "object_name": "Print_Run_002",
+                "shape_type_code": 3,
+                "page_index": 1,
+                "layer_index": 2,
+                "shape_path": [
+                  2
+                ],
+                "signature": "c890dfa98b34c9d41c9f40766e86d5212ac607202f68dbffdd325bd6cc5171bf"
+              }
+            },
+            {
+              "copy_index": 3,
+              "page_index": 2,
+              "slot_index": 1,
+              "object_name": "Print_Run_003",
+              "object_reference": {
+                "version": 1,
+                "bridge_session_id": "d580c10a8b13156f261a9ba7200dd124",
+                "document_session_id": "doc-0003",
+                "page_identity": "d57d72bb95c2414db065a62116ddaadd33a0b40374c96710347824530f0a4da0",
+                "layer_identity": "636e253648f3df023c53327cdac8086628790ec4f738da09434f156a085e4ba2",
+                "ancestor_identities": [],
+                "shape_identity": "89e5c9ef651a7ae0859cfbf9bca6d278688846c215323d105b7ff7a4be22867c",
+                "static_id": 103,
+                "object_name": "Print_Run_003",
+                "shape_type_code": 3,
+                "page_index": 2,
+                "layer_index": 2,
+                "shape_path": [
+                  1
+                ],
+                "signature": "c39ce39bceab9465a32357094d0f4e75bd444a027dbe5dac92b0f1512e77063a"
+              }
+            },
+            {
+              "copy_index": 4,
+              "page_index": 2,
+              "slot_index": 2,
+              "object_name": "Print_Run_004",
+              "object_reference": {
+                "version": 1,
+                "bridge_session_id": "d580c10a8b13156f261a9ba7200dd124",
+                "document_session_id": "doc-0003",
+                "page_identity": "d57d72bb95c2414db065a62116ddaadd33a0b40374c96710347824530f0a4da0",
+                "layer_identity": "636e253648f3df023c53327cdac8086628790ec4f738da09434f156a085e4ba2",
+                "ancestor_identities": [],
+                "shape_identity": "3dda7c77dc08bf2b57dba507b6903f790cebc18f2953412f494578ca0d373f18",
+                "static_id": 104,
+                "object_name": "Print_Run_004",
+                "shape_type_code": 3,
+                "page_index": 2,
+                "layer_index": 2,
+                "shape_path": [
+                  2
+                ],
+                "signature": "7255e13ae50a7482f1ed98c8932516463e747e414be586be812a08276335c152"
+              }
+            },
+            {
+              "copy_index": 5,
+              "page_index": 3,
+              "slot_index": 1,
+              "object_name": "Print_Run_005",
+              "object_reference": {
+                "version": 1,
+                "bridge_session_id": "d580c10a8b13156f261a9ba7200dd124",
+                "document_session_id": "doc-0003",
+                "page_identity": "65b70c49f934c1fa424fb9a654e387a03df545b87ec5edba0304511e93ee2925",
+                "layer_identity": "8f66e465647024d586f6dd05f63c9adcd75f2c4b64adb145ce274b86006ac4f2",
+                "ancestor_identities": [],
+                "shape_identity": "c35be0d72944617834164bff1ee18f4555d4c4372aaf18daaf63e6ee3026725d",
+                "static_id": 105,
+                "object_name": "Print_Run_005",
+                "shape_type_code": 3,
+                "page_index": 3,
+                "layer_index": 2,
+                "shape_path": [
+                  1
+                ],
+                "signature": "1cc86d0f121cbe1542407aa3b2a3b7417d90453a0255d00273be4ff8488964e2"
+              }
+            }
+          ],
+          "items_truncated": false,
+          "source_preservation": {
+            "verified": true,
+            "scope": "measured_native_repeat_and_document_context"
+          },
+          "clipboard_modified": true,
+          "production_ready": false,
+          "verification_status": "implemented_unverified",
+          "unchecked_checks": [
+            "bitmap_pixels_and_link_freshness",
+            "text_run_formatting_and_glyphs",
+            "rendered_clipping_and_visual_fidelity",
+            "outline_aware_trim_and_bleed",
+            "color_overprint_and_printer_approval"
+          ],
+          "warnings": [
+            "System clipboard contents were replaced by the source repeat copy.",
+            "All requested copies were placed without overage; visual and production acceptance remain pending."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "execute_print_run",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Print run request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -31252,6 +33513,926 @@
         "Local link presence only; no source decoding or native link resolve/update. Remote/device links and relative base semantics remain indeterminate.",
         "Nonprinting layers are excluded by default and reported; hidden printable layers are included. Master bitmaps are recorded once with applied-page indices.",
         "Native and filesystem reads are bounded observations without atomic locking."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "inspect_print_repeat",
+      "category": "print_production_inspection",
+      "description": "Reconcile two complete native artwork scans and preserved source context.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.inspect_print_repeat"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_name": {
+            "type": "string",
+            "default": ""
+          },
+          "shape_index": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "object_reference": {
+            "anyOf": [
+              {
+                "$ref": "#/schema_definitions/object_reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "object_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "object_name"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "object_reference": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "shape_index"
+            ]
+          },
+          {
+            "properties": {
+              "object_name": {
+                "const": ""
+              },
+              "shape_index": {
+                "const": 0
+              },
+              "object_reference": {
+                "$ref": "#/schema_definitions/object_reference"
+              }
+            },
+            "required": [
+              "object_reference"
+            ]
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "repeat": {
+                      "$ref": "#/schema_definitions/print_repeat"
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "repeat",
+                    "verification_status",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Bitmap.ResolutionX",
+        "Bitmap.ResolutionY",
+        "Bitmap.SizeHeight",
+        "Bitmap.SizeWidth",
+        "Color.CMYKBlack",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.RGBBlue",
+        "Color.RGBGreen",
+        "Color.RGBRed",
+        "Color.SpotColorName",
+        "Color.Tint",
+        "Color.Type",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.ActivePage",
+        "Document.Dirty",
+        "Document.MasterPage",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.SelectionRange",
+        "Document.Unit",
+        "Fill.Fountain",
+        "Fill.Type",
+        "Fill.UniformColor",
+        "FountainColor.BlendType",
+        "FountainColor.Color",
+        "FountainColor.MidPoint",
+        "FountainColor.Opacity",
+        "FountainColor.Position",
+        "FountainColors.Count",
+        "FountainColors.First",
+        "FountainColors.Item",
+        "FountainColors.Last",
+        "FountainFill.Angle",
+        "FountainFill.Anisotropic",
+        "FountainFill.BlendAcceleration",
+        "FountainFill.BlendType",
+        "FountainFill.CenterOffsetX",
+        "FountainFill.CenterOffsetY",
+        "FountainFill.Colors",
+        "FountainFill.EdgePad",
+        "FountainFill.End2X",
+        "FountainFill.End2Y",
+        "FountainFill.EndColor",
+        "FountainFill.EndX",
+        "FountainFill.EndY",
+        "FountainFill.HasHSBBlends",
+        "FountainFill.HasNonLinearBlends",
+        "FountainFill.IsTransparent",
+        "FountainFill.MergeMode",
+        "FountainFill.MidPoint",
+        "FountainFill.ScaleX",
+        "FountainFill.ScaleY",
+        "FountainFill.Skew",
+        "FountainFill.SmoothBlend",
+        "FountainFill.SpreadMethod",
+        "FountainFill.StartColor",
+        "FountainFill.StartX",
+        "FountainFill.StartY",
+        "FountainFill.Steps",
+        "FountainFill.Type",
+        "Layer.Editable",
+        "Layer.IsSpecialLayer",
+        "Layer.Master",
+        "Layer.Name",
+        "Layer.Page",
+        "Layer.Printable",
+        "Layer.Shapes",
+        "Layer.Visible",
+        "Layers.Count",
+        "Layers.Item",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Outline.Color",
+        "Outline.Width",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.Index",
+        "Page.Layers",
+        "Page.Name",
+        "Page.Shapes",
+        "Page.SizeHeight",
+        "Page.SizeWidth",
+        "Pages.Count",
+        "Pages.Item",
+        "PowerClip.ContentsLocked",
+        "PowerClip.Parent",
+        "PowerClip.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.Bitmap",
+        "Shape.Curve",
+        "Shape.DisplayCurve",
+        "Shape.Effects",
+        "Shape.Fill",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Outline",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.PowerClip",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Transparency",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "Shapes.Count",
+        "Shapes.Item",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments",
+        "Text.Frames",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Bold",
+        "TextRange.Font",
+        "TextRange.Size",
+        "TextRange.Text",
+        "Transparency.AppliedTo",
+        "Transparency.MergeMode",
+        "Transparency.Type",
+        "Transparency.Uniform"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_print_runs.py",
+          "tests/integration/test_corel_live.py",
+          "docs/PRINT_RUNS.md"
+        ]
+      },
+      "known_limitations": [
+        "Native/manual verification remains deferred; results stay implemented_unverified.",
+        "1000 repeat shapes/32 levels/10000 segments/8 MiB; runs limited to 500 copies and 50000 descendant shapes.",
+        "Physical size preserved, 0/90-degree rotations; no nonzero bleed, marks, outline-aware trimming or padded copies.",
+        "Live effects/opaque containers/complex paint and unlocked PowerClips are refused; pixels, text runs, clipping visuals, color and printer approval remain unchecked.",
+        "Inspection requires bounded document structure; native reads cannot provide atomic locking.",
+        "Execution replaces the clipboard, binds output on success and closes only an independently owned output on failure."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "plan_print_run",
+      "category": "print_production_planning",
+      "description": "Plan every full/partial sheet without padded copies, scaling or native calls.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.print_runs.plan_print_run"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "repeat": {
+            "$ref": "#/schema_definitions/print_repeat"
+          },
+          "copies": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500
+          },
+          "sheet_width_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "sheet_height_inches": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 200
+          },
+          "margin_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0.0
+          },
+          "gutter_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0.0
+          },
+          "rotation_policy": {
+            "enum": [
+              "never",
+              "all",
+              "best_fit"
+            ],
+            "default": "never"
+          },
+          "sheet_orientation": {
+            "enum": [
+              "fixed",
+              "portrait",
+              "landscape",
+              "best_fit"
+            ],
+            "default": "fixed"
+          },
+          "margin_left_inches": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "default": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "margin_top_inches": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "default": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "margin_right_inches": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "default": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "margin_bottom_inches": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "default": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "gripper_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0.0
+          },
+          "gripper_edge": {
+            "enum": [
+              "left",
+              "top",
+              "right",
+              "bottom"
+            ],
+            "default": "bottom"
+          },
+          "mark_clearance_inches": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0.0
+          },
+          "object_name_prefix": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[^\\x00-\\x1f]+$",
+            "default": "Print_Run"
+          }
+        },
+        "required": [
+          "repeat",
+          "copies",
+          "sheet_width_inches",
+          "sheet_height_inches"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "$ref": "#/schema_definitions/print_run_plan"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "unit_passed",
+        "sources": [
+          "tests/test_print_runs.py",
+          "tests/integration/test_corel_live.py",
+          "docs/PRINT_RUNS.md"
+        ]
+      },
+      "known_limitations": [
+        "Native/manual verification remains deferred; results stay implemented_unverified.",
+        "1000 repeat shapes/32 levels/10000 segments/8 MiB; runs limited to 500 copies and 50000 descendant shapes.",
+        "Physical size preserved, 0/90-degree rotations; no nonzero bleed, marks, outline-aware trimming or padded copies.",
+        "Live effects/opaque containers/complex paint and unlocked PowerClips are refused; pixels, text runs, clipping visuals, color and printer approval remain unchecked.",
+        "Inspection requires bounded document structure; native reads cannot provide atomic locking.",
+        "Execution replaces the clipboard, binds output on success and closes only an independently owned output on failure."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "execute_print_run",
+      "category": "print_production_execution",
+      "description": "Create independently owned sheets with final payload/placement/count/ownership and source-state checks.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.execute_print_run"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "$ref": "#/schema_definitions/print_run_plan"
+          },
+          "approved_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "plan",
+          "approved_fingerprint"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created": {
+                      "const": true
+                    },
+                    "copy_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 500
+                    },
+                    "sheet_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 500
+                    },
+                    "output_shape_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 50000
+                    },
+                    "approved_fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "output_document": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "minLength": 0,
+                          "maxLength": 4096
+                        },
+                        "document_session_id": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "document_session_id"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "sheets": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/schema_definitions/print_run_sheet"
+                      },
+                      "minItems": 1,
+                      "maxItems": 500
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "copy_index": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 500
+                          },
+                          "page_index": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 500
+                          },
+                          "slot_index": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 500
+                          },
+                          "object_name": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 104
+                          },
+                          "object_reference": {
+                            "anyOf": [
+                              {
+                                "$ref": "#/schema_definitions/object_reference"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "copy_index",
+                          "page_index",
+                          "slot_index",
+                          "object_name",
+                          "object_reference"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 100
+                    },
+                    "items_truncated": {
+                      "type": "boolean"
+                    },
+                    "source_preservation": {
+                      "type": "object",
+                      "properties": {
+                        "verified": {
+                          "const": true
+                        },
+                        "scope": {
+                          "const": "measured_native_repeat_and_document_context"
+                        }
+                      },
+                      "required": [
+                        "verified",
+                        "scope"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "clipboard_modified": {
+                      "type": "boolean"
+                    },
+                    "production_ready": {
+                      "const": false
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "unchecked_checks": {
+                      "const": [
+                        "bitmap_pixels_and_link_freshness",
+                        "text_run_formatting_and_glyphs",
+                        "rendered_clipping_and_visual_fidelity",
+                        "outline_aware_trim_and_bleed",
+                        "color_overprint_and_printer_approval"
+                      ]
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "maxLength": 1000
+                      },
+                      "maxItems": 20
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "copy_count",
+                    "sheet_count",
+                    "output_shape_count",
+                    "approved_fingerprint",
+                    "output_document",
+                    "sheets",
+                    "items",
+                    "items_truncated",
+                    "source_preservation",
+                    "clipboard_modified",
+                    "production_ready",
+                    "verification_status",
+                    "unchecked_checks",
+                    "warnings"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "approved_plan_fingerprint_and_bound_source_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateDocument",
+        "Application.Documents",
+        "Bitmap.ResolutionX",
+        "Bitmap.ResolutionY",
+        "Bitmap.SizeHeight",
+        "Bitmap.SizeWidth",
+        "Color.CMYKBlack",
+        "Color.CMYKCyan",
+        "Color.CMYKMagenta",
+        "Color.CMYKYellow",
+        "Color.Gray",
+        "Color.HexValue",
+        "Color.Name",
+        "Color.RGBBlue",
+        "Color.RGBGreen",
+        "Color.RGBRed",
+        "Color.SpotColorName",
+        "Color.Tint",
+        "Color.Type",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.Activate",
+        "Document.ActivePage",
+        "Document.AddPagesEx",
+        "Document.BeginCommandGroup",
+        "Document.Close",
+        "Document.Dirty",
+        "Document.EndCommandGroup",
+        "Document.MasterPage",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.SelectionRange",
+        "Document.Unit",
+        "Fill.Fountain",
+        "Fill.Type",
+        "Fill.UniformColor",
+        "FountainColor.BlendType",
+        "FountainColor.Color",
+        "FountainColor.MidPoint",
+        "FountainColor.Opacity",
+        "FountainColor.Position",
+        "FountainColors.Count",
+        "FountainColors.First",
+        "FountainColors.Item",
+        "FountainColors.Last",
+        "FountainFill.Angle",
+        "FountainFill.Anisotropic",
+        "FountainFill.BlendAcceleration",
+        "FountainFill.BlendType",
+        "FountainFill.CenterOffsetX",
+        "FountainFill.CenterOffsetY",
+        "FountainFill.Colors",
+        "FountainFill.EdgePad",
+        "FountainFill.End2X",
+        "FountainFill.End2Y",
+        "FountainFill.EndColor",
+        "FountainFill.EndX",
+        "FountainFill.EndY",
+        "FountainFill.HasHSBBlends",
+        "FountainFill.HasNonLinearBlends",
+        "FountainFill.IsTransparent",
+        "FountainFill.MergeMode",
+        "FountainFill.MidPoint",
+        "FountainFill.ScaleX",
+        "FountainFill.ScaleY",
+        "FountainFill.Skew",
+        "FountainFill.SmoothBlend",
+        "FountainFill.SpreadMethod",
+        "FountainFill.StartColor",
+        "FountainFill.StartX",
+        "FountainFill.StartY",
+        "FountainFill.Steps",
+        "FountainFill.Type",
+        "Layer.Activate",
+        "Layer.Editable",
+        "Layer.IsSpecialLayer",
+        "Layer.Master",
+        "Layer.Name",
+        "Layer.Page",
+        "Layer.Paste",
+        "Layer.Printable",
+        "Layer.Shapes",
+        "Layer.Visible",
+        "Layers.Count",
+        "Layers.Item",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Node.Type",
+        "Outline.Color",
+        "Outline.Width",
+        "Page.Activate",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.CreateLayer",
+        "Page.Index",
+        "Page.Layers",
+        "Page.Name",
+        "Page.SetSize",
+        "Page.Shapes",
+        "Page.SizeHeight",
+        "Page.SizeWidth",
+        "Pages.Count",
+        "Pages.Item",
+        "PowerClip.ContentsLocked",
+        "PowerClip.Parent",
+        "PowerClip.Shapes",
+        "Segment.EndNode",
+        "Segment.EndingControlPointX",
+        "Segment.EndingControlPointY",
+        "Segment.StartNode",
+        "Segment.StartingControlPointX",
+        "Segment.StartingControlPointY",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.Bitmap",
+        "Shape.Copy",
+        "Shape.Curve",
+        "Shape.DisplayCurve",
+        "Shape.Duplicate",
+        "Shape.Effects",
+        "Shape.Fill",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Outline",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.PowerClip",
+        "Shape.RotateEx",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Transparency",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "Shapes.Count",
+        "Shapes.Item",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments",
+        "Text.Frames",
+        "Text.Overflow",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Alignment",
+        "TextRange.Bold",
+        "TextRange.CharSpacing",
+        "TextRange.Font",
+        "TextRange.Italic",
+        "TextRange.LineSpacing",
+        "TextRange.LineSpacingType",
+        "TextRange.Size",
+        "TextRange.Text",
+        "TextRange.Underline",
+        "TextRange.WordSpacing",
+        "Transparency.AppliedTo",
+        "Transparency.MergeMode",
+        "Transparency.Type",
+        "Transparency.Uniform"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_print_runs.py",
+          "tests/integration/test_corel_live.py",
+          "docs/PRINT_RUNS.md"
+        ]
+      },
+      "known_limitations": [
+        "Native/manual verification remains deferred; results stay implemented_unverified.",
+        "1000 repeat shapes/32 levels/10000 segments/8 MiB; runs limited to 500 copies and 50000 descendant shapes.",
+        "Physical size preserved, 0/90-degree rotations; no nonzero bleed, marks, outline-aware trimming or padded copies.",
+        "Live effects/opaque containers/complex paint and unlocked PowerClips are refused; pixels, text runs, clipping visuals, color and printer approval remain unchecked.",
+        "Inspection requires bounded document structure; native reads cannot provide atomic locking.",
+        "Execution replaces the clipboard, binds output on success and closes only an independently owned output on failure."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

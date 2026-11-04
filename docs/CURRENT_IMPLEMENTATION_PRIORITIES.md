@@ -41,6 +41,12 @@ deferred to the consolidated campaign.
 
 ## Active delivery order
 
+**Pause decision — 2026-11-04:** The user requested stopping after the current
+general-artwork print-run iteration. That iteration is complete with offline
+checks and catalog contracts. Pause autonomous work after commit/push; resume
+from `IMPLEMENTATION_HANDOFF.md` when requested. The consolidated live campaign
+remains deferred.
+
 **Autonomous delivery update — 2026-11-03:** The user authorized continued
 implementation and online capability research. Follow the immediate safety
 tickets below, then the evidence-backed workflow gaps in
@@ -182,7 +188,12 @@ unchanged source artwork, and no silent output overwrite.
 ### 5. Complete print-production workflows
 
 - Finish curved-contour X7 verification and automatic repeat-unit inspection.
-- Extend existing imposition to verified multi-sheet and partial-sheet output.
+- General native-repeat multisheet/partial-sheet output is implemented with
+  `inspect_print_repeat`, `plan_print_run` and `execute_print_run`. Complete plans
+  preserve physical size and exact quantity; independently owned outputs verify
+  final payload, placement, membership/counts and measured source context.
+  Twenty-three focused offline checks pass. Native/manual acceptance, nonzero
+  bleed/marks and broader production readiness remain deferred. See [PRINT_RUNS.md](PRINT_RUNS.md).
 - Controlled zero-bleed PDF export and parsed all-page/font checks are implemented.
   Continue job-specific nonzero bleed, marks, ICC/PDF-X, spot/overprint checks
   and general multisheet imposition after the required API/output research.

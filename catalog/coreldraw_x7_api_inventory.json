@@ -331,7 +331,9 @@
         "set_layer_properties",
         "activate_layer",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_application",
@@ -456,7 +458,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "create_document",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_application",
@@ -580,7 +583,9 @@
       "used_by": [
         "get_document_info",
         "execute_template_batch",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_document",
@@ -607,7 +612,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_document",
@@ -684,7 +691,9 @@
         "set_layer_properties",
         "activate_layer",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_document",
@@ -737,7 +746,9 @@
         "set_layer_properties",
         "activate_layer",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_document",
@@ -785,7 +796,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_document",
@@ -804,7 +817,9 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "import_artwork",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_document",
@@ -823,7 +838,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "create_document",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_document",
@@ -902,7 +918,8 @@
       "used_by": [
         "prepare_contour_nesting",
         "prepare_imposition_job",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -946,7 +963,8 @@
         "activate_page",
         "create_page",
         "create_layer",
-        "activate_layer"
+        "activate_layer",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -965,7 +983,8 @@
         "prepare_contour_nesting",
         "prepare_imposition_job",
         "execute_template_batch",
-        "create_layer"
+        "create_layer",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1014,7 +1033,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_page",
@@ -1040,7 +1061,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_page",
@@ -1065,7 +1088,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_page",
@@ -1107,7 +1132,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_page",
@@ -1158,7 +1185,9 @@
         "set_layer_properties",
         "activate_layer",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_page",
@@ -1206,7 +1235,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_page",
@@ -1235,7 +1266,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_page",
@@ -1261,7 +1294,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_page",
@@ -1319,7 +1354,8 @@
       "used_by": [
         "create_document",
         "execute_template_batch",
-        "create_page"
+        "create_page",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_page",
@@ -1367,7 +1403,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1426,7 +1464,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1451,7 +1491,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1476,7 +1518,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1501,7 +1545,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1526,7 +1572,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1577,7 +1625,9 @@
         "set_layer_properties",
         "activate_layer",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1675,7 +1725,8 @@
       "used_by": [
         "prepare_contour_nesting",
         "prepare_imposition_job",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1705,7 +1756,9 @@
         "set_layer_properties",
         "activate_layer",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1733,7 +1786,9 @@
         "set_layer_properties",
         "activate_layer",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1784,7 +1839,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1836,7 +1893,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1885,7 +1944,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1944,7 +2005,9 @@
         "set_layer_properties",
         "activate_layer",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2001,7 +2064,9 @@
         "set_layer_properties",
         "activate_layer",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2049,7 +2114,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2093,7 +2160,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2137,7 +2206,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2181,7 +2252,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2225,7 +2298,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2257,7 +2332,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2288,7 +2365,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2316,7 +2395,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2369,7 +2450,8 @@
         "revise_curve_topology",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2389,7 +2471,8 @@
       "used_by": [
         "prepare_contour_nesting",
         "prepare_imposition_job",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2494,7 +2577,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2542,7 +2627,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2572,7 +2659,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2600,7 +2689,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2627,7 +2718,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2654,7 +2747,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2674,7 +2769,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2694,7 +2790,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2714,7 +2811,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2755,7 +2853,9 @@
         "get_fill",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_fill",
@@ -2775,7 +2875,9 @@
         "get_fill",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_fill",
@@ -2804,7 +2906,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -2833,7 +2937,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -2861,7 +2967,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -2889,7 +2997,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -2915,7 +3025,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -2940,7 +3052,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -2965,7 +3079,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -2990,7 +3106,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -3015,7 +3133,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -3043,7 +3163,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -3069,7 +3191,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -3094,7 +3218,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -3119,7 +3245,9 @@
         "extract_powerclip_contents",
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_color",
@@ -3142,7 +3270,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_outline",
@@ -3185,7 +3315,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "official_x7_outline",
@@ -3503,7 +3635,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3524,7 +3658,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3550,7 +3685,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3576,7 +3713,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3597,7 +3736,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3618,7 +3758,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3639,7 +3780,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3660,7 +3802,8 @@
         "add_paragraph_text",
         "set_text_style",
         "inspect_text_template",
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3770,7 +3913,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3806,7 +3951,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3843,7 +3990,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3860,7 +4009,8 @@
       "signature": "RotateEx(Angle, CenterX, CenterY)",
       "status": "typelib_confirmed",
       "used_by": [
-        "rotate_object"
+        "rotate_object",
+        "execute_print_run"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3997,7 +4147,8 @@
       "signature": "Document.Close (see retained installed type-library descriptor)",
       "status": "typelib_confirmed",
       "used_by": [
-        "execute_template_batch"
+        "execute_template_batch",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -4024,7 +4175,8 @@
         "extract_powerclip_contents",
         "create_contour_offsets",
         "create_page",
-        "create_layer"
+        "create_layer",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -4051,7 +4203,8 @@
         "extract_powerclip_contents",
         "create_contour_offsets",
         "create_page",
-        "create_layer"
+        "create_layer",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -4078,7 +4231,8 @@
         "extract_powerclip_contents",
         "create_contour_offsets",
         "create_layer",
-        "activate_layer"
+        "activate_layer",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -4525,7 +4679,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4556,7 +4712,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4587,7 +4745,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4618,7 +4778,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4649,7 +4811,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4680,7 +4844,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4709,7 +4875,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4740,7 +4908,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4769,7 +4939,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4798,7 +4970,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4829,7 +5003,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4858,7 +5034,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4887,7 +5065,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4918,7 +5098,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4949,7 +5131,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5000,7 +5184,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5053,7 +5239,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5102,7 +5290,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5133,7 +5323,9 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5367,7 +5559,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5389,7 +5583,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5411,7 +5607,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5433,7 +5631,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5455,7 +5655,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5509,7 +5711,9 @@
         "extract_powerclip_contents",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5530,7 +5734,9 @@
         "extract_powerclip_contents",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5551,7 +5757,9 @@
         "extract_powerclip_contents",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5572,7 +5780,9 @@
         "extract_powerclip_contents",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5591,7 +5801,9 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5611,7 +5823,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "create_contour_offsets",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5631,7 +5845,9 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "create_contour_offsets",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5652,7 +5868,9 @@
         "extract_powerclip_contents",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5673,7 +5891,9 @@
         "extract_powerclip_contents",
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5740,7 +5960,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5758,7 +5980,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5776,7 +6000,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5794,7 +6020,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5812,7 +6040,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5830,7 +6060,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5848,7 +6080,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5866,7 +6100,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5884,7 +6120,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5902,7 +6140,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5920,7 +6160,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5938,7 +6180,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5956,7 +6200,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5974,7 +6220,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -5992,7 +6240,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6010,7 +6260,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6028,7 +6280,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6046,7 +6300,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6064,7 +6320,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6082,7 +6340,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6100,7 +6360,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6118,7 +6380,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6136,7 +6400,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6154,7 +6420,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6172,7 +6440,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6190,7 +6460,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6208,7 +6480,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6226,7 +6500,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6244,7 +6520,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6262,7 +6540,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6280,7 +6560,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6298,7 +6580,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6316,7 +6600,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6334,7 +6620,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6352,7 +6640,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6370,7 +6660,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6388,7 +6680,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6406,7 +6700,9 @@
       "used_by": [
         "get_gradient_fill",
         "set_gradient_fill",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_gradient_inspection"
@@ -6794,7 +7090,9 @@
       "used_by": [
         "create_contour_offsets",
         "get_bitmap_properties",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_contour_offset_inspection"
@@ -6817,7 +7115,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6840,7 +7140,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6863,7 +7165,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6886,7 +7190,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6909,7 +7215,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6932,7 +7240,9 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "preflight_document_rasters"
+        "preflight_document_rasters",
+        "inspect_print_repeat",
+        "execute_print_run"
       ],
       "evidence": [
         "x7_organization_inspection"

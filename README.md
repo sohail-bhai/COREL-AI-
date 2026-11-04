@@ -30,11 +30,11 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 850 tests (822 automated checks pass; twenty-eight guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
+- 874 tests (845 automated checks pass; twenty-nine guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Signed session references for precise nested edits, opt-in redacted operation
-  records, and explicit worker/recovery state across 88 MCP tools. Three local
+  records, and explicit worker/recovery state across 91 MCP tools. Three local
   state/outcome/reconciliation tools block unsafe follow-up mutations after
   timeout or partial failure; see [`docs/WORKER_RECOVERY.md`](docs/WORKER_RECOVERY.md).
 - Local raster inspection and source-preserving PNG/TIFF crop, quarter rotation,
@@ -90,6 +90,7 @@ Validate the catalog without starting CorelDRAW:
 - `plan_chest_number_batch`, a read-only preflight that validates ranges, preserves zero-padding, and optionally returns a complete sheet-fit and placement plan.
 - `plan_print_job`, a no-Corel preflight for one raster artwork: exact finished/sheet sizes, bleed and safe boxes, contain/cover/stretch geometry, effective DPI, best-fit imposition, sheet counts, waste, and per-copy rotation coordinates.
 - `prepare_print_job`, a new-document-only workflow that imports the validated artwork, applies planned fit/crop and per-copy rotation, creates named copies, and reads back their actual bounds. It deliberately does not claim print-ready output.
+- `inspect_print_repeat`, `plan_print_run`, and `execute_print_run` create complete full/partial-sheet runs for native artwork in an independent editable output. Every copy receives final payload/placement/count/ownership checks with measured source-context preservation; exact quantity, optional 90-degree rotation, margins and gripper/mark clearance are supported. [Print run contract](docs/PRINT_RUNS.md); native/manual acceptance remains deferred.
 - `classify_imposition_job`, which routes obvious rectangles directly to N-up and asks cutter/rotation questions only for non-rectangular contour work.
 - `inspect_repeat_unit`, which requires one independent vector repeat group and one named closed dieline, then uses CorelDRAW X7 `SubPath.GetPolyline` to produce deterministic contour geometry.
 - `plan_contour_nesting`, a pure collision-checked 0°/180° paired-row optimizer for interlocking dielines.

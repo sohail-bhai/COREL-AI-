@@ -203,6 +203,11 @@ class CorelX7Adapter:
             True,"implemented_unverified","Explicit whole-document zero-bleed controls, verified settings restoration, parsed artifact checks and exclusive publication. Native/manual gates deferred.",
             ("Document.PDFSettings","Document.PublishToPDF"),
         ),
+        "print.repeat_inspection": CapabilitySupport(True, "implemented_unverified", "Two bounded complete artwork scans reconcile measured native repeat payload and source context; visual and production acceptance remain pending.",
+            ("Shape.DisplayCurve", "Shape.GetMatrix", "Shape.PowerClip", "Document.Pages", "Document.SelectionRange")),
+        "print.run_plan": CapabilitySupport(True, "implemented_unverified", "Complete local full/partial-sheet plans preserve size and exact quantities with production margins and optional 90-degree rotations.", ()),
+        "print.run_execute": CapabilitySupport(True, "implemented_unverified", "Independently owned output sheets verify final copy payload/placement/count/ownership and source context; failure cleanup never discards pre-existing documents.",
+            ("Application.CreateDocument", "Document.AddPagesEx", "Shape.Copy", "Layer.Paste", "Shape.Duplicate", "Shape.RotateEx", "Shape.SetPosition")),
         "template.inspect": CapabilitySupport(
             True,"implemented_unverified","Bounded grouped text-template snapshots bind measured structure/text/basic appearance to a signed source reference.",
             ("Shape.Shapes","Shape.GetMatrix","Text.Story"),
