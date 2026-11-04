@@ -92,6 +92,12 @@ class BitmapBridgeMixin:
         document, shape, identity = self._inspection_target(object_name, shape_index, object_reference)
         if type(shape.Type) is not int or shape.Type != 5:
             raise CorelBridgeError('Bitmap properties require an exact native bitmap shape.', ErrorCode.UNSUPPORTED_IN_PROFILE)
+        return self._read_bitmap_properties(document, shape, identity, minimum_dpi)
+
+    def _read_bitmap_properties(self, document, shape, identity, minimum_dpi, scope_reader=None):
+        """Reuse native evidence for graph-scoped preflight without issuing clip references."""
+        if scope_reader is None:
+            scope_reader = lambda: self._bitmap_scope_effects(document, shape, identity.get('object_reference'))
         unavailable = []
 
         def read(owner, name, kind, low=None, high=None):
@@ -130,7 +136,7 @@ class BitmapBridgeMixin:
             except Exception:
                 reasons.append('unavailable_complete_uncropped_box')
             try:
-                effect_scope = self._bitmap_scope_effects(document, shape, identity.get('object_reference'))
+                effect_scope = scope_reader()
                 reasons.extend(effect_scope)
             except Exception:
                 effect_scope = None
@@ -155,7 +161,7 @@ class BitmapBridgeMixin:
                     same_counts = all(type(a) is type(b) and a == b for a, b in zip(counts, counts_before))
                     second_transform = self._layout_snapshot(document, shape)
                     second_box = self._bitmap_box(bitmap)
-                    second_scope = self._bitmap_scope_effects(document, shape, identity.get('object_reference'))
+                    second_scope = scope_reader()
                     reference = identity.get('object_reference')
                     if reference is not None:
                         resolved, _ = self._resolve_object_reference(document, reference)

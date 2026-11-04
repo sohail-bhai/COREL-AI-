@@ -437,17 +437,19 @@
         "prepare_print_job",
         "get_bitmap_properties",
         "inspect_raster_asset",
-        "prepare_raster_asset"
+        "prepare_raster_asset",
+        "preflight_document_rasters"
       ],
       "missing_behavior": [
         "Background removal/cleanup and AI enhancement",
-        "Document-wide native raster preflight and source-detail/color/visual verification",
+        "Native/source-detail/color/visual raster acceptance and export-generated rasterization coverage",
         "Bounded tracing and fidelity reporting"
       ],
       "source_ids": [
         "trace",
         "x7_guide",
-        "bitmap_dimensions_help"
+        "bitmap_dimensions_help",
+        "preflight"
       ],
       "depends_on": [
         "SAFE-002"
@@ -457,7 +459,9 @@
       "evidence": [
         "docs/RASTER_PREPARATION.md",
         "tests/test_raster_assets.py",
-        "docs/raster_preparation_online_evidence.json"
+        "docs/raster_preparation_online_evidence.json",
+        "docs/RASTER_PREFLIGHT.md",
+        "tests/test_raster_preflight.py"
       ]
     },
     {
@@ -533,12 +537,13 @@
         "export_pdf",
         "inspect_pdf",
         "export_pdf_controlled",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "missing_behavior": [
         "Proven nonzero bleed and production marks",
         "ICC/PDF-X and color/spot/overprint checks",
-        "Document-wide raster preflight and native/source-detail/visual/prepress verification"
+        "Native/source-detail/visual/prepress raster acceptance and export-generated rasterization coverage"
       ],
       "source_ids": [
         "preflight",
@@ -553,7 +558,9 @@
       "live_status": "deferred",
       "evidence": [
         "docs/PDF_PRODUCTION.md",
-        "tests/test_pdf_production.py"
+        "tests/test_pdf_production.py",
+        "docs/RASTER_PREFLIGHT.md",
+        "tests/test_raster_preflight.py"
       ]
     },
     {

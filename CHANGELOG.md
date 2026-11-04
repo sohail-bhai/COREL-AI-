@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Added
 
+- Document-wide raster preflight covers page/master layers, nested groups and
+  PowerClips with affine DPI and local linked-file presence, two graph/three
+  structure observations, explicit partial/stale/uncertain evidence and preserved
+  native context. Forty-seven checks and 24 installed X7 descriptors support the
+  implementation; the two-page/prepared-raster native gate stays deferred.
+  Opaque/special containers prevent clean coverage. The surface has 88 tools;
+  822 automated checks pass and 28 live gates are skipped.
 - Two local raster tools for immutable source inspection and fingerprint-guarded
   source-preserving PNG/TIFF crop/quarter rotation/flips/fitting. Forty-nine checks
   cover decoded pixels, all EXIF orientations, grayscale/palette transparency,

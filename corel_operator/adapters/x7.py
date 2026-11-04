@@ -150,6 +150,8 @@ class CorelX7Adapter:
     }
 
     _CURRENT_CAPABILITIES = {
+        "images.document_raster_preflight": CapabilitySupport(True, "implemented_unverified", "Two bounded native graph scans cover printable page/applied master layers, groups and PowerClips with DPI/local-link presence evidence and preserved context; partial, stale, effect/EPS/uncertain coordinate coverage cannot establish a pass.",
+            ("Bitmap.LinkFileName", "Bitmap.OPILinked", "Bitmap.IsEPS", "Shape.PowerClipParent", "Document.SelectionRange", "Page.AllLayers")),
         "images.raster_asset_inspection": CapabilitySupport(True, "implemented_unverified", "Bounded local raster snapshots, EXIF-normalized decoded pixel/source hashes, dimensions, alpha and opaque ICC/DPI metadata; no native dependency or color approval.",
             ()),
         "images.raster_preparation": CapabilitySupport(True, "implemented_unverified", "Fingerprint-guarded PNG/TIFF derivatives with crop/quarter rotation/flips/fitting and verified pixels, metadata and unchanged source bytes; Corel import and visual review remain deferred.",

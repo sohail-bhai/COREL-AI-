@@ -522,6 +522,19 @@ def inspect_text_template(object_name: str="",shape_index: int=0,object_referenc
 
 @mcp.tool()
 @recorded_operation
+def preflight_document_rasters(minimum_dpi: float = 150., include_nonprinting: bool = False,
+                               max_shapes: int = 1000) -> dict:
+    """Inspect bounded page/master/group/PowerClip bitmap resolution and local links.
+
+    Reconcile two graph scans and native context. Partial coverage, changed
+    state, effects, EPS and uncertain clipping/master coordinates cannot pass.
+    Local file presence does not prove cached source fidelity or print readiness.
+    """
+    return _tool("preflight_document_rasters", "preflight_document_rasters", minimum_dpi, include_nonprinting, max_shapes)
+
+
+@mcp.tool()
+@recorded_operation
 def get_bitmap_properties(minimum_dpi: float = 150., object_name: str = "", shape_index: int = 0,
                           object_reference: dict | None = None) -> dict:
     """Inspect native bitmap metadata and calculate its placed affine pixel DPI.

@@ -169,7 +169,8 @@
         "cdrEPSShape": 27
       },
       "bridge_usage": [
-        "list_objects shape_type_code"
+        "list_objects shape_type_code",
+        "preflight_document_rasters"
       ]
     },
     "cdrFillType": {

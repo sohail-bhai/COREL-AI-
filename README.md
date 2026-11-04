@@ -30,16 +30,19 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 802 tests (775 automated checks pass; twenty-seven guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
+- 850 tests (822 automated checks pass; twenty-eight guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Signed session references for precise nested edits, opt-in redacted operation
-  records, and explicit worker/recovery state across 87 MCP tools. Three local
+  records, and explicit worker/recovery state across 88 MCP tools. Three local
   state/outcome/reconciliation tools block unsafe follow-up mutations after
   timeout or partial failure; see [`docs/WORKER_RECOVERY.md`](docs/WORKER_RECOVERY.md).
 - Local raster inspection and source-preserving PNG/TIFF crop, quarter rotation,
   flips and fitting with source fingerprints, pixel readback and ICC/DPI
   preservation; see [`docs/RASTER_PREPARATION.md`](docs/RASTER_PREPARATION.md).
+- Document-wide raster preflight across page/master layers, groups and PowerClips,
+  with reconciled DPI/local-link evidence, partial-coverage reporting and preserved
+  native context; see [`docs/RASTER_PREFLIGHT.md`](docs/RASTER_PREFLIGHT.md).
 - Editable paragraph frames, whole-story font/size/style/alignment revisions,
   bounded font catalog and native overflow/spacing inspection; see
   [`docs/TYPOGRAPHY.md`](docs/TYPOGRAPHY.md). Native verification remains deferred.

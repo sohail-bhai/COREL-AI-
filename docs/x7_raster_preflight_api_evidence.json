@@ -1,0 +1,223 @@
+{
+  "path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "connection_attempted": false,
+  "members": [
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "ExternallyLinked"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (11, 0, None), 0)",
+      "documentation": "Gets the status of a bitmap: externally linked or embedded"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "LinkFileName"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (8, 0, None), 0)",
+      "documentation": "Gets the file name of the externally linked bitmap"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "OPILinked"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743825, (), (), 4, 2, 4, 0, 192, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap is linked to an OPI file"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "IsEPS"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743826, (), (), 4, 2, 4, 0, 200, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap is an EPS placeholder"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "Embedded"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743832, (), (), 4, 2, 4, 0, 248, (11, 0, None), 0)",
+      "documentation": "Returns True if the bitmap is embedded into the document"
+    },
+    {
+      "interface": "IVGBitmap",
+      "names": [
+        "LinkFileName"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((8, 1, None),), 4, 4, 4, 0, 304, (24, 0, None), 0)",
+      "documentation": "Gets the file name of the externally linked bitmap"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Shapes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50363008)), 0, None), 0)",
+      "documentation": "Gets a collection of shapes on the layer"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Printable"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (11, 0, None), 0)",
+      "documentation": "Gets or sets the layer's printability state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Printable"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((11, 1, None),), 4, 4, 4, 0, 128, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer's printability state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Master"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (), 4, 2, 4, 0, 152, (11, 0, None), 0)",
+      "documentation": "Gets or sets the layer's Master state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Master"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743820, (), ((11, 1, None),), 4, 4, 4, 0, 160, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer's Master state"
+    },
+    {
+      "interface": "IVGLayer",
+      "names": [
+        "Page"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743873, (), (), 4, 2, 4, 0, 576, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Returns the page this layer is on"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "Layers"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50362752)), 0, None), 0)",
+      "documentation": "Gets the collection of layers on the page"
+    },
+    {
+      "interface": "IVGPage",
+      "names": [
+        "AllLayers"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743865, (), (), 4, 2, 4, 0, 512, ((26, (29, 50362752)), 0, None), 0)",
+      "documentation": "Returns a collection of all layers on the page, including the master layers"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Parent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Gets the parent of which this object is a child"
+    },
+    {
+      "interface": "IVGPowerClip",
+      "names": [
+        "Shapes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((26, (29, 50363008)), 0, None), 0)",
+      "documentation": "Gets the shapes in the powerclip"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Shapes"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, ((26, (29, 50363008)), 0, None), 0)",
+      "documentation": "Gets a collection of shapes"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Layer"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743857, (), (), 4, 2, 4, 0, 448, ((26, (29, 50362880)), 0, None), 0)",
+      "documentation": "Gets or sets the layer the shape resides upon"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Layer"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743857, (), (((26, (29, 50362880)), 1, None),), 4, 4, 4, 0, 456, (24, 0, None), 0)",
+      "documentation": "Gets or sets the layer the shape resides upon"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Effects"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743879, (), (), 4, 2, 4, 0, 624, ((26, (29, 50370176)), 0, None), 0)",
+      "documentation": "Gets collection of effects applied to object"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "PowerClip"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743901, (), (), 4, 2, 4, 0, 800, ((26, (29, 50376192)), 0, None), 0)",
+      "documentation": "Gets the powerclip"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "PowerClipParent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743902, (), (), 4, 2, 4, 0, 808, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Gets the powerclip parent",
+      "return_interface": "IVGShape"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "ParentGroup"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743922, (), (), 4, 2, 4, 0, 968, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "ParentGroup"
+    },
+    {
+      "interface": "IVGShape",
+      "names": [
+        "Page"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610744013, (), (), 4, 2, 4, 0, 1696, ((26, (29, 50362496)), 0, None), 0)",
+      "documentation": "Returns the page the shape belongs to"
+    }
+  ]
+}

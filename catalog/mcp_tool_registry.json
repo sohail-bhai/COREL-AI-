@@ -4652,6 +4652,930 @@
         "warnings"
       ],
       "additionalProperties": false
+    },
+    "raster_preflight_location": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "enum": [
+            "page",
+            "master"
+          ]
+        },
+        "page_index": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 256
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "page_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "layer_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "layer_name": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "applies_to_page_indices": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 256
+          },
+          "maxItems": 256,
+          "uniqueItems": true
+        },
+        "layer_printable": {
+          "type": "boolean"
+        },
+        "layer_visible": {
+          "type": "boolean"
+        },
+        "shape_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "static_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "object_name": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 512
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "enum": [
+                  "root",
+                  "group",
+                  "powerclip"
+                ]
+              },
+              "index": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4096
+              }
+            },
+            "required": [
+              "kind",
+              "index"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 34
+        }
+      },
+      "required": [
+        "scope",
+        "page_index",
+        "page_identity",
+        "layer_identity",
+        "layer_name",
+        "applies_to_page_indices",
+        "layer_printable",
+        "layer_visible",
+        "shape_identity",
+        "static_id",
+        "object_name",
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "raster_link_presence": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "passed",
+            "failed",
+            "indeterminate",
+            "not_applicable"
+          ]
+        },
+        "resolved_path": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32767
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "file_bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "file_state_fingerprint": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 128
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "resolved_path",
+        "file_bytes",
+        "file_state_fingerprint",
+        "reason"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "resolved_path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "file_bytes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "file_state_fingerprint": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "reason": {
+                "const": null
+              }
+            }
+          }
+        }
+      ]
+    },
+    "raster_link_snapshot": {
+      "type": "object",
+      "properties": {
+        "externally_linked": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "opi_linked": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "eps_placeholder": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_filename": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 32767
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bitmap_identity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "presence": {
+          "$ref": "#/schema_definitions/raster_link_presence"
+        }
+      },
+      "required": [
+        "externally_linked",
+        "opi_linked",
+        "eps_placeholder",
+        "native_filename",
+        "bitmap_identity",
+        "presence"
+      ],
+      "additionalProperties": false
+    },
+    "raster_preflight_row": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/schema_definitions/raster_preflight_location"
+        },
+        "bitmap": {
+          "$ref": "#/schema_definitions/bitmap_metadata"
+        },
+        "transform": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/bitmap_transform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "uncropped_box": {
+          "anyOf": [
+            {
+              "$ref": "#/schema_definitions/bitmap_uncropped_box"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effective_resolution": {
+          "$ref": "#/schema_definitions/bitmap_effective_resolution"
+        },
+        "bitmap_consistency": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": [
+                "two_reads_reconciled",
+                "changed",
+                "not_checked"
+              ]
+            },
+            "scope": {
+              "const": "pixel_counts_crop_state_bounds_matrix_uncropped_box_and_effect_scope"
+            }
+          },
+          "required": [
+            "status",
+            "scope"
+          ],
+          "additionalProperties": false
+        },
+        "link": {
+          "$ref": "#/schema_definitions/raster_link_snapshot"
+        },
+        "checks": {
+          "type": "object",
+          "properties": {
+            "effective_resolution": {
+              "enum": [
+                "passed",
+                "failed",
+                "indeterminate"
+              ]
+            },
+            "linked_source_presence": {
+              "enum": [
+                "passed",
+                "failed",
+                "indeterminate",
+                "not_applicable"
+              ]
+            }
+          },
+          "required": [
+            "effective_resolution",
+            "linked_source_presence"
+          ],
+          "additionalProperties": false
+        },
+        "observed_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "indeterminate"
+          ]
+        },
+        "status": {
+          "enum": [
+            "passed",
+            "failed",
+            "indeterminate"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "maxItems": 64,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "location",
+        "bitmap",
+        "transform",
+        "uncropped_box",
+        "effective_resolution",
+        "bitmap_consistency",
+        "link",
+        "checks",
+        "observed_status",
+        "status",
+        "reasons"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "observed_status": {
+                "const": "passed"
+              },
+              "checks": {
+                "properties": {
+                  "effective_resolution": {
+                    "const": "passed"
+                  },
+                  "linked_source_presence": {
+                    "enum": [
+                      "passed",
+                      "not_applicable"
+                    ]
+                  }
+                }
+              },
+              "effective_resolution": {
+                "properties": {
+                  "status": {
+                    "const": "calculated"
+                  },
+                  "resolution_check": {
+                    "const": "pass"
+                  }
+                }
+              },
+              "bitmap_consistency": {
+                "properties": {
+                  "status": {
+                    "const": "two_reads_reconciled"
+                  }
+                }
+              },
+              "link": {
+                "properties": {
+                  "eps_placeholder": {
+                    "const": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "raster_preflight_result": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "document-raster-preflight-v1"
+        },
+        "bridge_session_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "document_session_id": {
+          "type": "string",
+          "pattern": "^doc-[0-9]{4,16}$"
+        },
+        "minimum_required_dpi": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 2400
+        },
+        "include_nonprinting": {
+          "type": "boolean"
+        },
+        "max_shapes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        "coverage": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": [
+                "complete",
+                "partial"
+              ]
+            },
+            "page_count": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 256
+            },
+            "inspected_layers": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            },
+            "accessed_shapes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            },
+            "unique_shapes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            },
+            "excluded_layers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "layer_identity": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "reason": {
+                    "enum": [
+                      "nonprinting_layer",
+                      "master_layer_not_applied"
+                    ]
+                  }
+                },
+                "required": [
+                  "layer_identity",
+                  "reason"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 4096
+            },
+            "issues": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "maxLength": 128
+                  },
+                  "location": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/schema_definitions/raster_preflight_location"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "code",
+                  "location"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 4098
+            }
+          },
+          "required": [
+            "status",
+            "page_count",
+            "inspected_layers",
+            "accessed_shapes",
+            "unique_shapes",
+            "excluded_layers",
+            "issues"
+          ],
+          "additionalProperties": false
+        },
+        "inspection_consistency": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": [
+                "two_scans_reconciled",
+                "changed"
+              ]
+            },
+            "structure_before_fingerprint": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "structure_after_fingerprint": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "first_scan_fingerprint": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "second_scan_fingerprint": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "status",
+            "structure_before_fingerprint",
+            "structure_after_fingerprint",
+            "first_scan_fingerprint",
+            "second_scan_fingerprint"
+          ],
+          "additionalProperties": false
+        },
+        "context_preservation": {
+          "type": "object",
+          "properties": {
+            "verified": {
+              "const": true
+            },
+            "unit_code": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "reference_point_code": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "dirty": {
+              "type": "boolean"
+            },
+            "selection_count": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            }
+          },
+          "required": [
+            "verified",
+            "unit_code",
+            "reference_point_code",
+            "dirty",
+            "selection_count"
+          ],
+          "additionalProperties": false
+        },
+        "rasters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/raster_preflight_row"
+          },
+          "maxItems": 4096
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "passed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            },
+            "failed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            },
+            "indeterminate": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            },
+            "total": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4096
+            }
+          },
+          "required": [
+            "passed",
+            "failed",
+            "indeterminate",
+            "total"
+          ],
+          "additionalProperties": false
+        },
+        "overall_status": {
+          "enum": [
+            "passed",
+            "failed",
+            "indeterminate",
+            "not_applicable"
+          ]
+        },
+        "raster_checks_passed": {
+          "type": "boolean"
+        },
+        "production_ready": {
+          "const": false
+        },
+        "verification_status": {
+          "const": "implemented_unverified"
+        },
+        "unchecked_checks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "maxItems": 20
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema",
+        "bridge_session_id",
+        "document_session_id",
+        "minimum_required_dpi",
+        "include_nonprinting",
+        "max_shapes",
+        "coverage",
+        "inspection_consistency",
+        "context_preservation",
+        "rasters",
+        "summary",
+        "overall_status",
+        "raster_checks_passed",
+        "production_ready",
+        "verification_status",
+        "unchecked_checks",
+        "warnings",
+        "fingerprint"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "overall_status": {
+                "const": "passed"
+              }
+            },
+            "required": [
+              "overall_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "raster_checks_passed": {
+                "const": true
+              },
+              "coverage": {
+                "properties": {
+                  "status": {
+                    "const": "complete"
+                  },
+                  "issues": {
+                    "maxItems": 0
+                  }
+                }
+              },
+              "inspection_consistency": {
+                "properties": {
+                  "status": {
+                    "const": "two_scans_reconciled"
+                  }
+                }
+              },
+              "summary": {
+                "properties": {
+                  "failed": {
+                    "const": 0
+                  },
+                  "indeterminate": {
+                    "const": 0
+                  },
+                  "total": {
+                    "minimum": 1
+                  }
+                }
+              },
+              "rasters": {
+                "minItems": 1,
+                "items": {
+                  "properties": {
+                    "status": {
+                      "const": "passed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "overall_status": {
+                "enum": [
+                  "failed",
+                  "indeterminate",
+                  "not_applicable"
+                ]
+              }
+            },
+            "required": [
+              "overall_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "raster_checks_passed": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "overall_status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "overall_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "summary": {
+                "properties": {
+                  "failed": {
+                    "minimum": 1
+                  }
+                }
+              },
+              "inspection_consistency": {
+                "properties": {
+                  "status": {
+                    "const": "two_scans_reconciled"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "overall_status": {
+                "const": "not_applicable"
+              }
+            },
+            "required": [
+              "overall_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "summary": {
+                "properties": {
+                  "total": {
+                    "const": 0
+                  }
+                }
+              },
+              "coverage": {
+                "properties": {
+                  "status": {
+                    "const": "complete"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "raster_checks_passed": {
+                "const": true
+              }
+            },
+            "required": [
+              "raster_checks_passed"
+            ]
+          },
+          "then": {
+            "properties": {
+              "overall_status": {
+                "const": "passed"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "tool_examples": {
@@ -14245,6 +15169,347 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Raster request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "preflight_document_rasters": {
+      "request": {
+        "minimum_dpi": 150.0
+      },
+      "success": {
+        "ok": true,
+        "tool": "preflight_document_rasters",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "schema": "document-raster-preflight-v1",
+          "bridge_session_id": "e67d07da5d75cff28a6069db364e3ee9",
+          "document_session_id": "doc-0001",
+          "minimum_required_dpi": 150.0,
+          "include_nonprinting": false,
+          "max_shapes": 1000,
+          "coverage": {
+            "status": "complete",
+            "page_count": 2,
+            "inspected_layers": 3,
+            "accessed_shapes": 2,
+            "unique_shapes": 2,
+            "excluded_layers": [],
+            "issues": []
+          },
+          "inspection_consistency": {
+            "status": "two_scans_reconciled",
+            "structure_before_fingerprint": "44aea38d8767cab1edd8d83f32e057e333866487941bf8a56327145a56869e69",
+            "structure_after_fingerprint": "44aea38d8767cab1edd8d83f32e057e333866487941bf8a56327145a56869e69",
+            "first_scan_fingerprint": "302dfb11f4d43842f63601bef74d4d3e56ff1a111661ecc45bca4def976c6e13",
+            "second_scan_fingerprint": "302dfb11f4d43842f63601bef74d4d3e56ff1a111661ecc45bca4def976c6e13"
+          },
+          "context_preservation": {
+            "verified": true,
+            "unit_code": 3,
+            "reference_point_code": 9,
+            "dirty": false,
+            "selection_count": 0
+          },
+          "rasters": [
+            {
+              "location": {
+                "scope": "page",
+                "page_index": 1,
+                "page_identity": "8fcac8e7cedb1f01e689b7ac6f30aeabe10fcc37c90adc7430e5773adfbc7aaa",
+                "layer_identity": "4565d0641745f2dc6d2edb8e4e3ce2b3e9ba805beeb9158e3119e8128082b6e4",
+                "layer_name": "Artwork",
+                "applies_to_page_indices": [
+                  1
+                ],
+                "layer_printable": true,
+                "layer_visible": true,
+                "shape_identity": "e469b031e86386fbcef59b190a7b2fff6a3e3c6c901e6993838c8e2944f74e2b",
+                "static_id": 501,
+                "object_name": "Bitmap",
+                "path": [
+                  {
+                    "kind": "root",
+                    "index": 1
+                  }
+                ]
+              },
+              "bitmap": {
+                "available": true,
+                "size_pixels": {
+                  "width": 1200,
+                  "height": 600
+                },
+                "native_resolution": {
+                  "x": 72,
+                  "y": 72
+                },
+                "mode_code": 5,
+                "externally_linked": false,
+                "embedded": true,
+                "can_be_cropped": true,
+                "crop_envelope_modified": false,
+                "unavailable_properties": []
+              },
+              "transform": {
+                "bounds_inches": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 4.0,
+                  "height": 2.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_degrees": 0.0,
+                "native_z_order": 100,
+                "matrix_coordinate_space": "native_affine_in_document_inches"
+              },
+              "uncropped_box": {
+                "corners_inches": [
+                  {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  {
+                    "x": 4.0,
+                    "y": 0.0
+                  },
+                  {
+                    "x": 4.0,
+                    "y": 2.0
+                  },
+                  {
+                    "x": 0.0,
+                    "y": 2.0
+                  }
+                ],
+                "bounds_inches": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 4.0,
+                  "height": 2.0
+                }
+              },
+              "effective_resolution": {
+                "status": "calculated",
+                "axis_dpi": {
+                  "x": 300.0,
+                  "y": 300.0
+                },
+                "minimum_direction_dpi": 300.0,
+                "pixel_axis_extents_inches": {
+                  "x": 4.0,
+                  "y": 2.0
+                },
+                "minimum_required_dpi": 150.0,
+                "resolution_check": "pass",
+                "basis": "uncropped_native_box_pixel_dimensions_and_affine_axes",
+                "reasons": []
+              },
+              "bitmap_consistency": {
+                "status": "two_reads_reconciled",
+                "scope": "pixel_counts_crop_state_bounds_matrix_uncropped_box_and_effect_scope"
+              },
+              "link": {
+                "externally_linked": false,
+                "opi_linked": false,
+                "eps_placeholder": false,
+                "native_filename": null,
+                "bitmap_identity": "1f9bc3bc573496281832f4618e6fef75d2778d0fb295ce8f113a8755940e59e0",
+                "presence": {
+                  "status": "not_applicable",
+                  "resolved_path": null,
+                  "file_bytes": null,
+                  "file_state_fingerprint": null,
+                  "reason": null
+                }
+              },
+              "checks": {
+                "effective_resolution": "passed",
+                "linked_source_presence": "not_applicable"
+              },
+              "observed_status": "passed",
+              "status": "passed",
+              "reasons": []
+            },
+            {
+              "location": {
+                "scope": "page",
+                "page_index": 2,
+                "page_identity": "e11d2d04d5ee4afb3bb7ac6ff9a2a8b10adc773bfb5512d30bbd51a415428146",
+                "layer_identity": "31e727bbffd45c11c55f73aee090775682e3c455f58eb77cd5a15d9bc977419b",
+                "layer_name": "Artwork",
+                "applies_to_page_indices": [
+                  2
+                ],
+                "layer_printable": true,
+                "layer_visible": true,
+                "shape_identity": "9b944e2d1219e28e7e32b8cc474c36b5c2b7bcefb9ff132a54b2bcbc121440dd",
+                "static_id": 601,
+                "object_name": "Back bitmap",
+                "path": [
+                  {
+                    "kind": "root",
+                    "index": 1
+                  }
+                ]
+              },
+              "bitmap": {
+                "available": true,
+                "size_pixels": {
+                  "width": 1200,
+                  "height": 600
+                },
+                "native_resolution": {
+                  "x": 72,
+                  "y": 72
+                },
+                "mode_code": 5,
+                "externally_linked": false,
+                "embedded": true,
+                "can_be_cropped": true,
+                "crop_envelope_modified": false,
+                "unavailable_properties": []
+              },
+              "transform": {
+                "bounds_inches": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 4.0,
+                  "height": 2.0
+                },
+                "matrix": [
+                  1.0,
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_degrees": 0.0,
+                "native_z_order": 100,
+                "matrix_coordinate_space": "native_affine_in_document_inches"
+              },
+              "uncropped_box": {
+                "corners_inches": [
+                  {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  {
+                    "x": 4.0,
+                    "y": 0.0
+                  },
+                  {
+                    "x": 4.0,
+                    "y": 2.0
+                  },
+                  {
+                    "x": 0.0,
+                    "y": 2.0
+                  }
+                ],
+                "bounds_inches": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "width": 4.0,
+                  "height": 2.0
+                }
+              },
+              "effective_resolution": {
+                "status": "calculated",
+                "axis_dpi": {
+                  "x": 300.0,
+                  "y": 300.0
+                },
+                "minimum_direction_dpi": 300.0,
+                "pixel_axis_extents_inches": {
+                  "x": 4.0,
+                  "y": 2.0
+                },
+                "minimum_required_dpi": 150.0,
+                "resolution_check": "pass",
+                "basis": "uncropped_native_box_pixel_dimensions_and_affine_axes",
+                "reasons": []
+              },
+              "bitmap_consistency": {
+                "status": "two_reads_reconciled",
+                "scope": "pixel_counts_crop_state_bounds_matrix_uncropped_box_and_effect_scope"
+              },
+              "link": {
+                "externally_linked": false,
+                "opi_linked": false,
+                "eps_placeholder": false,
+                "native_filename": null,
+                "bitmap_identity": "19876f81bc309c240a67f83ca783da3893ffacaa29c50413ce43dc3a37f802d5",
+                "presence": {
+                  "status": "not_applicable",
+                  "resolved_path": null,
+                  "file_bytes": null,
+                  "file_state_fingerprint": null,
+                  "reason": null
+                }
+              },
+              "checks": {
+                "effective_resolution": "passed",
+                "linked_source_presence": "not_applicable"
+              },
+              "observed_status": "passed",
+              "status": "passed",
+              "reasons": []
+            }
+          ],
+          "summary": {
+            "passed": 2,
+            "failed": 0,
+            "indeterminate": 0,
+            "total": 2
+          },
+          "overall_status": "passed",
+          "raster_checks_passed": true,
+          "production_ready": false,
+          "verification_status": "implemented_unverified",
+          "unchecked_checks": [
+            "source_pixel_detail_and_fidelity",
+            "native_link_cache_freshness",
+            "color_icc_spot_overprint",
+            "export_generated_rasterization",
+            "visual_fidelity",
+            "printer_prepress_approval"
+          ],
+          "warnings": [
+            "Resolution and local linked-file presence cover observed native bitmap objects only; they do not establish print readiness.",
+            "Master/PowerClip coordinate semantics, effects and EPS placeholders can remain indeterminate; native and manual verification are deferred.",
+            "Document/filesystem state is observed at bounded reads without atomic locks; link files are not read, updated or resolved in CorelDRAW."
+          ],
+          "fingerprint": "9886060a31ae5166ca5a36b4de0903299c8d13354fa305f8570cdff212d6e2e6"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "preflight_document_rasters",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Raster preflight request was refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -29818,6 +31083,175 @@
         "No background removal, tracing, AI enhancement, native bitmap mutation or document-wide raster preflight.",
         "Filesystem ownership and source hashes are checked at bounded observations; paths are not locked against concurrent external edits.",
         "Consolidated MCP client, Corel import and visual/artifact review remain deferred."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "preflight_document_rasters",
+      "category": "images",
+      "description": "Two bounded whole-document graph scans reconcile native raster DPI and local linked-file presence without changing native context.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "preflight_document_rasters"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "minimum_dpi": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 2400,
+            "default": 150.0
+          },
+          "include_nonprinting": {
+            "type": "boolean",
+            "default": false
+          },
+          "max_shapes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4096,
+            "default": 1000
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "$ref": "#/schema_definitions/raster_preflight_result"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Bitmap.BoundingBoxPath",
+        "Bitmap.CropEnvelopeModified",
+        "Bitmap.Cropped",
+        "Bitmap.Embedded",
+        "Bitmap.ExternallyLinked",
+        "Bitmap.IsEPS",
+        "Bitmap.LinkFileName",
+        "Bitmap.Mode",
+        "Bitmap.OPILinked",
+        "Bitmap.ResolutionX",
+        "Bitmap.ResolutionY",
+        "Bitmap.SizeHeight",
+        "Bitmap.SizeWidth",
+        "Curve.Nodes",
+        "Curve.Segments",
+        "Curve.SubPaths",
+        "Document.ActivePage",
+        "Document.Dirty",
+        "Document.MasterPage",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.SelectionRange",
+        "Document.Unit",
+        "Effects.Count",
+        "Layer.Editable",
+        "Layer.IsSpecialLayer",
+        "Layer.Master",
+        "Layer.Name",
+        "Layer.Page",
+        "Layer.Printable",
+        "Layer.Shapes",
+        "Layer.Visible",
+        "Layers.Count",
+        "Layers.Item",
+        "Node.PositionX",
+        "Node.PositionY",
+        "Node.SubPath",
+        "Page.ActiveLayer",
+        "Page.AllLayers",
+        "Page.Index",
+        "Page.Layers",
+        "Page.Name",
+        "Page.Shapes",
+        "Page.SizeHeight",
+        "Page.SizeWidth",
+        "Pages.Count",
+        "Pages.Item",
+        "PowerClip.Parent",
+        "PowerClip.Shapes",
+        "Segment.EndNode",
+        "Segment.StartNode",
+        "Segment.SubPath",
+        "Segment.Type",
+        "Shape.Bitmap",
+        "Shape.Effects",
+        "Shape.GetMatrix",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.ParentGroup",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.PowerClip",
+        "Shape.PowerClipParent",
+        "Shape.RotationAngle",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Type",
+        "Shape.ZOrder",
+        "Shapes.Count",
+        "Shapes.Item",
+        "SubPath.Closed",
+        "SubPath.Nodes",
+        "SubPath.Segments"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_raster_preflight.py",
+          "tests/integration/test_corel_live.py",
+          "docs/RASTER_PREFLIGHT.md",
+          "docs/x7_raster_preflight_api_evidence.json",
+          "docs/raster_preflight_online_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native/manual verification remains deferred; all results remain implemented_unverified.",
+        "Default 1000/access limit 4096 shapes, 32 nesting levels; structure itself is limited to 256 pages/128 layers/4096 entries.",
+        "Native bitmap objects only; export-generated rasterization, source detail/fidelity, cache freshness, ICC/spot/overprint and prepress remain unchecked.",
+        "Master/PowerClip/effect/unknown/EPS geometry stays indeterminate; opaque symbol/OLE/EPS/custom containers and special effect groups prevent clean coverage.",
+        "Local link presence only; no source decoding or native link resolve/update. Remote/device links and relative base semantics remain indeterminate.",
+        "Nonprinting layers are excluded by default and reported; hidden printable layers are included. Master bitmaps are recorded once with applied-page indices.",
+        "Native and filesystem reads are bounded observations without atomic locking."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

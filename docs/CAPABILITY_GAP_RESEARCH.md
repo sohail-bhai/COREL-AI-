@@ -8,11 +8,11 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 87 tools, all `implemented_unverified`. It covers
+The current server exposes 88 tools, all `implemented_unverified`. It covers
 inspection, editable typography/layout, reusable text batches, vectors, process
 colors/gradients/transparency, clipping, copied contour derivatives and guarded
 page/local-layer creation, activation, naming and flags, plus verified local
-raster derivative preparation. Complete prepress production, background/cleanup
+raster derivative preparation and document-wide native raster preflight. Complete prepress production, background/cleanup
 image workflows and AI component generation/revisions
 remain incomplete. Specialist scripts are retained research artifacts.
 
@@ -41,7 +41,7 @@ is a requirements reference, not X7 automation evidence.
 | Layout/transforms | Move/proportional resize, pivot rotation, mirroring, native matrix inspection, sibling order, measured distribution/grouping and guarded page/local-layer controls | Cross-layer/page object moves, guides, outline-aware bounds and safe-area reflow |
 | Vector construction | Line/cubic paths and guarded nodes/handles; copied topology/shaping/compound revisions; native inside/outside contour derivatives | Adjacent deletion/fitting, open endpoint cropping, nested shaping, text/effect/open contours and exact native winding/offset/cutting gates |
 | Appearance and clipping | Native RGB/CMYK process colors; uniform transparency; PowerClip fitting/extraction/rebuilds; opaque direct multicolor gradients with guarded revisions | Proven outline units, spot/ICC, wider gradient/blend/group effects, in-place clip editing and native/visual verification |
-| Images and references | Validated imports; native bitmap metadata and affine effective resolution; local source/pixel fingerprints and PNG/TIFF crop/rotate/flip/fit with ICC/DPI preservation | Background removal/cleanup and AI enhancement, document-wide raster preflight, bounded tracing and fidelity reports |
+| Images and references | Validated imports; source/pixel fingerprints and verified PNG/TIFF derivatives; native affine DPI plus document-wide page/master/group/clip and local-link preflight | Background removal/cleanup and AI enhancement, native/source-detail/color/visual acceptance, export-generated rasterization, bounded tracing and fidelity reports |
 | Templates and data | Numbering/chest-bib sequence; named text templates, literal CSV, duplicates/count/overflow reconciliation and independent full/partial sheets | Image fields, mixed/linked text, auto-fit and numbering variants |
 | Publications and sheet production | Grid/contour planning; single-sheet execution | Multiple sheets, partial final sheets, page order, bleed/marks, source-preserving production outputs |
 | Export and prepress | Non-overwriting CDR/PDF output; controlled zero-bleed PDF settings and parsed all-page/font checks; raster DPI and geometry checks | Nonzero bleed, ICC/PDF-X, color/spot/overprint and effective raster-resolution checks |
@@ -113,7 +113,7 @@ affine grid yield axis and worst directional DPI, with separate native metadata,
 crop/scope checks and two-read consistency. Readable X7 size/resolution help and
 32 installed descriptors support the requirement; three SDK pages returned no
 readable API content. Native coordinates/crop/skew/groups, source detail and
-color/print approval remain deferred. Whole-job raster preflight remains next.
+color/print approval remain deferred.
 
 Local source-preserving raster inspection/preparation passes 49 focused checks in
 [RASTER_PREPARATION.md](RASTER_PREPARATION.md). Primary Pillow EXIF-transform,
@@ -123,6 +123,18 @@ actual access dates. PNG/TIFF derivatives have pixel/source/ICC/DPI readback,
 explicit fitting/upscale rules and exclusive publication. Multiple frames and
 precision/color conversion remain explicit separate workflows. Background
 removal/cleanup, AI enhancement, tracing and Corel/visual handoff remain pending.
+
+Document-wide [raster preflight](RASTER_PREFLIGHT.md) now passes 47 focused
+checks. Two native graph scans and three structure snapshots reconcile page/master
+membership, group/clip paths, ancestor transforms, bitmap DPI and local linked-file
+presence while preserving native context. Four additional native getters are
+supported by 24 installed descriptors, including `PowerClipParent -> IVGShape`.
+Readable primary PDF preflight and X7 resolution help support the requirement;
+the SDK link page supplied no readable API text. Partial/changed/effect/EPS/unknown
+or clipping/master/relative/OPI coordinate and source evidence cannot establish a
+complete pass. Native/manual acceptance and export-generated raster coverage remain
+pending. Opaque symbol/OLE/EPS/custom containers and special effect groups prevent
+clean coverage. Multi-sheet production is the next implementation work.
 
 Data and print requirements are supported by Corel's
 [print merge documentation](https://product.corel.com/help/CorelDRAW/Documentation-Windows/CorelDRAW-en/CorelDRAW-Print-merge.html),

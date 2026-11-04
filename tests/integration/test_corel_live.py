@@ -684,6 +684,55 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed, failure)
 
+    def test_document_raster_preflight_live(self) -> None:
+        """Deferred two-page/nested bitmap preflight and prepared-raster handoff."""
+        from PIL import Image
+        from corel_operator.raster_assets import inspect_raster_asset, prepare_raster_asset
+        passed = False; failure = None
+        try:
+            self.status = self._step('connect', self.bridge.connect)
+            self._step('new raster preflight document', lambda: self.bridge.create_document(8.5, 11))
+            source = self.output_dir / 'raster-preflight-source.png'
+            prepared = self.output_dir / 'raster-preflight-prepared.png'
+            with Image.new('RGBA', (1200, 600), (40, 120, 200, 128)) as image:
+                image.paste((220, 60, 30, 255), (0, 0, 600, 600)); image.save(source, dpi=(300, 300))
+            asset = inspect_raster_asset(str(source))['asset']
+            self._step('prepare independent raster fixture', lambda: prepare_raster_asset(str(source), str(prepared), asset['fingerprint'], flip_horizontal=True))
+            front = self._step('import front raster', lambda: self.bridge.import_artwork(str(prepared), 'PreflightFront'))
+            front_name = front['object_names'][0]
+            self._step('size front raster', lambda: self.bridge.resize_object(4., 2., object_name=front_name))
+            state = self.bridge.get_document_structure()['structure']
+            front_page = state['pages'][0]['page_identity']
+            self._step('append preflight back page', lambda: self.bridge.create_page('Preflight Back', 8.5, 11., state['fingerprint']))
+            back = self._step('import back raster', lambda: self.bridge.import_artwork(str(prepared), 'PreflightBack'))
+            back_name = back['object_names'][0]
+            self._step('size low DPI back raster', lambda: self.bridge.resize_object(8., 4., object_name=back_name))
+            self._step('group companion', lambda: self.bridge.draw_rectangle(1, 1, 1, 1, 'PreflightCompanion'))
+            self._step('nest back raster', lambda: self.bridge.group_shapes([back_name, 'PreflightCompanion'], 'PreflightGroup'))
+            state = self.bridge.get_document_structure()['structure']
+            self._step('return to front page', lambda: self.bridge.activate_page(front_page, state['fingerprint']))
+            self._step('save preflight fixture', lambda: self.bridge.save_document(str(self.output_dir / 'raster-preflight.cdr')))
+            context = self.bridge._raster_context(self.bridge._target_document())
+            result = self._step('preflight_document_rasters', lambda: self.bridge.preflight_document_rasters(200.))
+            self.assertEqual(result['inspection_consistency']['status'], 'two_scans_reconciled')
+            self.assertEqual(result['coverage']['status'], 'complete')
+            self.assertEqual(result['summary'], {'passed': 1, 'failed': 1, 'indeterminate': 0, 'total': 2})
+            self.assertEqual(result['overall_status'], 'failed'); self.assertFalse(result['production_ready'])
+            back_result = next(row for row in result['rasters'] if row['location']['object_name'] == back_name)
+            self.assertEqual(back_result['location']['page_index'], 2)
+            self.assertEqual(back_result['location']['path'][-1]['kind'], 'group')
+            self.assertAlmostEqual(back_result['effective_resolution']['minimum_direction_dpi'], 150., delta=.01)
+            self.assertEqual(context, self.bridge._raster_context(self.bridge._target_document()))
+            lower = self._step('preflight lower threshold', lambda: self.bridge.preflight_document_rasters(140.))
+            self.assertTrue(lower['raster_checks_passed'])
+            self._step('export preflight fixture', lambda: self.bridge.export_pdf_controlled(str(self.output_dir / 'raster-preflight.pdf')))
+            (self.output_dir / 'raster-preflight-readback.json').write_text(json.dumps({'requested': result, 'lower': lower}, indent=2), encoding='utf-8')
+            passed = True
+        except BaseException as exc:
+            failure = f'{type(exc).__name__}: {exc}'; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed, failure)
+
     def test_raster_print_workflow_live(self) -> None:
         """Consolidated raster placement gate with disposable generated artwork."""
         from PIL import Image

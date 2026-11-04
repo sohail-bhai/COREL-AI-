@@ -189,6 +189,13 @@
       "path": "docs/x7_bitmap_api_evidence.json",
       "inspection_date": "2026-11-03",
       "description": "Installed bitmap metadata/uncropped-box descriptors without application access."
+    },
+    {
+      "id": "x7_raster_preflight",
+      "type": "installed_type_library",
+      "path": "docs/x7_raster_preflight_api_evidence.json",
+      "inspection_date": "2026-11-04",
+      "description": "24 link/ownership/page/layer descriptors, no application access."
     }
   ],
   "members": [
@@ -323,7 +330,8 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_application",
@@ -571,7 +579,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "get_document_info",
-        "execute_template_batch"
+        "execute_template_batch",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_document",
@@ -597,7 +606,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_document",
@@ -673,7 +683,8 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_document",
@@ -725,7 +736,8 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_document",
@@ -772,7 +784,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_document",
@@ -790,7 +803,8 @@
       "signature": "SelectionRange -> ShapeRange",
       "status": "documented_and_typelib_confirmed",
       "used_by": [
-        "import_artwork"
+        "import_artwork",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_document",
@@ -999,7 +1013,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_page",
@@ -1024,7 +1039,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_page",
@@ -1048,7 +1064,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_page",
@@ -1089,7 +1106,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_page",
@@ -1139,7 +1157,8 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_page",
@@ -1186,7 +1205,8 @@
         "get_gradient_fill",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_page",
@@ -1214,7 +1234,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_page",
@@ -1239,7 +1260,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_page",
@@ -1344,7 +1366,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1402,7 +1425,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1426,7 +1450,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1450,7 +1475,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1474,7 +1500,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1498,7 +1525,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1548,7 +1576,8 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1675,7 +1704,8 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1702,7 +1732,8 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1752,7 +1783,8 @@
         "get_gradient_fill",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1803,7 +1835,8 @@
         "get_gradient_fill",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1851,7 +1884,8 @@
         "get_gradient_fill",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -1909,7 +1943,8 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1965,7 +2000,8 @@
         "create_layer",
         "set_layer_properties",
         "activate_layer",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2012,7 +2048,8 @@
         "get_gradient_fill",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2055,7 +2092,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2098,7 +2136,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2141,7 +2180,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2184,7 +2224,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2452,7 +2493,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3727,7 +3769,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3762,7 +3805,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3798,7 +3842,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3934,7 +3979,8 @@
       "signature": "ParentGroup()",
       "status": "typelib_confirmed",
       "used_by": [
-        "order_object"
+        "order_object",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -4478,7 +4524,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4508,7 +4555,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4538,7 +4586,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4568,7 +4617,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4598,7 +4648,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4628,7 +4679,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4687,7 +4739,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4775,7 +4828,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4863,7 +4917,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4893,7 +4948,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5045,7 +5101,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5075,7 +5132,8 @@
         "extract_powerclip_contents",
         "set_gradient_fill",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5450,7 +5508,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5470,7 +5529,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5490,7 +5550,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5510,7 +5571,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5548,7 +5610,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5567,7 +5630,8 @@
         "get_powerclip",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5587,7 +5651,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5607,7 +5672,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -6677,7 +6743,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_contour_offset_inspection"
@@ -6726,7 +6793,8 @@
       "status": "typelib_confirmed",
       "used_by": [
         "create_contour_offsets",
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_contour_offset_inspection"
@@ -6748,7 +6816,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6770,7 +6839,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6792,7 +6862,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6814,7 +6885,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6836,7 +6908,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6858,7 +6931,8 @@
         "create_page",
         "create_layer",
         "set_layer_properties",
-        "activate_layer"
+        "activate_layer",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_organization_inspection"
@@ -6906,7 +6980,8 @@
       "signature": "BoundingBoxPath",
       "status": "typelib_confirmed",
       "used_by": [
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_bitmap_inspection"
@@ -6922,7 +6997,8 @@
       "signature": "CropEnvelopeModified",
       "status": "typelib_confirmed",
       "used_by": [
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_bitmap_inspection"
@@ -6938,7 +7014,8 @@
       "signature": "Cropped",
       "status": "typelib_confirmed",
       "used_by": [
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_bitmap_inspection"
@@ -6954,7 +7031,8 @@
       "signature": "Embedded",
       "status": "typelib_confirmed",
       "used_by": [
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_bitmap_inspection"
@@ -6970,7 +7048,8 @@
       "signature": "ExternallyLinked",
       "status": "typelib_confirmed",
       "used_by": [
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_bitmap_inspection"
@@ -6986,12 +7065,77 @@
       "signature": "Mode",
       "status": "typelib_confirmed",
       "used_by": [
-        "get_bitmap_properties"
+        "get_bitmap_properties",
+        "preflight_document_rasters"
       ],
       "evidence": [
         "x7_bitmap_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.mode",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.IsEPS",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "IsEPS",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "preflight_document_rasters"
+      ],
+      "evidence": [
+        "x7_raster_preflight"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.iseps",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.LinkFileName",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "LinkFileName",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "preflight_document_rasters"
+      ],
+      "evidence": [
+        "x7_raster_preflight"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.linkfilename",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Bitmap.OPILinked",
+      "owner": "Bitmap",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "OPILinked",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "preflight_document_rasters"
+      ],
+      "evidence": [
+        "x7_raster_preflight"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/bitmap.opilinked",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "Shape.PowerClipParent",
+      "owner": "Shape",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "PowerClipParent",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "preflight_document_rasters"
+      ],
+      "evidence": [
+        "x7_raster_preflight"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.powerclipparent",
       "live_test_status": "not_run_deferred"
     }
   ]
