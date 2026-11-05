@@ -1116,6 +1116,24 @@ def set_text_style(
 
 @mcp.tool()
 @recorded_operation
+def set_text_spacing(
+    line_spacing: float | None = None, paragraph_before: float | None = None,
+    paragraph_after: float | None = None, spacing_unit: str = "percent_character_height",
+    object_name: str = "", shape_index: int = 0, object_reference: dict | None = None,
+) -> dict:
+    """Set whole-story line/paragraph spacing on one unfitted, unlinked text frame.
+
+    Units: points, percent_character_height or percent_point_size. Null values
+    retain their current values in the same unit. A unit change requires all three
+    explicit values. Returns measured spacing, preserved-content confirmation,
+    bounds and native story overflow; does not establish text fitting.
+    """
+    return _tool("set_text_spacing", "set_text_spacing", line_spacing, paragraph_before,
+                 paragraph_after, spacing_unit, object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
 def add_text(text: str, x_inches: float, y_inches: float, size_points: float = 24,
              font: str = "Arial", bold: bool = False, object_name: str = "") -> dict:
     """Create editable artistic text in the target document. Names are used to edit objects later."""

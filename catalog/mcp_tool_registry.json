@@ -6888,6 +6888,68 @@
         "warnings"
       ],
       "additionalProperties": false
+    },
+    "requested_text_spacing": {
+      "type": "object",
+      "properties": {
+        "line_spacing": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 2000
+        },
+        "paragraph_before": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2000
+        },
+        "paragraph_after": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2000
+        }
+      },
+      "required": [],
+      "additionalProperties": false,
+      "minProperties": 1
+    },
+    "actual_text_spacing": {
+      "type": "object",
+      "properties": {
+        "line_spacing": {
+          "type": "number",
+          "minimum": 0
+        },
+        "paragraph_before": {
+          "type": "number",
+          "minimum": 0
+        },
+        "paragraph_after": {
+          "type": "number",
+          "minimum": 0
+        },
+        "spacing_unit": {
+          "enum": [
+            "percent_character_height",
+            "points",
+            "percent_point_size"
+          ]
+        },
+        "spacing_type_code": {
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      "required": [
+        "line_spacing",
+        "paragraph_before",
+        "paragraph_after",
+        "spacing_unit",
+        "spacing_type_code"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -18347,6 +18409,109 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "PDF preflight request refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "set_text_spacing": {
+      "request": {
+        "line_spacing": 125,
+        "object_name": "Title"
+      },
+      "success": {
+        "ok": true,
+        "tool": "set_text_spacing",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "object": {
+            "object_name": "Title",
+            "static_id": 101,
+            "shape_type_code": 6,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:101",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "7b2933b433fb91f456fb65f4b2970322",
+              "document_session_id": "doc-0001",
+              "page_identity": "f3267b57b331c901b3eaef88ae8cb27dc85d5c212f98cf9c004667840ca2387d",
+              "layer_identity": "50d9ff76ac470beb14c88ed1c214348e6fc9e5999ed4ed81bb14926a1a8dc484",
+              "ancestor_identities": [],
+              "shape_identity": "9e1bbf55d923c156d8731ed881f7ad26c461d8cf706634f27d89c09d7157482c",
+              "static_id": 101,
+              "object_name": "Title",
+              "shape_type_code": 6,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                1
+              ],
+              "signature": "42346db759cd3c99e9282934d416f63de1e88cf8584274a59751078c92b561be"
+            }
+          },
+          "formatting_scope": "whole_story",
+          "actual_bounds_inches": {
+            "x": 1.0,
+            "y": 2.0,
+            "width": 3.0,
+            "height": 0.5
+          },
+          "layout": {
+            "text_type_code": 0,
+            "text_type": "artistic",
+            "overflow": null,
+            "overflow_scope": "linked_story",
+            "frame_count": 1,
+            "char_spacing_native": 0.0,
+            "word_spacing_native": 100.0,
+            "line_spacing_native": 125.0,
+            "line_spacing_type_code": 0,
+            "unavailable_properties": []
+          },
+          "before_spacing": {
+            "line_spacing": 100.0,
+            "paragraph_before": 4.0,
+            "paragraph_after": 6.0,
+            "spacing_type_code": 0,
+            "spacing_unit": "percent_character_height"
+          },
+          "actual_spacing": {
+            "line_spacing": 125.0,
+            "paragraph_before": 4.0,
+            "paragraph_after": 6.0,
+            "spacing_type_code": 0,
+            "spacing_unit": "percent_character_height"
+          },
+          "requested_spacing": {
+            "line_spacing": 125.0
+          },
+          "content_preserved": true
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "set_text_spacing",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Synthetic validation refusal.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -35201,6 +35366,247 @@
         "Resource inventory observes presence, including unused resources and scoped aliases; artwork streams/inline images/XMP are not decoded.",
         "No effective raster DPI, valid ICC/tint programs, content bleed/mark fidelity or PDF/X/printer guarantee.",
         "Unknown resources and annotations make supported resource inventory incomplete; checks_passed describes only requested geometry/font/intent-presence checks."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "set_text_spacing",
+      "category": "typography",
+      "description": "Set whole-story line and paragraph spacing in documented X7 units; preserve content and verify native readback.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.set_text_spacing"
+      },
+      "input_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/reference_object_selector"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "line_spacing": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0.01,
+                    "maximum": 2000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "paragraph_before": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 2000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "paragraph_after": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 2000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "spacing_unit": {
+                "enum": [
+                  "percent_character_height",
+                  "points",
+                  "percent_point_size"
+                ],
+                "default": "percent_character_height"
+              }
+            },
+            "anyOf": [
+              {
+                "required": [
+                  "line_spacing"
+                ],
+                "properties": {
+                  "line_spacing": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              },
+              {
+                "required": [
+                  "paragraph_before"
+                ],
+                "properties": {
+                  "paragraph_before": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              },
+              {
+                "required": [
+                  "paragraph_after"
+                ],
+                "properties": {
+                  "paragraph_after": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "updated": {
+                      "const": true
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "formatting_scope": {
+                      "const": "whole_story"
+                    },
+                    "actual_bounds_inches": {
+                      "$ref": "#/schema_definitions/bounds_inches"
+                    },
+                    "layout": {
+                      "$ref": "#/schema_definitions/text_layout_readback"
+                    },
+                    "before_spacing": {
+                      "$ref": "#/schema_definitions/actual_text_spacing"
+                    },
+                    "requested_spacing": {
+                      "$ref": "#/schema_definitions/requested_text_spacing"
+                    },
+                    "actual_spacing": {
+                      "$ref": "#/schema_definitions/actual_text_spacing"
+                    },
+                    "content_preserved": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "updated",
+                    "object",
+                    "formatting_scope",
+                    "actual_bounds_inches",
+                    "layout",
+                    "before_spacing",
+                    "requested_spacing",
+                    "actual_spacing",
+                    "content_preserved"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Type",
+        "Text.Frames",
+        "Text.Overflow",
+        "Text.Story",
+        "Text.Type",
+        "TextFrames.Count",
+        "TextRange.Alignment",
+        "TextRange.Bold",
+        "TextRange.CharSpacing",
+        "TextRange.Font",
+        "TextRange.Italic",
+        "TextRange.LineSpacing",
+        "TextRange.LineSpacingType",
+        "TextRange.ParaSpacingAfter",
+        "TextRange.ParaSpacingBefore",
+        "TextRange.SetLineSpacing",
+        "TextRange.Size",
+        "TextRange.Text",
+        "TextRange.Underline",
+        "TextRange.WordSpacing"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_text_spacing.py",
+          "docs/TEXT_SPACING.md",
+          "docs/x7_text_spacing_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Native/visual verification remains deferred to the consolidated campaign.",
+        "One unfitted unlinked frame; mixed or unreadable existing spacing is refused.",
+        "Unit changes require all three explicit values; aggregate style preservation cannot prove per-run fidelity.",
+        "Character/word spacing units, glyph coverage and auto-fit remain separate gaps.",
+        "Failures after a native call require exact operation reconciliation; no automatic replay or rollback."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

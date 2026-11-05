@@ -30,11 +30,11 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 901 tests (871 automated checks pass; thirty guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
+- 924 tests (894 automated checks pass; thirty guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Signed session references for precise nested edits, opt-in redacted operation
-  records, and explicit worker/recovery state across 92 MCP tools. Three local
+  records, and explicit worker/recovery state across 93 MCP tools. Three local
   state/outcome/reconciliation tools block unsafe follow-up mutations after
   timeout or partial failure; see [`docs/WORKER_RECOVERY.md`](docs/WORKER_RECOVERY.md).
 - Local raster inspection and source-preserving PNG/TIFF crop, quarter rotation,
@@ -46,6 +46,8 @@ Validate the catalog without starting CorelDRAW:
 - Editable paragraph frames, whole-story font/size/style/alignment revisions,
   bounded font catalog and native overflow/spacing inspection; see
   [`docs/TYPOGRAPHY.md`](docs/TYPOGRAPHY.md). Native verification remains deferred.
+- Whole-story line and paragraph spacing in researched X7 point/percentage units,
+  with content preservation and guarded unit changes; see [`docs/TEXT_SPACING.md`](docs/TEXT_SPACING.md).
 - Matrix/bounds inspection, pivot rotation, mirroring, sibling stacking and
   measured equal-gap/equal-center/explicit-gap distribution; see
   [`docs/LAYOUT_TRANSFORMS.md`](docs/LAYOUT_TRANSFORMS.md).

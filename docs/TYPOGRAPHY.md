@@ -60,8 +60,9 @@ Primary online documentation:
 - [X7 character spacing](https://community.coreldraw.com/sdk/api/draw/17/p/textrange.charspacing)
 - [X7 word spacing](https://community.coreldraw.com/sdk/api/draw/17/p/textrange.wordspacing)
 
-Spacing properties are confirmed, but their user-facing scale and line-spacing
-semantics need further evidence before exposing write controls. Still pending:
+Line/paragraph spacing now has researched units and guarded write controls in
+[TEXT_SPACING.md](TEXT_SPACING.md), with 23 focused checks. Character/word spacing
+scales still require evidence before exposing write controls. Still pending:
 per-run formatting, glyph/font-face coverage, linked/fitted story edits, safe
 text fitting, multilingual visual review, and template reflow.
 

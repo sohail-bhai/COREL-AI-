@@ -12,6 +12,9 @@ MAX_TEXT_CHARS = 100000
 ALIGNMENTS = {"left": 1, "right": 2, "center": 3, "justify": 4, "force_justify": 5}
 UNDERLINES = {"none": 0, "single": 1}
 TEXT_TYPES = {0: "artistic", 1: "paragraph", 2: "artistic_fitted", 3: "paragraph_fitted"}
+SPACING_UNITS = {"percent_character_height": 0, "points": 1, "percent_point_size": 2}
+SPACING_ATTRIBUTES = {"line_spacing": "LineSpacing", "paragraph_before": "ParaSpacingBefore",
+                      "paragraph_after": "ParaSpacingAfter"}
 STYLE_ATTRIBUTES = {"font": "Font", "size_points": "Size", "bold": "Bold",
                     "italic": "Italic", "underline": "Underline", "alignment": "Alignment"}
 
@@ -64,6 +67,26 @@ def validate_paragraph(text, x, y, width, height, object_name):
     finite_number(height, "height_inches", 0.001, 200)
     if type(object_name) is not str or len(object_name) > 120 or any(ord(c) < 32 for c in object_name):
         invalid("object_name must be at most 120 characters without controls.")
+
+
+def validate_spacing(line_spacing, paragraph_before, paragraph_after, spacing_unit):
+    if type(spacing_unit) is not str or spacing_unit not in SPACING_UNITS:
+        invalid("spacing_unit must be points, percent_character_height or percent_point_size.")
+    requested = {}
+    for field, value in dict(line_spacing=line_spacing, paragraph_before=paragraph_before,
+                             paragraph_after=paragraph_after).items():
+        if value is not None:
+            requested[field] = finite_number(value, field, 0.01 if field == "line_spacing" else 0, 2000)
+    if not requested:
+        invalid("Supply at least one line or paragraph spacing value.")
+    return requested
+
+
+def spacing_readback(story):
+    code = read_property(story, "LineSpacingType", "integer")
+    result = {field: read_property(story, attr, "number") for field, attr in SPACING_ATTRIBUTES.items()}
+    result.update(spacing_type_code=code, spacing_unit={v: k for k, v in SPACING_UNITS.items()}.get(code))
+    return result
 
 
 def read_property(value, attr, kind):

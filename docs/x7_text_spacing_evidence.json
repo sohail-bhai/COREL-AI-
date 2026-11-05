@@ -1,0 +1,252 @@
+{
+  "typelib_path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "application_connected": false,
+  "browser_used": false,
+  "members": [
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MinWordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743857, (), (), 4, 2, 4, 0, 448, (4, 0, None), 0)",
+      "documentation": "Gets/sets the minimum amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MinWordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743857, (), ((4, 1, None),), 4, 4, 4, 0, 456, (24, 0, None), 0)",
+      "documentation": "Gets/sets the minimum amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxWordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743859, (), (), 4, 2, 4, 0, 464, (4, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxWordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743859, (), ((4, 1, None),), 4, 4, 4, 0, 472, (24, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxCharSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743861, (), (), 4, 2, 4, 0, 480, (4, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each character"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxCharSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743861, (), ((4, 1, None),), 4, 4, 4, 0, 488, (24, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each character"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingBefore"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743863, (), (), 4, 2, 4, 0, 496, (4, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space before the paragraph"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingBefore"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743863, (), ((4, 1, None),), 4, 4, 4, 0, 504, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space before the paragraph"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingAfter"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743865, (), (), 4, 2, 4, 0, 512, (4, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space after the paragraph"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingAfter"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743865, (), ((4, 1, None),), 4, 4, 4, 0, 520, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space after the paragraph"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743867, (), (), 4, 2, 4, 0, 528, (4, 0, None), 0)",
+      "documentation": "Gets/sets the character spacing property"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743867, (), ((4, 1, None),), 4, 4, 4, 0, 536, (24, 0, None), 0)",
+      "documentation": "Gets/sets the character spacing property"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LineSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743869, (), (), 4, 2, 4, 0, 544, (4, 0, None), 0)",
+      "documentation": "Gets/sets the line spacing property"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LineSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743869, (), ((4, 1, None),), 4, 4, 4, 0, 552, (24, 0, None), 0)",
+      "documentation": "Gets/sets the line spacing property"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LineSpacingType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743871, (), (), 4, 2, 4, 0, 560, ((29, 50333568), 0, None), 0)",
+      "documentation": "Gets the type of line spacing to use"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "WordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743872, (), (), 4, 2, 4, 0, 568, (4, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "WordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743872, (), ((4, 1, None),), 4, 4, 4, 0, 576, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "SetLineSpacing",
+        "Type",
+        "LineSpacing",
+        "ParaBefore",
+        "ParaAfter"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743903, (), (((29, 50333568), 1, None), (4, 49, -1.0), (4, 49, -1.0), (4, 49, -1.0)), 4, 1, 4, 0, 816, (24, 0, None), 0)",
+      "documentation": "Sets the line spacing properties of the text range"
+    }
+  ],
+  "enums": {
+    "cdrLineSpacingType": {
+      "cdrPercentOfCharacterHeightLineSpacing": 0,
+      "cdrPointLineSpacing": 1,
+      "cdrPercentOfPointSizeLineSpacing": 2,
+      "cdrMixedLineSpacing": 3
+    }
+  },
+  "sources": [
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.charspacing",
+      "accessed_utc": "2026-11-05T03:45:15.063734+00:00",
+      "status": 200,
+      "final_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.charspacing",
+      "response_truncated": false,
+      "related_spacing_links": [],
+      "excerpts": [],
+      "member_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.linespacing",
+      "accessed_utc": "2026-11-05T03:45:15.188522+00:00",
+      "status": 200,
+      "final_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.linespacing",
+      "response_truncated": false,
+      "related_spacing_links": [],
+      "excerpts": [],
+      "member_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.linespacingtype",
+      "accessed_utc": "2026-11-05T03:45:15.260931+00:00",
+      "status": 200,
+      "final_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.linespacingtype",
+      "response_truncated": false,
+      "related_spacing_links": [],
+      "excerpts": [],
+      "member_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.wordspacing",
+      "accessed_utc": "2026-11-05T03:45:15.343029+00:00",
+      "status": 200,
+      "final_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.wordspacing",
+      "response_truncated": false,
+      "related_spacing_links": [],
+      "excerpts": [],
+      "member_text_found": false
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Adjusting-character-and-word-spacing.html",
+      "accessed_utc": "2026-11-05T03:45:15.455776+00:00",
+      "error_type": "HTTPError"
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Adjusting-character-spacing-and-word-spacing.html",
+      "accessed_utc": "2026-11-05T03:45:15.724574+00:00",
+      "error_type": "HTTPError"
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Adjusting-line-and-paragraph-spacing.html",
+      "accessed_utc": "2026-11-05T03:45:15.985139+00:00",
+      "status": 200,
+      "final_url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Adjusting-line-and-paragraph-spacing.html",
+      "response_truncated": false,
+      "related_spacing_links": [],
+      "excerpts": [
+        " CorelDRAW Help | Adjusting line and paragraph spacing CorelDRAW Help : Text : Formatting text : Adjusting line and paragraph spacing Quick links to procedures on this page: \u2022 To adjust interline spacing \u2022 To adjust the spacing between paragraphs Adjusting line and paragraph spacing You can change the spacing between lines of text, which is also known as \"leading\" or \"interline spacing.\" Well-balanced line spacing (1) can improve the readability of text. Insufficient line spacing can reduce readability by causing letters to overlap (2). In CorelDRAW, you can also adjust line spacing of a text object by using the Shape tool. Adjusting line ",
+        "g line and paragraph spacing CorelDRAW Help : Text : Formatting text : Adjusting line and paragraph spacing Quick links to procedures on this page: \u2022 To adjust interline spacing \u2022 To adjust the spacing between paragraphs Adjusting line and paragraph spacing You can change the spacing between lines of text, which is also known as \"leading\" or \"interline spacing.\" Well-balanced line spacing (1) can improve the readability of text. Insufficient line spacing can reduce readability by causing letters to overlap (2). In CorelDRAW, you can also adjust line spacing of a text object by using the Shape tool. Adjusting line spacing proportionally by using the Shape tool You can change the spacing betwe",
+        " units of measurement from the Vertical spacing units list box: \u2022 % of Char height \u2014 lets you use a percentage value that is relative to the character height \u2022 Points \u2014 lets you use points \u2022 % of Pt.size \u2014 lets you use a percentage value that is relative to the character point size 4 . Type a value in the Line spacing box. You can also change the spacing between lines proportionally by clicking the Shape tool , selecting the text object, and dragging the Interactive vertical spacing arrow in the lower-left corner of the text object. To adjust the spacing between paragraphs 1 . Using the Text tool , select the paragraph text. If the Object properties docker is not open, click Window Dockers O",
+        "pacing units list box: \u2022 % of Char height \u2014 lets you use a percentage value that is relative to the character height \u2022 Points \u2014 lets you use points \u2022 % of Pt.size \u2014 lets you use a percentage value that is relative to the character point size 4 . Type a value in the Line spacing box. You can also change the spacing between lines proportionally by clicking the Shape tool , selecting the text object, and dragging the Interactive vertical spacing arrow in the lower-left corner of the text object. To adjust the spacing between paragraphs 1 . Using the Text tool , select the paragraph text. If the Object properties docker is not open, click Window Dockers Object properties . 2 . In the Object prop",
+        "ox: \u2022 % of Char height \u2014 lets you use a percentage value that is relative to the character height \u2022 Points \u2014 lets you use points \u2022 % of Pt.size \u2014 lets you use a percentage value that is relative to the character point size 4 . Type a value in the Line spacing box. You can also change the spacing between lines proportionally by clicking the Shape tool , selecting the text object, and dragging the Interactive vertical spacing arrow in the lower-left corner of the text object. To adjust the spacing between paragraphs 1 . Using the Text tool , select the paragraph text. If the Object properties docker is not open, click Window Dockers Object properties . 2 . In the Object properties docker, clic",
+        " \u2014 lets you use a percentage value that is relative to the character height \u2022 Points \u2014 lets you use points \u2022 % of Pt.size \u2014 lets you use a percentage value that is relative to the character point size 4 . Type a value in the Line spacing box. You can also change the spacing between lines proportionally by clicking the Shape tool , selecting the text object, and dragging the Interactive vertical spacing arrow in the lower-left corner of the text object. To adjust the spacing between paragraphs 1 . Using the Text tool , select the paragraph text. If the Object properties docker is not open, click Window Dockers Object properties . 2 . In the Object properties docker, click the Paragraph button",
+        " is relative to the character height \u2022 Points \u2014 lets you use points \u2022 % of Pt.size \u2014 lets you use a percentage value that is relative to the character point size 4 . Type a value in the Line spacing box. You can also change the spacing between lines proportionally by clicking the Shape tool , selecting the text object, and dragging the Interactive vertical spacing arrow in the lower-left corner of the text object. To adjust the spacing between paragraphs 1 . Using the Text tool , select the paragraph text. If the Object properties docker is not open, click Window Dockers Object properties . 2 . In the Object properties docker, click the Paragraph button to display the paragraph-related optio",
+        "s you use points \u2022 % of Pt.size \u2014 lets you use a percentage value that is relative to the character point size 4 . Type a value in the Line spacing box. You can also change the spacing between lines proportionally by clicking the Shape tool , selecting the text object, and dragging the Interactive vertical spacing arrow in the lower-left corner of the text object. To adjust the spacing between paragraphs 1 . Using the Text tool , select the paragraph text. If the Object properties docker is not open, click Window Dockers Object properties . 2 . In the Object properties docker, click the Paragraph button to display the paragraph-related options. 3 . In the Paragraph area of the Object propert"
+      ],
+      "member_text_found": true
+    }
+  ]
+}

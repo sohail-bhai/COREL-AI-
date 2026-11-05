@@ -1772,6 +1772,26 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             body = self.bridge.get_text_properties(object_reference=body_reference, max_text_chars=10000)
             normalize = lambda value: value.replace("\r\n", "\r").replace("\n", "\r")
             self.assertEqual(normalize(body["text"]["content"]), normalize(body_text))
+            spacing_results = []
+            for unit, line in (("points", 18), ("percent_point_size", 150), ("percent_character_height", 125)):
+                spaced = self._step("set native spacing in " + unit, lambda unit=unit, line=line:
+                    self.bridge.set_text_spacing(line_spacing=line, paragraph_before=0,
+                        paragraph_after=6, spacing_unit=unit, object_reference=body_reference))
+                spacing_results.append(spaced)
+                self.assertEqual(spaced["actual_spacing"]["spacing_unit"], unit)
+                self.assertAlmostEqual(spaced["actual_spacing"]["line_spacing"], line, delta=.01)
+                self.assertEqual(spaced["actual_spacing"]["paragraph_before"], 0)
+                self.assertAlmostEqual(spaced["actual_spacing"]["paragraph_after"], 6, delta=.01)
+                self.assertTrue(spaced["content_preserved"])
+                after_spacing = self.bridge.get_text_properties(object_reference=body_reference, max_text_chars=10000)
+                self.assertEqual(normalize(after_spacing["text"]["content"]), normalize(body_text))
+                self.assertEqual(after_spacing["text"]["size_points"], body["text"]["size_points"])
+                for field, expected in (("x", 1), ("y", 4), ("width", 2), ("height", .5)):
+                    self.assertAlmostEqual(spaced["actual_bounds_inches"][field], expected, delta=.02)
+            with self.assertRaises(CorelBridgeError) as spacing_unit_change:
+                self.bridge.set_text_spacing(line_spacing=18, spacing_unit="points", object_reference=body_reference)
+            self.assertEqual(spacing_unit_change.exception.code, ErrorCode.INVALID_ARGUMENT)
+            self.assertEqual(self.bridge.get_text_properties(object_reference=body_reference)["text"]["layout"]["line_spacing_type_code"], 0)
             self._step("set native text color", lambda: self.bridge.set_fill_color(20, 40, 60, object_reference=body_reference))
             self.assertEqual(self.bridge.get_fill(object_reference=body_reference)["fill"]["type"], "uniform")
             shape_count = int(document.ActivePage.Shapes.Count)
@@ -1782,7 +1802,7 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self.assertEqual((int(document.Unit), int(document.ReferencePoint)), original_context)
             (self.output_dir / "typography-readback.json").write_text(
                 json.dumps({"title": changed, "paragraph": paragraph, "revised_body": styled_body,
-                            "body_inspection": body}, indent=2, ensure_ascii=False), encoding="utf-8")
+                            "body_inspection": body, "spacing_revisions": spacing_results}, indent=2, ensure_ascii=False), encoding="utf-8")
             self._step("verify native typography", lambda: {"updated": True})
             passed = True
         except BaseException as exc:

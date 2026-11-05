@@ -44,7 +44,7 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 92 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 93 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
@@ -53,8 +53,9 @@ specialized rollback policies remain broader recovery work.
 
 Three [typography tools](TYPOGRAPHY.md) now create paragraph frames, inspect the
 font catalog, and revise whole-story styles with actual formatting/bounds and
-chain-overflow readback. Spacing writes, glyph checks and native evidence remain
-pending.
+chain-overflow readback. [Line/paragraph spacing](TEXT_SPACING.md) now has documented
+point/percentage units, guarded edits and preservation checks. Character/word units,
+glyph checks and native acceptance remain pending.
 
 Five [layout tools](LAYOUT_TRANSFORMS.md) now inspect native matrix/bounds, rotate
 around a pivot, mirror, change sibling order and distribute measured objects.
@@ -149,7 +150,7 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic and workflow tools — `implemented_unverified` | 92 |
+| Registered atomic and workflow tools — `implemented_unverified` | 93 |
 | Planned atomic/workflow tools — `planned` | 1 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |

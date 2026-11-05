@@ -35,11 +35,13 @@ recover safely from failure, read back the actual result, and report limitations
 
 ## 2. Current baseline
 
-Latest iteration (2026-11-05): researched X7 bleed/mark/overprint PDF controls,
+Latest iteration (2026-11-05): guarded line/paragraph spacing with documented
+X7 point/percentage units, content preservation and preflight-race protection;
+see [TEXT_SPACING.md](TEXT_SPACING.md). Also researched X7 bleed/mark/overprint PDF controls,
 all-page measured trim/bleed checks, bounded supported prepress-resource inventory
 and source/output-preserving publication recovery. See [PDF_PREPRESS.md](PDF_PREPRESS.md).
 General full/partial-sheet repeat runs remain in [PRINT_RUNS.md](PRINT_RUNS.md).
-Current totals are 92 registered tools and 901 tests (871 pass, 30 guarded live
+Current totals are 93 registered tools and 924 tests (894 pass, 30 guarded live
 tests skipped). All tools remain `implemented_unverified`. The user resumed
 autonomous implementation; continue from [IMPLEMENTATION_HANDOFF.md](IMPLEMENTATION_HANDOFF.md).
 The historical baseline below records the original plan date.
@@ -415,7 +417,7 @@ These are the next reviewable tickets:
 | 8 | ID-001 | Document-liveness guard and signed object references implemented; lifecycle X7 gate prepared | Closed/replaced/stale/ambiguous targets are refused; nested edits and reorder pass fake-COM/dispatcher tests; live gate pending |
 | 9 | SAFE-001 | Opt-in bounded external operation records implemented | All 55 MCP tools have caller/worker events; redaction/storage/timeout event tests pass; no content on stdout |
 | 10 | SAFE-002 | Explicit worker state and guarded reconciliation implemented; native gate prepared | Pending cancellation, late-result quarantine, native-stage tracking, partial-failure acknowledgement and exact-ID reconciliation pass automated gates; live verification deferred |
-| 11 | TYPO-001 | Paragraph frames, font catalog and whole-story style editing implemented; native gate prepared | Font preflight, reference targeting, actual formatting/bounds and native chain-overflow readback pass automated gates; spacing writes/glyphs/auto-fit remain gaps |
+| 11 | TYPO-001 | Paragraph frames, font catalog, whole-story style and leading/paragraph spacing implemented; native gate prepared | Font/reference targeting, documented spacing units, content/formatting/bounds and chain-overflow readback pass non-live gates; character/word units, per-run/glyphs/auto-fit remain gaps |
 | 12 | LAY-001 | Matrix inspection, pivot rotation, mirroring, sibling order and measured distribution implemented; native gate prepared | Exact references, actual matrices/bounds, complete stacking scope and independent batch targets pass automated gates; layers/guides/safe-area reflow remain gaps |
 
 DP-001 through DP-005 now pass their automated and disposable-X7 gates. Manual review of the

@@ -100,8 +100,9 @@ capability status, and keep live verification deferred.
   See [WORKER_RECOVERY.md](WORKER_RECOVERY.md).
 - Typography is implemented: paragraph frames, font catalog, reference-aware
   whole-story styles and native overflow/spacing readback pass automated gates.
-  Native behavior, spacing writes and auto-fit remain deferred. See
-  [TYPOGRAPHY.md](TYPOGRAPHY.md).
+  Guarded line/paragraph spacing now passes 23 non-live checks in
+  [TEXT_SPACING.md](TEXT_SPACING.md). Character/word units, native behavior and
+  auto-fit remain pending. See [TYPOGRAPHY.md](TYPOGRAPHY.md).
 - Layout transforms are implemented: finite matrix inspection, explicit-pivot
   rotation, mirroring, native sibling order and measured distribution pass
   automated gates. See [LAYOUT_TRANSFORMS.md](LAYOUT_TRANSFORMS.md).
@@ -166,8 +167,9 @@ This safety foundation remains required before broader editing and batch work.
 ### 3. Everyday text and layout controls
 
 - Paragraph creation, font/size/style/alignment revisions, font catalog and
-  chain-overflow/native-spacing inspection are implemented. Continue spacing
-  writes, glyph coverage, safe fitting and the deferred native typography gate.
+  chain-overflow/native-spacing inspection and guarded leading/paragraph spacing
+  are implemented. Continue character/word units, per-run formatting, glyph
+  coverage, safe fitting and the deferred native typography gate.
 - Proportional resizing, rotation, mirroring, distribution and native sibling
   order are implemented. Seven page/layer tools now add bounded structural
   inspection/fingerprints, exact activation, naming, empty local layers and

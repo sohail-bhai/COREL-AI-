@@ -259,6 +259,11 @@ class CorelX7Adapter:
             "Whole-story editing with signed targeting, font preflight and formatting readback passes fake-COM tests; linked/fitted text is refused.",
             ("Text.Story", "Text.Frames", "TextRange.Font", "TextRange.Size", "TextRange.Alignment"),
         ),
+        "text.spacing_edit": CapabilitySupport(
+            True, "implemented_unverified",
+            "Installed X7 SetLineSpacing and unit enums support guarded whole-story leading/paragraph spacing; native and visual acceptance remain deferred.",
+            ("TextRange.SetLineSpacing", "TextRange.LineSpacingType", "TextRange.ParaSpacingBefore", "TextRange.ParaSpacingAfter"),
+        ),
         "text.font_catalog": CapabilitySupport(
             True, "implemented_unverified",
             "Bounded X7 font catalog inspection is type-library confirmed; catalog membership does not establish glyph coverage.",

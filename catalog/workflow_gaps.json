@@ -239,10 +239,11 @@
         "get_text_properties",
         "list_fonts",
         "add_paragraph_text",
-        "set_text_style"
+        "set_text_style",
+        "set_text_spacing"
       ],
       "missing_behavior": [
-        "Spacing writes with established user-facing units",
+        "Character/word spacing writes with established user-facing units",
         "Per-run and linked/fitted story edits",
         "Font face/glyph coverage",
         "Safe auto-fit and template reflow"
@@ -264,12 +265,16 @@
         "Editable paragraph frames",
         "Whole-story font/size/style/alignment revisions",
         "Bounded font catalog with complete preflight",
-        "Native subtype/frame/spacing/chain-overflow inspection"
+        "Native subtype/frame/spacing/chain-overflow inspection",
+        "Guarded whole-story leading/paragraph spacing in documented X7 points and percentage units"
       ],
       "evidence": [
         "docs/TYPOGRAPHY.md",
         "docs/x7_typography_api_evidence.json",
-        "tests/test_typography.py"
+        "tests/test_typography.py",
+        "tests/test_text_spacing.py",
+        "docs/TEXT_SPACING.md",
+        "docs/x7_text_spacing_evidence.json"
       ]
     },
     {

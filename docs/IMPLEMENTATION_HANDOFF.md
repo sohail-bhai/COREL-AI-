@@ -8,12 +8,32 @@ Branch: `feature/workflow-planning-slice`. Preserve this branch and read
 `HARNESS_INCIDENTS.md` before project work. Inspect current Git status/history
 to confirm batch commit/push state; do not infer commits from this document.
 
-Current surface: 92 registered tools, all `implemented_unverified`; 94 registry
-records/matrix rows, 314 native members, 272 checked schemas, 282 examples,
-28 enum groups and 73 adapter capabilities. Default suite: 901 tests, 871 pass,
+Current surface: 93 registered tools, all `implemented_unverified`; 95 registry
+records/matrix rows, 317 native members, 276 checked schemas, 285 examples,
+29 enum groups and 74 adapter capabilities. Default suite: 924 tests, 894 pass,
 30 guarded live tests skipped. No live CorelDRAW verification ran this iteration.
 
-Latest batch: researched X7 nonzero PDF bleed, explicit crop/registration marks
+The resumed session found the retained PDF batch uncommitted and its linked
+non-live report missing. Validated it, restored the report, committed and pushed
+`2d29970`. Git confirmed local/remote agreement before further implementation.
+
+Latest batch: `set_text_spacing` implements one unfitted/unlinked whole-story
+leading/paragraph spacing edit in documented X7 points or character-height/
+point-size percentages. Native type-library descriptors and readable X7 help
+support these units; SDK pages supplied no readable member text. Null values
+retain existing values only in the same unit. Unit changes require all three
+explicit values. Two preflight snapshots preserve detected concurrent changes;
+native spacing/type/content and aggregate-style/horizontal readback, actual
+bounds and worker quarantine protect failures. No CDR save or auto-fit occurs.
+
+Twenty-three focused checks, full default tests and catalog validation pass.
+See [TEXT_SPACING.md](TEXT_SPACING.md), [native/online evidence](x7_text_spacing_evidence.json)
+and [non-live report](test-reports/2026-11-05-text-spacing-non-live.md).
+The existing disposable typography gate now covers all three units and unit-
+change refusal, with editable CDR/JSON artifacts; it remains unrun. Exact per-run
+style/glyph fidelity and character/word write-unit evidence remain gaps.
+
+Previous batch: researched X7 nonzero PDF bleed, explicit crop/registration marks
 and overprint preservation, plus local `preflight_pdf`. Installed X7 PDF getter/
 let documentation establishes bleed in 10-micrometre units (2540 per inch).
 The retained evidence includes native descriptors and documentation without
@@ -43,7 +63,7 @@ staging/publication/cleanup failures and preservation of concurrent edits.
 Details: [PDF_PREPRESS.md](PDF_PREPRESS.md) and
 [offline report](test-reports/2026-11-05-pdf-prepress-non-live.md).
 
-The consolidated inventory covers all 92 tools with zero missing explicit native
+The consolidated inventory covers all 93 tools with zero missing explicit native
 gates. `test_pdf_prepress_live` prepares disposable 1 mm/3 mm multipage exports,
 enabled marks, explicit overprint preservation, settings restoration and CDR/
 PDF/JSON artifacts. The entire campaign and manual production review remain
@@ -51,12 +71,18 @@ pending. A prepared test is not native verification.
 
 Continue from [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md) and
 `catalog/workflow_gaps.json` under `CURRENT_IMPLEMENTATION_PRIORITIES.md`.
-Remaining implementation includes typography spacing/run/fitting, richer
+Remaining implementation includes character/word spacing units, per-run/fitting, richer
 template fields/reflow, controlled document checkpoints/organization, ICC/PDF-X
 and export-generated raster coverage, general graphics/image cleanup, component
 provider/generation/revision history, quality/reflow/mockups and researched
 specialty workflows. Continue independent work for unresolved API/provider/output
 dependencies. Custom Alhamdulillah calligraphy/reconstruction remains deferred.
+
+Next bounded batch: research X7 text range/character indexing and fitting APIs
+from installed descriptors/primary docs, then implement a source-preserving
+editable fitting or run-editing workflow supported by that evidence. Retain
+unsupported linked/fitted/multilingual/provider behavior explicitly and continue
+the broader template/checkpoint/component backlog without live acceptance.
 
 Keep sequential bounded foreground operations and ordinary workspace files.
 No browser preview, background jobs, parallel wrappers or subagents. Preserve

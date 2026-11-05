@@ -463,6 +463,21 @@
       "notes": [
         "Installed 2026-11-03; native/cutting checks deferred."
       ]
+    },
+    "cdrLineSpacingType": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrLineSpacingType",
+      "values": {
+        "cdrPercentOfCharacterHeightLineSpacing": 0,
+        "cdrPointLineSpacing": 1,
+        "cdrPercentOfPointSizeLineSpacing": 2,
+        "cdrMixedLineSpacing": 3
+      },
+      "bridge_usage": [
+        "set_text_spacing explicit native unit dispatch; mixed code 3 refused"
+      ],
+      "notes": [
+        "Installed X7 enum evidence in docs/x7_text_spacing_evidence.json."
+      ]
     }
   }
 }

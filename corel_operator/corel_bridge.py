@@ -30,6 +30,7 @@ from .typography import (
     ALIGNMENTS, UNDERLINES, STYLE_ATTRIBUTES, MAX_FONT_SCAN, MAX_FONT_CHARS,
     validate_font, validate_style, validate_paragraph,
     read_property, style_readback, layout_readback,
+    SPACING_UNITS, SPACING_ATTRIBUTES, MAX_TEXT_CHARS, validate_spacing, spacing_readback,
 )
 from .layout import (
     FLIP_AXES, ORDER_METHODS, MAX_LAYOUT_OBJECTS, POSITION_TOLERANCE,
@@ -1691,6 +1692,75 @@ class CorelBridge(PrintRunBridgeMixin,TemplateBridgeMixin,PdfBridgeMixin,VectorB
             raise
         except Exception as exc:
             raise CorelBridgeError("CorelDRAW could not apply or inspect text formatting.", ErrorCode.COREL_COM_ERROR) from exc
+
+    @tracked_mutation
+    def set_text_spacing(
+        self, line_spacing: float | None = None, paragraph_before: float | None = None,
+        paragraph_after: float | None = None, spacing_unit: str = "percent_character_height",
+        object_name: str = "", shape_index: int = 0, object_reference: dict | None = None,
+    ):
+        requested = validate_spacing(line_spacing, paragraph_before, paragraph_after, spacing_unit)
+        document, shape, identity = self._inspection_target(object_name, shape_index, object_reference)
+        if object_reference is not None:
+            shape, _ = self._resolve_object_reference(document, object_reference, mutation=True)
+        if identity["shape_type_code"] != self.adapter.CDR_TEXT_SHAPE:
+            raise CorelBridgeError("The selected object is not a text shape.", ErrorCode.INVALID_ARGUMENT)
+        try:
+            text, story = shape.Text, shape.Text.Story
+            layout = layout_readback(text, story)
+            if layout["text_type_code"] not in (0, 1) or layout["frame_count"] != 1:
+                raise CorelBridgeError("Spacing editing requires one unfitted, unlinked frame.",
+                                       ErrorCode.UNSUPPORTED_IN_PROFILE)
+            before = spacing_readback(story)
+            if before["spacing_unit"] is None or any(before[key] is None or before[key] < 0
+                                                      for key in SPACING_ATTRIBUTES) or before["line_spacing"] == 0:
+                raise CorelBridgeError("Existing spacing is unavailable or mixed.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+            if spacing_unit != before["spacing_unit"] and len(requested) != 3:
+                raise CorelBridgeError("Changing spacing units requires all three explicit values.",
+                                       ErrorCode.INVALID_ARGUMENT)
+            content = story.Text
+            if type(content) is not str or len(content) > MAX_TEXT_CHARS:
+                raise CorelBridgeError("Text content exceeds bounded preservation scope.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+            preserved_style = style_readback(story)
+            horizontal = {key: read_property(story, key, "number") for key in ("CharSpacing", "WordSpacing")}
+            if any(value is None for value in horizontal.values()):
+                raise CorelBridgeError("Horizontal spacing preservation cannot be inspected.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+            native_method = getattr(story, "SetLineSpacing", None)
+            if not callable(native_method):
+                raise CorelBridgeError("Native SetLineSpacing is unavailable.", ErrorCode.UNSUPPORTED_IN_PROFILE)
+            expected = {key: requested.get(key, before[key]) for key in SPACING_ATTRIBUTES}
+            if (spacing_readback(story) != before or story.Text != content
+                    or style_readback(story) != preserved_style
+                    or any(read_property(story, key, "number") != value for key, value in horizontal.items())
+                    or layout_readback(text, story)["text_type_code"] != layout["text_type_code"]
+                    or layout_readback(text, story)["frame_count"] != 1):
+                raise CorelBridgeError("Text changed during spacing preflight; inspect it again.", ErrorCode.INVALID_ARGUMENT)
+            # Use explicit values for all native arguments; no unproven -1 sentinel semantics.
+            self._note_mutation()
+            native_method(SPACING_UNITS[spacing_unit], expected["line_spacing"],
+                          expected["paragraph_before"], expected["paragraph_after"])
+            actual = spacing_readback(story)
+            if actual["spacing_unit"] != spacing_unit or any(
+                actual[key] is None or not math.isclose(actual[key], value, abs_tol=0.01, rel_tol=0)
+                for key, value in expected.items()
+            ):
+                raise CorelBridgeError("Native spacing readback differs from the request.", ErrorCode.COREL_COM_ERROR)
+            after_layout = layout_readback(text, story)
+            if (story.Text != content or style_readback(story) != preserved_style
+                    or any(read_property(story, key, "number") != value for key, value in horizontal.items())
+                    or after_layout["text_type_code"] != layout["text_type_code"]
+                    or after_layout["frame_count"] != 1):
+                raise CorelBridgeError("Native spacing changed preserved content or formatting scope.",
+                                       ErrorCode.COREL_COM_ERROR)
+            identity["object_reference"] = self._reference_for_shape(document, shape)
+            return {"updated": True, "object": identity, "formatting_scope": "whole_story",
+                    "requested_spacing": requested, "before_spacing": before, "actual_spacing": actual,
+                    "content_preserved": True, "actual_bounds_inches": self._typography_bounds(document, shape),
+                    "layout": after_layout}
+        except CorelBridgeError:
+            raise
+        except Exception as exc:
+            raise CorelBridgeError("CorelDRAW could not apply or inspect text spacing.", ErrorCode.COREL_COM_ERROR) from exc
 
     @tracked_mutation
     def add_text(self, text: str, x_in: float, y_in: float, size_pt: float = 24,

@@ -11,7 +11,7 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 901 tests
+Ran 924 tests
 OK (skipped=30)
 ```
 
@@ -23,6 +23,9 @@ Coverage includes:
 - bridge argument validation and stable error codes;
 - inch-unit and reference-point context restoration;
 - protected target-document behavior using fake COM objects;
+- documented X7 line/paragraph spacing units, null-value preservation, explicit
+  unit changes, preflight races, stale selectors, content/readback checks and
+  partial-call worker quarantine (23 focused checks in `test_text_spacing.py`);
 - closed/replaced/lost-document and application detection using bounded open
   collections, COM proxy identity, retired sessions, and rejection before edits;
 - import extension/size checks and output overwrite refusal;
