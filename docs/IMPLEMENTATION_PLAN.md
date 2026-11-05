@@ -46,7 +46,9 @@ and source/output-preserving publication recovery. See [PDF_PREPRESS.md](PDF_PRE
 General full/partial-sheet repeat runs remain in [PRINT_RUNS.md](PRINT_RUNS.md).
 Current totals are 94 registered tools and 952 tests (922 pass, 30 guarded live
 tests skipped). All tools remain `implemented_unverified`. The user resumed
-autonomous implementation; continue from [IMPLEMENTATION_HANDOFF.md](IMPLEMENTATION_HANDOFF.md).
+autonomous implementation earlier, then requested pausing after the completed
+paragraph-fitting batch. Work is now paused; resume from
+[IMPLEMENTATION_HANDOFF.md](IMPLEMENTATION_HANDOFF.md) only when requested.
 The historical baseline below records the original plan date.
 
 As of this plan date:

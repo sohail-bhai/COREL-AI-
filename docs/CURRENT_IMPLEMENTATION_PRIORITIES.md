@@ -4,6 +4,13 @@
 **Decision:** Prioritize common editing, layout, templates, and print production;
 then extend into component-based AI design and smart redesign.
 
+**Current pause — 2026-11-05:** The user requested stopping after the current
+work. The editable paragraph-fitting batch is complete, tested and pushed as
+`725e162`; its exact HEAD matches the remote branch. Pause autonomous work here.
+The next text-run batch has not started. Resume the saved backlog in
+[IMPLEMENTATION_HANDOFF.md](IMPLEMENTATION_HANDOFF.md) only when requested.
+Live verification remains deferred.
+
 The user reviewed the current Alhamdulillah result and deferred further custom
 calligraphy and other-language reference reconstruction. These remain future
 capabilities. The retained V2 files, measurements, scripts, and gate reports are
