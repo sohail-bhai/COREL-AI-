@@ -44,7 +44,7 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 93 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 94 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
@@ -56,6 +56,9 @@ font catalog, and revise whole-story styles with actual formatting/bounds and
 chain-overflow readback. [Line/paragraph spacing](TEXT_SPACING.md) now has documented
 point/percentage units, guarded edits and preservation checks. Character/word units,
 glyph checks and native acceptance remain pending.
+Independent [paragraph fitting](TEXT_FITTING.md) adds bounded native overflow
+probes, a minimum readable size and measured source/frame preservation. Broader
+per-run/glyph/safe-area fitting and template reflow remain pending.
 
 Five [layout tools](LAYOUT_TRANSFORMS.md) now inspect native matrix/bounds, rotate
 around a pivot, mirror, change sibling order and distribute measured objects.
@@ -150,7 +153,7 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic and workflow tools — `implemented_unverified` | 93 |
+| Registered atomic and workflow tools — `implemented_unverified` | 94 |
 | Planned atomic/workflow tools — `planned` | 1 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |
@@ -172,6 +175,11 @@ acceptance remain unverified.
 | `create_document` | mutating | P0 | implemented_unverified | `CreateDocument`/`SetSize` confirmed; page size/unit/reference readback has fake-COM tests | Reproduce actual readback on a disposable X7 document |
 | `use_active_document` | mutating | P0 | implemented_unverified | `ActiveDocument` confirmed | Test only with approved throwaway document; add checkpoint policy |
 | `add_text` | mutating | P0 | implemented_unverified | `CreateArtisticText` confirmed; content/format/bounds readback has fake-COM tests | Verify coordinates, charset, substitution, bounds, and editability live |
+| `list_fonts` | read-only | P1 | implemented_unverified | Bounded native font catalog and complete availability preflight | Native catalog completeness and glyph/face review |
+| `add_paragraph_text` | mutating | P1 | implemented_unverified | Installed X7 editable-frame signature, actual style/bounds and chain overflow | Disposable paragraph and editable artifact review |
+| `set_text_style` | mutating | P1 | implemented_unverified | Signed whole-story formatting with requested-property readback | Native style/content preservation and multilingual review |
+| `set_text_spacing` | mutating | P1 | implemented_unverified | Documented point/percentage leading/paragraph units and guarded unit changes | Native spacing/content/frame acceptance |
+| `fit_paragraph_text` | mutating | P1 | implemented_unverified | 28 focused checks for independent copies, native readability/overflow bounds, source/frame/column preservation and cleanup | Disposable fitting/minimum-refusal cases and glyph/visual review |
 | `draw_rectangle` | mutating | P0 | implemented_unverified | `CreateRectangle2` confirmed; actual-bounds readback has fake-COM tests | Reproduce exact bounds on X7 |
 | `draw_ellipse` | mutating | P1 | implemented_unverified | `CreateEllipse2` confirmed; center conversion/bounds readback has fake-COM tests | Reproduce exact bounds on X7 |
 | `list_objects` | read-only | P0 | implemented_unverified | StaticID/layer/page and native appearance readback have fake-COM tests | Test mixed objects, groups, bounds, text, and outline units live |

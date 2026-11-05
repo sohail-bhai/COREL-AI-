@@ -8,16 +8,36 @@ Branch: `feature/workflow-planning-slice`. Preserve this branch and read
 `HARNESS_INCIDENTS.md` before project work. Inspect current Git status/history
 to confirm batch commit/push state; do not infer commits from this document.
 
-Current surface: 93 registered tools, all `implemented_unverified`; 95 registry
-records/matrix rows, 317 native members, 276 checked schemas, 285 examples,
-29 enum groups and 74 adapter capabilities. Default suite: 924 tests, 894 pass,
+Current surface: 94 registered tools, all `implemented_unverified`; 96 registry
+records/matrix rows, 327 native members, 279 checked schemas, 288 examples,
+29 enum groups and 75 adapter capabilities. Default suite: 952 tests, 922 pass,
 30 guarded live tests skipped. No live CorelDRAW verification ran this iteration.
 
 The resumed session found the retained PDF batch uncommitted and its linked
 non-live report missing. Validated it, restored the report, committed and pushed
 `2d29970`. Git confirmed local/remote agreement before further implementation.
 
-Latest batch: `set_text_spacing` implements one unfitted/unlinked whole-story
+Latest batch: `fit_paragraph_text` fits an independent editable paragraph copy
+with an explicit minimum readable font size, no enlargement and at most 24
+native size/overflow probes. Single values round upward to stay above the minimum.
+Source identity/story/frame, basic appearance, frame background/border, raw
+column widths/gutters and original membership/order are reconciled. Shared,
+moved, concurrently edited or uncertain output is preserved for inspection;
+receipt-matching independent copies can be deleted. Verified cleanup allows
+worker continuation; unverified cleanup requires reconciliation. Uncertain
+native Begin/End calls are not replayed. No source/old CDR save occurs.
+
+Twenty-eight focused checks and full default/catalog checks pass. See
+[TEXT_FITTING.md](TEXT_FITTING.md), [installed/online evidence](x7_text_range_evidence.json)
+and [non-live report](test-reports/2026-11-05-text-fitting-non-live.md).
+X7 paragraph help is readable and describes native shrink/expansion; SDK requests
+provided no readable member text. Native `FitTextToFrame` is confirmed but unused
+because its signature supplies no minimum bound. The extended disposable
+typography gate covers fitting/already-fitting/minimum refusal and saved editable
+CDR/JSON evidence; it remains unrun. Per-run/artistic/linked/container fitting,
+glyph/safe-area/global-optimality acceptance and template reflow remain gaps.
+
+Previous batch (`f6faf6a`, pushed): `set_text_spacing` implements one unfitted/unlinked whole-story
 leading/paragraph spacing edit in documented X7 points or character-height/
 point-size percentages. Native type-library descriptors and readable X7 help
 support these units; SDK pages supplied no readable member text. Null values
@@ -63,7 +83,7 @@ staging/publication/cleanup failures and preservation of concurrent edits.
 Details: [PDF_PREPRESS.md](PDF_PREPRESS.md) and
 [offline report](test-reports/2026-11-05-pdf-prepress-non-live.md).
 
-The consolidated inventory covers all 93 tools with zero missing explicit native
+The consolidated inventory covers all 94 tools with zero missing explicit native
 gates. `test_pdf_prepress_live` prepares disposable 1 mm/3 mm multipage exports,
 enabled marks, explicit overprint preservation, settings restoration and CDR/
 PDF/JSON artifacts. The entire campaign and manual production review remain
@@ -71,18 +91,20 @@ pending. A prepared test is not native verification.
 
 Continue from [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md) and
 `catalog/workflow_gaps.json` under `CURRENT_IMPLEMENTATION_PRIORITIES.md`.
-Remaining implementation includes character/word spacing units, per-run/fitting, richer
+Remaining implementation includes character/word spacing units, per-run/broader fitting, richer
 template fields/reflow, controlled document checkpoints/organization, ICC/PDF-X
 and export-generated raster coverage, general graphics/image cleanup, component
 provider/generation/revision history, quality/reflow/mockups and researched
 specialty workflows. Continue independent work for unresolved API/provider/output
 dependencies. Custom Alhamdulillah calligraphy/reconstruction remains deferred.
 
-Next bounded batch: research X7 text range/character indexing and fitting APIs
-from installed descriptors/primary docs, then implement a source-preserving
-editable fitting or run-editing workflow supported by that evidence. Retain
-unsupported linked/fitted/multilingual/provider behavior explicitly and continue
-the broader template/checkpoint/component backlog without live acceptance.
+Next bounded batch: extend the retained installed text-range evidence with native
+indexing enums/structures, then implement bounded run inspection/editing with exact
+selected-content and untouched-run readback. `TextCharacters.Item(Index, Count=1)`
+and `TextRange.Range(Start, End)` exist, but Unicode/index semantics still need
+proof or a readback-derived mapping before writes. Broader template image fields/
+reflow, document checkpoints and component provider/generation/revisions remain
+active implementation work. Continue independent gaps for unresolved dependencies.
 
 Keep sequential bounded foreground operations and ordinary workspace files.
 No browser preview, background jobs, parallel wrappers or subagents. Preserve

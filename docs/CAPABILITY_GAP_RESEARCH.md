@@ -8,7 +8,7 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 93 tools, all `implemented_unverified`. It covers
+The current server exposes 94 tools, all `implemented_unverified`. It covers
 inspection, editable typography/layout, reusable text batches, vectors, process
 colors/gradients/transparency, clipping, copied contour derivatives and guarded
 page/local-layer creation, activation, naming and flags, plus verified local
@@ -37,7 +37,7 @@ is a requirements reference, not X7 automation evidence.
 | Reliable targeting | Bound-document liveness, bounded search and signed page/layer/group/object references | Persistent/reopened document strategies and broader reference-aware tools |
 | Recovery and records | Bounded redacted records, explicit busy/timeout state, late/partial quarantine and guarded reconciliation | Existing-document checkpoints and specialized rollback policies |
 | Document/page/layer work | New document, bounded structure/fingerprints, appended explicit-size pages, local layer creation, activation/names/flags, CDR save | Controlled open/close/checkpoints, existing-page resize/reorder/deletion, master/special editing and cross-layer/page object moves |
-| Everyday typography | Artistic/paragraph creation, whole-story styles and researched line/paragraph spacing, font catalog and native chain overflow inspection | Character/word spacing units, per-run/linked/fitted editing, glyph checks and safe auto-fit |
+| Everyday typography | Artistic/paragraph creation, whole-story styles/spacing, source-preserving bounded paragraph fitting, font catalog and native chain overflow inspection | Character/word units, per-run/linked/fitted editing, glyph/safe-area acceptance and broader reflow |
 | Layout/transforms | Move/proportional resize, pivot rotation, mirroring, native matrix inspection, sibling order, measured distribution/grouping and guarded page/local-layer controls | Cross-layer/page object moves, guides, outline-aware bounds and safe-area reflow |
 | Vector construction | Line/cubic paths and guarded nodes/handles; copied topology/shaping/compound revisions; native inside/outside contour derivatives | Adjacent deletion/fitting, open endpoint cropping, nested shaping, text/effect/open contours and exact native winding/offset/cutting gates |
 | Appearance and clipping | Native RGB/CMYK process colors; uniform transparency; PowerClip fitting/extraction/rebuilds; opaque direct multicolor gradients with guarded revisions | Proven outline units, spot/ICC, wider gradient/blend/group effects, in-place clip editing and native/visual verification |
@@ -169,7 +169,7 @@ defaults, late staging/publication failures and preservation of concurrent edits
 see [PDF_PREPRESS.md](PDF_PREPRESS.md). Current primary preflight help was readable;
 X7 SDK API text was unavailable. Native conversion/box/mark behavior, artwork bleed,
 ICC/PDF-X and export-generated raster DPI remain deferred or missing work.
-The consolidated inventory covers all 93 tools with prepared native candidates.
+The consolidated inventory covers all 94 tools with prepared native candidates.
 
 **Typography spacing update:** [TEXT_SPACING.md](TEXT_SPACING.md) adds guarded
 whole-story leading/paragraph spacing in points or documented character-height/
@@ -177,7 +177,18 @@ point-size percentages. Installed X7 `SetLineSpacing` and enum evidence, readabl
 X7 unit-choice help and 23 focused non-live checks establish implementation scope.
 All unit changes require explicit line/before/after values, avoiding reinterpretation
 of preserved gaps. SDK pages supplied no readable member text. Character/word units,
-per-run/glyph fidelity, safe auto-fit and native/visual acceptance remain gaps.
+per-run/glyph fidelity, broader fitting/reflow and native/visual acceptance remain gaps.
+
+**Paragraph fitting update:** [TEXT_FITTING.md](TEXT_FITTING.md) adds an independent
+editable copy with 1–500 point readability bounds and at most 24 measured native
+size/overflow probes. Source/story/frame identity, basic appearance, frame background/
+border, raw column dimensions and membership/order are reconciled. Receipt-matching
+copies can be removed; shared/moved/concurrently edited or uncertain objects remain
+explicit. Native Single candidates round upward so actual size stays within bounds.
+Installed X7 descriptors and readable paragraph help support the implementation;
+SDK pages lacked readable member text. Twenty-eight focused non-live checks pass.
+Per-run/artistic/linked/container fitting, glyph/safe-area acceptance, automatic
+template reflow and the consolidated native/manual gate remain pending.
 
 1. **Reliability foundation:** ID-001 stale targets; SAFE-001 redacted records;
    SAFE-002 busy/timeout state and guarded recovery. Keep inspection bounded and

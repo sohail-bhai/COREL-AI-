@@ -240,13 +240,14 @@
         "list_fonts",
         "add_paragraph_text",
         "set_text_style",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "missing_behavior": [
         "Character/word spacing writes with established user-facing units",
         "Per-run and linked/fitted story edits",
         "Font face/glyph coverage",
-        "Safe auto-fit and template reflow"
+        "Per-run/artistic/container/linked fitting, safe-area/glyph acceptance and automatic template reflow"
       ],
       "source_ids": [
         "paragraph_api",
@@ -266,7 +267,8 @@
         "Whole-story font/size/style/alignment revisions",
         "Bounded font catalog with complete preflight",
         "Native subtype/frame/spacing/chain-overflow inspection",
-        "Guarded whole-story leading/paragraph spacing in documented X7 points and percentage units"
+        "Guarded whole-story leading/paragraph spacing in documented X7 points and percentage units",
+        "Source-preserving editable paragraph fitting with explicit minimum size, bounded native overflow probes and guarded cleanup"
       ],
       "evidence": [
         "docs/TYPOGRAPHY.md",
@@ -274,7 +276,10 @@
         "tests/test_typography.py",
         "tests/test_text_spacing.py",
         "docs/TEXT_SPACING.md",
-        "docs/x7_text_spacing_evidence.json"
+        "docs/x7_text_spacing_evidence.json",
+        "tests/test_text_fitting.py",
+        "docs/TEXT_FITTING.md",
+        "docs/x7_text_range_evidence.json"
       ]
     },
     {

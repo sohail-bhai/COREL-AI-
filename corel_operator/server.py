@@ -1134,6 +1134,21 @@ def set_text_spacing(
 
 @mcp.tool()
 @recorded_operation
+def fit_paragraph_text(object_reference: dict, minimum_size_points: float = 8.,
+                       size_tolerance_points: float = .1, result_name: str = "") -> dict:
+    """Fit an independent editable paragraph copy without enlarging or crossing a minimum size.
+
+    Requires a signed root reference to one unfitted, unlinked ordinary paragraph
+    with readable uniform styling and overflow. Uses up to 24 native size/overflow
+    probes. Preserves source text, measured source state and original membership.
+    Returns measured fit/readability bounds; glyph and visual acceptance remain pending.
+    """
+    return _tool("fit_paragraph_text", "fit_paragraph_text", object_reference,
+                 minimum_size_points, size_tolerance_points, result_name)
+
+
+@mcp.tool()
+@recorded_operation
 def add_text(text: str, x_inches: float, y_inches: float, size_points: float = 24,
              font: str = "Arial", bold: bool = False, object_name: str = "") -> dict:
     """Create editable artistic text in the target document. Names are used to edit objects later."""

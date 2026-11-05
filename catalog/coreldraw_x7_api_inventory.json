@@ -203,6 +203,13 @@
       "path": "docs/x7_text_spacing_evidence.json",
       "inspection_date": "2026-11-05",
       "description": "Installed X7 spacing get/let/method descriptors and cdrLineSpacingType; no application connection."
+    },
+    {
+      "id": "x7_text_range_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_text_range_evidence.json",
+      "inspection_date": "2026-11-05",
+      "description": "X7 text frame/range/fitting descriptors without application access; SDK responses lacked readable member text."
     }
   ],
   "members": [
@@ -341,7 +348,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_application",
@@ -702,7 +710,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_document",
@@ -758,7 +767,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_document",
@@ -809,7 +819,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_document",
@@ -1199,7 +1210,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_page",
@@ -1250,7 +1262,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_page",
@@ -1641,7 +1654,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1856,7 +1870,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1911,7 +1926,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1963,7 +1979,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2025,7 +2042,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2085,7 +2103,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2136,7 +2155,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2183,7 +2203,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2230,7 +2251,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2277,7 +2299,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2324,7 +2347,8 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2359,7 +2383,8 @@
         "create_contour_offsets",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2392,7 +2417,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2422,7 +2448,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2476,7 +2503,8 @@
         "create_powerclip",
         "extract_powerclip_contents",
         "create_contour_offsets",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2604,7 +2632,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2655,7 +2684,8 @@
         "create_contour_offsets",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2688,7 +2718,8 @@
         "create_contour_offsets",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2719,7 +2750,8 @@
         "create_contour_offsets",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2749,7 +2781,8 @@
         "create_contour_offsets",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2779,7 +2812,8 @@
         "create_contour_offsets",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2801,7 +2835,8 @@
         "inspect_text_template",
         "execute_template_batch",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2823,7 +2858,8 @@
         "inspect_text_template",
         "execute_template_batch",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2845,7 +2881,8 @@
         "inspect_text_template",
         "execute_template_batch",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2941,7 +2978,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -2972,7 +3010,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3002,7 +3041,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3032,7 +3072,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3060,7 +3101,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3087,7 +3129,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3114,7 +3157,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3141,7 +3185,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3168,7 +3213,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3198,7 +3244,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3226,7 +3273,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3253,7 +3301,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3280,7 +3329,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_color",
@@ -3305,7 +3355,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_outline",
@@ -3350,7 +3401,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "official_x7_outline",
@@ -3671,7 +3723,8 @@
         "create_contour_offsets",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3694,7 +3747,8 @@
         "inspect_text_template",
         "execute_template_batch",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3723,7 +3777,8 @@
         "create_contour_offsets",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3752,7 +3807,8 @@
         "create_contour_offsets",
         "inspect_print_repeat",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3775,7 +3831,8 @@
         "inspect_text_template",
         "execute_template_batch",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3798,7 +3855,8 @@
         "inspect_text_template",
         "execute_template_batch",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3821,7 +3879,8 @@
         "inspect_text_template",
         "execute_template_batch",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3844,7 +3903,8 @@
         "inspect_text_template",
         "execute_template_batch",
         "execute_print_run",
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3956,7 +4016,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3994,7 +4055,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -4033,7 +4095,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -4217,7 +4280,8 @@
         "create_contour_offsets",
         "create_page",
         "create_layer",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -4245,7 +4309,8 @@
         "create_contour_offsets",
         "create_page",
         "create_layer",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -4273,7 +4338,8 @@
         "create_contour_offsets",
         "create_layer",
         "activate_layer",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_template_inspection"
@@ -4722,7 +4788,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4755,7 +4822,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4788,7 +4856,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4821,7 +4890,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4854,7 +4924,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4887,7 +4958,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4918,7 +4990,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4951,7 +5024,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -4982,7 +5056,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5013,7 +5088,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5046,7 +5122,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5077,7 +5154,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5108,7 +5186,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5141,7 +5220,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5174,7 +5254,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5227,7 +5308,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5251,7 +5333,8 @@
         "revise_curve_topology",
         "create_powerclip",
         "extract_powerclip_contents",
-        "create_contour_offsets"
+        "create_contour_offsets",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5282,7 +5365,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5333,7 +5417,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5366,7 +5451,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_vector_inspection"
@@ -5602,7 +5688,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5626,7 +5713,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5650,7 +5738,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5674,7 +5763,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5698,7 +5788,8 @@
         "set_gradient_fill",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_appearance_inspection"
@@ -5754,7 +5845,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5777,7 +5869,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5800,7 +5893,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5823,7 +5917,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5844,7 +5939,8 @@
         "extract_powerclip_contents",
         "create_contour_offsets",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5866,7 +5962,8 @@
         "create_contour_offsets",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5888,7 +5985,8 @@
         "create_contour_offsets",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5911,7 +6009,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -5934,7 +6033,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_powerclip_inspection"
@@ -7133,7 +7233,8 @@
         "get_bitmap_properties",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "x7_contour_offset_inspection"
@@ -7530,7 +7631,8 @@
       "signature": "ParaSpacingBefore get/let Single",
       "status": "typelib_confirmed",
       "used_by": [
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7547,13 +7649,184 @@
       "signature": "ParaSpacingAfter get/let Single",
       "status": "typelib_confirmed",
       "used_by": [
-        "set_text_spacing"
+        "set_text_spacing",
+        "fit_paragraph_text"
       ],
       "evidence": [
         "installed_x7_typelib",
         "x7_text_spacing_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.paraspacingafter",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Text.Frame",
+      "owner": "Text",
+      "kind": "property",
+      "access": "read",
+      "signature": "Gets the current frame",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "fit_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_text_range_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/text.frame",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextFrame.FrameShape",
+      "owner": "TextFrame",
+      "kind": "property",
+      "access": "read",
+      "signature": "Returns the text shape object which hosts the given text frame",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "fit_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_text_range_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframe.frameshape",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextFrame.IsInsideContainer",
+      "owner": "TextFrame",
+      "kind": "property",
+      "access": "read",
+      "signature": "Returns True if the frame is inside a container shape",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "fit_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_text_range_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframe.isinsidecontainer",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextFrame.IsFittedToPath",
+      "owner": "TextFrame",
+      "kind": "property",
+      "access": "read",
+      "signature": "Returns True if the frame is fitted to a path",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "fit_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_text_range_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframe.isfittedtopath",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextFrame.VerticalAlignment",
+      "owner": "TextFrame",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "Gets/sets the vertical alignment of the text frame",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "fit_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_text_range_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframe.verticalalignment",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextFrame.ColumnCount",
+      "owner": "TextFrame",
+      "kind": "property",
+      "access": "read",
+      "signature": "Gets the number of columns in the frame",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "fit_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_text_range_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframe.columncount",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextFrame.Fill",
+      "owner": "TextFrame",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "Specifies the background fill for the text frame",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "fit_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_text_range_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframe.fill",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextFrame.Outline",
+      "owner": "TextFrame",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "Specifies outline properties for the text frame border",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "fit_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_text_range_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframe.outline",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextFrame.ColumnWidth",
+      "owner": "TextFrame",
+      "kind": "property",
+      "access": "read",
+      "signature": "Gets the width of specified column",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "fit_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_text_range_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframe.columnwidth",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextFrame.ColumnGutter",
+      "owner": "TextFrame",
+      "kind": "property",
+      "access": "read",
+      "signature": "Gets the amount of space between columns",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "fit_paragraph_text"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_text_range_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframe.columngutter",
       "live_test_status": "not_run"
     }
   ]

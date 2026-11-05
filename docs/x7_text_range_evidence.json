@@ -1,0 +1,3042 @@
+{
+  "application_connected": false,
+  "browser_used": false,
+  "typelib_path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "members": [
+    {
+      "interface": "IVGText",
+      "names": [
+        "Type"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 56, ((29, 50337408), 0, None), 0)",
+      "documentation": "Gets text type: Artistic or Paragraph",
+      "return_referenced_types": [
+        "cdrTextType"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "FramesInLink"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, (3, 0, None), 0)",
+      "documentation": "Gets the number of frames in the chain of linked text frames",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "UnusedFramesInLink"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Gets the number of unused frames in the chain of linked text frames",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Overflow"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, (11, 0, None), 0)",
+      "documentation": "Determines whether or not the text overflows the chain of linked text frames",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "FontProperties",
+        "Frames"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (((29, 50337664), 49, 2),), 4, 2, 4, 0, 88, ((26, (29, 50369536)), 0, None), 64)",
+      "documentation": "Gets or sets font properties in the selected frame",
+      "return_referenced_types": [
+        "IVGStructFontProperties"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "FontProperties",
+        "Frames"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743812, (), (((29, 50337664), 49, 2), ((26, (29, 50369536)), 1, None)), 4, 4, 4, 0, 96, (24, 0, None), 64)",
+      "documentation": "Gets or sets font properties in the selected frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "FontPropertiesInRange",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), ((3, 1, None), (3, 1, None), ((29, 50337536), 49, 0)), 4, 2, 4, 0, 104, ((26, (29, 50369536)), 0, None), 64)",
+      "documentation": "Gets or sets font properties from or into a dynamic structure, bound by a specific range",
+      "return_referenced_types": [
+        "IVGStructFontProperties"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "FontPropertiesInRange",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743814, (), ((3, 1, None), (3, 1, None), ((29, 50337536), 49, 0), ((26, (29, 50369536)), 1, None)), 4, 4, 4, 0, 112, (24, 0, None), 64)",
+      "documentation": "Gets or sets font properties from or into a dynamic structure, bound by a specific range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "AlignProperties",
+        "Frames"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (((29, 50337664), 49, 2),), 4, 2, 4, 0, 120, ((26, (29, 50369664)), 0, None), 64)",
+      "documentation": "Gets or sets text alignment properties in the selected frame",
+      "return_referenced_types": [
+        "IVGStructAlignProperties"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "AlignProperties",
+        "Frames"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), (((29, 50337664), 49, 2), ((26, (29, 50369664)), 1, None)), 4, 4, 4, 0, 128, (24, 0, None), 64)",
+      "documentation": "Gets or sets text alignment properties in the selected frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "AlignPropertiesInRange",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), ((3, 1, None), (3, 1, None), ((29, 50337536), 49, 0)), 4, 2, 4, 0, 136, ((26, (29, 50369664)), 0, None), 64)",
+      "documentation": "Gets or sets text alignment properties from or into a dynamic structure, bound by a specific range",
+      "return_referenced_types": [
+        "IVGStructAlignProperties"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "AlignPropertiesInRange",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743818, (), ((3, 1, None), (3, 1, None), ((29, 50337536), 49, 0), ((26, (29, 50369664)), 1, None)), 4, 4, 4, 0, 144, (24, 0, None), 64)",
+      "documentation": "Gets or sets text alignment properties from or into a dynamic structure, bound by a specific range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "SpaceProperties",
+        "Frames"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (((29, 50337664), 49, 2),), 4, 2, 4, 0, 152, ((26, (29, 50369792)), 0, None), 64)",
+      "documentation": "Gets or sets text spacing properties in the selected frame",
+      "return_referenced_types": [
+        "IVGStructSpaceProperties"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "SpaceProperties",
+        "Frames"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743820, (), (((29, 50337664), 49, 2), ((26, (29, 50369792)), 1, None)), 4, 4, 4, 0, 160, (24, 0, None), 64)",
+      "documentation": "Gets or sets text spacing properties in the selected frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "SpacePropertiesInRange",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743822, (), ((3, 1, None), (3, 1, None), ((29, 50337536), 49, 0)), 4, 2, 4, 0, 168, ((26, (29, 50369792)), 0, None), 64)",
+      "documentation": "Gets or sets text spacing properties from or into a dynamic structure, bound by a specific range",
+      "return_referenced_types": [
+        "IVGStructSpaceProperties"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "SpacePropertiesInRange",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743822, (), ((3, 1, None), (3, 1, None), ((29, 50337536), 49, 0), ((26, (29, 50369792)), 1, None)), 4, 4, 4, 0, 176, (24, 0, None), 64)",
+      "documentation": "Gets or sets text spacing properties from or into a dynamic structure, bound by a specific range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "HyphenationSettings",
+        "Frames"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743824, (), (((29, 50337664), 49, 2),), 4, 2, 4, 0, 184, ((26, (29, 50369920)), 0, None), 64)",
+      "documentation": "Gets or sets text hyphenation settings in the selected frame",
+      "return_referenced_types": [
+        "IVGStructHyphenationSettings"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "HyphenationSettings",
+        "Frames"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743824, (), (((29, 50337664), 49, 2), ((26, (29, 50369920)), 1, None)), 4, 4, 4, 0, 192, (24, 0, None), 64)",
+      "documentation": "Gets or sets text hyphenation settings in the selected frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "HyphenationSettingsInRange",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743826, (), ((3, 1, None), (3, 1, None), ((29, 50337536), 49, 0)), 4, 2, 4, 0, 200, ((26, (29, 50369920)), 0, None), 64)",
+      "documentation": "Gets or sets text hyphenation settings from or into a dynamic structure, bound by a specific range",
+      "return_referenced_types": [
+        "IVGStructHyphenationSettings"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "HyphenationSettingsInRange",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743826, (), ((3, 1, None), (3, 1, None), ((29, 50337536), 49, 0), ((26, (29, 50369920)), 1, None)), 4, 4, 4, 0, 208, (24, 0, None), 64)",
+      "documentation": "Gets or sets text hyphenation settings from or into a dynamic structure, bound by a specific range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Contents",
+        "Frames"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743828, (), (((29, 50337664), 49, 2),), 4, 2, 4, 0, 216, (8, 0, None), 64)",
+      "documentation": "Gets or sets text within a frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Contents",
+        "Frames"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743828, (), (((29, 50337664), 49, 2), (8, 1, None)), 4, 4, 4, 0, 224, (24, 0, None), 64)",
+      "documentation": "Gets or sets text within a frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "FitToPath",
+        "Path"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743830, (), (((26, (29, 50363136)), 1, None),), 4, 1, 4, 0, 232, ((26, (29, 50370048)), 0, None), 0)",
+      "documentation": "Fits text to a path",
+      "return_referenced_types": [
+        "IVGEffect"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Find",
+        "Text",
+        "CaseSensitive",
+        "StartIndex",
+        "WrapAround",
+        "IndexingType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743831, (), ((8, 1, None), (11, 1, None), (3, 49, 1), (11, 49, False), ((29, 50337536), 49, 0)), 4, 1, 4, 0, 240, (3, 0, None), 0)",
+      "documentation": "Finds text",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Replace",
+        "OldText",
+        "NewText",
+        "CaseSensitive",
+        "StartIndex",
+        "ReplaceAll",
+        "WrapAround",
+        "IndexingType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743832, (), ((8, 1, None), (8, 1, None), (11, 1, None), (3, 49, 1), (11, 49, False), (11, 49, False), ((29, 50337536), 49, 0)), 4, 1, 4, 0, 248, (24, 0, None), 0)",
+      "documentation": "Replaces text",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "ImportFromFile",
+        "FileName",
+        "StartIndex",
+        "IndexingType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743833, (), ((8, 1, None), (3, 1, None), ((29, 50337536), 49, 0)), 4, 1, 4, 0, 256, (24, 0, None), 0)",
+      "documentation": "Imports text from a file",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "ExportToFile",
+        "FileName",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743834, (), ((8, 1, None), (3, 1, None), (3, 1, None), ((29, 50337536), 49, 0)), 4, 1, 4, 0, 264, (24, 0, None), 0)",
+      "documentation": "Exports given range to a file",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "ConvertToArtistic"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743835, (), (), 4, 1, 4, 0, 272, (24, 0, None), 0)",
+      "documentation": "Converts paragraph text to artistic",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "ConvertToParagraph"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743836, (), (), 4, 1, 4, 0, 280, (24, 0, None), 0)",
+      "documentation": "Converts artistic text to paragraph",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "IsHTMLCompatible"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743837, (), (), 4, 2, 4, 0, 288, (11, 0, None), 0)",
+      "documentation": "Gets the HTML compatibility status of the text",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "MakeHTMLCompatible",
+        "HTML"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743838, (), ((11, 1, None),), 4, 1, 4, 0, 296, (11, 0, None), 0)",
+      "documentation": "Sets the HTML compatibility status of the text, if possible",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Story"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743839, (), (), 4, 2, 4, 0, 304, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Gets all text in all text frames",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Selection"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743840, (), (), 4, 2, 4, 0, 312, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Gets the selected text in the text stream, as a TextRange",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Range",
+        "Start",
+        "End"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743841, (), ((3, 1, None), (3, 1, None)), 4, 1, 4, 0, 320, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Gets a range of characters",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "IsEditing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743842, (), (), 4, 2, 4, 0, 328, (11, 0, None), 0)",
+      "documentation": "Gets the text editing state",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "BeginEdit"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743843, (), (), 4, 1, 4, 0, 336, (24, 0, None), 0)",
+      "documentation": "Sets the text editing state",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Frame"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743844, (), (), 4, 2, 4, 0, 344, ((26, (29, 50373888)), 0, None), 0)",
+      "documentation": "Gets the current frame",
+      "return_referenced_types": [
+        "IVGTextFrame"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Frames"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743845, (), (), 4, 2, 4, 0, 352, ((26, (29, 50373760)), 0, None), 0)",
+      "documentation": "Collection of all frames in the text range",
+      "return_referenced_types": [
+        "IVGTextFrames"
+      ]
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "IsArtisticText"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743846, (), (), 4, 2, 4, 0, 360, (11, 0, None), 0)",
+      "documentation": "Gets whether the text is artistic text",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "FitTextToFrame"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743847, (), (), 4, 1, 4, 0, 368, (24, 0, None), 0)",
+      "documentation": "Fits the text to a frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextCharacters",
+      "names": [
+        "Item",
+        "Index",
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None), (3, 49, 1)), 4, 2, 4, 0, 64, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the specified characters",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextCharacters",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Gets the number of characters in the collection, including paragraph breaks",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextCharacters",
+      "names": [
+        "All"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing all characters in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextCharacters",
+      "names": [
+        "First"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the first character in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextCharacters",
+      "names": [
+        "Last"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the last character in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextColumns",
+      "names": [
+        "Item",
+        "Index",
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None), (3, 49, 1)), 4, 2, 4, 0, 64, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Gets a reference to the specified word, in base 1",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextColumns",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Gets the number of items in the collection",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextColumns",
+      "names": [
+        "All"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing containing all columns in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextColumns",
+      "names": [
+        "First"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the first column in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextColumns",
+      "names": [
+        "Last"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the last column in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Range"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), (), 4, 2, 4, 0, 56, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the text in the frame",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Previous"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, ((26, (29, 50373888)), 0, None), 0)",
+      "documentation": "Returns the previous text frame, if any",
+      "return_referenced_types": [
+        "IVGTextFrame"
+      ]
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Next"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, ((26, (29, 50373888)), 0, None), 0)",
+      "documentation": "Returns the next text frame, if any",
+      "return_referenced_types": [
+        "IVGTextFrame"
+      ]
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, (3, 0, None), 0)",
+      "documentation": "Gets the index of the text frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Empty"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, (11, 0, None), 0)",
+      "documentation": "Returns True if the text frame is empty",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "IsFirst"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, (11, 0, None), 0)",
+      "documentation": "Returns True if this is the first text frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "IsLast"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, (11, 0, None), 0)",
+      "documentation": "Returns True if this is the last text frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "VerticalAlignment"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743815, (), (), 4, 2, 4, 0, 112, ((29, 50342656), 0, None), 0)",
+      "documentation": "Gets/sets the vertical alignment of the text frame",
+      "return_referenced_types": [
+        "cdrVerticalAlignment"
+      ]
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "VerticalAlignment"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743815, (), (((29, 50342656), 1, None),), 4, 4, 4, 0, 120, (24, 0, None), 0)",
+      "documentation": "Gets/sets the vertical alignment of the text frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Multicolumn"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743817, (), (), 4, 2, 4, 0, 128, (11, 0, None), 0)",
+      "documentation": "Returns True if the frame has more than one column",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "ColumnCount"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 136, (3, 0, None), 0)",
+      "documentation": "Gets the number of columns in the frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "ColumnWidth",
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743819, (), ((3, 1, None),), 4, 2, 4, 0, 144, (5, 0, None), 0)",
+      "documentation": "Gets the width of specified column",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "ColumnGutter",
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), ((3, 1, None),), 4, 2, 4, 0, 152, (5, 0, None), 0)",
+      "documentation": "Gets the amount of space between columns",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "SetColumns",
+        "NumColumns",
+        "EqualColumns",
+        "WidthsAndGutters"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743821, (), ((3, 1, None), (11, 1, None), ((26, (27, 12)), 1, None)), 4, 1, 4, -1, 160, (24, 0, None), 0)",
+      "documentation": "Creates columns within the frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "LinkTo",
+        "Shape"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743822, (), (((26, (29, 50363136)), 1, None),), 4, 1, 4, 0, 168, (24, 0, None), 0)",
+      "documentation": "Links a text frame to the specified shape",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "UnLink"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743823, (), (), 4, 1, 4, 0, 176, (24, 0, None), 0)",
+      "documentation": "Unlinks the text frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Container"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743824, (), (), 4, 2, 4, 0, 184, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Returns a reference to the frame's container",
+      "return_referenced_types": [
+        "IVGShape"
+      ]
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "IsInsideContainer"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743825, (), (), 4, 2, 4, 0, 192, (11, 0, None), 0)",
+      "documentation": "Returns True if the frame is inside a container shape",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "IsFittedToPath"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743826, (), (), 4, 2, 4, 0, 200, (11, 0, None), 0)",
+      "documentation": "Returns True if the frame is fitted to a path",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Path"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743827, (), (), 4, 2, 4, 0, 208, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Returns a reference to the text's path, if the text is fitted to a path",
+      "return_referenced_types": [
+        "IVGShape"
+      ]
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "FrameShape"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743828, (), (), 4, 2, 4, 0, 216, ((26, (29, 50363136)), 0, None), 0)",
+      "documentation": "Returns the text shape object which hosts the given text frame",
+      "return_referenced_types": [
+        "IVGShape"
+      ]
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Fill"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743829, (), (), 4, 2, 4, 0, 224, ((26, (29, 50367104)), 0, None), 0)",
+      "documentation": "Specifies the background fill for the text frame",
+      "return_referenced_types": [
+        "IVGFill"
+      ]
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Fill"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743829, (), (((26, (29, 50367104)), 1, None),), 4, 4, 4, 0, 232, (24, 0, None), 0)",
+      "documentation": "Specifies the background fill for the text frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Outline"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743831, (), (), 4, 2, 4, 0, 240, ((26, (29, 50368896)), 0, None), 1)",
+      "documentation": "Specifies outline properties for the text frame border",
+      "return_referenced_types": [
+        "IVGOutline"
+      ]
+    },
+    {
+      "interface": "IVGTextFrame",
+      "names": [
+        "Outline"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743831, (), (((26, (29, 50368896)), 1, None),), 4, 4, 4, 0, 248, (24, 0, None), 1)",
+      "documentation": "Specifies outline properties for the text frame border",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrames",
+      "names": [
+        "Item",
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None),), 4, 2, 4, 0, 64, ((26, (29, 50373888)), 0, None), 0)",
+      "documentation": "Gets a reference to the specified text frame, in base 1",
+      "return_referenced_types": [
+        "IVGTextFrame"
+      ]
+    },
+    {
+      "interface": "IVGTextFrames",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Gets the number of items in the collection",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextFrames",
+      "names": [
+        "Range",
+        "Index",
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), ((3, 1, None), (3, 49, 1)), 4, 2, 4, 0, 80, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the specified frame(s)",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextFrames",
+      "names": [
+        "All"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing all frames in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextFrames",
+      "names": [
+        "First"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50373888)), 0, None), 0)",
+      "documentation": "Returns the first text frame in the collection",
+      "return_referenced_types": [
+        "IVGTextFrame"
+      ]
+    },
+    {
+      "interface": "IVGTextFrames",
+      "names": [
+        "Last"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, ((26, (29, 50373888)), 0, None), 0)",
+      "documentation": "Returns the last text frame in the collection",
+      "return_referenced_types": [
+        "IVGTextFrame"
+      ]
+    },
+    {
+      "interface": "IVGTextLines",
+      "names": [
+        "Item",
+        "Index",
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None), (3, 49, 1)), 4, 2, 4, 0, 64, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the specified line(s)",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextLines",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Gets the number of items in the collection",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextLines",
+      "names": [
+        "All"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing all lines in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextLines",
+      "names": [
+        "First"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the first line in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextLines",
+      "names": [
+        "Last"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the last line in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextParagraphs",
+      "names": [
+        "Item",
+        "Index",
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None), (3, 49, 1)), 4, 2, 4, 0, 64, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the specified paragraph(s)",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextParagraphs",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Gets the number of items in the collection",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextParagraphs",
+      "names": [
+        "All"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing all paragraphs in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextParagraphs",
+      "names": [
+        "First"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the first paragraph in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextParagraphs",
+      "names": [
+        "Last"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the last paragraph in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Text"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), (), 4, 2, 4, 0, 56, (8, 0, None), 0)",
+      "documentation": "Text string in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Text"
+      ],
+      "invkind": 4,
+      "descriptor": "(0, (), ((8, 1, None),), 4, 4, 4, 0, 64, (24, 0, None), 0)",
+      "documentation": "Text string in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "WideText"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (8, 0, None), 0)",
+      "documentation": "Unicode text string",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "WideText"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743810, (), ((8, 1, None),), 4, 4, 4, 0, 80, (24, 0, None), 0)",
+      "documentation": "Unicode text string",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Characters"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50373120)), 0, None), 0)",
+      "documentation": "Collection of all characters in the range",
+      "return_referenced_types": [
+        "IVGTextCharacters"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Words"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50373248)), 0, None), 0)",
+      "documentation": "Collection of all words in the range",
+      "return_referenced_types": [
+        "IVGTextWords"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Lines"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 104, ((26, (29, 50373376)), 0, None), 0)",
+      "documentation": "Collection of all lines in the range",
+      "return_referenced_types": [
+        "IVGTextLines"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Paragraphs"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743815, (), (), 4, 2, 4, 0, 112, ((26, (29, 50373504)), 0, None), 0)",
+      "documentation": "Collection of all paragraphs in the range",
+      "return_referenced_types": [
+        "IVGTextParagraphs"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Start"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (3, 0, None), 0)",
+      "documentation": "Starting character position of the range in the text stream",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Start"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((3, 1, None),), 4, 4, 4, 0, 128, (24, 0, None), 0)",
+      "documentation": "Starting character position of the range in the text stream",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "End"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 136, (3, 0, None), 0)",
+      "documentation": "Ending character position of the range in the text stream",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "End"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743818, (), ((3, 1, None),), 4, 4, 4, 0, 144, (24, 0, None), 0)",
+      "documentation": "Ending character position of the range in the text stream",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Length"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (), 4, 2, 4, 0, 152, (3, 0, None), 0)",
+      "documentation": "The length of the range in characters",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Length"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743820, (), ((3, 1, None),), 4, 4, 4, 0, 160, (24, 0, None), 0)",
+      "documentation": "The length of the range in characters",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Duplicate"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743822, (), (), 4, 1, 4, 0, 168, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a copy of the TextRange object",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Style"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743823, (), (), 4, 2, 4, 0, 176, ((29, 50332928), 0, None), 0)",
+      "documentation": "Gets/sets the font style of the range",
+      "return_referenced_types": [
+        "cdrFontStyle"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Style"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743823, (), (((29, 50332928), 1, None),), 4, 4, 4, 0, 184, (24, 0, None), 0)",
+      "documentation": "Gets/sets the font style of the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Bold"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743825, (), (), 4, 2, 4, 0, 192, (11, 0, None), 0)",
+      "documentation": "Gets/sets the Bold property of the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Bold"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743825, (), ((11, 1, None),), 4, 4, 4, 0, 200, (24, 0, None), 0)",
+      "documentation": "Gets/sets the Bold property of the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Italic"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743827, (), (), 4, 2, 4, 0, 208, (11, 0, None), 0)",
+      "documentation": "Gets/sets the Italic property of the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Italic"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743827, (), ((11, 1, None),), 4, 4, 4, 0, 216, (24, 0, None), 0)",
+      "documentation": "Gets/sets the Italic property of the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Underline"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743829, (), (), 4, 2, 4, 0, 224, ((29, 50333056), 0, None), 0)",
+      "documentation": "Gets/sets the Underline property of the range",
+      "return_referenced_types": [
+        "cdrFontLine"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Underline"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743829, (), (((29, 50333056), 1, None),), 4, 4, 4, 0, 232, (24, 0, None), 0)",
+      "documentation": "Gets/sets the Underline property of the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Strikethru"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743831, (), (), 4, 2, 4, 0, 240, ((29, 50333056), 0, None), 0)",
+      "documentation": "Gets/sets the StrikeThru property of the range",
+      "return_referenced_types": [
+        "cdrFontLine"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Strikethru"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743831, (), (((29, 50333056), 1, None),), 4, 4, 4, 0, 248, (24, 0, None), 0)",
+      "documentation": "Gets/sets the StrikeThru property of the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Overscore"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743833, (), (), 4, 2, 4, 0, 256, ((29, 50333056), 0, None), 0)",
+      "documentation": "Gets/sets the Overscore property of the range",
+      "return_referenced_types": [
+        "cdrFontLine"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Overscore"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743833, (), (((29, 50333056), 1, None),), 4, 4, 4, 0, 264, (24, 0, None), 0)",
+      "documentation": "Gets/sets the Overscore property of the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Font"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743835, (), (), 4, 2, 4, 0, 272, (8, 0, None), 0)",
+      "documentation": "Gets/sets the font name",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Font"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743835, (), ((8, 1, None),), 4, 4, 4, 0, 280, (24, 0, None), 0)",
+      "documentation": "Gets/sets the font name",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Size"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743837, (), (), 4, 2, 4, 0, 288, (4, 0, None), 0)",
+      "documentation": "Gets/sets the font size",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Size"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743837, (), ((4, 1, None),), 4, 4, 4, 0, 296, (24, 0, None), 0)",
+      "documentation": "Gets/sets the font size",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Position"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743839, (), (), 4, 2, 4, 0, 304, ((29, 50333312), 0, None), 0)",
+      "documentation": "Gets/sets the font position",
+      "return_referenced_types": [
+        "cdrFontPosition"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Position"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743839, (), (((29, 50333312), 1, None),), 4, 4, 4, 0, 312, (24, 0, None), 0)",
+      "documentation": "Gets/sets the font position",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Case"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743841, (), (), 4, 2, 4, 0, 320, ((29, 50333184), 0, None), 0)",
+      "documentation": "Gets/sets the case of the text in the range",
+      "return_referenced_types": [
+        "cdrFontCase"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Case"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743841, (), (((29, 50333184), 1, None),), 4, 4, 4, 0, 328, (24, 0, None), 0)",
+      "documentation": "Gets/sets the case of the text in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharAngle"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743843, (), (), 4, 2, 4, 0, 336, (4, 0, None), 0)",
+      "documentation": "Gets/sets the rotation angle",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharAngle"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743843, (), ((4, 1, None),), 4, 4, 4, 0, 344, (24, 0, None), 0)",
+      "documentation": "Gets/sets the rotation angle",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Alignment"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743845, (), (), 4, 2, 4, 0, 352, ((29, 50333440), 0, None), 0)",
+      "documentation": "Gets/sets the alignment of the text in the range",
+      "return_referenced_types": [
+        "cdrAlignment"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Alignment"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743845, (), (((29, 50333440), 1, None),), 4, 4, 4, 0, 360, (24, 0, None), 0)",
+      "documentation": "Gets/sets the alignment of the text in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "FirstLineIndent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743847, (), (), 4, 2, 4, 0, 368, (5, 0, None), 0)",
+      "documentation": "Gets/sets the amount that the first line is indented",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "FirstLineIndent"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743847, (), ((5, 1, None),), 4, 4, 4, 0, 376, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount that the first line is indented",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HorizShift"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743849, (), (), 4, 2, 4, 0, 384, (3, 0, None), 0)",
+      "documentation": "Gets/sets the amount by which the text has been shifted horizontally",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HorizShift"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743849, (), ((3, 1, None),), 4, 4, 4, 0, 392, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount by which the text has been shifted horizontally",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "VertShift"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743851, (), (), 4, 2, 4, 0, 400, (3, 0, None), 0)",
+      "documentation": "Gets/sets the amount by which the text has been shifted vertically",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "VertShift"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743851, (), ((3, 1, None),), 4, 4, 4, 0, 408, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount by which the text has been shifted vertically",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LeftIndent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743853, (), (), 4, 2, 4, 0, 416, (5, 0, None), 0)",
+      "documentation": "Gets/sets the amount by which the text has been left-indented",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LeftIndent"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743853, (), ((5, 1, None),), 4, 4, 4, 0, 424, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount by which the text has been left-indented",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "RightIndent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743855, (), (), 4, 2, 4, 0, 432, (5, 0, None), 0)",
+      "documentation": "Gets/sets the amount by which the text has been right-indented",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "RightIndent"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743855, (), ((5, 1, None),), 4, 4, 4, 0, 440, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount by which the text has been right-indented",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MinWordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743857, (), (), 4, 2, 4, 0, 448, (4, 0, None), 0)",
+      "documentation": "Gets/sets the minimum amount of space between each word",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MinWordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743857, (), ((4, 1, None),), 4, 4, 4, 0, 456, (24, 0, None), 0)",
+      "documentation": "Gets/sets the minimum amount of space between each word",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxWordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743859, (), (), 4, 2, 4, 0, 464, (4, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each word",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxWordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743859, (), ((4, 1, None),), 4, 4, 4, 0, 472, (24, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each word",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxCharSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743861, (), (), 4, 2, 4, 0, 480, (4, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each character",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxCharSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743861, (), ((4, 1, None),), 4, 4, 4, 0, 488, (24, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each character",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingBefore"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743863, (), (), 4, 2, 4, 0, 496, (4, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space before the paragraph",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingBefore"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743863, (), ((4, 1, None),), 4, 4, 4, 0, 504, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space before the paragraph",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingAfter"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743865, (), (), 4, 2, 4, 0, 512, (4, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space after the paragraph",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingAfter"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743865, (), ((4, 1, None),), 4, 4, 4, 0, 520, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space after the paragraph",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743867, (), (), 4, 2, 4, 0, 528, (4, 0, None), 0)",
+      "documentation": "Gets/sets the character spacing property",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743867, (), ((4, 1, None),), 4, 4, 4, 0, 536, (24, 0, None), 0)",
+      "documentation": "Gets/sets the character spacing property",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LineSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743869, (), (), 4, 2, 4, 0, 544, (4, 0, None), 0)",
+      "documentation": "Gets/sets the line spacing property",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LineSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743869, (), ((4, 1, None),), 4, 4, 4, 0, 552, (24, 0, None), 0)",
+      "documentation": "Gets/sets the line spacing property",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LineSpacingType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743871, (), (), 4, 2, 4, 0, 560, ((29, 50333568), 0, None), 0)",
+      "documentation": "Gets the type of line spacing to use",
+      "return_referenced_types": [
+        "cdrLineSpacingType"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "WordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743872, (), (), 4, 2, 4, 0, 568, (4, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space between each word",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "WordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743872, (), ((4, 1, None),), 4, 4, 4, 0, 576, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space between each word",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "AutoHyphenate"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743874, (), (), 4, 2, 4, 0, 584, ((29, 50342144), 0, None), 0)",
+      "documentation": "Gets/sets the value for automatic hyphenation",
+      "return_referenced_types": [
+        "cdrTriState"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "AutoHyphenate"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743874, (), (((29, 50342144), 1, None),), 4, 4, 4, 0, 592, (24, 0, None), 0)",
+      "documentation": "Gets/sets the value for automatic hyphenation",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenHotZone"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743876, (), (), 4, 2, 4, 0, 600, (5, 0, None), 0)",
+      "documentation": "Gets/sets the distance from the right margin at which words begin to be hyphenated",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenHotZone"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743876, (), ((5, 1, None),), 4, 4, 4, 0, 608, (24, 0, None), 0)",
+      "documentation": "Gets/sets the distance from the right margin at which words begin to be hyphenated",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenMinCharsBefore"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743878, (), (), 4, 2, 4, 0, 616, (3, 0, None), 0)",
+      "documentation": "Gets/sets the minimum number of characters to use before a hyphen",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenMinCharsBefore"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743878, (), ((3, 1, None),), 4, 4, 4, 0, 624, (24, 0, None), 0)",
+      "documentation": "Gets/sets the minimum number of characters to use before a hyphen",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenMinCharsAfter"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743880, (), (), 4, 2, 4, 0, 632, (3, 0, None), 0)",
+      "documentation": "Gets/sets the minimum number of characters to use after a hyphen",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenMinCharsAfter"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743880, (), ((3, 1, None),), 4, 4, 4, 0, 640, (24, 0, None), 0)",
+      "documentation": "Gets/sets the minimum number of characters to use after a hyphen",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenMinWordLength"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743882, (), (), 4, 2, 4, 0, 648, (3, 0, None), 0)",
+      "documentation": "Gets/sets the minimum size of a word to hyphenate",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenMinWordLength"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743882, (), ((3, 1, None),), 4, 4, 4, 0, 656, (24, 0, None), 0)",
+      "documentation": "Gets/sets the minimum size of a word to hyphenate",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenateCapitals"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743884, (), (), 4, 2, 4, 0, 664, (11, 0, None), 0)",
+      "documentation": "Gets/sets whether to hyphenate uppercase words",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenateCapitals"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743884, (), ((11, 1, None),), 4, 4, 4, 0, 672, (24, 0, None), 0)",
+      "documentation": "Gets/sets whether to hyphenate uppercase words",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Delete"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743886, (), (), 4, 1, 4, 0, 680, (24, 0, None), 0)",
+      "documentation": "Deletes the characters in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Select"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743887, (), (), 4, 1, 4, 0, 688, (24, 0, None), 0)",
+      "documentation": "Selects the characters in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Copy"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743888, (), (), 4, 1, 4, 0, 696, (24, 0, None), 0)",
+      "documentation": "Copies the text to the clipboard",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Paste"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743889, (), (), 4, 1, 4, 0, 704, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Replaces the current text range and returns the new one",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ChangeCase",
+        "Case"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743890, (), (((29, 50342272), 1, None),), 4, 1, 4, 0, 712, (24, 0, None), 0)",
+      "documentation": "Changes the case of the text",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "SetRange",
+        "Start",
+        "End"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743891, (), ((3, 1, None), (3, 1, None)), 4, 1, 4, 0, 720, (24, 0, None), 0)",
+      "documentation": "Sets the starting and ending position of the text range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LanguageID"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743892, (), (), 4, 2, 4, 0, 728, ((29, 50342400), 0, None), 0)",
+      "documentation": "Gets/sets the LanguageID of the text range",
+      "return_referenced_types": [
+        "cdrTextLanguage"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LanguageID"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743892, (), (((29, 50342400), 1, None),), 4, 4, 4, 0, 736, (24, 0, None), 0)",
+      "documentation": "Gets/sets the LanguageID of the text range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharSet"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743894, (), (), 4, 2, 4, 0, 744, ((29, 50342528), 0, None), 0)",
+      "documentation": "Gets/sets the character set of the text range",
+      "return_referenced_types": [
+        "cdrTextCharSet"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharSet"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743894, (), (((29, 50342528), 1, None),), 4, 4, 4, 0, 752, (24, 0, None), 0)",
+      "documentation": "Gets/sets the character set of the text range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "InsertBefore",
+        "Text",
+        "LanguageID",
+        "CharSet",
+        "Font"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743896, (), ((8, 1, None), ((29, 50342400), 49, 0), ((29, 50342528), 49, -1), (8, 17, None)), 4, 1, 4, 0, 760, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Inserts the new text before first character in the range and returns a range containing only the inserted characters",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "InsertBeforeWide",
+        "Text",
+        "LanguageID",
+        "CharSet",
+        "Font"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743897, (), ((8, 1, None), ((29, 50342400), 49, 0), ((29, 50342528), 49, -1), (8, 17, None)), 4, 1, 4, 0, 768, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Inserts the new unicode text before first character in the range and returns a range containing only the inserted characters",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "InsertAfter",
+        "Text",
+        "LanguageID",
+        "CharSet",
+        "Font"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743898, (), ((8, 1, None), ((29, 50342400), 49, 0), ((29, 50342528), 49, -1), (8, 17, None)), 4, 1, 4, 0, 776, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Inserts the new text after the last character in the range and returns a range containing only the inserted characters",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "InsertAfterWide",
+        "Text",
+        "LanguageID",
+        "CharSet",
+        "Font"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743899, (), ((8, 1, None), ((29, 50342400), 49, 0), ((29, 50342528), 49, -1), (8, 17, None)), 4, 1, 4, 0, 784, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Inserts the new unicode text after the last character in the range and returns a range containing only the inserted characters",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Replace",
+        "Text",
+        "LanguageID",
+        "CharSet",
+        "Font"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743900, (), ((8, 1, None), ((29, 50342400), 49, 0), ((29, 50342528), 49, -1), (8, 17, None)), 4, 1, 4, 0, 792, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Replaces the range with the text string and returns the new range",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ReplaceWide",
+        "Text",
+        "LanguageID",
+        "CharSet",
+        "Font"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743901, (), ((8, 1, None), ((29, 50342400), 49, 0), ((29, 50342528), 49, -1), (8, 17, None)), 4, 1, 4, 0, 800, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Replaces the range with the unicode text string and returns the new range",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Range",
+        "Start",
+        "End"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743902, (), ((3, 1, None), (3, 1, None)), 4, 1, 4, 0, 808, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a range of characters relative to the beginning of the current range",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "SetLineSpacing",
+        "Type",
+        "LineSpacing",
+        "ParaBefore",
+        "ParaAfter"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743903, (), (((29, 50333568), 1, None), (4, 49, -1.0), (4, 49, -1.0), (4, 49, -1.0)), 4, 1, 4, 0, 816, (24, 0, None), 0)",
+      "documentation": "Sets the line spacing properties of the text range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Columns"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743904, (), (), 4, 2, 4, 0, 824, ((26, (29, 50373632)), 0, None), 0)",
+      "documentation": "Collection of text columns in the range",
+      "return_referenced_types": [
+        "IVGTextColumns"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Frames"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743905, (), (), 4, 2, 4, 0, 832, ((26, (29, 50373760)), 0, None), 0)",
+      "documentation": "Collection of text frames in the range",
+      "return_referenced_types": [
+        "IVGTextFrames"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Collapse",
+        "ToEnd"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743906, (), ((11, 49, True),), 4, 1, 4, 0, 840, (24, 0, None), 0)",
+      "documentation": "Collapses the text range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Combine",
+        "Range"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743907, (), (((26, (29, 50372992)), 1, None),), 4, 1, 4, 0, 848, (24, 0, None), 0)",
+      "documentation": "Combines the current text range with the given range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "InRange",
+        "Range"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743908, (), (((26, (29, 50372992)), 1, None),), 4, 1, 4, 0, 856, (11, 0, None), 0)",
+      "documentation": "Gets whether the current text range is within the given range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "IsSame",
+        "Range"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743909, (), (((26, (29, 50372992)), 1, None),), 4, 1, 4, 0, 864, (11, 0, None), 0)",
+      "documentation": "Gets whether the current text range is the same as the given range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Fill"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743910, (), (), 4, 2, 4, 0, 872, ((26, (29, 50367104)), 0, None), 0)",
+      "documentation": "Gets the fill",
+      "return_referenced_types": [
+        "IVGFill"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Outline"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743911, (), (), 4, 2, 4, 0, 880, ((26, (29, 50368896)), 0, None), 0)",
+      "documentation": "Gets the outline",
+      "return_referenced_types": [
+        "IVGOutline"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "RangeKerning"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743912, (), (), 4, 2, 4, 0, 888, (3, 0, None), 0)",
+      "documentation": "Gets or sets the character range kerning",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "RangeKerning"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743912, (), ((3, 1, None),), 4, 4, 4, 0, 896, (24, 0, None), 0)",
+      "documentation": "Gets or sets the character range kerning",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Tabs"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743914, (), (), 4, 2, 4, 0, 904, ((26, (29, 50374016)), 0, None), 0)",
+      "documentation": "Returns a collection of all tabs stops defined for the text range",
+      "return_referenced_types": [
+        "IVGTextTabPositions"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Effect"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743915, (), (), 4, 2, 4, 0, 912, ((29, 50346624), 0, None), 0)",
+      "documentation": "Returns the paragraph formatting effect type",
+      "return_referenced_types": [
+        "cdrTextEffect"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "DropCapLinesDropped"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743916, (), (), 4, 2, 4, 0, 920, (3, 0, None), 0)",
+      "documentation": "Gets or sets the number of lines a drop cap effect drops",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "DropCapLinesDropped"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743916, (), ((3, 1, None),), 4, 4, 4, 0, 928, (24, 0, None), 0)",
+      "documentation": "Gets or sets the number of lines a drop cap effect drops",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "DropCapDistanceFromText"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743918, (), (), 4, 2, 4, 0, 936, (5, 0, None), 0)",
+      "documentation": "Gets or sets the distance between a drop cap and the rest of the text",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "DropCapDistanceFromText"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743918, (), ((5, 1, None),), 4, 4, 4, 0, 944, (24, 0, None), 0)",
+      "documentation": "Gets or sets the distance between a drop cap and the rest of the text",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "DropCapHangingIndent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743920, (), (), 4, 2, 4, 0, 952, (11, 0, None), 0)",
+      "documentation": "Gets or sets the hanging indent for the paragraphs when drop cap effect is applied",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "DropCapHangingIndent"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743920, (), ((11, 1, None),), 4, 4, 4, 0, 960, (24, 0, None), 0)",
+      "documentation": "Gets or sets the hanging indent for the paragraphs when drop cap effect is applied",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletFont"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743922, (), (), 4, 2, 4, 0, 968, (8, 0, None), 0)",
+      "documentation": "Gets or sets the font face of the bullet symbol",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletFont"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743922, (), ((8, 1, None),), 4, 4, 4, 0, 976, (24, 0, None), 0)",
+      "documentation": "Gets or sets the font face of the bullet symbol",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletSymbol"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743924, (), (), 4, 2, 4, 0, 984, (8, 0, None), 0)",
+      "documentation": "Gets or sets the character to use as a bullet",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletSymbol"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743924, (), ((8, 1, None),), 4, 4, 4, 0, 992, (24, 0, None), 0)",
+      "documentation": "Gets or sets the character to use as a bullet",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletSize"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743926, (), (), 4, 2, 4, 0, 1000, (4, 0, None), 0)",
+      "documentation": "Gets or sets the font size of the bullet symbol in point",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletSize"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743926, (), ((4, 1, None),), 4, 4, 4, 0, 1008, (24, 0, None), 0)",
+      "documentation": "Gets or sets the font size of the bullet symbol in point",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletBaselineShift"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743928, (), (), 4, 2, 4, 0, 1016, (4, 0, None), 0)",
+      "documentation": "Gets or sets the vertical shift of the bullet symbol from baseline in points",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletBaselineShift"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743928, (), ((4, 1, None),), 4, 4, 4, 0, 1024, (24, 0, None), 0)",
+      "documentation": "Gets or sets the vertical shift of the bullet symbol from baseline in points",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletHorizontalPosition"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743930, (), (), 4, 2, 4, 0, 1032, (5, 0, None), 0)",
+      "documentation": "Gets or sets the horizontal offset of the bullet symbol from the left text margin",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletHorizontalPosition"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743930, (), ((5, 1, None),), 4, 4, 4, 0, 1040, (24, 0, None), 0)",
+      "documentation": "Gets or sets the horizontal offset of the bullet symbol from the left text margin",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletHangingIndent"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743932, (), (), 4, 2, 4, 0, 1048, (11, 0, None), 0)",
+      "documentation": "Gets or sets the hanging indent for the paragraphs when bullet effect is applied",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "BulletHangingIndent"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743932, (), ((11, 1, None),), 4, 4, 4, 0, 1056, (24, 0, None), 0)",
+      "documentation": "Gets or sets the hanging indent for the paragraphs when bullet effect is applied",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "IsEmpty"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743934, (), (), 4, 2, 4, 0, 1064, (11, 0, None), 0)",
+      "documentation": "Returns True if the text range is of zero length (has no characters in it)",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ApplyNoEffect"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743935, (), (), 4, 1, 4, 0, 1072, (24, 0, None), 0)",
+      "documentation": "Removes any paragraph formatting effect (such as drop cap or bullets)",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ApplyBulletEffect",
+        "Symbol",
+        "Font",
+        "Size",
+        "BaselineShift",
+        "HorizontalPosition",
+        "HangingIndent"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743936, (), ((8, 17, None), (8, 17, None), (4, 49, 0.0), (4, 49, 0.0), (5, 49, 0.0), (11, 49, True)), 4, 1, 4, 0, 1080, (24, 0, None), 0)",
+      "documentation": "Applies bullet effect to paragraphs in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ApplyDropCapEffect",
+        "LinesDropped",
+        "DistanceFromText",
+        "HangingIndent"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743937, (), ((3, 49, 3), (5, 49, 0.0), (11, 49, False)), 4, 1, 4, 0, 1088, (24, 0, None), 0)",
+      "documentation": "Applies drop cap effect to paragraphs in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenateAllCapWords"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743938, (), (), 4, 2, 4, 0, 1096, (11, 0, None), 0)",
+      "documentation": "Gets/sets whether to hyphenate all uppercase words",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "HyphenateAllCapWords"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743938, (), ((11, 1, None),), 4, 4, 4, 0, 1104, (24, 0, None), 0)",
+      "documentation": "Gets/sets whether to hyphenate all uppercase words",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "EnumRanges",
+        "PropertyFilter"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743940, (), (((29, 50349056), 49, -1),), 4, 1, 4, 0, 1112, ((26, (29, 50374272)), 0, None), 0)",
+      "documentation": "Gets a collection of text ranges sharing the same character attributes",
+      "return_referenced_types": [
+        "IVGTextRanges"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Evaluate",
+        "Expression"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743941, (), ((8, 1, None),), 4, 1, 4, 0, 1120, (12, 0, None), 0)",
+      "documentation": "Evaluates the given CQL expression using properties of the text range and returns the result of the expression",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "FindRanges",
+        "Query"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743942, (), ((8, 1, None),), 4, 1, 4, 0, 1128, ((26, (29, 50374272)), 0, None), 0)",
+      "documentation": "Find text character ranges using the supplied query condition in CQL",
+      "return_referenced_types": [
+        "IVGTextRanges"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Baselines"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743943, (), (), 4, 2, 4, 0, 1136, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns a curve consisting of a set of line segments representing placement and direction of baselines of each text line in the range",
+      "return_referenced_types": [
+        "IVGCurve"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Straighten"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743944, (), (), 4, 1, 4, 0, 1144, (24, 0, None), 0)",
+      "documentation": "Removes horizontal and vertical character shifts as well as their rotation",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "AlignToBaseline"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743945, (), (), 4, 1, 4, 0, 1152, (24, 0, None), 0)",
+      "documentation": "Removes vertical character shifts",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "TextLineRects"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743946, (), (), 4, 2, 4, 0, 1160, ((26, (29, 50363648)), 0, None), 0)",
+      "documentation": "Returns a curve consisting of a set of rectangular subpaths representing bounding boxes of each text line in the range",
+      "return_referenced_types": [
+        "IVGCurve"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharBackFill"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743947, (), (), 4, 2, 4, 0, 1168, ((26, (29, 50367104)), 0, None), 0)",
+      "documentation": "Returns the background color for the characters in the range",
+      "return_referenced_types": [
+        "IVGFill"
+      ]
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CopyAttributes",
+        "SourceRange"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743948, (), (((26, (29, 50372992)), 1, None),), 4, 1, 4, 0, 1176, (24, 0, None), 0)",
+      "documentation": "Copies text attributes from the source text range and applies them to the current text range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "GetOpenTypeFeature",
+        "Feature"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743949, (), ((8, 1, None),), 4, 1, 4, 0, 1184, (3, 0, None), 0)",
+      "documentation": "Gets the current state of the OpenType feature for the text range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "SetOpenTypeFeature",
+        "Feature",
+        "State"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743950, (), ((8, 1, None), (3, 1, None)), 4, 1, 4, 0, 1192, (24, 0, None), 0)",
+      "documentation": "Changes the state of the OpenType feature for the text range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "TextFormatter"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743951, (), (), 4, 2, 4, 0, 1200, (3, 0, None), 0)",
+      "documentation": "Gets or sets the text formatter used for the text stream",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "TextFormatter"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743951, (), ((3, 1, None),), 4, 4, 4, 0, 1208, (24, 0, None), 0)",
+      "documentation": "Gets or sets the text formatter used for the text stream",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ApplyStyle",
+        "StyleName"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743953, (), ((8, 1, None),), 4, 1, 4, 0, 1216, (24, 0, None), 0)",
+      "documentation": "Applies a style to the text in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ObjectStyle"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743954, (), (), 4, 2, 4, 0, 1224, ((26, (29, 50374400)), 0, None), 0)",
+      "documentation": "Returns the style currently applied to the text in the range",
+      "return_referenced_types": [
+        "IVGStyle"
+      ]
+    },
+    {
+      "interface": "IVGTextRanges",
+      "names": [
+        "Item",
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None),), 4, 2, 4, 0, 64, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns the specified text range",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRanges",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Returns the number of text ranges in the collection",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextRanges",
+      "names": [
+        "First"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns the first text range in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRanges",
+      "names": [
+        "Last"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns the last text range in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextRanges",
+      "names": [
+        "Reverse"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743813, (), (), 4, 1, 4, 0, 96, ((26, (29, 50374272)), 0, None), 0)",
+      "documentation": "Returns a new collection with the order of text ranges inversed",
+      "return_referenced_types": [
+        "IVGTextRanges"
+      ]
+    },
+    {
+      "interface": "IVGTextTabPosition",
+      "names": [
+        "Position"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), (), 4, 2, 4, 0, 56, (5, 0, None), 0)",
+      "documentation": "Gets or sets the horizontal position of the tab stop in the text frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPosition",
+      "names": [
+        "Position"
+      ],
+      "invkind": 4,
+      "descriptor": "(0, (), ((5, 1, None),), 4, 4, 4, 0, 64, (24, 0, None), 0)",
+      "documentation": "Gets or sets the horizontal position of the tab stop in the text frame",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPosition",
+      "names": [
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Gets the tab stop index among all the available tab stops",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPosition",
+      "names": [
+        "Alignment"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((29, 50346496), 0, None), 0)",
+      "documentation": "Gets or sets alignment for the tab stop position",
+      "return_referenced_types": [
+        "cdrTextTabAlignment"
+      ]
+    },
+    {
+      "interface": "IVGTextTabPosition",
+      "names": [
+        "Alignment"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743811, (), (((29, 50346496), 1, None),), 4, 4, 4, 0, 88, (24, 0, None), 0)",
+      "documentation": "Gets or sets alignment for the tab stop position",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPosition",
+      "names": [
+        "Leadered"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, (11, 0, None), 0)",
+      "documentation": "Specifies whether the tab stop position uses a leader character to fill the empty space",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPosition",
+      "names": [
+        "Leadered"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743813, (), ((11, 1, None),), 4, 4, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": "Specifies whether the tab stop position uses a leader character to fill the empty space",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPosition",
+      "names": [
+        "Delete"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743815, (), (), 4, 1, 4, 0, 112, (24, 0, None), 0)",
+      "documentation": "Deletes the tab stop",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPositions",
+      "names": [
+        "Item",
+        "Index"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None),), 4, 2, 4, 0, 56, ((26, (29, 50374144)), 0, None), 0)",
+      "documentation": "Gets the specified tab position",
+      "return_referenced_types": [
+        "IVGTextTabPosition"
+      ]
+    },
+    {
+      "interface": "IVGTextTabPositions",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743809, (), (), 4, 2, 4, 0, 64, (3, 0, None), 0)",
+      "documentation": "Returns the number of tab positions defined for the text range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPositions",
+      "names": [
+        "LeaderSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, (3, 0, None), 0)",
+      "documentation": "Gets or sets the leader spacing for all the tab stops in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPositions",
+      "names": [
+        "LeaderSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743811, (), ((3, 1, None),), 4, 4, 4, 0, 88, (24, 0, None), 0)",
+      "documentation": "Gets or sets the leader spacing for all the tab stops in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPositions",
+      "names": [
+        "LeaderCharacter"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, (8, 0, None), 0)",
+      "documentation": "Gets or sets the leader characters to be used with tab stops in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPositions",
+      "names": [
+        "LeaderCharacter"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743813, (), ((8, 1, None),), 4, 4, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": "Gets or sets the leader characters to be used with tab stops in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPositions",
+      "names": [
+        "Clear"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743815, (), (), 4, 1, 4, 0, 112, (24, 0, None), 0)",
+      "documentation": "Deletes all tab stop positions in the text range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextTabPositions",
+      "names": [
+        "Add",
+        "Position",
+        "Alignment",
+        "Leadered"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743816, (), ((5, 1, None), ((29, 50346496), 49, 0), (11, 49, False)), 4, 1, 4, 0, 120, ((26, (29, 50374144)), 0, None), 0)",
+      "documentation": "Adds a new tab stop to the text in the range",
+      "return_referenced_types": [
+        "IVGTextTabPosition"
+      ]
+    },
+    {
+      "interface": "IVGTextTabPositions",
+      "names": [
+        "AddEvery",
+        "Position",
+        "Alignment",
+        "Leadered"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743817, (), ((5, 1, None), ((29, 50346496), 49, 0), (11, 49, False)), 4, 1, 4, 0, 128, (24, 0, None), 0)",
+      "documentation": "Adds new tab stops placed at the given distance from each other to the text in the range",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextWords",
+      "names": [
+        "Item",
+        "Index",
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(0, (), ((3, 1, None), (3, 49, 1)), 4, 2, 4, 0, 64, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Gets a reference to the specified word, in base 1",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextWords",
+      "names": [
+        "Count"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "documentation": "Gets the number of items in the collection",
+      "return_referenced_types": []
+    },
+    {
+      "interface": "IVGTextWords",
+      "names": [
+        "All"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743811, (), (), 4, 2, 4, 0, 80, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing all words in the collection ",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextWords",
+      "names": [
+        "First"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the first word in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    },
+    {
+      "interface": "IVGTextWords",
+      "names": [
+        "Last"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743813, (), (), 4, 2, 4, 0, 96, ((26, (29, 50372992)), 0, None), 0)",
+      "documentation": "Returns a TextRange containing the last word in the collection",
+      "return_referenced_types": [
+        "IVGTextRange"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/textrange.range",
+      "accessed_utc": "2026-11-05T04:14:15.677584+00:00",
+      "status": 200,
+      "final_url": "https://community.coreldraw.com/sdk/api/draw/17/m/textrange.range",
+      "response_truncated": false,
+      "excerpts": [],
+      "member_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.characters",
+      "accessed_utc": "2026-11-05T04:14:15.947152+00:00",
+      "status": 200,
+      "final_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.characters",
+      "response_truncated": false,
+      "excerpts": [],
+      "member_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/m/text.fittexttoframe",
+      "accessed_utc": "2026-11-05T04:14:16.040910+00:00",
+      "status": 200,
+      "final_url": "https://community.coreldraw.com/sdk/api/draw/17/m/text.fittexttoframe",
+      "response_truncated": false,
+      "excerpts": [],
+      "member_text_found": false
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/textcharacters.item",
+      "accessed_utc": "2026-11-05T04:14:16.136628+00:00",
+      "status": 200,
+      "final_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textcharacters.item",
+      "response_truncated": false,
+      "excerpts": [],
+      "member_text_found": false
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Fitting-text-to-the-paragraph-text-frame.html",
+      "accessed_utc": "2026-11-05T04:14:16.228458+00:00",
+      "error_type": "HTTPError"
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Fitting-text-to-a-frame.html",
+      "accessed_utc": "2026-11-05T04:14:17.002058+00:00",
+      "error_type": "HTTPError"
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Adding-paragraph-text.html",
+      "accessed_utc": "2026-11-05T04:14:17.756772+00:00",
+      "status": 200,
+      "final_url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Adding-paragraph-text.html",
+      "response_truncated": false,
+      "excerpts": [
+        "ess of how much text you add to them. You can increase or decrease the frame size, so that the text fits in the frame. If you add more text than a frame allows, the text continues past the lower-right border of the text frame, but remains hidden. The color of the frame turns red to alert you that there's additional text. You can fix the overflow manually by increasing the frame size, adjusting the text size, adjusting the column width, or linking the frame to another text frame. For more information, see Combining and linking paragraph text frames. The text frame turns red to indicate that there is additional text. You can also choose to automatically adjust the point size of text so that it fits neatly inside a frame. If the text overflows, CorelDRAW automatically decreases the point size; if you have little text, the application expands it to fill the frame. The point size of the text ",
+        "e is additional text. You can also choose to automatically adjust the point size of text so that it fits neatly inside a frame. If the text overflows, CorelDRAW automatically decreases the point size; if you have little text, the application expands it to fill the frame. The point size of the text in the frame (left) was automatically adjusted so that it fits neatly inside the frame (right). You can also change the formatting of selected paragraph text frames and any frames to which they are linked. For information, see To specify formatting preferences for text frames. You can also align text inside a text frame by using the baseline grid. For more information, see Aligning text by using the baseline grid. In addition, you can assign hyperlinks to paragraph text. For more information, see To assign a hyperlink to text. You can also change the text orientation for Asian text. For more in",
+        "ill the frame. The point size of the text in the frame (left) was automatically adjusted so that it fits neatly inside the frame (right). You can also change the formatting of selected paragraph text frames and any frames to which they are linked. For information, see To specify formatting preferences for text frames. You can also align text inside a text frame by using the baseline grid. For more information, see Aligning text by using the baseline grid. In addition, you can assign hyperlinks to paragraph text. For more information, see To assign a hyperlink to text. You can also change the text orientation for Asian text. For more information, see To choose a text orientation for Asian text. To add paragraph text 1 . Click the Text tool . 2 . Drag in the drawing window to size the paragraph text frame. 3 . Type in the text frame. You can also Set text frame column width to adjust autom",
+        "me. 3 . Type in the text frame. You can also Set text frame column width to adjust automatically to fit the text Click Window Dockers Object properties . In the Object properties docker, click the Frame button to display the frame-related options. In the Frame area, click the Columns buttons. In the Column settings dialog box, enable the Automatically adjust frame width option. Apply a background color to a text frame Open the Background color picker, and click a color. A red text frame indicates text overflow. You can fix the overflow manually by increasing the frame size, adjusting the text size, or linking the frame to another text frame. For more information, see Combining and linking paragraph text frames. You can also fix the overflow automatically by clicking Text Paragraph text frame Fit text to frame . You can use the Pick tool to adjust the size of a paragraph text frame. Click",
+        "raph text frames. You can also fix the overflow automatically by clicking Text Paragraph text frame Fit text to frame . You can use the Pick tool to adjust the size of a paragraph text frame. Click the text frame, and drag any selection handle. To create a frame from an object 1 . Do one of the following: \u2022 Using the Pick tool , click the object in which you want to insert a text frame. \u2022 Using a drawing tool, draw a closed shape. 2 . Select the object, and click Text Paragraph text frame Create empty text frame . You can also Create a text frame from an object by using the Text tool Click the Text tool . Move the pointer over the outline of the object, and click the object when the pointer changes to an Insert in object pointer . Type inside the text frame. Create a text frame from an object from the right-click menu Right-click the object, and click Frame type Create empty text frame ."
+      ],
+      "member_text_found": true
+    }
+  ]
+}

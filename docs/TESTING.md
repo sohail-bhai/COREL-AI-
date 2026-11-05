@@ -11,7 +11,7 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 924 tests
+Ran 952 tests
 OK (skipped=30)
 ```
 
@@ -26,6 +26,9 @@ Coverage includes:
 - documented X7 line/paragraph spacing units, null-value preservation, explicit
   unit changes, preflight races, stale selectors, content/readback checks and
   partial-call worker quarantine (23 focused checks in `test_text_spacing.py`);
+- source-preserving paragraph fitting, native Single readability bounds, measured
+  overflow, copied-story independence, frame background/columns, late/moved edits,
+  verified cleanup and uncertain recovery (28 checks in `test_text_fitting.py`);
 - closed/replaced/lost-document and application detection using bounded open
   collections, COM proxy identity, retired sessions, and rejection before edits;
 - import extension/size checks and output overwrite refusal;

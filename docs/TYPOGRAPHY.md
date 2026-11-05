@@ -42,7 +42,9 @@ Inspection does not link frames, fit text, select shapes, or change typography.
 The new mutations participate in [worker recovery](WORKER_RECOVERY.md). A failure
 after a native write or uncertain readback blocks follow-up mutations until
 inspection and exact-ID reconciliation. No generic rollback, replay, or auto-fit
-is performed. Bounds inspection restores the original units/reference point;
+is performed by the original typography mutations. Independent copied-paragraph
+fitting is now covered separately in [TEXT_FITTING.md](TEXT_FITTING.md).
+Bounds inspection restores the original units/reference point;
 failed restoration remains an error.
 
 ## Evidence and remaining work
@@ -63,8 +65,10 @@ Primary online documentation:
 Line/paragraph spacing now has researched units and guarded write controls in
 [TEXT_SPACING.md](TEXT_SPACING.md), with 23 focused checks. Character/word spacing
 scales still require evidence before exposing write controls. Still pending:
-per-run formatting, glyph/font-face coverage, linked/fitted story edits, safe
-text fitting, multilingual visual review, and template reflow.
+per-run formatting, glyph/font-face coverage, linked/fitted story edits, broader
+safe-area/artistic fitting, multilingual visual review, and template reflow.
+[Copied paragraph fitting](TEXT_FITTING.md) now passes 28 focused non-live checks;
+native/visual acceptance remains deferred.
 
 `test_typography_live` is prepared in the disposable-document integration suite.
 It checks native title formatting, paragraph bounds, chain overflow, content,

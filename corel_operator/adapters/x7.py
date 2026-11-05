@@ -264,6 +264,11 @@ class CorelX7Adapter:
             "Installed X7 SetLineSpacing and unit enums support guarded whole-story leading/paragraph spacing; native and visual acceptance remain deferred.",
             ("TextRange.SetLineSpacing", "TextRange.LineSpacingType", "TextRange.ParaSpacingBefore", "TextRange.ParaSpacingAfter"),
         ),
+        "text.paragraph_fit": CapabilitySupport(
+            True, "implemented_unverified",
+            "Bounded font/overflow probes fit an independent paragraph copy within explicit readability bounds; native and visual acceptance remain deferred.",
+            ("Shape.Duplicate", "TextRange.Size", "Text.Overflow", "Text.Frame", "TextFrame.FrameShape"),
+        ),
         "text.font_catalog": CapabilitySupport(
             True, "implemented_unverified",
             "Bounded X7 font catalog inspection is type-library confirmed; catalog membership does not establish glyph coverage.",

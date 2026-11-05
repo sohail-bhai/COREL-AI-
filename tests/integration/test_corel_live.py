@@ -1800,9 +1800,37 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self.assertEqual(missing.exception.code, ErrorCode.INVALID_ARGUMENT)
             self.assertEqual(int(document.ActivePage.Shapes.Count), shape_count)
             self.assertEqual((int(document.Unit), int(document.ReferencePoint)), original_context)
+            fit_text = "Editable fitting example. " * 20
+            fit_source = self._step("create overflowing fitting fixture", lambda: self.bridge.add_paragraph_text(
+                fit_text, 1, 2, 4, 1, size_points=18, object_name="FitSource"))
+            fit_reference = fit_source["object"]["object_reference"]
+            self.assertTrue(fit_source["layout"]["overflow"])
+            fit_shape, _ = self.bridge._resolve_object_reference(document, fit_reference, mutation=False)
+            fit_before = self.bridge._fitting_state(document, fit_shape)
+            fitted = self._step("fit independent editable paragraph", lambda: self.bridge.fit_paragraph_text(
+                fit_reference, minimum_size_points=8, result_name="FittedCopy"))
+            self.assertTrue(fitted["source_preservation"]["verified"])
+            self.assertFalse(fitted["overflow"])
+            self.assertGreaterEqual(fitted["actual_size_points"], 8)
+            self.assertLessEqual(fitted["actual_size_points"], 18)
+            self.assertEqual(self.bridge._fitting_state(document, fit_shape), fit_before)
+            fitted_text = self.bridge.get_text_properties(object_reference=fitted["object"]["object_reference"], max_text_chars=10000)
+            self.assertEqual(normalize(fitted_text["text"]["content"]), normalize(fit_text))
+            self.assertFalse(fitted_text["text"]["layout"]["overflow"])
+            already_fit = self._step("copy already fitting paragraph without enlargement", lambda: self.bridge.fit_paragraph_text(
+                fitted["object"]["object_reference"], minimum_size_points=8, result_name="AlreadyFittedCopy"))
+            self.assertEqual(already_fit["probe_count"], 0)
+            self.assertEqual(already_fit["actual_size_points"], fitted["actual_size_points"])
+            count_before_refusal = int(document.ActivePage.Shapes.Count)
+            with self.assertRaises(CorelBridgeError) as minimum_refusal:
+                self.bridge.fit_paragraph_text(body_reference, minimum_size_points=12)
+            self.assertEqual(minimum_refusal.exception.code, ErrorCode.INVALID_ARGUMENT)
+            self.assertTrue(minimum_refusal.exception.details["rollback"]["verified"])
+            self.assertEqual(int(document.ActivePage.Shapes.Count), count_before_refusal)
             (self.output_dir / "typography-readback.json").write_text(
                 json.dumps({"title": changed, "paragraph": paragraph, "revised_body": styled_body,
-                            "body_inspection": body, "spacing_revisions": spacing_results}, indent=2, ensure_ascii=False), encoding="utf-8")
+                            "body_inspection": body, "spacing_revisions": spacing_results,
+                            "fitted": fitted, "already_fitted": already_fit}, indent=2, ensure_ascii=False), encoding="utf-8")
             self._step("verify native typography", lambda: {"updated": True})
             passed = True
         except BaseException as exc:

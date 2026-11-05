@@ -1433,6 +1433,20 @@
       "native_result": "not_run",
       "mcp_envelope_result": "pending_consolidated_client_run",
       "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "fit_paragraph_text",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_text_fitting.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_typography_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
     }
   ]
 }
