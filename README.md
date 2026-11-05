@@ -30,11 +30,11 @@ Validate the catalog without starting CorelDRAW:
 - A stable result envelope for every MCP tool.
 - Stable error codes for expected validation, targeting, path, overwrite, COM, worker, and timeout failures.
 - Runtime metadata from `corel_status`, including Python, MCP SDK, pywin32, ProgID, and CorelDRAW version/build fields.
-- 874 tests (845 automated checks pass; twenty-nine guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
+- 901 tests (871 automated checks pass; thirty guarded live gates skipped), disposable-document regressions, and a catalog consistency validator. Live verification is deferred to a consolidated campaign across implemented features.
 - An explicit CorelDRAW X7 adapter that prefers `CorelDRAW.Application.17`, rejects unexpected major versions, and centralizes verified constants/capability status.
 - Native appearance readback and richer object identity using X7 `StaticID`, layer, page, and type metadata where available.
 - Signed session references for precise nested edits, opt-in redacted operation
-  records, and explicit worker/recovery state across 91 MCP tools. Three local
+  records, and explicit worker/recovery state across 92 MCP tools. Three local
   state/outcome/reconciliation tools block unsafe follow-up mutations after
   timeout or partial failure; see [`docs/WORKER_RECOVERY.md`](docs/WORKER_RECOVERY.md).
 - Local raster inspection and source-preserving PNG/TIFF crop, quarter rotation,
@@ -52,8 +52,12 @@ Validate the catalog without starting CorelDRAW:
 - Grouped text templates, literal UTF-8 CSV, complete record validation and
   independent full/partial output sheets; see
   [`docs/TEMPLATE_BATCHES.md`](docs/TEMPLATE_BATCHES.md).
-- Controlled zero-bleed PDF export with restored settings, parsed all-page/font
+- Controlled PDF export with researched bleed/mark/overprint controls, restored settings, parsed all-page/font
   checks and exclusive output publication; see [`docs/PDF_PRODUCTION.md`](docs/PDF_PRODUCTION.md).
+- Local `preflight_pdf` measures all trim/bleed boxes and inventories supported color,
+  spot, overprint, raster and output-intent resources. Presence does not establish
+  content usage, ICC/PDF-X, effective raster DPI or print approval; see
+  [`docs/PDF_PREPRESS.md`](docs/PDF_PREPRESS.md).
 - Editable line/cubic paths, fingerprint-guarded node/handle edits and source-preserving
   weld/trim/intersect, combine and break-apart; see [`docs/VECTOR_EDITING.md`](docs/VECTOR_EDITING.md).
 - Source-preserving node insertion/deletion revisions with exact cubic subdivision,

@@ -26,7 +26,8 @@ def main():
         for function_index in range(attr.cFuncs):
             desc=info.GetFuncDesc(function_index); names=info.GetNames(desc[0])
             if name=='IPDFVBASettings' or names[0] in ('PDFSettings','PublishToPDF'):
-                evidence['members'].append({'interface':name,'names':names,'invkind':desc[4],'descriptor':repr(tuple(desc))})
+                evidence['members'].append({'interface':name,'names':names,'invkind':desc[4],'descriptor':repr(tuple(desc)),
+                    'documentation':info.GetDocumentation(desc[0])[1]})
     output=Path(__file__).resolve().parents[1]/'docs/x7_pdf_api_evidence.json'
     output.write_text(json.dumps(evidence,indent=2)+'\n',encoding='utf-8')
     print(f"Retained {len(evidence['members'])} PDF descriptors and {len(evidence['enums'])} enum groups; no application connection.")

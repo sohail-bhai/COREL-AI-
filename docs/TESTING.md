@@ -11,8 +11,8 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 376 tests
-OK (skipped=11)
+Ran 901 tests
+OK (skipped=30)
 ```
 
 Coverage includes:

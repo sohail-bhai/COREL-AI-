@@ -2,7 +2,7 @@
   "registry_schema_version": 1,
   "tool_schema_version": 1,
   "json_schema_dialect": "https://json-schema.org/draft/2020-12/schema",
-  "catalog_revision": "2026-11-04",
+  "catalog_revision": "2026-11-05",
   "profile_id": "coreldraw-x7-17",
   "status_values": [
     "planned",
@@ -6454,6 +6454,440 @@
         "fingerprint"
       ],
       "additionalProperties": false
+    },
+    "pdf_prepress_page": {
+      "type": "object",
+      "properties": {
+        "page_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "box_relationships_passed": {
+          "type": "boolean"
+        },
+        "trim_size_matches": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bleed_margins_inches": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "left": {
+                  "type": "number"
+                },
+                "bottom": {
+                  "type": "number"
+                },
+                "right": {
+                  "type": "number"
+                },
+                "top": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "left",
+                "bottom",
+                "right",
+                "top"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bleed_matches": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "page_index",
+        "box_relationships_passed",
+        "trim_size_matches",
+        "bleed_margins_inches",
+        "bleed_matches"
+      ],
+      "additionalProperties": false
+    },
+    "pdf_prepress_image": {
+      "type": "object",
+      "properties": {
+        "width_pixels": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "height_pixels": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "image_mask": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "width_pixels",
+        "height_pixels",
+        "image_mask"
+      ],
+      "additionalProperties": false
+    },
+    "pdf_prepress_graphics_state": {
+      "type": "object",
+      "properties": {
+        "stroke_overprint": {
+          "type": "boolean"
+        },
+        "fill_overprint": {
+          "type": "boolean"
+        },
+        "overprint_mode": {
+          "enum": [
+            0,
+            1
+          ]
+        }
+      },
+      "required": [
+        "stroke_overprint",
+        "fill_overprint",
+        "overprint_mode"
+      ],
+      "additionalProperties": false
+    },
+    "pdf_prepress_intent": {
+      "type": "object",
+      "properties": {
+        "subtype": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "identifier": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "embedded_profile_present": {
+          "type": "boolean"
+        },
+        "encoded_profile_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 52428800
+        },
+        "encoded_profile_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "subtype",
+        "identifier",
+        "embedded_profile_present",
+        "encoded_profile_bytes",
+        "encoded_profile_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "pdf_prepress_inventory": {
+      "type": "object",
+      "properties": {
+        "color_space_families": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "maxItems": 32
+        },
+        "spot_colorant_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "spot_colorants": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "maxItems": 100
+        },
+        "spot_colorants_truncated": {
+          "type": "boolean"
+        },
+        "image_resource_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/pdf_prepress_image"
+          },
+          "maxItems": 100
+        },
+        "images_truncated": {
+          "type": "boolean"
+        },
+        "graphics_state_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "overprint_enabled_state_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "graphics_states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/pdf_prepress_graphics_state"
+          },
+          "maxItems": 100
+        },
+        "graphics_states_truncated": {
+          "type": "boolean"
+        },
+        "visits": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "complete_for_supported_resources": {
+          "type": "boolean"
+        },
+        "unsupported_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "color_space_families",
+        "spot_colorant_count",
+        "spot_colorants",
+        "spot_colorants_truncated",
+        "image_resource_count",
+        "images",
+        "images_truncated",
+        "graphics_state_count",
+        "overprint_enabled_state_count",
+        "graphics_states",
+        "graphics_states_truncated",
+        "visits",
+        "complete_for_supported_resources",
+        "unsupported_reasons"
+      ],
+      "additionalProperties": false
+    },
+    "pdf_prepress": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32767
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 52428800
+        },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "page_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/pdf_prepress_page"
+          },
+          "maxItems": 100
+        },
+        "pages_truncated": {
+          "type": "boolean"
+        },
+        "checks": {
+          "type": "object",
+          "properties": {
+            "box_relationships_passed": {
+              "type": "boolean"
+            },
+            "trim_sizes_match": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "bleed_margins_match": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "embedded_fonts_passed": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "output_intent_present": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "box_relationships_passed",
+            "trim_sizes_match",
+            "bleed_margins_match",
+            "embedded_fonts_passed",
+            "output_intent_present"
+          ],
+          "additionalProperties": false
+        },
+        "checks_passed": {
+          "type": "boolean"
+        },
+        "resource_inventory": {
+          "$ref": "#/schema_definitions/pdf_prepress_inventory"
+        },
+        "output_intents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schema_definitions/pdf_prepress_intent"
+          },
+          "maxItems": 32
+        },
+        "pdfx_declarations": {
+          "type": "object",
+          "properties": {
+            "GTS_PDFXVersion": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 1000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "GTS_PDFXConformance": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 1000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "GTS_PDFXVersion",
+            "GTS_PDFXConformance"
+          ],
+          "additionalProperties": false
+        },
+        "font_resource_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "unembedded_font_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "verification_status": {
+          "const": "implemented_unverified"
+        },
+        "production_ready": {
+          "const": false
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "path",
+        "bytes",
+        "source_sha256",
+        "page_count",
+        "pages",
+        "pages_truncated",
+        "checks",
+        "checks_passed",
+        "resource_inventory",
+        "output_intents",
+        "pdfx_declarations",
+        "font_resource_count",
+        "unembedded_font_count",
+        "verification_status",
+        "production_ready",
+        "warnings"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -11499,8 +11933,8 @@
         "target_document": null,
         "data": {
           "exported": true,
-          "path": "C:/jobs/verified-output.pdf",
-          "bytes": 714,
+          "path": "C:/jobs/controlled.pdf",
+          "bytes": 431,
           "controls": {
             "color_mode": "native",
             "pdf_version": "1.4",
@@ -11508,13 +11942,19 @@
             "whole_document": true,
             "embed_fonts": true,
             "bleed_inches": 0,
-            "marks_enabled": false
+            "marks_enabled": false,
+            "requested_bleed_inches": 0,
+            "native_bleed_units": 0,
+            "bleed_units_per_inch": 2540,
+            "crop_marks": false,
+            "registration_marks": false,
+            "preserve_overprints": true
           },
           "settings_restored": true,
           "inspection": {
-            "path": "C:/jobs/verified-output.pdf",
-            "bytes": 714,
-            "source_sha256": "34a838ba4bce19e734a5e024b9764f34a63313187f567cb5ffb1884851f26604",
+            "path": "C:/jobs/controlled.pdf",
+            "bytes": 431,
+            "source_sha256": "b37a58fb510237b6b60b1e610deecd3eb013ff71836b831faf66958f83affbe3",
             "pdf_header": "%PDF-1.3",
             "page_count": 1,
             "pages": [
@@ -11541,14 +11981,8 @@
               }
             ],
             "pages_truncated": false,
-            "font_resource_count": 1,
-            "fonts": [
-              {
-                "name": "/Helvetica",
-                "subtype": "/Type1",
-                "embedded_program_present": true
-              }
-            ],
+            "font_resource_count": 0,
+            "fonts": [],
             "fonts_truncated": false,
             "unembedded_font_count": 0,
             "checks": {
@@ -11565,8 +11999,63 @@
           "verification_status": "implemented_unverified",
           "production_ready": false,
           "warnings": [
-            "Zero-bleed export has no ICC/PDF-X/prepress guarantee; native and manual review remain pending."
-          ]
+            "Native/manual prepress acceptance remains deferred."
+          ],
+          "prepress": {
+            "path": "C:/jobs/controlled.pdf",
+            "bytes": 431,
+            "source_sha256": "b37a58fb510237b6b60b1e610deecd3eb013ff71836b831faf66958f83affbe3",
+            "page_count": 1,
+            "pages": [
+              {
+                "page_index": 1,
+                "box_relationships_passed": true,
+                "trim_size_matches": null,
+                "bleed_margins_inches": null,
+                "bleed_matches": null
+              }
+            ],
+            "pages_truncated": false,
+            "checks": {
+              "box_relationships_passed": true,
+              "trim_sizes_match": null,
+              "bleed_margins_match": null,
+              "embedded_fonts_passed": null,
+              "output_intent_present": null
+            },
+            "checks_passed": true,
+            "resource_inventory": {
+              "color_space_families": [],
+              "spot_colorant_count": 0,
+              "spot_colorants": [],
+              "spot_colorants_truncated": false,
+              "image_resource_count": 0,
+              "images": [],
+              "images_truncated": false,
+              "graphics_state_count": 0,
+              "overprint_enabled_state_count": 0,
+              "graphics_states": [],
+              "graphics_states_truncated": false,
+              "visits": 1,
+              "complete_for_supported_resources": true,
+              "unsupported_reasons": []
+            },
+            "output_intents": [],
+            "pdfx_declarations": {
+              "GTS_PDFXVersion": null,
+              "GTS_PDFXConformance": null
+            },
+            "font_resource_count": 0,
+            "unembedded_font_count": 0,
+            "verification_status": "implemented_unverified",
+            "production_ready": false,
+            "warnings": [
+              "Resource presence does not prove content usage, correct color conversion, spot separations or overprint appearance.",
+              "ICC programs, tint transforms, artwork streams, inline images and XMP are not decoded; effective raster DPI is unmeasured.",
+              "Page boxes do not prove artwork reaches bleed edges or that crop/registration marks are drawn correctly.",
+              "Output intents and PDF/X declarations do not establish conformance, visual fidelity or printer readiness."
+            ]
+          }
         },
         "warnings": [],
         "error": null,
@@ -17771,6 +18260,93 @@
         "error": {
           "code": "INVALID_ARGUMENT",
           "message": "Print run request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "preflight_pdf": {
+      "request": {
+        "path": "C:/jobs/controlled.pdf"
+      },
+      "success": {
+        "ok": true,
+        "tool": "preflight_pdf",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "path": "C:/jobs/controlled.pdf",
+          "bytes": 431,
+          "source_sha256": "b37a58fb510237b6b60b1e610deecd3eb013ff71836b831faf66958f83affbe3",
+          "page_count": 1,
+          "pages": [
+            {
+              "page_index": 1,
+              "box_relationships_passed": true,
+              "trim_size_matches": null,
+              "bleed_margins_inches": null,
+              "bleed_matches": null
+            }
+          ],
+          "pages_truncated": false,
+          "checks": {
+            "box_relationships_passed": true,
+            "trim_sizes_match": null,
+            "bleed_margins_match": null,
+            "embedded_fonts_passed": null,
+            "output_intent_present": null
+          },
+          "checks_passed": true,
+          "resource_inventory": {
+            "color_space_families": [],
+            "spot_colorant_count": 0,
+            "spot_colorants": [],
+            "spot_colorants_truncated": false,
+            "image_resource_count": 0,
+            "images": [],
+            "images_truncated": false,
+            "graphics_state_count": 0,
+            "overprint_enabled_state_count": 0,
+            "graphics_states": [],
+            "graphics_states_truncated": false,
+            "visits": 1,
+            "complete_for_supported_resources": true,
+            "unsupported_reasons": []
+          },
+          "output_intents": [],
+          "pdfx_declarations": {
+            "GTS_PDFXVersion": null,
+            "GTS_PDFXConformance": null
+          },
+          "font_resource_count": 0,
+          "unembedded_font_count": 0,
+          "verification_status": "implemented_unverified",
+          "production_ready": false,
+          "warnings": [
+            "Resource presence does not prove content usage, correct color conversion, spot separations or overprint appearance.",
+            "ICC programs, tint transforms, artwork streams, inline images and XMP are not decoded; effective raster DPI is unmeasured.",
+            "Page boxes do not prove artwork reaches bleed edges or that crop/registration marks are drawn correctly.",
+            "Output intents and PDF/X declarations do not establish conformance, visual fidelity or printer readiness."
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "preflight_pdf",
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "PDF preflight request refused.",
           "details": {}
         },
         "duration_ms": 1.0
@@ -27215,7 +27791,7 @@
     {
       "name": "export_pdf_controlled",
       "category": "pdf_production",
-      "description": "Control zero-bleed whole-document PDF output, restore settings, inspect and publish without overwriting.",
+      "description": "Export all pages with researched bleed/mark/overprint controls, measured boxes, restored settings and exclusive publication.",
       "implementation": {
         "state": "registered",
         "bridge_method": "CorelBridge.export_pdf_controlled"
@@ -27248,6 +27824,24 @@
             "default": false
           },
           "require_embedded_fonts": {
+            "type": "boolean",
+            "default": true
+          },
+          "bleed_inches": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0
+          },
+          "crop_marks": {
+            "type": "boolean",
+            "default": false
+          },
+          "registration_marks": {
+            "type": "boolean",
+            "default": false
+          },
+          "preserve_overprints": {
             "type": "boolean",
             "default": true
           }
@@ -27316,10 +27910,34 @@
                           "const": true
                         },
                         "bleed_inches": {
-                          "const": 0
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
                         },
                         "marks_enabled": {
-                          "const": false
+                          "type": "boolean"
+                        },
+                        "requested_bleed_inches": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1
+                        },
+                        "native_bleed_units": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 2540
+                        },
+                        "bleed_units_per_inch": {
+                          "const": 2540
+                        },
+                        "crop_marks": {
+                          "type": "boolean"
+                        },
+                        "registration_marks": {
+                          "type": "boolean"
+                        },
+                        "preserve_overprints": {
+                          "type": "boolean"
                         }
                       },
                       "required": [
@@ -27329,7 +27947,13 @@
                         "whole_document",
                         "embed_fonts",
                         "bleed_inches",
-                        "marks_enabled"
+                        "marks_enabled",
+                        "requested_bleed_inches",
+                        "native_bleed_units",
+                        "bleed_units_per_inch",
+                        "crop_marks",
+                        "registration_marks",
+                        "preserve_overprints"
                       ],
                       "additionalProperties": false
                     },
@@ -27353,6 +27977,9 @@
                       },
                       "minItems": 0,
                       "maxItems": 20
+                    },
+                    "prepress": {
+                      "$ref": "#/schema_definitions/pdf_prepress"
                     }
                   },
                   "required": [
@@ -27364,7 +27991,8 @@
                     "inspection",
                     "verification_status",
                     "production_ready",
-                    "warnings"
+                    "warnings",
+                    "prepress"
                   ],
                   "additionalProperties": false
                 }
@@ -27409,7 +28037,8 @@
         "PDFVBASettings.EmbedFile",
         "PDFVBASettings.ComplexFillsAsBitmaps",
         "PDFVBASettings.TextExportMode",
-        "PDFVBASettings.TrueTypeToType1"
+        "PDFVBASettings.TrueTypeToType1",
+        "PDFVBASettings.Overprints"
       ],
       "status": "implemented_unverified",
       "test_evidence": {
@@ -27417,13 +28046,16 @@
         "sources": [
           "tests/test_pdf_production.py",
           "docs/PDF_PRODUCTION.md",
-          "docs/x7_pdf_api_evidence.json"
+          "docs/x7_pdf_api_evidence.json",
+          "tests/test_pdf_prepress.py",
+          "docs/PDF_PREPRESS.md",
+          "docs/pdf_prepress_online_evidence.json"
         ]
       },
       "known_limitations": [
-        "Native/manual verification remains deferred.",
-        "Zero bleed; no ICC/PDF-X/prepress or font-program validity guarantee.",
-        "50 MiB/500 pages/10000 resource budget; summaries cap at 100 pages/fonts; no rendering or effective raster DPI check."
+        "Native bleed conversion and mark appearance await consolidated verification.",
+        "Bleed is rounded to 10-micrometre units; explicit trim/bleed boxes are required for nonzero bleed or enabled marks.",
+        "Artwork bleed coverage, ICC/PDF-X conformance, accurate color/spot/overprint, effective raster DPI and visual/printer acceptance remain unproven."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {
@@ -34433,6 +35065,142 @@
         "Live effects/opaque containers/complex paint and unlocked PowerClips are refused; pixels, text runs, clipping visuals, color and printer approval remain unchecked.",
         "Inspection requires bounded document structure; native reads cannot provide atomic locking.",
         "Execution replaces the clipboard, binds output on success and closes only an independently owned output on failure."
+      ],
+      "result_contract": "tool-schema-v1-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "preflight_pdf",
+      "category": "pdf_production",
+      "description": "Measure all trim/bleed boxes and inventory supported PDF color/spot/image/overprint/output-intent resources.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.pdf_prepress.preflight_pdf"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          },
+          "expected_trim_sizes": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "width": {
+                      "type": "number",
+                      "minimum": 0.001,
+                      "maximum": 200
+                    },
+                    "height": {
+                      "type": "number",
+                      "minimum": 0.001,
+                      "maximum": 200
+                    }
+                  },
+                  "required": [
+                    "width",
+                    "height"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 500,
+                "minItems": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "expected_bleed_inches": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "require_embedded_fonts": {
+            "type": "boolean",
+            "default": false
+          },
+          "require_output_intent": {
+            "type": "boolean",
+            "default": false
+          },
+          "tolerance_inches": {
+            "type": "number",
+            "minimum": 0.0001,
+            "maximum": 0.1,
+            "default": 0.001
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "$ref": "#/schema_definitions/pdf_prepress"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "offline_passed",
+        "sources": [
+          "tests/test_pdf_prepress.py",
+          "docs/PDF_PREPRESS.md"
+        ]
+      },
+      "known_limitations": [
+        "50 MiB/500 pages/10000 resource visits/16 levels; summaries cap at 100; 32 output intents.",
+        "Resource inventory observes presence, including unused resources and scoped aliases; artwork streams/inline images/XMP are not decoded.",
+        "No effective raster DPI, valid ICC/tint programs, content bleed/mark fidelity or PDF/X/printer guarantee.",
+        "Unknown resources and annotations make supported resource inventory incomplete; checks_passed describes only requested geometry/font/intent-presence checks."
       ],
       "result_contract": "tool-schema-v1-envelope",
       "introduced": {

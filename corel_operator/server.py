@@ -875,15 +875,35 @@ def inspect_pdf(path: str,expected_page_count: int | None=None,expected_page_siz
 
 @mcp.tool()
 @recorded_operation
+def preflight_pdf(path: str,expected_trim_sizes: list[dict] | None=None,expected_bleed_inches: float | None=None,
+                  require_embedded_fonts: bool=False,require_output_intent: bool=False,tolerance_inches: float=.001) -> dict:
+    """Measure all PDF trim/bleed boxes and inventory supported prepress resources.
+
+    Use an immutable local snapshot, capped at 50 MiB/500 pages/10000 visits and
+    16 resource levels. No content/ICC decoding, raster DPI or PDF/X certification.
+    """
+    from .pdf_prepress import preflight_pdf as inspect_file
+    started=perf_counter()
+    try:
+        return success_result('preflight_pdf',inspect_file(path,expected_trim_sizes,expected_bleed_inches,
+            require_embedded_fonts,require_output_intent,tolerance_inches),(perf_counter()-started)*1000)
+    except Exception as exc: return error_result('preflight_pdf',exc,(perf_counter()-started)*1000)
+
+
+@mcp.tool()
+@recorded_operation
 def export_pdf_controlled(path: str,color_mode: str="native",pdf_version: str="1.4",text_as_curves: bool=False,
-                          require_embedded_fonts: bool=True) -> dict:
-    """Export all bound-document pages with explicit zero-bleed/font/color controls.
+                          require_embedded_fonts: bool=True,bleed_inches: float=0,crop_marks: bool=False,
+                          registration_marks: bool=False,preserve_overprints: bool=True) -> dict:
+    """Export all bound pages with explicit bleed, marks, fonts and color controls.
 
     Restore native PDF settings, inspect every page and font resource, then
     publish exclusively to a new path. X7 and manual review remain pending;
-    ICC conversion, nonzero bleed and PDF/X are outside this contract.
+    Bleed uses researched X7 10-micrometre units and measured PDF boxes. Artwork
+    bleed coverage, mark appearance, ICC conversion and PDF/X remain unverified.
     """
-    result=_tool("export_pdf_controlled","export_pdf_controlled",path,color_mode,pdf_version,text_as_curves,require_embedded_fonts)
+    result=_tool("export_pdf_controlled","export_pdf_controlled",path,color_mode,pdf_version,text_as_curves,require_embedded_fonts,
+        bleed_inches,crop_marks,registration_marks,preserve_overprints)
     if result.get("ok"): result["warnings"].extend(result["data"]["warnings"])
     return result
 

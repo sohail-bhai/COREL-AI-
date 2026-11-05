@@ -41,7 +41,7 @@ def write_pdf(path,sizes=((8.5,11),),font=None,form=False,rotation=0,encrypt=Fal
 
 class Settings:
     names=('PublishRange ColorMode pdfVersion TextAsCurves EmbedFonts EmbedBaseFonts SubsetFonts IncludeBleed Bleed '
-           'CropMarks RegistrationMarks DensitometerScales FileInformation EncryptType BitmapCompression DownsampleColor '
+           'CropMarks RegistrationMarks Overprints DensitometerScales FileInformation EncryptType BitmapCompression DownsampleColor '
            'DownsampleGray DownsampleMono UseColorProfile ConvertSpotColors MaintainOPILinks EmbedFile ComplexFillsAsBitmaps '
            'TextExportMode TrueTypeToType1').split()
     def __init__(self):

@@ -1,6 +1,6 @@
 # CorelDRAW X7 Automation Capability Catalog
 
-**Catalog revision:** 2026-11-04
+**Catalog revision:** 2026-11-05
 
 **Profile:** `coreldraw-x7-17`
 
@@ -44,7 +44,7 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 88 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 92 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
@@ -149,7 +149,7 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic and workflow tools — `implemented_unverified` | 88 |
+| Registered atomic and workflow tools — `implemented_unverified` | 92 |
 | Planned atomic/workflow tools — `planned` | 1 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |
@@ -157,6 +157,13 @@ Evidence is evaluated in this order:
 The zero verified count is intentional. Dated disposable X7 reports now exist, but required manual artifact reviews and capability-specific evidence updates are not complete.
 
 ## Existing MCP tools
+
+The registered [PDF prepress extension](PDF_PREPRESS.md) adds local all-page
+trim/bleed checks and supported color/spot/image/overprint/output-intent resource
+inventory. Controlled PDF export uses installed X7 10-micrometre bleed units,
+explicit crop/registration/overprint controls, settings restoration and final
+owned-output byte readback. Native conversion/boxes/marks and content/ICC/PDF-X
+acceptance remain unverified.
 
 | Tool | Permission | Priority | Current status | Evidence summary | Primary next check |
 |---|---|---:|---|---|---|

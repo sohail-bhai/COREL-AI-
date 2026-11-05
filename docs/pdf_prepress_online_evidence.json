@@ -1,0 +1,54 @@
+[
+  {
+    "url": "https://community.coreldraw.com/sdk/api/draw/17.4/p/pdfvbasettings.bleed",
+    "accessed_utc": "2026-11-05T03:19:02.920668+00:00",
+    "status": 200,
+    "final_url": "https://community.coreldraw.com/sdk/api/draw/17.4/p/pdfvbasettings.bleed",
+    "content_type": "text/html",
+    "bytes_read": 845,
+    "readable_html": false,
+    "excerpt": "Request unsuccessful. Incapsula incident ID: 934000420018492072-25667995932428979"
+  },
+  {
+    "url": "https://community.coreldraw.com/sdk/api/draw/17.4/p/pdfvbasettings.cropmarks",
+    "accessed_utc": "2026-11-05T03:19:03.118751+00:00",
+    "status": 200,
+    "final_url": "https://community.coreldraw.com/sdk/api/draw/17.4/p/pdfvbasettings.cropmarks",
+    "content_type": "text/html",
+    "bytes_read": 839,
+    "readable_html": false,
+    "excerpt": "Request unsuccessful. Incapsula incident ID: 934000420018492072-36596179439848116"
+  },
+  {
+    "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Specifying-prepress-settings-for-PDF-files.html",
+    "accessed_utc": "2026-11-05T03:19:03.210703+00:00",
+    "readable_html": false,
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/Documentation/CorelDRAW-Specifying-prepress-options-for-PDF-files.html",
+    "accessed_utc": "2026-11-05T03:19:04.196026+00:00",
+    "readable_html": false,
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://help.coreldraw.com/CorelDRAW/540111192/Documentation-Windows/CorelDRAW-en/CorelDRAW-PDF-preflight-summaries.html",
+    "accessed_utc": "2026-11-05T03:19:05.239355+00:00",
+    "status": 200,
+    "final_url": "https://help.coreldraw.com/CorelDRAW/540111192/Documentation-Windows/CorelDRAW-en/CorelDRAW-PDF-preflight-summaries.html",
+    "content_type": "text/html",
+    "bytes_read": 5641,
+    "readable_html": true,
+    "excerpt": "CorelDRAW 2026 Help | PDF preflight summaries\nPDF preflight summaries\nTo view the preflight summary for a PDF file\nBefore saving a document as a PDF file, you can preflight your document to find potential problems. Preflighting checks and displays a summary of errors, possible problems, and suggestions for resolving issues. By default, many PDF issues are checked during a preflight, but you can disable the issues that you do not want to check.\nTo view the preflight summary for a PDF file\n1\nClick\nFile\nPublish to PDF.\n2\nLocate the folder in which you want to save the file.\n3\nType a filename in the\nFile name\nbox.\n4\nClick\nSettings\n.\nThe\nPDF settings\ndialog box appears.\n5\nClick the\nPreflight\ntab.\nIf there are no print job issues, the tab name displays as\nNo issues\n. If there are issues, the tab name displays the number of issues that were found.\nYou can limit the issues to check during the preflight by clicking the\nPreflight\ntab, clicking the\nSettings\nbutton\n, and, in the\nPreflight settings\ndialog box, disabling the check boxes next to the items that you want the preflight to overlook.\nYou can save settings by clicking the\nAdd preflight settings\nbutton\nand typing a name in the\nSave preflight style as\nbox.\nWas this page helpful? Send feedback.\nSome features documented in the Help are available exclusively to subscribers. For more information about CorelDRAW subscription, visit\ncoreldraw.com\n."
+  },
+  {
+    "url": "https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/PDF32000_2008.pdf",
+    "accessed_utc": "2026-11-05T03:19:05.324054+00:00",
+    "status": 200,
+    "final_url": "https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/PDF32000_2008.pdf",
+    "content_type": "application/pdf",
+    "bytes_read": 4194305,
+    "readable_html": false,
+    "note": "PDF reference only; bounded download not retained or parsed."
+  }
+]

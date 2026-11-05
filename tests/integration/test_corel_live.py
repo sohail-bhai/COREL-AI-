@@ -786,7 +786,7 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             document=self.bridge.target_doc
             with self.bridge._in_inches(document,strict_restore=True): document.AddPagesEx(1,3,4)
             fields=('PublishRange ColorMode pdfVersion TextAsCurves EmbedFonts EmbedBaseFonts SubsetFonts IncludeBleed Bleed '
-                'CropMarks RegistrationMarks DensitometerScales FileInformation EncryptType BitmapCompression DownsampleColor '
+                'CropMarks RegistrationMarks Overprints DensitometerScales FileInformation EncryptType BitmapCompression DownsampleColor '
                 'DownsampleGray DownsampleMono UseColorProfile ConvertSpotColors MaintainOPILinks EmbedFile ComplexFillsAsBitmaps '
                 'TextExportMode TrueTypeToType1').split()
             original={field:getattr(document.PDFSettings,field) for field in fields}
@@ -806,6 +806,48 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             failure=f"{type(exc).__name__}: {exc}"; raise
         finally:
             self._close_saved_target_if_needed(); self._write_report(passed,failure)
+
+    def test_pdf_prepress_live(self) -> None:
+        """Deferred physical bleed/mark and prepress gate on synthetic pages only."""
+        from corel_operator.pdf_prepress import preflight_pdf
+        passed = False; failure = None
+        try:
+            self.status = self._step('connect', self.bridge.connect)
+            self._step('create prepress fixture', lambda: self.bridge.create_document(8.5, 11))
+            self._step('first bleed background', lambda: self.bridge.draw_rectangle(-.25, -.25, 9, 11.5, 'BleedBackground'))
+            self._step('native cyan background', lambda: self.bridge.set_process_color(
+                {'model': 'cmyk', 'cyan': 100, 'magenta': 0, 'yellow': 0, 'black': 0}, object_name='BleedBackground'))
+            self._step('prepress text', lambda: self.bridge.add_text('Native bleed 1 mm / 3 mm', 1, 2, 12, 'Arial', False, 'PrepressText'))
+            document = self.bridge.target_doc
+            with self.bridge._in_inches(document, strict_restore=True):
+                document.AddPagesEx(1, 3, 4)
+                document.Pages.Item(2).Activate()
+            self._step('second bleed background', lambda: self.bridge.draw_rectangle(-.25, -.25, 3.5, 4.5, 'SecondBleedBackground'))
+            self._step('save prepress source', lambda: self.bridge.save_document(str(self.output_dir/'pdf-prepress-source.cdr')))
+            fields = ('PublishRange ColorMode pdfVersion TextAsCurves EmbedFonts EmbedBaseFonts SubsetFonts IncludeBleed Bleed '
+                'CropMarks RegistrationMarks Overprints DensitometerScales FileInformation EncryptType BitmapCompression DownsampleColor '
+                'DownsampleGray DownsampleMono UseColorProfile ConvertSpotColors MaintainOPILinks EmbedFile ComplexFillsAsBitmaps '
+                'TextExportMode TrueTypeToType1').split()
+            original = {field: getattr(document.PDFSettings, field) for field in fields}
+            reports = []
+            for millimetres, marks in ((1, False), (3, False), (3, True)):
+                path = self.output_dir / f'pdf-prepress-{millimetres}mm-marks-{marks}.pdf'
+                exported = self._step('export physical bleed', lambda: self.bridge.export_pdf_controlled(str(path),
+                    bleed_inches=millimetres/25.4, crop_marks=marks, registration_marks=marks, preserve_overprints=True))
+                self.assertEqual(exported['controls']['native_bleed_units'], millimetres*100)
+                self.assertEqual(original, {field: getattr(document.PDFSettings, field) for field in fields})
+                measured = self._step('preflight_pdf', lambda: preflight_pdf(str(path),
+                    [{'width': 8.5, 'height': 11}, {'width': 3, 'height': 4}], millimetres/25.4, True))
+                self.assertTrue(measured['checks_passed'])
+                self.assertEqual(measured['source_sha256'], exported['inspection']['source_sha256'])
+                self.assertFalse(measured['production_ready'])
+                reports.append({'export': exported, 'measured': measured})
+            (self.output_dir/'pdf-prepress-results.json').write_text(json.dumps(reports, indent=2), encoding='utf-8')
+            passed = True
+        except BaseException as exc:
+            failure = f'{type(exc).__name__}: {exc}'; raise
+        finally:
+            self._close_saved_target_if_needed(); self._write_report(passed, failure)
 
     def test_print_run_live(self) -> None:
         """Deferred full/partial sheet and rotation gate using disposable source/output."""

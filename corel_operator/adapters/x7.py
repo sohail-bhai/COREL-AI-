@@ -200,9 +200,11 @@ class CorelX7Adapter:
             True,"implemented_unverified","Bounded local PDF page boxes/counts and font-program presence checks; no renderer or ICC/PDF-X proof.",(),
         ),
         "pdf.controlled_export": CapabilitySupport(
-            True,"implemented_unverified","Explicit whole-document zero-bleed controls, verified settings restoration, parsed artifact checks and exclusive publication. Native/manual gates deferred.",
+            True,"implemented_unverified","Researched X7 bleed/marks/overprint controls, all-page measured boxes, settings restoration and exclusive publication. Native/manual gates deferred.",
             ("Document.PDFSettings","Document.PublishToPDF"),
         ),
+        "pdf.preflight": CapabilitySupport(True,"implemented_unverified",
+            "Bounded local trim/bleed and color/spot/overprint/image/output-intent resource inventory; content, DPI, ICC/PDF-X and print fidelity unverified.",()),
         "print.repeat_inspection": CapabilitySupport(True, "implemented_unverified", "Two bounded complete artwork scans reconcile measured native repeat payload and source context; visual and production acceptance remain pending.",
             ("Shape.DisplayCurve", "Shape.GetMatrix", "Shape.PowerClip", "Document.Pages", "Document.SelectionRange")),
         "print.run_plan": CapabilitySupport(True, "implemented_unverified", "Complete local full/partial-sheet plans preserve size and exact quantities with production margins and optional 90-degree rotations.", ()),

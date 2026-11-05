@@ -1,10 +1,11 @@
 # Controlled PDF output and structural inspection
 
-Implemented on 2026-11-03. Native and manual checks remain deferred.
+Implemented on 2026-11-03; prepress extension 2026-11-05. Native and manual checks remain deferred.
 
 `export_pdf_controlled` exports all bound-document pages with explicit PDF
 1.4/1.7, native/RGB/CMYK color mode, embedded fonts, Unicode text, optional text
-as curves, lossless bitmap compression, zero bleed and disabled printer marks.
+as curves, lossless bitmap compression, explicit bleed, crop/registration marks
+and overprint preservation. Defaults retain zero bleed and disabled marks.
 It disables encryption, file embedding, downsampling and OPI links. It restores
 every setting it changes and verifies restoration before publishing the output.
 Uncertain restoration requires exact-operation worker reconciliation.
@@ -36,11 +37,13 @@ inspection succeeded; it does not establish project acceptance.
 - `production_ready` stays false. Color mode selection does not prove accurate
   ICC conversion, spot/overprint correctness, PDF/X compliance, image resolution
   or visual fidelity. These remain explicit prepress/review work.
-- Nonzero bleed is deferred. The official X7.4 property page uses conflicting
-  units wording; no conversion is inferred. Zero bleed is independently safe.
+- Nonzero bleed now uses installed X7 getter/let documentation specifying
+  10-micrometre units (2540 per inch). Explicit measured trim/bleed boxes are
+  required for nonzero bleed/marks; native conversion, content bleed and mark
+  appearance remain unverified. See [PDF_PREPRESS.md](PDF_PREPRESS.md).
 
 The original `export_pdf` remains available with inherited-settings warnings.
-Use the controlled tool when its explicit zero-bleed contract fits the job.
+Use the controlled tool when its explicit controls fit the job.
 
 ## Evidence and deferred gate
 

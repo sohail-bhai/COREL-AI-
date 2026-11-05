@@ -1,6 +1,6 @@
 # Capability research and delivery backlog
 
-**Research date:** 2026-11-04
+**Research date:** 2026-11-05
 **Target:** CorelDRAW X7 17.0.0.491; Python/MCP/serialized COM bridge.
 **Authorization:** Continue the implementation plan autonomously, research online
 capabilities, and use evidence-backed gaps to guide further work. Live checks
@@ -8,7 +8,7 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 88 tools, all `implemented_unverified`. It covers
+The current server exposes 92 tools, all `implemented_unverified`. It covers
 inspection, editable typography/layout, reusable text batches, vectors, process
 colors/gradients/transparency, clipping, copied contour derivatives and guarded
 page/local-layer creation, activation, naming and flags, plus verified local
@@ -43,8 +43,8 @@ is a requirements reference, not X7 automation evidence.
 | Appearance and clipping | Native RGB/CMYK process colors; uniform transparency; PowerClip fitting/extraction/rebuilds; opaque direct multicolor gradients with guarded revisions | Proven outline units, spot/ICC, wider gradient/blend/group effects, in-place clip editing and native/visual verification |
 | Images and references | Validated imports; source/pixel fingerprints and verified PNG/TIFF derivatives; native affine DPI plus document-wide page/master/group/clip and local-link preflight | Background removal/cleanup and AI enhancement, native/source-detail/color/visual acceptance, export-generated rasterization, bounded tracing and fidelity reports |
 | Templates and data | Numbering/chest-bib sequence; named text templates, literal CSV, duplicates/count/overflow reconciliation and independent full/partial sheets | Image fields, mixed/linked text, auto-fit and numbering variants |
-| Publications and sheet production | Grid/contour planning; single-sheet execution | Multiple sheets, partial final sheets, page order, bleed/marks, source-preserving production outputs |
-| Export and prepress | Non-overwriting CDR/PDF output; controlled zero-bleed PDF settings and parsed all-page/font checks; raster DPI and geometry checks | Nonzero bleed, ICC/PDF-X, color/spot/overprint and effective raster-resolution checks |
+| Publications and sheet production | Independent source-preserving full/partial-sheet repeat runs with exact quantity and final copy/page reconciliation | Native/manual repeat acceptance, job-specific allowances and artwork bleed/mark coverage |
+| Export and prepress | Non-overwriting CDR/PDF output; researched bleed/mark/overprint controls with all-page/font/trim/bleed checks; supported PDF color/spot/overprint/image/output-intent resource inventory | Native units/box/mark and content bleed acceptance, ICC/PDF-X/color/separation correctness and export-generated effective raster DPI |
 | Codes and specialty output | No general registered workflow | QR/barcodes, cut paths, sign/banner allowances and apparel separations after format/API research |
 | Component AI design | Structured executable plans with imported artwork | Provider interface; separate raster/vector/text components; regenerate one component; preserve approved pieces |
 | Smart redesign/revisions | Basic plan/readback and selected rollback | Reflow to new size, selective high-resolution regeneration, component history, diff and verified restore |
@@ -156,12 +156,20 @@ descriptors and 14 enum groups without connecting to CorelDRAW; see
 `x7_pdf_api_evidence.json`. Whole-document range, embedding, text-as-curves,
 RGB/CMYK/native color modes, zero bleed and disabled marks can be controlled.
 Corel's [X7.4 bleed property](https://community.coreldraw.com/sdk/api/draw/17.4/p/pdfvbasettings.bleed)
-uses inconsistent unit wording in its summary and remarks. Retain nonzero bleed
-as an explicit dependency until the conversion is established. Parsed PDF
-page boxes and font resource checks are required; these do not prove PDF/X,
-ICC accuracy, visual fidelity or printer readiness. Two PDF tools now pass 22
-focused checks; see [PDF_PRODUCTION.md](PDF_PRODUCTION.md). The complete deferred
-inventory accounts for all 85 registered tools and prepared native gate candidates.
+previously supplied inconsistent unit wording. The 2026-11-05 installed X7
+getter/let documentation explicitly defines **tens of micron**, establishing
+2540 integer units per inch without application access. Controlled export now
+rounds that conversion, writes explicit crop/registration/overprint controls,
+restores settings and requires all-page measured trim/bleed boxes. The new local
+`preflight_pdf` inventories supported color/spot/image/overprint/output-intent
+resources and declarations with bounded work and explicit unsupported scope.
+Resource presence is separate from content usage and color/rendering correctness.
+The PDF tests now cover conversion, boxes, nested/aliased resources, overprint
+defaults, late staging/publication failures and preservation of concurrent edits;
+see [PDF_PREPRESS.md](PDF_PREPRESS.md). Current primary preflight help was readable;
+X7 SDK API text was unavailable. Native conversion/box/mark behavior, artwork bleed,
+ICC/PDF-X and export-generated raster DPI remain deferred or missing work.
+The consolidated inventory covers all 92 tools with prepared native candidates.
 
 1. **Reliability foundation:** ID-001 stale targets; SAFE-001 redacted records;
    SAFE-002 busy/timeout state and guarded recovery. Keep inspection bounded and

@@ -56,15 +56,26 @@ def box(value,required=False):
     return {'x':coordinates[0]/72,'y':coordinates[1]/72,'width':(coordinates[2]-coordinates[0])/72,'height':(coordinates[3]-coordinates[1])/72}
 
 
-def inspect_pdf(path: str,expected_page_count: int | None=None,expected_page_sizes: list[dict] | None=None,
-                require_embedded_fonts: bool=False,tolerance_inches: float=.01):
+def read_pdf_snapshot(path):
     path=pdf_path(path)
-    validate_expectations(expected_page_count,expected_page_sizes,require_embedded_fonts,tolerance_inches)
     try:
         with path.open('rb') as stream: raw=stream.read(MAX_PDF_BYTES+1)
     except OSError as exc: raise CorelBridgeError('The PDF file could not be read.',ErrorCode.INVALID_ARGUMENT) from exc
     if not raw or len(raw)>MAX_PDF_BYTES: invalid('PDF input must be nonempty and at most 50 MiB.')
     if not raw.startswith(b'%PDF-'): invalid('The input has no PDF header.')
+    return path,raw
+
+
+def inspect_pdf(path: str,expected_page_count: int | None=None,expected_page_sizes: list[dict] | None=None,
+                require_embedded_fonts: bool=False,tolerance_inches: float=.01):
+    validate_expectations(expected_page_count,expected_page_sizes,require_embedded_fonts,tolerance_inches)
+    path,raw=read_pdf_snapshot(path)
+    return inspect_pdf_snapshot(path,raw,expected_page_count,expected_page_sizes,require_embedded_fonts,tolerance_inches)
+
+
+def inspect_pdf_snapshot(path,raw,expected_page_count=None,expected_page_sizes=None,
+                         require_embedded_fonts=False,tolerance_inches=.01):
+    """Internal entry point for a validated immutable encoded-byte snapshot."""
     try:
         reader=PdfReader(io.BytesIO(raw),strict=True,root_object_recovery_limit=MAX_RESOURCES,xref_stream_maximum_entries=MAX_RESOURCES*2)
         if reader.is_encrypted: invalid('Encrypted PDFs are outside this inspection contract.')

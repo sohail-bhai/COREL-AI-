@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "research_date": "2026-11-04",
+  "research_date": "2026-11-05",
   "profile_id": "coreldraw-x7-17",
   "verification_policy": "deferred_consolidated_live_campaign",
   "scope": "Workflow gaps guide implementation; this file does not register MCP tools.",
@@ -516,8 +516,8 @@
       ],
       "missing_behavior": [
         "Native/manual acceptance of multisheet and partial-sheet repeat outputs",
-        "Nonzero bleed and drawn production marks",
-        "Broader job-specific native/source/visual production checks"
+        "Broader job-specific native/source/visual production checks",
+        "Native bleed-unit/box/mark verification and artwork bleed/mark appearance acceptance"
       ],
       "source_ids": [
         "layout",
@@ -532,7 +532,15 @@
       "live_status": "deferred",
       "evidence": [
         "docs/PRINT_RUNS.md",
-        "tests/test_print_runs.py"
+        "tests/test_print_runs.py",
+        "docs/PDF_PREPRESS.md",
+        "tests/test_pdf_prepress.py",
+        "docs/x7_pdf_api_evidence.json",
+        "docs/pdf_prepress_online_evidence.json"
+      ],
+      "implemented_behavior": [
+        "Researched X7 10-micrometre nonzero PDF bleed and crop/registration/overprint controls with restored settings",
+        "All-page measured trim/bleed containment and requested margin verification before exclusive publication"
       ]
     },
     {
@@ -548,12 +556,13 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "plan_print_run",
-        "execute_print_run"
+        "execute_print_run",
+        "preflight_pdf"
       ],
       "missing_behavior": [
-        "Proven nonzero bleed and production marks",
         "ICC/PDF-X and color/spot/overprint checks",
-        "Native/source-detail/visual/prepress raster acceptance and export-generated rasterization coverage"
+        "Native/source-detail/visual/prepress raster acceptance and export-generated rasterization coverage",
+        "Native bleed-unit/box/mark verification and artwork bleed/mark appearance acceptance"
       ],
       "source_ids": [
         "preflight",
@@ -572,7 +581,16 @@
         "docs/RASTER_PREFLIGHT.md",
         "tests/test_raster_preflight.py",
         "docs/PRINT_RUNS.md",
-        "tests/test_print_runs.py"
+        "tests/test_print_runs.py",
+        "docs/PDF_PREPRESS.md",
+        "tests/test_pdf_prepress.py",
+        "docs/x7_pdf_api_evidence.json",
+        "docs/pdf_prepress_online_evidence.json"
+      ],
+      "implemented_behavior": [
+        "Researched X7 10-micrometre nonzero PDF bleed and crop/registration/overprint controls with restored settings",
+        "All-page measured trim/bleed containment and requested margin verification before exclusive publication",
+        "Bounded supported color/spot/overprint/image/output-intent resource inventory; presence only"
       ]
     },
     {

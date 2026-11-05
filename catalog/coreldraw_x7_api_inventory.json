@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": "2026-11-04",
+  "catalog_revision": "2026-11-05",
   "profile": {
     "profile_id": "coreldraw-x7-17",
     "product": "CorelDRAW Graphics Suite X7",
@@ -138,7 +138,7 @@
       "id": "x7_pdf_inspection",
       "type": "installed_type_library",
       "path": "docs/x7_pdf_api_evidence.json",
-      "inspection_date": "2026-11-03",
+      "inspection_date": "2026-11-05",
       "description": "126 retained PDF descriptors and 14 enums; no native application connection."
     },
     {
@@ -4389,7 +4389,7 @@
       "owner": "PDFVBASettings",
       "kind": "property",
       "access": "mutating",
-      "signature": "Bleed get/let (see X7 descriptor)",
+      "signature": "Bleed get/let VT_INT; installed X7 documentation: bleed amount in tens of micron (2540 units/inch).",
       "status": "typelib_confirmed",
       "used_by": [
         "export_pdf_controlled"
@@ -7446,6 +7446,22 @@
         "x7_raster_preflight"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/shape.powerclipparent",
+      "live_test_status": "not_run_deferred"
+    },
+    {
+      "id": "PDFVBASettings.Overprints",
+      "owner": "PDFVBASettings",
+      "kind": "property",
+      "access": "mutating",
+      "signature": "Overprints get/let VARIANT_BOOL; preserve document overprints.",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "export_pdf_controlled"
+      ],
+      "evidence": [
+        "x7_pdf_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/pdfvbasettings.overprints",
       "live_test_status": "not_run_deferred"
     }
   ]
