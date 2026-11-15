@@ -9,7 +9,9 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator, ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.results import success_result
@@ -24,7 +26,7 @@ from test_gradients import stops
 class ContourOffsetTests(unittest.TestCase):
     def setUp(self):
         self.app, self.document, self.layer, self.source = fixture()
-        self.bridge = CorelBridge(); self.bridge.app = self.app; self.bridge._bind_target_document(self.document)
+        self.bridge = exclusive_bridge(); self.bridge.app = self.app; self.bridge._bind_target_document(self.document)
         self.reference = self.bridge.get_object_info(object_name=self.source.Name)['object']['object_reference']
         self.baseline = list(self.layer.Shapes.items)
 
@@ -303,7 +305,7 @@ class ContourOffsetTests(unittest.TestCase):
     def test_failed_native_work_quarantines_writes_while_geometry_inspection_survives(self):
         self.app.flags.update(create_late_failure=True, unknown_created_root=True)
         with patch.object(server, 'CorelBridge', return_value=self.bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
         try:
             with patch.object(server, 'dispatcher', dispatcher):
                 result = server.create_contour_offsets(self.reference, .1)

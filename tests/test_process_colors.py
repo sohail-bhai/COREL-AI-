@@ -7,7 +7,9 @@ from types import SimpleNamespace
 from unittest.mock import patch
 from jsonschema import Draft202012Validator,ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError,ErrorCode
 from corel_operator.results import success_result
@@ -40,7 +42,7 @@ class ProcessColorTests(unittest.TestCase):
         self.source.Outline=SimpleNamespace(Type=1,Width=.01,Color=native_color(rgb()))
         self.app.CreateRGBColor=lambda r,g,b:native_color({'model':'rgb','red':r,'green':g,'blue':b})
         self.app.CreateCMYKColor=lambda c,m,y,k:native_color(cmyk(c,m,y,k))
-        self.bridge=CorelBridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.document)
+        self.bridge=exclusive_bridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.document)
         self.reference=self.bridge.get_object_info(object_name='ProcessSource')['object']['object_reference']
     def apply(self,color=None,**kwargs): return self.bridge.set_process_color(color or cmyk(),object_reference=self.reference,**kwargs)
     def error(self,call,*args,**kwargs):
@@ -123,7 +125,7 @@ class ProcessColorTests(unittest.TestCase):
         self.assertEqual(self.source.Fill.Type,0)
     def test_native_partial_failure_quarantines_subsequent_mutations(self):
         self.source.Fill.fail=True
-        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=server.CorelDispatcher()
+        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=exclusive_dispatcher()
         try:
             with patch.object(server,'dispatcher',dispatcher):
                 result=server.set_process_color(cmyk(),object_reference=self.reference)
@@ -132,7 +134,7 @@ class ProcessColorTests(unittest.TestCase):
         finally: dispatcher.close()
     def test_unverified_color_readback_also_requires_recovery(self):
         self.source.Fill.ignore=True
-        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=server.CorelDispatcher()
+        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=exclusive_dispatcher()
         try:
             with patch.object(server,'dispatcher',dispatcher):
                 result=server.set_process_color(cmyk(),object_reference=self.reference)

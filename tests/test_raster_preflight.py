@@ -9,6 +9,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 from jsonschema import Draft202012Validator, ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.raster_preflight import local_link_presence
@@ -332,7 +333,7 @@ class RasterPreflightTests(unittest.TestCase):
             with self.assertRaises(CorelBridgeError): bridge.preflight_document_rasters()
 
     def test_read_only_preflight_remains_available_during_write_quarantine(self):
-        with patch.object(server, 'CorelBridge', return_value=self.bridge): dispatcher = server.CorelDispatcher()
+        with patch.object(server, 'CorelBridge', return_value=self.bridge): dispatcher = exclusive_dispatcher()
         try:
             with patch.object(server, 'dispatcher', dispatcher), patch.object(self.bridge, 'draw_rectangle', side_effect=CorelBridgeError(
                     'Native edit failed.', ErrorCode.COREL_COM_ERROR, {'rollback': {'verified': False}})):
@@ -350,7 +351,7 @@ class RasterPreflightTests(unittest.TestCase):
         scan = self.bridge._raster_scan
         def changed(*args):
             result = scan(*args); self.doc.Dirty = True; return result
-        with patch.object(server, 'CorelBridge', return_value=self.bridge): dispatcher = server.CorelDispatcher()
+        with patch.object(server, 'CorelBridge', return_value=self.bridge): dispatcher = exclusive_dispatcher()
         try:
             with patch.object(server, 'dispatcher', dispatcher), patch.object(self.bridge, '_raster_scan', side_effect=changed):
                 self.assertEqual(server.preflight_document_rasters()['error']['code'], 'COREL_COM_ERROR')

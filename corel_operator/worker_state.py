@@ -8,6 +8,7 @@ from typing import Any
 from .errors import CorelBridgeError, ErrorCode
 
 READ_ONLY_METHODS = frozenset({
+    "inspect_text_range", "configure_editing_mode",
     "connect", "status", "list_open_documents", "get_document_info", "list_pages",
     "get_page_bounds", "list_layers", "get_document_structure", "get_bitmap_properties", "preflight_document_rasters", "list_objects", "find_objects",
     "get_object_info", "get_object_bounds", "get_text_properties", "get_fill",
@@ -98,3 +99,4 @@ class DispatchJob:
     reconciliation: bool = False
     recovery_operation_id: str | None = None
     acknowledge_partial_changes: bool = False
+    pause_epoch: int = 0

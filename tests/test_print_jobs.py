@@ -6,6 +6,7 @@ from pathlib import Path
 
 from PIL import Image
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.print_jobs import inspect_raster_artwork, plan_print_job
@@ -322,7 +323,7 @@ class PrintJobExecutionTests(unittest.TestCase):
         self.path = Path(self.temp_dir.name) / "poster.png"
         Image.new("RGB", (1200, 1800), 0).save(self.path)
         self.application = _PrintApplication()
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.bridge.app = self.application
 
     def tearDown(self) -> None:

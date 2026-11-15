@@ -46,6 +46,7 @@
         "CorelDisposableDocumentLiveTests.test_closed_document_guard_live",
         "CorelDisposableDocumentLiveTests.test_object_references_live",
         "CorelDisposableDocumentLiveTests.test_layout_transforms_live",
+        "CorelDisposableDocumentLiveTests.test_selected_text_and_background_policy_live",
         "CorelDisposableDocumentLiveTests.test_typography_live",
         "CorelDisposableDocumentLiveTests.test_worker_recovery_live",
         "CorelDisposableDocumentLiveTests.test_align_and_group_live"
@@ -84,6 +85,7 @@
         "CorelDisposableDocumentLiveTests.test_find_objects_live",
         "CorelDisposableDocumentLiveTests.test_focused_object_inspection_live",
         "CorelDisposableDocumentLiveTests.test_object_references_live",
+        "CorelDisposableDocumentLiveTests.test_selected_text_and_background_policy_live",
         "CorelDisposableDocumentLiveTests.test_typography_live",
         "CorelDisposableDocumentLiveTests.test_worker_recovery_live"
       ],
@@ -1447,6 +1449,65 @@
       "native_result": "not_run",
       "mcp_envelope_result": "pending_consolidated_client_run",
       "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "inspect_text_range",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_text_ranges.py",
+        "tests/test_interaction_policy.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_selected_text_and_background_policy_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "edit_text_range",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_text_ranges.py",
+        "tests/test_interaction_policy.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_selected_text_and_background_policy_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "pending"
+    },
+    {
+      "tool": "configure_editing_mode",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_text_ranges.py",
+        "tests/test_interaction_policy.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_object_references_live",
+        "CorelDisposableDocumentLiveTests.test_selected_text_and_background_policy_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "pause_native_editing",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_text_ranges.py",
+        "tests/test_interaction_policy.py"
+      ],
+      "native_coverage": "local_only",
+      "native_gate_candidates": [],
+      "native_result": "not_applicable",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
     }
   ]
 }

@@ -2,6 +2,13 @@
 
 **Revision:** 2026-11-03
 
+**2026-11-15 migration:** Authoritative bridge version is now `0.7.0` and tool
+schema version is `2`. MCP-native mutations start paused and require
+`configure_editing_mode`; exclusive mode requires explicit confirmation of an
+exclusive apply window. This intentional confirmation change follows the schema
+version rule below. Envelope shape is retained. Historical v1 details below are
+retained for migration context; see [CONCURRENT_EDITING.md](CONCURRENT_EDITING.md).
+
 CorelDRAW application versions, bridge releases, MCP tool schemas, compatibility profiles, and catalog formats are separate version domains. They must never be treated as interchangeable.
 
 ## 1. Bridge package version

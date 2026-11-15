@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 
 
@@ -13,7 +14,7 @@ class _FakeDocument:
 
 class UnitContextTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
 
     def test_inch_enum_matches_x7_type_library_value(self) -> None:
         self.assertEqual(self.bridge.CDR_INCH, 1)

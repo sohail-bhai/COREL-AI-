@@ -1,8 +1,8 @@
 {
   "registry_schema_version": 1,
-  "tool_schema_version": 1,
+  "tool_schema_version": 2,
   "json_schema_dialect": "https://json-schema.org/draft/2020-12/schema",
-  "catalog_revision": "2026-11-05",
+  "catalog_revision": "2026-11-15",
   "profile_id": "coreldraw-x7-17",
   "status_values": [
     "planned",
@@ -28,7 +28,8 @@
     "SAFE-001: opt-in external JSONL operation records cover all registered MCP tools and separate worker completion from caller return; operation_id is an optional envelope field. No client content or paths are logged.",
     "SAFE-002: the dispatcher refuses concurrent/native busy follow-ups, cancels only pending timeouts, and quarantines late mutations or uncertain failure until exact-ID native reconciliation. Three metadata/recovery tools remain unverified against X7.",
     "Typography: paragraph creation, bounded font catalog, whole-story styling and explicit native chain overflow are implemented_unverified; linked/fitted edits are refused.",
-    "Layout: native transform inspection, explicit-pivot rotation, mirroring, verified sibling ordering and measured distribution are implemented_unverified. Partial edits are quarantined by worker recovery."
+    "Layout: native transform inspection, explicit-pivot rotation, mirroring, verified sibling ordering and measured distribution are implemented_unverified. Partial edits are quarantined by worker recovery.",
+    "Tool-schema v2 / bridge 0.7.0: server-native editing now starts paused and requires explicit editing-mode configuration; envelope shape retained."
   ],
   "schema_definitions": {
     "object_selector": {
@@ -239,10 +240,10 @@
           "minLength": 1
         },
         "bridge_version": {
-          "const": "0.6.0"
+          "const": "0.7.0"
         },
         "tool_schema_version": {
-          "const": 1
+          "const": 2
         },
         "profile_id": {
           "const": "coreldraw-x7-17"
@@ -6974,6 +6975,745 @@
         "overflow"
       ],
       "additionalProperties": false
+    },
+    "range_character_format": {
+      "type": "object",
+      "properties": {
+        "Font": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "Size": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "Style": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "Bold": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "Italic": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "Underline": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "Strikethru": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "Overscore": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "Position": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "Case": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "CharAngle": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "Alignment": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "FirstLineIndent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "HorizShift": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "VertShift": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "LeftIndent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "RightIndent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "MinWordSpacing": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "MaxWordSpacing": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "MaxCharSpacing": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "ParaSpacingBefore": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "ParaSpacingAfter": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "CharSpacing": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "LineSpacing": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "LineSpacingType": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "WordSpacing": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "AutoHyphenate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "HyphenHotZone": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "HyphenMinCharsBefore": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "HyphenMinCharsAfter": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "HyphenMinWordLength": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "HyphenateCapitals": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "LanguageID": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "CharSet": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "RangeKerning": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "DropCapLinesDropped": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "DropCapDistanceFromText": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "DropCapHangingIndent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "BulletFont": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "BulletSymbol": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "BulletSize": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "BulletBaselineShift": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "BulletHorizontalPosition": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "BulletHangingIndent": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "HyphenateAllCapWords": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "TextFormatter": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 200
+            }
+          ]
+        },
+        "fill": {
+          "$ref": "#/schema_definitions/fill_readback"
+        },
+        "outline": {
+          "$ref": "#/schema_definitions/outline_readback"
+        },
+        "background_fill": {
+          "$ref": "#/schema_definitions/fill_readback"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "Font",
+        "Size",
+        "Style",
+        "Bold",
+        "Italic",
+        "Underline",
+        "Strikethru",
+        "Overscore",
+        "Position",
+        "Case",
+        "CharAngle",
+        "Alignment",
+        "FirstLineIndent",
+        "HorizShift",
+        "VertShift",
+        "LeftIndent",
+        "RightIndent",
+        "MinWordSpacing",
+        "MaxWordSpacing",
+        "MaxCharSpacing",
+        "ParaSpacingBefore",
+        "ParaSpacingAfter",
+        "CharSpacing",
+        "LineSpacing",
+        "LineSpacingType",
+        "WordSpacing",
+        "AutoHyphenate",
+        "HyphenHotZone",
+        "HyphenMinCharsBefore",
+        "HyphenMinCharsAfter",
+        "HyphenMinWordLength",
+        "HyphenateCapitals",
+        "LanguageID",
+        "CharSet",
+        "RangeKerning",
+        "DropCapLinesDropped",
+        "DropCapDistanceFromText",
+        "DropCapHangingIndent",
+        "BulletFont",
+        "BulletSymbol",
+        "BulletSize",
+        "BulletBaselineShift",
+        "BulletHorizontalPosition",
+        "BulletHangingIndent",
+        "HyphenateAllCapWords",
+        "TextFormatter",
+        "fill",
+        "outline",
+        "background_fill"
+      ]
+    },
+    "range_requested_style": {
+      "type": "object",
+      "properties": {
+        "font": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "size_points": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "bold": {
+          "type": "boolean"
+        },
+        "italic": {
+          "type": "boolean"
+        },
+        "underline": {
+          "enum": [
+            "none",
+            "single"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": []
     }
   },
   "tool_examples": {
@@ -6990,8 +7730,8 @@
       "success": {
         "ok": true,
         "tool": "plan_print_job",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7005,8 +7745,8 @@
       "error": {
         "ok": false,
         "tool": "plan_print_job",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7032,8 +7772,8 @@
       "success": {
         "ok": true,
         "tool": "prepare_print_job",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -7049,8 +7789,8 @@
       "error": {
         "ok": false,
         "tool": "prepare_print_job",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7068,8 +7808,8 @@
       "success": {
         "ok": true,
         "tool": "corel_status",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7104,8 +7844,8 @@
       "error": {
         "ok": false,
         "tool": "corel_status",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7126,8 +7866,8 @@
       "success": {
         "ok": true,
         "tool": "create_document",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -7152,8 +7892,8 @@
       "error": {
         "ok": false,
         "tool": "create_document",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7173,8 +7913,8 @@
       "success": {
         "ok": true,
         "tool": "use_active_document",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Approved-Test.cdr"
@@ -7193,8 +7933,8 @@
       "error": {
         "ok": false,
         "tool": "use_active_document",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7220,8 +7960,8 @@
       "success": {
         "ok": true,
         "tool": "add_text",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7253,8 +7993,8 @@
       "error": {
         "ok": false,
         "tool": "add_text",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7278,8 +8018,8 @@
       "success": {
         "ok": true,
         "tool": "draw_rectangle",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7304,8 +8044,8 @@
       "error": {
         "ok": false,
         "tool": "draw_rectangle",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7329,8 +8069,8 @@
       "success": {
         "ok": true,
         "tool": "draw_ellipse",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7355,8 +8095,8 @@
       "error": {
         "ok": false,
         "tool": "draw_ellipse",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7376,8 +8116,8 @@
       "success": {
         "ok": true,
         "tool": "list_objects",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -7442,8 +8182,8 @@
       "error": {
         "ok": false,
         "tool": "list_objects",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7466,8 +8206,8 @@
       "success": {
         "ok": true,
         "tool": "set_fill_color",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7502,8 +8242,8 @@
       "error": {
         "ok": false,
         "tool": "set_fill_color",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7527,8 +8267,8 @@
       "success": {
         "ok": true,
         "tool": "set_outline",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7566,8 +8306,8 @@
       "error": {
         "ok": false,
         "tool": "set_outline",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7589,8 +8329,8 @@
       "success": {
         "ok": true,
         "tool": "move_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7607,8 +8347,8 @@
       "error": {
         "ok": false,
         "tool": "move_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7630,8 +8370,8 @@
       "success": {
         "ok": true,
         "tool": "resize_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7656,8 +8396,8 @@
       "error": {
         "ok": false,
         "tool": "resize_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7678,8 +8418,8 @@
       "success": {
         "ok": true,
         "tool": "set_text_content",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7695,8 +8435,8 @@
       "error": {
         "ok": false,
         "tool": "set_text_content",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7717,8 +8457,8 @@
       "success": {
         "ok": true,
         "tool": "rename_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7740,8 +8480,8 @@
       "error": {
         "ok": false,
         "tool": "rename_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7764,8 +8504,8 @@
       "success": {
         "ok": true,
         "tool": "duplicate_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7792,8 +8532,8 @@
       "error": {
         "ok": false,
         "tool": "duplicate_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7814,8 +8554,8 @@
       "success": {
         "ok": true,
         "tool": "import_artwork",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7843,8 +8583,8 @@
       "error": {
         "ok": false,
         "tool": "import_artwork",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7864,8 +8604,8 @@
       "success": {
         "ok": true,
         "tool": "save_document",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "design-001.cdr"
@@ -7883,8 +8623,8 @@
       "error": {
         "ok": false,
         "tool": "save_document",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7904,8 +8644,8 @@
       "success": {
         "ok": true,
         "tool": "export_pdf",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7923,8 +8663,8 @@
       "error": {
         "ok": false,
         "tool": "export_pdf",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7942,8 +8682,8 @@
       "success": {
         "ok": true,
         "tool": "list_open_documents",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7956,8 +8696,8 @@
       "error": {
         "ok": false,
         "tool": "list_open_documents",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -7975,8 +8715,8 @@
       "success": {
         "ok": true,
         "tool": "get_document_info",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -7992,8 +8732,8 @@
       "error": {
         "ok": false,
         "tool": "get_document_info",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8011,8 +8751,8 @@
       "success": {
         "ok": true,
         "tool": "list_pages",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8025,8 +8765,8 @@
       "error": {
         "ok": false,
         "tool": "list_pages",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8046,8 +8786,8 @@
       "success": {
         "ok": true,
         "tool": "get_page_bounds",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8067,8 +8807,8 @@
       "error": {
         "ok": false,
         "tool": "get_page_bounds",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8088,8 +8828,8 @@
       "success": {
         "ok": true,
         "tool": "list_layers",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8103,8 +8843,8 @@
       "error": {
         "ok": false,
         "tool": "list_layers",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8124,8 +8864,8 @@
       "success": {
         "ok": true,
         "tool": "get_object_info",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8141,8 +8881,8 @@
       "error": {
         "ok": false,
         "tool": "get_object_info",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8167,8 +8907,8 @@
       "success": {
         "ok": true,
         "tool": "find_objects",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Target.cdr"
@@ -8227,8 +8967,8 @@
       "error": {
         "ok": false,
         "tool": "find_objects",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8248,8 +8988,8 @@
       "success": {
         "ok": true,
         "tool": "get_text_properties",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Target.cdr"
@@ -8294,8 +9034,8 @@
       "error": {
         "ok": false,
         "tool": "get_text_properties",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8315,8 +9055,8 @@
       "success": {
         "ok": true,
         "tool": "get_fill",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Target.cdr"
@@ -8362,8 +9102,8 @@
       "error": {
         "ok": false,
         "tool": "get_fill",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8383,8 +9123,8 @@
       "success": {
         "ok": true,
         "tool": "get_outline",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8402,8 +9142,8 @@
       "error": {
         "ok": false,
         "tool": "get_outline",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8429,8 +9169,8 @@
       "success": {
         "ok": true,
         "tool": "calculate_sheet_layout",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8447,8 +9187,8 @@
       "error": {
         "ok": false,
         "tool": "calculate_sheet_layout",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8474,8 +9214,8 @@
       "success": {
         "ok": true,
         "tool": "create_chest_number_batch",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8496,8 +9236,8 @@
       "error": {
         "ok": false,
         "tool": "create_chest_number_batch",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8524,8 +9264,8 @@
       "success": {
         "ok": true,
         "tool": "arrange_n_up_print_sheet",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8540,8 +9280,8 @@
       "error": {
         "ok": false,
         "tool": "arrange_n_up_print_sheet",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8563,8 +9303,8 @@
       "success": {
         "ok": true,
         "tool": "plan_chest_number_batch",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8602,8 +9342,8 @@
       "error": {
         "ok": false,
         "tool": "plan_chest_number_batch",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8646,8 +9386,8 @@
       "success": {
         "ok": true,
         "tool": "validate_design_plan",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8674,8 +9414,8 @@
       "error": {
         "ok": false,
         "tool": "validate_design_plan",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8718,8 +9458,8 @@
       "success": {
         "ok": true,
         "tool": "preview_design_plan",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -8772,8 +9512,8 @@
       "error": {
         "ok": false,
         "tool": "preview_design_plan",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -8818,8 +9558,8 @@
       "success": {
         "ok": true,
         "tool": "execute_design_plan",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -8852,8 +9592,8 @@
       "error": {
         "ok": false,
         "tool": "execute_design_plan",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -8880,8 +9620,8 @@
       "success": {
         "ok": true,
         "tool": "align_objects",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -8920,8 +9660,8 @@
       "error": {
         "ok": false,
         "tool": "align_objects",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -8947,8 +9687,8 @@
       "success": {
         "ok": true,
         "tool": "align_to_page",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -8979,8 +9719,8 @@
       "error": {
         "ok": false,
         "tool": "align_to_page",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9006,8 +9746,8 @@
       "success": {
         "ok": true,
         "tool": "group_shapes",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9034,8 +9774,8 @@
       "error": {
         "ok": false,
         "tool": "group_shapes",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9057,8 +9797,8 @@
       "success": {
         "ok": true,
         "tool": "classify_imposition_job",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {},
@@ -9069,8 +9809,8 @@
       "error": {
         "ok": false,
         "tool": "classify_imposition_job",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -9119,8 +9859,8 @@
       "success": {
         "ok": true,
         "tool": "plan_contour_nesting",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {},
@@ -9131,8 +9871,8 @@
       "error": {
         "ok": false,
         "tool": "plan_contour_nesting",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -9153,8 +9893,8 @@
       "success": {
         "ok": true,
         "tool": "inspect_repeat_unit",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9167,8 +9907,8 @@
       "error": {
         "ok": false,
         "tool": "inspect_repeat_unit",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9196,8 +9936,8 @@
       "success": {
         "ok": true,
         "tool": "prepare_contour_nesting",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9210,8 +9950,8 @@
       "error": {
         "ok": false,
         "tool": "prepare_contour_nesting",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9239,8 +9979,8 @@
       "success": {
         "ok": true,
         "tool": "prepare_imposition_job",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9253,8 +9993,8 @@
       "error": {
         "ok": false,
         "tool": "prepare_imposition_job",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9277,8 +10017,8 @@
       "success": {
         "ok": true,
         "tool": "ungroup_shapes",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9296,8 +10036,8 @@
       "error": {
         "ok": false,
         "tool": "ungroup_shapes",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Graphic1"
@@ -9336,8 +10076,8 @@
       "success": {
         "ok": true,
         "tool": "get_object_bounds",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": {
           "name": "Target.cdr"
@@ -9400,8 +10140,8 @@
       "error": {
         "ok": false,
         "tool": "get_object_bounds",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -9419,8 +10159,8 @@
       "success": {
         "ok": true,
         "tool": "get_operator_state",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -9442,8 +10182,8 @@
       "error": {
         "ok": false,
         "tool": "get_operator_state",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -9463,8 +10203,8 @@
       "success": {
         "ok": true,
         "tool": "get_operation_status",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -9497,8 +10237,8 @@
       "error": {
         "ok": false,
         "tool": "get_operation_status",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -9518,8 +10258,8 @@
       "success": {
         "ok": true,
         "tool": "reconcile_operator_state",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -9567,8 +10307,8 @@
       "error": {
         "ok": false,
         "tool": "reconcile_operator_state",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -9588,8 +10328,8 @@
       "success": {
         "ok": true,
         "tool": "list_fonts",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -9610,8 +10350,8 @@
       "error": {
         "ok": false,
         "tool": "list_fonts",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -9635,8 +10375,8 @@
       "success": {
         "ok": true,
         "tool": "add_paragraph_text",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -9711,8 +10451,8 @@
       "error": {
         "ok": false,
         "tool": "add_paragraph_text",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -9734,8 +10474,8 @@
       "success": {
         "ok": true,
         "tool": "set_text_style",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -9819,8 +10559,8 @@
       "error": {
         "ok": false,
         "tool": "set_text_style",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -9840,8 +10580,8 @@
       "success": {
         "ok": true,
         "tool": "get_object_transform",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -9902,8 +10642,8 @@
       "error": {
         "ok": false,
         "tool": "get_object_transform",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -9924,8 +10664,8 @@
       "success": {
         "ok": true,
         "tool": "rotate_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -10012,8 +10752,8 @@
       "error": {
         "ok": false,
         "tool": "rotate_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -10034,8 +10774,8 @@
       "success": {
         "ok": true,
         "tool": "flip_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -10118,8 +10858,8 @@
       "error": {
         "ok": false,
         "tool": "flip_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -10140,8 +10880,8 @@
       "success": {
         "ok": true,
         "tool": "order_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -10196,8 +10936,8 @@
       "error": {
         "ok": false,
         "tool": "order_object",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -10222,8 +10962,8 @@
       "success": {
         "ok": true,
         "tool": "distribute_objects",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -10471,8 +11211,8 @@
       "error": {
         "ok": false,
         "tool": "distribute_objects",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -10492,8 +11232,8 @@
       "success": {
         "ok": true,
         "tool": "inspect_text_template",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -10732,8 +11472,8 @@
       "error": {
         "ok": false,
         "tool": "inspect_text_template",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -10753,8 +11493,8 @@
       "success": {
         "ok": true,
         "tool": "read_template_csv",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -10781,8 +11521,8 @@
       "error": {
         "ok": false,
         "tool": "read_template_csv",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -11050,8 +11790,8 @@
       "success": {
         "ok": true,
         "tool": "plan_template_batch",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -11358,8 +12098,8 @@
       "error": {
         "ok": false,
         "tool": "plan_template_batch",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -11676,8 +12416,8 @@
       "success": {
         "ok": true,
         "tool": "execute_template_batch",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -11909,8 +12649,8 @@
       "error": {
         "ok": false,
         "tool": "execute_template_batch",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -11930,8 +12670,8 @@
       "success": {
         "ok": true,
         "tool": "inspect_pdf",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -11992,8 +12732,8 @@
       "error": {
         "ok": false,
         "tool": "inspect_pdf",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -12013,8 +12753,8 @@
       "success": {
         "ok": true,
         "tool": "export_pdf_controlled",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -12150,8 +12890,8 @@
       "error": {
         "ok": false,
         "tool": "export_pdf_controlled",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -12196,8 +12936,8 @@
       "success": {
         "ok": true,
         "tool": "create_vector_path",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -12311,8 +13051,8 @@
       "error": {
         "ok": false,
         "tool": "create_vector_path",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -12332,8 +13072,8 @@
       "success": {
         "ok": true,
         "tool": "get_curve_geometry",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -12447,8 +13187,8 @@
       "error": {
         "ok": false,
         "tool": "get_curve_geometry",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -12479,8 +13219,8 @@
       "success": {
         "ok": true,
         "tool": "edit_curve_geometry",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -12597,8 +13337,8 @@
       "error": {
         "ok": false,
         "tool": "edit_curve_geometry",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -12654,8 +13394,8 @@
       "success": {
         "ok": true,
         "tool": "boolean_shapes",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -12785,8 +13525,8 @@
       "error": {
         "ok": false,
         "tool": "boolean_shapes",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -12843,8 +13583,8 @@
       "success": {
         "ok": true,
         "tool": "combine_vector_shapes",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -13016,8 +13756,8 @@
       "error": {
         "ok": false,
         "tool": "combine_vector_shapes",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -13054,8 +13794,8 @@
       "success": {
         "ok": true,
         "tool": "break_apart_curve",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -13288,8 +14028,8 @@
       "error": {
         "ok": false,
         "tool": "break_apart_curve",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -13334,8 +14074,8 @@
       "success": {
         "ok": true,
         "tool": "revise_curve_topology",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -13559,8 +14299,8 @@
       "error": {
         "ok": false,
         "tool": "revise_curve_topology",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -13604,8 +14344,8 @@
       "success": {
         "ok": true,
         "tool": "set_process_color",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -13707,8 +14447,8 @@
       "error": {
         "ok": false,
         "tool": "set_process_color",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -13745,8 +14485,8 @@
       "success": {
         "ok": true,
         "tool": "get_transparency",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -13802,8 +14542,8 @@
       "error": {
         "ok": false,
         "tool": "get_transparency",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -13841,8 +14581,8 @@
       "success": {
         "ok": true,
         "tool": "set_uniform_transparency",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -13911,8 +14651,8 @@
       "error": {
         "ok": false,
         "tool": "set_uniform_transparency",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -13949,8 +14689,8 @@
       "success": {
         "ok": true,
         "tool": "get_powerclip",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -14127,8 +14867,8 @@
       "error": {
         "ok": false,
         "tool": "get_powerclip",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -14186,8 +14926,8 @@
       "success": {
         "ok": true,
         "tool": "create_powerclip",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -14516,8 +15256,8 @@
       "error": {
         "ok": false,
         "tool": "create_powerclip",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -14555,8 +15295,8 @@
       "success": {
         "ok": true,
         "tool": "extract_powerclip_contents",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -14749,8 +15489,8 @@
       "error": {
         "ok": false,
         "tool": "extract_powerclip_contents",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -14787,8 +15527,8 @@
       "success": {
         "ok": true,
         "tool": "get_gradient_fill",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -14843,8 +15583,8 @@
       "error": {
         "ok": false,
         "tool": "get_gradient_fill",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -14914,8 +15654,8 @@
       "success": {
         "ok": true,
         "tool": "set_gradient_fill",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -15061,8 +15801,8 @@
       "error": {
         "ok": false,
         "tool": "set_gradient_fill",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -15108,8 +15848,8 @@
       "success": {
         "ok": true,
         "tool": "create_contour_offsets",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -15393,8 +16133,8 @@
       "error": {
         "ok": false,
         "tool": "create_contour_offsets",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -15412,8 +16152,8 @@
       "success": {
         "ok": true,
         "tool": "get_document_structure",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -15500,8 +16240,8 @@
       "error": {
         "ok": false,
         "tool": "get_document_structure",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -15522,8 +16262,8 @@
       "success": {
         "ok": true,
         "tool": "activate_page",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -15612,8 +16352,8 @@
       "error": {
         "ok": false,
         "tool": "activate_page",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -15635,8 +16375,8 @@
       "success": {
         "ok": true,
         "tool": "rename_page",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -15725,8 +16465,8 @@
       "error": {
         "ok": false,
         "tool": "rename_page",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -15749,8 +16489,8 @@
       "success": {
         "ok": true,
         "tool": "create_page",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -15864,8 +16604,8 @@
       "error": {
         "ok": false,
         "tool": "create_page",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -15887,8 +16627,8 @@
       "success": {
         "ok": true,
         "tool": "create_layer",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -15989,8 +16729,8 @@
       "error": {
         "ok": false,
         "tool": "create_layer",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -16016,8 +16756,8 @@
       "success": {
         "ok": true,
         "tool": "set_layer_properties",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -16106,8 +16846,8 @@
       "error": {
         "ok": false,
         "tool": "set_layer_properties",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -16129,8 +16869,8 @@
       "success": {
         "ok": true,
         "tool": "activate_layer",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -16219,8 +16959,8 @@
       "error": {
         "ok": false,
         "tool": "activate_layer",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -16257,8 +16997,8 @@
       "success": {
         "ok": true,
         "tool": "get_bitmap_properties",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -16388,8 +17128,8 @@
       "error": {
         "ok": false,
         "tool": "get_bitmap_properties",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -16409,8 +17149,8 @@
       "success": {
         "ok": true,
         "tool": "inspect_raster_asset",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -16464,8 +17204,8 @@
       "error": {
         "ok": false,
         "tool": "inspect_raster_asset",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -16494,8 +17234,8 @@
       "success": {
         "ok": true,
         "tool": "prepare_raster_asset",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -16613,8 +17353,8 @@
       "error": {
         "ok": false,
         "tool": "prepare_raster_asset",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -16634,8 +17374,8 @@
       "success": {
         "ok": true,
         "tool": "preflight_document_rasters",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -16954,8 +17694,8 @@
       "error": {
         "ok": false,
         "tool": "preflight_document_rasters",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -16975,8 +17715,8 @@
       "success": {
         "ok": true,
         "tool": "inspect_print_repeat",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -17163,8 +17903,8 @@
       "error": {
         "ok": false,
         "tool": "inspect_print_repeat",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -17358,8 +18098,8 @@
       "success": {
         "ok": true,
         "tool": "plan_print_run",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -17745,8 +18485,8 @@
       "error": {
         "ok": false,
         "tool": "plan_print_run",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -18142,8 +18882,8 @@
       "success": {
         "ok": true,
         "tool": "execute_print_run",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -18337,8 +19077,8 @@
       "error": {
         "ok": false,
         "tool": "execute_print_run",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -18358,8 +19098,8 @@
       "success": {
         "ok": true,
         "tool": "preflight_pdf",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -18424,8 +19164,8 @@
       "error": {
         "ok": false,
         "tool": "preflight_pdf",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -18446,8 +19186,8 @@
       "success": {
         "ok": true,
         "tool": "set_text_spacing",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -18527,8 +19267,8 @@
       "error": {
         "ok": false,
         "tool": "set_text_spacing",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -18566,8 +19306,8 @@
       "success": {
         "ok": true,
         "tool": "fit_paragraph_text",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": {
@@ -18634,8 +19374,8 @@
       "error": {
         "ok": false,
         "tool": "fit_paragraph_text",
-        "bridge_version": "0.6.0",
-        "tool_schema_version": 1,
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
         "profile_id": "coreldraw-x7-17",
         "target_document": null,
         "data": null,
@@ -18646,6 +19386,303 @@
           "details": {}
         },
         "duration_ms": 1.0
+      }
+    },
+    "inspect_text_range": {
+      "request": {
+        "object_name": "Title",
+        "start": 0,
+        "end": 1
+      },
+      "success": {
+        "ok": true,
+        "tool": "inspect_text_range",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "object_reference": {
+            "version": 1,
+            "bridge_session_id": "7b2933b433fb91f456fb65f4b2970322",
+            "document_session_id": "doc-0001",
+            "page_identity": "f3267b57b331c901b3eaef88ae8cb27dc85d5c212f98cf9c004667840ca2387d",
+            "layer_identity": "50d9ff76ac470beb14c88ed1c214348e6fc9e5999ed4ed81bb14926a1a8dc484",
+            "ancestor_identities": [],
+            "shape_identity": "9e1bbf55d923c156d8731ed881f7ad26c461d8cf706634f27d89c09d7157482c",
+            "static_id": 101,
+            "object_name": "Title",
+            "shape_type_code": 6,
+            "page_index": 1,
+            "layer_index": 1,
+            "shape_path": [
+              1
+            ],
+            "signature": "42346db759cd3c99e9282934d416f63de1e88cf8584274a59751078c92b561be"
+          },
+          "start": 0,
+          "end": 1,
+          "offset_unit": "unicode_code_points",
+          "selected_text": "A",
+          "story_code_points": 1,
+          "native_character_count": 1,
+          "native_start_index": 1,
+          "native_count": 1,
+          "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "character_formats": [
+            {
+              "native_index": 1,
+              "format": {
+                "Font": "Arial",
+                "Size": 12.0,
+                "Style": 0,
+                "Bold": false,
+                "Italic": false,
+                "Underline": 0,
+                "Strikethru": 0,
+                "Overscore": 0,
+                "Position": 0,
+                "Case": 0,
+                "CharAngle": 0,
+                "Alignment": 0,
+                "FirstLineIndent": 0,
+                "HorizShift": 0,
+                "VertShift": 0,
+                "LeftIndent": 0,
+                "RightIndent": 0,
+                "MinWordSpacing": 0,
+                "MaxWordSpacing": 0,
+                "MaxCharSpacing": 0,
+                "ParaSpacingBefore": 0,
+                "ParaSpacingAfter": 0,
+                "CharSpacing": 0,
+                "LineSpacing": 0,
+                "LineSpacingType": 0,
+                "WordSpacing": 0,
+                "AutoHyphenate": false,
+                "HyphenHotZone": 0,
+                "HyphenMinCharsBefore": 0,
+                "HyphenMinCharsAfter": 0,
+                "HyphenMinWordLength": 0,
+                "HyphenateCapitals": false,
+                "LanguageID": 0,
+                "CharSet": 0,
+                "RangeKerning": 0,
+                "DropCapLinesDropped": 0,
+                "DropCapDistanceFromText": 0,
+                "DropCapHangingIndent": 0,
+                "BulletFont": "Arial",
+                "BulletSymbol": "",
+                "BulletSize": 0,
+                "BulletBaselineShift": 0,
+                "BulletHorizontalPosition": 0,
+                "BulletHangingIndent": 0,
+                "HyphenateAllCapWords": false,
+                "TextFormatter": 0,
+                "fill": {
+                  "type_code": 0,
+                  "type": "none",
+                  "color": null
+                },
+                "outline": {
+                  "type_code": 0,
+                  "type": "none",
+                  "present": false,
+                  "width_raw": null,
+                  "width_units": null,
+                  "color": null
+                },
+                "background_fill": {
+                  "type_code": 0,
+                  "type": "none",
+                  "color": null
+                }
+              }
+            }
+          ],
+          "preservation_scope": "installed_x7_scalar_character_properties_and_process_appearance"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "inspect_text_range",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "WORKER_BUSY",
+          "message": "Worker is busy; inspect operator state.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
+    "edit_text_range": {
+      "request": {
+        "object_reference": {
+          "version": 1,
+          "bridge_session_id": "7b2933b433fb91f456fb65f4b2970322",
+          "document_session_id": "doc-0001",
+          "page_identity": "f3267b57b331c901b3eaef88ae8cb27dc85d5c212f98cf9c004667840ca2387d",
+          "layer_identity": "50d9ff76ac470beb14c88ed1c214348e6fc9e5999ed4ed81bb14926a1a8dc484",
+          "ancestor_identities": [],
+          "shape_identity": "9e1bbf55d923c156d8731ed881f7ad26c461d8cf706634f27d89c09d7157482c",
+          "static_id": 101,
+          "object_name": "Title",
+          "shape_type_code": 6,
+          "page_index": 1,
+          "layer_index": 1,
+          "shape_path": [
+            1
+          ],
+          "signature": "42346db759cd3c99e9282934d416f63de1e88cf8584274a59751078c92b561be"
+        },
+        "start": 0,
+        "end": 1,
+        "expected_text": "A",
+        "expected_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bold": true
+      },
+      "success": {
+        "ok": true,
+        "tool": "edit_text_range",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "object_reference": {
+            "version": 1,
+            "bridge_session_id": "7b2933b433fb91f456fb65f4b2970322",
+            "document_session_id": "doc-0001",
+            "page_identity": "f3267b57b331c901b3eaef88ae8cb27dc85d5c212f98cf9c004667840ca2387d",
+            "layer_identity": "50d9ff76ac470beb14c88ed1c214348e6fc9e5999ed4ed81bb14926a1a8dc484",
+            "ancestor_identities": [],
+            "shape_identity": "9e1bbf55d923c156d8731ed881f7ad26c461d8cf706634f27d89c09d7157482c",
+            "static_id": 101,
+            "object_name": "Title",
+            "shape_type_code": 6,
+            "page_index": 1,
+            "layer_index": 1,
+            "shape_path": [
+              1
+            ],
+            "signature": "42346db759cd3c99e9282934d416f63de1e88cf8584274a59751078c92b561be"
+          },
+          "start": 0,
+          "end": 1,
+          "selected_text": "A",
+          "fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "surrounding_text_preserved": true,
+          "surrounding_formatting_preserved": true,
+          "requested_style": {
+            "bold": true
+          },
+          "preservation_scope": "installed_x7_scalar_character_properties_and_process_appearance"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "edit_text_range",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "WORKER_BUSY",
+          "message": "Worker is busy; inspect operator state.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
+    "configure_editing_mode": {
+      "request": {
+        "mode": "paused"
+      },
+      "success": {
+        "ok": true,
+        "tool": "configure_editing_mode",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "mode": "paused",
+          "native_writes_paused": true,
+          "document_session_id": null,
+          "background_methods": [
+            "edit_text_range"
+          ],
+          "requires_separate_document": false,
+          "in_flight_native_call_cancellable": false
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "configure_editing_mode",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "WORKER_BUSY",
+          "message": "Worker is busy; inspect operator state.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
+    "pause_native_editing": {
+      "request": {},
+      "success": {
+        "ok": true,
+        "tool": "pause_native_editing",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "native_writes_paused": true,
+          "in_flight_native_call_cancellable": false,
+          "resume_requires_configure_editing_mode": true
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "pause_native_editing",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "WORKER_BUSY",
+          "message": "Worker is busy; inspect operator state.",
+          "details": {}
+        },
+        "duration_ms": 0.1
       }
     }
   },
@@ -18899,7 +19936,7 @@
         "The generic ProgID remains a fallback and is accepted only after major-version validation."
       ],
       "introduced": "0.4-or-earlier",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "create_document",
@@ -19047,7 +20084,7 @@
         "Does not assign a persistent document session ID."
       ],
       "introduced": "0.4-or-earlier",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "use_active_document",
@@ -19139,7 +20176,7 @@
         "Identity is an in-memory COM proxy and is lost on server restart."
       ],
       "introduced": "0.5",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "add_text",
@@ -19304,7 +20341,7 @@
         "Explicit ANSI charset may not handle multilingual text correctly."
       ],
       "introduced": "0.4-or-earlier",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "draw_rectangle",
@@ -19445,7 +20482,7 @@
         "Actual bounds are read back, but still require a recorded X7 live test."
       ],
       "introduced": "0.4-or-earlier",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "draw_ellipse",
@@ -19583,7 +20620,7 @@
         "Center/radius conversion is checked by fake-COM readback but still needs a recorded X7 live test."
       ],
       "introduced": "0.4-or-earlier",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "list_objects",
@@ -19806,7 +20843,7 @@
         "Does not return fill colors, stable IDs, page/layer identity, or object rotation."
       ],
       "introduced": "0.5",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "set_fill_color",
@@ -19943,7 +20980,7 @@
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "set_outline",
@@ -20080,7 +21117,7 @@
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "move_object",
@@ -20202,7 +21239,7 @@
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "resize_object",
@@ -20352,7 +21389,7 @@
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "set_text_content",
@@ -20466,7 +21503,7 @@
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "rename_object",
@@ -20582,7 +21619,7 @@
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "duplicate_object",
@@ -20715,7 +21752,7 @@
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.5",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "import_artwork",
@@ -20841,7 +21878,7 @@
         "Imported bounds and embedded/link status are not reported."
       ],
       "introduced": "0.5",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "save_document",
@@ -20951,7 +21988,7 @@
         "No checkpoint/backup semantics for existing documents."
       ],
       "introduced": "0.4-or-earlier",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "export_pdf",
@@ -21046,7 +22083,7 @@
         "Does not inspect page dimensions, bleed, fonts, color profile, or print readiness."
       ],
       "introduced": "0.4-or-earlier",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "list_open_documents",
@@ -21122,7 +22159,7 @@
         "COM IUnknown identity is used when available; fake/non-COM objects use Python object identity."
       ],
       "introduced": "0.7.0-dev",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "get_document_info",
@@ -21203,7 +22240,7 @@
         "Document session identity is stable only for the lifetime of the bridge process."
       ],
       "introduced": "0.7.0-dev",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "list_pages",
@@ -21288,7 +22325,7 @@
         "Page dimensions and collection behavior still require a live multi-page X7 test."
       ],
       "introduced": "0.7.0-dev",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "get_page_bounds",
@@ -21383,7 +22420,7 @@
         "Drawing-origin and facing-page semantics require live X7 tests."
       ],
       "introduced": "0.7.0-dev",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "list_layers",
@@ -21487,7 +22524,7 @@
         "Master and special-layer semantics require a live multi-page X7 test."
       ],
       "introduced": "0.7.0-dev",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "get_object_info",
@@ -21583,7 +22620,7 @@
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
       "introduced": "0.7.0-dev",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "get_object_bounds",
@@ -21688,7 +22725,7 @@
         "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -21980,7 +23017,7 @@
         "All-page nested search and StaticID behavior still require a guarded disposable X7 live test.",
         "Search emits signed session references when complete native identity metadata is available; object_id remains inspection-only. Complete scope uniqueness is checked on resolution."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": "0.7.0-dev"
     },
     {
@@ -22177,7 +23214,7 @@
         "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -22291,7 +23328,7 @@
         "References support nested groups; mutation requires the referenced page to be explicitly active. Resolution is capped at 10000 entries and 32 group levels.",
         "References require readable StaticID and untruncated names; inspect again after rename, regroup, document reopening or bridge restart. X7 live behavior is deferred."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -22369,7 +23406,7 @@
         "Outline.Width unit semantics must be established before the schema can promise points."
       ],
       "planned_phase": 2,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "plan_print_job",
@@ -22571,7 +23608,7 @@
         "The report never claims print-ready status because output profiles, marks, fonts, and exported PDF properties are not checked."
       ],
       "planned_phase": 6,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "prepare_print_job",
@@ -22794,7 +23831,7 @@
         "Does not create print marks, cut paths, spot colors, or controlled PDF output."
       ],
       "planned_phase": 6,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "calculate_sheet_layout",
@@ -23001,7 +24038,7 @@
         "Placement coordinates are capped at 2000 while reported capacity remains exact."
       ],
       "planned_phase": 5,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "plan_chest_number_batch",
@@ -23150,7 +24187,7 @@
         "A sequence is capped at 1000 values; all four item/sheet dimensions are required for layout; this tool does not validate font sizing or create artwork."
       ],
       "planned_phase": 5,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "create_chest_number_batch",
@@ -23311,7 +24348,7 @@
         "Depends on verified text sizing, font availability, alignment, duplication, and sheet-layout capabilities."
       ],
       "planned_phase": 5,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "arrange_n_up_print_sheet",
@@ -23425,7 +24462,7 @@
         "Depends on stable object identity and a tested layout calculator."
       ],
       "planned_phase": 5,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "validate_design_plan",
@@ -23519,7 +24556,7 @@
         "Pure JSON schema and geometric validation only; local artwork files are checked immediately before execution."
       ],
       "planned_phase": 4,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "preview_design_plan",
@@ -23617,7 +24654,7 @@
         "Estimates bounds and palette without live rendering."
       ],
       "planned_phase": 4,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "execute_design_plan",
@@ -23721,7 +24758,7 @@
         "Manual editability review of the dated disposable CDR artifact is still pending."
       ],
       "planned_phase": 4,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "align_objects",
@@ -24009,7 +25046,7 @@
         "Requires at least two distinct objects on the active page."
       ],
       "planned_phase": 3,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "align_to_page",
@@ -24282,7 +25319,7 @@
         "Aligns relative to active page bounds in current document ruler units."
       ],
       "planned_phase": 3,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "group_shapes",
@@ -24492,7 +25529,7 @@
         "Group shapes become a single composite shape on the active page."
       ],
       "planned_phase": 3,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "ungroup_shapes",
@@ -24666,7 +25703,7 @@
         "Only shapes of type cdrGroupShape (7) can be ungrouped."
       ],
       "planned_phase": 3,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "classify_imposition_job",
@@ -24739,7 +25776,7 @@
         "Auto routing depends on an explicit contour signal or repeat-unit inspection."
       ],
       "planned_phase": 6,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "plan_contour_nesting",
@@ -24863,7 +25900,7 @@
         "Optimizes complete aligned rows at 0 and 180 degrees; it does not perform unrestricted free-form nesting or horizontal row staggering."
       ],
       "planned_phase": 6,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "inspect_repeat_unit",
@@ -24942,7 +25979,7 @@
         "Requires one top-level group and one uniquely named closed single-subpath dieline."
       ],
       "planned_phase": 6,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "prepare_contour_nesting",
@@ -25087,7 +26124,7 @@
         "Executes one new output page per call. X7 cross-page transfer uses Shape.Copy plus Layer.Paste because CopyToLayer failed live; this replaces current system clipboard contents and is disclosed in the result."
       ],
       "planned_phase": 6,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "prepare_imposition_job",
@@ -25241,7 +26278,7 @@
         "Executes only quantities that fit one output page, keeps rectangular vector jobs upright, replaces current system clipboard contents during X7 cross-page transfer, and does not yet add production marks or controlled export settings."
       ],
       "planned_phase": 6,
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "get_operator_state",
@@ -25305,7 +26342,7 @@
         "Reconciliation verifies liveness and finite native metadata; partial-change acknowledgement is not Undo or visual verification. X7 busy/modal behavior remains deferred."
       ],
       "introduced": "0.7.0-dev",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "get_operation_status",
@@ -25378,7 +26415,7 @@
         "Reconciliation verifies liveness and finite native metadata; partial-change acknowledgement is not Undo or visual verification. X7 busy/modal behavior remains deferred."
       ],
       "introduced": "0.7.0-dev",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "reconcile_operator_state",
@@ -25488,7 +26525,7 @@
         "Reconciliation verifies liveness and finite native metadata; partial-change acknowledgement is not Undo or visual verification. X7 busy/modal behavior remains deferred."
       ],
       "introduced": "0.7.0-dev",
-      "result_contract": "tool-schema-v1-envelope"
+      "result_contract": "tool-schema-v2-envelope"
     },
     {
       "name": "list_fonts",
@@ -25627,7 +26664,7 @@
         "Spacing edit units, character runs, linked/fitted text edits and auto-fit are deferred.",
         "Native partial changes require worker reconciliation; no generic automatic rollback."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -25844,7 +26881,7 @@
         "Spacing edit units, character runs, linked/fitted text edits and auto-fit are deferred.",
         "Native partial changes require worker reconciliation; no generic automatic rollback."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -26151,7 +27188,7 @@
         "Spacing edit units, character runs, linked/fitted text edits and auto-fit are deferred.",
         "Native partial changes require worker reconciliation; no generic automatic rollback."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -26264,7 +27301,7 @@
         "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
         "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -26468,7 +27505,7 @@
         "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
         "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -26611,7 +27648,7 @@
         "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
         "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -26759,7 +27796,7 @@
         "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
         "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -27030,7 +28067,7 @@
         "No automatic rollback; uncertain or partial mutation failures require exact-ID worker reconciliation.",
         "Distribution requires complete session identities and rejects ancestor/descendant combinations; outlines/guides are outside its bounds model."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -27222,7 +28259,7 @@
         "Text fields only; no linked/fitted stories, mixed field formatting, automatic fitting or image personalization.",
         "Bounds/basic appearance verification does not establish glyphs, complex effects, visual fidelity or print readiness."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -27366,7 +28403,7 @@
         "Text fields only; no linked/fitted stories, mixed field formatting, automatic fitting or image personalization.",
         "Bounds/basic appearance verification does not establish glyphs, complex effects, visual fidelity or print readiness."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -27579,7 +28616,7 @@
         "Text fields only; no linked/fitted stories, mixed field formatting, automatic fitting or image personalization.",
         "Bounds/basic appearance verification does not establish glyphs, complex effects, visual fidelity or print readiness."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -27946,7 +28983,7 @@
         "Text fields only; no linked/fitted stories, mixed field formatting, automatic fitting or image personalization.",
         "Bounds/basic appearance verification does not establish glyphs, complex effects, visual fidelity or print readiness."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -28078,7 +29115,7 @@
         "Zero bleed; no ICC/PDF-X/prepress or font-program validity guarantee.",
         "50 MiB/500 pages/10000 resource budget; summaries cap at 100 pages/fonts; no rendering or effective raster DPI check."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -28353,7 +29390,7 @@
         "Bleed is rounded to 10-micrometre units; explicit trim/bleed boxes are required for nonzero bleed or enabled marks.",
         "Artwork bleed coverage, ICC/PDF-X conformance, accurate color/spot/overprint, effective raster DPI and visual/printer acceptance remain unproven."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -28547,7 +29584,7 @@
         "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
         "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -28728,7 +29765,7 @@
         "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
         "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -29085,7 +30122,7 @@
         "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
         "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -29294,7 +30331,7 @@
         "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
         "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -29486,7 +30523,7 @@
         "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
         "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -29676,7 +30713,7 @@
         "Node edits have no automatic undo; partial failures quarantine. Noncompatible smooth handles need explicit cusp conversion.",
         "Traversal equivalence does not establish fill winding or visual fidelity; node insertion/deletion and contour offsets remain separate work."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -30146,7 +31183,7 @@
         "Insertion t is a Bezier parameter, not arc length. Deletion requires explicit line/cubic controls; adjacent removals and open endpoint cropping are separate work.",
         "Root inputs only on one page/layer; original geometry/basic appearance is preserved. Complex effects and visual fidelity require manual review."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -30423,7 +31460,7 @@
         "Outline recoloring requires an existing ordinary outline; raw width is preserved and its native unit convention remains unresolved.",
         "Partial/unverified existing-object edits have no automatic undo and quarantine subsequent mutations. Text preservation covers readable content/font/size/bold and measured bounds."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -30611,7 +31648,7 @@
         "Inspection reports unavailable/unknown properties. Non-uniform control internals, group opacity and blend variants remain separate work.",
         "Measured/base-appearance preservation does not establish bitmap pixel identity or full complex-effect preservation. Unverified partial writes quarantine."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -30887,7 +31924,7 @@
         "Inspection reports unavailable/unknown properties. Non-uniform control internals, group opacity and blend variants remain separate work.",
         "Measured/base-appearance preservation does not establish bitmap pixel identity or full complex-effect preservation. Unverified partial writes quarantine."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -31136,7 +32173,7 @@
         "Clipped descendants use native identity metadata; extract copied roots for signed general editing references. No in-place edit-mode or automatic undo; cleanup deletes only proven owned trees.",
         "Complete measured source-tree/basic-appearance checks are not a full native-file/effect diff. Source-session fingerprints are not persistent after reopening."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -31437,7 +32474,7 @@
         "Clipped descendants use native identity metadata; extract copied roots for signed general editing references. No in-place edit-mode or automatic undo; cleanup deletes only proven owned trees.",
         "Complete measured source-tree/basic-appearance checks are not a full native-file/effect diff. Source-session fingerprints are not persistent after reopening."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -31677,7 +32714,7 @@
         "Clipped descendants use native identity metadata; extract copied roots for signed general editing references. No in-place edit-mode or automatic undo; cleanup deletes only proven owned trees.",
         "Complete measured source-tree/basic-appearance checks are not a full native-file/effect diff. Source-session fingerprints are not persistent after reopening."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -31924,7 +32961,7 @@
         "Existing gradients require a current-session fingerprint; unreadable gradients are refused. Other non-uniform fill replacement must be explicit.",
         "Partial assignments require inspection/reconciliation without automatic undo. Native metadata does not prove visual fidelity, ICC conversion or production readiness."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -32295,7 +33332,7 @@
         "Existing gradients require a current-session fingerprint; unreadable gradients are refused. Other non-uniform fill replacement must be explicit.",
         "Partial assignments require inspection/reconciliation without automatic undo. Native metadata does not prove visual fidelity, ICC conversion or production readiness."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -32716,7 +33753,7 @@
         "Round outside bounds and inside margin envelopes are reconciled; other corners require direction bounds/native controls. Miter-limit native semantics and arbitrary pointwise offset distance are not independently established.",
         "Cleanup deletes only proven owned trees/effect affiliates. Foreign aliases, unknown receipts, changed sources and failed cleanup require exact-state reconciliation without automatic undo."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -32829,7 +33866,7 @@
         "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
         "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -32964,7 +34001,7 @@
         "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
         "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -33105,7 +34142,7 @@
         "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
         "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -33246,7 +34283,7 @@
         "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
         "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -33405,7 +34442,7 @@
         "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
         "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -33557,7 +34594,7 @@
         "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
         "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -33721,7 +34758,7 @@
         "Creation discards only a proven owned empty new page/layer with unchanged original structure. Unknown/populated/foreign receipts, failed cleanup or partial setters require explicit recovery; no automatic undo.",
         "Existing-page resizing/reordering/deletion, master/special layer editing, cross-layer/page object movement, guides and document open/close/checkpoints remain separate gaps."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -34032,7 +35069,7 @@
         "Source pixel data, image content fidelity, ICC/spot/separation, external linked-file stability and print readiness are not verified by native metadata or calculated DPI.",
         "Resolution threshold is 1-2400 DPI; metadata axes are bounded at one million pixels and 500 million total pixels. No native bitmap modification, tracing, crop edit or background removal is exposed by this inspection tool."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -34111,7 +35148,7 @@
         "Filesystem ownership and source hashes are checked at bounded observations; paths are not locked against concurrent external edits.",
         "Consolidated MCP client, Corel import and visual/artifact review remain deferred."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -34273,7 +35310,7 @@
         "Filesystem ownership and source hashes are checked at bounded observations; paths are not locked against concurrent external edits.",
         "Consolidated MCP client, Corel import and visual/artifact review remain deferred."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -34442,7 +35479,7 @@
         "Nonprinting layers are excluded by default and reported; hidden printable layers are included. Master bitmaps are recorded once with applied-page indices.",
         "Native and filesystem reads are bounded observations without atomic locking."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -34751,7 +35788,7 @@
         "Inspection requires bounded document structure; native reads cannot provide atomic locking.",
         "Execution replaces the clipboard, binds output on success and closes only an independently owned output on failure."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -34951,7 +35988,7 @@
         "Inspection requires bounded document structure; native reads cannot provide atomic locking.",
         "Execution replaces the clipboard, binds output on success and closes only an independently owned output on failure."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -35362,7 +36399,7 @@
         "Inspection requires bounded document structure; native reads cannot provide atomic locking.",
         "Execution replaces the clipboard, binds output on success and closes only an independently owned output on failure."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -35498,7 +36535,7 @@
         "No effective raster DPI, valid ICC/tint programs, content bleed/mark fidelity or PDF/X/printer guarantee.",
         "Unknown resources and annotations make supported resource inventory incomplete; checks_passed describes only requested geometry/font/intent-presence checks."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -35739,7 +36776,7 @@
         "Character/word spacing units, glyph coverage and auto-fit remain separate gaps.",
         "Failures after a native call require exact operation reconciliation; no automatic replay or rollback."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
@@ -36043,11 +37080,848 @@
         "Measured overflow is not glyph/visual/safe-area fit or globally optimal font size.",
         "Receipt-matching independent copies are cleaned up; shared/moved/changed/uncertain objects remain explicit and quarantined."
       ],
-      "result_contract": "tool-schema-v1-envelope",
+      "result_contract": "tool-schema-v2-envelope",
       "introduced": {
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
       }
+    },
+    {
+      "name": "inspect_text_range",
+      "category": "typography",
+      "description": "Inspect exact Unicode selected content and per-character formatting with a signed target and fingerprint.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.inspect_text_range"
+      },
+      "input_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/reference_object_selector"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "start": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2048
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "end": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2048
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              }
+            }
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "object_reference": {
+                      "$ref": "#/schema_definitions/object_reference"
+                    },
+                    "start": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2048
+                    },
+                    "end": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2048
+                    },
+                    "offset_unit": {
+                      "const": "unicode_code_points"
+                    },
+                    "selected_text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 2048
+                    },
+                    "story_code_points": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 2048
+                    },
+                    "native_character_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1024
+                    },
+                    "native_start_index": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1024
+                    },
+                    "native_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1024
+                    },
+                    "fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "preservation_scope": {
+                      "const": "installed_x7_scalar_character_properties_and_process_appearance"
+                    },
+                    "character_formats": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 1024,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "native_index": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 1024
+                          },
+                          "format": {
+                            "$ref": "#/schema_definitions/range_character_format"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "native_index",
+                          "format"
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "object_reference",
+                    "start",
+                    "end",
+                    "offset_unit",
+                    "selected_text",
+                    "story_code_points",
+                    "native_character_count",
+                    "native_start_index",
+                    "native_count",
+                    "fingerprint",
+                    "preservation_scope",
+                    "character_formats"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "medium",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Shape.GetMatrix",
+        "Text.Selection",
+        "TextCharacters.Count",
+        "TextCharacters.Item",
+        "TextRange.Alignment",
+        "TextRange.AutoHyphenate",
+        "TextRange.Bold",
+        "TextRange.BulletBaselineShift",
+        "TextRange.BulletFont",
+        "TextRange.BulletHangingIndent",
+        "TextRange.BulletHorizontalPosition",
+        "TextRange.BulletSize",
+        "TextRange.BulletSymbol",
+        "TextRange.Case",
+        "TextRange.CharAngle",
+        "TextRange.CharBackFill",
+        "TextRange.CharSet",
+        "TextRange.CharSpacing",
+        "TextRange.Characters",
+        "TextRange.DropCapDistanceFromText",
+        "TextRange.DropCapHangingIndent",
+        "TextRange.DropCapLinesDropped",
+        "TextRange.End",
+        "TextRange.Fill",
+        "TextRange.FirstLineIndent",
+        "TextRange.Font",
+        "TextRange.HorizShift",
+        "TextRange.HyphenHotZone",
+        "TextRange.HyphenMinCharsAfter",
+        "TextRange.HyphenMinCharsBefore",
+        "TextRange.HyphenMinWordLength",
+        "TextRange.HyphenateAllCapWords",
+        "TextRange.HyphenateCapitals",
+        "TextRange.Italic",
+        "TextRange.LanguageID",
+        "TextRange.LeftIndent",
+        "TextRange.LineSpacing",
+        "TextRange.LineSpacingType",
+        "TextRange.MaxCharSpacing",
+        "TextRange.MaxWordSpacing",
+        "TextRange.MinWordSpacing",
+        "TextRange.Outline",
+        "TextRange.Overscore",
+        "TextRange.ParaSpacingAfter",
+        "TextRange.ParaSpacingBefore",
+        "TextRange.Position",
+        "TextRange.RangeKerning",
+        "TextRange.RightIndent",
+        "TextRange.Size",
+        "TextRange.Start",
+        "TextRange.Strikethru",
+        "TextRange.Style",
+        "TextRange.TextFormatter",
+        "TextRange.Underline",
+        "TextRange.VertShift",
+        "TextRange.WideText",
+        "TextRange.WordSpacing"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_text_ranges.py",
+          "tests/test_interaction_policy.py",
+          "docs/SELECTED_TEXT.md",
+          "docs/CONCURRENT_EDITING.md",
+          "docs/x7_selected_text_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live X7 and manual verification remain deferred. Implemented_unverified.",
+        "No atomic lock against human input; in-flight COM cannot be cancelled. Use a reserved inactive document for background edits.",
+        "Server starts paused. Exclusive mode requires the user to stop editing. Background allows only signed text-range edits.",
+        "Text range scope: one unfitted/unlinked story, 1024 native characters; exact scalar/process-appearance preservation.",
+        "Unicode code-point offsets with readback-derived native mapping and conservative boundary refusals; shaped-glyph acceptance remains pending.",
+        "Replacement requires uniform selected formatting and forbids paragraph breaks/tabs. Uncertain failures require reconciliation, never automatic undo."
+      ],
+      "result_contract": "tool-schema-v2-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "edit_text_range",
+      "category": "typography",
+      "description": "Edit a fingerprinted text range and verify surrounding text/formatting without automatic undo.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.edit_text_range"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "object_reference": {
+            "$ref": "#/schema_definitions/object_reference"
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2048
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2048
+          },
+          "expected_text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "replacement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "font": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "size_points": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "bold": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "italic": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "underline": {
+            "anyOf": [
+              {
+                "enum": [
+                  "none",
+                  "single"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "object_reference",
+          "start",
+          "end",
+          "expected_text",
+          "expected_fingerprint"
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "replacement"
+            ],
+            "properties": {
+              "replacement": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "required": [
+              "font"
+            ],
+            "properties": {
+              "font": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "required": [
+              "size_points"
+            ],
+            "properties": {
+              "size_points": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "required": [
+              "bold"
+            ],
+            "properties": {
+              "bold": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "required": [
+              "italic"
+            ],
+            "properties": {
+              "italic": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "required": [
+              "underline"
+            ],
+            "properties": {
+              "underline": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "updated": {
+                      "const": true
+                    },
+                    "object_reference": {
+                      "$ref": "#/schema_definitions/object_reference"
+                    },
+                    "start": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2048
+                    },
+                    "end": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2048
+                    },
+                    "selected_text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 2048
+                    },
+                    "fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "surrounding_text_preserved": {
+                      "const": true
+                    },
+                    "surrounding_formatting_preserved": {
+                      "const": true
+                    },
+                    "requested_style": {
+                      "$ref": "#/schema_definitions/range_requested_style"
+                    },
+                    "preservation_scope": {
+                      "const": "installed_x7_scalar_character_properties_and_process_appearance"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "updated",
+                    "object_reference",
+                    "start",
+                    "end",
+                    "selected_text",
+                    "fingerprint",
+                    "surrounding_text_preserved",
+                    "surrounding_formatting_preserved",
+                    "requested_style",
+                    "preservation_scope"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Shape.GetMatrix",
+        "Text.Selection",
+        "TextCharacters.Count",
+        "TextCharacters.Item",
+        "TextRange.Alignment",
+        "TextRange.AutoHyphenate",
+        "TextRange.Bold",
+        "TextRange.BulletBaselineShift",
+        "TextRange.BulletFont",
+        "TextRange.BulletHangingIndent",
+        "TextRange.BulletHorizontalPosition",
+        "TextRange.BulletSize",
+        "TextRange.BulletSymbol",
+        "TextRange.Case",
+        "TextRange.CharAngle",
+        "TextRange.CharBackFill",
+        "TextRange.CharSet",
+        "TextRange.CharSpacing",
+        "TextRange.Characters",
+        "TextRange.DropCapDistanceFromText",
+        "TextRange.DropCapHangingIndent",
+        "TextRange.DropCapLinesDropped",
+        "TextRange.End",
+        "TextRange.Fill",
+        "TextRange.FirstLineIndent",
+        "TextRange.Font",
+        "TextRange.HorizShift",
+        "TextRange.HyphenHotZone",
+        "TextRange.HyphenMinCharsAfter",
+        "TextRange.HyphenMinCharsBefore",
+        "TextRange.HyphenMinWordLength",
+        "TextRange.HyphenateAllCapWords",
+        "TextRange.HyphenateCapitals",
+        "TextRange.Italic",
+        "TextRange.LanguageID",
+        "TextRange.LeftIndent",
+        "TextRange.LineSpacing",
+        "TextRange.LineSpacingType",
+        "TextRange.MaxCharSpacing",
+        "TextRange.MaxWordSpacing",
+        "TextRange.MinWordSpacing",
+        "TextRange.Outline",
+        "TextRange.Overscore",
+        "TextRange.ParaSpacingAfter",
+        "TextRange.ParaSpacingBefore",
+        "TextRange.Position",
+        "TextRange.RangeKerning",
+        "TextRange.RightIndent",
+        "TextRange.Size",
+        "TextRange.Start",
+        "TextRange.Strikethru",
+        "TextRange.Style",
+        "TextRange.TextFormatter",
+        "TextRange.Underline",
+        "TextRange.VertShift",
+        "TextRange.WideText",
+        "TextRange.WordSpacing"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_text_ranges.py",
+          "tests/test_interaction_policy.py",
+          "docs/SELECTED_TEXT.md",
+          "docs/CONCURRENT_EDITING.md",
+          "docs/x7_selected_text_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live X7 and manual verification remain deferred. Implemented_unverified.",
+        "No atomic lock against human input; in-flight COM cannot be cancelled. Use a reserved inactive document for background edits.",
+        "Server starts paused. Exclusive mode requires the user to stop editing. Background allows only signed text-range edits.",
+        "Text range scope: one unfitted/unlinked story, 1024 native characters; exact scalar/process-appearance preservation.",
+        "Unicode code-point offsets with readback-derived native mapping and conservative boundary refusals; shaped-glyph acceptance remains pending.",
+        "Replacement requires uniform selected formatting and forbids paragraph breaks/tabs. Uncertain failures require reconciliation, never automatic undo."
+      ],
+      "result_contract": "tool-schema-v2-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "configure_editing_mode",
+      "category": "worker_recovery",
+      "description": "Configure paused/exclusive/reserved-background editing; all native server writes start paused.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.configure_editing_mode"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "enum": [
+              "paused",
+              "exclusive",
+              "background_document"
+            ]
+          },
+          "confirm_exclusive": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "mode"
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "mode": {
+                      "enum": [
+                        "paused",
+                        "exclusive",
+                        "background_document"
+                      ]
+                    },
+                    "native_writes_paused": {
+                      "type": "boolean"
+                    },
+                    "document_session_id": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^doc-[0-9]{4,16}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "background_methods": {
+                      "const": [
+                        "edit_text_range"
+                      ]
+                    },
+                    "requires_separate_document": {
+                      "type": "boolean"
+                    },
+                    "in_flight_native_call_cancellable": {
+                      "const": false
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "mode",
+                    "native_writes_paused",
+                    "document_session_id",
+                    "background_methods",
+                    "requires_separate_document",
+                    "in_flight_native_call_cancellable"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "medium",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.ActiveDocument",
+        "Application.Documents"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_text_ranges.py",
+          "tests/test_interaction_policy.py",
+          "docs/SELECTED_TEXT.md",
+          "docs/CONCURRENT_EDITING.md",
+          "docs/x7_selected_text_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live X7 and manual verification remain deferred. Implemented_unverified.",
+        "No atomic lock against human input; in-flight COM cannot be cancelled. Use a reserved inactive document for background edits.",
+        "Server starts paused. Exclusive mode requires the user to stop editing. Background allows only signed text-range edits.",
+        "Text range scope: one unfitted/unlinked story, 1024 native characters; exact scalar/process-appearance preservation.",
+        "Unicode code-point offsets with readback-derived native mapping and conservative boundary refusals; shaped-glyph acceptance remains pending.",
+        "Replacement requires uniform selected formatting and forbids paragraph breaks/tabs. Uncertain failures require reconciliation, never automatic undo."
+      ],
+      "result_contract": "tool-schema-v2-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "pause_native_editing",
+      "category": "worker_recovery",
+      "description": "Immediately pause subsequent native write boundaries without waiting for CorelDRAW.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "dispatcher_method": "pause_native_editing"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "required": []
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "native_writes_paused": {
+                      "const": true
+                    },
+                    "in_flight_native_call_cancellable": {
+                      "const": false
+                    },
+                    "resume_requires_configure_editing_mode": {
+                      "const": true
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "native_writes_paused",
+                    "in_flight_native_call_cancellable",
+                    "resume_requires_configure_editing_mode"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P0",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_text_ranges.py",
+          "tests/test_interaction_policy.py",
+          "docs/SELECTED_TEXT.md",
+          "docs/CONCURRENT_EDITING.md",
+          "docs/x7_selected_text_evidence.json"
+        ]
+      },
+      "known_limitations": [
+        "Live X7 and manual verification remain deferred. Implemented_unverified.",
+        "No atomic lock against human input; in-flight COM cannot be cancelled. Use a reserved inactive document for background edits.",
+        "Server starts paused. Exclusive mode requires the user to stop editing. Background allows only signed text-range edits.",
+        "Text range scope: one unfitted/unlinked story, 1024 native characters; exact scalar/process-appearance preservation.",
+        "Unicode code-point offsets with readback-derived native mapping and conservative boundary refusals; shaped-glyph acceptance remains pending.",
+        "Replacement requires uniform selected formatting and forbids paragraph breaks/tabs. Uncertain failures require reconciliation, never automatic undo."
+      ],
+      "introduced": "0.7.0-dev",
+      "result_contract": "tool-schema-v2-envelope"
     }
   ]
 }

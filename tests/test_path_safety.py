@@ -7,6 +7,7 @@ import unittest
 from fake_documents import attach_open_document
 from pathlib import Path
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 
@@ -17,7 +18,7 @@ TEMP_ROOT.mkdir(parents=True, exist_ok=True)
 
 class PathSafetyTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         attach_open_document(self.bridge, object())
 
     def assert_code(self, expected: ErrorCode, function, *args) -> None:

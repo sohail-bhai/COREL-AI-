@@ -9,7 +9,9 @@ from types import SimpleNamespace
 from unittest.mock import patch
 from jsonschema import Draft202012Validator, ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.layout import plan_distribution
@@ -108,7 +110,7 @@ class LayoutTests(unittest.TestCase):
         for shape in self.shapes:
             shape.Layer,shape.Page=self.layer,self.page
         self.document=SimpleNamespace(Name="Target.cdr",Pages=Collection(self.page),ActivePage=self.page,Unit=3,ReferencePoint=9,Dirty=False)
-        self.bridge=CorelBridge()
+        self.bridge=exclusive_bridge()
         attach_open_document(self.bridge,self.document)
 
     def error(self,code,function,**kwargs):
@@ -252,7 +254,7 @@ class LayoutTests(unittest.TestCase):
     def test_partial_distribution_failure_triggers_worker_quarantine(self):
         self.b.fail_on="position"
         with patch.object(server,"CorelBridge",return_value=self.bridge):
-            dispatcher=server.CorelDispatcher()
+            dispatcher=exclusive_dispatcher()
         try:
             with patch.object(server,"dispatcher",dispatcher):
                 value=server.distribute_objects("horizontal",object_names=["A","B","C"])

@@ -210,6 +210,13 @@
       "path": "docs/x7_text_range_evidence.json",
       "inspection_date": "2026-11-05",
       "description": "X7 text frame/range/fitting descriptors without application access; SDK responses lacked readable member text."
+    },
+    {
+      "id": "x7_selected_text_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_selected_text_evidence.json",
+      "inspection_date": "2026-11-15",
+      "description": "Installed indexing/selection descriptors; no CorelDRAW connection. Full scalar descriptors retained in x7_text_range_evidence.json."
     }
   ],
   "members": [
@@ -258,7 +265,8 @@
       "status": "documented_and_typelib_confirmed",
       "used_by": [
         "corel_status",
-        "use_active_document"
+        "use_active_document",
+        "configure_editing_mode"
       ],
       "evidence": [
         "official_x7_application",
@@ -349,7 +357,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "configure_editing_mode"
       ],
       "evidence": [
         "official_x7_application",
@@ -2751,7 +2760,9 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2782,7 +2793,9 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2813,7 +2826,9 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2836,7 +2851,9 @@
         "execute_template_batch",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2859,7 +2876,9 @@
         "execute_template_batch",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2882,7 +2901,9 @@
         "execute_template_batch",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -3832,7 +3853,9 @@
         "execute_template_batch",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3856,7 +3879,9 @@
         "execute_template_batch",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3880,7 +3905,9 @@
         "execute_template_batch",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3904,7 +3931,9 @@
         "execute_template_batch",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -4017,7 +4046,9 @@
         "preflight_document_rasters",
         "inspect_print_repeat",
         "execute_print_run",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7632,7 +7663,9 @@
       "status": "typelib_confirmed",
       "used_by": [
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7650,7 +7683,9 @@
       "status": "typelib_confirmed",
       "used_by": [
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7827,6 +7862,754 @@
         "x7_text_range_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textframe.columngutter",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Text.Selection",
+      "owner": "Text",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "(1610743840, (), (), 4, 2, 4, 0, 312, ((26, (29, 50372992)), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/text.selection",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextCharacters.Count",
+      "owner": "TextCharacters",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textcharacters.count",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextCharacters.Item",
+      "owner": "TextCharacters",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "(0, (), ((3, 1, None), (3, 49, 1)), 4, 2, 4, 0, 64, ((26, (29, 50372992)), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textcharacters.item",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.AutoHyphenate",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743874, (), (), 4, 2, 4, 0, 584, ((29, 50342144), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.autohyphenate",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.BulletBaselineShift",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743928, (), (), 4, 2, 4, 0, 1016, (4, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.bulletbaselineshift",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.BulletFont",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743922, (), (), 4, 2, 4, 0, 968, (8, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.bulletfont",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.BulletHangingIndent",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743932, (), (), 4, 2, 4, 0, 1048, (11, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.bullethangingindent",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.BulletHorizontalPosition",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743930, (), (), 4, 2, 4, 0, 1032, (5, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.bullethorizontalposition",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.BulletSize",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743926, (), (), 4, 2, 4, 0, 1000, (4, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.bulletsize",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.BulletSymbol",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743924, (), (), 4, 2, 4, 0, 984, (8, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.bulletsymbol",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.Case",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743841, (), (), 4, 2, 4, 0, 320, ((29, 50333184), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.case",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.CharAngle",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743843, (), (), 4, 2, 4, 0, 336, (4, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.charangle",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.CharBackFill",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "(1610743947, (), (), 4, 2, 4, 0, 1168, ((26, (29, 50367104)), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.charbackfill",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.CharSet",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743894, (), (), 4, 2, 4, 0, 744, ((29, 50342528), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.charset",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.Characters",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50373120)), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.characters",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.DropCapDistanceFromText",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743918, (), (), 4, 2, 4, 0, 936, (5, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.dropcapdistancefromtext",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.DropCapHangingIndent",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743920, (), (), 4, 2, 4, 0, 952, (11, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.dropcaphangingindent",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.DropCapLinesDropped",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743916, (), (), 4, 2, 4, 0, 920, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.dropcaplinesdropped",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.End",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743818, (), (), 4, 2, 4, 0, 136, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.end",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.Fill",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "(1610743910, (), (), 4, 2, 4, 0, 872, ((26, (29, 50367104)), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.fill",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.FirstLineIndent",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743847, (), (), 4, 2, 4, 0, 368, (5, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.firstlineindent",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.HorizShift",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743849, (), (), 4, 2, 4, 0, 384, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.horizshift",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.HyphenHotZone",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743876, (), (), 4, 2, 4, 0, 600, (5, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.hyphenhotzone",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.HyphenMinCharsAfter",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743880, (), (), 4, 2, 4, 0, 632, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.hyphenmincharsafter",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.HyphenMinCharsBefore",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743878, (), (), 4, 2, 4, 0, 616, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.hyphenmincharsbefore",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.HyphenMinWordLength",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743882, (), (), 4, 2, 4, 0, 648, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.hyphenminwordlength",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.HyphenateAllCapWords",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743938, (), (), 4, 2, 4, 0, 1096, (11, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.hyphenateallcapwords",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.HyphenateCapitals",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743884, (), (), 4, 2, 4, 0, 664, (11, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.hyphenatecapitals",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.LanguageID",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743892, (), (), 4, 2, 4, 0, 728, ((29, 50342400), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.languageid",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.LeftIndent",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743853, (), (), 4, 2, 4, 0, 416, (5, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.leftindent",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.MaxCharSpacing",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743861, (), (), 4, 2, 4, 0, 480, (4, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.maxcharspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.MaxWordSpacing",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743859, (), (), 4, 2, 4, 0, 464, (4, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.maxwordspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.MinWordSpacing",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743857, (), (), 4, 2, 4, 0, 448, (4, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.minwordspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.Outline",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_only",
+      "signature": "(1610743911, (), (), 4, 2, 4, 0, 880, ((26, (29, 50368896)), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.outline",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.Overscore",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743833, (), (), 4, 2, 4, 0, 256, ((29, 50333056), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.overscore",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.Position",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743839, (), (), 4, 2, 4, 0, 304, ((29, 50333312), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.position",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.RangeKerning",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743912, (), (), 4, 2, 4, 0, 888, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.rangekerning",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.RightIndent",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743855, (), (), 4, 2, 4, 0, 432, (5, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.rightindent",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.Start",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743816, (), (), 4, 2, 4, 0, 120, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.start",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.Strikethru",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743831, (), (), 4, 2, 4, 0, 240, ((29, 50333056), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.strikethru",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.Style",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743823, (), (), 4, 2, 4, 0, 176, ((29, 50332928), 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.style",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.TextFormatter",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743951, (), (), 4, 2, 4, 0, 1200, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.textformatter",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.VertShift",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743851, (), (), 4, 2, 4, 0, 400, (3, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.vertshift",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "TextRange.WideText",
+      "owner": "TextRange",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "(1610743810, (), (), 4, 2, 4, 0, 72, (8, 0, None), 0)",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "inspect_text_range",
+        "edit_text_range"
+      ],
+      "evidence": [
+        "x7_selected_text_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.widetext",
       "live_test_status": "not_run"
     }
   ]

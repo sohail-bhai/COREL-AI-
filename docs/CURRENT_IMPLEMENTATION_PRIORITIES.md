@@ -1,15 +1,16 @@
 # Current Implementation Priorities
 
-**Updated:** 2026-11-05
+**Updated:** 2026-11-15
 **Decision:** Prioritize common editing, layout, templates, and print production;
 then extend into component-based AI design and smart redesign.
 
-**Current pause — 2026-11-05:** The user requested stopping after the current
-work. The editable paragraph-fitting batch is complete, tested and pushed as
-`725e162`; its exact HEAD matches the remote branch. Pause autonomous work here.
-The next text-run batch has not started. Resume the saved backlog in
-[IMPLEMENTATION_HANDOFF.md](IMPLEMENTATION_HANDOFF.md) only when requested.
-Live verification remains deferred.
+**Resume — 2026-11-15:** The user resumed the saved backlog and requested safe
+concurrent personal CorelDRAW work. The November 5 implementation pause is revoked.
+The selected-text/concurrency batch adds exact native readback mapping, bounded
+character preservation and paused/exclusive/reserved-document modes. General
+shared-context commands still require exclusive apply windows. Continue from
+[IMPLEMENTATION_HANDOFF.md](IMPLEMENTATION_HANDOFF.md); live verification remains
+deferred. Implementation pause and runtime native-write pause are separate concepts.
 
 The user reviewed the current Alhamdulillah result and deferred further custom
 calligraphy and other-language reference reconstruction. These remain future

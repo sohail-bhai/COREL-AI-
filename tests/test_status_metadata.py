@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.version import (
     BRIDGE_VERSION,
@@ -21,7 +22,7 @@ class _FakeApplication:
 
 class StatusMetadataTests(unittest.TestCase):
     def test_status_reports_version_profile_runtime_and_connection_metadata(self) -> None:
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         bridge.app = _FakeApplication()
         bridge.prog_id_used = "CorelDRAW.Application"
         bridge.connection_mode = "GetActiveObject"

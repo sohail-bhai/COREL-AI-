@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 from typing import Any
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from fake_documents import attach_open_document
 from corel_operator.errors import CorelBridgeError, ErrorCode
@@ -124,7 +125,7 @@ class _MockApp:
 
 class AlignAndGroupUnitTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.doc = _MockDocument(8.5, 11.0)
         self.app = _MockApp(self.doc)
         self.bridge.app = self.app

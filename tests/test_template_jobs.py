@@ -8,7 +8,9 @@ from types import SimpleNamespace
 from unittest.mock import patch
 from jsonschema import Draft202012Validator,ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError,ErrorCode
 from corel_operator.template_jobs import read_template_csv,plan_template_batch,seal
@@ -120,7 +122,7 @@ class TemplateJobsTests(unittest.TestCase):
         children=[TemplateShape(self.app,"Background",1,1,1,3,2),TemplateShape(self.app,"Name",6,1.2,2,1,.2,"NAME"),TemplateShape(self.app,"ID",6,1.2,1.5,1,.2,"ID")]
         for child in children: child.Page,child.Layer,child.ParentGroup=self.root.Page,layer,self.root
         self.root.Shapes=Collection(*children); layer.Shapes.items=[self.root]; self.root.Page.Shapes.items=[self.root]
-        self.bridge=CorelBridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.source)
+        self.bridge=exclusive_bridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.source)
         self.template=self.bridge.inspect_text_template(object_name="Template")["template"]
         self.records=[{"member":"Alia","number":"001"},{"member":"Bilal","number":"002"},{"member":"Cora","number":"003"}]
     def plan(self,**options):
@@ -197,7 +199,7 @@ class TemplateJobsTests(unittest.TestCase):
     def test_cleanup_failure_quarantines_the_worker(self):
         self.records[1]["member"]="FAIL"; self.app.fail_text="FAIL"; self.app.fail_close=True
         plan=self.plan()
-        with patch.object(server,"CorelBridge",return_value=self.bridge): dispatcher=server.CorelDispatcher()
+        with patch.object(server,"CorelBridge",return_value=self.bridge): dispatcher=exclusive_dispatcher()
         try:
             with patch.object(server,"dispatcher",dispatcher):
                 failed=server.execute_template_batch(plan,plan["fingerprint"])

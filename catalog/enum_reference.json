@@ -478,6 +478,17 @@
       "notes": [
         "Installed X7 enum evidence in docs/x7_text_spacing_evidence.json."
       ]
+    },
+    "cdrTextIndexingType": {
+      "values": {
+        "cdrCharacterIndexing": 0,
+        "cdrWordIndexing": 1,
+        "cdrParagraphIndexing": 2
+      },
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrTextIndexingType",
+      "bridge_usage": [
+        "Research evidence only; native character mapping is derived per story without changing indexing mode."
+      ]
     }
   }
 }

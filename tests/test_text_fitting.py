@@ -8,7 +8,9 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator, ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.results import success_result
@@ -21,7 +23,7 @@ class TextFittingTests(unittest.TestCase):
         self.app, self.document, self.layer, _, _ = scene.fixture()
         prepare(self.app)
         self.source = Paragraph(self.layer, [scene.rectangle(1, 2, 3, .5)])
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.bridge.app = self.app
         self.bridge._bind_target_document(self.document)
         self.reference = self.bridge.get_text_properties(object_name='Body')['object']['object_reference']
@@ -197,7 +199,7 @@ class TextFittingTests(unittest.TestCase):
     def test_verified_cleanup_allows_followup_worker_mutations(self):
         self.app.fail_size = True
         with patch.object(server, 'CorelBridge', return_value=self.bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
         try:
             with patch.object(server, 'dispatcher', dispatcher):
                 result = server.fit_paragraph_text(self.reference)
@@ -212,7 +214,7 @@ class TextFittingTests(unittest.TestCase):
     def test_unverified_cleanup_quarantines_followup_worker_mutations(self):
         self.app.on_size = lambda story: story.__dict__.update(Text='Concurrent output edit')
         with patch.object(server, 'CorelBridge', return_value=self.bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
         try:
             with patch.object(server, 'dispatcher', dispatcher):
                 result = server.fit_paragraph_text(self.reference)

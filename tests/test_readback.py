@@ -6,6 +6,7 @@ import unittest
 from fake_documents import attach_open_document
 from pathlib import Path
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 
@@ -111,7 +112,7 @@ class _PublishingDocument:
 
 class ActualReadbackTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.document = _Document()
         attach_open_document(self.bridge, self.document)
 

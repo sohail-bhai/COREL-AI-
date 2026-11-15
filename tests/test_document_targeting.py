@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from fake_documents import OpenDocuments
@@ -57,7 +58,7 @@ class _FakeApplication:
 class DocumentTargetingTests(unittest.TestCase):
     def test_status_inspects_active_document_without_binding_it(self) -> None:
         existing = _FakeDocument("Client.cdr")
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         bridge.app = _FakeApplication(existing)
 
         status = bridge.status()
@@ -71,7 +72,7 @@ class DocumentTargetingTests(unittest.TestCase):
     def test_create_document_binds_only_the_new_document(self) -> None:
         existing = _FakeDocument("Client.cdr")
         application = _FakeApplication(existing)
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         bridge.app = application
 
         result = bridge.create_document(8.5, 11)
@@ -88,7 +89,7 @@ class DocumentTargetingTests(unittest.TestCase):
         self.assertEqual(result["reference_point_actual"], 5)
 
     def test_active_document_binding_requires_exact_true(self) -> None:
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         bridge.app = _FakeApplication(_FakeDocument("Approved.cdr"))
 
         with self.assertRaises(CorelBridgeError) as context:
@@ -103,7 +104,7 @@ class DocumentTargetingTests(unittest.TestCase):
         first = _FakeDocument("First.cdr")
         second = _FakeDocument("Second.cdr")
         application = _FakeApplication(first)
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         bridge.app = application
         bridge.use_active_document(True)
 

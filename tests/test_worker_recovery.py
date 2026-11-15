@@ -12,7 +12,9 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator, ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge, tracked_mutation
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.worker_state import MAX_OPERATION_HISTORY, READ_ONLY_METHODS, native_busy
@@ -443,7 +445,7 @@ class WorkerRecoveryTests(unittest.TestCase):
 
 class NativeReconciliationProbeTests(unittest.TestCase):
     def setUp(self):
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.page = SimpleNamespace(Index=1, Shapes=SimpleNamespace(Count=3))
         pages = SimpleNamespace(Count=1, Item=lambda index:self.page)
         self.document = SimpleNamespace(Name='private client', ActivePage=self.page, Pages=pages,
@@ -496,7 +498,7 @@ class NativeReconciliationProbeTests(unittest.TestCase):
 
     def test_real_preflight_refusal_has_no_native_mutation_stage(self):
         with patch.object(server, 'CorelBridge', side_effect=lambda:self.bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
         try:
             with self.assertRaises(CorelBridgeError):dispatcher.call('set_text_content', '', shape_index=1)
             self.assertFalse(dispatcher.snapshot()['recovery_required'])
@@ -517,7 +519,7 @@ class NativeReconciliationProbeTests(unittest.TestCase):
         shape = SimpleNamespace(Name='Title', Text=SimpleNamespace(Story=story))
         self.page.Shapes.Item = lambda index:shape
         with patch.object(server, 'CorelBridge', side_effect=lambda:self.bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
         try:
             with self.assertRaises(CorelBridgeError):dispatcher.call('set_text_content', 'After', shape_index=1)
             self.assertEqual(story.value, 'After')
@@ -540,7 +542,7 @@ class NativeReconciliationProbeTests(unittest.TestCase):
         bridge = NestedBridge()
         attach_open_document(bridge,self.document)
         with patch.object(server, 'CorelBridge', side_effect=lambda:bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
         try:
             with self.assertRaises(CorelBridgeError):dispatcher.call('nested_job')
             self.assertTrue(self.document.Dirty)
@@ -572,7 +574,7 @@ class NativeReconciliationProbeTests(unittest.TestCase):
         self.page.Shapes.Item = lambda index:shape
         attach_open_document(self.bridge,document)
         with patch.object(server,'CorelBridge',side_effect=lambda:self.bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
         try:
             with self.assertRaises(CorelBridgeError):dispatcher.call('move_object',8,9,shape_index=1)
             self.assertEqual((shape.PositionX,shape.PositionY),(8.,9.))
@@ -600,7 +602,7 @@ class NativeReconciliationProbeTests(unittest.TestCase):
         self.page.Shapes.Item = lambda index:shape
         attach_open_document(self.bridge,document)
         with patch.object(server,'CorelBridge',side_effect=lambda:self.bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
         try:
             with self.assertRaises(CorelBridgeError):dispatcher.call('get_object_info',shape_index=1)
             recovery = dispatcher.snapshot()['recovery']

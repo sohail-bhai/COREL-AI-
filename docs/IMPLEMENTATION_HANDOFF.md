@@ -1,23 +1,32 @@
-# Implementation handoff - 2026-11-05
+# Implementation handoff - 2026-11-15
 
-The user requested stopping after the current work on 2026-11-05.
-Autonomous work is paused; the broader objective remains incomplete. All live
-verification stays deferred to the user-requested consolidated campaign.
+The user resumed the saved implementation on 2026-11-15 and requested safe
+concurrent personal CorelDRAW work plus the remaining backlog. The November 5
+implementation pause is revoked. The broader objective remains incomplete.
+Live verification stays deferred to the consolidated campaign.
 
 Branch: `feature/workflow-planning-slice`. Preserve this branch and read
 `HARNESS_INCIDENTS.md` before project work. Inspect current Git status/history
 to confirm batch commit/push state; do not infer commits from this document.
 
-Current surface: 94 registered tools, all `implemented_unverified`; 96 registry
-records/matrix rows, 327 native members, 279 checked schemas, 288 examples,
-29 enum groups and 75 adapter capabilities. Default suite: 952 tests, 922 pass,
-30 guarded live tests skipped. No live CorelDRAW verification ran this iteration.
+Current surface: 98 registered tools, all `implemented_unverified`; 100 registry
+records/matrix rows, 371 native members, 289 checked schemas, 300 examples,
+30 enum groups and 75 adapter capabilities. Default suite: 989 tests, 958 pass,
+31 guarded live tests skipped. No live CorelDRAW verification ran this iteration.
 
-Pause checkpoint: paragraph fitting is complete and pushed as `725e162`.
-Confirmed its exact HEAD matches the remote branch. The next text-run batch has
-not started; no implementation files were left unfinished. The four personal
-artwork/helper files listed below remain untouched and uncommitted. Resume
-implementation only after the user reactivates the goal.
+Latest batch: selected-text inspection/formatting/replacement and cooperative
+editing policy, bridge 0.7.0 / tool schema v2. Both embedded and worker writes
+start paused. Exact Unicode code-point bounds map to native Characters readback;
+signed targets/fingerprints and scalar/process-format snapshots protect content
+and surrounding runs. Reserved inactive-document mode permits only audited
+text-range edits; other native commands require an exclusive apply window.
+Immediate pause stops later write boundaries, cannot cancel entered COM, and
+preserves uncertain edits for explicit worker reconciliation. Thirty-six focused
+checks plus full default/catalog validation pass. See SELECTED_TEXT.md,
+CONCURRENT_EDITING.md and the dated non-live report. Verify commit/push in Git.
+
+Earlier paragraph fitting is complete and pushed as `725e162`. The four personal
+artwork/helper files listed below remain untouched and uncommitted.
 
 The resumed session found the retained PDF batch uncommitted and its linked
 non-live report missing. Validated it, restored the report, committed and pushed
@@ -104,14 +113,14 @@ provider/generation/revision history, quality/reflow/mockups and researched
 specialty workflows. Continue independent work for unresolved API/provider/output
 dependencies. Custom Alhamdulillah calligraphy/reconstruction remains deferred.
 
-Next bounded batch: extend the retained installed text-range evidence with native
-indexing enums/structures, then implement bounded run inspection/editing with exact
-selected-content and untouched-run readback. `TextCharacters.Item(Index, Count=1)`
-and `TextRange.Range(Start, End)` exist, but Unicode/index semantics still need
-proof or a readback-derived mapping before writes. Broader template image fields/
-reflow, document checkpoints and component provider/generation/revisions remain
-saved implementation work. Continue independent gaps for unresolved dependencies
-after the user resumes.
+Next bounded batch: research character/word write units and broaden typography/
+fitting, then image-template fields/reflow, controlled document checkpoints and
+cross-page/layer movement, ICC/PDF-X/export-raster coverage and component provider/
+generation/revisions/smart resize. The provider choice is unresolved; a local
+interface was offered while independent work proceeds. Atomic same-document
+concurrency and general isolated native background execution need further API/
+native evidence. Do not widen the background allowlist without a setter/context
+audit, preservation checks and a deferred native gate.
 
 Keep sequential bounded foreground operations and ordinary workspace files.
 No browser preview, background jobs, parallel wrappers or subagents. Preserve
@@ -122,6 +131,7 @@ these unrelated untracked files untouched and uncommitted:
 - `scripts/create_membership_card_print_job.py`
 - `scripts/inspect_membership_template.py`
 
-No new harness incident occurred this iteration. The full goal remains paused
-at the user's request. Retain `implemented_unverified` until applicable
-native/manual evidence is reviewed.
+No new harness incident occurred this iteration. The broader implementation
+objective remains incomplete and resumed. Runtime native writes start paused
+for user safety. Retain `implemented_unverified` until applicable native/manual
+evidence is reviewed.

@@ -354,8 +354,8 @@ class _MockDocument:
 
 class CreateChestNumberBatchBridgeTests(unittest.TestCase):
     def setUp(self) -> None:
-        from corel_operator.corel_bridge import CorelBridge
-        self.bridge = CorelBridge()
+        from dispatcher_fakes import exclusive_bridge
+        self.bridge = exclusive_bridge()
         self.doc = _MockDocument(8.5, 11.0)
         attach_open_document(self.bridge, self.doc)
 

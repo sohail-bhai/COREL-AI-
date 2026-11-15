@@ -1,6 +1,7 @@
 """Synthetic page/layer ownership and failures for structure controls."""
 from types import SimpleNamespace
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from fake_documents import attach_open_document
 from test_object_references import Collection, Shape
@@ -159,6 +160,6 @@ def fixture():
     add_shape(document.Pages.items[0].ActiveLayer, 'Front title', 101)
     add_shape(document.Pages.items[0].ActiveLayer, 'Front art', 102)
     add_shape(document.Pages.items[1].ActiveLayer, 'Back title', 201)
-    bridge = CorelBridge(); app = SimpleNamespace(ActiveDocument=document)
+    bridge = exclusive_bridge(); app = SimpleNamespace(ActiveDocument=document)
     attach_open_document(bridge, document, app)
     return bridge, document

@@ -51,6 +51,7 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         pythoncom.CoInitialize()
         self.pythoncom = pythoncom
         self.bridge = CorelBridge()
+        self.bridge.configure_editing_mode('exclusive', confirm_exclusive=True)
         self.steps: list[dict[str, Any]] = []
         self.cleanup_notes: list[str] = []
         self.status: dict[str, Any] = {}
@@ -1623,6 +1624,7 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self.assertIsNotNone(reopened_ref)
             self.assertEqual(self.bridge.get_text_properties(object_reference=reopened_ref)["text"]["content"], "Nested changed")
             restarted = CorelBridge()
+            restarted.configure_editing_mode('exclusive', confirm_exclusive=True)
             restarted.app = self.bridge.app
             restarted._bind_target_document(reopened)
             with self.assertRaises(CorelBridgeError) as restart:
@@ -1732,6 +1734,71 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
                 raise
             finally:
                 self._write_report(passed,failure)
+
+    def test_selected_text_and_background_policy_live(self) -> None:
+        """Deferred campaign: only two newly owned disposable documents."""
+        passed, failure, ai_document, other = False, None, None, None
+        try:
+            self.status = self._step('connect selected-text fixture', self.bridge.connect)
+            self.bridge.create_document(8.5, 11)
+            ai_document = self.bridge.target_doc
+            self.bridge.configure_editing_mode('exclusive', confirm_exclusive=True)
+            self.bridge.add_text('AhelloZ', 1, 8, font='Arial', object_name='RangeText')
+            shape = self.bridge._find_shape(ai_document, object_name='RangeText')
+            shape.Text.Story.Characters.Item(2, 5).Select()
+            selected = self._step('capture native selected text', lambda:
+                self.bridge.inspect_text_range(object_name='RangeText'))
+            self.assertEqual(selected['selected_text'], 'hello')
+            edited = self._step('edit selected native character formatting', lambda:
+                self.bridge.edit_text_range(selected['object_reference'], selected['start'], selected['end'],
+                    selected['selected_text'], selected['fingerprint'], bold=True))
+            self.assertTrue(edited['surrounding_formatting_preserved'])
+            after = self.bridge.inspect_text_range(1, 6, object_name='RangeText')
+            replaced = self._step('replace selected native text', lambda:
+                self.bridge.edit_text_range(after['object_reference'], 1, 6, after['selected_text'],
+                    after['fingerprint'], replacement='Hi'))
+            self.assertEqual(shape.Text.Story.WideText, 'AHiZ')
+            unicode_probes = []
+            for index, value in enumerate(('A😀Z', 'Ae\u0301Z', 'Aनमस्तेZ', 'AمرحباZ')):
+                name = 'UnicodeProbe' + str(index)
+                self.bridge.add_text(value, 1, 6 - index, font='Arial', object_name=name)
+                probe = self.bridge.inspect_text_range(1, len(value) - 1, object_name=name)
+                self.assertEqual(probe['selected_text'], value[1:-1])
+                unicode_probes.append(probe)
+            pinned = self.bridge.inspect_text_range(1, 3, object_name='RangeText')
+            self.bridge.create_document(8.5, 11)
+            other = self.bridge.target_doc
+            other_state = (other.Unit, other.ReferencePoint, other.ActivePage.Shapes.Count)
+            self.bridge._bind_target_document(ai_document)
+            self.bridge.configure_editing_mode('background_document')
+            self.bridge._prepare_interaction_operation('edit_text_range', True)
+            try:
+                background = self.bridge.edit_text_range(pinned['object_reference'], 1, 3, pinned['selected_text'],
+                    pinned['fingerprint'], italic=True)
+                self.bridge._check_interaction_write()
+            finally:
+                self.bridge._interaction_operation = None
+            self.assertTrue(self.bridge._same_com_object(other, self.bridge.app.ActiveDocument, strict=True))
+            self.assertEqual((other.Unit, other.ReferencePoint, other.ActivePage.Shapes.Count), other_state)
+            ai_document.Activate()  # Only this gate's disposable AI document.
+            with self.assertRaises(CorelBridgeError): self.bridge._prepare_interaction_operation('edit_text_range', True)
+            self.bridge._interaction_operation = None
+            self.bridge.configure_editing_mode('paused')
+            (self.output_dir / 'selected-text-background-readback.json').write_text(json.dumps(
+                {'selected': selected, 'edited': edited, 'replaced': replaced,
+                 'unicode_probes': unicode_probes, 'background': background, 'native_status': 'requires_manual_review'},
+                indent=2, ensure_ascii=True), encoding='utf-8')
+            passed = True
+        except BaseException as exc:
+            failure = f'{type(exc).__name__}: {exc}'
+            raise
+        finally:
+            self.bridge._interaction_operation = None
+            for document in (other, ai_document):
+                if document is not None:
+                    self.bridge._bind_target_document(document)
+                    self._close_saved_target_if_needed()
+            self._write_report(passed, failure)
 
     def test_typography_live(self) -> None:
         """Native typography/readback on owned synthetic artwork; never run by default."""
@@ -1896,6 +1963,7 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
         try:
             with patch.object(server, "CorelBridge", RecoveryFixtureBridge):
                 dispatcher = server.CorelDispatcher()
+            dispatcher.call('configure_editing_mode', 'exclusive', True)
             with patch.object(server, "dispatcher", dispatcher), patch.object(server, "operation_journal", journal):
                 self.status = self._step("connect recovery fixture", server.corel_status)["data"]
                 self.assertTrue(self.status["connected"])

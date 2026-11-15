@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 
@@ -127,7 +128,7 @@ class InspectionTests(unittest.TestCase):
         self.target = _Document("Target.cdr", r"C:\jobs\Target.cdr", [page_1, page_2], dirty=True)
         self.other = _Document("Graphic1", "", [_Page(1, "Page 1", 8.0, 10.0, [_Layer("Layer 1", 1)])])
         self.app = _Application([self.target, self.other], self.other)
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.bridge.app = self.app
         self.bridge.target_doc = self.target
 

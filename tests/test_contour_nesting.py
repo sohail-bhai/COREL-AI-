@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from fake_documents import attach_open_document
 from corel_operator.contour_nesting import (
@@ -309,7 +310,7 @@ class ContourNestingTests(unittest.TestCase):
         self.assertFalse(contours_have_conflicts([INTERLOCKING_CARTON, shifted], 0.1))
 
     def test_repeat_inspection_returns_conditional_questions(self) -> None:
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         attach_open_document(bridge, _Document())
 
         result = bridge.inspect_repeat_unit("Repeat_Unit", "CutContour")
@@ -323,7 +324,7 @@ class ContourNestingTests(unittest.TestCase):
         document.ActivePage.Shapes.items[0].dieline.points = [
             [0, 0], [4, 0], [4, 3], [0, 3],
         ]
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         attach_open_document(bridge, document)
 
         result = bridge.inspect_repeat_unit("Repeat_Unit", "CutContour")
@@ -334,7 +335,7 @@ class ContourNestingTests(unittest.TestCase):
         self.assertEqual(result["questions"], [])
 
     def test_execution_keeps_every_repeat_as_an_independent_group(self) -> None:
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         document = _Document()
         attach_open_document(bridge, document)
         source = document.ActivePage.Shapes.items[0]
@@ -372,7 +373,7 @@ class ContourNestingTests(unittest.TestCase):
         )
 
     def test_orchestrator_plans_then_executes_only_matching_fingerprint(self) -> None:
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         document = _Document()
         attach_open_document(bridge, document)
 
@@ -415,7 +416,7 @@ class ContourNestingTests(unittest.TestCase):
         self.assertEqual(document.Pages.Item(1).Shapes.Item(1).Name, "Repeat_Unit")
 
     def test_orchestrator_rejects_changed_source_after_approval(self) -> None:
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         document = _Document()
         attach_open_document(bridge, document)
         planned = bridge.prepare_imposition_job(
@@ -436,7 +437,7 @@ class ContourNestingTests(unittest.TestCase):
         self.assertEqual(document.Pages.Count, 1)
 
     def test_orchestrator_asks_rotation_only_when_capacity_improves(self) -> None:
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         attach_open_document(bridge, _Document())
 
         result = bridge.prepare_imposition_job(
@@ -450,7 +451,7 @@ class ContourNestingTests(unittest.TestCase):
         self.assertEqual(result["questions"][0]["impact"]["rotated_copies_per_sheet"], 4)
 
     def test_orchestrator_skips_rotation_question_when_capacity_is_unchanged(self) -> None:
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         attach_open_document(bridge, _Document())
 
         result = bridge.prepare_imposition_job(
@@ -468,7 +469,7 @@ class ContourNestingTests(unittest.TestCase):
         document.ActivePage.Shapes.items[0].dieline.points = [
             [0, 0], [4, 0], [4, 3], [0, 3],
         ]
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         attach_open_document(bridge, document)
 
         result = bridge.prepare_imposition_job(
@@ -491,7 +492,7 @@ class ContourNestingTests(unittest.TestCase):
         self.assertTrue(completed["source_preserved"])
 
     def test_failed_execution_removes_only_new_output_page(self) -> None:
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         document = _Document()
         document.fail_output_position = True
         attach_open_document(bridge, document)

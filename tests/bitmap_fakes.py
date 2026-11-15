@@ -1,6 +1,7 @@
 """Synthetic native bitmap pixel grid, crop envelope and affine placement."""
 from types import SimpleNamespace
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from fake_documents import attach_open_document
 from test_layout import Collection, Shape as LayoutShape
@@ -41,7 +42,7 @@ class Shape(LayoutShape):
 
 def fixture():
     app, document, layer = vector_fixture()
-    shape = Shape(layer); bridge = CorelBridge(); attach_open_document(bridge, document, app)
+    shape = Shape(layer); bridge = exclusive_bridge(); attach_open_document(bridge, document, app)
     reference = bridge._reference_for_shape(document, shape)
     return bridge, document, shape, reference
 

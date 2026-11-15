@@ -6,6 +6,7 @@ import unittest
 from unittest.mock import patch
 
 from corel_operator.adapters import CorelX7Adapter
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 
@@ -58,7 +59,7 @@ class ConnectionStrategyTests(unittest.TestCase):
             get_results={CorelX7Adapter.EXPLICIT_PROG_ID: application}
         )
         with patch.dict(sys.modules, _fake_win32_modules(client)):
-            bridge = CorelBridge()
+            bridge = exclusive_bridge()
             status = bridge.connect()
 
         self.assertEqual(
@@ -74,7 +75,7 @@ class ConnectionStrategyTests(unittest.TestCase):
             dispatch_results={CorelX7Adapter.EXPLICIT_PROG_ID: application}
         )
         with patch.dict(sys.modules, _fake_win32_modules(client)):
-            bridge = CorelBridge()
+            bridge = exclusive_bridge()
             status = bridge.connect()
 
         self.assertEqual(
@@ -102,7 +103,7 @@ class ConnectionStrategyTests(unittest.TestCase):
         )
         with patch.dict(sys.modules, _fake_win32_modules(client)):
             with self.assertRaises(CorelBridgeError) as context:
-                CorelBridge().connect()
+                exclusive_bridge().connect()
 
         self.assertEqual(context.exception.code, ErrorCode.UNSUPPORTED_IN_PROFILE)
         self.assertEqual(context.exception.details["detected_major"], 18)

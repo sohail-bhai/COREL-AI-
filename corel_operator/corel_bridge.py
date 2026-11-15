@@ -50,6 +50,8 @@ from .bitmap_bridge import BitmapBridgeMixin
 from .raster_preflight import RasterPreflightMixin
 from .print_run_bridge import PrintRunBridgeMixin
 from .text_fitting import TextFittingMixin
+from .text_ranges import TextRangesMixin
+from .interaction_policy import InteractionPolicyMixin
 from .object_references import (
     MAX_REFERENCE_DEPTH, MAX_REFERENCE_SCAN, authenticate_reference,
     identity_token, reference_signature, validate_reference,
@@ -65,7 +67,7 @@ from .contour_nesting import (
 )
 
 
-class CorelBridge(TextFittingMixin,PrintRunBridgeMixin,TemplateBridgeMixin,PdfBridgeMixin,VectorBridgeMixin,AppearanceBridgeMixin,TransparencyBridgeMixin,PowerClipBridgeMixin,GradientBridgeMixin,ContourOffsetBridgeMixin,OrganizationBridgeMixin,BitmapBridgeMixin,RasterPreflightMixin):
+class CorelBridge(InteractionPolicyMixin,TextRangesMixin,TextFittingMixin,PrintRunBridgeMixin,TemplateBridgeMixin,PdfBridgeMixin,VectorBridgeMixin,AppearanceBridgeMixin,TransparencyBridgeMixin,PowerClipBridgeMixin,GradientBridgeMixin,ContourOffsetBridgeMixin,OrganizationBridgeMixin,BitmapBridgeMixin,RasterPreflightMixin):
     CDR_INCH = CorelX7Adapter.CDR_INCH
     CDR_BOTTOM_LEFT = CorelX7Adapter.CDR_BOTTOM_LEFT
     MAX_IMPORT_BYTES = 250 * 1024 * 1024
@@ -90,8 +92,13 @@ class CorelBridge(TextFittingMixin,PrintRunBridgeMixin,TemplateBridgeMixin,PdfBr
         self._reference_secret = secrets.token_bytes(32)
         self._mutation_depth = 0
         self._operation_mutation_started: bool | None = None
+        self._editing_mode = 'paused'
+        self._reserved_document_key = None
+        self._interaction_operation = None
+        self._native_pause_event = None
 
     def _note_mutation(self) -> None:
+        self._check_interaction_write()
         if self._mutation_depth:
             self._operation_mutation_started = True
 

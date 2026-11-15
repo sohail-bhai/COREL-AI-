@@ -10,7 +10,9 @@ from pypdf import PdfWriter
 from pypdf.generic import DictionaryObject,NameObject,NumberObject,ArrayObject,DecodedStreamObject
 from jsonschema import Draft202012Validator,ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError,ErrorCode
 from corel_operator.pdf_inspection import inspect_pdf
@@ -65,7 +67,7 @@ class PdfProductionTests(unittest.TestCase):
         self.app=App(); self.document=Document(self.app,'Source.cdr')
         self.app.Documents.items=[self.document]; self.app.ActiveDocument=self.document
         self.settings=Settings(); self.document.PDFSettings=self.settings
-        self.bridge=CorelBridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.document)
+        self.bridge=exclusive_bridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.document)
         self.published=[]
         def publish(path):
             self.published.append((path,dict(self.settings.values)))
@@ -175,7 +177,7 @@ class PdfProductionTests(unittest.TestCase):
         self.assertTrue(error.details['rollback']['verified']); self.assertFalse(self.published)
     def test_restore_failure_quarantines_the_worker(self):
         self.settings.fail_restore='ColorMode'
-        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=server.CorelDispatcher()
+        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=exclusive_dispatcher()
         try:
             with patch.object(server,'dispatcher',dispatcher):
                 result=server.export_pdf_controlled(str(self.path))

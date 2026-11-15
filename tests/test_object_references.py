@@ -10,7 +10,9 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator, ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.object_references import MAX_REFERENCE_DEPTH
@@ -85,7 +87,7 @@ class ObjectReferenceTests(unittest.TestCase):
             Name='Target.cdr', Pages=Collection(self.front, self.back),
             ActivePage=self.front, Unit=3, ReferencePoint=9, Dirty=False,
         )
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.bridge.app = SimpleNamespace(CreateRGBColor=lambda *rgb: rgb)
         attach_open_document(self.bridge, self.document)
         self.references = {m['static_id']: m['object_reference'] for m in self.bridge.find_objects()['matches']}
@@ -220,7 +222,7 @@ class ObjectReferenceTests(unittest.TestCase):
         self.assert_error(ErrorCode.OBJECT_NOT_FOUND)
 
     def test_bridge_restart_rejects_even_matching_document_session_numbers(self):
-        bridge = CorelBridge()
+        bridge = exclusive_bridge()
         bridge.app = self.bridge.app
         attach_open_document(bridge, self.document)
         self.assertEqual(bridge._document_session_id(self.document), self.references[103]['document_session_id'])
@@ -322,12 +324,12 @@ class ObjectReferenceTests(unittest.TestCase):
         calling_thread = threading.get_ident()
         worker_threads = []
         def make_bridge():
-            bridge = CorelBridge(); bridge.app = self.bridge.app
+            bridge = exclusive_bridge(); bridge.app = self.bridge.app
             attach_open_document(bridge, self.document)
             worker_threads.append(threading.get_ident())
             return bridge
         with patch.object(server, 'CorelBridge', side_effect=make_bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
             try:
                 reference = dispatcher.call('find_objects')['matches'][2]['object_reference']
                 result = dispatcher.call('get_text_properties', object_reference=json.loads(json.dumps(reference)))

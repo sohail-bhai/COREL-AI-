@@ -6,6 +6,7 @@ from types import SimpleNamespace
 from test_layout import Collection
 from test_template_jobs import App as BaseApp, Document as BaseDocument, Page as BasePage, Layer as BaseLayer
 from powerclip_fakes import Shape as BaseShape, Clip, rectangle
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 
 
@@ -98,5 +99,5 @@ def fixture():
     app = App(); source = Document(app, 'Source.cdr'); other = Document(app, 'Other.cdr')
     app.Documents = Collection(source, other); app.ActiveDocument = other
     root = Shape(source.ActivePage.ActiveLayer, [rectangle(1, 2, 3, 2)])
-    bridge = CorelBridge(); bridge.app = app; bridge._bind_target_document(source)
+    bridge = exclusive_bridge(); bridge.app = app; bridge._bind_target_document(source)
     return bridge, app, source, root

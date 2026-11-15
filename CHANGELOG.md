@@ -6,6 +6,17 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ## [Unreleased]
 
+### Changed — 2026-11-15
+
+- Bridge 0.7.0 / tool schema v2 starts MCP-native editing paused. Clients must
+  configure exclusive or reserved inactive-document mode. Background work is
+  restricted to audited signed text-range edits; an immediate pause event stops
+  later write boundaries, with partial-write reconciliation and no automatic undo.
+- Added bounded Unicode selected-text inspection/formatting/replacement, native
+  readback-derived indexing and exact surrounding scalar/process-appearance
+  preservation. One ordinary unfitted/unlinked story; uniform replacement excludes
+  paragraph/tab changes. All native/manual verification remains deferred.
+
 ### Added
 
 - Document-wide raster preflight covers page/master layers, nested groups and

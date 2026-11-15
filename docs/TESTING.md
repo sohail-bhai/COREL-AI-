@@ -11,15 +11,18 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 952 tests
-OK (skipped=30)
+Ran 989 tests
+OK (skipped=31)
 ```
 
 Coverage includes:
 
 - authoritative bridge/schema/profile versions;
-- tool-schema v1 success and error envelopes;
-- all catalog JSON Schemas and 147 request/success/error examples;
+- tool-schema v2 success and error envelopes and explicit editing-mode migration;
+- all catalog JSON Schemas and 300 request/success/error examples;
+- 36 selected-text/policy checks: native Unicode mapping, selected content,
+  mixed scalar formatting, replacement preservation, stale/collateral changes,
+  native limits, strict schemas, paused direct/worker clients and immediate pause;
 - bridge argument validation and stable error codes;
 - inch-unit and reference-point context restoration;
 - protected target-document behavior using fake COM objects;
@@ -53,6 +56,16 @@ Coverage includes:
 - `corel_status` runtime metadata using a fake Application object.
 
 Temporary path-safety fixtures are created under the operating system's `opencode` temporary directory and removed by the tests.
+
+Fake-COM fault fixtures explicitly configure exclusive mode so they exercise
+native failure/recovery behavior after the v2 startup policy check. The policy
+tests independently verify paused startup and direct-client refusals. The live
+fixture configures exclusive mode only under the two existing explicit live
+authorization environment flags. No live test is authorized by default.
+
+The standalone smoke test now requires `--confirm-exclusive`; supplying that
+flag means the user has stopped editing during the disposable test. Older direct
+helper scripts also need explicit editing-mode configuration before any writes.
 
 ## Catalog validation
 

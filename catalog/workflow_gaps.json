@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "research_date": "2026-11-05",
+  "research_date": "2026-11-15",
   "profile_id": "coreldraw-x7-17",
   "verification_policy": "deferred_consolidated_live_campaign",
   "scope": "Workflow gaps guide implementation; this file does not register MCP tools.",
@@ -169,7 +169,9 @@
         "prepare_imposition_job",
         "get_operator_state",
         "get_operation_status",
-        "reconcile_operator_state"
+        "reconcile_operator_state",
+        "configure_editing_mode",
+        "pause_native_editing"
       ],
       "missing_behavior": [
         "Consolidated native busy/modal and recovery verification",
@@ -187,7 +189,15 @@
       "implemented_behavior": [
         "Opt-in bounded redacted operation records across all MCP tools",
         "Explicit worker state and pending-timeout cancellation",
-        "Mutation quarantine and exact-ID native reconciliation with partial-change acknowledgement"
+        "Mutation quarantine and exact-ID native reconciliation with partial-change acknowledgement",
+        "Paused worker/embedded editing, immediate pause and reserved inactive-document background text edits"
+      ],
+      "evidence": [
+        "tests/test_text_ranges.py",
+        "tests/test_interaction_policy.py",
+        "docs/SELECTED_TEXT.md",
+        "docs/CONCURRENT_EDITING.md",
+        "docs/x7_selected_text_evidence.json"
       ]
     },
     {
@@ -241,11 +251,13 @@
         "add_paragraph_text",
         "set_text_style",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "inspect_text_range",
+        "edit_text_range"
       ],
       "missing_behavior": [
         "Character/word spacing writes with established user-facing units",
-        "Per-run and linked/fitted story edits",
+        "Linked/fitted story edits and broader named-style/glyph preservation",
         "Font face/glyph coverage",
         "Per-run/artistic/container/linked fitting, safe-area/glyph acceptance and automatic template reflow"
       ],
@@ -268,7 +280,8 @@
         "Bounded font catalog with complete preflight",
         "Native subtype/frame/spacing/chain-overflow inspection",
         "Guarded whole-story leading/paragraph spacing in documented X7 points and percentage units",
-        "Source-preserving editable paragraph fitting with explicit minimum size, bounded native overflow probes and guarded cleanup"
+        "Source-preserving editable paragraph fitting with explicit minimum size, bounded native overflow probes and guarded cleanup",
+        "Bounded Unicode mapping, signed/fingerprinted selected-range edits and surrounding scalar/process formatting preservation"
       ],
       "evidence": [
         "docs/TYPOGRAPHY.md",
@@ -279,7 +292,12 @@
         "docs/x7_text_spacing_evidence.json",
         "tests/test_text_fitting.py",
         "docs/TEXT_FITTING.md",
-        "docs/x7_text_range_evidence.json"
+        "docs/x7_text_range_evidence.json",
+        "tests/test_text_ranges.py",
+        "tests/test_interaction_policy.py",
+        "docs/SELECTED_TEXT.md",
+        "docs/CONCURRENT_EDITING.md",
+        "docs/x7_selected_text_evidence.json"
       ]
     },
     {

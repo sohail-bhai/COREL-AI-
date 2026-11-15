@@ -1,12 +1,12 @@
 # CorelDRAW X7 Automation Capability Catalog
 
-**Catalog revision:** 2026-11-05
+**Catalog revision:** 2026-11-15
 
 **Profile:** `coreldraw-x7-17`
 
 **Target:** CorelDRAW X7 / major version 17 / reported build 17.0.0.491
 
-**Completeness:** Partial, focused on the current v0.6 bridge and implemented-unverified workflow slices
+**Completeness:** Partial, focused on the current v0.7 bridge and implemented-unverified workflow slices
 
 **Machine-readable registry:** `catalog/mcp_tool_registry.json`
 
@@ -44,12 +44,19 @@ does not register additional tools. Primary sources and delivery order are in
 [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md).
 
 The common selector tools now support signed session
-[object references](OBJECT_REFERENCES.md). All 94 MCP tools also support opt-in
+[object references](OBJECT_REFERENCES.md). All 98 MCP tools also support opt-in
 [redacted operation records](OPERATION_RECORDS.md), with separate caller and
 worker events. Native lifecycle verification remains deferred. Three SAFE-002
 [state/outcome/reconciliation tools](WORKER_RECOVERY.md) now guard continuation
 after native timeout or uncertain failure. Existing-document checkpoints and
 specialized rollback policies remain broader recovery work.
+
+[Selected-text inspection/editing](SELECTED_TEXT.md) derives native Unicode
+mapping per story and verifies surrounding scalar/process formatting. The
+[editing policy](CONCURRENT_EDITING.md) starts both worker and embedded writes
+paused, provides an immediate pause and reserves an inactive AI document for
+audited background text edits. Shared-context workflows require exclusive mode.
+Bridge 0.7.0 uses tool schema v2; all native/manual acceptance remains pending.
 
 Three [typography tools](TYPOGRAPHY.md) now create paragraph frames, inspect the
 font catalog, and revise whole-story styles with actual formatting/bounds and
@@ -153,7 +160,7 @@ Evidence is evaluated in this order:
 
 | Registry layer/status | Count |
 |---|---:|
-| Registered atomic and workflow tools — `implemented_unverified` | 94 |
+| Registered atomic and workflow tools — `implemented_unverified` | 98 |
 | Planned atomic/workflow tools — `planned` | 1 |
 | Planned tools blocked by research | 1 |
 | Tools marked `verified` | 0 |

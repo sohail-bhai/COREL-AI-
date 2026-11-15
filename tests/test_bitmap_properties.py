@@ -8,6 +8,7 @@ from unittest.mock import patch
 from jsonschema import Draft202012Validator, ValidationError
 
 from bitmap_fakes import Collection, fixture, nest
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
 from corel_operator.bitmap_geometry import affine_pixel_resolution
 from corel_operator.errors import CorelBridgeError, ErrorCode
@@ -280,7 +281,7 @@ class BitmapPropertyTests(unittest.TestCase):
             tool.assert_called_once_with('get_bitmap_properties', 'get_bitmap_properties', 200., '', 0, self.reference)
 
     def test_bitmap_inspection_remains_available_when_native_writes_are_quarantined(self):
-        with patch.object(server, 'CorelBridge', return_value=self.bridge): dispatcher = server.CorelDispatcher()
+        with patch.object(server, 'CorelBridge', return_value=self.bridge): dispatcher = exclusive_dispatcher()
         try:
             with patch.object(server, 'dispatcher', dispatcher), patch.object(self.bridge, 'draw_rectangle', side_effect=CorelBridgeError(
                 'Native edit failed.', ErrorCode.COREL_COM_ERROR, {'rollback': {'verified': False}})):

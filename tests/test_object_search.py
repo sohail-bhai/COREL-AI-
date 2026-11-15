@@ -10,6 +10,7 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.results import success_result
@@ -61,7 +62,7 @@ class ObjectSearchTests(unittest.TestCase):
             ActivePage=self.back, Unit=1, ReferencePoint=5, Dirty=False,
         )
         self.other = SimpleNamespace(Name="Other.cdr")
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.bridge.app = SimpleNamespace(ActiveDocument=self.other)
         attach_open_document(self.bridge, self.document)
 

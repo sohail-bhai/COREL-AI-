@@ -3,13 +3,14 @@ from __future__ import annotations
 import math
 import unittest
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 
 
 class InputValidationTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
 
     def assert_invalid(self, function, *args, **kwargs) -> None:
         with self.assertRaises(CorelBridgeError) as context:

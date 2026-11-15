@@ -6,7 +6,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 from jsonschema import Draft202012Validator,ValidationError
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError,ErrorCode
 from corel_operator.results import success_result
@@ -29,7 +31,7 @@ class VectorTopologyTests(unittest.TestCase):
         self.app,self.document,self.layer=fixture()
         self.source=Shape(self.layer,Curve.from_paths(self.app,[rectangle(),cubic()]),'TopologySource')
         self.app.original=self.source
-        self.bridge=CorelBridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.document)
+        self.bridge=exclusive_bridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.document)
         self.reference=self.bridge.get_object_info(object_name='TopologySource')['object']['object_reference']
         self.before=self.bridge.get_curve_geometry(object_reference=self.reference)['curve']
     def insertion(self,p=2,s=1,t=.5): return {'subpath_index':p,'segment_index':s,'t':t}
@@ -162,7 +164,7 @@ class VectorTopologyTests(unittest.TestCase):
         self.assertEqual(self.bridge.get_curve_geometry(object_reference=self.reference)['curve'],self.before)
     def test_source_corruption_requires_worker_recovery(self):
         self.app.mutate_original=True
-        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=server.CorelDispatcher()
+        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=exclusive_dispatcher()
         try:
             with patch.object(server,'dispatcher',dispatcher):
                 result=server.revise_curve_topology(self.reference,self.before['fingerprint'],[self.insertion()])
@@ -171,7 +173,7 @@ class VectorTopologyTests(unittest.TestCase):
         finally: dispatcher.close()
     def test_verified_owned_cleanup_allows_subsequent_mutations(self):
         self.app.copy_assign_failure=True
-        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=server.CorelDispatcher()
+        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=exclusive_dispatcher()
         try:
             with patch.object(server,'dispatcher',dispatcher):
                 result=server.revise_curve_topology(self.reference,self.before['fingerprint'],[self.insertion()])

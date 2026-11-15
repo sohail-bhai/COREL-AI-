@@ -1,0 +1,166 @@
+{
+  "typelib_path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "application_connected": false,
+  "browser_used": false,
+  "members": [
+    {
+      "interface": "IVGText",
+      "names": [
+        "Selection"
+      ],
+      "descriptor": "(1610743840, (), (), 4, 2, 4, 0, 312, ((26, (29, 50372992)), 0, None), 0)",
+      "invkind": 2,
+      "documentation": "Gets the selected text in the text stream, as a TextRange"
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "Range",
+        "Start",
+        "End"
+      ],
+      "descriptor": "(1610743841, (), ((3, 1, None), (3, 1, None)), 4, 1, 4, 0, 320, ((26, (29, 50372992)), 0, None), 0)",
+      "invkind": 1,
+      "documentation": "Gets a range of characters"
+    },
+    {
+      "interface": "IVGTextCharacters",
+      "names": [
+        "Item",
+        "Index",
+        "Count"
+      ],
+      "descriptor": "(0, (), ((3, 1, None), (3, 49, 1)), 4, 2, 4, 0, 64, ((26, (29, 50372992)), 0, None), 0)",
+      "invkind": 2,
+      "documentation": "Returns a TextRange containing the specified characters"
+    },
+    {
+      "interface": "IVGTextCharacters",
+      "names": [
+        "Count"
+      ],
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 72, (3, 0, None), 0)",
+      "invkind": 2,
+      "documentation": "Gets the number of characters in the collection, including paragraph breaks"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Text"
+      ],
+      "descriptor": "(0, (), (), 4, 2, 4, 0, 56, (8, 0, None), 0)",
+      "invkind": 2,
+      "documentation": "Text string in the range"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Text"
+      ],
+      "descriptor": "(0, (), ((8, 1, None),), 4, 4, 4, 0, 64, (24, 0, None), 0)",
+      "invkind": 4,
+      "documentation": "Text string in the range"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Characters"
+      ],
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 88, ((26, (29, 50373120)), 0, None), 0)",
+      "invkind": 2,
+      "documentation": "Collection of all characters in the range"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Start"
+      ],
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 120, (3, 0, None), 0)",
+      "invkind": 2,
+      "documentation": "Starting character position of the range in the text stream"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Start"
+      ],
+      "descriptor": "(1610743816, (), ((3, 1, None),), 4, 4, 4, 0, 128, (24, 0, None), 0)",
+      "invkind": 4,
+      "documentation": "Starting character position of the range in the text stream"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "End"
+      ],
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 136, (3, 0, None), 0)",
+      "invkind": 2,
+      "documentation": "Ending character position of the range in the text stream"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "End"
+      ],
+      "descriptor": "(1610743818, (), ((3, 1, None),), 4, 4, 4, 0, 144, (24, 0, None), 0)",
+      "invkind": 4,
+      "documentation": "Ending character position of the range in the text stream"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharSpacing"
+      ],
+      "descriptor": "(1610743867, (), (), 4, 2, 4, 0, 528, (4, 0, None), 0)",
+      "invkind": 2,
+      "documentation": "Gets/sets the character spacing property"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharSpacing"
+      ],
+      "descriptor": "(1610743867, (), ((4, 1, None),), 4, 4, 4, 0, 536, (24, 0, None), 0)",
+      "invkind": 4,
+      "documentation": "Gets/sets the character spacing property"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "WordSpacing"
+      ],
+      "descriptor": "(1610743872, (), (), 4, 2, 4, 0, 568, (4, 0, None), 0)",
+      "invkind": 2,
+      "documentation": "Gets/sets the amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "WordSpacing"
+      ],
+      "descriptor": "(1610743872, (), ((4, 1, None),), 4, 4, 4, 0, 576, (24, 0, None), 0)",
+      "invkind": 4,
+      "documentation": "Gets/sets the amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "Range",
+        "Start",
+        "End"
+      ],
+      "descriptor": "(1610743902, (), ((3, 1, None), (3, 1, None)), 4, 1, 4, 0, 808, ((26, (29, 50372992)), 0, None), 0)",
+      "invkind": 1,
+      "documentation": "Returns a range of characters relative to the beginning of the current range"
+    }
+  ],
+  "enums": {
+    "cdrTextIndexingType": {
+      "cdrCharacterIndexing": 0,
+      "cdrWordIndexing": 1,
+      "cdrParagraphIndexing": 2
+    }
+  },
+  "unicode_conclusion": "Descriptors do not prove UTF-16/code-point/grapheme indexing. Enumerate Characters.Item(i,1), concatenate exact native Text, and derive boundaries from readback per story. Refuse ambiguous, partial or changed mappings.",
+  "native_verification": "not_run"
+}

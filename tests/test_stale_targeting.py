@@ -5,6 +5,7 @@ import unittest
 from types import SimpleNamespace
 from unittest.mock import patch
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from fake_documents import OpenDocuments
@@ -55,7 +56,7 @@ class StaleTargetingTests(unittest.TestCase):
         self.application = SimpleNamespace(
             Documents=OpenDocuments(self.document, self.other), ActiveDocument=self.other,
         )
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.bridge.app = self.application
         self.bridge._bind_target_document(self.document)
 

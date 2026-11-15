@@ -4,6 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from fake_documents import attach_open_document
 
@@ -132,7 +133,7 @@ class AppearanceAndIdentityTests(unittest.TestCase):
         self.document = _Document()
         self.shape = self.document.ActivePage.create_shape(101)
         self.shape.Name = "panel"
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.bridge.app = _Application()
         attach_open_document(self.bridge, self.document)
 

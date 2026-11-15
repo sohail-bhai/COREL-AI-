@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.results import success_result
@@ -291,7 +292,7 @@ class OrganizationTests(unittest.TestCase):
 
     def test_partial_native_structure_changes_quarantine_writes_but_allow_inspection(self):
         self.doc.flags['fail_Printable'] = True
-        with patch.object(server, 'CorelBridge', return_value=self.bridge): dispatcher = server.CorelDispatcher()
+        with patch.object(server, 'CorelBridge', return_value=self.bridge): dispatcher = exclusive_dispatcher()
         try:
             with patch.object(server, 'dispatcher', dispatcher):
                 result = server.set_layer_properties(self.front, self.layer, {'visible': False, 'printable': False}, self.fresh())
@@ -302,7 +303,7 @@ class OrganizationTests(unittest.TestCase):
 
     def test_stale_preflight_does_not_quarantine_after_verified_unit_restoration(self):
         self.doc.ActivePage.SizeWidth += .1
-        with patch.object(server, 'CorelBridge', return_value=self.bridge): dispatcher = server.CorelDispatcher()
+        with patch.object(server, 'CorelBridge', return_value=self.bridge): dispatcher = exclusive_dispatcher()
         try:
             with patch.object(server, 'dispatcher', dispatcher):
                 self.assertEqual(server.activate_page(self.back, self.state['fingerprint'])['error']['code'], 'INVALID_ARGUMENT')

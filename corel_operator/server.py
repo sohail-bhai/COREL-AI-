@@ -75,6 +75,8 @@ class CorelDispatcher:
         self._jobs: queue.Queue[Any] = queue.Queue(maxsize=32)
         self._lock = threading.RLock()
         self._ready = threading.Event()
+        self._native_pause_event = threading.Event()
+        self._pause_epoch = 0
         self._startup_error: str | None = None
         self._closing = False
         self._stop_requested = False
@@ -118,7 +120,7 @@ class CorelDispatcher:
             active = None if job is None else self._job_metadata(job, "timed_out_but_running" if job.timed_out else "running" if job.started else "pending")
             return copy.deepcopy({
                 "state": state, "worker_alive": alive, "closing": self._closing,
-                "accepting_mutations": state == "idle" and self._recovery is None and not self._jobs.full(),
+                "accepting_mutations": state == "idle" and self._recovery is None and not self._jobs.full() and not self._native_pause_event.is_set(),
                 "recovery_required": self._recovery is not None, "recovery": self._recovery,
                 "active_operation": active,
                 "last_operation": next(reversed(self._history.values()), None),
@@ -134,6 +136,14 @@ class CorelDispatcher:
             if result is None:
                 raise CorelBridgeError("No current or retained operation matches this ID.", ErrorCode.OBJECT_NOT_FOUND)
             return copy.deepcopy(result)
+
+    def pause_native_editing(self):
+        """Stop subsequent native write boundaries without entering the COM queue."""
+        with self._lock:
+            self._pause_epoch += 1
+            self._native_pause_event.set()
+        return {'native_writes_paused': True, 'in_flight_native_call_cancellable': False,
+                'resume_requires_configure_editing_mode': True}
 
     def _check_available(self):
         if self._closing or not self._thread.is_alive() or self._startup_error:
@@ -166,6 +176,7 @@ class CorelDispatcher:
                 datetime.now(timezone.utc).isoformat(), reconciliation=reconciliation,
                 recovery_operation_id=recovery_operation_id,
                 acknowledge_partial_changes=acknowledge_partial_changes,
+                pause_epoch=self._pause_epoch,
             )
             self._active_job = job
             try:
@@ -253,6 +264,9 @@ class CorelDispatcher:
             pythoncom = _pythoncom
             pythoncom.CoInitialize()
             self._bridge = CorelBridge()
+            self._bridge._native_pause_event = self._native_pause_event
+            if hasattr(self._bridge, '_prepare_interaction_operation'):
+                self._native_pause_event.set()
         except Exception:
             self._startup_error = "Could not initialize the dedicated Windows COM worker. Check pywin32."
             self._ready.set()
@@ -276,7 +290,18 @@ class CorelDispatcher:
                 if job.record is not None:
                     job.record.journal.write(job.operation_id, job.record.tool, "worker_started", target_ids=target_ids(self._bridge))
                 try:
+                    if not job.reconciliation and hasattr(self._bridge, '_prepare_interaction_operation'):
+                        self._bridge._prepare_interaction_operation(job.method, job.mutation)
                     result = self._reconcile_on_worker(job) if job.reconciliation else getattr(self._bridge, job.method)(*job.args, **job.kwargs)
+                    if job.mutation and hasattr(self._bridge, '_check_interaction_write'):
+                        self._bridge._check_interaction_write()
+                    if job.method == 'configure_editing_mode':
+                        with self._lock:
+                            if result['mode'] == 'paused':
+                                self._native_pause_event.set()
+                            elif job.pause_epoch == self._pause_epoch:
+                                self._native_pause_event.clear()
+                            result['native_writes_paused'] = self._native_pause_event.is_set()
                     if job.record is not None:
                         job.record.journal.write(job.operation_id, job.record.tool, "worker_completed", target_ids=target_ids(self._bridge), duration_ms=(perf_counter() - started) * 1000, **result_metadata(result))
                 except BaseException as exc:
@@ -285,6 +310,8 @@ class CorelDispatcher:
                     self._complete(job, error=exc)
                 else:
                     self._complete(job, result=result)
+                finally:
+                    self._bridge._interaction_operation = None
         finally:
             # Native proxies belong to this STA and must be released before uninitializing it.
             self._bridge = None
@@ -379,6 +406,65 @@ def reconcile_operator_state(operation_id: str, acknowledge_partial_changes: boo
         return success_result("reconcile_operator_state", dispatcher.reconcile(operation_id, acknowledge_partial_changes), (perf_counter() - started) * 1000)
     except Exception as exc:
         return _operator_error("reconcile_operator_state", exc, started)
+
+
+@mcp.tool()
+@recorded_operation
+def pause_native_editing() -> dict:
+    """Pause subsequent AI write boundaries immediately while CorelDRAW is busy.
+
+    A COM call already running cannot be cancelled. Inspect any partial changes
+    before reconciling and resuming. Local planning/research can continue.
+    """
+    started = perf_counter()
+    try:
+        return success_result('pause_native_editing', dispatcher.pause_native_editing(), (perf_counter() - started) * 1000)
+    except Exception as exc:
+        return error_result('pause_native_editing', exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+@recorded_operation
+def configure_editing_mode(mode: str, confirm_exclusive: bool = False) -> dict:
+    """Choose paused, exclusive or background_document. Server starts paused.
+
+    Exclusive requires the user to stop editing. Background reserves a bound
+    inactive AI document and only allows signed, fingerprinted text-range edits.
+    Work in another document; switching to the AI document stops later writes.
+    Other native commands require exclusive mode. No automatic save or undo.
+    """
+    return _tool('configure_editing_mode', 'configure_editing_mode', mode, confirm_exclusive)
+
+
+@mcp.tool()
+@recorded_operation
+def inspect_text_range(start: int | None = None, end: int | None = None,
+                       object_name: str = '', shape_index: int = 0, object_reference: dict | None = None) -> dict:
+    """Inspect bounded text using Unicode code-point offsets [start,end).
+
+    Omit both offsets to capture the native selected text once. Derives native
+    character boundaries from exact Unicode readback; returns a signed reference
+    and fingerprint for editing. One unfitted/unlinked story, at most 1024 native
+    characters. Reports per-character formatting; does not activate or select.
+    """
+    return _tool('inspect_text_range', 'inspect_text_range', start, end, object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
+def edit_text_range(object_reference: dict, start: int, end: int, expected_text: str,
+                    expected_fingerprint: str, replacement: str | None = None,
+                    font: str | None = None, size_points: float | None = None,
+                    bold: bool | None = None, italic: bool | None = None, underline: str | None = None) -> dict:
+    """Edit exactly an inspected text range; preserve surrounding text/formatting.
+
+    Supply signed reference, code-point bounds, exact text and fingerprint.
+    Replace a uniformly formatted range or apply basic character formatting to
+    mixed runs. Replacement forbids paragraph/tab changes. Every native write
+    is followed by character readback; uncertain failures stop for reconciliation.
+    """
+    return _tool('edit_text_range', 'edit_text_range', object_reference, start, end, expected_text,
+                 expected_fingerprint, replacement, font, size_points, bold, italic, underline)
 
 
 @mcp.tool()

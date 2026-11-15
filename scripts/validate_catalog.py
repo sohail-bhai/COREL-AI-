@@ -148,8 +148,8 @@ def validate() -> dict[str, int]:
             raise ValueError(f"{name}: invalid permission {tool.get('permission')!r}")
         if tool.get("implementation", {}).get("state") not in {"registered", "planned"}:
             raise ValueError(f"{name}: implementation.state must be registered or planned")
-        if tool.get("result_contract") != "tool-schema-v1-envelope":
-            raise ValueError(f"{name}: missing tool-schema-v1-envelope result contract")
+        if tool.get("result_contract") != f"tool-schema-v{TOOL_SCHEMA_VERSION}-envelope":
+            raise ValueError(f"{name}: missing current tool-schema result contract")
         for schema_key in ("input_schema", "output_schema"):
             schema = tool.get(schema_key)
             if not isinstance(schema, dict):

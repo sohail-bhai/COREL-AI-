@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import unittest
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 
 
 class BridgeErrorCodeTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
 
     def assert_error_code(self, expected: ErrorCode, function, *args, **kwargs) -> None:
         with self.assertRaises(CorelBridgeError) as context:

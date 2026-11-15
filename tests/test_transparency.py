@@ -6,6 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 from jsonschema import Draft202012Validator,ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
 from corel_operator.errors import CorelBridgeError,ErrorCode
 from corel_operator.results import success_result
@@ -125,7 +126,7 @@ class TransparencyTests(unittest.TestCase):
         self.assertEqual(self.native.calls,[])
     def test_uncertain_native_failure_quarantines_writes_but_allows_inspection(self):
         self.native.fail=True
-        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=server.CorelDispatcher()
+        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=exclusive_dispatcher()
         try:
             with patch.object(server,'dispatcher',dispatcher):
                 result=server.set_uniform_transparency(50,object_reference=self.reference)

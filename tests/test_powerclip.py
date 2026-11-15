@@ -7,7 +7,9 @@ from types import SimpleNamespace
 from unittest.mock import patch
 from jsonschema import Draft202012Validator,ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError,ErrorCode
 from corel_operator.results import success_result
@@ -18,7 +20,7 @@ from powerclip_fakes import fixture,Shape,Clip,rectangle
 class PowerClipTests(unittest.TestCase):
     def setUp(self):
         self.app,self.document,self.layer,self.frame,self.artwork=fixture()
-        self.bridge=CorelBridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.document)
+        self.bridge=exclusive_bridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.document)
         self.frame_ref=self.ref(self.frame); self.art_ref=self.ref(self.artwork)
     def ref(self,shape): return self.bridge.get_object_info(object_name=shape.Name)['object']['object_reference']
     def create(self,**kwargs): return self.bridge.create_powerclip(self.frame_ref,[self.art_ref],**kwargs)
@@ -160,7 +162,7 @@ class PowerClipTests(unittest.TestCase):
         self.assertEqual([s.Name for s in self.layer.Shapes.items],['Frame','Artwork','UnknownExtra'])
     def test_partial_native_failure_quarantines_but_powerclip_inspection_remains_available(self):
         self.app.mutate_original=True
-        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=server.CorelDispatcher()
+        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=exclusive_dispatcher()
         try:
             with patch.object(server,'dispatcher',dispatcher):
                 result=server.create_powerclip(self.frame_ref,[self.art_ref])

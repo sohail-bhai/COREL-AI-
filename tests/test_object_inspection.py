@@ -11,6 +11,7 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator, ValidationError
 
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.results import success_result
@@ -55,7 +56,7 @@ class ObjectInspectionTests(unittest.TestCase):
             Name="Target.cdr", ActivePage=self.page, Unit=3, ReferencePoint=9, Dirty=False,
         )
         self.other = SimpleNamespace(Name="Client.cdr", ActivePage=_Broken())
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.bridge.app = SimpleNamespace(ActiveDocument=self.other)
         attach_open_document(self.bridge, self.document)
 

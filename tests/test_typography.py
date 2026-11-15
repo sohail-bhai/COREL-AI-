@@ -9,7 +9,9 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator, ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.results import success_result
@@ -65,7 +67,7 @@ class TypographyTests(unittest.TestCase):
         self.document = SimpleNamespace(Name="Target.cdr", Pages=Collection(self.page), ActivePage=self.page,
                                         Unit=3, ReferencePoint=9, Dirty=False)
         self.fonts = Collection("Arial", "Times New Roman", "Noto Sans")
-        self.bridge = CorelBridge()
+        self.bridge = exclusive_bridge()
         self.bridge.app = SimpleNamespace(FontList=self.fonts)
         attach_open_document(self.bridge, self.document)
         self.create_calls = []
@@ -188,7 +190,7 @@ class TypographyTests(unittest.TestCase):
     def test_partial_style_failure_blocks_followup_worker_mutations(self):
         self.story.fail_on = "Size"
         with patch.object(server, "CorelBridge", return_value=self.bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
         try:
             with patch.object(server, "dispatcher", dispatcher):
                 failed = server.set_text_style(font="Noto Sans", size_points=20, object_name="Title")

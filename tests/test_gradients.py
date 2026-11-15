@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator, ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.results import success_result
@@ -269,7 +270,7 @@ class GradientTests(unittest.TestCase):
     def test_failed_assignments_quarantine_edits_while_inspection_remains_available(self):
         self.fill.fail = True
         with patch.object(server, 'CorelBridge', return_value=self.bridge):
-            dispatcher = server.CorelDispatcher()
+            dispatcher = exclusive_dispatcher()
         try:
             with patch.object(server, 'dispatcher', dispatcher):
                 result = server.set_gradient_fill(stops(), object_reference=self.reference)

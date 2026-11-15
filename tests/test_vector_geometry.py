@@ -6,7 +6,9 @@ from pathlib import Path
 from unittest.mock import patch
 from jsonschema import Draft202012Validator,ValidationError
 
+from dispatcher_fakes import exclusive_dispatcher
 from corel_operator import server
+from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError,ErrorCode
 from corel_operator.results import success_result
@@ -20,7 +22,7 @@ class VectorGeometryTests(unittest.TestCase):
         self.source=Shape(self.layer,Curve.from_paths(self.app,[rectangle()]),'Source')
         self.target=Shape(self.layer,Curve.from_paths(self.app,[rectangle(1,0)]),'Target')
         self.app.original=self.source
-        self.bridge=CorelBridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.document)
+        self.bridge=exclusive_bridge(); self.bridge.app=self.app; self.bridge._bind_target_document(self.document)
         self.source_ref=self.bridge.get_object_info(object_name='Source')['object']['object_reference']
         self.target_ref=self.bridge.get_object_info(object_name='Target')['object']['object_reference']
     def error(self,code,call,*args,**kwargs):
@@ -110,7 +112,7 @@ class VectorGeometryTests(unittest.TestCase):
         self.assertEqual(result['curve']['node_types'][0][1],0)
     def test_ignored_native_node_writes_quarantine_followup_mutations(self):
         before=self.bridge.get_curve_geometry(object_name='Source')['curve']; self.app.ignore_move=True
-        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=server.CorelDispatcher()
+        with patch.object(server,'CorelBridge',return_value=self.bridge): dispatcher=exclusive_dispatcher()
         try:
             with patch.object(server,'dispatcher',dispatcher):
                 result=server.edit_curve_geometry(before['fingerprint'],node_edits=[{'subpath_index':1,'node_index':1,'position':{'x':1,'y':1}}],object_name='Source')

@@ -1,5 +1,6 @@
 """Creates a separate test document, adds editable sample objects, and saves to a new CDR file."""
 from __future__ import annotations
+import argparse
 from datetime import datetime
 from pathlib import Path
 import json
@@ -7,7 +8,14 @@ from .corel_bridge import CorelBridge
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--confirm-exclusive', action='store_true',
+                        help='Confirm you have stopped editing while the disposable smoke test runs.')
+    args = parser.parse_args()
+    if not args.confirm_exclusive:
+        parser.error('Pass --confirm-exclusive only during an agreed exclusive CorelDRAW apply window.')
     bridge = CorelBridge()
+    bridge.configure_editing_mode('exclusive', confirm_exclusive=True)
     connection = bridge.connect()
     print("Connected:", json.dumps(connection, indent=2, default=str))
 
