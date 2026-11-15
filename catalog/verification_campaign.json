@@ -1568,6 +1568,34 @@
       "native_result": "not_applicable",
       "mcp_envelope_result": "pending_consolidated_client_run",
       "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "get_native_coordination_state",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_native_coordination.py",
+        "tests/test_interaction_policy.py"
+      ],
+      "native_coverage": "local_only",
+      "native_gate_candidates": [],
+      "native_result": "not_applicable",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "reconcile_native_coordination",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_native_coordination.py",
+        "tests/test_interaction_policy.py"
+      ],
+      "native_coverage": "prepared_pending_run",
+      "native_gate_candidates": [
+        "CorelDisposableDocumentLiveTests.test_selected_text_and_background_policy_live"
+      ],
+      "native_result": "not_run",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
     }
   ]
 }

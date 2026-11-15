@@ -14,10 +14,17 @@ def tracked_mutation(function):
             except BaseException:
                 self._interaction_operation = previous_operation
                 raise
-        self._mutation_depth+=1
-        try: return function(self,*args,**kwargs)
+        try:
+            # Also cover new embedded/subclass mutations that are not inherited
+            # public commands. Nested calls preserve the outer write marker.
+            with self._native_coordinator.operation(function.__name__,
+                    allow_recovery=function.__name__ == 'use_active_document'):
+                self._mutation_depth+=1
+                try:
+                    return function(self,*args,**kwargs)
+                finally:
+                    self._mutation_depth-=1
         finally:
-            self._mutation_depth-=1
             if outermost and hasattr(self, '_interaction_operation'):
                 self._interaction_operation = previous_operation
     return wrapper

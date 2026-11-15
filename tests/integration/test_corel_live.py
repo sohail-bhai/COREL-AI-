@@ -1743,6 +1743,17 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             self.bridge.create_document(8.5, 11)
             ai_document = self.bridge.target_doc
             self.bridge.configure_editing_mode('exclusive', confirm_exclusive=True)
+            # Synthetic uncertainty exercises the real recovery probe only on
+            # this gate's disposable document. Process/crash locking is offline.
+            with self.assertRaises(RuntimeError):
+                with self.bridge._native_coordinator.operation('campaign_recovery_probe'):
+                    self.bridge._native_coordinator.mark_write()
+                    raise RuntimeError('synthetic marker; no artwork changed')
+            shared = self._step('inspect shared native recovery', self.bridge.get_native_coordination_state)
+            self.assertTrue(shared['recovery_required'])
+            shared_recovery = self._step('reconcile shared native recovery', lambda:
+                self.bridge.reconcile_native_coordination(shared['fingerprint'], True))
+            self.assertTrue(shared_recovery['document_state']['target_bound'])
             self.bridge.add_text('AhelloZ', 1, 8, font='Arial', object_name='RangeText')
             shape = self.bridge._find_shape(ai_document, object_name='RangeText')
             shape.Text.Story.Characters.Item(2, 5).Select()

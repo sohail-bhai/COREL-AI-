@@ -8,6 +8,7 @@ from typing import Any
 from .errors import CorelBridgeError, ErrorCode
 
 READ_ONLY_METHODS = frozenset({
+    "get_native_coordination_state", "reconcile_native_coordination",
     "inspect_text_range", "configure_editing_mode",
     "connect", "status", "list_open_documents", "get_document_info", "list_pages",
     "get_page_bounds", "list_layers", "get_document_structure", "get_bitmap_properties", "preflight_document_rasters", "list_objects", "find_objects",
@@ -18,6 +19,7 @@ SAFE_REFUSALS = frozenset({
     ErrorCode.NO_TARGET_DOCUMENT, ErrorCode.CONFIRMATION_REQUIRED,
     ErrorCode.INVALID_ARGUMENT, ErrorCode.OBJECT_NOT_FOUND, ErrorCode.AMBIGUOUS_SELECTOR,
     ErrorCode.UNSUPPORTED_IN_PROFILE, ErrorCode.UNSAFE_PATH, ErrorCode.OUTPUT_EXISTS,
+    ErrorCode.WORKER_BUSY, ErrorCode.RECOVERY_REQUIRED,
 })
 MAX_OPERATION_HISTORY = 64
 _OPERATION_ID = re.compile(r"[0-9a-f]{32}\Z")

@@ -358,7 +358,8 @@
         "execute_print_run",
         "set_text_spacing",
         "fit_paragraph_text",
-        "configure_editing_mode"
+        "configure_editing_mode",
+        "reconcile_native_coordination"
       ],
       "evidence": [
         "official_x7_application",
@@ -610,7 +611,8 @@
         "execute_template_batch",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "reconcile_native_coordination"
       ],
       "evidence": [
         "official_x7_document",
@@ -639,7 +641,8 @@
         "activate_layer",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "reconcile_native_coordination"
       ],
       "evidence": [
         "official_x7_document",
@@ -720,7 +723,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "reconcile_native_coordination"
       ],
       "evidence": [
         "official_x7_document",
@@ -777,7 +781,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "reconcile_native_coordination"
       ],
       "evidence": [
         "official_x7_document",
@@ -829,7 +834,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "reconcile_native_coordination"
       ],
       "evidence": [
         "official_x7_document",
@@ -1094,7 +1100,8 @@
         "activate_layer",
         "preflight_document_rasters",
         "inspect_print_repeat",
-        "execute_print_run"
+        "execute_print_run",
+        "reconcile_native_coordination"
       ],
       "evidence": [
         "official_x7_page",
@@ -1272,7 +1279,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "reconcile_native_coordination"
       ],
       "evidence": [
         "official_x7_page",

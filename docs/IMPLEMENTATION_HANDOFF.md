@@ -9,12 +9,23 @@ Branch: `feature/workflow-planning-slice`. Preserve this branch and read
 `HARNESS_INCIDENTS.md` before project work. Inspect current Git status/history
 to confirm batch commit/push state; do not infer commits from this document.
 
-Current surface: 103 registered tools, all `implemented_unverified`; 105 registry
-records/matrix rows, 371 native members, 302 checked schemas, 315 examples,
-30 enum groups and 75 adapter capabilities. Default suite: 1015 tests, 984 pass,
+Current surface: 105 registered tools, all `implemented_unverified`; 107 registry
+records/matrix rows, 371 native members, 306 checked schemas, 321 examples,
+30 enum groups and 75 adapter capabilities. Default suite: 1033 tests, 1002 pass,
 31 guarded live tests skipped. No live CorelDRAW verification ran this iteration.
 
-Latest independent batch: local component designs/revision history, proportional
+Latest safety batch: cooperating bridge processes now share a nonblocking native
+lease and durable uncertainty marker. Public/embedded tracked commands and worker
+operations retain the lease through completion, including the final policy check.
+Independent-process exclusion/crash tests, fingerprinted shared acknowledgement,
+bound-document probe requirements and nested-marker preservation pass offline.
+Shared recovery and worker recovery remain separate. Human input is not locked;
+same-document simultaneous editing remains unsupported. See CONCURRENT_EDITING.md
+and test-reports/2026-11-15-native-coordination-non-live.md. Commit/push must be
+checked in Git. The client-generated-image handoff is documented; no client
+configuration or provider credentials were changed.
+
+The local component batch is pushed as `8d0ac5b`: designs/revision history, proportional
 resize with minimum readable font and selective raster-DPI flags, and literal
 provider-handoff requests. The user selected a local interface first; no generation
 service is connected and no native component-targeted edits occur. Twenty-six

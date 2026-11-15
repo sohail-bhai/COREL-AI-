@@ -539,7 +539,7 @@ class NativeReconciliationProbeTests(unittest.TestCase):
                 self._note_mutation()
                 self.target_doc.Dirty = True
                 return self.set_text_content('')
-        bridge = NestedBridge()
+        bridge = NestedBridge(native_coordinator=self.bridge._native_coordinator)
         attach_open_document(bridge,self.document)
         with patch.object(server, 'CorelBridge', side_effect=lambda:bridge):
             dispatcher = exclusive_dispatcher()

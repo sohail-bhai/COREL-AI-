@@ -58,3 +58,44 @@ failures after a write require the existing explicit reconciliation protocol.
 
 Tests: `tests/test_interaction_policy.py`. Native coverage:
 `test_selected_text_and_background_policy_live`, deferred and unrun.
+
+## Multiple AI clients
+
+Codex and Antigravity can each prepare local plans and image files. Cooperating
+bridge processes now share one nonblocking native-operation lease per OS user.
+Each public bridge command, tracked embedded mutation and dispatcher operation
+holds the lease through completion, including context restoration and the final
+dispatcher policy check. Nested commands share the lease. A second native client
+receives `WORKER_BUSY` before entering its operation. A caller timeout does not
+release the lease while the worker is still running.
+
+The lease uses a Windows byte-range file lock (POSIX flock for offline portability).
+Production state is under `%LOCALAPPDATA%/CorelDRAW-AI-Operator/native-v1` on Windows.
+It contains only method, process, operation ID and phase; no design text or paths.
+All cooperating clients must run the updated bridge under the same OS user and
+use this common directory. Raw COM scripts and older bridge versions do not
+participate. Human input still follows the reserved-document/exclusive policy.
+
+Every lease stores a durable running marker before entering native work. A crash
+leaves it behind. A failure after a native write stores `recovery_required`,
+unless rollback was explicitly verified. Releasing the OS lock does not clear
+uncertainty. Missing/corrupt state cannot be repaired by deleting the marker as
+part of normal operation; preserve corrupt state for investigation. Pure guarded
+reads and explicit document binding can proceed during recovery, but their native
+write markers refuse temporary setting changes.
+
+Use `get_native_coordination_state` to inspect the marker immediately. After
+reviewing any partial changes, connect and explicitly bind the reviewed document,
+then call `reconcile_native_coordination` with that exact fingerprint and
+`acknowledge_partial_changes=true`. It requires a complete bound-document probe,
+refuses a busy lease or changed fingerprint, and performs no Undo, replay, save
+or rebind. This probe describes the current bound document; it cannot prove that
+all effects in a previous client were reviewed. The acknowledgement represents
+that review. If the original worker also has recovery quarantine, reconcile it
+separately using its operation ID. Shared recovery does not clear worker recovery.
+
+Offline evidence: `tests/test_native_coordination.py` includes independent-process
+exclusion, abrupt process exit, nested/subclass writes, temporary setter refusal,
+late state-publication failure and fingerprinted acknowledgement. The deferred
+selected-text/background native gate includes the real bound-document recovery
+probe; it has not run.

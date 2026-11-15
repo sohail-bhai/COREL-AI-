@@ -37,6 +37,7 @@ from .layout import (
     choice, validate_rotation, plan_distribution, matrix_determinant, circular_difference,
 )
 from .native_tracking import tracked_mutation
+from .native_coordination import NativeCoordinator, coordinated_operation
 from .template_bridge import TemplateBridgeMixin
 from .pdf_bridge import PdfBridgeMixin
 from .vector_bridge import VectorBridgeMixin
@@ -77,7 +78,7 @@ class CorelBridge(InteractionPolicyMixin,TextRangesMixin,TextFittingMixin,PrintR
         ".svg", ".pdf", ".eps", ".ai", ".wmf", ".emf", ".cmx"
     }
 
-    def __init__(self, adapter: CorelX7Adapter | None = None) -> None:
+    def __init__(self, adapter: CorelX7Adapter | None = None, native_coordinator=None) -> None:
         self.adapter = adapter or CorelX7Adapter()
         self.app: Any | None = None
         self.target_doc: Any | None = None
@@ -96,11 +97,34 @@ class CorelBridge(InteractionPolicyMixin,TextRangesMixin,TextFittingMixin,PrintR
         self._reserved_document_key = None
         self._interaction_operation = None
         self._native_pause_event = None
+        self._native_coordinator = native_coordinator or NativeCoordinator()
 
     def _note_mutation(self) -> None:
         self._check_interaction_write()
+        self._native_coordinator.mark_write()
         if self._mutation_depth:
             self._operation_mutation_started = True
+
+    def get_native_coordination_state(self):
+        return self._native_coordinator.snapshot()
+
+    def reconcile_native_coordination(self, expected_fingerprint, acknowledge_partial_changes=False):
+        from .worker_state import validate_recovery_probe
+        if (type(expected_fingerprint) is not str or not re.fullmatch('[0-9a-f]{64}', expected_fingerprint)
+                or type(acknowledge_partial_changes) is not bool):
+            raise CorelBridgeError('Supply the inspected shared-state fingerprint and a boolean acknowledgement.',
+                                   ErrorCode.INVALID_ARGUMENT)
+        if not acknowledge_partial_changes:
+            raise CorelBridgeError('Inspect any partial artwork changes and explicitly acknowledge them first.',
+                                   ErrorCode.CONFIRMATION_REQUIRED)
+        with self._native_coordinator.operation('reconcile_native_coordination', allow_recovery=True):
+            probe = self.reconcile_document_state()
+            validate_recovery_probe(probe)
+            if not probe['connected'] or not probe['target_bound']:
+                raise CorelBridgeError('Connect and explicitly bind the reviewed document before shared reconciliation.',
+                                       ErrorCode.NO_TARGET_DOCUMENT)
+            self._native_coordinator.resolve(expected_fingerprint)
+            return {'reconciled': True, 'document_state': probe, 'human_input_locked': False}
 
     def connect(self) -> dict[str, Any]:
         if os.name != "nt":
@@ -4011,6 +4035,16 @@ class CorelBridge(InteractionPolicyMixin,TextRangesMixin,TextFittingMixin,PrintR
             raise
         except Exception as exc:
             raise CorelBridgeError("CorelDRAW X7 PDF export failed. Full COM error: " + str(exc)) from exc
+
+
+# Include inherited public native commands and nested embedded calls. The two
+# coordination controls deliberately inspect/reconcile without a regular lease.
+for _command_name in dir(CorelBridge):
+    if not _command_name.startswith('_') and _command_name not in (
+            'get_native_coordination_state', 'reconcile_native_coordination'):
+        _command = getattr(CorelBridge, _command_name)
+        if callable(_command):
+            setattr(CorelBridge, _command_name, coordinated_operation(_command))
 
 
 def _safe_attr(obj: Any, attr: str) -> Any:

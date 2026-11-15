@@ -74,3 +74,33 @@ acceptance is reviewed.
 Tests: `tests/test_component_designs.py` covers preservation, chain/asset changes,
 restore, minimum sizes, selective resolution flags, provider isolation, publication
 races and actual strict request/output schemas. No native gate ran.
+
+## Client-generated images
+
+The active client may fulfill `local_asset_handoff` with its own image-generation
+tool. Codex's built-in image generation can supply a local bitmap when that tool
+is available in the session; having the imagegen skill file alone does not prove
+tool availability. Antigravity can use whichever image tool its session exposes.
+The bridge neither reads client credentials nor invokes a client subscription as
+an image API. A separately configured provider is optional for unattended jobs
+or clients without image-generation capability.
+
+Client workflow:
+
+1. Inspect the component design and prepare a generation request for the selected
+   component, using the current design fingerprint.
+2. Give its prompt and requested dimensions to the client's image tool. Keep
+   essential copy as editable text components; review generated imagery visually.
+3. Save the chosen PNG/JPEG or supported raster in an ordinary project asset
+   directory with a new filename. Do not leave a project asset only in the
+   client's managed artifact or temporary storage.
+4. Inspect the raster asset and check its resolution at the intended print size.
+   Then revise that component with a new image element using the source design
+   fingerprint. Existing components and source assets stay intact.
+5. Review the new local revision. Native component assembly/selective replacement
+   is a separate unfinished capability; a local revision does not edit a CDR file.
+
+`prepare_component_generation` still reports `provider_connected=false`,
+`generated=false` and `network_request_sent=false`. These describe what the bridge
+did when preparing the request, even when the client subsequently generates the
+image. A generation request is not evidence that a usable image exists.

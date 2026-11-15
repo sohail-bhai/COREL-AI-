@@ -20651,6 +20651,90 @@
         },
         "duration_ms": 1.0
       }
+    },
+    "get_native_coordination_state": {
+      "request": {},
+      "success": {
+        "ok": true,
+        "tool": "get_native_coordination_state",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "state": null,
+          "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "recovery_required": false,
+          "human_input_locked": false
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "get_native_coordination_state",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "WORKER_BUSY",
+          "message": "Worker is busy; inspect operator state.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
+    },
+    "reconcile_native_coordination": {
+      "request": {
+        "expected_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "acknowledge_partial_changes": true
+      },
+      "success": {
+        "ok": true,
+        "tool": "reconcile_native_coordination",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "reconciled": true,
+          "document_state": {
+            "connected": true,
+            "target_bound": true,
+            "document_session_id": "doc-0001",
+            "open_document_count": 1,
+            "page_index": 1,
+            "page_object_count": 1,
+            "unit_code": 1,
+            "reference_point_code": 5,
+            "dirty": true
+          },
+          "human_input_locked": false
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 0.1
+      },
+      "error": {
+        "ok": false,
+        "tool": "reconcile_native_coordination",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "WORKER_BUSY",
+          "message": "Worker is busy; inspect operator state.",
+          "details": {}
+        },
+        "duration_ms": 0.1
+      }
     }
   },
   "tools": [
@@ -39990,6 +40074,239 @@
         "bridge_version": "0.6.0",
         "tool_schema_version": 1
       }
+    },
+    {
+      "name": "get_native_coordination_state",
+      "category": "worker_recovery",
+      "description": "Inspect shared native state without waiting for a running COM operation.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.get_native_coordination_state"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "required": []
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "schema": {
+                              "const": 1
+                            },
+                            "phase": {
+                              "enum": [
+                                "idle",
+                                "running",
+                                "recovery_required"
+                              ]
+                            },
+                            "operation_id": {
+                              "type": "string",
+                              "pattern": "^[0-9a-f]{32}$"
+                            },
+                            "method": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 100
+                            },
+                            "pid": {
+                              "type": "integer",
+                              "minimum": 1
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "schema",
+                            "phase",
+                            "operation_id",
+                            "method",
+                            "pid"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "recovery_required": {
+                      "type": "boolean"
+                    },
+                    "human_input_locked": {
+                      "const": false
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "state",
+                    "fingerprint",
+                    "recovery_required",
+                    "human_input_locked"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "medium",
+      "confirmation": "requires_ack_for_uncertain_partial_mutation",
+      "priority": "P0",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_native_coordination.py",
+          "tests/test_interaction_policy.py",
+          "docs/CONCURRENT_EDITING.md"
+        ]
+      },
+      "known_limitations": [
+        "Cooperating bridge processes share one per-user native lease. Human CorelDRAW input is not locked.",
+        "Live X7 recovery-probe and manual concurrent-document verification remain deferred.",
+        "A crash or uncertain write requires explicit shared acknowledgement and separate worker recovery if applicable.",
+        "The current bound-document probe cannot prove that all effects in a previous client were reviewed."
+      ],
+      "introduced": "0.7.0-dev",
+      "result_contract": "tool-schema-v2-envelope"
+    },
+    {
+      "name": "reconcile_native_coordination",
+      "category": "worker_recovery",
+      "description": "Recheck a bound document and explicitly acknowledge uncertain shared native state; never undo or replay.",
+      "implementation": {
+        "state": "registered",
+        "server": "corel_operator/server.py",
+        "bridge_method": "CorelBridge.reconcile_native_coordination"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "acknowledge_partial_changes": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "expected_fingerprint"
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "reconciled": {
+                      "const": true
+                    },
+                    "human_input_locked": {
+                      "const": false
+                    },
+                    "document_state": {
+                      "$ref": "#/schema_definitions/reconciled_document_state"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "reconciled",
+                    "human_input_locked",
+                    "document_state"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "medium",
+      "confirmation": "requires_ack_for_uncertain_partial_mutation",
+      "priority": "P0",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.Documents",
+        "Document.Pages",
+        "Document.ActivePage",
+        "Page.Shapes",
+        "Document.Unit",
+        "Document.ReferencePoint",
+        "Document.Dirty",
+        "Page.Index"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_native_coordination.py",
+          "tests/test_interaction_policy.py",
+          "docs/CONCURRENT_EDITING.md"
+        ]
+      },
+      "known_limitations": [
+        "Cooperating bridge processes share one per-user native lease. Human CorelDRAW input is not locked.",
+        "Live X7 recovery-probe and manual concurrent-document verification remain deferred.",
+        "A crash or uncertain write requires explicit shared acknowledgement and separate worker recovery if applicable.",
+        "The current bound-document probe cannot prove that all effects in a previous client were reviewed."
+      ],
+      "introduced": "0.7.0-dev",
+      "result_contract": "tool-schema-v2-envelope"
     }
   ]
 }

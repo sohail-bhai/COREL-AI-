@@ -9,6 +9,7 @@ from concurrent.futures import Future
 from collections import OrderedDict
 from datetime import datetime, timezone
 from functools import wraps
+from contextlib import nullcontext
 from time import perf_counter
 from typing import Any
 from mcp.server.fastmcp import FastMCP
@@ -286,24 +287,27 @@ class CorelDispatcher:
                         job.record.journal.write(job.operation_id, job.record.tool, "worker_cancelled")
                     continue
                 started = perf_counter()
-                self._bridge._operation_mutation_started = None
+                coordinator = getattr(self._bridge, '_native_coordinator', None)
+                self._bridge._operation_mutation_started = False if coordinator is not None else None
                 if job.record is not None:
                     job.record.journal.write(job.operation_id, job.record.tool, "worker_started", target_ids=target_ids(self._bridge))
                 try:
-                    if not job.reconciliation and hasattr(self._bridge, '_prepare_interaction_operation'):
-                        self._bridge._prepare_interaction_operation(job.method, job.mutation)
-                    result = self._reconcile_on_worker(job) if job.reconciliation else getattr(self._bridge, job.method)(*job.args, **job.kwargs)
-                    if job.mutation and hasattr(self._bridge, '_check_interaction_write'):
-                        self._bridge._check_interaction_write()
-                    if job.method == 'configure_editing_mode':
-                        with self._lock:
-                            if result['mode'] == 'paused':
-                                self._native_pause_event.set()
-                            elif job.pause_epoch == self._pause_epoch:
-                                self._native_pause_event.clear()
-                            result['native_writes_paused'] = self._native_pause_event.is_set()
-                    if job.record is not None:
-                        job.record.journal.write(job.operation_id, job.record.tool, "worker_completed", target_ids=target_ids(self._bridge), duration_ms=(perf_counter() - started) * 1000, **result_metadata(result))
+                    with (coordinator.operation(job.method, allow_recovery=not job.mutation or job.reconciliation)
+                          if coordinator is not None else nullcontext()):
+                        if not job.reconciliation and hasattr(self._bridge, '_prepare_interaction_operation'):
+                            self._bridge._prepare_interaction_operation(job.method, job.mutation)
+                        result = self._reconcile_on_worker(job) if job.reconciliation else getattr(self._bridge, job.method)(*job.args, **job.kwargs)
+                        if job.mutation and hasattr(self._bridge, '_check_interaction_write'):
+                            self._bridge._check_interaction_write()
+                        if job.method == 'configure_editing_mode':
+                            with self._lock:
+                                if result['mode'] == 'paused':
+                                    self._native_pause_event.set()
+                                elif job.pause_epoch == self._pause_epoch:
+                                    self._native_pause_event.clear()
+                                result['native_writes_paused'] = self._native_pause_event.is_set()
+                        if job.record is not None:
+                            job.record.journal.write(job.operation_id, job.record.tool, "worker_completed", target_ids=target_ids(self._bridge), duration_ms=(perf_counter() - started) * 1000, **result_metadata(result))
                 except BaseException as exc:
                     if job.record is not None:
                         job.record.journal.write(job.operation_id, job.record.tool, "worker_failed", target_ids=target_ids(self._bridge), duration_ms=(perf_counter() - started) * 1000, **result_metadata(error=exc))
@@ -421,6 +425,30 @@ def pause_native_editing() -> dict:
         return success_result('pause_native_editing', dispatcher.pause_native_editing(), (perf_counter() - started) * 1000)
     except Exception as exc:
         return error_result('pause_native_editing', exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+@recorded_operation
+def get_native_coordination_state() -> dict:
+    """Inspect durable shared native state immediately, including during a blocked COM call."""
+    started = perf_counter()
+    try:
+        return success_result('get_native_coordination_state', dispatcher._bridge.get_native_coordination_state(),
+                              (perf_counter() - started) * 1000)
+    except Exception as exc:
+        return error_result('get_native_coordination_state', exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+@recorded_operation
+def reconcile_native_coordination(expected_fingerprint: str, acknowledge_partial_changes: bool = False) -> dict:
+    """Recheck native document state and acknowledge an uncertain shared operation.
+
+    Uses the exact inspected shared fingerprint, refuses while any client holds
+    the native lease, and never undoes, retries, saves, or clears worker recovery.
+    """
+    return _tool('reconcile_native_coordination', 'reconcile_native_coordination',
+                 expected_fingerprint, acknowledge_partial_changes)
 
 
 @mcp.tool()
