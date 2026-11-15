@@ -11,7 +11,7 @@ The default suite must not connect to, launch, or mutate CorelDRAW:
 Current expected result:
 
 ```text
-Ran 989 tests
+Ran 1015 tests
 OK (skipped=31)
 ```
 
@@ -19,7 +19,10 @@ Coverage includes:
 
 - authoritative bridge/schema/profile versions;
 - tool-schema v2 success and error envelopes and explicit editing-mode migration;
-- all catalog JSON Schemas and 300 request/success/error examples;
+- all catalog JSON Schemas and 315 request/success/error examples;
+- 26 local component checks: revision/source preservation, historical restore,
+  asset changes, readable resize, selective raster-resolution flags, provider
+  isolation, source/output races, exact receipt cleanup and all wrapper schemas;
 - 36 selected-text/policy checks: native Unicode mapping, selected content,
   mixed scalar formatting, replacement preservation, stale/collateral changes,
   native limits, strict schemas, paused direct/worker clients and immediate pause;

@@ -1508,6 +1508,66 @@
       "native_result": "not_applicable",
       "mcp_envelope_result": "pending_consolidated_client_run",
       "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "create_component_design",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_component_designs.py"
+      ],
+      "native_coverage": "local_only",
+      "native_gate_candidates": [],
+      "native_result": "not_applicable",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "inspect_component_design",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_component_designs.py"
+      ],
+      "native_coverage": "local_only",
+      "native_gate_candidates": [],
+      "native_result": "not_applicable",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "revise_component_design",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_component_designs.py"
+      ],
+      "native_coverage": "local_only",
+      "native_gate_candidates": [],
+      "native_result": "not_applicable",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "resize_component_design",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_component_designs.py"
+      ],
+      "native_coverage": "local_only",
+      "native_gate_candidates": [],
+      "native_result": "not_applicable",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
+    },
+    {
+      "tool": "prepare_component_generation",
+      "implementation_status": "implemented_unverified",
+      "local_test_sources": [
+        "tests/test_component_designs.py"
+      ],
+      "native_coverage": "local_only",
+      "native_gate_candidates": [],
+      "native_result": "not_applicable",
+      "mcp_envelope_result": "pending_consolidated_client_run",
+      "manual_artifact_review": "not_applicable"
     }
   ]
 }

@@ -9,12 +9,22 @@ Branch: `feature/workflow-planning-slice`. Preserve this branch and read
 `HARNESS_INCIDENTS.md` before project work. Inspect current Git status/history
 to confirm batch commit/push state; do not infer commits from this document.
 
-Current surface: 98 registered tools, all `implemented_unverified`; 100 registry
-records/matrix rows, 371 native members, 289 checked schemas, 300 examples,
-30 enum groups and 75 adapter capabilities. Default suite: 989 tests, 958 pass,
+Current surface: 103 registered tools, all `implemented_unverified`; 105 registry
+records/matrix rows, 371 native members, 302 checked schemas, 315 examples,
+30 enum groups and 75 adapter capabilities. Default suite: 1015 tests, 984 pass,
 31 guarded live tests skipped. No live CorelDRAW verification ran this iteration.
 
-Latest batch: selected-text inspection/formatting/replacement and cooperative
+Latest independent batch: local component designs/revision history, proportional
+resize with minimum readable font and selective raster-DPI flags, and literal
+provider-handoff requests. The user selected a local interface first; no generation
+service is connected and no native component-targeted edits occur. Twenty-six
+focused checks and full default/catalog validation pass. Source/assets are
+fingerprinted and published only to new paths with receipt-matching cleanup;
+concurrent edits are preserved. See COMPONENT_DESIGNS.md and the dated non-live
+report. Verify commit/push in Git.
+
+Selected-text/concurrency batch is pushed as `e50ac32`, confirmed local/remote
+agreement. It adds selected-text inspection/formatting/replacement and cooperative
 editing policy, bridge 0.7.0 / tool schema v2. Both embedded and worker writes
 start paused. Exact Unicode code-point bounds map to native Characters readback;
 signed targets/fingerprints and scalar/process-format snapshots protect content
@@ -23,7 +33,7 @@ text-range edits; other native commands require an exclusive apply window.
 Immediate pause stops later write boundaries, cannot cancel entered COM, and
 preserves uncertain edits for explicit worker reconciliation. Thirty-six focused
 checks plus full default/catalog validation pass. See SELECTED_TEXT.md,
-CONCURRENT_EDITING.md and the dated non-live report. Verify commit/push in Git.
+CONCURRENT_EDITING.md and the dated non-live report.
 
 Earlier paragraph fitting is complete and pushed as `725e162`. The four personal
 artwork/helper files listed below remain untouched and uncommitted.
@@ -116,8 +126,8 @@ dependencies. Custom Alhamdulillah calligraphy/reconstruction remains deferred.
 Next bounded batch: research character/word write units and broaden typography/
 fitting, then image-template fields/reflow, controlled document checkpoints and
 cross-page/layer movement, ICC/PDF-X/export-raster coverage and component provider/
-generation/revisions/smart resize. The provider choice is unresolved; a local
-interface was offered while independent work proceeds. Atomic same-document
+generation/revisions/smart resize. The user chose a local provider interface first;
+local component draft/history/resize/handoff tools are implemented. Atomic same-document
 concurrency and general isolated native background execution need further API/
 native evidence. Do not widen the background allowlist without a setter/context
 audit, preservation checks and a deferred native gate.

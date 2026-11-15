@@ -650,12 +650,17 @@
       "registered_tools": [
         "validate_design_plan",
         "preview_design_plan",
-        "execute_design_plan"
+        "execute_design_plan",
+        "create_component_design",
+        "inspect_component_design",
+        "revise_component_design",
+        "resize_component_design",
+        "prepare_component_generation"
       ],
       "missing_behavior": [
-        "Explicit image-provider boundary",
-        "Independent raster/vector/editable-text components",
-        "Targeted regeneration with source preservation"
+        "Connected approved image provider and actual generation",
+        "Native independent component assembly/replacement with source preservation",
+        "General vector-component payload inspection"
       ],
       "source_ids": [
         "versions",
@@ -667,18 +672,34 @@
         "typography",
         "images"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "partial_implemented_unverified",
+      "live_status": "deferred",
+      "implemented_behavior": [
+        "Local stable-ID editable/raster/primitive component plans, guarded single-component revisions and historical restore to new files",
+        "Proportional draft resize with readable-font refusal and selective low-resolution raster flags",
+        "Local provider-handoff requests with explicit unconnected/not-generated state"
+      ],
+      "evidence": [
+        "tests/test_component_designs.py",
+        "docs/COMPONENT_DESIGNS.md",
+        "docs/test-reports/2026-11-15-component-designs-non-live.md"
+      ]
     },
     {
       "id": "redesign_history",
       "priority": "P2",
-      "coverage": "missing",
-      "registered_tools": [],
+      "coverage": "partial",
+      "registered_tools": [
+        "create_component_design",
+        "inspect_component_design",
+        "revise_component_design",
+        "resize_component_design",
+        "prepare_component_generation"
+      ],
       "missing_behavior": [
-        "Size-aware reflow",
+        "Responsive native layout reflow and text fitting",
         "Selective sufficient-resolution regeneration",
-        "Local revisions/diff/verified restoration"
+        "Native revision diff and verified CDR restoration"
       ],
       "source_ids": [
         "layout",
@@ -689,8 +710,18 @@
         "layout",
         "recovery"
       ],
-      "implementation_status": "queued",
-      "live_status": "deferred"
+      "implementation_status": "partial_implemented_unverified",
+      "live_status": "deferred",
+      "implemented_behavior": [
+        "Local stable-ID editable/raster/primitive component plans, guarded single-component revisions and historical restore to new files",
+        "Proportional draft resize with readable-font refusal and selective low-resolution raster flags",
+        "Local provider-handoff requests with explicit unconnected/not-generated state"
+      ],
+      "evidence": [
+        "tests/test_component_designs.py",
+        "docs/COMPONENT_DESIGNS.md",
+        "docs/test-reports/2026-11-15-component-designs-non-live.md"
+      ]
     },
     {
       "id": "quality_routing",

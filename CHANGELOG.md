@@ -8,6 +8,12 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Changed — 2026-11-15
 
+- Added five local component tools for immutable stable-ID editable/raster plans,
+  one-component revisions, historical restore to new files, proportional resize
+  with readable-font/DPI flags and an explicitly unconnected provider handoff.
+  Fingerprinted sources/assets and atomic non-overwrite publication preserve
+  concurrent edits. No generation service or native replacement is claimed.
+
 - Bridge 0.7.0 / tool schema v2 starts MCP-native editing paused. Clients must
   configure exclusive or reserved inactive-document mode. Background work is
   restricted to audited signed text-range edits; an immediate pause event stops

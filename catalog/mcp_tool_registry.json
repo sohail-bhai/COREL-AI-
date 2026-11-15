@@ -29,7 +29,8 @@
     "SAFE-002: the dispatcher refuses concurrent/native busy follow-ups, cancels only pending timeouts, and quarantines late mutations or uncertain failure until exact-ID native reconciliation. Three metadata/recovery tools remain unverified against X7.",
     "Typography: paragraph creation, bounded font catalog, whole-story styling and explicit native chain overflow are implemented_unverified; linked/fitted edits are refused.",
     "Layout: native transform inspection, explicit-pivot rotation, mirroring, verified sibling ordering and measured distribution are implemented_unverified. Partial edits are quarantined by worker recovery.",
-    "Tool-schema v2 / bridge 0.7.0: server-native editing now starts paused and requires explicit editing-mode configuration; envelope shape retained."
+    "Tool-schema v2 / bridge 0.7.0: server-native editing now starts paused and requires explicit editing-mode configuration; envelope shape retained.",
+    "Local component design revisions/resizing and provider handoff are drafts only; no connected generation service or native component replacement is claimed."
   ],
   "schema_definitions": {
     "object_selector": {
@@ -7714,6 +7715,591 @@
       },
       "additionalProperties": false,
       "required": []
+    },
+    "component_plan": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "CorelDesignPlanV1",
+      "type": "object",
+      "required": [
+        "version",
+        "name",
+        "canvas",
+        "elements"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string",
+          "const": "1.0"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "canvas": {
+          "type": "object",
+          "required": [
+            "width_inches",
+            "height_inches"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "width_inches": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 200
+            },
+            "height_inches": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 200
+            },
+            "unit": {
+              "type": "string",
+              "enum": [
+                "inch"
+              ],
+              "default": "inch"
+            }
+          }
+        },
+        "elements": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 200,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "type"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "rectangle",
+                  "ellipse",
+                  "text",
+                  "artwork"
+                ]
+              },
+              "x_inches": {
+                "type": "number",
+                "minimum": -200,
+                "maximum": 400
+              },
+              "y_inches": {
+                "type": "number",
+                "minimum": -200,
+                "maximum": 400
+              },
+              "width_inches": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 200
+              },
+              "height_inches": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 200
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "font": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "default": "Arial"
+              },
+              "font_size_points": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 500,
+                "default": 24.0
+              },
+              "bold": {
+                "type": "boolean",
+                "default": false
+              },
+              "file_path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "fill": {
+                "type": "object",
+                "required": [
+                  "red",
+                  "green",
+                  "blue"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "red": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255
+                  },
+                  "green": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255
+                  },
+                  "blue": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255
+                  }
+                }
+              },
+              "outline": {
+                "type": "object",
+                "required": [
+                  "width_points"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "width_points": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 72
+                  },
+                  "red": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255,
+                    "default": 0
+                  },
+                  "green": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255,
+                    "default": 0
+                  },
+                  "blue": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255,
+                    "default": 0
+                  }
+                }
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "rectangle",
+                        "ellipse"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "x_inches",
+                    "y_inches",
+                    "width_inches",
+                    "height_inches"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "text"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "x_inches",
+                    "y_inches",
+                    "text"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "artwork"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "file_path"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "validations": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "expected_element_count": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            },
+            "bounding_box_within_canvas": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      }
+    },
+    "component_result": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32767
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 63
+        },
+        "component_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200
+        },
+        "plan": {
+          "$ref": "#/schema_definitions/component_plan"
+        },
+        "changed_component_ids": {
+          "type": "array",
+          "maxItems": 200,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        },
+        "history_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "verification_status": {
+          "const": "implemented_unverified"
+        },
+        "unchecked_checks": {
+          "const": [
+            "native_composition",
+            "text_fit_and_glyphs",
+            "visual_layout",
+            "color_and_print_acceptance"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "fingerprint",
+        "revision",
+        "component_count",
+        "plan",
+        "changed_component_ids",
+        "history_count",
+        "verification_status",
+        "unchecked_checks"
+      ]
+    },
+    "component_generation_request": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "component-generation-request-v1"
+        },
+        "provider": {
+          "const": "local_asset_handoff"
+        },
+        "design_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "source_design_fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "component_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "current_component": {
+          "type": "object",
+          "required": [
+            "id",
+            "type"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "rectangle",
+                "ellipse",
+                "text",
+                "artwork"
+              ]
+            },
+            "x_inches": {
+              "type": "number",
+              "minimum": -200,
+              "maximum": 400
+            },
+            "y_inches": {
+              "type": "number",
+              "minimum": -200,
+              "maximum": 400
+            },
+            "width_inches": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 200
+            },
+            "height_inches": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 200
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 5000
+            },
+            "font": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "default": "Arial"
+            },
+            "font_size_points": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 500,
+              "default": 24.0
+            },
+            "bold": {
+              "type": "boolean",
+              "default": false
+            },
+            "file_path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2048
+            },
+            "fill": {
+              "type": "object",
+              "required": [
+                "red",
+                "green",
+                "blue"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "red": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "green": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "blue": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                }
+              }
+            },
+            "outline": {
+              "type": "object",
+              "required": [
+                "width_points"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "width_points": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 72
+                },
+                "red": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255,
+                  "default": 0
+                },
+                "green": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255,
+                  "default": 0
+                },
+                "blue": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255,
+                  "default": 0
+                }
+              }
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "rectangle",
+                      "ellipse"
+                    ]
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "then": {
+                "required": [
+                  "x_inches",
+                  "y_inches",
+                  "width_inches",
+                  "height_inches"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "text"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "then": {
+                "required": [
+                  "x_inches",
+                  "y_inches",
+                  "text"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "type": {
+                    "const": "artwork"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "then": {
+                "required": [
+                  "file_path"
+                ]
+              }
+            }
+          ]
+        },
+        "prompt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "width_pixels": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "height_pixels": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "provider_connected": {
+          "const": false
+        },
+        "generated": {
+          "const": false
+        },
+        "network_request_sent": {
+          "const": false
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "provider",
+        "design_id",
+        "source_design_fingerprint",
+        "component_id",
+        "current_component",
+        "prompt",
+        "width_pixels",
+        "height_pixels",
+        "provider_connected",
+        "generated",
+        "network_request_sent",
+        "fingerprint"
+      ]
     }
   },
   "tool_examples": {
@@ -19683,6 +20269,387 @@
           "details": {}
         },
         "duration_ms": 0.1
+      }
+    },
+    "create_component_design": {
+      "request": {
+        "plan": {
+          "version": "1.0",
+          "name": "Card",
+          "canvas": {
+            "width_inches": 4.0,
+            "height_inches": 2.0
+          },
+          "elements": [
+            {
+              "id": "name",
+              "type": "text",
+              "x_inches": 1.0,
+              "y_inches": 1.0,
+              "text": "First",
+              "font_size_points": 24.0
+            }
+          ]
+        },
+        "destination_path": "C:/Projects/Card/design-0.json"
+      },
+      "success": {
+        "ok": true,
+        "tool": "create_component_design",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "path": "C:/Projects/Card/design-0.json",
+          "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "revision": 0,
+          "component_count": 1,
+          "plan": {
+            "version": "1.0",
+            "name": "Card",
+            "canvas": {
+              "width_inches": 4.0,
+              "height_inches": 2.0
+            },
+            "elements": [
+              {
+                "id": "name",
+                "type": "text",
+                "x_inches": 1.0,
+                "y_inches": 1.0,
+                "text": "First",
+                "font_size_points": 24.0
+              }
+            ]
+          },
+          "changed_component_ids": [
+            "name"
+          ],
+          "history_count": 1,
+          "verification_status": "implemented_unverified",
+          "unchecked_checks": [
+            "native_composition",
+            "text_fit_and_glyphs",
+            "visual_layout",
+            "color_and_print_acceptance"
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "create_component_design",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Raster request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "inspect_component_design": {
+      "request": {
+        "path": "C:/Projects/Card/design-0.json"
+      },
+      "success": {
+        "ok": true,
+        "tool": "inspect_component_design",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "path": "C:/Projects/Card/design-0.json",
+          "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "revision": 0,
+          "component_count": 1,
+          "plan": {
+            "version": "1.0",
+            "name": "Card",
+            "canvas": {
+              "width_inches": 4.0,
+              "height_inches": 2.0
+            },
+            "elements": [
+              {
+                "id": "name",
+                "type": "text",
+                "x_inches": 1.0,
+                "y_inches": 1.0,
+                "text": "First",
+                "font_size_points": 24.0
+              }
+            ]
+          },
+          "changed_component_ids": [
+            "name"
+          ],
+          "history_count": 1,
+          "verification_status": "implemented_unverified",
+          "unchecked_checks": [
+            "native_composition",
+            "text_fit_and_glyphs",
+            "visual_layout",
+            "color_and_print_acceptance"
+          ],
+          "history": [
+            {
+              "revision": 0,
+              "action": "create",
+              "fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "changed_component_ids": [
+                "name"
+              ]
+            }
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "inspect_component_design",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Raster request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "revise_component_design": {
+      "request": {
+        "source_path": "C:/Projects/Card/design-0.json",
+        "destination_path": "C:/Projects/Card/design-1.json",
+        "expected_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "component_id": "name",
+        "replacement_element": {
+          "id": "name",
+          "type": "text",
+          "x_inches": 1.0,
+          "y_inches": 1.0,
+          "text": "Second",
+          "font_size_points": 24.0
+        }
+      },
+      "success": {
+        "ok": true,
+        "tool": "revise_component_design",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "path": "C:/Projects/Card/design-1.json",
+          "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "revision": 1,
+          "component_count": 1,
+          "plan": {
+            "version": "1.0",
+            "name": "Card",
+            "canvas": {
+              "width_inches": 4.0,
+              "height_inches": 2.0
+            },
+            "elements": [
+              {
+                "id": "name",
+                "type": "text",
+                "x_inches": 1.0,
+                "y_inches": 1.0,
+                "text": "Second",
+                "font_size_points": 24.0
+              }
+            ]
+          },
+          "changed_component_ids": [
+            "name"
+          ],
+          "history_count": 2,
+          "verification_status": "implemented_unverified",
+          "unchecked_checks": [
+            "native_composition",
+            "text_fit_and_glyphs",
+            "visual_layout",
+            "color_and_print_acceptance"
+          ]
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "revise_component_design",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Raster request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "resize_component_design": {
+      "request": {
+        "source_path": "C:/Projects/Card/design-0.json",
+        "destination_path": "C:/Projects/Card/design-large.json",
+        "expected_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "width_inches": 8.0,
+        "height_inches": 4.0
+      },
+      "success": {
+        "ok": true,
+        "tool": "resize_component_design",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "path": "C:/Projects/Card/design-large.json",
+          "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "revision": 1,
+          "component_count": 1,
+          "plan": {
+            "version": "1.0",
+            "name": "Card",
+            "canvas": {
+              "width_inches": 8.0,
+              "height_inches": 4.0
+            },
+            "elements": [
+              {
+                "id": "name",
+                "type": "text",
+                "x_inches": 2.0,
+                "y_inches": 2.0,
+                "text": "First",
+                "font_size_points": 48.0
+              }
+            ]
+          },
+          "changed_component_ids": [
+            "name"
+          ],
+          "history_count": 2,
+          "verification_status": "implemented_unverified",
+          "unchecked_checks": [
+            "native_composition",
+            "text_fit_and_glyphs",
+            "visual_layout",
+            "color_and_print_acceptance"
+          ],
+          "scale_factor": 2.0,
+          "minimum_image_dpi": 300.0,
+          "minimum_font_size_points": 8.0,
+          "requires_higher_resolution_components": []
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "resize_component_design",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Raster request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
+      }
+    },
+    "prepare_component_generation": {
+      "request": {
+        "source_path": "C:/Projects/Card/design-0.json",
+        "destination_path": "C:/Projects/Card/request.json",
+        "expected_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "component_id": "name",
+        "prompt": "A portrait for this component"
+      },
+      "success": {
+        "ok": true,
+        "tool": "prepare_component_generation",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "path": "C:/Projects/Card/request.json",
+          "request": {
+            "schema": "component-generation-request-v1",
+            "provider": "local_asset_handoff",
+            "design_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source_design_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "component_id": "name",
+            "current_component": {
+              "id": "name",
+              "type": "text",
+              "x_inches": 1.0,
+              "y_inches": 1.0,
+              "text": "First",
+              "font_size_points": 24.0
+            },
+            "prompt": "A portrait for this component",
+            "width_pixels": 1024,
+            "height_pixels": 1024,
+            "provider_connected": false,
+            "generated": false,
+            "network_request_sent": false,
+            "fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          "fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "provider_connected": false,
+          "generated": false,
+          "network_request_sent": false,
+          "verification_status": "implemented_unverified"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "prepare_component_generation",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Raster request was refused.",
+          "details": {}
+        },
+        "duration_ms": 1.0
       }
     }
   },
@@ -37922,6 +38889,1107 @@
       ],
       "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v2-envelope"
+    },
+    {
+      "name": "create_component_design",
+      "category": "component_designs",
+      "description": "Create an immutable local editable component plan with raster receipts and a revision chain.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.component_designs.create_component_design"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "$ref": "#/schema_definitions/component_plan"
+          },
+          "destination_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "plan",
+          "destination_path"
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 32767
+                    },
+                    "fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "revision": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 63
+                    },
+                    "component_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 200
+                    },
+                    "plan": {
+                      "$ref": "#/schema_definitions/component_plan"
+                    },
+                    "changed_component_ids": {
+                      "type": "array",
+                      "maxItems": 200,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 64
+                      }
+                    },
+                    "history_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "unchecked_checks": {
+                      "const": [
+                        "native_composition",
+                        "text_fit_and_glyphs",
+                        "visual_layout",
+                        "color_and_print_acceptance"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "path",
+                    "fingerprint",
+                    "revision",
+                    "component_count",
+                    "plan",
+                    "changed_component_ids",
+                    "history_count",
+                    "verification_status",
+                    "unchecked_checks"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "external_io",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "offline_passed",
+        "sources": [
+          "tests/test_component_designs.py",
+          "docs/COMPONENT_DESIGNS.md",
+          "docs/test-reports/2026-11-15-component-designs-non-live.md"
+        ]
+      },
+      "known_limitations": [
+        "Local draft/revision/request files only; no CorelDRAW or generation-service access, no native application rollback.",
+        "Stable component IDs preserve other plan elements; raster byte/pixel receipts do not prove native rendering or print acceptance.",
+        "Generation provider remains unconnected. Requests explicitly report generated=false and network_request_sent=false.",
+        "Resize is proportional fitting/centering; text fit, glyphs, responsive layout reflow, bleed and color acceptance remain unchecked.",
+        "History is bounded to 64 revisions/5 MiB. Current/historical changed assets refuse applicable use/restore. No overwrite.",
+        "Atomic non-overwrite hard-link publication requires a supporting local filesystem; uncertain concurrent outputs are preserved."
+      ],
+      "result_contract": "tool-schema-v2-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "inspect_component_design",
+      "category": "component_designs",
+      "description": "Inspect a local component design, current asset receipts and verified bounded revision history.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.component_designs.inspect_component_design"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 32767
+                    },
+                    "fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "revision": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 63
+                    },
+                    "component_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 200
+                    },
+                    "plan": {
+                      "$ref": "#/schema_definitions/component_plan"
+                    },
+                    "changed_component_ids": {
+                      "type": "array",
+                      "maxItems": 200,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 64
+                      }
+                    },
+                    "history_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "unchecked_checks": {
+                      "const": [
+                        "native_composition",
+                        "text_fit_and_glyphs",
+                        "visual_layout",
+                        "color_and_print_acceptance"
+                      ]
+                    },
+                    "history": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 64,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "revision": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 63
+                          },
+                          "action": {
+                            "enum": [
+                              "create",
+                              "replace",
+                              "restore",
+                              "resize"
+                            ]
+                          },
+                          "fingerprint": {
+                            "type": "string",
+                            "pattern": "^[0-9a-f]{64}$"
+                          },
+                          "changed_component_ids": {
+                            "type": "array",
+                            "maxItems": 200,
+                            "uniqueItems": true,
+                            "items": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 64
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "revision",
+                          "action",
+                          "fingerprint",
+                          "changed_component_ids"
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "path",
+                    "fingerprint",
+                    "revision",
+                    "component_count",
+                    "plan",
+                    "changed_component_ids",
+                    "history_count",
+                    "verification_status",
+                    "unchecked_checks",
+                    "history"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "read_only",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "offline_passed",
+        "sources": [
+          "tests/test_component_designs.py",
+          "docs/COMPONENT_DESIGNS.md",
+          "docs/test-reports/2026-11-15-component-designs-non-live.md"
+        ]
+      },
+      "known_limitations": [
+        "Local draft/revision/request files only; no CorelDRAW or generation-service access, no native application rollback.",
+        "Stable component IDs preserve other plan elements; raster byte/pixel receipts do not prove native rendering or print acceptance.",
+        "Generation provider remains unconnected. Requests explicitly report generated=false and network_request_sent=false.",
+        "Resize is proportional fitting/centering; text fit, glyphs, responsive layout reflow, bleed and color acceptance remain unchecked.",
+        "History is bounded to 64 revisions/5 MiB. Current/historical changed assets refuse applicable use/restore. No overwrite.",
+        "Atomic non-overwrite hard-link publication requires a supporting local filesystem; uncertain concurrent outputs are preserved."
+      ],
+      "result_contract": "tool-schema-v2-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "revise_component_design",
+      "category": "component_designs",
+      "description": "Replace one component or restore a prior revision into a new file; preserve source and other components.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.component_designs.revise_component_design"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "source_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          },
+          "destination_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "component_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "replacement_element": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "id",
+                  "type"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "rectangle",
+                      "ellipse",
+                      "text",
+                      "artwork"
+                    ]
+                  },
+                  "x_inches": {
+                    "type": "number",
+                    "minimum": -200,
+                    "maximum": 400
+                  },
+                  "y_inches": {
+                    "type": "number",
+                    "minimum": -200,
+                    "maximum": 400
+                  },
+                  "width_inches": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "maximum": 200
+                  },
+                  "height_inches": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "maximum": 200
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 5000
+                  },
+                  "font": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "default": "Arial"
+                  },
+                  "font_size_points": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "maximum": 500,
+                    "default": 24.0
+                  },
+                  "bold": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "file_path": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2048
+                  },
+                  "fill": {
+                    "type": "object",
+                    "required": [
+                      "red",
+                      "green",
+                      "blue"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "red": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 255
+                      },
+                      "green": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 255
+                      },
+                      "blue": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 255
+                      }
+                    }
+                  },
+                  "outline": {
+                    "type": "object",
+                    "required": [
+                      "width_points"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "width_points": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 72
+                      },
+                      "red": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 255,
+                        "default": 0
+                      },
+                      "green": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 255,
+                        "default": 0
+                      },
+                      "blue": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 255,
+                        "default": 0
+                      }
+                    }
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "rectangle",
+                            "ellipse"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "x_inches",
+                        "y_inches",
+                        "width_inches",
+                        "height_inches"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "type": {
+                          "const": "text"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "x_inches",
+                        "y_inches",
+                        "text"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "type": {
+                          "const": "artwork"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "file_path"
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "restore_revision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 63
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "source_path",
+          "destination_path",
+          "expected_fingerprint"
+        ],
+        "oneOf": [
+          {
+            "required": [
+              "component_id",
+              "replacement_element"
+            ],
+            "properties": {
+              "component_id": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "replacement_element": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "restore_revision": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "required": [
+              "restore_revision"
+            ],
+            "properties": {
+              "restore_revision": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "component_id": {
+                "type": "null"
+              },
+              "replacement_element": {
+                "type": "null"
+              }
+            }
+          }
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 32767
+                    },
+                    "fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "revision": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 63
+                    },
+                    "component_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 200
+                    },
+                    "plan": {
+                      "$ref": "#/schema_definitions/component_plan"
+                    },
+                    "changed_component_ids": {
+                      "type": "array",
+                      "maxItems": 200,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 64
+                      }
+                    },
+                    "history_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "unchecked_checks": {
+                      "const": [
+                        "native_composition",
+                        "text_fit_and_glyphs",
+                        "visual_layout",
+                        "color_and_print_acceptance"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "path",
+                    "fingerprint",
+                    "revision",
+                    "component_count",
+                    "plan",
+                    "changed_component_ids",
+                    "history_count",
+                    "verification_status",
+                    "unchecked_checks"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "external_io",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "offline_passed",
+        "sources": [
+          "tests/test_component_designs.py",
+          "docs/COMPONENT_DESIGNS.md",
+          "docs/test-reports/2026-11-15-component-designs-non-live.md"
+        ]
+      },
+      "known_limitations": [
+        "Local draft/revision/request files only; no CorelDRAW or generation-service access, no native application rollback.",
+        "Stable component IDs preserve other plan elements; raster byte/pixel receipts do not prove native rendering or print acceptance.",
+        "Generation provider remains unconnected. Requests explicitly report generated=false and network_request_sent=false.",
+        "Resize is proportional fitting/centering; text fit, glyphs, responsive layout reflow, bleed and color acceptance remain unchecked.",
+        "History is bounded to 64 revisions/5 MiB. Current/historical changed assets refuse applicable use/restore. No overwrite.",
+        "Atomic non-overwrite hard-link publication requires a supporting local filesystem; uncertain concurrent outputs are preserved."
+      ],
+      "result_contract": "tool-schema-v2-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "resize_component_design",
+      "category": "component_designs",
+      "description": "Proportionally fit/center a draft with minimum font size and selective low-resolution raster flags.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.component_designs.resize_component_design"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "source_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          },
+          "destination_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "width_inches": {
+            "type": "number",
+            "minimum": 0.001,
+            "maximum": 200
+          },
+          "height_inches": {
+            "type": "number",
+            "minimum": 0.001,
+            "maximum": 200
+          },
+          "minimum_font_size_points": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 8.0
+          },
+          "minimum_image_dpi": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 2400,
+            "default": 300.0
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "source_path",
+          "destination_path",
+          "expected_fingerprint",
+          "width_inches",
+          "height_inches"
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 32767
+                    },
+                    "fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "revision": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 63
+                    },
+                    "component_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 200
+                    },
+                    "plan": {
+                      "$ref": "#/schema_definitions/component_plan"
+                    },
+                    "changed_component_ids": {
+                      "type": "array",
+                      "maxItems": 200,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 64
+                      }
+                    },
+                    "history_count": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 64
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    },
+                    "unchecked_checks": {
+                      "const": [
+                        "native_composition",
+                        "text_fit_and_glyphs",
+                        "visual_layout",
+                        "color_and_print_acceptance"
+                      ]
+                    },
+                    "scale_factor": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "requires_higher_resolution_components": {
+                      "type": "array",
+                      "maxItems": 200,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 64
+                      }
+                    },
+                    "minimum_image_dpi": {
+                      "type": "number",
+                      "minimum": 1,
+                      "maximum": 2400
+                    },
+                    "minimum_font_size_points": {
+                      "type": "number",
+                      "minimum": 1,
+                      "maximum": 500
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "path",
+                    "fingerprint",
+                    "revision",
+                    "component_count",
+                    "plan",
+                    "changed_component_ids",
+                    "history_count",
+                    "verification_status",
+                    "unchecked_checks",
+                    "scale_factor",
+                    "requires_higher_resolution_components",
+                    "minimum_image_dpi",
+                    "minimum_font_size_points"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "external_io",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "offline_passed",
+        "sources": [
+          "tests/test_component_designs.py",
+          "docs/COMPONENT_DESIGNS.md",
+          "docs/test-reports/2026-11-15-component-designs-non-live.md"
+        ]
+      },
+      "known_limitations": [
+        "Local draft/revision/request files only; no CorelDRAW or generation-service access, no native application rollback.",
+        "Stable component IDs preserve other plan elements; raster byte/pixel receipts do not prove native rendering or print acceptance.",
+        "Generation provider remains unconnected. Requests explicitly report generated=false and network_request_sent=false.",
+        "Resize is proportional fitting/centering; text fit, glyphs, responsive layout reflow, bleed and color acceptance remain unchecked.",
+        "History is bounded to 64 revisions/5 MiB. Current/historical changed assets refuse applicable use/restore. No overwrite.",
+        "Atomic non-overwrite hard-link publication requires a supporting local filesystem; uncertain concurrent outputs are preserved."
+      ],
+      "result_contract": "tool-schema-v2-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
+    },
+    {
+      "name": "prepare_component_generation",
+      "category": "component_designs",
+      "description": "Prepare an unconnected local provider-handoff request; no image generation or network request occurs.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "corel_operator.component_designs.prepare_component_generation"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "source_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          },
+          "destination_path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32767
+          },
+          "component_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "expected_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "width_pixels": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16384,
+            "default": 1024
+          },
+          "height_pixels": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16384,
+            "default": 1024
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "source_path",
+          "destination_path",
+          "component_id",
+          "expected_fingerprint",
+          "prompt"
+        ]
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 32767
+                    },
+                    "request": {
+                      "$ref": "#/schema_definitions/component_generation_request"
+                    },
+                    "fingerprint": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "provider_connected": {
+                      "const": false
+                    },
+                    "generated": {
+                      "const": false
+                    },
+                    "network_request_sent": {
+                      "const": false
+                    },
+                    "verification_status": {
+                      "const": "implemented_unverified"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "path",
+                    "request",
+                    "fingerprint",
+                    "provider_connected",
+                    "generated",
+                    "network_request_sent",
+                    "verification_status"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "external_io",
+      "risk": "low",
+      "confirmation": "not_required",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "offline_passed",
+        "sources": [
+          "tests/test_component_designs.py",
+          "docs/COMPONENT_DESIGNS.md",
+          "docs/test-reports/2026-11-15-component-designs-non-live.md"
+        ]
+      },
+      "known_limitations": [
+        "Local draft/revision/request files only; no CorelDRAW or generation-service access, no native application rollback.",
+        "Stable component IDs preserve other plan elements; raster byte/pixel receipts do not prove native rendering or print acceptance.",
+        "Generation provider remains unconnected. Requests explicitly report generated=false and network_request_sent=false.",
+        "Resize is proportional fitting/centering; text fit, glyphs, responsive layout reflow, bleed and color acceptance remain unchecked.",
+        "History is bounded to 64 revisions/5 MiB. Current/historical changed assets refuse applicable use/restore. No overwrite.",
+        "Atomic non-overwrite hard-link publication requires a supporting local filesystem; uncertain concurrent outputs are preserved."
+      ],
+      "result_contract": "tool-schema-v2-envelope",
+      "introduced": {
+        "bridge_version": "0.6.0",
+        "tool_schema_version": 1
+      }
     }
   ]
 }

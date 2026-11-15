@@ -469,6 +469,81 @@ def edit_text_range(object_reference: dict, start: int, end: int, expected_text:
 
 @mcp.tool()
 @recorded_operation
+def create_component_design(plan: dict, destination_path: str) -> dict:
+    """Create an immutable local component design/revision file from an editable plan.
+
+    Stable element IDs identify raster artwork, editable text and native primitives.
+    Pin raster byte/pixel receipts. No CorelDRAW or network access; no overwrite.
+    """
+    from .component_designs import create_component_design as create
+    return _component_tool('create_component_design', create, plan, destination_path)
+
+
+@mcp.tool()
+@recorded_operation
+def inspect_component_design(path: str) -> dict:
+    """Read a local revision chain, verify fingerprints/current assets and return its editable plan."""
+    from .component_designs import inspect_component_design as inspect
+    return _component_tool('inspect_component_design', inspect, path)
+
+
+@mcp.tool()
+@recorded_operation
+def revise_component_design(source_path: str, destination_path: str, expected_fingerprint: str,
+                            component_id: str | None = None, replacement_element: dict | None = None,
+                            restore_revision: int | None = None) -> dict:
+    """Replace one stable component or restore a prior local revision into a new file.
+
+    Require the inspected fingerprint. Preserve source/other components and older
+    revision files; refuse changed historical assets. No native artwork edits.
+    """
+    from .component_designs import revise_component_design as revise
+    return _component_tool('revise_component_design', revise, source_path, destination_path,
+                           expected_fingerprint, component_id, replacement_element, restore_revision)
+
+
+@mcp.tool()
+@recorded_operation
+def resize_component_design(source_path: str, destination_path: str, expected_fingerprint: str,
+                            width_inches: float, height_inches: float,
+                            minimum_font_size_points: float = 8., minimum_image_dpi: float = 300.) -> dict:
+    """Proportionally fit/center a local draft, preserve aspect ratio and create a revision.
+
+    Refuse text below the explicit minimum; flag only raster components needing
+    higher resolution. Native text fitting, visual reflow and print acceptance
+    remain unchecked. No CorelDRAW, generation service or source overwrite.
+    """
+    from .component_designs import resize_component_design as resize
+    return _component_tool('resize_component_design', resize, source_path, destination_path,
+                           expected_fingerprint, width_inches, height_inches, minimum_font_size_points, minimum_image_dpi)
+
+
+@mcp.tool()
+@recorded_operation
+def prepare_component_generation(source_path: str, component_id: str, expected_fingerprint: str,
+                                 prompt: str, destination_path: str,
+                                 width_pixels: int = 1024, height_pixels: int = 1024) -> dict:
+    """Save a fingerprinted local provider-handoff request for one design component.
+
+    Generation provider is unconnected: generated=false, network_request_sent=false.
+    Keep literal prompts and requested pixel dimensions. Accept a separately
+    prepared local raster through a reviewed component replacement revision.
+    """
+    from .component_designs import prepare_component_generation as prepare
+    return _component_tool('prepare_component_generation', prepare, source_path, component_id,
+                           expected_fingerprint, prompt, destination_path, width_pixels, height_pixels)
+
+
+def _component_tool(name, function, *args):
+    started = perf_counter()
+    try:
+        return success_result(name, function(*args), (perf_counter() - started) * 1000)
+    except Exception as exc:
+        return error_result(name, exc, (perf_counter() - started) * 1000)
+
+
+@mcp.tool()
+@recorded_operation
 def corel_status() -> dict:
     """Report CorelDRAW version, active document and protected target document. This does not edit anything."""
     return _tool("corel_status", "status")
