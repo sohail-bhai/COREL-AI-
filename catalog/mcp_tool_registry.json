@@ -8300,6 +8300,67 @@
         "network_request_sent",
         "fingerprint"
       ]
+    },
+    "requested_horizontal_spacing": {
+      "type": "object",
+      "properties": {
+        "character_spacing_percent": {
+          "type": "number",
+          "minimum": -100,
+          "maximum": 2000
+        },
+        "word_spacing_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2000
+        }
+      },
+      "required": [],
+      "additionalProperties": false,
+      "minProperties": 1
+    },
+    "actual_horizontal_spacing": {
+      "type": "object",
+      "properties": {
+        "character_spacing_percent": {
+          "type": "number",
+          "minimum": -100,
+          "maximum": 2000
+        },
+        "word_spacing_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2000
+        },
+        "line_spacing": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "spacing_type_code": {
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "paragraph_before": {
+          "type": "number",
+          "minimum": 0
+        },
+        "paragraph_after": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "character_spacing_percent",
+        "word_spacing_percent",
+        "line_spacing",
+        "spacing_type_code",
+        "paragraph_before",
+        "paragraph_after"
+      ],
+      "additionalProperties": false
     }
   },
   "tool_examples": {
@@ -20734,6 +20795,114 @@
           "details": {}
         },
         "duration_ms": 0.1
+      }
+    },
+    "set_text_horizontal_spacing": {
+      "request": {
+        "character_spacing_percent": 10,
+        "word_spacing_percent": 110,
+        "object_name": "Title"
+      },
+      "success": {
+        "ok": true,
+        "tool": "set_text_horizontal_spacing",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": {
+          "updated": true,
+          "object": {
+            "object_name": "Title",
+            "static_id": 101,
+            "shape_type_code": 6,
+            "layer_name": "Artwork",
+            "page_index": 1,
+            "object_name_truncated": false,
+            "layer_name_truncated": false,
+            "document_session_id": "doc-0001",
+            "object_id": "doc-0001:shape:101",
+            "shape_index": 1,
+            "object_reference": {
+              "version": 1,
+              "bridge_session_id": "7b2933b433fb91f456fb65f4b2970322",
+              "document_session_id": "doc-0001",
+              "page_identity": "f3267b57b331c901b3eaef88ae8cb27dc85d5c212f98cf9c004667840ca2387d",
+              "layer_identity": "50d9ff76ac470beb14c88ed1c214348e6fc9e5999ed4ed81bb14926a1a8dc484",
+              "ancestor_identities": [],
+              "shape_identity": "9e1bbf55d923c156d8731ed881f7ad26c461d8cf706634f27d89c09d7157482c",
+              "static_id": 101,
+              "object_name": "Title",
+              "shape_type_code": 6,
+              "page_index": 1,
+              "layer_index": 1,
+              "shape_path": [
+                1
+              ],
+              "signature": "42346db759cd3c99e9282934d416f63de1e88cf8584274a59751078c92b561be"
+            }
+          },
+          "formatting_scope": "whole_story",
+          "actual_bounds_inches": {
+            "x": 1.0,
+            "y": 2.0,
+            "width": 3.0,
+            "height": 0.5
+          },
+          "layout": {
+            "text_type_code": 0,
+            "text_type": "artistic",
+            "overflow": null,
+            "overflow_scope": "linked_story",
+            "frame_count": 1,
+            "char_spacing_native": 10.0,
+            "word_spacing_native": 110.0,
+            "line_spacing_native": 100.0,
+            "line_spacing_type_code": 0,
+            "unavailable_properties": []
+          },
+          "before_spacing": {
+            "character_spacing_percent": 0.0,
+            "word_spacing_percent": 100.0,
+            "line_spacing": 100.0,
+            "spacing_type_code": 0,
+            "paragraph_before": 4.0,
+            "paragraph_after": 6.0
+          },
+          "actual_spacing": {
+            "character_spacing_percent": 10.0,
+            "word_spacing_percent": 110.0,
+            "line_spacing": 100.0,
+            "spacing_type_code": 0,
+            "paragraph_before": 4.0,
+            "paragraph_after": 6.0
+          },
+          "requested_spacing": {
+            "character_spacing_percent": 10.0,
+            "word_spacing_percent": 110.0
+          },
+          "content_preserved": true,
+          "spacing_unit": "percent_space_character"
+        },
+        "warnings": [],
+        "error": null,
+        "duration_ms": 1.0
+      },
+      "error": {
+        "ok": false,
+        "tool": "set_text_horizontal_spacing",
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2,
+        "profile_id": "coreldraw-x7-17",
+        "target_document": null,
+        "data": null,
+        "warnings": [],
+        "error": {
+          "code": "INVALID_ARGUMENT",
+          "message": "Synthetic validation refusal.",
+          "details": {}
+        },
+        "duration_ms": 1.0
       }
     }
   },
@@ -37824,7 +37993,7 @@
         "Native/visual verification remains deferred to the consolidated campaign.",
         "One unfitted unlinked frame; mixed or unreadable existing spacing is refused.",
         "Unit changes require all three explicit values; aggregate style preservation cannot prove per-run fidelity.",
-        "Character/word spacing units, glyph coverage and auto-fit remain separate gaps.",
+        "Whole-story character/word spacing uses set_text_horizontal_spacing; per-run spacing, glyph coverage and auto-fit remain gaps.",
         "Failures after a native call require exact operation reconciliation; no automatic replay or rollback."
       ],
       "result_contract": "tool-schema-v2-envelope",
@@ -40307,6 +40476,238 @@
       ],
       "introduced": "0.7.0-dev",
       "result_contract": "tool-schema-v2-envelope"
+    },
+    {
+      "name": "set_text_horizontal_spacing",
+      "category": "typography",
+      "description": "Set whole-story character/word spacing as percentages of the space character through an explicit X7 spacing structure; preserve leading and content.",
+      "implementation": {
+        "state": "registered",
+        "bridge_method": "CorelBridge.set_text_horizontal_spacing"
+      },
+      "input_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/reference_object_selector"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "character_spacing_percent": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": -100,
+                    "maximum": 2000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "word_spacing_percent": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 2000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              }
+            },
+            "anyOf": [
+              {
+                "required": [
+                  "character_spacing_percent"
+                ],
+                "properties": {
+                  "character_spacing_percent": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              },
+              {
+                "required": [
+                  "word_spacing_percent"
+                ],
+                "properties": {
+                  "word_spacing_percent": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "output_schema": {
+        "allOf": [
+          {
+            "$ref": "#/schema_definitions/result_envelope"
+          },
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              },
+              "required": [
+                "ok"
+              ]
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "updated": {
+                      "const": true
+                    },
+                    "object": {
+                      "$ref": "#/schema_definitions/inspection_identity"
+                    },
+                    "formatting_scope": {
+                      "const": "whole_story"
+                    },
+                    "actual_bounds_inches": {
+                      "$ref": "#/schema_definitions/bounds_inches"
+                    },
+                    "layout": {
+                      "$ref": "#/schema_definitions/text_layout_readback"
+                    },
+                    "before_spacing": {
+                      "$ref": "#/schema_definitions/actual_horizontal_spacing"
+                    },
+                    "requested_spacing": {
+                      "$ref": "#/schema_definitions/requested_horizontal_spacing"
+                    },
+                    "actual_spacing": {
+                      "$ref": "#/schema_definitions/actual_horizontal_spacing"
+                    },
+                    "content_preserved": {
+                      "const": true
+                    },
+                    "spacing_unit": {
+                      "const": "percent_space_character"
+                    }
+                  },
+                  "required": [
+                    "updated",
+                    "object",
+                    "formatting_scope",
+                    "actual_bounds_inches",
+                    "layout",
+                    "before_spacing",
+                    "requested_spacing",
+                    "actual_spacing",
+                    "content_preserved",
+                    "spacing_unit"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "permission": "mutating",
+      "risk": "medium",
+      "confirmation": "not_required_but_target_must_be_bound",
+      "priority": "P1",
+      "coreldraw_profiles": [
+        "coreldraw-x7-17"
+      ],
+      "api_requirements": [
+        "Application.CreateStructSpaceProperties",
+        "Application.Documents",
+        "Document.Pages",
+        "Document.ReferencePoint",
+        "Document.Unit",
+        "Layer.Shapes",
+        "Page.AllLayers",
+        "Page.Shapes",
+        "Shape.Layer",
+        "Shape.Name",
+        "Shape.Page",
+        "Shape.PositionX",
+        "Shape.PositionY",
+        "Shape.Shapes",
+        "Shape.SizeHeight",
+        "Shape.SizeWidth",
+        "Shape.StaticID",
+        "Shape.Text",
+        "Shape.Type",
+        "StructAlignProperties.MaxCharacterSpacing",
+        "StructAlignProperties.MaxWordSpacing",
+        "StructAlignProperties.MinWordSpacing",
+        "StructSpaceProperties.AfterParagraphSpacing",
+        "StructSpaceProperties.BeforeParagraphSpacing",
+        "StructSpaceProperties.CharacterSpacing",
+        "StructSpaceProperties.LineSpacing",
+        "StructSpaceProperties.LineSpacingType",
+        "StructSpaceProperties.WordSpacing",
+        "Text.AlignProperties",
+        "Text.Frame",
+        "Text.Frames",
+        "Text.Overflow",
+        "Text.SpaceProperties",
+        "Text.Story",
+        "Text.Type",
+        "TextFrame.ColumnCount",
+        "TextFrame.ColumnGutter",
+        "TextFrame.ColumnWidth",
+        "TextFrame.FrameShape",
+        "TextFrame.IsFittedToPath",
+        "TextFrame.IsInsideContainer",
+        "TextFrame.VerticalAlignment",
+        "TextFrames.Count",
+        "TextRange.Alignment",
+        "TextRange.Bold",
+        "TextRange.CharSpacing",
+        "TextRange.Font",
+        "TextRange.Italic",
+        "TextRange.LineSpacing",
+        "TextRange.LineSpacingType",
+        "TextRange.ParaSpacingAfter",
+        "TextRange.ParaSpacingBefore",
+        "TextRange.Size",
+        "TextRange.Text",
+        "TextRange.Underline",
+        "TextRange.WordSpacing"
+      ],
+      "status": "implemented_unverified",
+      "test_evidence": {
+        "status": "mock_com_passed",
+        "sources": [
+          "tests/test_horizontal_spacing.py",
+          "docs/TEXT_SPACING.md",
+          "docs/x7_horizontal_spacing_evidence.json",
+          "docs/test-reports/2026-11-15-horizontal-spacing-non-live.md"
+        ]
+      },
+      "known_limitations": [
+        "Native units and visual acceptance remain deferred; X7 word units combine installed descriptors with X7 user-guide UI evidence, and X7.4 API remarks are supplementary.",
+        "One unfitted unlinked whole story with readable uniform basic formatting; paragraph container/path fitting is refused and at most 20 columns are preserved; native justification limits are retained.",
+        "Aggregate basic-style preservation cannot prove per-run, glyph, appearance or artistic-anchor fidelity.",
+        "Fresh explicit structure only; no indexed character-range edits, scalar spacing setters, auto-fit or document save.",
+        "Failures after native application require operation reconciliation; no automatic replay or rollback."
+      ],
+      "result_contract": "tool-schema-v2-envelope",
+      "introduced": {
+        "bridge_version": "0.7.0",
+        "tool_schema_version": 2
+      }
     }
   ]
 }

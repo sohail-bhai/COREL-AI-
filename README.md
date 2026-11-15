@@ -56,7 +56,9 @@ Validate the catalog without starting CorelDRAW:
 - Editable paragraph frames, whole-story font/size/style/alignment revisions,
   bounded font catalog and native overflow/spacing inspection; see
   [`docs/TYPOGRAPHY.md`](docs/TYPOGRAPHY.md). Native verification remains deferred.
-- Whole-story line and paragraph spacing in researched X7 point/percentage units,
+- Whole-story character/word percentages with native justification limit checks,
+  content/leading and paragraph frame/column preservation, plus line and paragraph
+  spacing in researched X7 point/percentage units,
   with content preservation and guarded unit changes; see [`docs/TEXT_SPACING.md`](docs/TEXT_SPACING.md).
 - Source-preserving editable paragraph fitting with a minimum readable font size,
   measured overflow and guarded copy cleanup; see [`docs/TEXT_FITTING.md`](docs/TEXT_FITTING.md).

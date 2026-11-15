@@ -253,10 +253,11 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "missing_behavior": [
-        "Character/word spacing writes with established user-facing units",
+        "Per-run horizontal spacing and native/visual acceptance of whole-story space-character percentages",
         "Linked/fitted story edits and broader named-style/glyph preservation",
         "Font face/glyph coverage",
         "Per-run/artistic/container/linked fitting, safe-area/glyph acceptance and automatic template reflow"
@@ -281,7 +282,8 @@
         "Native subtype/frame/spacing/chain-overflow inspection",
         "Guarded whole-story leading/paragraph spacing in documented X7 points and percentage units",
         "Source-preserving editable paragraph fitting with explicit minimum size, bounded native overflow probes and guarded cleanup",
-        "Bounded Unicode mapping, signed/fingerprinted selected-range edits and surrounding scalar/process formatting preservation"
+        "Bounded Unicode mapping, signed/fingerprinted selected-range edits and surrounding scalar/process formatting preservation",
+        "Whole-story character/word spacing via fresh X7 structures, existing justification bounds, content/leading preservation and scalar/structure readback"
       ],
       "evidence": [
         "docs/TYPOGRAPHY.md",
@@ -297,7 +299,10 @@
         "tests/test_interaction_policy.py",
         "docs/SELECTED_TEXT.md",
         "docs/CONCURRENT_EDITING.md",
-        "docs/x7_selected_text_evidence.json"
+        "docs/x7_selected_text_evidence.json",
+        "tests/test_horizontal_spacing.py",
+        "docs/x7_horizontal_spacing_evidence.json",
+        "docs/test-reports/2026-11-15-horizontal-spacing-non-live.md"
       ]
     },
     {

@@ -1870,6 +1870,38 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
                 self.bridge.set_text_spacing(line_spacing=18, spacing_unit="points", object_reference=body_reference)
             self.assertEqual(spacing_unit_change.exception.code, ErrorCode.INVALID_ARGUMENT)
             self.assertEqual(self.bridge.get_text_properties(object_reference=body_reference)["text"]["layout"]["line_spacing_type_code"], 0)
+            horizontal_results = []
+            for target_reference in (reference, body_reference):
+                target_shape, _ = self.bridge._resolve_object_reference(document, target_reference)
+                prior_content = target_shape.Text.Story.Text
+                prior_spacing = target_shape.Text.GetSpaceProperties(2)
+                preserved = {name: getattr(prior_spacing, name) for name in
+                    ("LineSpacing", "LineSpacingType", "BeforeParagraphSpacing", "AfterParagraphSpacing")}
+                limits = target_shape.Text.GetAlignProperties(2)
+                char_value = min(10., float(limits.MaxCharacterSpacing))
+                word_value = min(float(limits.MaxWordSpacing), max(float(limits.MinWordSpacing), 110.))
+                spaced = self._step("set native whole-frame horizontal percentages", lambda:
+                    self.bridge.set_text_horizontal_spacing(character_spacing_percent=char_value,
+                        word_spacing_percent=word_value, object_reference=target_reference))
+                horizontal_results.append(spaced)
+                self.assertEqual(spaced["spacing_unit"], "percent_space_character")
+                self.assertAlmostEqual(spaced["actual_spacing"]["character_spacing_percent"], char_value, delta=.01)
+                self.assertAlmostEqual(spaced["actual_spacing"]["word_spacing_percent"], word_value, delta=.01)
+                self.assertEqual(target_shape.Text.Story.Text, prior_content)
+                native = target_shape.Text.GetSpaceProperties(2)
+                for name, value in preserved.items():
+                    self.assertAlmostEqual(getattr(native, name), value, delta=.01)
+                before_refusal = (target_shape.Text.Story.CharSpacing, target_shape.Text.Story.WordSpacing)
+                with self.assertRaises(CorelBridgeError) as horizontal_limit_refusal:
+                    self.bridge.set_text_horizontal_spacing(character_spacing_percent=float(limits.MaxCharacterSpacing) + 1,
+                        object_reference=target_reference)
+                self.assertEqual(horizontal_limit_refusal.exception.code, ErrorCode.INVALID_ARGUMENT)
+                self.assertEqual((target_shape.Text.Story.CharSpacing, target_shape.Text.Story.WordSpacing), before_refusal)
+            negative = self._step("set negative character spacing and preserve words", lambda:
+                self.bridge.set_text_horizontal_spacing(character_spacing_percent=-100, object_reference=reference))
+            horizontal_results.append(negative)
+            self.assertAlmostEqual(negative["actual_spacing"]["character_spacing_percent"], -100., delta=.01)
+            self.assertEqual(negative["before_spacing"]["word_spacing_percent"], negative["actual_spacing"]["word_spacing_percent"])
             self._step("set native text color", lambda: self.bridge.set_fill_color(20, 40, 60, object_reference=body_reference))
             self.assertEqual(self.bridge.get_fill(object_reference=body_reference)["fill"]["type"], "uniform")
             shape_count = int(document.ActivePage.Shapes.Count)
@@ -1884,6 +1916,11 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             fit_reference = fit_source["object"]["object_reference"]
             self.assertTrue(fit_source["layout"]["overflow"])
             fit_shape, _ = self.bridge._resolve_object_reference(document, fit_reference, mutation=False)
+            fit_limits = fit_shape.Text.GetAlignProperties(2)
+            fit_word_spacing = min(float(fit_limits.MaxWordSpacing), max(float(fit_limits.MinWordSpacing), 110.))
+            self._step("space paragraph before independent fitting", lambda:
+                self.bridge.set_text_horizontal_spacing(character_spacing_percent=-10,
+                    word_spacing_percent=fit_word_spacing, object_reference=fit_reference))
             fit_before = self.bridge._fitting_state(document, fit_shape)
             fitted = self._step("fit independent editable paragraph", lambda: self.bridge.fit_paragraph_text(
                 fit_reference, minimum_size_points=8, result_name="FittedCopy"))
@@ -1895,6 +1932,8 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             fitted_text = self.bridge.get_text_properties(object_reference=fitted["object"]["object_reference"], max_text_chars=10000)
             self.assertEqual(normalize(fitted_text["text"]["content"]), normalize(fit_text))
             self.assertFalse(fitted_text["text"]["layout"]["overflow"])
+            self.assertAlmostEqual(fitted_text["text"]["layout"]["char_spacing_native"], -10., delta=.01)
+            self.assertAlmostEqual(fitted_text["text"]["layout"]["word_spacing_native"], fit_word_spacing, delta=.01)
             already_fit = self._step("copy already fitting paragraph without enlargement", lambda: self.bridge.fit_paragraph_text(
                 fitted["object"]["object_reference"], minimum_size_points=8, result_name="AlreadyFittedCopy"))
             self.assertEqual(already_fit["probe_count"], 0)
@@ -1908,6 +1947,7 @@ class CorelDisposableDocumentLiveTests(unittest.TestCase):
             (self.output_dir / "typography-readback.json").write_text(
                 json.dumps({"title": changed, "paragraph": paragraph, "revised_body": styled_body,
                             "body_inspection": body, "spacing_revisions": spacing_results,
+                            "horizontal_spacing_revisions": horizontal_results,
                             "fitted": fitted, "already_fitted": already_fit}, indent=2, ensure_ascii=False), encoding="utf-8")
             self._step("verify native typography", lambda: {"updated": True})
             passed = True

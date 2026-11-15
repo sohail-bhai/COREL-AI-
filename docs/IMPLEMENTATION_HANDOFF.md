@@ -9,12 +9,25 @@ Branch: `feature/workflow-planning-slice`. Preserve this branch and read
 `HARNESS_INCIDENTS.md` before project work. Inspect current Git status/history
 to confirm batch commit/push state; do not infer commits from this document.
 
-Current surface: 105 registered tools, all `implemented_unverified`; 107 registry
-records/matrix rows, 371 native members, 306 checked schemas, 321 examples,
-30 enum groups and 75 adapter capabilities. Default suite: 1033 tests, 1002 pass,
+Current surface: 106 registered tools, all `implemented_unverified`; 108 registry
+records/matrix rows, 383 native members, 310 checked schemas, 324 examples,
+31 enum groups and 76 adapter capabilities. Default suite: 1063 tests, 1032 pass,
 31 guarded live tests skipped. No live CorelDRAW verification ran this iteration.
 
-Latest safety batch: cooperating bridge processes now share a nonblocking native
+Latest typography batch: `set_text_horizontal_spacing` applies whole-story
+character/word percentages through a fresh X7 spacing structure and the installed
+Text.GetSpaceProperties/SetSpaceProperties accessors, with cdrAllFrames=2.
+Native justification limits are retained; content, leading, basic styling,
+scope and paragraph frame/column geometry are reconciled. Preflight reads native
+geometry without setters. Post-write uncertainty is preserved for reconciliation.
+29 focused spacing checks, 29 fitting checks (including spacing-then-fitting),
+full default/catalog checks and the 106-tool campaign inventory pass. X7 word
+units combine installed structure descriptors with X7 user-guide evidence;
+X7.4 API remarks remain supplementary and native unit acceptance stays deferred.
+See TEXT_SPACING.md, x7_horizontal_spacing_evidence.json and
+test-reports/2026-11-15-horizontal-spacing-non-live.md. Confirm commit/push in Git.
+
+Previous safety batch (`00ddc67`): cooperating bridge processes share a nonblocking native
 lease and durable uncertainty marker. Public/embedded tracked commands and worker
 operations retain the lease through completion, including the final policy check.
 Independent-process exclusion/crash tests, fingerprinted shared acknowledgement,
@@ -127,15 +140,15 @@ pending. A prepared test is not native verification.
 
 Upon resume, continue from [CAPABILITY_GAP_RESEARCH.md](CAPABILITY_GAP_RESEARCH.md) and
 `catalog/workflow_gaps.json` under `CURRENT_IMPLEMENTATION_PRIORITIES.md`.
-Remaining implementation includes character/word spacing units, per-run/broader fitting, richer
+Remaining implementation includes per-run horizontal spacing/native unit acceptance, broader fitting, richer
 template fields/reflow, controlled document checkpoints/organization, ICC/PDF-X
 and export-generated raster coverage, general graphics/image cleanup, component
 provider/generation/revision history, quality/reflow/mockups and researched
 specialty workflows. Continue independent work for unresolved API/provider/output
 dependencies. Custom Alhamdulillah calligraphy/reconstruction remains deferred.
 
-Next bounded batch: research character/word write units and broaden typography/
-fitting, then image-template fields/reflow, controlled document checkpoints and
+Next bounded batch: broaden typography/fitting or progress image-template
+fields/reflow, then controlled document checkpoints and
 cross-page/layer movement, ICC/PDF-X/export-raster coverage and component provider/
 generation/revisions/smart resize. The user chose a local provider interface first;
 local component draft/history/resize/handoff tools are implemented. Atomic same-document

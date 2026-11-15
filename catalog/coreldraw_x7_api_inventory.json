@@ -217,6 +217,13 @@
       "path": "docs/x7_selected_text_evidence.json",
       "inspection_date": "2026-11-15",
       "description": "Installed indexing/selection descriptors; no CorelDRAW connection. Full scalar descriptors retained in x7_text_range_evidence.json."
+    },
+    {
+      "id": "x7_horizontal_spacing_inspection",
+      "type": "installed_type_library",
+      "path": "docs/x7_horizontal_spacing_evidence.json",
+      "inspection_date": "2026-11-15",
+      "description": "Installed X7 spacing/alignment structures, frame enums and generated indexed-property Python bindings; no application connection."
     }
   ],
   "members": [
@@ -359,7 +366,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "configure_editing_mode",
-        "reconcile_native_coordination"
+        "reconcile_native_coordination",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_application",
@@ -724,7 +732,8 @@
         "execute_print_run",
         "set_text_spacing",
         "fit_paragraph_text",
-        "reconcile_native_coordination"
+        "reconcile_native_coordination",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_document",
@@ -782,7 +791,8 @@
         "execute_print_run",
         "set_text_spacing",
         "fit_paragraph_text",
-        "reconcile_native_coordination"
+        "reconcile_native_coordination",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_document",
@@ -835,7 +845,8 @@
         "execute_print_run",
         "set_text_spacing",
         "fit_paragraph_text",
-        "reconcile_native_coordination"
+        "reconcile_native_coordination",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_document",
@@ -1227,7 +1238,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_page",
@@ -1280,7 +1292,8 @@
         "execute_print_run",
         "set_text_spacing",
         "fit_paragraph_text",
-        "reconcile_native_coordination"
+        "reconcile_native_coordination",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_page",
@@ -1672,7 +1685,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_layer",
@@ -1888,7 +1902,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1944,7 +1959,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_shape",
@@ -1997,7 +2013,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2060,7 +2077,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2121,7 +2139,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2173,7 +2192,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2221,7 +2241,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2269,7 +2290,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2317,7 +2339,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2365,7 +2388,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2401,7 +2425,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "official_x7_shape",
@@ -2702,7 +2727,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2736,7 +2762,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -2770,7 +2797,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2803,7 +2831,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2836,7 +2865,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2861,7 +2891,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2886,7 +2917,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -2911,7 +2943,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib"
@@ -3753,7 +3786,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3777,7 +3811,8 @@
         "execute_template_batch",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3807,7 +3842,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3837,7 +3873,8 @@
         "inspect_print_repeat",
         "execute_print_run",
         "set_text_spacing",
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3863,7 +3900,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3889,7 +3927,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3915,7 +3954,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -3941,7 +3981,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7673,7 +7714,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7693,7 +7735,8 @@
         "set_text_spacing",
         "fit_paragraph_text",
         "inspect_text_range",
-        "edit_text_range"
+        "edit_text_range",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7710,7 +7753,8 @@
       "signature": "Gets the current frame",
       "status": "typelib_confirmed",
       "used_by": [
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7727,7 +7771,8 @@
       "signature": "Returns the text shape object which hosts the given text frame",
       "status": "typelib_confirmed",
       "used_by": [
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7744,7 +7789,8 @@
       "signature": "Returns True if the frame is inside a container shape",
       "status": "typelib_confirmed",
       "used_by": [
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7761,7 +7807,8 @@
       "signature": "Returns True if the frame is fitted to a path",
       "status": "typelib_confirmed",
       "used_by": [
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7778,7 +7825,8 @@
       "signature": "Gets/sets the vertical alignment of the text frame",
       "status": "typelib_confirmed",
       "used_by": [
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7795,7 +7843,8 @@
       "signature": "Gets the number of columns in the frame",
       "status": "typelib_confirmed",
       "used_by": [
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7846,7 +7895,8 @@
       "signature": "Gets the width of specified column",
       "status": "typelib_confirmed",
       "used_by": [
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -7863,7 +7913,8 @@
       "signature": "Gets the amount of space between columns",
       "status": "typelib_confirmed",
       "used_by": [
-        "fit_paragraph_text"
+        "fit_paragraph_text",
+        "set_text_horizontal_spacing"
       ],
       "evidence": [
         "installed_x7_typelib",
@@ -8618,6 +8669,210 @@
         "x7_selected_text_inspection"
       ],
       "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/textrange.widetext",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Application.CreateStructSpaceProperties",
+      "owner": "Application",
+      "kind": "method",
+      "access": "call",
+      "signature": "CreateStructSpaceProperties() -> StructSpaceProperties",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/m/application.createstructspaceproperties",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Text.SpaceProperties",
+      "owner": "Text",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "SpaceProperties(Frames cdrTextFrames=2) get/let StructSpaceProperties; Python GetSpaceProperties/SetSpaceProperties",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/text.spaceproperties",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "Text.AlignProperties",
+      "owner": "Text",
+      "kind": "property",
+      "access": "read",
+      "signature": "AlignProperties(Frames cdrTextFrames=2) get StructAlignProperties; Python GetAlignProperties",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/text.alignproperties",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "StructSpaceProperties.CharacterSpacing",
+      "owner": "StructSpaceProperties",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "CharacterSpacing get/let Single",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/structspaceproperties.characterspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "StructSpaceProperties.WordSpacing",
+      "owner": "StructSpaceProperties",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "WordSpacing get/let Single",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/structspaceproperties.wordspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "StructSpaceProperties.LineSpacing",
+      "owner": "StructSpaceProperties",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "LineSpacing get/let Single",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/structspaceproperties.linespacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "StructSpaceProperties.LineSpacingType",
+      "owner": "StructSpaceProperties",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "LineSpacingType get/let cdrLineSpacingType",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/structspaceproperties.linespacingtype",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "StructSpaceProperties.BeforeParagraphSpacing",
+      "owner": "StructSpaceProperties",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "BeforeParagraphSpacing get/let Single",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/structspaceproperties.beforeparagraphspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "StructSpaceProperties.AfterParagraphSpacing",
+      "owner": "StructSpaceProperties",
+      "kind": "property",
+      "access": "read_write",
+      "signature": "AfterParagraphSpacing get/let Single",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/structspaceproperties.afterparagraphspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "StructAlignProperties.MaxCharacterSpacing",
+      "owner": "StructAlignProperties",
+      "kind": "property",
+      "access": "read",
+      "signature": "MaxCharacterSpacing get Single",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/structalignproperties.maxcharacterspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "StructAlignProperties.MinWordSpacing",
+      "owner": "StructAlignProperties",
+      "kind": "property",
+      "access": "read",
+      "signature": "MinWordSpacing get Single",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/structalignproperties.minwordspacing",
+      "live_test_status": "not_run"
+    },
+    {
+      "id": "StructAlignProperties.MaxWordSpacing",
+      "owner": "StructAlignProperties",
+      "kind": "property",
+      "access": "read",
+      "signature": "MaxWordSpacing get Single",
+      "status": "typelib_confirmed",
+      "used_by": [
+        "set_text_horizontal_spacing"
+      ],
+      "evidence": [
+        "installed_x7_typelib",
+        "x7_horizontal_spacing_inspection"
+      ],
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/p/structalignproperties.maxwordspacing",
       "live_test_status": "not_run"
     }
   ]

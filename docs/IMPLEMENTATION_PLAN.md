@@ -1,7 +1,7 @@
 # Future Implementation Plan — CorelDRAW AI Operator
 
 - **Plan date:** 2026-10-31
-- **Updated:** 2026-11-05
+- **Updated:** 2026-11-15
 - **Target:** CorelDRAW X7 17.0.0.491 on Windows 11
 - **Runtime:** Python 3.11, MCP SDK v1, pywin32
 - **Planning horizon:** prototype stabilization through production-ready local operator
@@ -35,7 +35,12 @@ recover safely from failure, read back the actual result, and report limitations
 
 ## 2. Current baseline
 
-Latest iteration (2026-11-05): source-preserving editable paragraph fitting with
+Latest iteration (2026-11-15): whole-story horizontal percentages through fresh
+X7 structures, native justification limits and content/leading/frame/column
+preservation. Shared native coordination, selected-text edits and local
+component plans/history/resize/client image handoff are also implemented.
+See [TEXT_SPACING.md](TEXT_SPACING.md) and [IMPLEMENTATION_HANDOFF.md](IMPLEMENTATION_HANDOFF.md).
+Earlier source-preserving editable paragraph fitting uses
 bounded font/overflow probes, native Single readability limits, frame/column
 preservation and guarded cleanup; see [TEXT_FITTING.md](TEXT_FITTING.md).
 Also guarded line/paragraph spacing with documented
@@ -44,11 +49,11 @@ see [TEXT_SPACING.md](TEXT_SPACING.md). Also researched X7 bleed/mark/overprint 
 all-page measured trim/bleed checks, bounded supported prepress-resource inventory
 and source/output-preserving publication recovery. See [PDF_PREPRESS.md](PDF_PREPRESS.md).
 General full/partial-sheet repeat runs remain in [PRINT_RUNS.md](PRINT_RUNS.md).
-Current totals are 94 registered tools and 952 tests (922 pass, 30 guarded live
+Current totals are 106 registered tools and 1063 tests (1032 pass, 31 guarded live
 tests skipped). All tools remain `implemented_unverified`. The user resumed
-autonomous implementation earlier, then requested pausing after the completed
-paragraph-fitting batch. Work is now paused; resume from
-[IMPLEMENTATION_HANDOFF.md](IMPLEMENTATION_HANDOFF.md) only when requested.
+autonomous implementation on 2026-11-15; the earlier implementation pause is
+revoked. Runtime native editing still starts paused and requires an appropriate
+apply window. Continue from [IMPLEMENTATION_HANDOFF.md](IMPLEMENTATION_HANDOFF.md).
 The historical baseline below records the original plan date.
 
 As of this plan date:
@@ -422,7 +427,7 @@ These are the next reviewable tickets:
 | 8 | ID-001 | Document-liveness guard and signed object references implemented; lifecycle X7 gate prepared | Closed/replaced/stale/ambiguous targets are refused; nested edits and reorder pass fake-COM/dispatcher tests; live gate pending |
 | 9 | SAFE-001 | Opt-in bounded external operation records implemented | All 55 MCP tools have caller/worker events; redaction/storage/timeout event tests pass; no content on stdout |
 | 10 | SAFE-002 | Explicit worker state and guarded reconciliation implemented; native gate prepared | Pending cancellation, late-result quarantine, native-stage tracking, partial-failure acknowledgement and exact-ID reconciliation pass automated gates; live verification deferred |
-| 11 | TYPO-001 | Paragraph frames, font catalog, whole-story styles/spacing and source-preserving paragraph fitting implemented; native gate prepared | Font/reference targeting, native units/readability bounds, content/frame/column preservation and chain-overflow readback pass non-live gates; character/word units, per-run/glyphs and broader reflow remain gaps |
+| 11 | TYPO-001 | Paragraph frames, font catalog, selected-text edits, whole-story styles/leading/horizontal percentages and source-preserving paragraph fitting implemented; native gate prepared | Targeting, readability, content/frame/column preservation and chain-overflow readback pass non-live gates; horizontal native unit acceptance, per-run spacing/glyphs and broader reflow remain gaps |
 | 12 | LAY-001 | Matrix inspection, pivot rotation, mirroring, sibling order and measured distribution implemented; native gate prepared | Exact references, actual matrices/bounds, complete stacking scope and independent batch targets pass automated gates; layers/guides/safe-area reflow remain gaps |
 
 DP-001 through DP-005 now pass their automated and disposable-X7 gates. Manual review of the

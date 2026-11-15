@@ -1,0 +1,461 @@
+{
+  "typelib_path": "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\CorelDRAW.tlb",
+  "application_connected": false,
+  "browser_used": false,
+  "members": [
+    {
+      "interface": "IVGApplication",
+      "names": [
+        "CreateStructSpaceProperties"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743894, (), (), 4, 1, 4, 0, 744, ((26, (29, 50369792)), 0, None), 64)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructAlignProperties",
+      "names": [
+        "MaxWordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((4, 1, None),), 4, 4, 4, 0, 120, (24, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructAlignProperties",
+      "names": [
+        "MaxWordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 128, (4, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructAlignProperties",
+      "names": [
+        "MinWordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743818, (), ((4, 1, None),), 4, 4, 4, 0, 136, (24, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructAlignProperties",
+      "names": [
+        "MinWordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 144, (4, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructAlignProperties",
+      "names": [
+        "MaxCharacterSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743820, (), ((4, 1, None),), 4, 4, 4, 0, 152, (24, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructAlignProperties",
+      "names": [
+        "MaxCharacterSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (), 4, 2, 4, 0, 160, (4, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "CharacterSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743808, (), ((4, 1, None),), 4, 4, 4, 0, 56, (24, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "CharacterSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743808, (), (), 4, 2, 4, 0, 64, (4, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "WordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743810, (), ((4, 1, None),), 4, 4, 4, 0, 72, (24, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "WordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743810, (), (), 4, 2, 4, 0, 80, (4, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "LineSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743812, (), ((4, 1, None),), 4, 4, 4, 0, 88, (24, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "LineSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743812, (), (), 4, 2, 4, 0, 96, (4, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "LineSpacingType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743814, (), (((29, 50333568), 1, None),), 4, 4, 4, 0, 104, (24, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "LineSpacingType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743814, (), (), 4, 2, 4, 0, 112, ((29, 50333568), 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "BeforeParagraphSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), ((4, 1, None),), 4, 4, 4, 0, 120, (24, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "BeforeParagraphSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (), 4, 2, 4, 0, 128, (4, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "AfterParagraphSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743818, (), ((4, 1, None),), 4, 4, 4, 0, 136, (24, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGStructSpaceProperties",
+      "names": [
+        "AfterParagraphSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743818, (), (), 4, 2, 4, 0, 144, (4, 0, None), 0)",
+      "documentation": null
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "AlignProperties",
+        "Frames"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743816, (), (((29, 50337664), 49, 2),), 4, 2, 4, 0, 120, ((26, (29, 50369664)), 0, None), 64)",
+      "documentation": "Gets or sets text alignment properties in the selected frame"
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "AlignProperties",
+        "Frames"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743816, (), (((29, 50337664), 49, 2), ((26, (29, 50369664)), 1, None)), 4, 4, 4, 0, 128, (24, 0, None), 64)",
+      "documentation": "Gets or sets text alignment properties in the selected frame"
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "SpaceProperties",
+        "Frames"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743820, (), (((29, 50337664), 49, 2),), 4, 2, 4, 0, 152, ((26, (29, 50369792)), 0, None), 64)",
+      "documentation": "Gets or sets text spacing properties in the selected frame"
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "SpaceProperties",
+        "Frames"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743820, (), (((29, 50337664), 49, 2), ((26, (29, 50369792)), 1, None)), 4, 4, 4, 0, 160, (24, 0, None), 64)",
+      "documentation": "Gets or sets text spacing properties in the selected frame"
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "SpacePropertiesInRange",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743822, (), ((3, 1, None), (3, 1, None), ((29, 50337536), 49, 0)), 4, 2, 4, 0, 168, ((26, (29, 50369792)), 0, None), 64)",
+      "documentation": "Gets or sets text spacing properties from or into a dynamic structure, bound by a specific range"
+    },
+    {
+      "interface": "IVGText",
+      "names": [
+        "SpacePropertiesInRange",
+        "StartIndex",
+        "Count",
+        "IndexingType"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743822, (), ((3, 1, None), (3, 1, None), ((29, 50337536), 49, 0), ((26, (29, 50369792)), 1, None)), 4, 4, 4, 0, 176, (24, 0, None), 64)",
+      "documentation": "Gets or sets text spacing properties from or into a dynamic structure, bound by a specific range"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MinWordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743857, (), (), 4, 2, 4, 0, 448, (4, 0, None), 0)",
+      "documentation": "Gets/sets the minimum amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MinWordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743857, (), ((4, 1, None),), 4, 4, 4, 0, 456, (24, 0, None), 0)",
+      "documentation": "Gets/sets the minimum amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxWordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743859, (), (), 4, 2, 4, 0, 464, (4, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxWordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743859, (), ((4, 1, None),), 4, 4, 4, 0, 472, (24, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxCharSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743861, (), (), 4, 2, 4, 0, 480, (4, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each character"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "MaxCharSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743861, (), ((4, 1, None),), 4, 4, 4, 0, 488, (24, 0, None), 0)",
+      "documentation": "Gets/sets the maximum amount of space between each character"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingBefore"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743863, (), (), 4, 2, 4, 0, 496, (4, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space before the paragraph"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingBefore"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743863, (), ((4, 1, None),), 4, 4, 4, 0, 504, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space before the paragraph"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingAfter"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743865, (), (), 4, 2, 4, 0, 512, (4, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space after the paragraph"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "ParaSpacingAfter"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743865, (), ((4, 1, None),), 4, 4, 4, 0, 520, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space after the paragraph"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743867, (), (), 4, 2, 4, 0, 528, (4, 0, None), 0)",
+      "documentation": "Gets/sets the character spacing property"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "CharSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743867, (), ((4, 1, None),), 4, 4, 4, 0, 536, (24, 0, None), 0)",
+      "documentation": "Gets/sets the character spacing property"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LineSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743869, (), (), 4, 2, 4, 0, 544, (4, 0, None), 0)",
+      "documentation": "Gets/sets the line spacing property"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LineSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743869, (), ((4, 1, None),), 4, 4, 4, 0, 552, (24, 0, None), 0)",
+      "documentation": "Gets/sets the line spacing property"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "LineSpacingType"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743871, (), (), 4, 2, 4, 0, 560, ((29, 50333568), 0, None), 0)",
+      "documentation": "Gets the type of line spacing to use"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "WordSpacing"
+      ],
+      "invkind": 2,
+      "descriptor": "(1610743872, (), (), 4, 2, 4, 0, 568, (4, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "WordSpacing"
+      ],
+      "invkind": 4,
+      "descriptor": "(1610743872, (), ((4, 1, None),), 4, 4, 4, 0, 576, (24, 0, None), 0)",
+      "documentation": "Gets/sets the amount of space between each word"
+    },
+    {
+      "interface": "IVGTextRange",
+      "names": [
+        "SetLineSpacing",
+        "Type",
+        "LineSpacing",
+        "ParaBefore",
+        "ParaAfter"
+      ],
+      "invkind": 1,
+      "descriptor": "(1610743903, (), (((29, 50333568), 1, None), (4, 49, -1.0), (4, 49, -1.0), (4, 49, -1.0)), 4, 1, 4, 0, 816, (24, 0, None), 0)",
+      "documentation": "Sets the line spacing properties of the text range"
+    }
+  ],
+  "enums": {
+    "cdrTextIndexingType": {
+      "cdrCharacterIndexing": 0,
+      "cdrWordIndexing": 1,
+      "cdrParagraphIndexing": 2
+    },
+    "cdrTextFrames": {
+      "cdrThisFrameOnly": 0,
+      "cdrStartAtThisFrame": 1,
+      "cdrAllFrames": 2
+    }
+  },
+  "sources": [
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17/p/structspaceproperties.characterspacing?lang=cpp",
+      "version": "X7",
+      "accessed": "2026-11-15",
+      "evidence": "CharacterSpacing represents a percentage of the Space character; minimum -100, maximum 2000. The value cannot exceed StructAlignProperties.MaxCharacterSpacing."
+    },
+    {
+      "url": "https://product.corel.com/help/CorelDRAW/540229932/Main/EN/User-Guide/CorelDRAW-X7.pdf",
+      "version": "X7",
+      "printed_page": 373,
+      "accessed": "2026-11-15",
+      "evidence": "Values for adjusting spacing represent a percentage of the space character. The Character values range from -100 to 2000 percent. All other values range from 0 to 2000 percent. The adjacent word-spacing instructions use the Paragraph area of the Object properties docker."
+    },
+    {
+      "url": "https://community.coreldraw.com/sdk/api/draw/17.4/p/structspaceproperties.wordspacing?lang=cpp",
+      "version": "X7.4 (supplementary, not proof for installed 17.0)",
+      "accessed": "2026-11-15",
+      "evidence": "WordSpacing represents a percentage of the Space character, from 0 to 2000, constrained by StructAlignProperties.MinWordSpacing and MaxWordSpacing."
+    }
+  ],
+  "conclusions": [
+    "Installed X7 TextRange does not expose GetSpaceProperties/SetSpaceProperties methods.",
+    "Text exposes indexed SpaceProperties/SpacePropertiesInRange dispatch properties; the range structure is described as dynamic and bound.",
+    "TextRange.CharSpacing/WordSpacing are Single scalar setters with no units in installed member documentation.",
+    "Use Text.GetSpaceProperties(cdrAllFrames=2) and a fresh Application.CreateStructSpaceProperties with all six fields supplied to Text.SetSpaceProperties(2, structure). These Python method names are generated from the installed indexed property; they are not TextRange methods.",
+    "X7 word percentage units combine installed StructSpaceProperties.WordSpacing with the X7 user-guide unit basis; X7.4 API remarks are supplementary. Native unit acceptance remains deferred.",
+    "Read-only scalar/structure agreement is required, but scalar spacing setters are not used.",
+    "Do not guess range start bases, silently use X7.4 as proof for X7, or apply paragraph word spacing to a partial range."
+  ],
+  "generated_python_bindings": {
+    "CreateStructSpaceProperties": "\tdef CreateStructSpaceProperties(self):\n\t\tret = self._oleobj_.InvokeTypes(1610743894, LCID, 1, (9, 0), (),)\n\t\tif ret is not None:\n\t\t\tret = Dispatch(ret, 'CreateStructSpaceProperties', '{B0580069-9AA4-44FD-9547-4F91EB757AC4}')\n\t\treturn ret\n\n\t# Result is of type IVGColor\n\tdef CreateYIQColor(self, y=defaultNamedNotOptArg, I=defaultNamedNotOptArg, Q=defaultNamedNotOptArg):",
+    "GetAlignProperties": "\tdef GetAlignProperties(self, Frames=2):\n\t\t'Gets or sets text alignment properties in the selected frame'\n\t\tret = self._oleobj_.InvokeTypes(1610743816, LCID, 2, (9, 0), ((3, 49),),Frames\n\t\t\t)\n\t\tif ret is not None:\n\t\t\tret = Dispatch(ret, 'GetAlignProperties', '{B0580062-9AA4-44FD-9547-4F91EB757AC4}')\n\t\treturn ret\n",
+    "GetSpaceProperties": "\tdef GetSpaceProperties(self, Frames=2):\n\t\t'Gets or sets text spacing properties in the selected frame'\n\t\tret = self._oleobj_.InvokeTypes(1610743820, LCID, 2, (9, 0), ((3, 49),),Frames\n\t\t\t)\n\t\tif ret is not None:\n\t\t\tret = Dispatch(ret, 'GetSpaceProperties', '{B0580069-9AA4-44FD-9547-4F91EB757AC4}')\n\t\treturn ret\n",
+    "SetSpaceProperties": "\tdef SetSpaceProperties(self, Frames=2, arg1=defaultUnnamedArg):\n\t\t'Gets or sets text spacing properties in the selected frame'\n\t\treturn self._oleobj_.InvokeTypes(1610743820, LCID, 4, (24, 0), ((3, 49), (9, 1)),Frames\n\t\t\t, arg1)\n\n\t# The method SetSpacePropertiesInRange is actually a property, but must be used as a method to correctly pass the arguments\n\tdef SetSpacePropertiesInRange(self, StartIndex=defaultNamedNotOptArg, Count=defaultNamedNotOptArg, IndexingType=0, arg3=defaultUnnamedArg):\n\t\t'Gets or sets text spacing properties from or into a dynamic structure, bound by a specific range'"
+  },
+  "research_limitations": [
+    "Direct X7 Text.SpaceProperties/SpacePropertiesInRange requests returned no readable member text on 2026-11-15.",
+    "The indexed call signatures and frame enum are established by installed type-library/Python binding inspection.",
+    "No application connection, scalar setter trial, live alias test or visual acceptance occurred."
+  ]
+}

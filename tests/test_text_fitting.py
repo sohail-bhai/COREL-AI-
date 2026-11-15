@@ -4,6 +4,7 @@ import copy
 import json
 from pathlib import Path
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from jsonschema import Draft202012Validator, ValidationError
@@ -14,6 +15,7 @@ from dispatcher_fakes import exclusive_bridge
 from corel_operator.corel_bridge import CorelBridge
 from corel_operator.errors import CorelBridgeError, ErrorCode
 from corel_operator.results import success_result
+from corel_operator.horizontal_spacing import FIELDS, SCALARS
 import powerclip_fakes as scene
 from text_fitting_fakes import Paragraph, Text, prepare
 
@@ -62,6 +64,30 @@ class TextFittingTests(unittest.TestCase):
         self.assertEqual(result['actual_size_points'], 18.)
         self.assertEqual(result['probe_count'], 0)
         self.assertFalse(self.app.size_probes)
+
+    def test_horizontal_spacing_then_fitting_preserves_source_and_copy_percentages(self):
+        def getter(text, frames):
+            return SimpleNamespace(**{attr: getattr(text.Story, SCALARS[key]) for key, attr in FIELDS.items()})
+        def setter(text, frames, pending):
+            for key, attr in FIELDS.items():
+                setattr(text.Story, SCALARS[key], getattr(pending, attr))
+        limits = SimpleNamespace(MaxCharacterSpacing=2000., MinWordSpacing=0., MaxWordSpacing=2000.)
+        with (patch.object(Text, 'GetSpaceProperties', getter, create=True),
+              patch.object(Text, 'SetSpaceProperties', setter, create=True),
+              patch.object(Text, 'GetAlignProperties', lambda text, frames: limits, create=True),
+              patch.object(self.app, 'CreateStructSpaceProperties', lambda: SimpleNamespace(), create=True)):
+            spaced = self.bridge.set_text_horizontal_spacing(character_spacing_percent=-10,
+                word_spacing_percent=110, object_reference=self.reference)
+            before = self.bridge._fitting_state(self.document, self.source)
+            fitted = self.fit()
+            output = self.app.duplicates[-1]
+            self.assertTrue(spaced['content_preserved'])
+            self.assertTrue(fitted['source_preservation']['verified'])
+            self.assertEqual(self.bridge._fitting_state(self.document, self.source), before)
+            self.assertEqual(output.Text.Story.CharSpacing, -10.)
+            self.assertEqual(output.Text.Story.WordSpacing, 110.)
+            self.assertEqual(output.Text.Story.Text, self.source.Text.Story.Text)
+            self.assertFalse(fitted['overflow'])
 
     def test_minimum_overflow_removes_owned_copy_and_reports_reason(self):
         self.app.fitting_threshold = 7

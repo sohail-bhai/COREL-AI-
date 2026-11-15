@@ -1323,6 +1323,23 @@ def set_text_spacing(
 
 @mcp.tool()
 @recorded_operation
+def set_text_horizontal_spacing(
+    character_spacing_percent: float | None = None, word_spacing_percent: float | None = None,
+    object_name: str = "", shape_index: int = 0, object_reference: dict | None = None,
+) -> dict:
+    """Set whole-story character/word spacing as percentages of the space character.
+
+    Character: -100 to 2000; word: 0 to 2000, further constrained by current native
+    justification limits. Null preserves that spacing. Requires one unfitted,
+    unlinked frame with readable basic formatting; preserves leading/paragraph
+    gaps and content. Returns measured spacing/bounds and native overflow.
+    """
+    return _tool("set_text_horizontal_spacing", "set_text_horizontal_spacing",
+                 character_spacing_percent, word_spacing_percent, object_name, shape_index, object_reference)
+
+
+@mcp.tool()
+@recorded_operation
 def fit_paragraph_text(object_reference: dict, minimum_size_points: float = 8.,
                        size_tolerance_points: float = .1, result_name: str = "") -> dict:
     """Fit an independent editable paragraph copy without enlarging or crossing a minimum size.

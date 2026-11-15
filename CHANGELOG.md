@@ -8,6 +8,13 @@ The project follows Semantic Versioning while experimental and keeps tool-schema
 
 ### Changed — 2026-11-15
 
+- Added whole-story character/word percentages through fresh X7 spacing
+  structures, existing justification limits and repeated native readback.
+  Content, leading, basic styling and paragraph columns/frame geometry are
+  preserved. Thirty added offline checks cover spacing safety and independent
+  paragraph fitting after spacing changes; native/manual verification remains
+  deferred.
+
 - Added five local component tools for immutable stable-ID editable/raster plans,
   one-component revisions, historical restore to new files, proportional resize
   with readable-font/DPI flags and an explicitly unconnected provider handoff.

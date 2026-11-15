@@ -489,6 +489,20 @@
       "bridge_usage": [
         "Research evidence only; native character mapping is derived per story without changing indexing mode."
       ]
+    },
+    "cdrTextFrames": {
+      "docs_url": "https://community.coreldraw.com/sdk/api/draw/17/e/cdrTextFrames",
+      "values": {
+        "cdrThisFrameOnly": 0,
+        "cdrStartAtThisFrame": 1,
+        "cdrAllFrames": 2
+      },
+      "bridge_usage": [
+        "set_text_horizontal_spacing explicitly supplies cdrAllFrames=2 to structure getter/setter"
+      ],
+      "notes": [
+        "Installed enum descriptors; no range start-index assumptions."
+      ]
     }
   }
 }

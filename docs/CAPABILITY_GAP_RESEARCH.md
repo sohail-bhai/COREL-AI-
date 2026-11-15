@@ -1,6 +1,6 @@
 # Capability research and delivery backlog
 
-**Research date:** 2026-11-05
+**Research date:** 2026-11-15
 **Target:** CorelDRAW X7 17.0.0.491; Python/MCP/serialized COM bridge.
 **Authorization:** Continue the implementation plan autonomously, research online
 capabilities, and use evidence-backed gaps to guide further work. Live checks
@@ -8,13 +8,14 @@ remain deferred to one consolidated campaign.
 
 ## Findings
 
-The current server exposes 94 tools, all `implemented_unverified`. It covers
+The current server exposes 106 tools, all `implemented_unverified`. It covers
 inspection, editable typography/layout, reusable text batches, vectors, process
 colors/gradients/transparency, clipping, copied contour derivatives and guarded
 page/local-layer creation, activation, naming and flags, plus verified local
 raster derivative preparation and document-wide native raster preflight. Complete prepress production, background/cleanup
-image workflows and AI component generation/revisions
-remain incomplete. Specialist scripts are retained research artifacts.
+image workflows and native AI component generation/replacement remain incomplete.
+Local component plans/history, proportional resize and client-generated-image
+handoff are implemented. Specialist scripts are retained research artifacts.
 
 The relevant work spans logos and vector illustration, cards and certificates,
 flyers and publications, signs, labels, apparel artwork, and packaging. These
@@ -37,7 +38,7 @@ is a requirements reference, not X7 automation evidence.
 | Reliable targeting | Bound-document liveness, bounded search and signed page/layer/group/object references | Persistent/reopened document strategies and broader reference-aware tools |
 | Recovery and records | Bounded redacted records, explicit busy/timeout state, late/partial quarantine and guarded reconciliation | Existing-document checkpoints and specialized rollback policies |
 | Document/page/layer work | New document, bounded structure/fingerprints, appended explicit-size pages, local layer creation, activation/names/flags, CDR save | Controlled open/close/checkpoints, existing-page resize/reorder/deletion, master/special editing and cross-layer/page object moves |
-| Everyday typography | Artistic/paragraph creation, whole-story styles/spacing, source-preserving bounded paragraph fitting, font catalog and native chain overflow inspection | Character/word units, per-run/linked/fitted editing, glyph/safe-area acceptance and broader reflow |
+| Everyday typography | Artistic/paragraph creation, whole-story styles/leading/horizontal percentages, source-preserving bounded paragraph fitting, selected-text edits, font catalog and native chain overflow inspection | Horizontal native unit acceptance, per-run spacing/linked/fitted editing, glyph/safe-area acceptance and broader reflow |
 | Layout/transforms | Move/proportional resize, pivot rotation, mirroring, native matrix inspection, sibling order, measured distribution/grouping and guarded page/local-layer controls | Cross-layer/page object moves, guides, outline-aware bounds and safe-area reflow |
 | Vector construction | Line/cubic paths and guarded nodes/handles; copied topology/shaping/compound revisions; native inside/outside contour derivatives | Adjacent deletion/fitting, open endpoint cropping, nested shaping, text/effect/open contours and exact native winding/offset/cutting gates |
 | Appearance and clipping | Native RGB/CMYK process colors; uniform transparency; PowerClip fitting/extraction/rebuilds; opaque direct multicolor gradients with guarded revisions | Proven outline units, spot/ICC, wider gradient/blend/group effects, in-place clip editing and native/visual verification |

@@ -52,6 +52,7 @@ from .raster_preflight import RasterPreflightMixin
 from .print_run_bridge import PrintRunBridgeMixin
 from .text_fitting import TextFittingMixin
 from .text_ranges import TextRangesMixin
+from .horizontal_spacing import HorizontalSpacingMixin
 from .interaction_policy import InteractionPolicyMixin
 from .object_references import (
     MAX_REFERENCE_DEPTH, MAX_REFERENCE_SCAN, authenticate_reference,
@@ -68,7 +69,7 @@ from .contour_nesting import (
 )
 
 
-class CorelBridge(InteractionPolicyMixin,TextRangesMixin,TextFittingMixin,PrintRunBridgeMixin,TemplateBridgeMixin,PdfBridgeMixin,VectorBridgeMixin,AppearanceBridgeMixin,TransparencyBridgeMixin,PowerClipBridgeMixin,GradientBridgeMixin,ContourOffsetBridgeMixin,OrganizationBridgeMixin,BitmapBridgeMixin,RasterPreflightMixin):
+class CorelBridge(InteractionPolicyMixin,HorizontalSpacingMixin,TextRangesMixin,TextFittingMixin,PrintRunBridgeMixin,TemplateBridgeMixin,PdfBridgeMixin,VectorBridgeMixin,AppearanceBridgeMixin,TransparencyBridgeMixin,PowerClipBridgeMixin,GradientBridgeMixin,ContourOffsetBridgeMixin,OrganizationBridgeMixin,BitmapBridgeMixin,RasterPreflightMixin):
     CDR_INCH = CorelX7Adapter.CDR_INCH
     CDR_BOTTOM_LEFT = CorelX7Adapter.CDR_BOTTOM_LEFT
     MAX_IMPORT_BYTES = 250 * 1024 * 1024
